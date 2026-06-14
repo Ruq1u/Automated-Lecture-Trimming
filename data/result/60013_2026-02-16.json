@@ -1,0 +1,1332 @@
+[
+  {
+    "start": 5.89,
+    "end": 11.94,
+    "speaker": 0,
+    "text": "I will wait a few more minutes. Alessandra said she would come as well. We'll see if she does. ",
+    "model_probability": 0.5965
+  },
+  {
+    "start": 123.56,
+    "end": 154.28,
+    "speaker": 0,
+    "text": "Okay, everyone. I'm going to start now. So I'm Philip. I'm one of Alessandra's PhD students and I'm giving a guest lecture today about the topic about combining neural networks and answers of programming. So you should be familiar with ASP because you did it last week with Alessandra. And today's lecture is about taking this field and combining it with another very or the most popular field in AI which is neural networks. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 155.64,
+    "end": 198.93,
+    "speaker": 0,
+    "text": "So, let's get started. I asked Gemini how neuro-symbolic AI looks, that's what he came up with. So, you can see it's a very beautiful brain with some symbols and everything and some floating cars. But we're going to go much more into detail about what Neurosymbolic AI really is. So at the end of the session, you'll be able to do the following things. First of all, we're going to describe the strengths and weaknesses of Neurosymbolic AI. So that's the name we call the field, which combines any sort of symbolic methods, which is what you've been learning throughout this course, basically logic-based AI, and neural networks, which we'll look at a bit more as well. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 201.58,
+    "end": 234.79,
+    "speaker": 0,
+    "text": "There are different approaches to combining them. There's many, many different ways you could combine the two, and we'll go over quite a few of them. All in all, we'll look at four different frameworks which combine neural networks and symbolic AI in different ways, and they all use slightly different techniques to do it. We'll have a running example for the lecture called Amnesty Edition. So, that is a dataset that is used in almost all papers in this field and we'll run it through the lectures so you can understand everything with an example. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 237.37,
+    "end": 273.82,
+    "speaker": 0,
+    "text": "It will make it, I think, hopefully a bit easier to grasp everything. What you will also be able to do is outline the components of the NeurASP framework. So NeurASP is the framework we will look at the most. We will go into most detail about it because it's one of the more foundational ones and a lot of different frameworks are built on top of it. And we will focus much of our session on the framework NeurASP. What you'll also be able to do is understand semantic loss and back propagation through symbolic components like ASP. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 274.26,
+    "end": 314.81,
+    "speaker": 0,
+    "text": "So I don't know how much of an AI background you have, but in neural networks, the way they learn is using a loss function and back propagation. But in this course, logic-based learning, we never really use that because we don't use neurons, we use symbols. It's really not obvious how could you appropriate any loss through ASP. So, we'll look at one of the solutions to that which is called semantic loss. Then, we will in the end details on open challenges in the field of which there are many, and it'll give you a bit of a taste of what the current developments are and what you basically can do to solve it. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 314.93,
+    "end": 346.33,
+    "speaker": 0,
+    "text": "Some of them aren't impossible to solve. I think there's a lot of things people can do, researchers can do to actually make good progress in the field. So let's get started with the motivation. As you might have guessed, neuro-symbolic AI is the combination of two different fields of AI, symbolic and neural networks. So symbolic AI is what basically is logic-based AI. They're basically synonyms. It's just called neuro-symbolic, not neuro-logic-based AI. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 346.53,
+    "end": 380.73,
+    "speaker": 0,
+    "text": "So that's the term I'm going to use, but obviously, this course is called logic-based AI. Everything you've seen so far was logic-based AI or symbolic. Maybe you've figured it out in the course. What it's good at is providing robust and logically verifiable conclusions from data. Everything you've seen algorithms like Hale, when it comes up with rules or some sort of conclusion, it was entailed from the data, right? You can logically prove that whatever it came up with was correct given the data that it got. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 380.97,
+    "end": 428.56,
+    "speaker": 0,
+    "text": "And that's actually very, very useful, especially for fields where it is important to be robust, maybe if you have any, robotics where you don't want to hurt someone. You want to make sure that every action that the robot does is reliably to be not of a certain strength or could hurt anyone. In many other fields where you want, where decision-making can have real-life consequences which could be catastrophic. What is also as good as it is being transparent, so every time you've used an algorithm, you can see the rules, you can see what are the premises, what are the conclusions, and if it comes up with the wrong answer, you can look through the tree of how it came up with the answer, then explain why it happened. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 428.92,
+    "end": 467.86,
+    "speaker": 0,
+    "text": "It's very transparent, which is also great, and also not really there in neural networks. If you understand what the rules mean, it's not just transparent but also explainable. If they have human readable names, you can explain why something happens and also debugging. The other thing is that it's data efficient. So a lot of these examples don't need a lot of data points to come up with rules. They only need a few to generalize, which is a very useful feature to have is to take a few data points and get a general rule that could hold for many more data points. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 470.06,
+    "end": 506.74,
+    "speaker": 0,
+    "text": "But obviously, there's many downsides. I think everything you've used so far has had discrete data. So, the data wasn't anything like images or something real, it was symbols with names and very structured data. That's often very hard to get in the real world and often discrete data has to be correct. It cannot be noisy or otherwise you'd never find any rules that hold for all of the data because they contradict each other. And you need a lot of hard coding. If you really want to get anything working in the real world, you need lots and lots of rules, many of which you have to write yourself. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 507.36,
+    "end": 549.42,
+    "speaker": 0,
+    "text": "And this is very, very expensive to do in the real world. And there's also, like I said, no or limited automatic learning procedures. So we did learn, we have TAL or HALE where you did learn rules, but it's very limited and it's not nearly as flexible or scalable as that propagation through neural networks. So let's go on to neural networks. I think, in general, they're extremely successful. Everything you've seen, everything you read about and use is neural networks, foundation models, large language models, which are all basically the same, just scaled up by a lot to billions of parameters. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 549.46,
+    "end": 579.93,
+    "speaker": 0,
+    "text": "You have LLMs, you have image generators, any translation app will use neural networks. And it's just really, really successful in the real world. And that's because it works good with data that we have, which is continuous rather than discrete symbols like images or language. And it's noisy, right? If you type something into an LLM and you make a typo, it's still able to understand that. And that's extremely useful to do. If you have a typo in any of the other algorithms you've used so far, it wouldn't recognize the symbol, right? It'd be like... ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 580.75,
+    "end": 619.84,
+    "speaker": 0,
+    "text": "What is that, right? And that is an extremely useful thing for neural networks to be able to do. And then the scalable automatic learning procedure through back propagation. We do not need to tell the neural network how it should arrive at a conclusion. We just throw a bunch of data at it and it learns itself. And companies like OpenAI have done that by just putting the entire internet into a network and then seeing what happens. And it found out to be very useful because it could automatically learn so many different things that it could never in a million years handwrite into any symbolic program. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 620.72,
+    "end": 659.88,
+    "speaker": 0,
+    "text": "And that means it's extremely scalable. we basically have not hit the wall with it. We keep scaling up these networks to huge data centers and they keep getting better. And the flip side is you need a lot of training data. So you do need the entire internet to be able to make a large language model basically. And that also means it's not data efficient. It takes a lot of data even to learn simple things. If you have a simple network that does handwritten digit recognition, it needs tens of thousands of examples to actually be able to do that, at least from scratch, and that's the disadvantage of them. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 663.06,
+    "end": 695.53,
+    "speaker": 0,
+    "text": "In the end, they're also very opaque and not explainable. If you have a billion different neurons connected in layers with each other, If it makes the decision that's wrong you have no idea why that happened you could just some methods we look at the activations of certain parts and maybe try to figure out what it did but it's in no way in any way human readable or explainable it's it's just a black box we throw things in and we have no idea how it got to a conclusion and again if you want any decisions that have real world consequences in medical domains or any other domains are important. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 696.37,
+    "end": 730.72,
+    "speaker": 0,
+    "text": "If it makes some mistakes, it's very important to know why it happened, and we cannot really do that with neural networks, and that is a big downside. If you look at those lists, they kind of complement each other. So you need a lot of training data for neural networks, but symbolic methods are data efficient. It's not explainable and opaque, but here you have transparent and explainable rules. So the weakness of one or the strength of the other. So that is why the idea came up to combine them two into neuro-symbolic AI. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 731.84,
+    "end": 763.18,
+    "speaker": 0,
+    "text": "And that is basically the motivation of why we do the things. It all sounds very good in theory. Of course, it's not that easy in practice, as we will see. But I think now that you know a bit about both, we'll go through the running example in this lecture, which is MNIST addition. So MNIST is a data set of handwritten digits. Here you can see two of them. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 764.25,
+    "end": 794.88,
+    "speaker": 0,
+    "text": "MNIST is just a normal data set you use to train neural networks or did 30 years ago. In MNIST edition, we add a symbolic layer on top of it. So we don't want to recognize the number itself, we want to recognize the sum. The program picture one plus picture two, that's a very simple symbolic program. And the difficulty of this data set is that you don't have the latent labels. You do not have the labels of the numbers themselves. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 795.54,
+    "end": 828.29,
+    "speaker": 0,
+    "text": "So you don't know that's a three, you don't know that's a one. All you know is that their sum is a four. So that's all you have. So each data point looks like this, right? Two images and a number. And you know that it's a sum. So if you have a data set of these images, how do we solve it? The easiest way would be to just use a neural network. So that's the fully neural solution. And very easy, just combine images into one, makes one large vector, and then put them in a neural network. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 829.85,
+    "end": 860.62,
+    "speaker": 0,
+    "text": "For those who aren't that familiar, it's basically a bunch of layers connected with each other and each have weights and they transform the inputs, shrink it down into this case would be a vector of size 19, one of the two where you have EACH ENTRY WOULD BE A NUMBER, SO IN THIS CASE IT COULD GIVE YOU THE NUMBER 6. AND IF YOU TRAIN IT, THEN IT WILL PROBABLY OR WILL BE VERY GOOD, RIGHT? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 861.18,
+    "end": 902.12,
+    "speaker": 0,
+    "text": "IT'S STILL A SIMPLE TASK. THE NEURAL NETWORK CAN ENCODE SUMMATION OF TWO NUMBERS IN ITS LAYERS, RIGHT? IT'S NOT A DIFFICULT TASK, SO IT WOULD BE VERY EASILY ABLE TO LEARN THAT THESE TWO IMAGES CORRESPOND TO THE NUMBER 6. SO THAT'S PERFECT, RIGHT? But then, it also might be wrong. No neural network is perfect, especially for more difficult tasks, it'll make mistakes. So let's say it makes a mistake and it says this is a 10, right? We look at this and we know no, that should be 13, four plus nine. But since it's just in a black box, in this case it's a blue trapezoid, then we don't know why it got a wrong answer. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 902.16,
+    "end": 934.22,
+    "speaker": 0,
+    "text": "Did it think this was a nine? Maybe looks kind of like a nine. Did it think this was a one? Nine plus one would be 10. Or did it think this was a four, but thought this was a six, right? Does it not understand that turning it around would be different? Those are two possible explanations, but we really don't have a clue. We don't know why the neural network is wrong. It is a black box, and that is why it's difficult to find out why it predicted the wrong label. Of course, here it's not that big of a deal, but in general, that is a big issue. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 937.24,
+    "end": 969.38,
+    "speaker": 0,
+    "text": "WE'LL TRY IT THE OTHER WAY, WE'LL TRY IT WITH NEUROSYMBOLIC AI, AND HERE WE'RE TRYING TO COMBINE THE BEST OF BOTH WORLDS. LIKE I SAID, SYMBOLIC AI IS DATA EFFICIENT, NEEDS A LOT OF DATA, AND SYMBOLIC AI IS EXPLAINABLE SO WE COULD USE THE EXPLAINABILITY SOMEHOW TO MAKE IT MUCH BETTER. Here we want to combine the strengths of both. So what are neural networks good at? They're good at taking in real world data. They're very flexible. What are symbolic methods good at? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 969.72,
+    "end": 1012.43,
+    "speaker": 0,
+    "text": "They're good at robustness and explainability. And we kind of want to combine the two to create the so-called best of both worlds. However, there's one big difficulty and that's bridging the gap. so if you have neural networks and you have those nodes and layers how do you take all of that and create something that's human readable and symbolic and then learn rules with it or apply rules to it and that is a very difficult thing i think that's the main If there's one thing that is the main difficulty in neuro-symbolic AI is bridging the gap between a sub-symbolic vector representations of neural networks and discrete concepts in symbolic AI. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1013.25,
+    "end": 1045.58,
+    "speaker": 0,
+    "text": "So that's what we'll spend a lot of this lecture in, is trying to bridge that gap in different ways. If we have... a simple diagram here of how something could look. So if you remember the neural network, we just had input, neural network output, right? But what if we don't do that? What if we have something more, right? So instead of the neural network just giving us the end product, the downstream label, it gives us something called the latent vector. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1045.6,
+    "end": 1087.31,
+    "speaker": 0,
+    "text": "So latent means in between or in the middle, and downstream is what we wanna get out in the end. That is how a typical neural symbolic network could look. There's many other ways to do it. You could train a neural network and try to extract rules out of it. You could do The opposite, you could try to structure neural network in a way that each layer does a symbolic operation like an OR gate or an AND gate or something like that. But in this lecture, mostly we'll look at this way to do it where you have a neural network first, it gives you a vector, you turn that into a concept, and then you have a symbolic program. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1087.33,
+    "end": 1119.72,
+    "speaker": 0,
+    "text": "So, it's like a pipeline. You have a continuous stream. TO DO IT AND THEN AT THE END YOU GET THE DOWNSTREAM LABEL. YOU CAN SEE ALL THE TERMINOLOGY HERE IT'S QUITE SIMPLE. THE MAIN PART IS THAT EVERY TIME YOU HAVE SOMETHING THAT'S LATENT IT'S NOT THE END PRODUCT IT'S SOMETHING IN BETWEEN SO IN THIS CASE IT'S A VECTOR THAT GIVES YOU THE LATENT CONCEPT AND THEN YOU DO SOMETHING WITH IT TO GET THE DOWNSTREAM LABEL. This is the neural part, of course, and this is the symbolic part. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1119.74,
+    "end": 1157.52,
+    "speaker": 0,
+    "text": "It looks great and simple, but the big issue is, like I said, that there is a gap. So how do you go from something neural? How do you go from a vector of continuous numbers to a concept which is something that is semantically meaningful and is discrete? I think in the literature, There's many different frameworks that try to do this in very different ways. And there's two broad axes you could go along. So you could look at this and say, well, we could have a pre-trained neural network. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1158.69,
+    "end": 1195.91,
+    "speaker": 0,
+    "text": "THAT GIVES US THE LATENT VECTOR ALREADY. WE COULD WRITE THE SYMBOLIC PROGRAM BY HAND OR WE COULD TRY TO LEARN BOTH OF THEM OR EITHER OF THEM. SO THAT'S BASICALLY THE DIFFERENT WAYS YOU CAN DO IT. SO LET'S SAY WE HAVE A PRE-TRAINED NEURAL NETWORK AND A HARD CODED SYMBOLIC PROGRAM. One example would be this beautifully named MSQVASP framework, which the input image is like a bunch of objects, and then you just use a neural network that is already trained on predicting what each object is. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1196.49,
+    "end": 1238.71,
+    "speaker": 0,
+    "text": "So that's quite easy. It gives you the position and says this is a purple cube, this is a yellow sphere, and so on. Then you have a logical module, a symbolic module written in ASP. So, we'll look at ASP mostly today, which combines them in a way to give you an answer. So, for example, the question here is, is there an object of the same color as the small one? Do you know what that gives you, all the objects and their properties? And the ASP module then reasons over it, looks at the small objects, looks if other objects are also green, just like the small objects, and it gives you a yes or no answer. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1240.45,
+    "end": 1272.52,
+    "speaker": 0,
+    "text": "THERE NEEDS TO BE A LOT OF HARD CODING TO PUT ALL OF THAT INTO RULES AND IT'S EASIER BECAUSE YOU HAVE A PRETRAINED NEURAL NETWORK BUT WE'LL SEE LATER AT THE END OF THE LECTURE WHEN YOU GO THROUGH IT THAT IT'S STILL USEFUL TO HAVE A NEURAL AND A SYMBOLIC COMPONENT. IF YOU GO ON THIS AXIS, SO HERE IT'S PRETRAINED. THE NEURAL NETWORK ALREADY KNOWS HOW TO CLASSIFY THESE OBJECTS, RIGHT? IF YOU GO TO THE RIGHT WHAT IF YOU WANT TO TRAIN IN YOUR NETWORK WHAT IF IT'S UNTRAINED SO IT DOESN'T KNOW WHAT THE SYMBOLS MEAN IN THIS CASE WE HAVE THIS ADDITION AGAIN. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1273.86,
+    "end": 1304.01,
+    "speaker": 0,
+    "text": "SO WE HAVE TWO IMAGES AND THE NEURAL NETWORK HAS TO BE TRAINED TO GIVE YOU THE LATENT CONCEPT IN THIS CASE THE LATENT CONCEPT IS THE NUMBER OF EACH IMAGE SO IT SHOULD GIVE YOU TWO FOR THE FIRST IMAGE IN THE ZERO OF THE SECOND IMAGE. Then we have a handwritten ASP component, which you can see here, and it's quite simple. At the bottom you can see it just does the addition. So N1 plus N2 equals N, and N1 comes from the first digit, N2 from the second. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1304.65,
+    "end": 1335.77,
+    "speaker": 0,
+    "text": "It sums them together and gives you the downstream output. So here it's nice because if it gets it wrong, you know why. You know if the first or the second image was misclassified. Then what you could do is go the other way. You have a pre-trained neural network and you try to generate ASP because it's very cumbersome to have to, I don't know if you had to write some ASP in your tutorials, but it's not the nicest thing to do in the world and it's already hard enough for little tasks. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1335.81,
+    "end": 1367.37,
+    "speaker": 0,
+    "text": "If you want to do it for anything in the real world, you will probably go crazy. So a lot of people have looked at how can we automatically generate ASP programs and I think by far the most popular thing is that you use a large language model to do it, and these are pre-trained on the entire Internet including the logic-based learning course tutorial sheets which are available on the Internet. So, it knows how to generate ASP more or less well, and then you want to make sure that it gets better generating ASP. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1368.27,
+    "end": 1404.55,
+    "speaker": 0,
+    "text": "So, for example, in this GPT-ASP, they used GPT-4, To break it into steps instead of generating an entire is pre program that encodes this natural language story what they do is first to do the constants which is a pretty easy task then do the predicates given the constants and then they do the rules so this is one way where you can prompt LLMs and split it up so that they are much better at generating ASP themselves. And then on the bottom right, I think we have the hardest of all the tasks, what if you do not have a trained neural network? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1404.59,
+    "end": 1436.38,
+    "speaker": 0,
+    "text": "So you have to train a neural network, but you also do not know what the logic program is, right? So in MNIST edition, what if you just have the input images and a number, but you don't know if it's addition or if it's subtraction or if it multiplies them or if it does anything with them, and you have to learn both of them. And that is very, very difficult because you have very little information, right? You just have a few pixels and a number. And you have to both figure out what the pixels mean and at the same time figure out how to combine them in a program to generate the downstream number. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1437.48,
+    "end": 1474.07,
+    "speaker": 0,
+    "text": "There's a few frameworks that try, for example, NSIL, which uses actually, if you see, it uses NeurIPS within its loop and then also learns an ASP program So we will also look at that at the end of the lecture. Okay, so for the rest of the lecture we will mostly look at NeurASP as our main in-depth example of how to combine neural networks and symbolic programs. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1474.85,
+    "end": 1508.2,
+    "speaker": 0,
+    "text": "And at the end we'll have a quicker look at all the other frameworks. So let's start with Neurospen. So it is hard coded symbolic and we train a neural network. So we know we have to add the two numbers. We just write that in the ASP, but we don't have a neural network that can actually classify the numbers. So if you look at how the inference would look with Neurasp on our favorite MNIST edition example, we have inputs here and an arrow I haven't animated in the middle. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1508.92,
+    "end": 1540.73,
+    "speaker": 0,
+    "text": "So the inputs go into a neural network And then we probably use a convolutional neural network. So what it would do is take the pixels and it does some edge detection. So maybe at the bottom, at the top. So this is already after it's been trained. We'll see how it trains itself. And then at some point it'll give you a latent vector. Because we have single digit numbers that be a vector of size 10. So you can see this neural network is quite good. It knows that this is a one, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1540.75,
+    "end": 1576.86,
+    "speaker": 0,
+    "text": "Because there's number zero, one, two. And it's pretty sure this is a three, but it might be a one. So it's quite good at it. And then we can use argmax to bridge the gap, right? So how do we turn this vector into a concept? We just take the index of the vector with the highest activation. So in this case, that's the one. And then in this case, that's the three. And then if we have a, after training neurons, we would get the correct concepts here. And then we use the ASP component which we've written by hand to get the addition of them. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1577.06,
+    "end": 1609.14,
+    "speaker": 0,
+    "text": "And there we go, that's number four. And we, unlike with the neural example where we don't know why it's the number four, we know this is the number four because the first image is the number one and the second image is the number three. So it's already more explainable. And we bridge the gap for inference quite easily. We just had a vector of the length of the number of concepts, right? We have 10 concepts, 0 to 9. So we just output a vector of length 10. And the entry with the highest number will be our concept. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1611.14,
+    "end": 1649.31,
+    "speaker": 0,
+    "text": "But... Here the neural network is already trained. And for us it's also easy to see that that's a three and that's a one. But we want to train the neural network from scratch. So we start with an untrained neural network that does not know what each of these pixels mean. And I think that it's easy to understand that if we maybe pretend for a second that we are an untrained neural network, because in reality we're already trained on images of numbers, we know what these numbers mean. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1650.21,
+    "end": 1680.83,
+    "speaker": 0,
+    "text": "So if you could just, okay, before I do that, yeah, so how do we train a neural network? So pretend you're an untrained neural network, you don't know what these images mean. but you also don't know their label, right? Because we only know number four as the label. We do not know if that's a one and that's a three or not. So how can we bridge this gap in training neural network? And I think that's quite a difficult task. So all of you just imagine you're an untrained neural network, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1680.91,
+    "end": 1716.6,
+    "speaker": 0,
+    "text": "You have to solve this task. Let's see how we would maybe be able to do that. So what do we know? We know each picture is a number from zero to nine. And we also know what addition is, because that's hard coded. It's the sum of both digits, right? So let's see, we have two images here, right? We are untrained. We have no idea what these means. We don't know which number is what. All we know is that their addition, their sum is the number one. So does any of you have a clue what could we do to try and figure out what these symbols could mean? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1722.77,
+    "end": 1743.77,
+    "speaker": 0,
+    "text": "So what combinations of numbers, of single digit positive numbers could create a one? Yeah, so exactly. So the first one could be zero and the second one could be a one. I think we're gonna do this on the board actually. So let's go to the camera. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1761.6,
+    "end": 1799.04,
+    "speaker": 0,
+    "text": "Right. So example number one, right? So we know we have two possibilities, right? It could be a zero and a one or a one and a zero. So that's quite good. We don't quite know exactly what it is, but we only have two choices, right? So if you do a table here with all the numbers, Right, so we know that the first one among those looking one could be a zero or it could be a one. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1799.72,
+    "end": 1865.18,
+    "speaker": 0,
+    "text": "We know that the second one could also be a zero or a one, right? All right, that's quite good. We can't really do more, but we have a data set of them. We don't only have one example, right? So now we have this, right? Example number two. So these two could be which numbers? Yeah? Yeah, so, which is also quite useful. It could be every number that the first one isn't, right? So there's already things we could learn. So it could be two and nine, then it could be three and eight, could be four and seven. five and six, and obviously the other way around, so it could be six and five, no, yeah, five and six, six and five, seven and four, eight and three, or nine and two. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1867.29,
+    "end": 1897.81,
+    "speaker": 0,
+    "text": "So we know that, right? but also we know that they couldn't be any of these zero, one, right? So could be any of these numbers, could be any of these two symbols, right? Let's go to a third example. It's another good one. Right, so what could they be? Humor me. Any example? Have you figured it out yet? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1897.83,
+    "end": 1928.62,
+    "speaker": 0,
+    "text": "So what could this be? zero, four, one and three, two and two, and then three and one, and four and zero. We are an untrained network, right? But we have a bit of a bias in our structure, right? Let's say we're a convolutional neural network where we think that if something's the same number, it has to kind of look similar, right? That's the one thing we know. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1929.05,
+    "end": 1963.27,
+    "speaker": 0,
+    "text": "So out of these, which one could it not be from the get-go? Yeah, so we can already say, right, it couldn't be two and two, they look completely different. So they're probably not the same number. And already, we have some information, right? So we don't know what they are, but we do know from looking at different examples what they couldn't be, right? Is there anything, any of these that it also couldn't be if you look at all three examples? So for example, the first number on the left, example three, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1963.69,
+    "end": 1994.94,
+    "speaker": 0,
+    "text": "Does it look like similar to any of the other numbers in the other examples? Yeah. Yeah. Exactly, so that's good. So we know this is zero one, right? So if you look at the dots, the dot with the lines, it doesn't look like any of these two, right? So it can't be these, right? So we can do this, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1995.54,
+    "end": 2027.36,
+    "speaker": 0,
+    "text": "So that's already good. We have much fewer choices, right? In the end, the first symbol could be a three or a four because we don't really know, because we know three or four is in the second example, but it could be any of these two. With these two, we know one is this and one is this. We already have all possibilities exhausted here, right? So what we could do now is say, okay, well we know this could be a three or this could be a four, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2029.9,
+    "end": 2060.44,
+    "speaker": 0,
+    "text": "And then we have the second image, right? If you look at what's left here, right? it's also a one or a zero, right? So everything else it couldn't be. And you also know the second one is either of these images, right? And if we look at the second image, it looks different from the images in the first example, but it doesn't look completely different. So do you see what the connection could be between the second image in example three and one of the two images in example one? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2061.71,
+    "end": 2092.63,
+    "speaker": 0,
+    "text": "Yeah, so you did it. So it looks like it's rotated, right? So from looking at this, we could be like, oh, maybe our number system is rotation invariant, right? So maybe that means that this symbol, right, is the same as this symbol. It's just the thing rotated. So that's good to know, right? So just from that, we have learned a lot of things, right? We have learned what these numbers could be, what they couldn't be, and that it's rotation invariant. So now that something, let's say it is rotation invariant. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2092.77,
+    "end": 2135.32,
+    "speaker": 0,
+    "text": "Is there anything else we can now know because of that? Yeah? Yeah, exactly. So then we go back to the second one and see the second image of the second example kind of looks like a rotation of the first image of the third example, right? So this means that we already know this is either three or four, right? That means the second image of the second example should also be three or four, right? So it could be this, could be any of these. It'll only be this, right? Second image must be a three or four because we think that these two are the same. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2136.89,
+    "end": 2170.2,
+    "speaker": 0,
+    "text": "So if the second image is three or four, right? What's left for the first image to be? It's seven or eight. So we can also do this little t here. So just by having three examples and not knowing the labels, we still have managed to, go quite far, right? So let's try three more examples. Yeah, so here's our, what we've got so far. Okay, here we go. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2172.72,
+    "end": 2205.76,
+    "speaker": 0,
+    "text": "Number four. Okay, so which numbers could number four be? Which combinations of numbers? Yeah, why not any of the other? Yeah, just rotate it, yeah. And that's it, we know the first symbols are zero, one, so this is a four, three. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2206.6,
+    "end": 2237.92,
+    "speaker": 0,
+    "text": "So now we have the same situation here. which is a good one to have, we now have exhausted these two, right? If you see a new symbol, it cannot be three or four because if three is this, then four has to be this. If three is this, then four has to be this, right? With all the other numbers, it could be a bunch of symbols still, right? Two more examples. So here, we have many more beautiful things. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2238.3,
+    "end": 2276.71,
+    "speaker": 0,
+    "text": "What numbers could these be? Yeah, for the same example, right? Same reason. So six and zero, five and one. If we think the among us is a zero, one, and then the circle with the circle inside it is then a five or a six. And the last example for now is this, right? So what, I'm just gonna, Right, so what numbers could this be? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2281.67,
+    "end": 2312.44,
+    "speaker": 0,
+    "text": "Sorry? Mm-hmm. Yeah, so that would be then, yeah. Right, so it'd be, so if this is five or six, it'd be one and six or two and five. Right, so the new symbol, so the old symbol is a five or six, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2313.92,
+    "end": 2346.05,
+    "speaker": 0,
+    "text": "That means, yeah, and what do we also know, right? What do we know about the first symbol, yeah? Yeah? So it cannot be zero or one, right? So this, this can't be it, right? And now I think we've hit the jackpot here because we've now only got one label, right? So now we know that the first one, sorry? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2347.83,
+    "end": 2383.78,
+    "speaker": 0,
+    "text": "We can go backwards, right? So let's go backwards. So yeah, so what is the squiggly line now? What do we know it is? It's a two, so we do a little, right. But we also know something else, right? This is a five, so it cannot be this, right? And now we, as you can see, we can go backwards, right? So we know this thing, we now know this is a two, we now know this is a five, right? If we know this information, what can we know about any other, yeah? Yeah, right, so because of example five, we know this is a five, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2384.92,
+    "end": 2415.77,
+    "speaker": 0,
+    "text": "And go on, which means among us is a one. So, sorry. I did it the wrong way around. So this is wrong and this is the... Right, because we know among us is one, the little greater than sign has to be zero, right? Because it can be zero, right? And then if you look at the fourth example, right? So we know this is a one, so this thing has to be a three, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2417.23,
+    "end": 2456.74,
+    "speaker": 0,
+    "text": "kind of this has to be three since this has to be a three, cannot be a four. So this has to be a four, right? And then, I mean, if we go back even further, we've seen some of these images before, right? Like we know now that what is a four, right? And given that that is a four, we know that the T thing has to be a seven. And now, just with six examples, and we didn't have the labels, all we had is the symbolic program that gave us the labels, we have still figured out, first of all, what numbers one to eight, zero to eight are, but we've also figured out that it's rotation invariant. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2457.38,
+    "end": 2489.86,
+    "speaker": 0,
+    "text": "So we've actually been able to learn a lot from examples even though we don't have their latent labels. And that is great. So now that we know that, we have our table here. Don't know number nine yet, but that is fine because I think you get it. So now the question is, okay, we were an untrained neural network. We all we knew was addition, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2490.16,
+    "end": 2561.71,
+    "speaker": 0,
+    "text": "And basically images that we didn't know what they were. So now, Could we make an AI do it, right? Could we transfer it to an AI program, right? And I think Neurosp does exactly basically what we do. So if you think about it, what was the first thing we did when we got the two images? To figure something out about them, given the images and the label. Yeah? Yeah? Correct, so first of all what you could do is compute all possible latent digits, right? The first example was quite nice, if it was a one, so there's only two combinations, right? It already gives us a lot of information. Now we want to implement, like formalize it, right? Does anyone have an idea how you could formalize that in ASP? Anyone paid attention last week? You did suggest what? Well, in ASP, there's a thing called a choice rule, the little one with the curly braces, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2562.17,
+    "end": 2595.8,
+    "speaker": 0,
+    "text": "And that's exactly what it does. It enumerates all possibilities, and each possibility will be in an answer set. So what you could say is that choose, right? We know digit one could be between zero and nine. Digit two could be between zero and nine. Choose one of them, right? It cannot be two numbers at once. It can only be one. But we don't just wanna learn all of the combinations, right? We want only the ones that result in the sum being the label we get. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2596.58,
+    "end": 2632.51,
+    "speaker": 0,
+    "text": "So what do we use there? We use a constraint. So this is the line here. The constraint says we have a label. In our case, that was maybe a four, right? And the result is the four. And then we wanna prove that we get to a four. And the way we do it is with this constraint. So we have a constraint here that says not. and then we have this double negation that says not, so it's only have answers that's where you cannot say that you have not proven result label, so that's how you do it in ASP. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2633.25,
+    "end": 2665.87,
+    "speaker": 0,
+    "text": "What it means is that the result of the label has to be in the answer set. If it's not in the answer set, then not result label is true, but because it's behind a constraint, If it's true, the premise is false, so we get a false, right? So this is the way you say we have to have result label in it. The reason we don't just write result label in the answer set is by having the fact we've already proven it because we put the fact in it, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2666.31,
+    "end": 2696.97,
+    "speaker": 0,
+    "text": "We have to prove it from the other rules. We somehow have to get to result label. And that's why you do a constraint with negation as failure. Okay, that's cool, so we can implement it in ASP, that's very good. Anything else we kind of used to get to the answer? Quite general. So what we did is we grouped similar looking pictures together, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2697.67,
+    "end": 2731.48,
+    "speaker": 0,
+    "text": "Because if we hadn't done that, we have no idea, even if they look similar, it could be completely different numbers, but we'd say, right, If it's an among us, then it has to be the same number as the other. The way you do that, you don't do it in ASP. You use something like a bias on the structure of the neural network. For example, with pictures you could use a convolutional neural network. It has layers that basically slide through the picture and pick up on things like strokes and shadows and stuff. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2732.18,
+    "end": 2770.52,
+    "speaker": 0,
+    "text": "If you have pictures with similar strokes and similar shadows, it will give you a similar prediction because they activate similar neurons. So basically, this grouping similar things together is implicit in the neural network architecture. So that's good, and we have that in our brain, especially with faces. If you see faces, we reactivate similar regions, and if two things look similar, even if they have different lighting conditions, we're able to think that they're the same. The last thing that we did, so we didn't just enumerate the possibilities. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2770.7,
+    "end": 2802.77,
+    "speaker": 0,
+    "text": "At some point, what did we do with the possibilities? Yeah, we got rid of some, right? We said some things are probably not gonna be it and some are more likely to be it, right? So you could do the same, you could say eliminate answer sets that are not correct. However, if you do any real-life tasks with noise, it's better to not just eliminate things, it's better to assign probabilities to them. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2803.17,
+    "end": 2839.48,
+    "speaker": 0,
+    "text": "So instead of saying this cannot be it and this one of these is it, it could be like we're quite sure this is it, we are quite sure it's not it, so we assign one low probability, one high probability. So that's a step we can also do mathematically. So if we assign each set of probability, then we can know which ones are more likely than others. So imagine these are now answer sets, because we used ASP to generate the possibilities. Each possibility is an answer set. Each of these answer set has different concepts in it, five and one, two and five. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2840.68,
+    "end": 2871.23,
+    "speaker": 0,
+    "text": "And we have a neural network that predicts if the number is a two or predicts if the number is a five or not. So we could calculate the probability of this answer set by saying, well, how sure is our neural network that the first image is a five? How sure is the neural network that the second image is a one? And we multiply them together, right? If you use a softmax function at the end of the network, it gives us a semi-probability between zero and one. So here you can see the probability of an interpretation, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2871.25,
+    "end": 2904.36,
+    "speaker": 0,
+    "text": "So an answer set, also often called an interpretation, so we call it I. So each of these is an I. It's just the product of all the probabilities of the concepts within them. So in this case, C would be digit and V would be number five or number one. So if our neural network has been trained for a bit, at some point it'll say, oh, this looks like similar images, this looks like a five, I'll give it a 90 percent probability. So p that digit one equals five would be 0.9. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2905.64,
+    "end": 2943.7,
+    "speaker": 0,
+    "text": "And then digit one, I'm less sure I'll give it a 0.7, right? Then it would be 0.9 times 0.7. The probability of this answer set would be 0.35. No, 63, right? So basically, that's how we can mathematically formalize our idea of slashing some neural networks. Right, so that's perfect. Now let's look at this again, right? Let's go back to our example with the knowledge we've learned from our own experiment, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2943.78,
+    "end": 2981.1,
+    "speaker": 0,
+    "text": "So we have inputs, have a neural network. It gives us some probabilities. We have got the background knowledge, we've got the label. So let's start with the first step, answer set computation, right? So let's see. So this is the program, right? If you look at it and let's go through it, we know that we have a choice rule here. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2982.54,
+    "end": 3020.87,
+    "speaker": 0,
+    "text": "So we could choose something, could choose digit one, zero, digit one, one. However, we can only choose things that results in number four. So, and the result is calculated here. So let's say we choose digit one, zero, right? And one equals zero. digit two one, n one equals one, n one plus n two is result one, that's all we get. That's not result four, so it's not a valid answer set, right? So basically the valid, I'm not gonna write this on the board, the valid answers are quite clear, it's just all the combinations that go into four. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3020.89,
+    "end": 3057.8,
+    "speaker": 0,
+    "text": "So in this case we have five answer sets. zero four digit one could be one and three and so on. So that's what we've done on the board, but we have formalized it. Now, we want to assign it probabilities because if you look at the predictions of the neural network, it doesn't give the same probability to each number. It already has some bias of what could be what. So the way you do the probability calculation, um, is quite easy. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3057.82,
+    "end": 3095.85,
+    "speaker": 0,
+    "text": "So I'm gonna write down the formula, right? So the probability of an interpretation is the product of the probabilities of all c, um, equals v in, in the interpretation, right? Uh, and it just, right. So if you look here at the probability calculation, we had five answer sets, right? We've had 0, 4, 1, 3, 2, 2, 3, 1, and 4, 0. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3098.03,
+    "end": 3130.15,
+    "speaker": 0,
+    "text": "So, let's say we want the probability of the interpretation 0, 4. Well, that's the probability of all this. So, we have two Cs. So, digit could be 0, and then we have digit. Digit 1 is 0, digit 1 is 4. Right, so the probability that digit one is zero times probability that digit two is four, right? If you look at the label here, the probability that digit one is zero is zero, so the whole thing is zero. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3130.75,
+    "end": 3168.11,
+    "speaker": 0,
+    "text": "So let's look at the next one, one and three. Probability that digit one is one is what? 0.7, right? And then probability of digit two is three is what number? Yeah, so it's 0.5. And then we get 3.35. So from the neural network we know that it's more likely to be one in three than, obviously in real life it won't be zeros, it'd be a small number. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3169.13,
+    "end": 3202.87,
+    "speaker": 0,
+    "text": "It's not likely to be zero and four. It's very likely to be one in three, which is good because it is in fact one in three. So you do that for all of the answer sets, right? And if you look at the calculations you see, which makes sense because the neural network is very sure that the first one is a one. It's less sure that the second one is a three, but it's still like 50% sure. So this is still by far the answer set with the highest probability. Okay. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3204.94,
+    "end": 3237.09,
+    "speaker": 0,
+    "text": "THAT'S ALL GREAT SO WE HAVE THE PROBLEM. WHAT WE BASICALLY NOW HAVE INSTEAD OF A LABEL FOR EACH IMAGE WHICH WE NORMALLY HAVE IN NEURAL LEARNING WE HAVE A SET OF LABELS WEIGHTED BY PROBABILITIES SO IT'S A FULLY SUPERVISED TASK IT IS BASICALLY LIKE A SEMI SUPERVISED TASK WE HAVE SOME INFORMATION BUT NOT COMPLETE INFORMATION. And it is possible to train a neural network in that way, but it's not immediately obvious. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3238.53,
+    "end": 3272.82,
+    "speaker": 0,
+    "text": "And because not everyone has done AI in their previous years, I will first go through how would you train a neural network if you had full supervision. So how would you train a neural network if you knew the label? And then we will extend it to training it with the set of labels we have. So we'll do five more minutes and then have a break. So let's go through gradient descent. So gradient descent is the way you train in neural network. So network has weights and nodes and then you want to shift the weights around so it's better at predicting things. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3273.86,
+    "end": 3313.8,
+    "speaker": 0,
+    "text": "Let's define it. X is the input, in our case an image. Y is the corresponding one hot encoded label vector. So if the image is a one, it'd be a vector of size 10 where every entry is zero except for the Entry number one, which would be a one. So that's what one hot encoded means. It's all zeros except for the label. I've hand-waverly described a neural network, but really what it is, it's a series of function compositions. So often, right, if you have an input and then you have these little nodes and then they're all like connected here, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3315.74,
+    "end": 3349.73,
+    "speaker": 0,
+    "text": "then like this node would be a weight matrix that takes the node of the previous step, right? Of like F I minus one, and then you'd have a bias, right? So you have the Ith weight, the output of the first plus the bias, and that'd be a vector of outputs. And that's basically how you compute it. I'll formalize it more better on the slides, but you have k functions which could be weight plus bias, could be other functions. And then they compute an output, p. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3349.95,
+    "end": 3380.85,
+    "speaker": 0,
+    "text": "So that's our prediction vector. So yeah, here it's a bit nicer. So at each layer, you take the layer, the output of the layer before it, and then you multiply it with some weights and add a bias. And then you have a function here to make it not linear. Because if it's just linear, it's not able to learn any nice functions. So this... Sigma here is often something like maybe a softmax or a tanh function or it could be a rectified linear unit. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3381.43,
+    "end": 3417.95,
+    "speaker": 0,
+    "text": "Basically something that's not linear that transforms the weight, right? And all of these weights are not fixed. You can change them. And if you change the weight here, then the output gets transformed in a different way. And then at the end, when you get the prediction vector, it cascades through and gives you a different prediction, right? And we call these network parameters theta. So it's all the weight matrices and all the biases theta. And then, okay, we have a prediction P, and we have a vector Y, which is the correct prediction, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3417.97,
+    "end": 3450.57,
+    "speaker": 0,
+    "text": "So Y would maybe be zero, one, and then lots of zeros, while we saw neural network predictions could be like 0.1, 0.7, 0.3, and so on. So we kind of want to know how close are we to the correct prediction, and we use the loss function L to measure that. So that's very sped up what a neural network does and how we train it. So we measure a loss function, and we want to change the parameters so that we minimize the loss across all inputs. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3451.71,
+    "end": 3483.31,
+    "speaker": 0,
+    "text": "So that's the main part. So we want different weights so that when we predict P, we get a better outcome, right? So just very quickly, let us imagine, right? We have here, we have the loss, right? And here we have some sort of parameter, right? A weight, maybe a single entry in the weight matrix, right? And we can increase that entry or decrease it. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3484.17,
+    "end": 3517.98,
+    "speaker": 0,
+    "text": "And let's say we keep everything else the same, we just increase or decrease it, and this is then how our loss looks, right? And let's say currently this is where we are, right? This measures how close we are to the truth. If we're at the bottom, we're as close as can be. In reality, it'll go like on in a multi-dimensional way, right? But basically, we want to make that lower, right? And then the question is, how do we know if we have to go left or right? in the prediction, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3518.8,
+    "end": 3549.21,
+    "speaker": 0,
+    "text": "The way we do it, we take the first derivative. So imagine this is the lowest point. This is the intercept, right? And we know if you're here, it measures the slope. So if we're here and the first derivative is negative, then we know that function still decreases. So that's good, we need to go more in this direction. If it's positive, like if we're here for example, if we increase it more, the derivative tells us the loss increases. So that's what the derivative does. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3549.45,
+    "end": 3580.61,
+    "speaker": 0,
+    "text": "A small change in the parameter, how does it affect the loss? A small change in the parameter here would give us a higher loss, so the derivative is positive at this point. And that is basically the idea. We calculate the first derivative, and then if it's negative, it means we decrease the loss if we increase the weight, and if it's positive, we would actually increase loss if we decrease the weight. So that's how we can mathematically know how do we have to change a parameter to change the loss, make it better, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3581.69,
+    "end": 3617.3,
+    "speaker": 0,
+    "text": "And that we take basically the partial derivative, so we might, so theta might have 20 million entries, So we don't do it by hand. Luckily, we use a machine for that. But we can calculate the derivative, the partial derivative of loss to any Theta. The only reason we can do it is that all of these functions f are differentiable. They're continuous functions that are differentiable everywhere, and that is beautiful. So we don't have to calculate any, like these are really, the whole function, right, the whole composition is an extremely complex function. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3617.34,
+    "end": 3662.32,
+    "speaker": 0,
+    "text": "We cannot calculate a closed form of a derivative, but what we can do is just calculate the derivative Of the loss. Over the derivative of the first layer of K which would be quite simple and then we can use the chain rule to propagate and we can calculate the derivative of FK to FK minus one up until to the parameter we want to change. AND THAT IS CALLED THE CHAIN RULE AND THAT IS ALL DONE AUTOMATICALLY IF YOU DO IT IN PYTHON OR WHATEVER IT CALCULATES ALL THESE DERIVATIVES AND FOR EACH AND EVERY ENTRY IN THE PARAMETER SET WE HAVE HERE IT CALCULATES SHOULD WE DECREASE IT OR INCREASE IT IN ORDER TO CHANGE THE LOSS TO MAKE IT LOWER RIGHT. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3664.65,
+    "end": 3698.21,
+    "speaker": 0,
+    "text": "And that is what we do, right? So if the gradient is positive, we want to decrease the parameter because then we decrease the weight. So we change the parameters in the opposite direction of the gradients. And that is called gradient descent. And that is how we train neural networks. And that is all perfectly fine to do because all of this is differentiable. We can propagate the gradient, which is why it's called backpropagation, from the loss at the end through every layer of the neural network to every parameter we want to do. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3699.29,
+    "end": 3717.17,
+    "speaker": 0,
+    "text": "So that's how it's done. If you have the label, I think we'll have a five-minute break, and then we will see how can we expand on that theory to do it with neurons, where we had neural network and then a symbolic layer, and then the label. So yeah, short break. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3780.67,
+    "end": 3807.77,
+    "speaker": 1,
+    "text": "Is that like an actual counting system? No, I just make that up. That's why I'm wondering. Is there? I should have used that. That would have been much easier. Oh, sorry. Did it? ",
+    "model_probability": 0.9952
+  },
+  {
+    "start": 4107.82,
+    "end": 4129.26,
+    "speaker": 1,
+    "text": "Yeah, I'll do both, obviously. ",
+    "model_probability": 0.9974
+  },
+  {
+    "start": 4135.61,
+    "end": 4167.8,
+    "speaker": 0,
+    "text": "Okay, guys and girls, we will continue now. So we talked about gradient descent with full supervision. You can look at this at home in a bit more detail. Basically, we have a label matrix y, vector y, and a prediction vector p. And we can calculate how close they are using the loss function. And then because everything is differentiable, we can that propagate to every single parameter in the network. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4169.74,
+    "end": 4201.38,
+    "speaker": 0,
+    "text": "A typical loss functions calculate how close the prediction is to the label. So something that gives you a 0.9 at the correct spot would be better than another function. And since it's loss, it's a negative term, right? So we want to minimize it. An example would be cross entropy loss. Let's say Y is a vector with N, capital N entries. You can look at each entry, see what Y is, and then see what the prediction P is. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4204.25,
+    "end": 4243.48,
+    "speaker": 0,
+    "text": "And then take the log of that, and then multiply them together, right? So if y is zero, it's not the correct label, and we have a very high number for p, so the prediction thinks it's the correct label, gives almost a one, or like a zero, a 90% probability, it'll be zero, right? Because y is zero. And then we look at the real label, y where it is one, and if it gives a really low number, it'll be a very low number, so this will be a low number and we take the negative of it, so it'll be like zero point, minus zero point something, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4244.27,
+    "end": 4290.97,
+    "speaker": 0,
+    "text": "But if we have a very good prediction, when y is one at the correct label, we give a very high probability, it'll be much better, right? So it'll have a lower loss, right? AND THAT IS ALL PERFECTLY FINE RIGHT WE CAN PROPAGATE THAT SIGNAL TO ALL PARAMETERS SINCE EVERY LAYER IS DIFFERENTIABLE BUT WITH NEURASP YOU MIGHT REMEMBER THAT THE LABEL IS AT THE VERY END AND WE CALCULATE NOT THE END PRODUCT WITH IT WE CALCULATED THE INDIVIDUAL DIGITS AND USED ASP TO SUM THEM UP INTO THE NUMBER RIGHT SO THERE'S AN ASP COMPONENT IN BETWEEN YOUR ELECTRIC PREDICTION AND THE LABEL SO WE CANNOT back propagate the gradients through that. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4292.43,
+    "end": 4323.56,
+    "speaker": 0,
+    "text": "So instead of p, the prediction, which would be a number from zero to 18 in the sum task, we get a latent vector v, which gives you a number from zero to nine for each individual digit, right? So here the end output of the neural network is v, and to get to the downstream output p, we use another function, g, which calculates in this case the sum if it's MNIST addition, and g is not a function that is differentiable, it's an ASP program. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4325.14,
+    "end": 4358.64,
+    "speaker": 0,
+    "text": "So now we have an issue, p, if we calculate the loss between y and p, which we maybe could do, there's no way to go from p all the way back to the neural network parameters in V because there's a ASP program in the way, so to say. So what we do is instead of having a normal loss, we have something called a semantic loss. So semantic means, what does it mean, right? what does it mean if a neural network outputs these numbers as opposed to these numbers? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4358.68,
+    "end": 4395.78,
+    "speaker": 0,
+    "text": "How does it affect the downstream prediction through the ASP program? And the semantic loss is quite similar to cross entropy, but instead of just calculating the difference between the output vector and the prediction vector, we have to go through all stable models or answer sets. So if you look here, you can see we take the log again, we love logs in machine learning, but here we sum not through the entries of the vector, we sum through each answer set. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4396.9,
+    "end": 4428.66,
+    "speaker": 0,
+    "text": "So for each answer set that models the output. So if you look at some here, right? Here we have two answer sets. So we would go through each answer set and we would take the probability which we've calculated a few minutes ago, right? We have a way to calculate the probability of an answer set and then we sum them together. And then we get the loss. So, basically what we do is we see, okay, the neural network predicts all of these numbers, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4430.02,
+    "end": 4460.35,
+    "speaker": 0,
+    "text": "Some sets of these numbers will give us the correct label, so we'll look at these. And then we see, did the neural network do a good job? Do these sets that give us the correct downstream label actually have a high probability? So, in the first case where we had zero and one, if the neural network puts a lot of probability mass into the zero and one vectors, the answer set probabilities will be high because we multiply the entry zero and the entry one, so we have a high number. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4461.52,
+    "end": 4493.66,
+    "speaker": 0,
+    "text": "So the loss will be very low, which is good. But if the neural network is very bad and it thinks that it's the number eight, even though we know it cannot be because the downstream output is the number one, then all the answers that will have a very low probability because they will only look at the entry zero and one and much of the probability masses and other numbers. In that case, the probability of all the answer sets will be very low and we'll get a much higher loss. And that is basically the idea. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4494.84,
+    "end": 4525.81,
+    "speaker": 0,
+    "text": "Instead of looking at two vectors, combining them, we look at all the answer sets that lead to the correct output, calculate the probabilities, sum them up. And that's how we know how good our model is, and that makes sense, right? Because if you predict numbers which occur in much more answer sets, then it's probably a better prediction. It's more likely to be that number. And that is the idea of semantic loss. But we have to do one more step, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4526.51,
+    "end": 4559.47,
+    "speaker": 0,
+    "text": "Because we don't just want to loss, you have to calculate the derivative of the loss. And that is still a bit difficult because if you look at the loss function here, we sum over all answer sets of an ASP program. So that's still symbolic. That's still not a... vector computation that is still a symbolic operation. We have to calculate the answer sets of an ASP program and then calculate the probability of each one and then sum them together. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4560.01,
+    "end": 4593.27,
+    "speaker": 0,
+    "text": "So that is still a symbolic operation. So we cannot just use Python backwards, PROPAGATE FUNCTION, WE HAVE TO CALCULATE OURSELVES, AND THAT IS WHAT WE DO HERE, RIGHT? THE DERIVATIVE OF THE LOSS BETWEEN EACH PARAMETER CANNOT BE COMPUTED AUTOMATICALLY BECAUSE WE HAVE TO CALCULATE ANSWER SETS, THAT'S A SYMBOLIC OPERATION, AND THEN ASSIGN PROBABILITIES. BUT BECAUSE OF THE CHAIN RULE, We can split up, we can calculate the derivative of the loss semantic over the output vector of the neural network V. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4594.23,
+    "end": 4630.33,
+    "speaker": 0,
+    "text": "So, in MNIST edition, each V is a output of a single digit prediction. Then, if you look at how V was defined, Here, right? V is a neural network, right? This is all neural network territory. This is all differentiable. So if we look at this split-up task, this part we can do automatically, right? We don't have to think about it. We only need to calculate the left part, how to get from the loss to this vector output of the neural network. AND THAT'S WHY WE CALCULATE THE DERIVATIVE OF THE LOSS WITH RESPECT TO EACH ENTRY V. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4630.43,
+    "end": 4660.68,
+    "speaker": 0,
+    "text": "SO BOLD PHASE V IS THE VECTOR, NOT BOLD PHASE V IS AN ENTRY IN THE VECTOR. SO IN MST ADDITION, THE VECTOR HAS LENGTH 10, HAS 10 ENTRIES. EACH OF THESE ENTRIES TELLS YOU IF IT THINKS THE NUMBER IS 0, 1, 2, 3, AND SO ON. SO THIS IS HOW IT'S CALCULATED. THERE'S A LONG PROOF, WHICH I'M NOT GOING TO GO THROUGH. which they go through in their paper, and you can basically calculate this first part. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4661.93,
+    "end": 4691.96,
+    "speaker": 0,
+    "text": "ON THE LEFT WITH THIS FORMULA. IT'S NOT AN AUTOMATIC WAY, YOU HAVE TO IMPLEMENT IT YOURSELF, BUT ONCE YOU'VE DONE THAT, YOU'VE GOT THIS PART DONE, AND THEN YOU CAN DO AUTOMATIC DIFFERENTIATION WITH THE REST OF THE LOSS. WE DO IT FOR EACH SINGLE ENTRY, RIGHT? SO IF YOU HAVE A VECTOR OF SIZE 10, WE DO THIS CIRCULATION TEN TIMES FOR EACH ENTRY. It looks quite complicated, but it does make sense. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4693.08,
+    "end": 4724.29,
+    "speaker": 0,
+    "text": "So in the bottom, we just have a normalization term where we sum up over all the stable model probabilities or answer set probabilities. In here, we have a left and a right part. And because in the paper, instead of minimizing the loss, they maximize the likelihood. We'll just do the derivative of the negative loss so we don't have to do minus signs everywhere. So we want to maximize the likelihood that the prediction is correct in this case. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4725.55,
+    "end": 4768.56,
+    "speaker": 0,
+    "text": "And we have things that increase. There's a plus here. It's a positive number. And we have terms that decrease the number, right? And the better our prediction is, the more we should increase the number because we wanna maximize the probabilities and the more for all of the correct predictions. So here on the left part, we go through all the answer sets that model output O. So that would be the correct label. So for example, if you have MS addition with two digits and the label is one, We go through all the answer sets that model this output. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4768.58,
+    "end": 4802.07,
+    "speaker": 0,
+    "text": "So in this case, there would be two, right? Zero, one, and one, zero. So we sum through all of them. And then we look at the concept here. And we do this for each entry in the vector. So let's say we are on the zeroth entry in the vector. That is our V. We check, we get an answer set and check if the zeroth entry is the correct value. Is it a zero? So in this case, in this answer set, that would be S. So C is equal to V, right? Because we look at the zeroth entry of the vector and it is a number zero. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4802.15,
+    "end": 4841.7,
+    "speaker": 0,
+    "text": "For this answer set, it would be incorrect because it's a one. Then it would be a V dash, which is not, the same as the current V and you would minus it. So very intuitively, if you go through all the answers that every time our prediction agrees with the answer set, we increase the number. Every time it disagrees with the answer set, we decrease the number. So very intuitively, what we do is we say, every time we get a high number for a prediction, that is in a lot of answer sets, we think it's probably the correct prediction. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4842.22,
+    "end": 4876.65,
+    "speaker": 0,
+    "text": "We will increase the number here by a lot. And every time we are very wrong, we'll decrease it with a minus. So this is very hand wavy. We will go through it with an example to make it a bit more clear. Let's go through our favorite example, MNIST addition. So here we have two output vectors. We've already calculated the answer set probabilities here. We've done that in a step before. So basically, we can now look at the gradient calculation. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4878.83,
+    "end": 4892.54,
+    "speaker": 0,
+    "text": "And I'm going to put on the board. So just to, OK. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4904.55,
+    "end": 4935.47,
+    "speaker": 0,
+    "text": "just to remind everyone. So we had the sum of all the answer sets that model the observation, which is the correct label. So that's the derivative of the loss to an entry V in the vector. So we sum over all of these, right? And we check that I, Yes. So this interpretation model is C equals V. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4936.65,
+    "end": 4966.84,
+    "speaker": 0,
+    "text": "And in this case, we do probability divided by the probability of C equals V. So that's the positive term. Here we do the negative term. So again, we sum over all stable models. But this time, the I model is C equals V dash. And V dash is not equal to the V we're currently calculating the gradient four, and we do a negative here. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4967.22,
+    "end": 4986.58,
+    "speaker": 0,
+    "text": "And once again, we do this term. And then we just sum over all i's to normalize. Okay, I'm gonna change the cameras. You can actually see on the recording. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4999.23,
+    "end": 5029.85,
+    "speaker": 0,
+    "text": "Okay, let's go through it. Let us start with... So we have here the vector, right? Let's just calculate the gradients for this first prediction, right? We want to know... let's say we go through the vector for this one, right? The first entry, we know it's the correct prediction, right? So we want to know what should the gradient be for this entry? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5029.88,
+    "end": 5064.75,
+    "speaker": 0,
+    "text": "Should we decrease the prediction? Do we think it's good? Should we increase it? Since we know it is the number one, we think that should be a higher number than the other values. So if we do that here, we plug it in, right? So we plug in, we sum of all the answer sets, which in this case are five. So we go through all the model, the observation, because two of them are zero, we can just always ignore them, because they'll always be zero. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5065.35,
+    "end": 5101.82,
+    "speaker": 0,
+    "text": "So we'll go through all of the answer sets, which actually have a number in it, right? So let's calculate the partial derivative of the loss with respect to the entry v1. So that's this one, right? Zero, one. And we'll do the first. We just look at the upper one, right? So now we just have to plug in. So what are all the answer sets that model the observation, these are these, and that agree with c equals v? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5101.86,
+    "end": 5134.97,
+    "speaker": 0,
+    "text": "So what are all the answer sets in which So we have multiple answer sets, right? We have one and three. And then we have two and two. And then we have three and one. We have two more, but they have a zero in our simplified calculation, so we don't care. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5136.27,
+    "end": 5168.67,
+    "speaker": 0,
+    "text": "So now we look at the first answer set. digit V1, so C is equal to the number one, right? Because that's the one we look at currently. So here the first digit is in fact equal to number one, but that will be on the left hand side of this equation because it does model C equals V. So we take this and we, we take here the probability that D1 equals one. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5169.94,
+    "end": 5203.64,
+    "speaker": 0,
+    "text": "Then we have the stable model 2 and 2. So in this case, C, which is the first entry of the vector, is still 1. It's not 2. Here it is 2. So they don't agree. So we'll have a minus here. We're on the right-hand side. And then we calculate here the probability that D1 equals 2. And here we have d1 being 3. 3 is not equal to 1. So this is again a minus. And that's a probability that d1 equals 3. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5204.92,
+    "end": 5240.66,
+    "speaker": 0,
+    "text": "And then we normalize by all the probabilities. So in this case, all non-zero probabilities are here. And then... Three, one, okay. So basically what are we saying? We are calculating the gradient of the prediction that the first digit is the number one. Go through each answer set and say in how many of these answer set is the first digit actually one, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5241.28,
+    "end": 5273.95,
+    "speaker": 0,
+    "text": "It's only in the case one and three is the first answer set one. So this is an answer set we predicted correctly, we will have a positive term here. Here, the answer set is two and two. So our prediction that it should be a one is incorrect. We put a minus here, the same here, right? And then if you actually plug in all the numbers, we get the probability one, three, which is 0.35 divided by the probability that D one is in fact one, which is given by the vector. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5274.01,
+    "end": 5317.53,
+    "speaker": 0,
+    "text": "So that would be 0.7. minus the probability of the second answer set, which is 0.08, divided by the probability that D1 is in fact two, and our neural network thinks it might be two, so it gives it 0.2 here, and then minus the probability of the third answer set, which is 0.01 and then our network says it's quite unlikely that it's a three, so we only give it, this is just a probability of 0.1, and then we normalize by adding them together. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5322.05,
+    "end": 5355.11,
+    "speaker": 0,
+    "text": "And then I think, unless I've miscalculated, which you might just have, let's give this a zero. So basically, this is the gradient. So what does it say? We think that 0.7 is quite a good prediction. We don't wanna change it much. And that makes sense, because it is a correct prediction. This is the number one. We give it the highest probability. It's in one third of the answer sets we've seen, so it's a possible probability for our downstream label. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5355.63,
+    "end": 5386.73,
+    "speaker": 0,
+    "text": "And we don't think it's any of the others, because they have a low probability, right? So basically, we're happy with the gradient. If you then calculate the same thing for other vectors, entries, for example, well, this should be a two and a three. Oh no, this is vector one, yeah. So this, if we go for this entry, for example, right? we want to decrease that entry, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5387.41,
+    "end": 5420.92,
+    "speaker": 0,
+    "text": "We are really sure that it's not a two and two, very low probability, giving it a 20% chance is quite bad, so we wanna decrease that, we give it a small gradient. If you look at the third entry of the vector, we are very, very sure it shouldn't be the correct one, right? So we should decrease it even more, right? We want this number to go down a lot. We're really sure it's not a three. We want this number to go down a bit. We're quite sure this number isn't a two. We're quite sure this is in fact a one, so we'll not change it downwards. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5420.96,
+    "end": 5465.81,
+    "speaker": 0,
+    "text": "Then when you change the gradients, that means we boost this prediction and we decrease all the other predictions. So intuitively, it makes sense. Given this prediction, it is correct that we should have the gradients in such a way that we boost the first entry and we lower the prediction probabilities of the other entries. You can look through all these things at home again if that's too much to take in right now but basically that is an intuitive understanding in this toy problem of how the gradients actually give a learning signal how they tell the neural network oh for this image input you should probably predict a one and not a two and not a three and not any of the other ones. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5467.7,
+    "end": 5504.42,
+    "speaker": 0,
+    "text": "Obviously to. avoid division by zero, none of the entries are actually zero, they're all a small number, right? So you can have a look at that more at home, but this is basically how it works. I will summarize everything in words now. This is how Neuros works. First of all, we compute the answer sets, compute all the possibilities that actually model the downstream label using choice rules, which is what we did as well, just formalized. Then we give each answer set a probability using the neural network outputs. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5504.6,
+    "end": 5535.12,
+    "speaker": 0,
+    "text": "So if the neural network is very sure that the first number is a one, then all the answer sets where the number one is in the first place will have a higher probability. Makes sense. Then we use these probability calculations to calculate the gradient, which tells the neural network how to change the parameters to be more likely or less likely to predict certain numbers. And then we actually update the network parameters by calculating the gradients and doing a backpropagation pass. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5536.76,
+    "end": 5572.67,
+    "speaker": 0,
+    "text": "So this is it, this is how NeurIPS works. In the coursework, which will come out on Thursday, you will be able to try it out in real life. So, we'll have code, you can run it on MNIST edition, you can see how it trains, and then you can also look, what are the actual gradients it calculates? How does it actually work? So, this is a coursework for MC students. It is not mandatory for undergrad students, but if you want, you can still have a look if you're interested in how it works, and also do the coursework, we'll still grade it and give feedback, but it won't count towards your grade if you're an undergrad. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5573.59,
+    "end": 5603.92,
+    "speaker": 0,
+    "text": "But yeah, so you can have a look at that again and then during the course we can actually try it out and see how it actually manages to learn digits from MNIST edition and also other problems. So yeah, so we went into detail for the NeurAS algorithm, but as you saw in the little graph, it's just one of many frameworks. So in the last half an hour or so, I think it'd be fun to show a few other ones. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5604.1,
+    "end": 5637.47,
+    "speaker": 0,
+    "text": "There's many ways in combining neural networks in ASP, and this was just one where you train a neural network, but there are many other frameworks. So let's look at NSQVASP, which has the following problem formulation. Instead of digits, we now have objects, 3D objects. If you look at the actual, if you remember the graph, this was on the top left. So the neural network was already pre-trained. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5637.53,
+    "end": 5678.92,
+    "speaker": 0,
+    "text": "We don't have to do any semantic loss. It's already able to say what these objects are. And the ASP module is also in fact handwritten. so everything nothing is being trained here but it still uses neural networks to find the objects and then uses asp to reason about them and you might now think that's a bit pointless right well if you have to handwrite the rules and you have to pre-train the neural networks on the images like There's nothing, everything's done handwritten, but there is actually a good reason still to go neuro-symbolic, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5679.38,
+    "end": 5710.54,
+    "speaker": 0,
+    "text": "Instead of just asking Mr. Chat GPT if there is an object of the same color as the other one, which it probably would tell you. And I think we can explore that now. So the background knowledge is huge. This is like maybe 5% of it. It's just the part we need. And then we have these objects this question. So there's two neural networks being used here. We have YOLO and LSTM and newer versions this will be an LLM. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5711.72,
+    "end": 5744.35,
+    "speaker": 0,
+    "text": "So the object recognition knows how to do it. It's been trained on this picture data set. So it will give you five objects with their properties. So in this case, it will give you these, right? All written in ASP. So object zero is large. It's purple. It's metal. It's a cylinder. It's in this position, right? 100, 300. Object one, large green rubber will be this one. Large purple rubber is here. Small green metal is here. Large yellow metal sphere is here. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5745.45,
+    "end": 5789.31,
+    "speaker": 0,
+    "text": "So that's good. We have that. And then we have the second part which will be the question parsing where we look at the questions. The question is, is that object of the same color as the small one? And it's not really obvious how to put that in ASP, right? But they've pre-trained neural network to do it in a very specific format and I think it's quite interesting because it's really deceptively simple, right? So it's like it goes through steps, numbered steps of this question and then uses argument or rules in the background knowledge to apply these steps. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5789.67,
+    "end": 5820.09,
+    "speaker": 0,
+    "text": "So it always starts with scene zero and then it says, well, is there an object of the same color as the small one? So what is the small one, the small object? So we filter all the small objects here It says as the small one, which means there can only be one. So we check that it's unique. Otherwise, we've done something wrong, right? And then we want to see, okay, we have a small green object, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5821.21,
+    "end": 5851.48,
+    "speaker": 0,
+    "text": "Is there an object of the same color? So we ask same color as object that we filtered before. And then we end it, right? And that's all that the LSTM or LLM has to do. Everything else is done by the structure of the ASP. So let's go through. So we know we have this, right? If we look at this rule, we can simplify all of this and just enumerate all objects. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5865.56,
+    "end": 5898.73,
+    "speaker": 0,
+    "text": "Yeah, among us are gone. Okay, so we have, what do we have? We have object, we have five objects, right? We have object zero to object four. That's just applying this rule with these extracted things from the picture. Then we also have something called states here, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5898.89,
+    "end": 5934.38,
+    "speaker": 0,
+    "text": "So we now have objects with IDs and we have the scene here, which is zero, right? So all of these objects will have a state. So we'll have state one or zero up to state zero. one for object four, right? State t plus one if seen t, which in this case is zero, and object. So what all of these things do is they really act like filters. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5935.12,
+    "end": 5965.24,
+    "speaker": 0,
+    "text": "So currently every object has managed to go to state one. but we wanna go to all the way up to state four. And that's how we use ASP, which is a declarative language, to actually go through steps like a program. It's like a loop, right? Or it's a program. And that is really an interesting way to do it. So because we have these states, we have these objects, and then we have these identifiers, right? Has size, has color. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5966.56,
+    "end": 5997.03,
+    "speaker": 0,
+    "text": "Obviously, we're interested in the small objects. So let's see. We have object, the small green metal symbol is object three. We know that from this rule, right, object three purple green, we can say that has color. three green. We have that for every object. I'm just not gonna write it down because they're not all gonna be important. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5997.93,
+    "end": 6032.66,
+    "speaker": 0,
+    "text": "We also have the other one which is has size. Three small. And we will have a lot of them. We'll have, has color, has size, has position and so on for every object, for everything. It'll be a huge search space, right? So we now have all of these things done. We also have, for example, which will be important later, has color one green, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6032.68,
+    "end": 6076.33,
+    "speaker": 0,
+    "text": "Because object one is also green. Okay, cool. So these are all the things, and now that we have done that, we can see that we wanna go through the states. We wanna reach the end state. So the first thing is that there's a filter small here. And if you look at how filter small is being used, it's being used here. If something has a filter of small at step T, so T here is one, and it's in state T, it's already reached that state, it has this ID, and it has the size small, right, because we're filtering all the small object, it can go to the next state. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6077.63,
+    "end": 6108.44,
+    "speaker": 0,
+    "text": "So if you look at this thing, right, if we look here at filter small, right, we have filter small one. So this is one, T is one. Are there any objects with state one? Well, because all of them go to the first state, all objects are currently thought about. Do all objects with that ID have size small, right? If you look at these here, there's only one object that actually has size small. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6109.6,
+    "end": 6142.79,
+    "speaker": 0,
+    "text": "So there's only one object where this thing applies, has size ID small, being state one. So because we have this, we can fill this in and then we go here and we can say state two for the ID of the object, which in this case is the small green metal cylinder. So yeah, so basically it's just this filled in, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6143.31,
+    "end": 6183.39,
+    "speaker": 0,
+    "text": "The state one three is filter small. So we have filter small one, which comes from here. And we have state one, three, because of state, all of them have one. And what is the important part has size three small, which comes from here, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6183.89,
+    "end": 6227.23,
+    "speaker": 0,
+    "text": "So all of the body atoms are true. We have progressed to the next state with object number three. Okay, now we have the same color one. It's the same idea. If you look for all the rules, somewhere we have same color of T. So that's three here. If... Yeah, state two, oh, unique, sorry, unique is here now. Unique just checks something in this state and it is not possible that there's an object with ID in state T and an object with another ID also in state T where they're not the same, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6228.13,
+    "end": 6260.89,
+    "speaker": 0,
+    "text": "So if there was some other small object here like this, then we would also have state two, object number two, and then we would violate this constraint. They're not unique anymore. But because we only have one object, the state two, three unique is here, so we can say unique is the case, and we can say the state is here, so we upgrade to state three for object number three. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6262.7,
+    "end": 6320.49,
+    "speaker": 0,
+    "text": "Now there's only same color left. If you do same color here, we have the state. We know it has the color green. And then we check all the other things that have the color green and check they're not the same ID. So that is the case for our object here. at which point we go through the state for object three, but also other ones because we have other IDs that also have the same color because we check Our object number three here is the only one in state T. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6320.61,
+    "end": 6353.99,
+    "speaker": 0,
+    "text": "It has the color green. Then is there any other ID which also has the color green that is not the same? And if that is the case, it also gets upgraded. So we look at all the other ones, and there is another object here with the color green, which is the object number one. So suddenly we've upgraded number one here as well. And then we are done. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6354.57,
+    "end": 6387.24,
+    "speaker": 0,
+    "text": "We have reached the state. And then we have reached the state four, which is the end state. If we have managed to get a state, that bool is yes. So we have reached state four, which means we have bool, yes, and yes. If we weren't able to that, we would have bull no. We have bull yes at the state number four. And since the state number four is the end state, you're at the end state and you have the bull. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6387.28,
+    "end": 6418.0,
+    "speaker": 0,
+    "text": "This is your answer. So this is basically a way to get the answer yes. So we have programmatically computed all of these steps just using ASP. It's all done automatically with Klingle, right? That the answer is yes. And that's the way to programmatically go through a question like this in ASP, which means we have now gotten the answer yes. You're still like, well, I could have still just asked Mr. GPT and he would have said yes as well. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6418.26,
+    "end": 6448.66,
+    "speaker": 0,
+    "text": "So what was the point of all of that? Well, first of all, let's say it says no. We can go through the answer sets and see why it said no. We can see it failed at this state. This state is filter green. Oh, it thought there is no green object. It thought object three is brown or something, right? So that's good. We know when it's wrong, why it's wrong. But we can go one step further, which is what this. Thing does, which is that we can create explanations of why? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6449.72,
+    "end": 6480.66,
+    "speaker": 0,
+    "text": "It got an answer and the way it does that is using contrast of explanations. By saying I think this is green, this this question is correct, right? However, I can tell you what you would need to change in the scene for the answer to be incorrect. So we did reach state four here with an answer yes. What would we need to change to reach state four with the answer no? And we can use ASP to do that using abduction. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6480.68,
+    "end": 6511.94,
+    "speaker": 0,
+    "text": "And we've all learned about abduction. Abduction is the way of finding abducibles, in this case our objects with their properties, that would give you an answer, right? So we can, what do we have to change about these properties from our answer to go to yes to no? And all of that can also be done automatically in ASP. And it's called a contrastive explanation. I explain why I said yes by telling you, oh, if this thing had changed, I would have given you a no. So how do we do that? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6513.52,
+    "end": 6545.47,
+    "speaker": 0,
+    "text": "We have choice rules again, right? Instead of having the colors, it was given here, right? We can change them. So this, we have choice rules for every single parameter. Has color, has size, has location, and so on, right? So it's like, for each object, let's just choose another color, right? Would anything change if we choose another color? Would anything change if we choose another size, and so on? If we do choose a color that is different, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6546.25,
+    "end": 6580.01,
+    "speaker": 0,
+    "text": "Then has color C dash, right? is different from the object's actual color C, right? So object with zero ID has this color, but we have chosen half color differently, right? Then we know we have done a color change, right? That's how we compute that we have done a color change. And then the second part is, well, we don't just want to change things randomly and then say, oh, if every single thing, every single object was purple and small and a cylinder, then it would have been a no, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6580.61,
+    "end": 6611.55,
+    "speaker": 0,
+    "text": "We want to do the minimal possible changes to change the answer. So we can use... a weak constraint which you have not learned, I think, which is the same as a minimize statement. So in this case, it says, every time you use a color change, which only occurs if you have a color that is different from the original one, you incur a cost of five. So every time you do that, it's expensive. Costs you five quid, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6613.31,
+    "end": 6645.57,
+    "speaker": 0,
+    "text": "And then you wanna minimize the cost, right? So that's what this squiggly line does. He doesn't look too happy about this because there's a cost involved here, right? So basically it's like a minimize statement. Minimize the changes. And in this way, we have now encoded that we can change certain properties, but every time we do any change, there will be size change and so on, we incur a cost. And then we can ask Klingo the answers that's over to change the least amount of parameters. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6646.5,
+    "end": 6686.76,
+    "speaker": 0,
+    "text": "in such a way that we have a different answer. And the different answer is called a FOIL. So here the answer is yes, the FOIL is no. If the answer for a question is green, the FOIL could be brown or something else, right? So here we said, what we want to know is how do we arrive the answer no, which is done with this constraint, right? So we have exactly one FOIL here. And it has to be the answer, right? It cannot be the case that we have an answer that says something and we have not exactly one foil that wanted this answer, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6686.78,
+    "end": 6728.79,
+    "speaker": 0,
+    "text": "We cannot just get any answer. We want the foil one, right? And in this way, we say, please give us all the possible explanations that... change the least amount of things and change the answer. And we couldn't do that with Mr. GPT because if we ask him what would have to change in this thing so it becomes a no, it would just gaslight you. It would just tell you anything. It might tell you something that's correct, but there's no guarantee that it's actually the least changes or it's the most inexpensive solution, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6728.97,
+    "end": 6763.95,
+    "speaker": 0,
+    "text": "There's no guarantees that anything it tells you is correct. But because we have all of this thing, we can now give you a contrast of explanation that is logically correct, right? but also has the minimum amount of changes. And I think that's a really cool example of how you can use ASP and your symbolic frameworks to get a bit more out of something like this. This is quite an easy task, but now suddenly, not only can you explain exactly why you arrived at an answer, you can also explain what would need to change for another answer. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6764.49,
+    "end": 6795.15,
+    "speaker": 0,
+    "text": "So that would be one example of why neurosymbolic AI gives you a bit more than just a neural network. So that was NSQV ASP. There are many other networks. I think I'll quickly go through the remaining two. This is quite a straightforward one. GPT-ASP. So that's, if you look at the thing, at the... Great idea to be in the bottom left. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6795.79,
+    "end": 6825.93,
+    "speaker": 0,
+    "text": "It uses a pre-trained neural network, but it generates ASP. The big problem with this was that all of this background knowledge was written by a guy in Vienna, University of Vienna by hand to get this paper published. A lot of work. Yes, Professor Ito had to write all of the, this is like 10% or even less of what he had to write. Probably made one of his PhD students do it, right? So it's a lot of work. So what if he can automate this part? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6825.95,
+    "end": 6856.01,
+    "speaker": 0,
+    "text": "What if he can get? Yeah, so if you want to write two thousand programs for him, you can do it. Or you could use GPT-ASP, which automatically generates answer sets. So that's a very classic one, I think, because there's a lot of these. There's like a dozen of these frameworks, which just use LLMs to generate answer sets. But LLMs aren't that great at generating answer sets. Each of them does it a bit differently. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6856.05,
+    "end": 6887.57,
+    "speaker": 0,
+    "text": "So if you have a story like this, and you want to create an answer set here, instead of just telling the LLM to do it, this specific framework The three steps constant extraction predicate generation and rule generation right. And then you're in a situation where. If you just look at the paper here for example. Now instead of writing the answer side you only have to write a prompt. So this is the. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6889.16,
+    "end": 6919.2,
+    "speaker": 0,
+    "text": "So here you can see given this extract the constants. Then the second prompt is given all of this extract the predicates. And if you look how they normally do it in these papers is they give examples. So it says this is all in the prompt. Given this extract constants of the form category colon constant one. Here's an example. If the problem is this question, Oh shit sorry I shouldn't have sworn. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6922.22,
+    "end": 6959.17,
+    "speaker": 0,
+    "text": "I think if I go here. OK sorry right so this is our prompt looks. The prompt tells them what to do but it also does in context learning and give some examples so if this is the problem. The goal is to assign eight queens. Please give index of row and column here. If this is the problem, this is how the prompt should look, the constants, right? Employee, Bonita, Yvette, and then prices and so on, right? So now instead of your PhD students writing ASP code, they now write prompts with ASP code inside of it. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6959.93,
+    "end": 6992.22,
+    "speaker": 0,
+    "text": "So here it gives you three problems and how it should be done. Then they have the predicate generation here, which then gives you things. Okay, now you have written these like facts. Now you want some predicates which combine facts in a way, like assign this to this, or match this E, which is a variable to the price and the weight or the wood in this case, right? And then... The last step is, oh, now generate rules. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6992.3,
+    "end": 7025.63,
+    "speaker": 0,
+    "text": "Given the constant and predicates, give rules. For example, here we have the constants. Here we have the rule match. Give a choice rule. Match each employee with a price and wood type, right? And that is the basic structure of many of these frameworks in the bottom left. Pre-trained neural network in almost all cases is now an LLM or a foundation model and generate ASP. And they all do a bit more than just prompting. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 7025.67,
+    "end": 7058.02,
+    "speaker": 0,
+    "text": "They do either splitting it up or doing feedback loops or giving the output of the solver back to the LLM. And that's how they get better generations. And then lastly, we have this here. which was the bottom right, which I said was the hardest of them all. Now imagine you don't know the logic program, and I missed addition, you don't know that it's an addition, but you also don't know what the different symbols mean. At the same time, train the neural network and find the logic program. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 7059.02,
+    "end": 7090.57,
+    "speaker": 0,
+    "text": "And that is extremely hard because we figured it out because we knew these two numbers had to sum to this number. But if we didn't know they had to sum to it, every single combination would be possible, right? Because it could be a subtraction, it could be a multiplication, it could be anything. So it's like a chicken and egg problem. How do you train a neural network if you don't know the rules, but how do you find rules if you don't know what the symbols mean because you have an untrained network? And there's very few papers that attempt this. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 7090.67,
+    "end": 7121.53,
+    "speaker": 0,
+    "text": "This is one of them also from one of Alessandra's past PhD students who uses NeurASP, which we've done, and then uses on top of it a learner of learning rules, something similar like Hale, but for the case of ASP. And what it does is it bootstraps a rule that might explain the downstream label. So we say, okay, let's just imagine it's an addition, or let's just imagine it's a subtraction. ",
+    "model_probability": 0.9986
+  },
+  {
+    "start": 7122.23,
+    "end": 7155.24,
+    "speaker": 0,
+    "text": "Then it trains the neural network a bit, right? And then it sees, okay, if we think it's a subtractor, do we get better confidence? Do we get the predictions? If that's the case, then okay, we should continue that. If not, we learn a new hypothesis given what we know from the neural network, and then we train a neural network again. So, it's like a loop. We train a neural network, we see if it gets us closer to it. If not, we change some of the rules and go in a different direction. and this is the types of rules it has learned. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 7155.78,
+    "end": 7188.22,
+    "speaker": 0,
+    "text": "MNIST addition is here, product, nine plus, and a few more difficult ones like four lines of rules. But this is basically as complicated as we can currently get with this problem. And if you look here, the symbolic learner that he uses is called iLasp, which I think you will learn about in the next lesson with Alessandra. So you know how this works. In the next lesson, you'll understand how the symbolic learner works. And then you also understand how this whole thing will work. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 7189.1,
+    "end": 7197.0,
+    "speaker": 0,
+    "text": "So I think that's my point to the next lesson. We have one minute left. Just a quick summary. ",
+    "model_probability": 0.9752
+  }
+]

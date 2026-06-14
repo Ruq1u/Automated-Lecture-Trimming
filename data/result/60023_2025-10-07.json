@@ -1,0 +1,1024 @@
+[
+  {
+    "start": 28.62,
+    "end": 146.52,
+    "speaker": 2,
+    "text": "Sorry, I was late. No block in the room? Good. Good. Welcome. I'm Stefan. I teach type systems for programming language. I've done this for many, many years. Some of you were not born when I started teaching this course. So that's how I ended up teaching it. This is a course that has its feet in theory. not all about theory, but it is a very theoretical course. So we talk about type assignment and the idea of course is that we set up the system in a way of thinking, what is it you need to do if you want that type assignment for a program? We do this in the combination of functional languages because that's the easiest framework and it's easiest to reason about. And we will actually show that some of the so that's a good thing to do the so we started with the type assignment look at the portable vision, recursion pattern matching section of actions the proof part where we actually go through proofs is going to be the first couple of weeks and the we will stop for exercises so there will be The things that we ask you to practice in during the lectures are basically the kind of skills that you need to have . ",
+    "model_probability": 0.9857
+  },
+  {
+    "start": 146.56,
+    "end": 178.76,
+    "speaker": 2,
+    "text": "I won't ask you to prove something. This is not about being able to prove it. It is about being able to . The experience is that in week 4, when I hit ML, it becomes too weird for some people, but then it shrinks. This is natural, this is perfect. So I hope you will enjoy this. The exam takes place in December. We have 4 hours a week in the region. ",
+    "model_probability": 0.9132
+  },
+  {
+    "start": 179.54,
+    "end": 298.79,
+    "speaker": 2,
+    "text": "I intend to use all 4 hours, so we can stop in 7 weeks. Somewhere, I think it's going to be week 6, one block of two hours will be used for an end-class coursework. So you don't get coursework assigned if you do it wrong. Because if you do this more than a couple of years and all the solutions that's understandable and so you you have uh you need to prepare you to revise a little bit perhaps with the amount of time if you actually work on the problem of the coursework so we will finish in uh so the course will be mainly in week six but we the exam week 11 and we can have a revision lecture a week or a few days before the exam so you can provide any questions you can offer okay David is going to take over the first lectures he's a keen on teaching and we're going to see how he does So it's, if you go through what happens in type assignment in programming languages, it is very, very, very, very, very much more complicated than what we do here. ",
+    "model_probability": 0.933
+  },
+  {
+    "start": 299.97,
+    "end": 328.8,
+    "speaker": 2,
+    "text": "But all these people who work on these very, very important things have gone through what we do in the course. It's the best. Without this, And this course very much depends on interaction. So we are not setting the pace. It's a dialogue. So if you want us to repeat something, if something is not clear, please let us know. We don't have a choice. It's a small group. ",
+    "model_probability": 0.8925
+  },
+  {
+    "start": 340.96,
+    "end": 344.41,
+    "speaker": 2,
+    "text": "Yeah, everything clear? Any questions? No? ",
+    "model_probability": 0.8494
+  },
+  {
+    "start": 345.53,
+    "end": 352.47,
+    "speaker": 1,
+    "text": "I'm going to pop in the back. Hey, I'm David. I'm starting to get a cheese to do. ",
+    "model_probability": 0.4284
+  },
+  {
+    "start": 362.62,
+    "end": 396.39,
+    "speaker": 0,
+    "text": "Hoping this works. Okay, so all the type systems we're gonna look at in these lectures are gonna be based on the lambda calculus. So we're gonna want to look at the lambda calculus first. Show of hands who has seen the lambda calculus before. And then keep them up if you would say you understand lambda calculus. Okay, that's pretty good. I think then just to make sure we're all starting off in the same place that I'm gonna go through lambda calculus. ",
+    "model_probability": 0.9979
+  },
+  {
+    "start": 399.52,
+    "end": 441.25,
+    "speaker": 0,
+    "text": "and that's probably gonna take us the first week. Okie dokie. So the notion of computation we're all familiar with is probably that similar to Turing machines, right? Where you have some memory and you have a machine that runs in finitely many steps and it executes instructions on each step. That's obviously how computers actually work, but there's another way we can think of computation, which is as executing mathematics, doing mathematics. So lambda calculus is based on this idea. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 442.73,
+    "end": 453.32,
+    "speaker": 0,
+    "text": "Say we have a function f and we define it to... Yeah, sure thing. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 476.72,
+    "end": 513.11,
+    "speaker": 0,
+    "text": "Okay, that's the function that takes a number and it pluses it to one. Now, when we do maths, when we use f, we tend to write stuff like f of two, right? And then we simplify it by going, well, what's the definition of f? We just substitute in two. And then, you know, you can say that's obviously three. The idea of lambda calculus is to encapsulate this idea of defining functions and simplifying them. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 514.8,
+    "end": 554.49,
+    "speaker": 0,
+    "text": "So instead of f of x equals x plus one, we could alternately write with this sort of syntax. People seen syntax like this before? And it means that rather than f of x is something, we're just saying f is the function which takes an x to x plus one. Now in Haskell, this would look like that in Python you literally write lambda, something like that. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 557.81,
+    "end": 595.07,
+    "speaker": 0,
+    "text": "So all those sort of syntaxes just for the idea of writing f is a function that does this thing. Now these things on their own are called anonymous functions and again those should be very familiar from programming languages. Did you in first year do Java or Kotlin? I mean, Kotlin has anonymous functions, I think, or lambdas, and that's exactly these sort of things. Now, the idea of lambda calculus is to stop naming our functions and to only think of anonymous functions. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 595.89,
+    "end": 639.7,
+    "speaker": 0,
+    "text": "So when I write x arrow x plus one in the lambda calculus, we would just write instead lambda x dot x plus one. Now plus and one aren't really in the lambda calculus, but hopefully you can get the idea that when I write lambda x dot something, that's the same as writing x maps to that same something. Now when we think of simplifying this expression, where before we wrote f of two, We then write in our mathy notation. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 648.06,
+    "end": 683.84,
+    "speaker": 0,
+    "text": "Like that. And then, what does this simplify to? Two plus one, thank you. Yeah, three, fine addition, that's my bad. And then lambda calculus, I'm gonna write out the same thing, but in the special notation, which is just lambda x dot x plus one. And this reduces two, or simplifies two, sorry. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 687.42,
+    "end": 711.6,
+    "speaker": 0,
+    "text": "Fantastic. Okay, this pen is giving it. Ooh. Okay, this is the idea of lambda calculus then, is we just want to have these anonymous functions and we want to apply them. Yeah. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 727.49,
+    "end": 773.93,
+    "speaker": 0,
+    "text": "It's a bit more visible in it. Okay, yeah, so we just wanna take, yes? Yeah. So because we're going to be talking about anonymous functions and applying them all over the place, you can imagine that if we're gonna be applying functions often, it's gonna get annoying to write brackets every time. So when we get to the syntax of the lambda calculus, we're just going to write a space instead. So this means this thing applied to two, and we're just forgetting about these brackets. So let's now, I think we're happy to talk about the actual syntax of the lambda calculus. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 780.67,
+    "end": 832.89,
+    "speaker": 0,
+    "text": "And the idea I want you to have in your heads is that lambda calculus is gonna be defining anonymous functions with variables and then just applying them. So let's call it syntax. So we think of it as a programming language. I'm gonna use, have you seen B and F grammars before? Is that meaningful? Okay, so I'm gonna define lambda terms. So terms are going to be expressions that we build up with these symbols are the following. So I'm gonna write this for set lambda of terms. And this means m and n are gonna be things that range arbitrarily over our set of lambda terms. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 834.99,
+    "end": 865.08,
+    "speaker": 0,
+    "text": "And then this says they take one of the following forms. either x, where x is a variable, hello, or it's going to look like this, or it's going to look like this. So this is our way of defining anonymous functions, and this is our way of using them. This is function application. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 882.46,
+    "end": 901.12,
+    "speaker": 0,
+    "text": "Okay, again, so we can think of Haskell of how you would write these functions. It looks like lambda x m, and then application here is the same as in Haskell, where instead of m of n, you just write mn next to each other. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 911.79,
+    "end": 943.44,
+    "speaker": 0,
+    "text": "Now this is a very formal way of writing them, and we talked earlier about wanting to get rid of brackets, because otherwise we'll just be writing them all over the place. So we're going to write a lot of syntactic sugar to avoid having to write these very large terms. So when I write something like m, n, p, we're going to interpret that as actually being m applied to n, and then the result of that applied to p. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 945.38,
+    "end": 986.65,
+    "speaker": 0,
+    "text": "So we say that application is left associative, which means that, try to bracket it. Another thing is when we want to write multiple lambda abstractions in succession, wanna abstract over multiple variables, we'll just write them like this. and that will mean we've actually done lambda x dot, lambda y dot, lambda z dot n. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 989.45,
+    "end": 1022.87,
+    "speaker": 0,
+    "text": "The brackets match, yeah. I think that was a third piece of sugar. Oh yeah. just to be explicit, when we write x.mnp, this is going to be the same as if we had written lambda x.mnp. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 1023.95,
+    "end": 1034.36,
+    "speaker": 0,
+    "text": "So everything after the dot is going to be all bracketed together. And then could someone tell me how this what this is syntactic sugar for? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1045.97,
+    "end": 1048.86,
+    "speaker": 1,
+    "text": "Which one, sorry? ",
+    "model_probability": 0.9876
+  },
+  {
+    "start": 1050.18,
+    "end": 1076.82,
+    "speaker": 0,
+    "text": "And now. Yeah, so, yep. Yeah, cool, fantastic. Okay, and we can see that that term is probably a lot more readable than this big bulky thing. What else do we have? ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 1096.94,
+    "end": 1133.09,
+    "speaker": 0,
+    "text": "Okay, to be explicit about that last one, when we write this, it's not the same as writing this, okay? Those are two different terms because this is bracketed like that. But quite quickly you'll get used to reading lambda terms and de-showing them as you need. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1135.83,
+    "end": 1177.39,
+    "speaker": 0,
+    "text": "Now we have the syntax of terms. Often we're gonna wanna talk about subterms. So if we take this term for example, then M is a subterm of this one, N is a subterm of this one, And essentially any sub exception of a term that is itself a term is going to be called a sub term. Things that aren't sub terms is nonsense stuff like that, which doesn't make any sense or that these aren't sub terms because they don't really mean anything. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1182.53,
+    "end": 1230.19,
+    "speaker": 0,
+    "text": "with our functions and we had this idea that we wanted to simplify functions. So obviously we need to know how do we simplify lambda expressions. By the way, any questions so far? Would x be a subterm? x be a what? Subterm of x. Oh, good question. No, x is not a subterm. Assuming it didn't appear in that. So if I wrote lambda x dot y, then y is a subterm, but x is not a subterm. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1232.01,
+    "end": 1286.69,
+    "speaker": 0,
+    "text": "Yeah. Everyone see why? Cool. So we wanted to talk about simplifying lambda expressions and we wanted to use our intuition from mathematics. And it should come from here, right? Is we want to, whenever we have this function abstract over a variable and we apply it, we wanna just substitute the thing we're applying to for that variable. So let's look at a simple example is if we have something that looks like this, lambda x dot x, and we apply it to some term m. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1288.07,
+    "end": 1319.63,
+    "speaker": 0,
+    "text": "And we want this to, I'm gonna write a twiddle for now. We want this to be m, right? Because we're going to take our x, it's gonna be m and then substitute it for x. Now the thing is m and laminar x dot xm are two syntactically different terms. So we can't say they're equal because that's nonsense. They're clearly not equal. So instead we want to say that this reduces. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1321.23,
+    "end": 1357.39,
+    "speaker": 0,
+    "text": "And the idea is that this arrow is noting a step of computation. So I would write more generally that this reduces to m with x replaced by n. That's the idea we're going for, but it turns out you need to do a bit of legwork to make sure this is any sort of definition that makes sense. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1362.2,
+    "end": 1383.85,
+    "speaker": 0,
+    "text": "but it's the idea I want you to have in your heads is that applying a function, we just substitute the variable. Now, why is this a headache? Well, if we work with this informal idea of replacing x by n, then what happens if we have a term that looks like this? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1405.27,
+    "end": 1436.54,
+    "speaker": 0,
+    "text": "Yeah, right. Y is a variable. But intuitively, it's not gonna be the same as this variable. But if we perform a reduction, can someone tell me what this would reduce to? Yep. And this is sort of strange, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1436.58,
+    "end": 1469.71,
+    "speaker": 0,
+    "text": "Because y here is like a variable that isn't corresponding to this one. And yet after we perform a reduction, suddenly this y is now pointing to this y. This is a problem called variable capture. And it happened, and it's a bug in, I'm sure you probably came across in WAC. where you would have some variable that was pointing to something else, you enter a new scope and then suddenly it's pointing to the thing in the new scope. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1475.65,
+    "end": 1518.48,
+    "speaker": 0,
+    "text": "So the first thing we're going to do is track this idea of how do we know what variable is which? So even though we've written y here, our intuition is that they're gonna be different variables So the first thing we're going to write is this notion of being a free variable. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1519.79,
+    "end": 1545.4,
+    "speaker": 0,
+    "text": "So in this context here, y is gonna be a free variable because it's not bound by anything. So let's write a definition. The set of free variables. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1557.94,
+    "end": 1593.39,
+    "speaker": 0,
+    "text": "So what are the three variables of a term? And I'm gonna write the set like this. So three variables of a term that is just a variable. It's gonna be the set with that variable. What else do we have? Well, we have applications. By the way, we're defining this by recursion on terms. Does that make sense why? Because terms are an inductive structure. So you can do reduction or induction of inductive structures by just handling each case. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1598.51,
+    "end": 1632.11,
+    "speaker": 0,
+    "text": "If we have an application, we're just gonna take the union and then Here's the fancy bit is if we abstract some variable over a term, we want to take all the free variables of that term, but get rid of the one we just abstracted. This meaning set minus. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1638.42,
+    "end": 1659.16,
+    "speaker": 0,
+    "text": "So now what we have is a way to formally understand that this y is currently free, but after we perform the reduction, it's suddenly been bound, hence it's being captured because it's not free. Okay, I left it there. Any questions so far? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1685.97,
+    "end": 1721.2,
+    "speaker": 0,
+    "text": "Yeah, so this, again, isn't formal. And this is the problem with this informal definition. So the idea is that we want our notion of reduction, which is our computation, to be, I abstract over a variable x, and then I replace every occurrence of x by m. And that's what we say in general. but then if we just take that informal definition and we replace every occurrence of x by the thing we're applying to, y, suddenly we've captured y when we reduce it. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1721.7,
+    "end": 1735.86,
+    "speaker": 0,
+    "text": "So it's not that this does reduce to that, it's more saying we want to avoid this case. Does that make sense? Anyone else? Cool. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1747.47,
+    "end": 1810.7,
+    "speaker": 0,
+    "text": "So with this notion of free variables, obviously we have a notion of bound variables then. And these are going to be variables that are bound by lambda. You know, things appear between lambda and the dot are what we say are bound by lambda. um we could define a set of bound variables as well um but in the moment we're going to see it's not actually a well-defined one and you get complicated things where say in this expression you know y is a bound variable but it's also a free variable and these are things we want to avoid So intuition for this term is that this y that is bound here is referencing like a different variable to whatever this y was. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1813.38,
+    "end": 1847.15,
+    "speaker": 0,
+    "text": "Does that idea make sense? I know it's very wishy-washy. So what we want to do is have a way of looking at terms that lets us make explicit that we consider this to be different. And that's what we call alpha equivalence. In my opinion, like most things in maths, it's a scary name for a very intuitive idea. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1847.71,
+    "end": 1880.33,
+    "speaker": 0,
+    "text": "The alpha is literally just to distinguish it from another thing called beta. an equivalence just meaning we can think of them as the same. There will be more things in this course where things will have a scary name. And in my opinion, it's almost always a very easy or intuitive idea. So if you don't, if the name looks scary, just read the definition and it's usually fine. So alpha equivalence, we want this sort of term to make explicit that this y is different to this y. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1883.02,
+    "end": 1914.22,
+    "speaker": 0,
+    "text": "So all we say is, for example, we can then explicitly rename bound variables. So if we have lambda x dot x, then we say that's alpha equivalent to lambda y dot y. Right? I mean, I'm assuming you've seen alpha equivalents before. Yeah. Now the main thing about equivalence is we still want to avoid this variable capture issue. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1915.5,
+    "end": 1958.47,
+    "speaker": 0,
+    "text": "So if I have a term lambda x y dot x y, that's not gonna be alpha equivalent to lambda y y dot y y. because these y's are both going to be above this one, not above this one, whereas in this term, they're each pointing to different variables. So the general definition of alpha equivalence, I think I've written it here. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1963.77,
+    "end": 2000.94,
+    "speaker": 0,
+    "text": "Yeah, this is another thing that's annoying is that that is valid, but it just means that because we've, because this D sugars to this. Yeah, and part of alpha renaming is to try and avoid this because it feels like an ad hoc solution to writing this sort of term. The reason I would think this y binds to this y is because if I use Haskell and I write lambda yy dot y, then I tend to assume it's the most recently bound thing. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2005.08,
+    "end": 2069.0,
+    "speaker": 0,
+    "text": "This one. Someone wanna tell me how this reduces? It's fine, I haven't defined reduction yet. Hm? Yeah, so the first step, right, because it brackets like that, we see these two. but this y doesn't appear anywhere in there, right? So then it just, like that. And then, nn. Again, this is all what alpha equivalence is trying to avoid, which is, this is called variable shadowing, because an old name has been also bound by a new name in a scope. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 2099.68,
+    "end": 2141.59,
+    "speaker": 0,
+    "text": "One thing when preparing is I couldn't find a definition of alpha equivalence that you could give before defining substitution, but you tend to define substitution with alpha equivalence in mind. So this first definition of alpha equivalents, I can only give on vibes. Alpha equivalents, M and N are alpha. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 2143.53,
+    "end": 2189.94,
+    "speaker": 0,
+    "text": "That's short for alpha equivalent. When, what, well. I can perform a sequence of renamings of bound variables in M and until this. ",
+    "model_probability": 0.9938
+  },
+  {
+    "start": 2209.47,
+    "end": 2243.66,
+    "speaker": 0,
+    "text": "As I said, vibes-based definition. Yeah, I hear it. Uh, I could show an example of why that, and renamings here is that idea before bound variable and replace changing its name and changing all the occurrences of that bound variable's name. Any questions about this definition? Cool. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 2244.38,
+    "end": 2279.13,
+    "speaker": 0,
+    "text": "What were the examples? We had lambda x y dot x y is alpha equivalent to x b dot x b. The sequence is one long and the renaming is y to b. Here's a slightly more interesting one. ",
+    "model_probability": 0.9961
+  },
+  {
+    "start": 2294.28,
+    "end": 2299.81,
+    "speaker": 0,
+    "text": "Can anyone walk me through what steps of renaming I would have to do to prove this? ",
+    "model_probability": 0.9892
+  },
+  {
+    "start": 2311.7,
+    "end": 2318.85,
+    "speaker": 0,
+    "text": "Yep. So equals alpha equals alpha and then equals alpha. ",
+    "model_probability": 0.9594
+  },
+  {
+    "start": 2331.54,
+    "end": 2373.64,
+    "speaker": 0,
+    "text": "And this is the reason I said it was a sequence of renamings, not just all the renamings at once, is because if you want to swap variable names, you need to do them one at a time, otherwise you would capture them. Is everyone happy so far? How am I doing speed by the way? Because I know this stuff very well so I might be going too fast or I might be going too slow to compensate. Is everyone okay so far? Bit too slow, sure thing. Fantastic. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 2409.41,
+    "end": 2448.38,
+    "speaker": 0,
+    "text": "Okay. So our first definition of substitution is gonna be one into account for the alpha rename. So substitution one. We're defining this thing. And that means substitute all occurrences of x for n in the term n. Some people also use the notation that, which I find perhaps more intuitive, but it takes up more space to remember this stuff. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 2448.5,
+    "end": 2572.68,
+    "speaker": 0,
+    "text": "I just sort of think of dividing by x and times n because it works. So x with n for x, that's gonna be n. y with n for x is going to be y, assuming that y doesn't equal x. And then we'll do the other easy one, which is m and n, m and m prime. Any guesses what this would be? Yep. So if we wanna substitute for x, we just descend the terms. Okay, now the next one, what if we have lambda? Well, yeah, lambda x Now, given the stuff we said before about alpha renaming, we obviously can't just put M substitute with M for X because what if Y is free and then suddenly it becomes bound here. So if Y is free variable of N, Yeah, this one can be even easier, sorry. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 2574.28,
+    "end": 2583.45,
+    "speaker": 0,
+    "text": "If y is not equal to x, then what is substitution here? Well, we can just immediately go under. Hmm. ",
+    "model_probability": 0.982
+  },
+  {
+    "start": 2596.65,
+    "end": 2629.41,
+    "speaker": 0,
+    "text": "Yeah, I think what I've written down here is wrong because there is variable capture here, but... Okay, so if y is not a free variable of n, then you're right, we can do the obvious thing, which is lambda y dot y not equal x. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 2631.31,
+    "end": 2632.91,
+    "speaker": 1,
+    "text": "So it just sends itself. ",
+    "model_probability": 0.9113
+  },
+  {
+    "start": 2634.91,
+    "end": 2665.82,
+    "speaker": 0,
+    "text": "Uh, if we end up with this sort of thing. Uh, and we wanna look at either of these cases. First, what if y is x? then we know that any occurrence of x and m is gonna be bound here. So there's no way that it could occur free for x to be substituted. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 2666.94,
+    "end": 2681.71,
+    "speaker": 0,
+    "text": "So y equals x, then lambda y dot m. Does that make sense why? Cool. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 2710.05,
+    "end": 2740.75,
+    "speaker": 0,
+    "text": "So last case, the most pathological case, is if we have lambda y dot n. We wanna substitute n for x, but y occurs free in n. We want to avoid variable capture, otherwise this one is going to capture any occurrence of n. So let's pick a new variable, let's call it z, and what do we have to do? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2740.78,
+    "end": 2791.78,
+    "speaker": 0,
+    "text": "Well, first we have to take n and replace every y by z. And once we've done that, we can do n for x, which will run to this definition because it's not gonna be free, where z I can go over examples of why it has to be this strict, but it was just like pathological cases where you would lose marks for writing your code like that. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2793.02,
+    "end": 2820.94,
+    "speaker": 0,
+    "text": "But essentially Z is just a fresh variable. That's where you go as we say, we assume some new variable and then we substitute against that. Now the easier definition, which is what we use in practice, is by first adopting this thing called Barondrette's Convention. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2844.33,
+    "end": 2884.7,
+    "speaker": 0,
+    "text": "Ballandrette's convention, out of interest. Ballandrette was Stefan's thesis supervisor. The idea is that we want to avoid all these pathological cases and we just assume that whenever we think of terms, free names and bound names just occupy different spaces. So, free and bound variables are So basically all of the previous dialogue about alpha equivalence and dealing with variable capture is avoided by we go, let's just assume that isn't happening. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2885.82,
+    "end": 2956.98,
+    "speaker": 0,
+    "text": "So whenever you write something like x dot x applied to x, in our minds, we silently perform alpha conversion to say, well, actually we meant this sort of thing. and then it makes sense that this would reduce to x or whatever. Uh, with Brown-Rez convention, substitution then is a lot simpler. Because literally write that No, there's a case missing. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 2978.07,
+    "end": 3019.34,
+    "speaker": 0,
+    "text": "How many things we can just write that under bound directs convention because Y is bound here. We know it can't occur free in N because we assumed that free and bound variables are separate. And if you were writing this with concrete terms and Y did appear here, then you just, in your mind, quickly perform alpha conversion and replace Y with something new. Any questions so far? I'll go here first. Every variable after a lambda is unique. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3021.9,
+    "end": 3059.83,
+    "speaker": 0,
+    "text": "I guess it's unique with respect to what though, because I could write lambda x y dot. And these would all be unique, but then I could still write x here. Or maybe y is the one that actually causes problems. But yeah, the way you solve this in like, I think in WAC is you just use fresh name generators. And every time you lambda scratch something, you just make sure it's a new name. Important to note, free variables are never changed by alpha renaming. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3060.55,
+    "end": 3073.11,
+    "speaker": 0,
+    "text": "If I didn't say that before, because free net variables point to something that we don't know what it is yet. Whereas bound variables, we know this Y points to this Y, so we can rename it. Any other questions? Oh, yes. . ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3074.38,
+    "end": 3078.96,
+    "speaker": 2,
+    "text": "I'm sorry? . Yep. . Yeah. ",
+    "model_probability": 0.9631
+  },
+  {
+    "start": 3135.55,
+    "end": 3202.97,
+    "speaker": 0,
+    "text": "Yeah, it does. I understand what you mean now, yeah. Yeah, and that was the idea of alpha converting in your head. So the issue is that this doesn't obey Baron-Drex convention because y is free here and yet it's bound here. Yeah? Yeah, y is a bound variable in this whole term, but as soon as we look at this subterm, y is now free, and we want it to be sort of a composite way of working. But I get your point is that y is eventually bound in the greater term. What would I do? ",
+    "model_probability": 0.9971
+  },
+  {
+    "start": 3219.22,
+    "end": 3220.88,
+    "speaker": 0,
+    "text": "Yeah, that's exactly the one today. ",
+    "model_probability": 0.9752
+  },
+  {
+    "start": 3236.61,
+    "end": 3255.56,
+    "speaker": 0,
+    "text": "Doesn't it need to alpha convert? Yeah. Would you not alpha convert during this reduction step? Oh yeah, I mean at this point, right, because. Uh-huh. Yeah. Yeah. ",
+    "model_probability": 0.9979
+  },
+  {
+    "start": 3314.36,
+    "end": 3335.36,
+    "speaker": 0,
+    "text": "No, but then it would be done during this step, right? Yeah, because y is free now. So when it's lambda y dot. That's the point. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 3375.87,
+    "end": 3377.55,
+    "speaker": 0,
+    "text": "Oh, true, yeah. Curfew, all bound. ",
+    "model_probability": 0.9899
+  },
+  {
+    "start": 3423.67,
+    "end": 3468.7,
+    "speaker": 0,
+    "text": "I mean, all of this is just, alpha rename is really annoying. Free and bound variable is really annoying. We try and assume as much as possible that this isn't gonna happen. Anytime you have variable names clashing, I would just always alpha convert. In my mind, I always alpha convert between them, yep. The alpha conversion is in the first step because we want to substitute this term in lambda y, and then it's because y even occurs bound in here, we have to do some reenacting. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 3476.17,
+    "end": 3493.05,
+    "speaker": 0,
+    "text": "Well, it's this one. I'm not saying this is alpha conversion, but this is alpha conversion here. Yeah, so then it should be y, I think. ",
+    "model_probability": 0.9984
+  },
+  {
+    "start": 3523.27,
+    "end": 3525.33,
+    "speaker": 0,
+    "text": "Yeah, I think I was going to check that out, actually. ",
+    "model_probability": 0.9925
+  },
+  {
+    "start": 3527.89,
+    "end": 3548.65,
+    "speaker": 1,
+    "text": "It doesn't seem like you need to alpha convert in, like, this at all. Because in the second step, you did the production series, right? You did it. Why doesn't it find anything? Because, like, the inner Y is found in the inner Y. Here you mean. You need to do that. ",
+    "model_probability": 0.997
+  },
+  {
+    "start": 3556.23,
+    "end": 3582.4,
+    "speaker": 0,
+    "text": "Yeah, so it's like this is that suddenly this y gets captured by this y because it's replacing x in this read x. Yeah, I do remember in the notes, I was running them through and this was an annoying case question. ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 3588.79,
+    "end": 3595.47,
+    "speaker": 1,
+    "text": "conversion has to take hundreds of seconds. That much is our definition of substitution. ",
+    "model_probability": 0.9451
+  },
+  {
+    "start": 3634.39,
+    "end": 3645.32,
+    "speaker": 2,
+    "text": "So the only why that I can see in this production step is the one that is built on ICIS. ",
+    "model_probability": 0.9103
+  },
+  {
+    "start": 3663.3,
+    "end": 3705.24,
+    "speaker": 2,
+    "text": "I can also rename all the wires inside N, but I don't have to R it. So that's a great, great solution. This is an easy solution. I agree with you that I looked at the time, should we take 10? ",
+    "model_probability": 0.5967
+  },
+  {
+    "start": 3733.02,
+    "end": 3748.56,
+    "speaker": 0,
+    "text": "When it comes to pace, do you want me to go faster? Because I'm happy to, but if people are lost, then hands up if you want me to go faster. Okay, I think then I will probably maintain course, given that's only half. ",
+    "model_probability": 0.7408
+  },
+  {
+    "start": 4333.32,
+    "end": 4344.75,
+    "speaker": 1,
+    "text": "I don't know clearly why it's not the same as . So . And it's just the things that you get out of . And it basically smells like . And then it gets . Yeah. ",
+    "model_probability": 0.2882
+  },
+  {
+    "start": 4363.93,
+    "end": 4404.02,
+    "speaker": 1,
+    "text": "When we talk like, it's more like, it would be like a single sentence. ",
+    "model_probability": 0.3877
+  },
+  {
+    "start": 4404.06,
+    "end": 4415.85,
+    "speaker": 1,
+    "text": "It would be a single sentence. Or like, if you could say it like that. Yeah. Or it doesn't matter. It doesn't matter, right? It's more of the... Oh, yeah, yeah, yeah. He said we're working on it. ",
+    "model_probability": 0.8597
+  },
+  {
+    "start": 4487.19,
+    "end": 4518.24,
+    "speaker": 0,
+    "text": "Okay, I'm gonna get started again. Just all this free and bound stuff. The ultimate point is that we kind of want to set it up so that we never have to worry about these cases. So first step is Baron-Dreyfus convention. And then if you start substituting and you get to this point here, and suddenly like Y is in N here, then you just alpha rename this in your mind before you perform the substitution. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 4518.9,
+    "end": 4552.7,
+    "speaker": 0,
+    "text": "Or if Y is here and Y is bound in there, just keep performing alpha renaming so that you never have to worry about weird cases. And yeah, the issue is bound directs convention isn't a well-defined thing. It is a convention, it's not a formal definition. There are ways you can write lambda terms or set up the syntax of the lambda calculus so that you never have to worry about thing and that's how they're implemented in programming languages. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 4553.58,
+    "end": 4568.07,
+    "speaker": 0,
+    "text": "And that's, they're not, you know, they wouldn't come up later in the course and I wouldn't want to waste your time. But I might write a section of them in the notes if that is of any interest. Yes? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 4594.52,
+    "end": 4601.68,
+    "speaker": 0,
+    "text": "Okay, all of this annoying technical preamble was literally just to be able to write this. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 4614.54,
+    "end": 4646.14,
+    "speaker": 0,
+    "text": "Was our final original notion of simplifying functions, which is gonna be called this one-step beta reduction. What is it? Well, with boundary representation and definition substitution, it is simply that if we have a function and we give it an argument, then we just substitute the argument into the body of the function. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4651.8,
+    "end": 4686.24,
+    "speaker": 0,
+    "text": "A little subscript, beta, just saying it's beta reduction. Again, the name isn't anything deep. Beta is literally just to distinguish it from alpha conversion. The formal thing, I will use the subscript beta for the arrow, but very quickly I'll start forgetting to add the subscript. But unless otherwise stated, this arrow is always the beta reduction arrow. Yeah, let's look at some examples. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4686.36,
+    "end": 4717.29,
+    "speaker": 0,
+    "text": "So everyone happy with that definition of reduction? Cool. So example, let's define a function called swap. And what is it going to do? It's going to take x and y and then swap them about. So how does this behave? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4726.41,
+    "end": 4727.79,
+    "speaker": 0,
+    "text": "What's the first step of reduction? ",
+    "model_probability": 0.9974
+  },
+  {
+    "start": 4756.35,
+    "end": 4794.52,
+    "speaker": 0,
+    "text": "Yeah. As in? This bracket you mean? You don't need to but you can if it helps with on the bracketing of terms. Again, I realized in my example, you should be able to apply this anywhere in the term, because otherwise it wouldn't make this. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 4797.32,
+    "end": 4834.2,
+    "speaker": 0,
+    "text": "What I mean by that is, suppose that m reduces to n, Then this meaning implies lambda x dot n reduces to p reduces to n p n. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4841.66,
+    "end": 4889.2,
+    "speaker": 0,
+    "text": "So this is included in the definition of beta reduction. Sorry for forgetting that. So this is the basic computational step. It says you substitute function arguments into the function. And this says we can form that reduction anywhere in a lambda term. This sort of thing will probably come up quite often. And it's called either a congruence on terms or a compatible closure. both of those words meaning take this thing and do it everywhere in terms. With that in mind, can someone tell me what the first step of reduction is here? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4889.58,
+    "end": 4947.38,
+    "speaker": 0,
+    "text": "Yep, substitute x for what? And then we just do the same again. Mm-hm. And then we do that. Okay, cool. So it might be helpful just to annotate that here, we saw these two first. So we contracted M against this, and then we saw lambda y would be replaced with M. and that ended up at the final term. Any term that has this shape, so that is lambda abstraction applied to n, we're going to call a redux, short for reducible expression. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4948.79,
+    "end": 4979.95,
+    "speaker": 0,
+    "text": "And the thing it reduces to is gonna be its reduct. What else is interesting? Ooh, let's do that. Could someone tell me, I want to write something that's like function composition. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 4981.13,
+    "end": 5016.53,
+    "speaker": 0,
+    "text": "So, I want to write function composition. such that comp of, what would it be, g f equals, yeah, do g and do f. Sorry, the other way around. Or something like that. Because someone's telling me how to write this function. Mm-hmm. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 5031.58,
+    "end": 5067.0,
+    "speaker": 0,
+    "text": "Yeah, when I realized that. That's basically it, right, is you want to take g and f and then do g and f, but obviously we need to do it to something, so we're just going to add an x as well. mass function composition. So we take two functions and then run one after the other. Do you want to see how this reduces against two functions or are we happy with how it works? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5081.17,
+    "end": 5116.75,
+    "speaker": 0,
+    "text": "Now, If I write this term, there are two redexes here. This is the first redex, or I mean, this is one redex, and then this is the other. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 5119.72,
+    "end": 5127.99,
+    "speaker": 0,
+    "text": "So far with our definition of beta reduction, we can just pick either. So we can either do this one first. What would this reduce to? ",
+    "model_probability": 0.9912
+  },
+  {
+    "start": 5140.7,
+    "end": 5156.49,
+    "speaker": 0,
+    "text": "Yeah. P. or the other one where we could track this one. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 5180.29,
+    "end": 5227.53,
+    "speaker": 0,
+    "text": "Yep, obviously, sorry, my bad. Yep. Okay, and it's fine that we have, well done, we have multiple choices for redexes, or which one to reduce. It might be worth saying now that there's the, you know, you could ask, we have sort of a diverging computational path here, but it's a property of the lambda catalyst that you can always end up joining these two by just reducing further. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5228.07,
+    "end": 5260.83,
+    "speaker": 0,
+    "text": "That's a thing, a property called confluence, sometimes also called the diamond property, because you can imagine you know, some common term queue that these, and this forms a diamond. It's also called Church-Rossa. There's lots of names. The main point of that being that it doesn't matter which way you reduce, you can always get back to the ones you originally did. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5309.44,
+    "end": 5370.68,
+    "speaker": 0,
+    "text": "Given the one-step beta reduction, we might want to perform many reductions. See, we can define the usual transitive and so on closures. So if I write n reduces plus n, that means Okay. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5370.82,
+    "end": 5402.2,
+    "speaker": 0,
+    "text": "In words, this means transitive closure of beta reduction is just, well, if there's one step and we could do the one step, but if we've done other steps, we can combine them together. So this just says m in one or more steps reduces to n. Um, star is the reflexive transitive closure. I could write it out, but it just means in zero or more beta reduction steps. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5402.4,
+    "end": 5440.43,
+    "speaker": 0,
+    "text": "So the main property this has over this is that M always reduces to itself. Now this is the thing that in the notes is called beta reduction. So this one is called the one step beta reduction, and then the zero or more steps. That's what people usually call beta reduction. Last one is we want to start thinking of equivalence of terms with respect to beta reduction. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5441.21,
+    "end": 5486.38,
+    "speaker": 0,
+    "text": "So that's roughly speaking saying that if beta reduction is our way of doing computation, we wanna say two programs are like computationally equal. And the way we can do that is we write this thing m is beta equal to n. And the intuition I want you to have in mind is just that there's some common term they can reduce to or I can find some way to reduce them to eventually get them to the same value. This is defined as saying m is equal to itself if m reduces to n. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5489.86,
+    "end": 5563.59,
+    "speaker": 0,
+    "text": "m is beta equal to n if m equals n and the last one is m So we want this to be like an equivalence relation. Hello? Yeah. There are in the notes. I think it would be an interesting exercise proving that the two are equivalent. There's also a thing of going, so in the notes, equality is defined like that. And then one may wonder, well, this is a transitive relation. Why do we repeat transitivity here? That's a good exercise. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5565.11,
+    "end": 5568.65,
+    "speaker": 0,
+    "text": "See whether or not you need this transitivity here. ",
+    "model_probability": 0.9956
+  },
+  {
+    "start": 5582.83,
+    "end": 5606.62,
+    "speaker": 0,
+    "text": "Oh, no, because we have it here as well, yeah. Hello. Yeah, if you have the stuff. Hello. Yeah. From what? ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 5622.53,
+    "end": 5645.28,
+    "speaker": 0,
+    "text": "Yeah. I mean, that's why I think it's a cool exercise, is to prove that you need this. Yeah. Yeah. So, it's like the question says, prove or disprove that these are equivalent. one with and one without. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 5663.65,
+    "end": 5677.7,
+    "speaker": 0,
+    "text": "Everyone happy with this notion of beta equivalents? reduction of plus? Yes. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 5677.94,
+    "end": 5682.82,
+    "speaker": 2,
+    "text": "Yeah, so n goes to n, should- should- does it have the plus sign or not? ",
+    "model_probability": 0.9857
+  },
+  {
+    "start": 5685.28,
+    "end": 5733.7,
+    "speaker": 0,
+    "text": "Uh, yes. So what? You could also have this version. Do you mean? Oh, right. So you have the first sign, yes. Um, Yeah, so there's, if you've heard of fear improvers, which are like programming languages which let you prove mathematical statements, is there's always an argument between representing the transitive closure as this sort of thing, which is like a tree of the transitive closure, or this thing, which is a finite list of, say, n reduced to n, and n reduced to something else, and then that something reduces to something. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 5735.46,
+    "end": 5784.13,
+    "speaker": 0,
+    "text": "I think I've written it as an exercise to prove the two are equivalent. Yeah. Sorry? When it comes to theorem proving, you tend to not worry about like speed more than how easy it is to work with. So sometimes the list representation is easier to work with. Okie dokie. So we have a notion of reduction. And in these terms, we saw that, you know, some terms can reduce. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 5785.55,
+    "end": 5828.96,
+    "speaker": 0,
+    "text": "There are, of course, terms that don't have reductions, such as x or lambda x dot x. We call these The formal definition is M is in normal form if and only if M contains no redexes, i.e. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5831.59,
+    "end": 5864.11,
+    "speaker": 0,
+    "text": "It does not exist in N such that N reduces to N. When you see normal form, you just think I'm done with computation with it. Does this definition make sense? Is there a question? Here, read x's. I'll try and improve my writing. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5865.25,
+    "end": 5899.47,
+    "speaker": 0,
+    "text": "Everyone happy with definition of normal forms? You can give a direct syntactic description of them. Tactic normal forms. If I'm defining a new grammar and I'm using the subscript n to say it's a normal form, what do you have? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5899.53,
+    "end": 5930.15,
+    "speaker": 0,
+    "text": "Well, that's a normal form, just a variable. Lambda abstractions are normal forms. as long as the inner part is also in normal form. And what else? Sorry, the game I'm playing is to try and avoid having any redexes. So the last thing is some applications are going to be not reducible. Obviously we want to avoid anything like this because that's not in normal form. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5934.06,
+    "end": 5972.61,
+    "speaker": 0,
+    "text": "but there are some applications, say like this, where this isn't a redex and if n is in normal form, then so is xn. So more generally, say nn1 dotted with nn, where n than or equal to zero or one, it doesn't matter. This means then that you can imagine, if you think of it as computation, that our application is stuck on a head variable. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5972.73,
+    "end": 6010.94,
+    "speaker": 0,
+    "text": "We call the start of an application a head. We say it's stuck on the head variable because there's no way this can use any of these terms. Again, an exercise has proved that this notion of normal form is equivalent to this. Um, the trick is to say, look for this. Contains no read x's. Um, with either notion of normal forms in mind, they are equivalent. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6012.3,
+    "end": 6026.98,
+    "speaker": 0,
+    "text": "We say M is normalizable. if there's some term it reduces to. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6044.06,
+    "end": 6090.19,
+    "speaker": 0,
+    "text": "Uh, with this definition, this also means normal forms are normalizable. Um, in our computational thinking, and being normalizable means we can run and expect it to terminate. Hey. Yeah, right. Yeah, so the bracketing saves us. Did anyone want me to go over that in more detail? um, the reason this, uh, let's say, come on. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6106.7,
+    "end": 6138.85,
+    "speaker": 0,
+    "text": "m and n are both normal forms. The reason this is also a normal form is because this, remember, is syntactic sugar for that thing. So you might think there's a read x here, but remember this term can't see that. It's stuck in the brackets with x. MS-NormalizableFN can reduce form. What else is there? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6159.37,
+    "end": 6196.48,
+    "speaker": 0,
+    "text": "m is strongly normalizing if constant So M is strongly normalizing if no matter what way we choose to reduce it, picking any redexes, that's always going to end up reaching a normal form. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 6197.8,
+    "end": 6234.7,
+    "speaker": 0,
+    "text": "So it just means M is strongly normalizing if I can evaluate it any way I like and it will still reach a normal form. Not all normalizable terms are strongly normalizing. Actually, I'll get on to, being more concrete, so M is non-terminating if it is not normalizable. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6236.2,
+    "end": 6299.01,
+    "speaker": 0,
+    "text": "So this is similar to Turing machines. if you start running computational and you start doing beta reductions, you'll never stop because it's not normalizable, so we call it non-terminating. Yep, that's those definitions. Okay. I've said something is non-terminating, but we should actually check that there even is something that's non-terminating, because by the looks of things, beta reduction is a really simple rule, and we have a very simple syntax, and somehow we're going to end up with a non-terminating term. So, I might just write the term and then I'll explain why it's non-terminating. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6299.57,
+    "end": 6334.94,
+    "speaker": 0,
+    "text": "I have written a more way how you develop the term. There's this term called omega. And it looks like this. And if you were to run it, you would realize there's no way I can reach a normal form with it. Why is that? Well, lambda x dot x. This is alpha equivalent to lambda y dot y y. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 6335.34,
+    "end": 6373.13,
+    "speaker": 0,
+    "text": "And then it beta reduces to lambda y dot y y lambda y dot y y. And that's alpha equivalent to omega. Are we convinced that this will then run forever? Cool. The main reason that it runs forever, this is, again, vibes-based, and it's at the core of how you do looping computation in lambda calculus, is self-application. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 6373.75,
+    "end": 6414.5,
+    "speaker": 0,
+    "text": "The idea is that we have a redex here, and we want to, every time we reduce, regenerate the redex. So because we take x and apply it to something, we know we're always going to get a redex, and it just so happens the term we're doing will continually do the same. Where are we on? I think then the last one to look at, So we have a non-terminating, which means, okay, we've got computations that can run forever. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 6415.14,
+    "end": 6447.47,
+    "speaker": 0,
+    "text": "However, this looks quite useless in my opinion, like we just sort of spin and it does nothing. So what we want to do now is create a term, a looping term that does stuff. Okay, like you imagine in a for loop or a while loop, while true, do this thing. We're gonna use this as our base. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 6447.87,
+    "end": 6478.29,
+    "speaker": 0,
+    "text": "Like it's gonna look something like this, but what does doing something mean? Well, in Lambda calculus, doing something means like function application. So doing equals functions. Okay, so let's say, we want to do f in every loop. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 6480.76,
+    "end": 6536.21,
+    "speaker": 0,
+    "text": "Anyone wanna hazard a guess of how we can get that? So f is a function I want to continually do. Mm-hmm. pre-reading. Nice though. So that's exactly the one, right? Is that if I just take, well, as you said, that thing, Now, why does this work? ",
+    "model_probability": 0.9956
+  },
+  {
+    "start": 6536.59,
+    "end": 6579.78,
+    "speaker": 0,
+    "text": "Because similarly, we're going to reduce the end of it. I might just cross sanity alpha rename here. Lambda x.fxs, and this is going to reduce to what? F of lambda y.fy y. Okay, and this is going to, I hope I've convinced you that this is the original term. ",
+    "model_probability": 0.9906
+  },
+  {
+    "start": 6581.1,
+    "end": 6592.77,
+    "speaker": 0,
+    "text": "So this is just going to run to f of f of that, and that's going to reduce in many steps to f many times, f of the original term. ",
+    "model_probability": 0.9982
+  },
+  {
+    "start": 6604.8,
+    "end": 6637.69,
+    "speaker": 0,
+    "text": "No, so what if f was just lambda x dot, well, let's use new variables. Well, what if, yeah, so let's say f was lambda a dot b, where b is a free variable. Then f of this thing, let's call it yf, then f of yf, We could keep reducing YF, but we could also just do this redex. ",
+    "model_probability": 0.9949
+  },
+  {
+    "start": 6647.44,
+    "end": 6683.33,
+    "speaker": 0,
+    "text": "Well, no, even better, we just throw it away and we go, okay, well, we're doing B now. So even though YF, remember, we can pick any redex we like. So we just go, okay, I actually wanna do this redex and I throw away the looping computation. Yeah, I won't keep you all much longer. I think probably here is a good place to stop. I will try and round off the story next time. Okie dokie, have a nice evening. ",
+    "model_probability": 0.983
+  },
+  {
+    "start": 6926.0,
+    "end": 6928.9,
+    "speaker": 1,
+    "text": "If I have this, I can apply the . ",
+    "model_probability": 0.1405
+  },
+  {
+    "start": 6964.32,
+    "end": 7097.76,
+    "speaker": 0,
+    "text": "eating samples, you have an opposite So you see that this I think in the continuation bit, the xx bit, if you do lambda v dot xxv, that basically thunks the conversation. ",
+    "model_probability": 0.092
+  },
+  {
+    "start": 7099.22,
+    "end": 7104.72,
+    "speaker": 1,
+    "text": "Okay. Yeah, there's a cool episode. I want, I promise. ",
+    "model_probability": 0.0241
+  },
+  {
+    "start": 7134.44,
+    "end": 7139.75,
+    "speaker": 2,
+    "text": "so you should play as me. Oh, okay. ",
+    "model_probability": 0.0362
+  }
+]

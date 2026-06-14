@@ -1,0 +1,996 @@
+[
+  {
+    "start": 4.2,
+    "end": 19.17,
+    "speaker": 1,
+    "text": "I had to make sure. Yeah, and then... People responding. Maybe it's a screen problem. Okay. Oh, okay. Okay, okay, okay. Yeah, thank you. ",
+    "model_probability": 0.2318
+  },
+  {
+    "start": 211.57,
+    "end": 241.75,
+    "speaker": 0,
+    "text": "Well, Sorry for the confusion in terms of the arrangement of the lectures, right? ",
+    "model_probability": 0.6285
+  },
+  {
+    "start": 241.77,
+    "end": 272.9,
+    "speaker": 0,
+    "text": "So I've put the latest schedule on and really starting for next week, our number 10 AI fellow, Harry, will come. So this week should be the week that you should have watched some videos about RNNs and tension basics. So there are some questions on asking about essentially the contents, right? So I want to clarify this in terms of these interesting red star titles. ",
+    "model_probability": 0.9954
+  },
+  {
+    "start": 273.56,
+    "end": 303.83,
+    "speaker": 0,
+    "text": "Okay? So, in the notes, right, if you see basically the content with these rest dot titles, then it basically just means that it is non-executable. So, for example, if you look at, for example, like the RNN notes, right, so let's say long, short-term memory LSTM, it still tells you that, okay, so we may ask you questions. in terms of the form of LSTM, right? But then the gradient computation itself is essentially, okay, non-insummable, okay? ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 304.19,
+    "end": 338.12,
+    "speaker": 0,
+    "text": "But later on, if you look at essentially the gated recurrent units, it becomes basically again, okay? So this is inseminable, sequence to sequence models. But then you cannot see this title again. So generative models for sequences. So at this level, it is also a start title. So it means that it is non-inseminable. And the subtitles within this session is also non-inseminable. So this is just one example to show you how to understand this. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 338.64,
+    "end": 373.47,
+    "speaker": 0,
+    "text": "OK, so the Q and A slides, right? So the Q and A slides, I will put essentially the symbol known in signable on that. OK, so for the slide numbers that you've seen these known in signable sign there, then they are all known in signable. OK, any questions? Okay, if not, okay, then we can talk about this week's lecture. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 373.61,
+    "end": 377.89,
+    "speaker": 0,
+    "text": "I need to change to another format, okay? That is easier. ",
+    "model_probability": 0.9894
+  },
+  {
+    "start": 453.21,
+    "end": 494.11,
+    "speaker": 0,
+    "text": "Well, last week we motivated a bit about how to understand diffusion models from the noise perspective. So now we should explain a bit about the design choices, why people actually design the forward and backward in a way that is described in the paper or in the lecture. So I think the easiest way to see this is really also coming back from the VAE perspective. OK, so in VAEs, right, so we will build an elbow distribution, sorry, the elbow objective, where you have some data-like terms and also the KL term from your posterior to your prior. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 494.63,
+    "end": 547.02,
+    "speaker": 0,
+    "text": "But now the posterior is over this sequence of a noisy state, X1 to T, other than a single latent variable. OK, so this explains why you have the... KL term from the Q distribution of x1 to t to give x0 to the pi distribution over x1 to t. So we are just using this latent variable. So now the fetalization procedure comes from the fact that we are assuming, essentially, using the reverse process of your Q distribution Remember, our Q distribution is defined by a forward noising process where you just say, okay, given the previous level's noisy image, let's just keep on adding noise. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 547.81,
+    "end": 585.81,
+    "speaker": 0,
+    "text": "OK, however, if you factorize in that way, then you will notice that in the Q distribution, you will factorize in a way that go from a noiseless image to the noisy image. But your P distribution is actually factorized coming from a noisy image back to a noiseless image, right? So the direction does not match. OK, so that's the reason why you can see in the result in the paper directions why you don't actually compute the KL divergence by factorizing q in the forward direction and then p in the backward direction. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 586.27,
+    "end": 628.01,
+    "speaker": 0,
+    "text": "They actually try to see whether I can actually factorize q in the backward direction as well. OK, so that both p and q, when you factorize things, the direction matches. So that's essentially why we spend quite some time to talk about what essentially is this distribution q of xt minus 1 given xt and x0. OK, so that's the reason why this thing appear. So in the end of the day, if you're going to use the backward factorization structure of the Q-distribution, then the KL divergence can be factorized into this very nice form of, let's say, sum of the aesthetic KL. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 628.97,
+    "end": 666.09,
+    "speaker": 0,
+    "text": "OK, so now we can try to think about what does that mean. So if we look into each of the KL terms in this sum of expected KL, we notice that the Q distribution itself is actually fixed. We define our noising procedure ourselves. We don't train Q distribution. So in this objective, if you look into the KL term, then it means that the only thing that you're going to optimize is the p-distribution, basically your backup generally models parameter theta. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 666.77,
+    "end": 698.51,
+    "speaker": 0,
+    "text": "So Q is a constant in this optimization procedure so that you don't need to compute terms that is actually constant with respect to theta. So that's basically why we are basically just rewriting the KL divergence. from the q-distribution to the p-distribution as some constant. minus some time that you actually need to compute. So that's some constant, C, is actually the entropy, or I would say the negative entropy of the Q-distribution. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 698.88,
+    "end": 735.62,
+    "speaker": 0,
+    "text": "But again, because Q-distribution is something you design and fix beforehand, you don't actually need to optimize it, so you don't need to compute it. We only need the expectation of the log factor process, the P process, under this Q-distribution. OK, so this is essentially why we've got to here. OK, so this is a constant with respect to the problem that you want to optimize. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 736.32,
+    "end": 768.84,
+    "speaker": 0,
+    "text": "OK. So at the end of the day, it's just saying that all this, say, biggest sum of KL time is the same as minimizing, essentially, the sum of all these interest rate log likelihoods for your p model. And then now let's think about what exactly is this minimization procedure. So we do assume Gaussians for our p. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 770.24,
+    "end": 800.27,
+    "speaker": 0,
+    "text": "So let's assume that our p distribution for this predicting xt minus 1 given xt is the Gaussian distribution with some mean mu that is parametrized by a neural network. and some variance, let's say the variance is the sigma squared something for a moment, then essentially the log p is just your L2 loss. Maybe I would say the negative of log p is just your L2 loss. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 800.77,
+    "end": 841.97,
+    "speaker": 0,
+    "text": "So if you are minimizing L2 loss, then the optimal solution is just trying to fit the mean. Okay, so the way to show this is very simple. You just compute the derivative of this objective function with respect to mu. Okay, and then if you compute that, right, so the square form will disappear and you become a linear form, but then the linear form also needs to take into account the expectation over Q. Okay, so this is why you can get the optimal solution for your p models mean, mu of theta equals to getting just the posterior mean. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 844.55,
+    "end": 880.13,
+    "speaker": 0,
+    "text": "Yeah, it is a posterior mean of Q distribution. So here, the posterior here correspond to the case. It's a reverse process. Remember, the Q distribution, you start from X0. You start adding noise. So bigger T means higher noise level. So here, Q of Xt minus 1 given T just says, OK, I have a higher noise level image Xt. I want to understand, let's say, one noise level below. What is the mean of that, say, xd minus 1 noise level image, given that I know the noise level image at time t? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 880.83,
+    "end": 921.92,
+    "speaker": 0,
+    "text": "So this is the ultimate solution in terms of estimating the mean for the p-distribution. Now we can actually start to use the properties of the Q distribution. Remember that the Q distribution itself is essentially just constructed by alien noise. And then you want to go back. So now let's see how we can do it. So we want to compute the expectation of we want to complete the expectation of Xt minus 1 given Xt under the Q distribution. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 923.1,
+    "end": 957.37,
+    "speaker": 0,
+    "text": "So, it is okay for you to just add in one more variable. So, we can add in one more variable X0, as long as the expectation inside is just xd minus 1. So you can do that. Now, according to essentially the rule of distribution factorization, we know that the joint distribution can be factorized as the product of two conditional distributions. So one is we want to get the distribution over x0 given xd first. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 958.43,
+    "end": 992.38,
+    "speaker": 0,
+    "text": "And then condition on both xd and x0, we want to get xd minus 1. Now, we are going to swap the integration or the expectation order. So we are going to integrate over xd minus 1 first, condition on x0 and xd. And then later on, we integrate over x0. So why is that? The reason here is this interesting backward distribution Q of Xt minus 1 given X0 and Xt has analytic solutions. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 992.46,
+    "end": 1030.83,
+    "speaker": 0,
+    "text": "So it's basically just telling you that X0 is your noiseless image. Xt is your higher noise level image. I know two endpoints. I want to infer what is the middle level noise image. is. You do know how to compute it. This is very simple, just Gaussian rules. So this actually says, if you're going to plug in the definition of the mean for this kind of conditional distribution, which is this form. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1031.31,
+    "end": 1064.71,
+    "speaker": 0,
+    "text": "So you can try to derive yourself, but the form itself does not matter. What I'm trying to say here is that you have the analytic form. You can see that this analytical form is trying to say, OK, so it is the interpolation between your noiseless image, X0, and your current noise level image, Xt. OK? Right? But then you still need to take expectation of X0 given Xt. So this is basically saying, OK, if you're just pushing it in the expectation, you get back to this time. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1064.75,
+    "end": 1120.96,
+    "speaker": 0,
+    "text": "You want to compute, OK, based on my current noisy image, xd, what is the mean prediction for the noiseless image? And that goes back to the denoising view that we've talked about last time. So yeah, so this is essentially the way to see how you can go from, let's say, the VAE view to the denoising view. And if you are going to design your p-distributions mu kind of network in a way that somehow agrees with the conditional mean of Q of xt minus 1 given xt and x0, except that we are going to predict X0 using a X prediction network that takes in basically both the noisy image XT and also TS inputs. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1121.3,
+    "end": 1154.08,
+    "speaker": 0,
+    "text": "Then you can go back and work out the original log likelihood loss function. So remember, this is the loss function that we actually want to minimize. You just plug in that particular form. You will figure out that it just ended up trying to minimize the denoising loss. Okay. Well, any question so far? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1159.65,
+    "end": 1190.15,
+    "speaker": 0,
+    "text": "Okay. So... I think this is the third time I'm going to explain this example, but maybe this is interesting to explain. So there are still questions on SDEM in terms of why latent diffusion models is actually working better than VAEs. Even the fact that latent diffusion model, they actually also use a VQVAE encoder. And then they train the model in two stages. First stage is just purely training the VQVAE encoder decoder. And then you fix the... ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1190.86,
+    "end": 1222.78,
+    "speaker": 0,
+    "text": "latent space, and then later on you train your diffusion model directly in the latent space. In some sense, if you think about training the VQ-VAE first and then fix it, and then in the second stage try to embed every single image in the observation space to the latent space, then you are essentially constructing a dataset from the aggregated posterior of your VQ-VAE. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1224.16,
+    "end": 1257.08,
+    "speaker": 0,
+    "text": "Okay, just to repeat. This is the Q encoder. It's the process where you're going to encode your image using your VQVAE encoder. You are going to do that for every single image in your training data set, which is this p data. In the end of the day, the distribution of all of your embeddings from your training images using the VQVAE encoder is essentially coming from this thing called aggregated posterior distribution for your VQVAE. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1258.78,
+    "end": 1291.38,
+    "speaker": 0,
+    "text": "Now, think about what we are actually doing, let's say, comparing VAEs and latent diffusion models. So in VAEs, let's assume you're going to a directed sample from, let's say, the BQVAE kind of model. You need to have a prior first. OK, usually the prior is something that you define beforehand. I mean, you can optimize it. But the usual practice for VAE training on the images, they usually fix the prior a priori. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1292.08,
+    "end": 1326.02,
+    "speaker": 0,
+    "text": "OK, if you fix the prior a priori, then usually speaking, the prior won't be very good fit or won't align very well with the abrogated posterior. So it means that your decoder, for most of the samples from your prior, they actually don't know how to decode back because they've never seen those prior samples in training time. In training time, your decoder only sees samples from your encoder, or in other words, only sees the samples from your aggregated posterior. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1327.54,
+    "end": 1362.45,
+    "speaker": 0,
+    "text": "So that explains the gap. But if you do latent diffusion models, right, then you're going to actually train a latent diffusion model that can approximately sample from the aggregate posterior of the DQBAE. OK, so the way to do that is basically the same procedure, but in latent space, right? You're going to get a bunch of embeddings in the BQB embedding space, add noise, and then the noise. So this procedure is training a general model that can approximately sample from the aggregate posterior. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1362.95,
+    "end": 1398.54,
+    "speaker": 0,
+    "text": "And because in stage one, your VQVAE decoder has seen how to decode the aggregate posterior samples back to the image space so that decoding can still work quite well. OK, so we mentioned a bit about this beta coefficient for the elbow, right, that you can maybe try to tune the beta coefficient to achieve some kind of balance between good reconstruction quality and good generation quality. So if you're now working on your coursework tool, you will see this in practice. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1399.69,
+    "end": 1458.57,
+    "speaker": 0,
+    "text": "OK, so I said something about saying, OK, why this is important, right? And beta term somewhat controls the reconstruction versus generation quality, right? So you can actually see that in a better way by rewriting the KL term into two more terms. OK, so if you use the definition of the aggregated posterior, then essentially you can show that the Q distribution, Q of z given x, can also be written as essentially some kind of, let's see, Q of X given Z, Q of Z, okay, divided by Q of X. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1461.05,
+    "end": 1501.83,
+    "speaker": 0,
+    "text": "So this is just the base rule. But if you plug in this expression into the KL divergence and then do some manipulation, you can actually show that the KL term can be factorized into two terms. One is the mutual information between x, your image, and also z, your latent. And another, essentially, is just the KL divergence between your aggregate posterior and your prior. So now, if you look into this particular expression, and remember we are trying to push our elbow, which means we are trying to minimize the tail, you can also see this trade-off. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1502.39,
+    "end": 1547.65,
+    "speaker": 0,
+    "text": "So yes, minimizing KL for this particular term means we also want to minimize the KL from the apocrine posterior to the prior, basically this term. This is good because we want to reduce the gap of training time and test time. Remember, in training time, your decoder sees samples from the hypocritical posterior. But in test time, at least if you do the VAE approach, you are going to see samples from the prior. So minimizing this second KL term, here in this decomposition will help you push the average posterior towards the prior so that hopefully you will improve the generation quality. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1548.25,
+    "end": 1583.22,
+    "speaker": 0,
+    "text": "However, the KL term, this KL from the posterior to the prior also contains the mutual information term. So it means that when minimizing this first KL, you're also at the same time minimizing the mutual information. So mutual information you can think about is just trying to tell you how informative your latent variable z is in terms of telling about x. If you're going to push this KL term towards 0, then the mutual information between x and z becomes 0 as well. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1583.32,
+    "end": 1643.45,
+    "speaker": 0,
+    "text": "It just tells you that your latent variable tells you nothing. about the observation x. So your encoder is also not working. So it will also give you very bad reconstruction results. OK? So I hope this gives you some interesting idea to see where does this clear confront. Yes? Is the problem with DAE is that there's a distribution shift in the prior? The problem is not distribution shift in the prior. The problem here is your decoder, in some sense, uses Q in training time, but it uses P, the prior, in test time. The distribution shift is happening in terms of which distribution your decoder use. It is not like your prior is in training time, this distribution, but in test time, the prior changes another distribution. It's just because in training time, your VAE decoder actually don't see any samples from the prior. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1655.57,
+    "end": 1696.85,
+    "speaker": 0,
+    "text": "So I think we can go on for RNNs. So maybe one thing just to say here is that, Well, at the end of the day, when you do bad prop in RNN training, you want to compute the gradient of your loss function with respect to your neural parameters. But in RNNs, you actually have different ways or different dependency paths that your output can depend on your parameters. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1698.59,
+    "end": 1728.99,
+    "speaker": 0,
+    "text": "So this is just to say there is a difference between the total gradient and the partial gradient. Well, at the end of the day, for backprop, you want to get a total gradient. But here, it's just trying to explain to you where does it come from. So we actually want to use the total gradient for backprop. But if you look into the expression of HT as a function of x, So you probably should notice there are two paths. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1729.62,
+    "end": 1753.59,
+    "speaker": 0,
+    "text": "One is this direct path. So ht is just directly some kind of a nonlinear function of wx times the current input, xd. However, your ht minus 1 also depends on wx. Let me just write it down explicitly. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1764.52,
+    "end": 1796.2,
+    "speaker": 0,
+    "text": "OK? Right? So it actually means that if you want to get a total gradient, you need to consider both types of dependencies. So this is basically why we are talking about this partial gradient. It's just an easier notation or a more convenient way to think about which path you are going to take derivative. So basically, if you can look at the total gradient, we first need to consider this path. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1797.26,
+    "end": 1831.02,
+    "speaker": 0,
+    "text": "OK, so this explains why we have the partial gradient of ht with respect to wx. Here, a partial gradient basically just says that, OK, I view ht as a standalone term. I don't consider the dependency on ht minus 1 first. I just purely just look into this equation and see, OK, is there a direct dependency on wx? And yes, this is via this path. But then I also notice now that ht minus 1 also depends on wx. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1831.42,
+    "end": 1862.56,
+    "speaker": 0,
+    "text": "So it actually means that I need to take the account for this dependency. So I will compute the partial derivative of ht with respect to ht minus 1. And then go for the total derivative of ht minus 1 with respect to wx again. OK, now starting from these paths, right, you will start to see, OK, so the total gradient here, you again need to consider two paths, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1862.86,
+    "end": 1901.24,
+    "speaker": 0,
+    "text": "So this path and also this path. So you basically just start branching, OK? And that's essentially why the recurrent neural networks gradient are actually more complicated than the usual feedforward neural network. And because of this interesting branching, you will see a lot of sum and product operation together. And often, this can easily result in vanishing or a great explosion if you don't control your weight matrix in a good way. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1922.2,
+    "end": 1960.18,
+    "speaker": 0,
+    "text": "By the way, you should stop me if you have questions, OK? But otherwise, we will just carry on. So nowadays, when we use language models, we have a lot of interesting architectures. And you often hear people saying about maybe, let's say, attention is, let's say, quadratic complexity. RN is linear complexity. But where does that come from? OK, so well, I'm really starting teaching you just linear algebra right now. OK, but it's actually interesting. You will see that you will come up with something interesting at the end. OK, so the question here is why this attention has quadratic complexity. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1960.86,
+    "end": 1995.98,
+    "speaker": 0,
+    "text": "So the quadratic complexity mainly comes from the matrix product q times k transpose. So in order to understand, essentially, the time complexity of matrix products, let's imagine you have two matrices, A and B. OK, I want to compute the matrix product between A and B. OK, so how it works is you are going to take essentially the row vectors of your A matrix and also the column vectors of your B matrix, and then you do the inner product. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1996.46,
+    "end": 2033.4,
+    "speaker": 0,
+    "text": "That's how you compute the matrix product. So let's just make sure that this is clear. OK, so I have assumed basically some A as some collection of row vectors and then B as some collection of column vectors. So if I want to compute essentially the matrix product of AB, right, then for a particular entry, basically this first entry in the first row and also the first column, right, so what I'm going to do is I'm going to get the first row of A and also the first column of B. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2034.08,
+    "end": 2070.91,
+    "speaker": 0,
+    "text": "You just compute the inner product. Now let's think about the size of A and B. So let's imagine you have m rows for A matrix, and then each row has d dimensions. So similarly, well, you need to have basically d dimensions for the column vector in B, but then let's assume you have n columns. OK, so first of all, the kind of inner product between the two vectors are basically just like a linear in terms of d, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2071.21,
+    "end": 2101.42,
+    "speaker": 0,
+    "text": "OK, so this is where this d come from. OK, but then this A-D matrix will have a size n by n. OK. OK? Right? So it means that you have a big M times a small N number of elements in your A-B matrix. And for computing each of the elements, you have a complexity D. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2101.98,
+    "end": 2138.55,
+    "speaker": 0,
+    "text": "So at the end of the day, OK, so this is the complexity you have for getting, essentially, this A-B matrix multiplication. OK? Right? So now, let's go back to attention. OK, so in attention, usually, especially when you do, let's say, self-attention, it means that you're going to have, essentially, Q and K coming from some linear projection of your input token. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2140.09,
+    "end": 2191.31,
+    "speaker": 0,
+    "text": "So in that case, big M is the same thing as a small n. Okay, so it means, okay, so when m equals to n, right, it will just give you the quadratic complexity. Okay, so here's where the quadratic complexity comes from. So how about the other terms, right? So division of square root of d, so this is element-wise division. So this QK matrix is a matrix of size m by n, OK, so element-wise, a kind of division is essentially also n squared. OK, but it is negligible because the d term in terms of inner product is the bigger one. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2193.52,
+    "end": 2224.64,
+    "speaker": 0,
+    "text": "And then, well, softmax attention, you're basically trying to compute the softmax kind of operation. Every row-wise, it is still element-wise operation. So it should be essentially just the same cost as you do other kind of element-wise operation. So the last thing about multiplying with v, so v is a matrix of m times d. Okay, right. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2224.96,
+    "end": 2266.0,
+    "speaker": 0,
+    "text": "And from this logic, you should see that the final cause of, let's say, multiplying, let's say, this A of Q, okay, multiplied with B, the cause itself should be also N squared D. OK, because in this case, if you think about this kind of attention matrix as your A matrix, the B matrix as your B matrix, OK, and then you just need to figure out what are the corresponding dimensions, and this will give you the complexity numbers. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2266.65,
+    "end": 2353.98,
+    "speaker": 0,
+    "text": "OK, so really, the matrix multiplication is something that dominates the complexity for your attention. Yes? Because you do element-wise division, you have n squared number of elements in your qk transpose matrix. And it is basically just n squared. OK, because you do element-wise division. Yeah, really the bigger cause is actually a matrix product. But usually in GPUs, they like big matrix products. Sometimes they actually don't like element-wise operations. So the pure kind of zero complexity might not directly translate to the actual speed on your GPU. In fact, I would say many of the latest research in machine learning domain for architecture design, they will design in terms of both improving accuracy, of course, but also improving the implementation of the algorithms on hardware level so that they achieve actually, maybe their CRM complexity is not the best, but they can implement it very, very fast on GPU. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2354.0,
+    "end": 2389.95,
+    "speaker": 0,
+    "text": "So at the end of the day, it just run very fast on real time. OK, but quadratic and linear, there are still differences. I think ultimately, you still want linear complexity. But linear complexity, they have some other own kind of restrictions. So I can tell a bit about precision encoding in transformers. So why do we need precision encoding? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2392.07,
+    "end": 2425.08,
+    "speaker": 0,
+    "text": "Well, you probably noticed that attention itself is actually a translation equivalent. So it basically just means that if you, for example, swap two tokens, Then the corresponding outputs will also swap in the same way. OK, so this is just the property of the attention. Because if you swap the tokens, then in your attention matrix, basically q times k, the corresponding row and columns will also swap. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2425.93,
+    "end": 2472.97,
+    "speaker": 0,
+    "text": "But then in your v matrix, you're also going to swap the rows. OK, so by the end of the day, the output is also going to swap in the same way. OK? So this actually means that giving some kind of absolute precision information will be helpful, because the attention itself, if you don't give them the precision, it won't be able to tell. So that's why we want to have this kind of precision encoding. Well, the question here is, how do we actually give some kind of information about the absolute precision? The naive idea could be, for example, you just put in the index. of your token into the input. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2473.05,
+    "end": 2505.78,
+    "speaker": 0,
+    "text": "That's OK, right? But what people find that works much better is to make a thing called precision encoding, where precision encoding is really just a mapping function that tries to map your position, the raw position, which is the integer, to essentially some function that gives you something. The original transformer paper used this thing called sinusoidal precision encoding. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2505.84,
+    "end": 2543.56,
+    "speaker": 0,
+    "text": "I think nowadays the latest language models, they use something called rotationary embeddings. But this sinusoidal precision encoding is still quite widely used in other applications of transformers in different domains. So let's just try to see what's happening with these. Okay, so, well, the sine function here is essentially, okay, this one is actually position, sorry about that, position. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2545.72,
+    "end": 2588.09,
+    "speaker": 0,
+    "text": "Okay, so the sine and sine position encoding, they have two terms, one is your position, another is something that relates to the frequency of your sine waves. So, well, I mean sine wave looks like this. But it depends on the frequency of your sine waves. If you have very high frequency, then it will look something like this. So here, this I value is somewhat trying to control the frequency of your sine function. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2590.1,
+    "end": 2620.85,
+    "speaker": 0,
+    "text": "And in particular, in this case, we are actually using not only one sine function or only one cosine function. We are actually using multiple of them. So your position encoding is not only one scalar. It will actually be a vector, which will be later on either concatenating with the token or basically being added back to the token. But anyway, just to say that the position encoding is better. Okay, so inside this vector, you will have different sinusoidal functions. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2622.41,
+    "end": 2655.24,
+    "speaker": 0,
+    "text": "Okay, either let's say very smooth sinusoidal function or very kind of frequently moving kind of sinusoidal function. Okay, but maybe let's just look into essentially this particular thing. OK, so if f is bigger, then essentially you will have essentially more kind of fluctuating kind of functions. But if f is smaller, then you will have a smoother kind of sine waves. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 2655.56,
+    "end": 2692.08,
+    "speaker": 0,
+    "text": "But this, if we need to raise some power, and if you look at this particular kind of curve, just to say, OK, if you assume f is 10,000, which is actually I think being used in the very first transformer paper, and then raise it to the power of minus x. OK? Right? Then you can basically see that the value of this f raised to some power very quickly drops to 0, which basically just says that, OK, I only use maybe some very high frequency sine waves for my beginning dimensions. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 2692.36,
+    "end": 2735.13,
+    "speaker": 0,
+    "text": "But then later on, for the bigger dimensions, my sine wave frequency is going to be small so that I'm going to be basically kind of smooth. OK, so this is actually shown in this figure. So you can see that this is basically just i. So it might be useful to somehow mentally think about how to view these things in this horizontal way. So you can basically see that, OK, so when, let's say, i is small, which means you are more or less in this region, Your corresponding sine waves, cosine waves are very frequently varying. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 2735.71,
+    "end": 2777.59,
+    "speaker": 0,
+    "text": "So you can basically see that for different positions here. So you actually get different values. However, when you increase the index i, which means you're going to go for the lower frequency sine waves and cosine waves, you can more or less see that in this region. for these, let's say, different kind of positions, they more or less gives you the same value. OK, so there might be some interesting question about why people think about using this sinusoidal encoding anyway, right? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 2777.95,
+    "end": 2816.61,
+    "speaker": 0,
+    "text": "So yeah, it's interesting question. But if you have a, I mean, imagine you want to, parametrize a function mapping that maps some position to some nonlinear output of the functions, then as long as the function itself is smooth, you can actually represent that using some Fourier basis, and Fourier basis is essentially sines and cosines. So in other words, smooth functions can be represented as a sum of sines and cosines with different frequencies. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 2818.16,
+    "end": 2851.64,
+    "speaker": 0,
+    "text": "So more or less speaking, if you put this kind of precision encoding, basically select a few different dimensions, let's say 128 dimensions of sines and cosines, and then you push that later on to the neural networks, right? Remember your neural network needs to perform this kind of linear operation, right? You have the weights multiplied by your inputs. More or less speaking, you are trying to construct nonlinear functions. of your positions as a way to inform your transformer for the absolute position of your tokens. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2853.39,
+    "end": 2885.94,
+    "speaker": 0,
+    "text": "I mean, of course, you can use other kind of embedding techniques. And that's basically where this kind of rotationary embedding comes from. And that is actually one of the most popular techniques right now. But really, the idea of putting in precision encoding is that you want to be able to represent the absolute location information in your neural network. OK, sequence modeling. And also, you want to ensure that your position encoding is flexible enough so that later on, it can result in the highly linear mappings of your position encodings. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 2895.68,
+    "end": 2936.06,
+    "speaker": 0,
+    "text": "OK, now, comes from the interesting part. OK, so is the attention that different from RNNs? Well, it might seem very different, but it turns out not quite. And in fact, this is actually one of the latest research area right now. Trying to just see that, OK, is the attention all you need? Or is RN just that? OK, no. So we will actually show you that If you do linear attention, which sounds weird, okay, but bear with me for a moment. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 2936.66,
+    "end": 2972.08,
+    "speaker": 0,
+    "text": "If you do linear attention, it is actually also a recurrent neural network. So, again, this is basically just telling you that, okay, you need to understand linear algebra, you know, some good ways to understand what's going on here. OK, so let's ignore the softmax for a moment. Just think about linear activation functions, which means at the end of the day, you are calculating essentially q times k transpose, and then use this output to compute v. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2972.9,
+    "end": 3007.56,
+    "speaker": 0,
+    "text": "So this is the way that you will usually compute a tension that we previously have discussed that results in quadratic complexity. But now, imagine we are going to compute in another way. We are just changing the order of computing matrix for that, OK? Now, let's think about essentially what this K transpose V is, OK? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3015.36,
+    "end": 3030.09,
+    "speaker": 0,
+    "text": "K is basically just a bunch of kind of matrix of column vectors. V is the matrix of row vectors. My claim is the following. You can try to think about whether this is true. OK. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3065.27,
+    "end": 3140.26,
+    "speaker": 0,
+    "text": "Okay, so what's happening here is essentially, okay, so your K matrix is something that looks like this, right? A bunch of common vectors. And then your V matrix is a bunch of row vectors. OK, it feels weird compared to what I said before when we discussed the attention kind of complexity where we say, OK, we're better to look at things in terms of like, oh, the first matrix viewing is as sort of a bunch of row vectors, and the second matrix will be as a bunch of column vectors. But it's the same thing. OK, so now let's think about, OK, so if I want to get, for example, this particular vector, sorry, this particular element, right? So by calculating the row vector thing, right, so we actually want to compute this interesting kind of row vector times this interesting column vector. But if you view it in another way of viewing the first matrix being a set of column vectors and the second matrix being a set of row vectors, it's just saying, OK, I compute the product of the first element of k1 and the first element of v1. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3141.4,
+    "end": 3172.76,
+    "speaker": 0,
+    "text": "And then I compute the product of this first element of k2. OK? times the first element of v2. Same thing, I compute the product of the first element of k3, and also the first element of v3. And then you sum all of them all together. OK, so at the end of the day, this is how we can get this outer product, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3172.78,
+    "end": 3203.67,
+    "speaker": 0,
+    "text": "Because really, for a particular convocation here, you just look into the corresponding element in your k vector and also the v vector. So at the end of the day, this k transpose times v is the sum of rank one outer product. OK, now imagine what we are going to do in terms of, I mean, maybe I can talk about this matrix. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3203.77,
+    "end": 3240.77,
+    "speaker": 0,
+    "text": "OK, so k times v, now we have n tokens, right? Imagine I'm going to have n plus 1 token. I still need to compute kv, right? But by this definition, I just need to add in one more kind of rank 1 auto product for the n plus 1 token. So if you view it in this way, I can define this thing as a matrix called Sn. So this is actually a matrix that you can show that Sn equals to Sn plus 1 plus the outer product. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3244.23,
+    "end": 3274.66,
+    "speaker": 0,
+    "text": "Sorry, this is n minus 1. Sorry about that. OK, so we have built a recurrence. So right now, your recurrence state is no longer a vector. It's actually a matrix value recurrence state, OK? So why this is actually interesting, right? So if you think about, at the end of the day, what we're going to do, right? So we've computed basically K transpose V. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3275.04,
+    "end": 3307.46,
+    "speaker": 0,
+    "text": "We still need to compute Q times this output, okay? So maybe, okay. Okay. Maybe let's think about this problem also together with masking. Because in language modeling, you don't want your future tokens, basically the text tokens, to see like, oh, even for the future. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3308.6,
+    "end": 3342.43,
+    "speaker": 0,
+    "text": "You only want your tokens to see only the history. So that's basically why you have this interesting masking here. It just says that, OK, so I only attend to the house. Okay, so what does that mean? Okay, so this thing, let's just think about what exactly is this thing. Okay, so imagine I'm only interested in the nth row of the output for this final outcome. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3353.49,
+    "end": 3393.56,
+    "speaker": 0,
+    "text": "OK, so this little n here, it just means that I'm only interested in one row. I'm not going to talk about the entire matrix, but just thinking about one row. OK, so this means if I'm only interested in one row, I just need to get the corresponding row for this qk transpose master matrix. OK, right, so this is just a matrix for that. OK. So I just need to understand what is the corresponding role for this term, okay? So by definition, okay, so this role is essentially Q1, K1, Qn, sorry, Qn, K1, Qn, K2. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3398.3,
+    "end": 3432.77,
+    "speaker": 0,
+    "text": "And then star zeros. OK, because you apply masking, right? The masking is just to ensure that you don't see the future, OK? So this is the nth row in your attention matrix after masking. And then you're going to multiply that with your v value, OK? Right? OK. So remember, your V is essentially a set of column vectors. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 3434.17,
+    "end": 3438.46,
+    "speaker": 0,
+    "text": "OK? Right? That is the same thing as saying I'm going to compute a sum. ",
+    "model_probability": 0.9959
+  },
+  {
+    "start": 3467.43,
+    "end": 3533.18,
+    "speaker": 0,
+    "text": "I just, because I'm using basically the same query vector QN. OK, I can pull this out. And then notice that some of this rank one update is essentially my recurrent state. OK? Right? So I've shown you here that linear attention is just an RN. Maybe I should say linear attention is a recurrent neural network with matrix-valued state. Okay. Well, in fact, this actually has attracted a lot of attention in terms of these ideas and a lot of latest kind of development, especially on the open source model side is that basically trying to push on how to essentially efficiently mix attention and recurrent neural network altogether. Of course, you need engineering efforts in terms of system side, right? So, well, basically just Chinese New Year Eve, right? So, we have the you know, the best open source model released. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 3533.32,
+    "end": 3568.23,
+    "speaker": 0,
+    "text": "And this model is actually based on this, you know, gated attention and gated data net. And gated data net is just a modified version of linear attention, but implemented in an RNA way. Or maybe I should say implemented in a way that interpolate between RNA and linear complexity, and also the full attention, which is quadratic complexity. So there are quite some work to do there, okay? And also, you know, RNN people, they won't give up in terms of traveling. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 3568.35,
+    "end": 3600.77,
+    "speaker": 0,
+    "text": "And essentially, one of the inventors of LSDM, they just tried to renovate the LSDM into the latest version they call XLCM. There are two versions, SLCM and MLCM. You can actually show that the gated internet, which is the form of linear attention, is actually not too different from This latest version of LSTM, and this is actually shown by the author, Sam Hochreiter. ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 3601.23,
+    "end": 3669.55,
+    "speaker": 0,
+    "text": "Okay, Hochreiter, yeah. Sam Hochreiter, okay? So he gave a talk last year in Copenhagen where I actually sat at the front row. And then he showed essentially all the latest architectures that you can see that tries to say, OK, attention is not all you need. Let's try to make it more efficient attention. And you can actually show that many of these efforts in terms of scaling up attention, they are implicitly building a recurrent neural network. OK. Yeah, so I think that really you can see that you can still do a lot of innovation in terms of network architecture design, even when right now people use attentions in many of the mainstream language models. And people actually start to use more efficient architectures because they want to, you know, take care of many of users' requests, including, for example, like maybe myself, I use every day, right? So we want to make things more efficient. ",
+    "model_probability": 0.995
+  },
+  {
+    "start": 3669.99,
+    "end": 3716.09,
+    "speaker": 0,
+    "text": "And in order to basically do this innovation, so it still goes back to basics. In this case, really, people push understanding of linear algebra to the extreme to innovate for these applications. OK, I think that's it. OK, so yeah, so I think we have a bunch of TAs already here that can answer your questions regarding design and tutorials and also other stuff, right? So next week, next two weeks, we will have Harry from number 10, or I would say from number 10 in DC, come and really tell you the latest practice of language model training and inference, yeah? ",
+    "model_probability": 0.9832
+  },
+  {
+    "start": 3764.83,
+    "end": 3779.29,
+    "speaker": 2,
+    "text": "Whereas for me, I think mine's getting the color right, the pattern and textures right, but it wasn't getting the structure right. And it stopped at like 247 blocks. And then, so my confidence goes up to like... ",
+    "model_probability": 0.0224
+  },
+  {
+    "start": 3783.12,
+    "end": 3816.0,
+    "speaker": 0,
+    "text": "Okay, so first of all, just to say that we are not trying to say you should get the perfect hot dog. That's not the point. Okay? I think you are already somewhere close, okay, to a good-looking hot dog. Okay? So... Is this acceptable, or is it like, you guys are expecting a little more, like, decline? No, no, no, we are not expecting, sort of, like, these super-realistic . That's not the thing we are expecting. Otherwise, we don't have too much GPU for you to run. ",
+    "model_probability": 0.0075
+  },
+  {
+    "start": 3816.06,
+    "end": 3834.25,
+    "speaker": 2,
+    "text": "Okay. Okay. Yeah. And the thing is, basically, so, it stopped at 247, and then when I tried running it again, my... went from like 80 to like 14 and then 21 and it's coming back up. Is that like expected or? ",
+    "model_probability": 0.0006
+  },
+  {
+    "start": 3834.41,
+    "end": 3850.3,
+    "speaker": 0,
+    "text": "So it means that your training is not too stable and I would suggest you to try essentially the loss model and the gradient model. The loss? The fusion model's loss and also you have the gradient. Okay. Right, to see whether you're experiencing some kind of fluctuation. ",
+    "model_probability": 0.0009
+  },
+  {
+    "start": 3850.36,
+    "end": 3851.6,
+    "speaker": 1,
+    "text": "Okay, yeah, cool, thank you. ",
+    "model_probability": 0.0006
+  },
+  {
+    "start": 4049.42,
+    "end": 4052.06,
+    "speaker": 1,
+    "text": "I mean, it's okay. ",
+    "model_probability": 0.0011
+  },
+  {
+    "start": 4081.03,
+    "end": 4090.92,
+    "speaker": 1,
+    "text": "The test images, they're not there from 2 to 1, but the 3D ones are from minus 1 to 1. So it's not interconnected with the virtual life. Yeah, like 5 to 1, it's ultimately better than 3 to 5. ",
+    "model_probability": 0.0005
+  },
+  {
+    "start": 4154.23,
+    "end": 4161.55,
+    "speaker": 2,
+    "text": "Again, I don't remember the marking, but it's about the results. It's about, like, do you want me to find this? Do you want me to find this? ",
+    "model_probability": 0.0009
+  },
+  {
+    "start": 4198.37,
+    "end": 4204.56,
+    "speaker": 1,
+    "text": "Yeah, right. Probably, yeah. If you go back in time, I might be able to see it. Which question are you asking? ",
+    "model_probability": 0.0006
+  },
+  {
+    "start": 4216.27,
+    "end": 4219.07,
+    "speaker": 1,
+    "text": "I don't think we should be saying whether it's good or not. ",
+    "model_probability": 0.0012
+  },
+  {
+    "start": 4219.09,
+    "end": 4220.73,
+    "speaker": 2,
+    "text": "There are more examples of this. ",
+    "model_probability": 0.0011
+  },
+  {
+    "start": 4245.47,
+    "end": 4251.58,
+    "speaker": 2,
+    "text": "The weird thing is that you've got to do a bit of practice by nature to get the action. ",
+    "model_probability": 0.0026
+  },
+  {
+    "start": 4271.03,
+    "end": 4272.29,
+    "speaker": 2,
+    "text": "It really depends on the user. ",
+    "model_probability": 0.0009
+  },
+  {
+    "start": 4298.16,
+    "end": 4299.94,
+    "speaker": 1,
+    "text": "It's just, you can just do whatever works. ",
+    "model_probability": 0.0006
+  },
+  {
+    "start": 4324.23,
+    "end": 4355.52,
+    "speaker": 1,
+    "text": "I mean, as long as you mostly So, you can really maintain some of the data itself. ",
+    "model_probability": 0.0004
+  },
+  {
+    "start": 4355.56,
+    "end": 4359.68,
+    "speaker": 2,
+    "text": "What we're talking about now is . So, you can really, that's why . ",
+    "model_probability": 0.0004
+  },
+  {
+    "start": 4433.09,
+    "end": 4440.18,
+    "speaker": 2,
+    "text": "Yes, I mean, the quotient of the negative was like, is Ms. Rivera happy? Because when you arrived in this last year, what did you take the long term as well for? ",
+    "model_probability": 0.0004
+  },
+  {
+    "start": 4454.44,
+    "end": 4543.62,
+    "speaker": 1,
+    "text": "of your likelihood of your goal distribution, it comes down. So is it just like, you're taking the long, trying to try to be clean and aggressive. So it's just, you know, it's just, you know, it's just, you know, it's just, you know, it's just, you know, it's just, you know, it's just, you know, it's just, you know, it's just, you know, it's just, you know, I think it's just, I don't know. ",
+    "model_probability": 0.0003
+  },
+  {
+    "start": 4705.84,
+    "end": 4710.86,
+    "speaker": 1,
+    "text": "Yeah, I mean, . I don't know about you. It's very interesting how this works. ",
+    "model_probability": 0.0004
+  },
+  {
+    "start": 4850.4,
+    "end": 4945.68,
+    "speaker": 1,
+    "text": "Yeah, but at the same time, I'd like to make some comments about the ecosystem of the child Up here. ",
+    "model_probability": 0.0003
+  },
+  {
+    "start": 5222.26,
+    "end": 5227.02,
+    "speaker": 1,
+    "text": "I don't think it's the number of content. It's not learning a meaning. I'm just so glad to see you. ",
+    "model_probability": 0.0006
+  },
+  {
+    "start": 5255.76,
+    "end": 5264.07,
+    "speaker": 1,
+    "text": "But this, the one, the other one, I feel like there's not, even if there's two, there's not going to be that many, and then there's not enough time. ",
+    "model_probability": 0.0007
+  },
+  {
+    "start": 5296.83,
+    "end": 5301.11,
+    "speaker": 1,
+    "text": "From the image that you're drawing, it doesn't look like . ",
+    "model_probability": 0.0013
+  },
+  {
+    "start": 5348.88,
+    "end": 5352.57,
+    "speaker": 1,
+    "text": "I don't know. I'm also going to be wasting time. ",
+    "model_probability": 0.0016
+  },
+  {
+    "start": 5444.52,
+    "end": 5448.71,
+    "speaker": 2,
+    "text": "The loss, like, pretty much past eight. ",
+    "model_probability": 0.0014
+  },
+  {
+    "start": 5449.49,
+    "end": 5452.29,
+    "speaker": 1,
+    "text": "It's not very heavy work. ",
+    "model_probability": 0.0025
+  },
+  {
+    "start": 5471.93,
+    "end": 5478.25,
+    "speaker": 2,
+    "text": "My learning weight's set quite small because if I set it to anything bigger, I wouldn't attempt to buy the screen. ",
+    "model_probability": 0.001
+  },
+  {
+    "start": 5478.35,
+    "end": 5480.45,
+    "speaker": 1,
+    "text": "I set it to attempt to buy the screen. ",
+    "model_probability": 0.0009
+  },
+  {
+    "start": 5550.82,
+    "end": 5556.66,
+    "speaker": 1,
+    "text": "I would imagine . So I don't know when the . But then there'll be some amount of time. ",
+    "model_probability": 0.0009
+  },
+  {
+    "start": 5585.33,
+    "end": 5590.88,
+    "speaker": 2,
+    "text": "If it doesn't come up for a bit, I don't think the GTAs have the button to release them anyway, so you need to ask when it is. ",
+    "model_probability": 0.0016
+  },
+  {
+    "start": 5778.08,
+    "end": 5781.75,
+    "speaker": 2,
+    "text": "As in, how would the decoding be more powerful in the end game? ",
+    "model_probability": 0.0032
+  },
+  {
+    "start": 5858.33,
+    "end": 5863.64,
+    "speaker": 1,
+    "text": "the first competition was a downskirts, and the second competition I did it because I was worried about the integration. ",
+    "model_probability": 0.0025
+  },
+  {
+    "start": 5863.82,
+    "end": 5867.12,
+    "speaker": 2,
+    "text": "I can increase the slide to two. Maybe? I mean, yeah, I'll try it. ",
+    "model_probability": 0.0018
+  },
+  {
+    "start": 6044.44,
+    "end": 6049.56,
+    "speaker": 2,
+    "text": "Okay, so if I'm pleased as fine to do that, just pass the output size. ",
+    "model_probability": 0.0017
+  },
+  {
+    "start": 6113.04,
+    "end": 6117.1,
+    "speaker": 1,
+    "text": "There are like a hundred kinds of people asking on edge about this already. ",
+    "model_probability": 0.0011
+  },
+  {
+    "start": 6145.13,
+    "end": 6183.15,
+    "speaker": 1,
+    "text": "Like, nothing we say now is going to give you this quote, the mark you get is going to be the mark you gave it to you. But, like, I also think the mark you get and, and, and, and, and, like, things that, obviously we don't, we don't walk up to that much, getting enough, like, good enough. Some of the things that I think we're still there, they're not going to, like, they're also realistic people. They're going to be like, oh, when I asked the chiefs to give me a tutorial, they said maybe it was okay. ",
+    "model_probability": 0.0007
+  },
+  {
+    "start": 6284.34,
+    "end": 6288.22,
+    "speaker": 1,
+    "text": "I mean, are they worried about ? Because if they care, then they'll . People are asking . ",
+    "model_probability": 0.0006
+  },
+  {
+    "start": 6334.73,
+    "end": 6369.79,
+    "speaker": 2,
+    "text": "but what you can do is look on edge at all the other parts of the world and see what that looks like. That is one of the places. That should be the only place, but some people are afraid to go to that place. I know some people are pushing their home to Northridge as well. I see what you're saying about that. Yeah, like, let's get back right up and see. ",
+    "model_probability": 0.0006
+  },
+  {
+    "start": 6369.81,
+    "end": 6370.81,
+    "speaker": 2,
+    "text": "Some of them. Yeah, exactly. ",
+    "model_probability": 0.0007
+  },
+  {
+    "start": 6419.69,
+    "end": 6422.45,
+    "speaker": 1,
+    "text": "Do you use multiple learning or step learning? ",
+    "model_probability": 0.0015
+  },
+  {
+    "start": 6493.94,
+    "end": 6496.66,
+    "speaker": 2,
+    "text": "We're also doing a much deeper study. ",
+    "model_probability": 0.0008
+  },
+  {
+    "start": 6602.48,
+    "end": 6607.73,
+    "speaker": 2,
+    "text": "If you're getting images which colors are embedded in the . Also, if you can see the . ",
+    "model_probability": 0.0016
+  },
+  {
+    "start": 6654.55,
+    "end": 6734.01,
+    "speaker": 1,
+    "text": "I don't think it's going to be It's not. ",
+    "model_probability": 0.0006
+  },
+  {
+    "start": 6762.47,
+    "end": 6765.99,
+    "speaker": 1,
+    "text": "When I change, when I, when I edit it, yeah, when I change it, then it's like... ",
+    "model_probability": 0.0005
+  },
+  {
+    "start": 6792.25,
+    "end": 6795.15,
+    "speaker": 1,
+    "text": "I don't think there's one left in the distribution. ",
+    "model_probability": 0.0005
+  },
+  {
+    "start": 6795.39,
+    "end": 6831.36,
+    "speaker": 2,
+    "text": "I think previously, like, when Harry was still alive, he did some, like, But he's still around at the mural. ",
+    "model_probability": 0.0006
+  },
+  {
+    "start": 6831.5,
+    "end": 6843.55,
+    "speaker": 2,
+    "text": "Maybe there's an RA or something. But if he's not doing it, I don't know if it would be. Because I don't know if there's an attachment. Some of the pieces might be. I don't know if they're assigned. I don't know if they're assigned. ",
+    "model_probability": 0.0004
+  },
+  {
+    "start": 6879.94,
+    "end": 6897.99,
+    "speaker": 2,
+    "text": "The actual, like, final performance. You can't put that in the final performance. But the, which things you do, that shouldn't be, like, the main thing of the performance. That shouldn't be, like, the three months. You want to put in some, like, really, really simple. ",
+    "model_probability": 0.0008
+  },
+  {
+    "start": 6898.01,
+    "end": 6901.89,
+    "speaker": 1,
+    "text": "We also do, like, medium-long stretches, which everyone can do, or can make GPT. ",
+    "model_probability": 0.0007
+  },
+  {
+    "start": 6938.86,
+    "end": 6946.21,
+    "speaker": 1,
+    "text": "I feel like that's going to pay for people who are really good with it. ",
+    "model_probability": 0.0006
+  },
+  {
+    "start": 6946.37,
+    "end": 6978.37,
+    "speaker": 2,
+    "text": "Yeah, or if you've done a bit of ML before and you know, like, okay, this is a sense of learning, right? This is a sense of learning. If this is, like, the second ML course they've done, actually, so that they don't have to, like, yeah, they're quite common sense. which I found really annoying when I took these courses as a student, because you wouldn't get told that sort of thing. You can get that, but I don't want it in a coursework scenario. I have to work out that actually tuning or learning a word doesn't do that. ",
+    "model_probability": 0.0009
+  },
+  {
+    "start": 6978.73,
+    "end": 7001.83,
+    "speaker": 2,
+    "text": "Getting it to the right scale, and maybe you times it by three, maybe you divide it by three, but nothing like that. Nothing more than that. That's what I do. In some ways, you do need to learn the intuition from trying, but teaching it wouldn't help. Maybe it would help. I don't know. I don't know. ",
+    "model_probability": 0.001
+  },
+  {
+    "start": 7022.09,
+    "end": 7023.09,
+    "speaker": 2,
+    "text": ". . . . . . ",
+    "model_probability": 0.0018
+  },
+  {
+    "start": 7048.27,
+    "end": 7086.22,
+    "speaker": 1,
+    "text": "I think that would be for the people that would do it, it wouldn't be, it would be far from, it would be probably quite easy. ",
+    "model_probability": 0.0025
+  },
+  {
+    "start": 7086.3,
+    "end": 7097.02,
+    "speaker": 1,
+    "text": "Unless it was something like that, it's less. That would be quite equal. It would be like, okay, here's a reasonably small, we do it on a machine, so everyone has like a little twist in it. ",
+    "model_probability": 0.0032
+  }
+]

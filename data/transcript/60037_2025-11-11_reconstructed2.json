@@ -1,0 +1,1064 @@
+[
+  {
+    "start": 146.313,
+    "end": 190.266,
+    "speaker": "SPEAKER_01",
+    "text": "All right, let's get ready to get started. Thank you all for being here again bright and early. Today is one of my favorite lectures. It's probably one of my favorite topics that we'll cover, which is Bayesian machine learning. And in some respect, All of the stuff we've been doing up until now has led us to this point. This is the last kind of major perspective on learning that we'll cover, where we sort of think about this very deterministic empirical risk minimization first, and then we look at the maximum likelihood after we develop some probability, and now we'll We've developed sort of all of the probability that we will develop in terms of tools. "
+  },
+  {
+    "start": 190.546,
+    "end": 225.972,
+    "speaker": "SPEAKER_01",
+    "text": "Maybe see a couple more next lecture. But we're now ready to take an even more probabilistic view on learning in the form of Bayesian machine learning. So today, we'll really be talking about the actual learning part of Bayesian learning. And we'll deal with the implications of this probabilistic perspective on learning in our next lectures. We'll think about things like hyperparameter selection and all of that uncertainty in your predictions. And one nice thing is that Bayesian machine learning is a very active area of research. "
+  },
+  {
+    "start": 225.992,
+    "end": 258.685,
+    "speaker": "SPEAKER_01",
+    "text": "There's lots of very nice open questions to be answered in Bayesian machine learning. And also, it provides a very nice and principled lens on a lot of the things that we do in modern machine learning. So when you're actually doing engineering and all of that for your large language models or your foundation models, you can take a step back. And sometimes, a Bayesian view will help you make principled decisions. about your algorithm. Outside of all of that very fun stuff, it's also on your exam. "
+  },
+  {
+    "start": 259.285,
+    "end": 295.59,
+    "speaker": "SPEAKER_01",
+    "text": "And maybe we'll start with some preliminaries, as we always do. So the first thing is that I was a little bit behind, but your fake, ungraded midterm exam is now posted. The idea is that it takes you somewhere between 30 and 45 minutes. I would almost expect, I would expect that in your first pass over this, because you probably haven't undertaken a lot of exam revision, that it might take you a little over 50 minutes, or over 45 minutes, and that's okay. As you practice, you'll become much quicker at doing these problems, but under exam conditions, that's about the timing that I'd expect. "
+  },
+  {
+    "start": 297.306,
+    "end": 361.766,
+    "speaker": "SPEAKER_01",
+    "text": "And if you can try it before next lecture, next Friday, I'm gonna get feedback on like how difficult you found it, what parts you found difficult and not to help us guide our sort of continued exam preparation that I'm trying to sort of implement at the end of each lecture. So do give that a try. The other thing is that I was a little bit behind on posting a few of your problem sheets. I've made sure that everything is posted now, so we're entirely up to date. Nothing is missing. Great. So let's dive into Bayesian probability and Bayesian machine learning. And rather than talking directly about machine learning, let's think about a very sort of simple but realistic case. So let's imagine that you have a cousin who's come to visit you in London. They're very excited to see all of the fascinating history of London. And one thing that they're particularly excited about is one of the birds that they've just seen. And they describe the bird to you as being a white bird with kind of orange-reddish beak and orange-reddish feet. "
+  },
+  {
+    "start": 363.611,
+    "end": 397.145,
+    "speaker": "SPEAKER_01",
+    "text": "And immediately you think, well, there's perhaps two possibilities, at least to make our example simple. Let's limit ourselves to two possibilities. It's either a seagull or it's a pigeon. So before you respond to your cousin, you should probably think about what's the more sort of what do I believe they've seen if they've seen a white bird with orange reddish beak and orange reddish feet. So here you might write down the probability that they've seen a seagull versus the probability that they've seen a pigeon. "
+  },
+  {
+    "start": 397.805,
+    "end": 454.496,
+    "speaker": "SPEAKER_01",
+    "text": "So show of hands, who thinks they've seen, well actually, can I get somebody to volunteer, it's very early in the morning and early in the lecture for this, but volunteer what they think these probabilities might be. Just like, take a guess, yeah. So OK, you think it's a pigeon, so give me a probability breakdown. It has to sum to 1. Well, what would you say it is? It depends on the number of pigeons in comparison to the number of foals. Yeah. Yeah, so we'll get into an exact computation. But just like, what do you think? Just give me an estimate. We'll break down the numbers later. Let's say 60%. OK. Very nice. What I normally get, so sometimes I'll do a show of hands and almost everybody thinks like, yeah, okay, they probably saw a seagull. But sometimes people say pigeon. And the estimates that I usually get look something like this. So it's flipped. "
+  },
+  {
+    "start": 454.536,
+    "end": 490.906,
+    "speaker": "SPEAKER_01",
+    "text": "So people say, well, it's probably more likely that they saw a gull. It doesn't seem super likely that they would have observed a pigeon. And then in reality, exactly as you sort of may guess, the real probabilities are actually flipped. The thing that you should actually say is that even though they've described what in your head might fit a seagull much better, you should probably say that they've seen a pigeon. And in order to think about this, in order to actually reason about these probabilities, we're going to use Bayes' theorem. "
+  },
+  {
+    "start": 493.017,
+    "end": 527.28,
+    "speaker": "SPEAKER_01",
+    "text": "This is quite unintuitive, I think, to most. But here's the kind of probability that we want to reason about. We want to think about the probability that our cousin has seen a gull given the evidence, the kind of event, that the bird they observed was white and orange. Now, this is an observation or event, but we'll call it our data, and we'll get into this more later. And Bayes' theorem tells us the following. And this is just an application of the sum rule and the product rule. "
+  },
+  {
+    "start": 527.481,
+    "end": 558.772,
+    "speaker": "SPEAKER_01",
+    "text": "So you can use those to very quickly see that this is true. But it just tells us the probability of A given B is the probability of B given A, probability of A, over the probability of B. Okay? So let's plug in our sort of estimates here, C goal and the observations we've made, right? This is what it sort of looks like. So the probability that they've seen a pigeon is the thing we want to think about. "
+  },
+  {
+    "start": 558.792,
+    "end": 590.775,
+    "speaker": "SPEAKER_01",
+    "text": "So here's a pigeon. And then we have our data. So here all I've done is plug in for A and B the representation of what we had before. And each of these terms in Bayes' theorem has a particular term that we're going to use to describe it. The first one, and actually, I'll jump the gun just a little bit and write this down in a more familiar notation for us. "
+  },
+  {
+    "start": 594.058,
+    "end": 624.653,
+    "speaker": "SPEAKER_01",
+    "text": "So what I've just written down is Bayes' theorem generally. But typically, what we'll want to think about is the following. OK, so here's Bayes' theorem substituting in some objects that we've seen already in this class. And we're going to call the actual thing we're interested in our posterior distribution. "
+  },
+  {
+    "start": 625.473,
+    "end": 664.806,
+    "speaker": "SPEAKER_01",
+    "text": "We've already seen this term before. We spent our last two lectures dealing with this. It's the probability of your data given some parameter. That's your likelihood. We have a prior distribution, p theta, and then a marginal likelihood. It's the probability of your data. For the rest of this lecture, we're going to ignore the evidence or marginal likelihood, and we'll pick it back up in next lecture. But it'll simplify a lot of things for us. And in general, this is a thing that you can do. For the same reason that if you remember when we covered exponential families, we were able to kind of get rid of our partition function, that z of theta that was in our denominator. "
+  },
+  {
+    "start": 664.826,
+    "end": 704.372,
+    "speaker": "SPEAKER_01",
+    "text": "And so like, well, it's a normalizing term. Right? If you have x, all I need to know is this function s of x, which is our sufficient statistics. And this tells me everything I need to know about the relative probability of events. It's a similar thing here. Right? And actually, we can see this in this example here with our pigeons and our seagulls. So what I want to think about to start is just the likelihood times the prior. And then I've gotten rid of this equal sign And I've replaced it with this little kind of alpha-looking symbol, which means proportional to, meaning related by a constant. "
+  },
+  {
+    "start": 710.014,
+    "end": 740.83,
+    "speaker": "SPEAKER_01",
+    "text": "So if I plug these in, the one term that you want to first think about is, what's my prior? And the prior, so the probability that you observe a pigeon, if your two outcomes are pigeon and gull, is .97. There are approximately three million pigeons in London, and there's approximately 100,000 gulls. I will admit that I created this example in 2022 based on a survey of birds in 2021. "
+  },
+  {
+    "start": 741.35,
+    "end": 776.679,
+    "speaker": "SPEAKER_01",
+    "text": "So we might need to update this and figure out what the real probabilities are. So I apologize if bird populations have fluctuated dramatically in the last three years. But we can think about how dramatically they'd have to fluctuate for me to be wrong. Anyway, so there's our prior, right? And is that clear? So the prior distribution is essentially the distribution before my cousin said anything to me, right? Because my cousin gave me very particular data. My cousin gave me the data that the bird was white and had reddish beak and reddish feet. "
+  },
+  {
+    "start": 777.339,
+    "end": 808.425,
+    "speaker": "SPEAKER_01",
+    "text": "If they had not said anything, they came up to me and said, Matthew, I've seen a bird, right? What do you think the bird was? 97% of the time, probability 0.97, it was a pigeon. So that's my prior probability. Of course, we now live in the world where our cousin has given us some data, right? And so we can do something. And here's where I give you some more bird facts. The rate of albinism in pigeons is about 1%. "
+  },
+  {
+    "start": 808.645,
+    "end": 844.81,
+    "speaker": "SPEAKER_01",
+    "text": "So 1% of pigeons fit this description, meaning they're white with a reddish beak and reddish feet. And about 90% of seagulls match this description, with 10% of them being black-backed gulls who have black feathers. So you can describe them as being white. Great. And then finally, I'm thinking about the relative value of these two things. So this isn't a probability at the end here because I haven't normalized. But the normalization constant between these two things, that marginal likelihood or evidence, is going to be the same for both of them. "
+  },
+  {
+    "start": 846.335,
+    "end": 882.164,
+    "speaker": "SPEAKER_01",
+    "text": "And so if that top value is larger than the other value, then I can say that my belief is skewed towards that. And so here you can see my belief is skewed a little bit more than three times towards the probability that it's a pigeon. Hence, my sort of response to my cousin should be, you likely saw a pigeon. Here's another way, so this can be a little bit unintuitive to people like, okay, I have followed you all the way up to the end, but like the conclusion still doesn't track super neatly. "
+  },
+  {
+    "start": 882.644,
+    "end": 915.227,
+    "speaker": "SPEAKER_01",
+    "text": "And there's a nice geometric interpretation of this case where we only have two outcomes and sort of we observe some data. And that's to think about sort of the following sort of geometric areas. So you have on your x-axis, Right, for example, the probability of your prior probability is p theta. And we had that there was basically 0.03, that it was a pigeon. "
+  },
+  {
+    "start": 916.168,
+    "end": 951.366,
+    "speaker": "SPEAKER_01",
+    "text": "And the rest, the 0.97, was the probability that it was a gull. And then we're going to consider our likelihood term. Right, and we said, well, almost all of these, sorry, okay, almost all of these, this like 0.3, that it was a goal, satisfy my data, right? So I'll take 0.3, and I'll go all the way up to, let's create the square, and I'll say, okay, look, 90% of these, 0.9, satisfy that. "
+  },
+  {
+    "start": 952.326,
+    "end": 987.725,
+    "speaker": "SPEAKER_01",
+    "text": "The other thing is that we have 1%, of pigeons display albinism. And so what we're thinking about is the area. The multiplication of these two and these two is simply that sort of prior and likelihood term gives us the area of these squares. And if the area of the red square is larger than the area of the black square, then that's probably the more likely belief. Does that both of those explanations kind of make sense? "
+  },
+  {
+    "start": 988.385,
+    "end": 1025.158,
+    "speaker": "SPEAKER_01",
+    "text": "If you want even further intuition regarding this and Bayes, there's a nice three blue, one brown video where he actually goes through this geometric interpretation. And if you haven't seen Bayes before, it's a very nice sort of introduction to some of the topics and major things that we'll discuss. But really, the takeaway from this entire kind of thought experiment and just writing things out is that data should not determine our belief in a vacuum. It's not that we observe data and then we say, great, I believe this data and this is the only thing I'm going to make decisions based on. "
+  },
+  {
+    "start": 1025.718,
+    "end": 1061.458,
+    "speaker": "SPEAKER_01",
+    "text": "Data should come in and update our prior beliefs. Right. So just because the data, the likelihood term before was very skewed in favor of the fact that the bird that our cousin would have seen is a seagull. We have some prior information about the population of birds. And so this information should update that in order to sort of make very well calibrated inferences. This is this is how we should think about probability now. Again, one thing is that mathematically, we're going to represent our beliefs as probabilities. "
+  },
+  {
+    "start": 1061.738,
+    "end": 1099.438,
+    "speaker": "SPEAKER_01",
+    "text": "Before, when we were dealing with maximum likelihood estimation, we talked about, well, what is a probability? And we described one view of probability as being an estimate of long-run frequencies. This is the frequentist perspective. And the Bayesian perspective was treating probabilities more as expressions of our belief about the likelihood of events. Okay, so the main implication for that, of course, before we get to this, especially in terms of our machine learning model, machine learning models is that our belief and sort of the way that we model things will become a random variable. "
+  },
+  {
+    "start": 1101.299,
+    "end": 1131.703,
+    "speaker": "SPEAKER_01",
+    "text": "Right, so maybe I'll, I don't have a slide, but I should have. Basically just hammering this point home that the main distinction is that in Bayes, a parameter is a random variable. "
+  },
+  {
+    "start": 1133.524,
+    "end": 1166.228,
+    "speaker": "SPEAKER_01",
+    "text": "So if it's a random variable, then a lot of the things, like immediately you realize that the stuff that we've done before in terms of estimating your maximum likelihood estimate or your ordinary least squares, those are all values. You can't really interpret those as probabilities in any way. And so none of the techniques that we've looked at fundamentally apply here. And so we need to do something more. So the first thing we'll look at is a sort of density estimation example. Again, sort of drawing on a more practical use case. "
+  },
+  {
+    "start": 1168.571,
+    "end": 1199.482,
+    "speaker": "SPEAKER_01",
+    "text": "Yeah? Where does the randomness here come from? So the randomness here is introduced by ourselves because now, rather than thinking about this parameter as being like, let's just find a parameter that fits our data well that we can make predictions with, our parameter is now representing our beliefs. And so where your prior comes from is like, well, before you observed any data, what was your belief about your class of functions and so on? Right. And then the randomness at the end is like, well, that was my prior belief. "
+  },
+  {
+    "start": 1199.702,
+    "end": 1258.087,
+    "speaker": "SPEAKER_01",
+    "text": "Now I've seen some data. This is my my new belief. Right. And so the randomness comes from the fact that we can never really be certain about anything. Mm hmm. So the question was, when I say data updates our prior belief, what am I talking about? Or what am I referencing? So here's our prior belief. It's our prior distribution. And here is our likelihood. And what we get is our posterior. This is our posterior, which is also our updated belief. So Bayes' theorem gives you a way, like a very simple formula for taking in your data and saying, okay, what do I think is the case now? "
+  },
+  {
+    "start": 1260.769,
+    "end": 1291.863,
+    "speaker": "SPEAKER_01",
+    "text": "Okay, so here's a example, basically thinking about density estimation, where we're shopping online and we have a choice of the same product at the same price between two sellers. And basically, at the end of every sale or every purchase, people can rate whether they're happy or sad with their or satisfied, dissatisfied with their experience. And then we get to see kind of what the seller's reputation is. "
+  },
+  {
+    "start": 1292.123,
+    "end": 1332.498,
+    "speaker": "SPEAKER_01",
+    "text": "This is a common thing. And so we have the choice between two sellers, one with 90 positive reviews and 10 negative reviews and one with two positive reviews and no negative reviews. And again, we're in this case where if we dealt with just the data that we've observed, we would say, well, the rate at which seller two has given successful deliveries is one. So that is higher than the other seller. I'll pick them. But of course, all of us have this sort of intuition that you should probably, or at least with some seriousness, consider the first seller given that they have a longer track record. "
+  },
+  {
+    "start": 1333.28,
+    "end": 1366.678,
+    "speaker": "SPEAKER_01",
+    "text": "And essentially Bayes allows us to make that concrete. So we can take this intuition that we have that the more experienced sellers who we should go with and we can make it formal and see like, okay, what things, like how do I model this belief? What is my prior? And under what conditions should I take seller one or seller two? And so here's where we get into kind of a high level process of thinking about this. So the first thing that we're going to do is choose our likelihood. Make sure that we're modeling things correctly. "
+  },
+  {
+    "start": 1368.279,
+    "end": 1403.142,
+    "speaker": "SPEAKER_01",
+    "text": "And this is exactly what we did in maximum likelihood estimation. So this term, this probability of your data given your parameter, hasn't changed at all. Everything that we said before, you should do that. The other thing is you want to choose your prior and its parameters. This is a new thing for us. And what do I mean? Well, choosing your prior and your parameters, you're going to need to choose a density for your prior or a mass, a mass function, either one. You need to choose the form that your prior takes. And then you need to decide what parameters are best for that prior to express your beliefs. "
+  },
+  {
+    "start": 1403.923,
+    "end": 1434.004,
+    "speaker": "SPEAKER_01",
+    "text": "And we'll talk about this in a little more detail. Then you compute your posterior distribution and use it to make predictions. So these are like the general steps that you need to follow. So let's talk about what likelihood we should select here. Well, we're either going to have a positive or a negative experience with the seller, and that's the kind of data that we have, right? 90 positive versus 10 negative, and two positive versus zero negative. So we want to think about the probability that we have a positive or negative experience. "
+  },
+  {
+    "start": 1434.044,
+    "end": 1464.984,
+    "speaker": "SPEAKER_01",
+    "text": "This is a Bernoulli trial with two outcomes, and so we'll model our likelihood as a Bernoulli likelihood. All okay there? So now how do we choose the form of our prior? Now, one thing is that, especially in machine learning, how you choose your prior and what your prior encodes is something that keeps Bayesians up at night, right? So especially if you're doing something very complicated like Bayesian deep learning, and somebody says, well, how did you choose your prior? "
+  },
+  {
+    "start": 1467.106,
+    "end": 1500.972,
+    "speaker": "SPEAKER_01",
+    "text": "Usually the response is, well, we pick a very uninformative prior. Maybe we could talk, like have a little detour on what that means. Right? So essentially, there's several schools of thought, even within the sort of Bayesian probability community as to how you should select your prior. The sort of very pure, like the most pure Bayesian approach is to say, look, you should pick whatever prior captures your belief and the data. You should consider not the data side, your belief and like exactly your belief, you should consider nothing else. "
+  },
+  {
+    "start": 1502.233,
+    "end": 1533.051,
+    "speaker": "SPEAKER_01",
+    "text": "Then there's a more empirical Bayesian approach, which is like, well, I'm actually going to use my prior to make my analysis a little easier and to encode my prior beliefs. From a very pure Bayesian approach, you wouldn't ever sort of bias your analysis in any way to make things mathematically easier. But if you do, so we'll take a more empirical Bayesian approach, which is that the latter camp is like, well, I sort of also want to make my life easy. I want to represent my beliefs. These two things aren't always at odds. "
+  },
+  {
+    "start": 1535.612,
+    "end": 1566.662,
+    "speaker": "SPEAKER_01",
+    "text": "But in very complex models, they turn out to be. And one way to make your... your life much easier is to choose a conjugate prior. So what are we doing when we compute something proportional to our posterior is we're taking the product of two probabilities, our likelihood and our prior. And when we covered probability, we talked about thinking of these as functions. So this is just the product. of two functions, two densities or masses. "
+  },
+  {
+    "start": 1567.243,
+    "end": 1602.117,
+    "speaker": "SPEAKER_01",
+    "text": "And what I want in terms of this idea of conjugacy is to pick the form of my prior distribution such that I get a nice form out from my posterior. So kind of informally, a conjugate prior is selected such that you know that your posterior is going to have the same form as your prior. So if I pick my prior to be a normal distribution, I also know that my posterior is going to be a normal distribution or from some family of distributions. "
+  },
+  {
+    "start": 1602.977,
+    "end": 1636.211,
+    "speaker": "SPEAKER_01",
+    "text": "And we'll see exactly how this makes our lives much easier. The first is to consider our our case here with a Bernoulli likelihood. And we've already selected this, just as we did in the MLE. So we have a Bernoulli. And the conjugate prior for the Bernoulli is the beta distribution. So we haven't seen the beta distribution yet, but this is what it looks like. So here's your density for your beta. It takes in two parameters. alpha and beta, and then we're thinking about the density of this parameter theta. "
+  },
+  {
+    "start": 1636.472,
+    "end": 1667.267,
+    "speaker": "SPEAKER_01",
+    "text": "One nice thing is that the beta distribution only has support in 0 and 1. Why is this important for us? Well, we know that we're modeling a Bernoulli. And the Bernoulli parameter can only take things in 0 and 1. If your Bernoulli is greater than 1, you don't have a probability mass function. If it's less than 0, you don't have a probability mass function. So that's one important thing. But the other thing is this conjugacy, which we'll see in a second. "
+  },
+  {
+    "start": 1667.467,
+    "end": 1691.43,
+    "speaker": "SPEAKER_01",
+    "text": "So this is just the CDF. So that's our prior, and that's just the distribution. We also talked about needing to select our parameters. Maybe let me go back and write down the density, just so I can. So another way that you might see this written is like this. "
+  },
+  {
+    "start": 1705.929,
+    "end": 1739.482,
+    "speaker": "SPEAKER_01",
+    "text": "Don't need to worry about the gamma function. We'll see why. So the denominator here. involves the gamma function. This is a little bit complex to deal with. And this is one of the really nice things about using conjugacies. This is a mess to deal with analytically sometimes. But we'll see that the fact that we have a conjugate distribution means that we'll be able to ignore this. And again, this will all become clear. But what do we want to select for our parameters alpha and beta? "
+  },
+  {
+    "start": 1741.095,
+    "end": 1771.78,
+    "speaker": "SPEAKER_01",
+    "text": "So here we have all of the different functions, all the different densities. Does anybody want to give me a guess? Yeah. Sorry, what is the beta? Mm-hmm. Sure. Yeah, so the question is, what does it mean for beta to be 5 if the distribution is defined on 0 and 1? So the support of the distribution is between 0 and 1. "
+  },
+  {
+    "start": 1772.3,
+    "end": 1821.232,
+    "speaker": "SPEAKER_01",
+    "text": "But it takes parameters in any, I think it's just positive values. So any non-zero. It needs to be strictly bigger than 0, actually. Strictly bigger than 1. 1 or bigger. Sorry. So this is the difference between the parameter of the distribution and properties of the distribution. We ran into this a little bit last lecture, so maybe I'll say something about it here. A lot of the distributions that we've looked at in maximum likelihood, so things like the Bernoulli and the normal distribution and the Laplace distribution that we saw last time, have this nice kind of coincidental thing that one of the properties of the distribution also corresponds to one of the parameters. "
+  },
+  {
+    "start": 1822.213,
+    "end": 1855.889,
+    "speaker": "SPEAKER_01",
+    "text": "So a property of the distribution being something like its mean or its variance. And so for a normal distribution, we have mu and sigma squared. So the parameter mu is actually the mean of this random variable. So if x is distributed according to this, it has mean mu. The mean of a beta is not alpha or beta. These are the properties that tell us how the random variable is distributed. But its actual support, being in 0, 1, has nothing to do with those parameters. "
+  },
+  {
+    "start": 1856.21,
+    "end": 1899.409,
+    "speaker": "SPEAKER_01",
+    "text": "And its mean is not directly either one of these parameters. So you need to compute the mean outside of this. Yeah. Why is the beta the conjugate prior? Yeah. So we'll see in just a second why the beta is the conjugate prior when we actually work things out. I think that's the easiest way to go about things. Anybody want to venture a guess as to what we should select alpha and beta to be, what it might mean for our prior belief? Yeah. Two, as in both of them being two. Yeah, both of them being two works out. "
+  },
+  {
+    "start": 1902.411,
+    "end": 1935.359,
+    "speaker": "SPEAKER_01",
+    "text": "So I was going to pick one. The reason I was going to pick one is because they have a normalizing constant. This gives me the uniform distribution. picking them both to be 2, right? Ah, there it is. Sorry. For a second, I had to think about what the shape it was. I didn't realize that it's displayed on the board. So if you pick alpha and beta equal to 2, you have this kind of purple distribution here, right? So this nice dome that's centered at 0.5. And this sort of represents like, what would this represent about our belief for these sellers? "
+  },
+  {
+    "start": 1935.94,
+    "end": 1967.645,
+    "speaker": "SPEAKER_01",
+    "text": "Well, what it sort of says is that I believe more likely than not, like in the absence of any information, that sellers are about 50% likely or 50% reliable on average. And OK, maybe this is a good belief. Maybe this is your belief. Maybe it's skewed even higher than this, depending on if this site is reputable. And again, we'll consider this, especially after our analysis, to understand how this might bias things. But my selection, I think alpha and beta equal to 2 is quite a nice one. But alpha and beta equal to 1. "
+  },
+  {
+    "start": 1969.302,
+    "end": 2011.043,
+    "speaker": "SPEAKER_01",
+    "text": "might be even nicer, because then it doesn't matter what theta is. All of the values of theta have the same probability. They're all normalized by this function b, or whatever b turns out to be. And so this says that, OK, before I know I've seen any data, I have no idea what my seller's reliability is. I assign equal probability to all of the reliabilities. Again, maybe this is a decision you want to make. Maybe it isn't. But this also is nice because it points out a recurring topic in Bayesian probability and machine learning, which is the selection of an uninformative prior. "
+  },
+  {
+    "start": 2011.863,
+    "end": 2043.325,
+    "speaker": "SPEAKER_01",
+    "text": "So I'm picking a prior because, well, either I don't have experience online shopping, and so I'm just picking a prior that expresses my lack of knowledge. If you have some knowledge, then alpha equal to beta equal to works out. Yeah? The intuition of . Maybe at the very end, once we've seen how it all works out, we can talk about what we think. All right. So now let's go through things. "
+  },
+  {
+    "start": 2043.405,
+    "end": 2076.161,
+    "speaker": "SPEAKER_01",
+    "text": "So we have our prior distribution. And we'll set alpha equal to 1 and beta equal to 1 to capture the uniform prior. This is exactly what we said. And we also have this other term, our likelihood. And our likelihoods, I guess we've already done this exact thing before, is just going to be, so we of course have to make the IID assumption, so it's always good to state that. And then we have the product of all of our Bernoullis. I guess how many, oh, well, we have 100 in the case of the 9010 seller. "
+  },
+  {
+    "start": 2077.801,
+    "end": 2121.867,
+    "speaker": "SPEAKER_01",
+    "text": "And so we have, oh, theta of xi minus theta Maybe a couple of words on exactly what's happening here, just make sure you follow. So each of my Xs here in my data set, I've modeled as being a one if it was a positive experience, if they're satisfied, and a zero if it was not positive, they were dissatisfied. So my data set in the case of the sort of 90 positive and 10 negative, right, ends up looking something like a set like this, just this nice little string. "
+  },
+  {
+    "start": 2125.188,
+    "end": 2159.232,
+    "speaker": "SPEAKER_01",
+    "text": "Yeah? So with the iid assumption, I can write it as the product, and then when I take this product of all these terms, I know that I'm going to get a sum, right, and I'll have 90 occurrences of this theta, and 10 occurrences of one minus theta. Right? So all I'm doing here is using the property of x-metrics. All right, so that's our likelihood. And then we have our beta distribution, which we wrote before as this guy, right? "
+  },
+  {
+    "start": 2160.232,
+    "end": 2197.966,
+    "speaker": "SPEAKER_01",
+    "text": "Theta alpha minus 1 and beta minus 1. Now remember, from before, the thing that I care about isn't the full posterior, but something proportional to it. I'm ignoring that marginal likelihood for now. And so because I only care about computing something proportional, I can take this B term, this normalizing term, which has nothing to do with theta, and I can just get rid of it. I can move it to the other side and say, you'll be absorbed by the normalizing constant in the end. And so what I end up with is you can see the numerator is theta alpha minus 1, 1 minus theta beta minus 1. "
+  },
+  {
+    "start": 2198.427,
+    "end": 2229.377,
+    "speaker": "SPEAKER_01",
+    "text": "And now, because that numerator of the beta distribution is basically the same as our Bernoulli distribution, I can combine these two things. And when I combine them, I get the posterior at the bottom there. which is theta 90 plus alpha minus 1, 1 minus theta 10 plus beta minus 1. "
+  },
+  {
+    "start": 2230.358,
+    "end": 2270.587,
+    "speaker": "SPEAKER_01",
+    "text": "So here's our posterior distribution. Now, the way that we know, because we selected a conjugate prior, that this expression at the end should give us a beta distribution. That was the whole point of selecting a conjugate prior. And so now what I want to do to make sure I get the kind of final form of my posterior is I want to take this and figure out for what parameters is it proportional to a beta distribution. So for what values of alpha prime and beta prime, so we would select those to be different, do I get something that looks like this? "
+  },
+  {
+    "start": 2273.066,
+    "end": 2313.017,
+    "speaker": "SPEAKER_01",
+    "text": "And of course, where alpha and beta equals 1, we get the following. So we have that our posterior distribution is just a beta with parameter 90 plus alpha and 10 plus beta. So these are the two posterior distributions for my sellers if I have a uniform prior belief. Is it clear what happened there? Just to walk through it one more time. Well, maybe I'll leave this here and I'll go through the steps just to make sure. "
+  },
+  {
+    "start": 2313.037,
+    "end": 2316.36,
+    "speaker": "SPEAKER_01",
+    "text": "So the first thing we did is we selected our likelihood. "
+  },
+  {
+    "start": 2329.459,
+    "end": 2367.678,
+    "speaker": "SPEAKER_01",
+    "text": "We chose our prior and its parameters. We chose it to be conjugate. And then when we computed our posterior, so we computed the product. And then finally we equated the parameters from three with a known posterior form. "
+  },
+  {
+    "start": 2376.561,
+    "end": 2407.48,
+    "speaker": "SPEAKER_01",
+    "text": "Yeah, so that's the general process that we followed. Now, of course, just looking at these, we'll go through these steps again in just a second with linear regression. But just looking at these doesn't really help us answer our original question. The original question is, which seller should we buy from? Now, one thing that I talked about, or one thing that we said is like, in Bayes, our parameter is a random variable. One thing that this complicates is making predictions. "
+  },
+  {
+    "start": 2407.78,
+    "end": 2445.316,
+    "speaker": "SPEAKER_01",
+    "text": "Because if you are making predictions with a random variable parameter, what does that mean? Do you sample from the random variable? Do you take the mean? What do you do? And this is the topic of Bayesian decision theory. But in general, you want to think about the posterior predictive distribution. In this case, this will end up being the mean. And so here's how you do inference when you have a Bayesian model. So what I want to think about is the probability of myself, when I order from either of these sellers, having a good experience. "
+  },
+  {
+    "start": 2445.596,
+    "end": 2476.49,
+    "speaker": "SPEAKER_01",
+    "text": "That's how I'm going to make this decision. So what's the probability of X star? X star representing sort of my experience with the seller given the data I've observed. And then, of course, we can use the tools of probability to reason about this. So this is just the marginalization process is what's happening here. That's the rule that we've seen before. So I have the probability of x star given theta times the probability of theta given my data. This is, again, just marginalization. It's a rule that we've seen. "
+  },
+  {
+    "start": 2478.671,
+    "end": 2517.803,
+    "speaker": "SPEAKER_01",
+    "text": "And so when I take this product, we know that the probability of x star being theta in a Bernoulli distribution is just theta. All I'm doing there is plugging in the mass of the Bernoulli function for x star equals 1. And then what I have here is just the expectation. And I have the expectation over what? It's the expectation over my posterior And this is where I would tell you, so it would be given to you, is that the expectation of a beta distribution with parameters alpha and beta is equal to alpha over alpha plus beta. "
+  },
+  {
+    "start": 2517.943,
+    "end": 2548.665,
+    "speaker": "SPEAKER_01",
+    "text": "This isn't something you need to know, but it would be given to you, for example. We'll see that when we do our exam prep question at the end. So this is our posterior predictive. And so we can think about like, all right, what's my probability of having a good outcome? And the probability of having a good outcome from seller one is three fourths, right? 0.75 is my belief. And more than, well, about 89 or 90%. "
+  },
+  {
+    "start": 2549.565,
+    "end": 2579.869,
+    "speaker": "SPEAKER_01",
+    "text": "So probably 0.9 for seller one. So this like, again, captures that very nice intuition we had at the beginning that we should go with the seller who has more experience. And again, what was this predicated on? It was predicated on me expressing a uniform prior belief over seller reliabilities. Before I've seen your statistics, in terms of how satisfied or dissatisfied people are, I have no way of knowing whether or not I will get a good experience. "
+  },
+  {
+    "start": 2580.45,
+    "end": 2620.892,
+    "speaker": "SPEAKER_01",
+    "text": "Now, there was a question before about how do we select these and how does this bias our analysis? Hopefully, this helps you see that if I take a uniform prior, all I'm doing is I'm adding one to the numerator and denominator, the numerator being how many times were you successful and the denominator being how many? I guess two. Maybe two. um, to the numerator and denominator and then saying, okay, this is going to be my expectation. And so if you were to choose alpha and beta to be something different, it would change these final probabilities based on the expectation of the beta distribution. "
+  },
+  {
+    "start": 2620.932,
+    "end": 2661.376,
+    "speaker": "SPEAKER_01",
+    "text": "So you can choose, let's say that the site itself, you believe does a very good job of like processing or vetting their sellers on the site. Then you might say like, well, the fact that they're selling on this site at all tells me that more likely than not, they're reliable. And so you might choose a prior distribution. Let's see if there's a nice skewed one here. You might choose a distribution that's the opposite of this orange distribution, so alpha equal to 5, beta equal to 2, something like that. Where you say, look, because I believe the site does a good job at vetting people, I'll believe that with high probability you are reliable. "
+  },
+  {
+    "start": 2661.916,
+    "end": 2693.031,
+    "speaker": "SPEAKER_01",
+    "text": "And then in the end, what you would get is something a little bit different here in terms of your posterior predictive. Why 101 and not 102? I think it has to be 102. I think I just made a very simple arithmetic mistake. Because what was beta? Alpha and beta are 1. Yeah. So it should be 102. "
+  },
+  {
+    "start": 2696.588,
+    "end": 2730.983,
+    "speaker": "SPEAKER_01",
+    "text": "I was trying to figure out what was wrong when I was saying we add 1 to the denominator and numerator, and that was it. So the denominator there needs to be 102. Great. So one thing that we'll dive into a lot next lecture is you can also think about, and this is one of the main and primary motivations for doing Bayes, you can think about your uncertainty about these events. And you can do so in a very elegant way. The way that you would think about it here is using the variance. I know that this is what I expect from the seller, but what is my variance about that prediction? "
+  },
+  {
+    "start": 2731.323,
+    "end": 2762.739,
+    "speaker": "SPEAKER_01",
+    "text": "And sometimes rather than just using the mean, you'll think about, okay, which seller do I select if I want my tail probability to be small? And again, we'll dive into this a bit more in next lecture, but just to touch on it now, you don't just have the expectation, but also the variance. Okay. So we'll run, again, quite over time today. I think just working on the board always is slower than I think. But let's talk now about using Bayes in a supervised learning setting. "
+  },
+  {
+    "start": 2763.3,
+    "end": 2769.106,
+    "speaker": "SPEAKER_01",
+    "text": "Before we go to supervised learning, any questions on the prior section? Mm-hmm. "
+  },
+  {
+    "start": 2782.418,
+    "end": 2819.776,
+    "speaker": "SPEAKER_01",
+    "text": "So the question was, is choosing your alpha and beta for your beta distribution prior similar to extracting, you said, a feature from your data set? And the answer is no, but it's a good question because your prior distribution has to have nothing to do with your data. Right. You should choose your prior and model your prior before you see your data at all. It should never be influenced by your data if it is. And you want to still do a strictly Bayesian analysis. You would select you do this kind of hierarchical Bayesian thing where you say, OK, I'm going to put a prior over all of my prior distributions. "
+  },
+  {
+    "start": 2820.196,
+    "end": 2870.986,
+    "speaker": "SPEAKER_01",
+    "text": "I'll infer. the parameters of the prior distribution I should use and then go on. But again, this is one of those things that's very subjective Bayesian rather than pure Bayesian. This does bias your analysis considerably. Yeah? How do you go about selecting your parameters? How do you go about selecting your parameters? So in the case that we just gave, you select your parameters based on your belief about the seller's reliability. So whatever prior, you can select the form of your prior. Like, we will all select the form of our prior to be conjugate priors. That way, we can use this general method that I'm telling you, which is to equate your parameters at the end. If you don't do that, then you can't equate your parameters. You might need to do something else. We'll talk about that something else later. But yeah, so you choose it to be or both. "
+  },
+  {
+    "start": 2871.046,
+    "end": 2902.159,
+    "speaker": "SPEAKER_01",
+    "text": "Can I take the question at the end? Because I want to make sure we're not too, we'll be probably 30 minutes over or so, and I don't want to be way more than that. OK, cool. In linear regression, we have the following likelihood. This is a little bit different from the likelihoods that we've seen, the way we wrote out the likelihood before. I think we wrote the likelihood out as a sum of normal distributions. And here, I'm writing it down, making the iid assumption as a multivariate Gaussian. "
+  },
+  {
+    "start": 2903.14,
+    "end": 2933.893,
+    "speaker": "SPEAKER_01",
+    "text": "Lots of very wonderful properties about the multivariate Gaussian, but this is essentially just the product of all of our likelihoods. So here's the density, and I'll go ahead and write it out. "
+  },
+  {
+    "start": 2934.313,
+    "end": 2967.545,
+    "speaker": "SPEAKER_01",
+    "text": "So this is, like I said, well, actually, this is a univariate Gaussian, but over our entire data. But one thing that I'll make a note of, just so that you have this terminology going forward, is that if you have a multivariate Gaussian with diagonal covariance, we sometimes call that an isotropic or spherical Gaussian. Because if you look at the level set, let's say in R2, of a Gaussian with a diagonal covariance, you get... a circle, and higher dimensional is a sphere. "
+  },
+  {
+    "start": 2968.086,
+    "end": 3000.699,
+    "speaker": "SPEAKER_01",
+    "text": "So this is isotropic or spherical Gaussian, if you ever see that terminology used. Great, so this is our likelihood. Now, the conjugate prior for a normal, there's actually lots of things that you could pick here, and that's because the normal distribution is extremely nice to work with. But we're going to pick a normal distribution for our prior, and to start, why would we do this? What does this represent about my beliefs? And we'll sort of deal with that at the end. Let's think about what it actually does when we finish our analysis. "
+  },
+  {
+    "start": 3000.759,
+    "end": 3028.669,
+    "speaker": "SPEAKER_01",
+    "text": "For now, let's choose it just because it's conjugate. Just because we know that the product of two normals is going to be a normal distribution. So we have this. This is our likelihood. And here, because I've already used sigma squared, I'm going to use tau squared. "
+  },
+  {
+    "start": 3038.715,
+    "end": 3072.051,
+    "speaker": "SPEAKER_01",
+    "text": "And the reason that this numerator doesn't look like the one above is because the mean is zero. So I've chosen my distribution to be a zero mean Gaussian. Again, you can think about what it means if your mean isn't zero after we do our analysis. So again, this is just saying that things are normal. So the first step here, I'm trying to decide if I want to write everything out on the board. So this is a longer derivation, but the steps are relatively mild. "
+  },
+  {
+    "start": 3072.111,
+    "end": 3103.297,
+    "speaker": "SPEAKER_01",
+    "text": "So maybe I'll allow it to be on the slides. And if you need any clarification, if you don't see how we got from one step to the other, let me know and I'll copy it down and explain how we got from one to the other. So the first thing that we've done before, remember, we dealt with our log likelihood before. And that was to deal with these expectations or these, sorry, this exponentiation. And when you take the log, you end up with a sum. So of course, the log posterior is equal to the sum of the log of your likelihood and the log of your prior. "
+  },
+  {
+    "start": 3104.491,
+    "end": 3140.029,
+    "speaker": "SPEAKER_01",
+    "text": "Of course, we've taken the log of our likelihood before, so we know how to do this. And essentially, the only thing that I've done to simplify my likelihood in my prior here is I've said, well, this first term has nothing to do with theta. So immediately, because I only care about proportionality, I can get rid of it. Same thing here. There's no theta in this term. Right? And so now, when I take the log, both of these exponents come out, and I just have the sum of these two terms with a little bit of additional things. "
+  },
+  {
+    "start": 3140.049,
+    "end": 3200.34,
+    "speaker": "SPEAKER_01",
+    "text": "I can't just get rid of these terms, because these terms are 2 sigma squared and 2 tau squared. They are sort of multiplied by theta. They manipulate our distribution in theta, so I can't get rid of them without changing my distribution. Yeah? . You have a log of p and theta. Oh, yeah. Yeah, there's a small error there. That first term says that the log of my posterior is proportional to the log of my posterior plus the log of my prior. It should be your likelihood, right? So that first term in the log should be pd given theta, not p theta given d. Thanks. Great. So all I'm doing here is distributing out. This should look very familiar to you, the inside. This is one of the first things we did in lecture two with just a little bit of linear algebra to factor out this quadratic, distribute out this quadratic. "
+  },
+  {
+    "start": 3202.271,
+    "end": 3247.88,
+    "speaker": "SPEAKER_01",
+    "text": "And then this is all a sum, so I'll just sum all of these terms up by distributing in the sigma. And then because fractions aren't great to work with, I'm gonna multiply by two sigma squared tau squared, and I get the following sort of long mess. But this is just taking my product of density, so the product of these two things, after the exponent, and just laying it out, simplifying it all out as much as I can. Now, okay, so this is, again, as simple as we can reasonably get it, but it's not obvious what you should do from here. "
+  },
+  {
+    "start": 3249.571,
+    "end": 3280.089,
+    "speaker": "SPEAKER_01",
+    "text": "Now, the guiding thing that we have is we selected our prior to be a normal distribution because we know that whatever this thing is up top should also be able to fit into a normal distribution. This is that last step here, where in our beta Bernoulli model, we equated our variables. In that case, it was... excuse me, much easier to see what the parameters of our beta distribution needed to be. It was very easy to see that, well, I just need to add one, and I get my beta parameters. "
+  },
+  {
+    "start": 3280.629,
+    "end": 3311.628,
+    "speaker": "SPEAKER_01",
+    "text": "Here, it's not so obvious. What I recommend doing is thinking about the form of a normal distribution, but let your parameters be mu and sigma squared, and then you want to solve for what mu and sigma squared are. So here, all I've done is exactly the same steps that we did before, but just to the log of a normal distribution. And now, I have the log of a normal distribution with respect to just arbitrary parameters mu and sigma. And up top, I have the log of my posterior. "
+  },
+  {
+    "start": 3311.988,
+    "end": 3346.876,
+    "speaker": "SPEAKER_01",
+    "text": "And so what I need to do is find the parameters mu and sigma that make these two things equal to each other. So I just need to equate these distributions. Now, what have I done here? Sorry, why can't I do this? Oh, there's no theta. OK. So here we have mu inverse sigma mu. Again, it has nothing to do with theta, which is the thing that we're interested in learning the distribution over. "
+  },
+  {
+    "start": 3347.156,
+    "end": 3378.18,
+    "speaker": "SPEAKER_01",
+    "text": "And so it's just a constant with respect to theta. So we can get rid of it. So I have this bottom term, and I need to make that top term look like this bottom term. Now, this is a step that you'll get used to. There'll be a couple more times that we have to do this, I think once on your practice sheet. But up top, what you'll notice is that we have several terms that are alike. We have several terms that are quadratic in theta, meaning there's two thetas that are being multiplied together. "
+  },
+  {
+    "start": 3378.521,
+    "end": 3413.064,
+    "speaker": "SPEAKER_01",
+    "text": "And then we have terms that are linear in theta. And the thing that we want to do is sort of group those together, group our quadratic terms, group our sort of single theta terms. And so that's all I've done going from the top step to the bottom step is I've pulled the theta out front and behind in the quadratic case and then just combined my single theta cases. OK, so the first thing that's nice is that reassures you that you're making some progress is that immediately we can see what the inverse of our covariance matrix should be. "
+  },
+  {
+    "start": 3414.104,
+    "end": 3444.574,
+    "speaker": "SPEAKER_01",
+    "text": "Because we have here theta transpose sigma inverse theta. And up top, we have theta transpose some matrix and theta. So that's what sigma needs to be. Now, the other thing is we know that we've gathered all of our terms that only have a singleton. And so we need to figure out how to make these two things equal to each other. But to start, this is what we would do. So I've just set them equal and then solved for what mu is equal to. "
+  },
+  {
+    "start": 3447.697,
+    "end": 3462.495,
+    "speaker": "SPEAKER_01",
+    "text": "So I'll give you a second just to convince yourself that that algebra is all right. OK, now does anybody see a problem with just circling this and saying that this is my answer? "
+  },
+  {
+    "start": 3473.838,
+    "end": 3507.941,
+    "speaker": "SPEAKER_01",
+    "text": "One thing that's a little bit strange here is my expression of mu involves sigma. It's like, what is the mean? Well, the mean is equal to this thing involving sigma, sigma is this other sort of strange object. So, all right, if you actually want to know the mean of your posterior in terms of quantities you know, you should do a little bit of simplification. If you, for example, if you circle this on your exam and said this was your answer, you would get very minor marks off, but there's usually some interpretation question afterwards that would be much harder to do in this form. "
+  },
+  {
+    "start": 3508.741,
+    "end": 3542.088,
+    "speaker": "SPEAKER_01",
+    "text": "OK, so to solve things out, the step that I did from here to here is I just put the inverse on the other side. So now I have sigma. And now I just want to plug into the bottom. And with a little bit of algebra, again, just plugging in, I get the following as my mean. So this is the Bayesian posterior mean for our normal distribution. And it looks very similar to something we've seen before in class. Does anybody know what this looks like? Yes, it looks very similar to the OLS. "
+  },
+  {
+    "start": 3542.168,
+    "end": 3575.345,
+    "speaker": "SPEAKER_01",
+    "text": "A little bit different, though, because we have this identity. And there's another time that we've seen constant times an identity added on to this inner term, this x times root of x. Yeah, ridge regression. So we've seen this exact form before, albeit with a different constant here, is actually the ridge regression estimate. And just to recall, what did we do to get ridge regression? What is the difference between ridge and our OLS? Anyone? Yeah. "
+  },
+  {
+    "start": 3575.365,
+    "end": 3615.23,
+    "speaker": "SPEAKER_01",
+    "text": "You penalize large weights. You penalize large weights. Yeah, you do regularization. And so now, again, when we started this analysis, I picked a normal because it was conjugate. Because we have a conjugate prior, I know I can do my analysis, equate my variables, and everything will be rosy in the end. And now that I'm looking at the final form of my posterior mean, I can think about what effect my prior distribution has. And my prior distribution parameter is tau squared. And so your prior distribution has the same effect as a regularizing parameter in sort of your ordinary least squares. "
+  },
+  {
+    "start": 3615.89,
+    "end": 3649.535,
+    "speaker": "SPEAKER_01",
+    "text": "And this goes to show you that, before, we talked about picking a loss function, and then we picked a regularizer. And when we did maximum likelihood estimate, we gave a really principled probabilistic view of that likelihood, or that loss function. So don't just pick a loss function. Think about a probabilistic model, and let that probabilistic model be your likelihood. Follow through the steps. And then we had this regularization term, which we called the hyperparameter. But actually, the regularization term also has a very nice and principled probabilistic interpretation. "
+  },
+  {
+    "start": 3650.376,
+    "end": 3682.165,
+    "speaker": "SPEAKER_01",
+    "text": "When you select your regularization term, what you're really doing is putting a prior on your parameters. These things are equivalent to each other. Now, one thing that, again, we'll talk about just a little bit more next lecture, but an important term, is that this thing here is also called your maximum a posteriori estimate. So if you set theta to be mu here, you could call it theta MAP, maximum a posteriori. "
+  },
+  {
+    "start": 3683.343,
+    "end": 3723.745,
+    "speaker": "SPEAKER_01",
+    "text": "The MAP estimate is the estimate that maximizes your posterior density. So this is the parameter with the maximum probability under your posterior belief. For example, if you wanted to make inference quick, so you don't want to do a lot of samples to compute the final mean of your model, so of your posterior predictive, for example, then you could just use the map. That's something that some people do. And basically, the result that we've seen here is that the maximum a posteriori of linear regression, Bayesian linear regression with a Gaussian prior and Gaussian likelihood, is exactly equal to the ridge regression MLE. "
+  },
+  {
+    "start": 3731.91,
+    "end": 3763.421,
+    "speaker": "SPEAKER_01",
+    "text": "Great. So this is it. If you write down a normal distribution with mean mu, and mu is equal to these quantities that you have, and covariance, again, equal to quantities that you have, sigma squared, of course, being your prior variance, and tau squared being your likelihood variance. Oh, no. Tau squared being your prior variance, sigma squared being your likelihood variance. And now you can do inference. So we won't go over computing the posterior predictive here. "
+  },
+  {
+    "start": 3764.451,
+    "end": 3795.037,
+    "speaker": "SPEAKER_01",
+    "text": "One thing that I'll say is that, OK, this is your normal distribution. This is your posterior, which is a normal. And you know that your likelihood is also a normal. We've already written the likelihood in order to get our posterior. And so if you wanted to do the posterior predictive, well, you have the mean of a normal, the product of two normals. And now you know that the product of two normals is a normal. And so you could compute this. It's a nice exercise. It follows essentially all of the same steps we just did, although with slightly different terms. "
+  },
+  {
+    "start": 3795.198,
+    "end": 3828.715,
+    "speaker": "SPEAKER_01",
+    "text": "So again, it's a nice exercise if at 9 in the morning you aren't able to follow every step of the derivation. Great. So a couple of conceptual takeaways. First is that when we do Bayesian modeling, our parameter is a random variable. And we have to deal with that in sort of nuanced ways. We have to, our learning is a little bit different. Our learning is now computing the product of these densities. And then our inference is also the posterior predictive. "
+  },
+  {
+    "start": 3829.415,
+    "end": 3861.133,
+    "speaker": "SPEAKER_01",
+    "text": "But the reason that we do this is that from a Bayesian perspective, you shouldn't make your predictions or let data make your predictions. So determine exactly what your beliefs are in a vacuum. You should encode some prior belief. So for example, again, thinking about the equivalent between our maximum a posteriori and our ridge regression, our prior belief in the case of sort of Gaussian Bayesian linear regression is that very high parameter values are not going to do well. "
+  },
+  {
+    "start": 3861.154,
+    "end": 3891.651,
+    "speaker": "SPEAKER_01",
+    "text": "They're going to overfit. And so we want to say, OK, well, I know that these are going to overfit, so I'm going to assign very low prior probability to models that I think will overfit, and then that yields the mean. So that's one way that you have some prior belief, and it directly affects the outcome of your learning. So your methodological takeaways. Specify your likelihood, just as you did in MLE. Choose your prior. And again, in this class, we'll always choose our prior to be conjugate. "
+  },
+  {
+    "start": 3892.431,
+    "end": 3930.195,
+    "speaker": "SPEAKER_01",
+    "text": "We'll talk in next lecture about places where that doesn't exist, but you won't have to deal with them. And then solve for your posterior by matching the densities. In the next lecture, we'll talk about predictive uncertainty, so we'll go into this predictive distribution a little bit more. We'll talk about that marginal likelihood term, that P of D that I sort of threw away at the beginning of our lecture. In particular, one thing that's a little bit surprising is previously, we've talked about using test sets and validation sets to make your hyperparameter decisions. "
+  },
+  {
+    "start": 3930.595,
+    "end": 3966.424,
+    "speaker": "SPEAKER_01",
+    "text": "From a Bayesian point of view, this doesn't really make a lot of sense. Instead, you should use your marginal likelihood, and we'll talk about that, like how do you do model selection and think about those things. There's a whole host of nice perspectives on learning that come out of dealing with probability in this way. So that's it. Now, we've run a good bit over. Oh, actually, we're pretty much on time. So I'm going to do two kind of exam-esque questions now from this lecture and one from concentration inequalities. "
+  },
+  {
+    "start": 3966.805,
+    "end": 3981.012,
+    "speaker": "SPEAKER_01",
+    "text": "And then we'll do some conceptual questions and GTA time. But I'll give everybody a break since it's been an hour for about five minutes. And when we come back, we'll start on this question. And instead of a break, if you want to just dive right in, I'll leave this on the board. "
+  },
+  {
+    "start": 4002.247,
+    "end": 4003.757,
+    "speaker": "SPEAKER_00",
+    "text": "How do you prepare once a month? "
+  },
+  {
+    "start": 4041.895,
+    "end": 4059.279,
+    "speaker": "SPEAKER_00",
+    "text": "Tuesday is 12, next Friday is 13, and then that's the end. And then our final lecture, lecture 14, is just exams. Say, all right, we'll finish this at 5. I'll go through all of the material that we covered. We'll go through our list of all of the topics and techniques. And then you will get three or four practice exams, right? "
+  },
+  {
+    "start": 4059.379,
+    "end": 4061.959,
+    "speaker": "SPEAKER_02",
+    "text": "And we'll go through some of those. "
+  },
+  {
+    "start": 4093.132,
+    "end": 4114.096,
+    "speaker": "SPEAKER_00",
+    "text": "Oh, I know a question about . So we're getting very tired . So we are kind of expecting to achieve target accuracy. Yes. So we are trying to . For all, yeah. Is that really ? Oh, yeah. "
+  },
+  {
+    "start": 4157.508,
+    "end": 4175.903,
+    "speaker": "SPEAKER_00",
+    "text": "Yeah, so like let's go we're going to be doing these skills you'll see like we will remove these and like we'll do one on the machine while these are generalizing the concentration of properties today and then we'll do auto-dig next time and so on and so on. Again, I'll start with like a map. "
+  },
+  {
+    "start": 4209.081,
+    "end": 4248.647,
+    "speaker": "SPEAKER_00",
+    "text": "Renewal is an exponential. So what is the 2 that's going to do the distribution? Well, no, no, no, an exponential family. Yeah, I mean, there's not an exponential family. It'll be hard. Essentially, what you'll do is then you're saying, like, okay, let me derive this general result. And then after you have the general result, you need to renew it in its canonical form. So what are its natural parameters? And then you plug into that general result. The problem is, the product of two distributions from an extension to a family are not always conjugate. What's a conjugate? The form of your final entity is from a known extension. "
+  },
+  {
+    "start": 4248.687,
+    "end": 4280.081,
+    "speaker": "SPEAKER_00",
+    "text": "You'll definitely get an extension, right? But like, which one is it? I don't think you could pick, for example, a normal distribution and a beta distribution and get a close one. Well, yeah, fine. The ones at EMF or EDF, they have a similar primary form. So this is actually just a univariate count. "
+  },
+  {
+    "start": 4296.737,
+    "end": 4330.619,
+    "speaker": "SPEAKER_00",
+    "text": "It's just a product of n. That's all n. No, no, this is all 1. Everything here is a scalar. This is a scalar. That's still that. I was just mentioning that in the multivariate case where we have a signal, which is in the very end, we have a multivariate. That's your covariance. If your covariance is diagonal, then you have a high-term equation. It's just because it's No, because I've gathered this into my design materials. "
+  },
+  {
+    "start": 4371.003,
+    "end": 4374.278,
+    "speaker": "SPEAKER_00",
+    "text": "It's totally fine, we don't like, like you don't expect it to be. "
+  },
+  {
+    "start": 4401.08,
+    "end": 4402.801,
+    "speaker": "SPEAKER_00",
+    "text": "You should report that on the calendar. "
+  },
+  {
+    "start": 4479.559,
+    "end": 4492.706,
+    "speaker": "SPEAKER_00",
+    "text": "0.01 times this, which is this over . This is this. So it's four. And then this is . I think maybe there's a missing zero, but then there's a missing zero . So one is . "
+  },
+  {
+    "start": 4511.365,
+    "end": 4529.733,
+    "speaker": "SPEAKER_00",
+    "text": "No, no, sorry. This should be 0.1. No, 9 and 0. Why is that? "
+  },
+  {
+    "start": 4544.123,
+    "end": 4549.526,
+    "speaker": "SPEAKER_00",
+    "text": "There you go. Yeah. And it's the same. "
+  },
+  {
+    "start": 4579.47,
+    "end": 4583.694,
+    "speaker": "SPEAKER_00",
+    "text": "This is the same thing. So, S terms are estimated. "
+  },
+  {
+    "start": 4583.794,
+    "end": 4587.737,
+    "speaker": "SPEAKER_02",
+    "text": "S is the true value of S. So, S is the true value of S. "
+  },
+  {
+    "start": 4607.289,
+    "end": 4616.293,
+    "speaker": "SPEAKER_00",
+    "text": "It's the expectation of that, right? So it's the mean, otherwise that's it. So let me go to this one. "
+  },
+  {
+    "start": 4636.442,
+    "end": 4669.17,
+    "speaker": "SPEAKER_00",
+    "text": "So you wrote up like the mean of my is like the mean, right? So the expectation of each of them divided by n. Each of them is n. So each of these, so we have this one. "
+  },
+  {
+    "start": 4669.75,
+    "end": 4696.834,
+    "speaker": "SPEAKER_00",
+    "text": "So we want the expectation. So the expectation of this subprime. What I'm saying is, what we said is that . So I have, for each of these ri's, they're drawn from other distributions. So they're the same distribution. So they have the same mean. They all have the same mean. Yeah, it's like times, yeah. No, it's lecture six when we were proving the . "
+  },
+  {
+    "start": 4724.836,
+    "end": 4731.98,
+    "speaker": "SPEAKER_00",
+    "text": "Yes, it's kind of changing your . "
+  },
+  {
+    "start": 4742.905,
+    "end": 4757.937,
+    "speaker": "SPEAKER_00",
+    "text": "I don't think we've used it. I don't know that we've used it. I don't know that we've used it. I don't know that we've used it. I don't know that we've used it. "
+  },
+  {
+    "start": 4791.728,
+    "end": 4850.011,
+    "speaker": "SPEAKER_00",
+    "text": "What we did do, let's pick a parameter. Pick any parameter you want. Then think about how wrong is that? And then we want to find the model that's the least. It's the same thing in . Pick any parameter. What's the of your data on the ? OK, now pick the parameter max. That's the thing that I'm not getting. So, we're assuming that the data set that we've been given, it's been sampled from the true borderline population. Yeah. But there is some noise in that. So, the true value could actually be. So, the value we have could potentially be there. That's why when we predict, So, for example, if it's, like, that's one value, then there's, like, a, let's take a whole distribution, for example, there's, like, a range of values and a round of values, and then, basically, you're trying to find the parameter that's the best. "
+  },
+  {
+    "start": 4850.071,
+    "end": 4868.284,
+    "speaker": "SPEAKER_00",
+    "text": "Yeah, so, like, it's pretty easy. But some of the things they are, like, it's not going to work. Yeah. Yeah. When you're selecting, . "
+  },
+  {
+    "start": 4891.399,
+    "end": 4910.925,
+    "speaker": "SPEAKER_00",
+    "text": "And then you say, well, the probability of you clearing this point is under beta 1. The probability of you clearing this point is under beta 2. How does this refer to our initial idea? "
+  },
+  {
+    "start": 5048.056,
+    "end": 5104.884,
+    "speaker": "SPEAKER_00",
+    "text": "So you would say, so let's say, we do, let's just say, two models, one model validates, and the other model does, and the other model does, and the other model does, and the other model does, and the other model does, and the other model does, and the other model does, and the other model does, Okay. "
+  },
+  {
+    "start": 5106.785,
+    "end": 5146.708,
+    "speaker": "SPEAKER_01",
+    "text": "All right, let's get started with the practice exam question for this lecture. Hopefully you've had a chance to try it out. Does anybody want to tell me how to start? All of the ingredients are there. Okay. So when you see this problem, obviously, it's asking you to compute the posterior, which is what we saw in today's lecture. And again, if you wanted to know how to start, I guess the nice thing about having just done this lecture is that it's on the board. "
+  },
+  {
+    "start": 5147.729,
+    "end": 5187.679,
+    "speaker": "SPEAKER_01",
+    "text": "Select your likelihood and your prior. In this case, I've given them both to you. So the first thing that you would write is base. OK. So we're going to expand these out. The likelihood we have up top. "
+  },
+  {
+    "start": 5188.14,
+    "end": 5219.465,
+    "speaker": "SPEAKER_01",
+    "text": "And why can I write it this way? Yeah? Assuming IID. Yeah, assuming IID. Great. And then I have my prior. Hopefully I've left myself. OK. "
+  },
+  {
+    "start": 5220.886,
+    "end": 5253.055,
+    "speaker": "SPEAKER_01",
+    "text": "So there's my full thing. Right, I guess really we should separate these out just to make sure. All right, so does anybody want to tell me how they simplified this? Well, maybe before, because I see maybe people, how many people were able to attempt it before I just started? Show of hands. Only very few. "
+  },
+  {
+    "start": 5253.075,
+    "end": 5274.325,
+    "speaker": "SPEAKER_01",
+    "text": "And how many people haven't attempted it? OK, so I'll stop now. I'll stop at this point. We'll pick up in just a minute. For those of you who have attempted it, you can go ahead and attempt the second question for today if you've already done the first. "
+  },
+  {
+    "start": 5306.599,
+    "end": 5317.705,
+    "speaker": "SPEAKER_00",
+    "text": "So I have some weird details. We've done this, and you'll get a . And then if you have any questions, you can always email me, and I'll just refine any questions you might have. OK, this is how . "
+  },
+  {
+    "start": 5350.202,
+    "end": 5364.035,
+    "speaker": "SPEAKER_01",
+    "text": "Okay, let's go ahead and continue. Show of hands how many people have gotten, have made some progress. Okay, actually not that many, so we'll still wait. "
+  },
+  {
+    "start": 5420.878,
+    "end": 5428.825,
+    "speaker": "SPEAKER_00",
+    "text": "You were the same in one sheet. "
+  },
+  {
+    "start": 5470.257,
+    "end": 5501.766,
+    "speaker": "SPEAKER_01",
+    "text": "Okay, let's go ahead so we have time to do the next one and for some questions afterwards. Who wants to volunteer what they did from here to here? What was their next step? Yeah. Okay, yeah, so the step that's suggested is to remove the normalizing factor. Yeah, you can get rid of this. Do you want to get rid of anything else? "
+  },
+  {
+    "start": 5503.947,
+    "end": 5547.859,
+    "speaker": "SPEAKER_01",
+    "text": "Yeah. Yes, we can. Can we get rid of these? No, and why not? Yeah, because they multiply the parameter of interest, right? So it's not related by a constant if we get rid of this. All right, that's a good step. After this, yeah? Great. Yeah, so we can change this. Wait, sorry. What did you say was the last bit? Transform the multiplying summation on the exponent. Yeah, OK. So what do you want it to be now? "
+  },
+  {
+    "start": 5549.7,
+    "end": 5554.461,
+    "speaker": "SPEAKER_02",
+    "text": "So the power of the sum of the x's. "
+  },
+  {
+    "start": 5564.889,
+    "end": 5618.236,
+    "speaker": "SPEAKER_01",
+    "text": "Yeah? Well, this is another thing we could have gotten rid of, right? Doesn't involve lambda. It's a constant, so let's get rid of it. Okay, and what we're left with here is our prior without the terms we removed. OK, now one very simple thing that I'm going to do just to make our life a little bit easier is I'm going to say let the sum of all the xi's just be s, in which case this is just lambda s. "
+  },
+  {
+    "start": 5620.077,
+    "end": 5634.188,
+    "speaker": "SPEAKER_01",
+    "text": "But you can always plug back in if you want just to avoid writing sums everywhere. OK. What do we do now? It's kind of the same intuition as above. We just combine our terms. "
+  },
+  {
+    "start": 5646.572,
+    "end": 5655.555,
+    "speaker": "SPEAKER_01",
+    "text": "OK. This looks very simple to me. Don't know that we can go much further in terms of simplification. We could pull out the lambda if we want. "
+  },
+  {
+    "start": 5666.757,
+    "end": 5699.751,
+    "speaker": "SPEAKER_01",
+    "text": "In fact, let's do this. Sorry, my exponents have run into each other a little bit. OK, now that looks very simple to me. What do we do now? Yeah? Exactly. We recognize, well, we know from the beginning that we selected something that was conjugate. "
+  },
+  {
+    "start": 5700.872,
+    "end": 5738.905,
+    "speaker": "SPEAKER_01",
+    "text": "And so now we just need to write down what are the actual parameters of our posterior. So what are they? We know that we want our posterior is gamma of alpha prime beta prime, where what's alpha prime going to be? s plus alpha. Yep. And what's beta prime equal to? "
+  },
+  {
+    "start": 5751.31,
+    "end": 5761.474,
+    "speaker": "SPEAKER_01",
+    "text": "n plus beta. Does it need to be negative? Yeah, looks like it does. "
+  },
+  {
+    "start": 5774.025,
+    "end": 5814.756,
+    "speaker": "SPEAKER_01",
+    "text": "Any questions on that? If you did get stuff, yeah? Why can we cancel out the x from the denominator? Our data set, this is actually kind of a nice philosophical question as well, which we'll touch on. a bit more, which is from a Bayesian perspective, your data is fixed. Frequentists, like some of the bias variance trade-off that we've done, has relied on this frequentist interpretation that we're going to sample many data sets and decompose our error into, what if I observe infinitely many such data sets? "
+  },
+  {
+    "start": 5815.056,
+    "end": 5847.323,
+    "speaker": "SPEAKER_01",
+    "text": "From a Bayesian perspective, you say, no, I only sample one data set, and now I have it. Right? And this data set is just going to be a constant. Like the thing that you've observed can't change. Yeah? beta. Yeah. So I think so up top, I have minus beta lambda. Right? So if I pull this in front, so if I put this in front, it's minus n plus beta lambda. "
+  },
+  {
+    "start": 5849.729,
+    "end": 5866.719,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah, so the suggestion is n plus beta, yeah? "
+  },
+  {
+    "start": 5867.48,
+    "end": 5901.665,
+    "speaker": "SPEAKER_01",
+    "text": "Yeah, that's what we had originally. The reason I thought I had to minus it was because I pulled this in front, but you're right. This would have already been minused. Cool. Because it's up top. You could also, like, if the density had been just beta lambda, then we would need to do something. We would need to do the minus. But the minus is already there. Cool. So the last thing was to, a part of this question, is to think about the mean. So the mean, because we've already computed this, is just to plug in. "
+  },
+  {
+    "start": 5901.685,
+    "end": 5931.855,
+    "speaker": "SPEAKER_01",
+    "text": "So we have S plus alpha and N plus alpha. Beta at the bottom. And so you're asked to think about how selecting your prior affects things. And here, similar to what we talked about with the Bernoulli, what you want to talk about or what you want to observe is that selecting very large values and alpha and beta reduces the influence of your data. "
+  },
+  {
+    "start": 5933.798,
+    "end": 5965.933,
+    "speaker": "SPEAKER_01",
+    "text": "So if I select alpha to be, let's say n is like 100, and then I select alpha and beta, both to be equal to 1 million, whatever, let's say, then my data has very little effect over my posterior. It doesn't quite matter how many ones and zeros you observed here, or what you observed. "
+  },
+  {
+    "start": 5967.693,
+    "end": 6006.453,
+    "speaker": "SPEAKER_01",
+    "text": "And it's the same thing with our beta distribution. If you're very sure, when we go back to our Bernoulli, sorry, I'm gonna remove this one and go back. So here was our beta distribution. And in the end, we had this sort of expectation, alpha and beta. If you were really sure about what the seller's probability was of their reliability, let's say you're for sure that they're 80% reliable, so you make alpha and beta really large in proportion so that your mean is 0.8, then it doesn't matter what data you observe. "
+  },
+  {
+    "start": 6006.473,
+    "end": 6044.139,
+    "speaker": "SPEAKER_01",
+    "text": "You'll always get that out. So here, alpha and beta just influence your degree of certainty about the thing and reduce the effect of your data. The same thing is true, of course, for your maximum a posteriori, your ridge regression estimator, if you make your prior variance very, very small. What this does is, oh, sorry, what this does is it means that this identity term is getting really, really wide, and then essentially your ridge regression estimate goes to zero. "
+  },
+  {
+    "start": 6044.759,
+    "end": 6122.99,
+    "speaker": "SPEAKER_01",
+    "text": "Right. No matter what your data was, if your prior is really, really narrow, you'll end up getting zero as your estimate. And so the general effect of the prior that this question is asking you about is to simply say, well, my introducing high values of alpha and beta reduces the effect of my data and biases me towards whatever I select alpha and beta to be. So in this case, biases me towards a beta. value, a final value of alpha over beta. Is that clear? Like relatively? Yeah. What is the rate parameter by beta? It's just letting you know how I've parameterized things. It's just that this would be the rate parameter. That's all. All right, let's go to the second question and I'll give you guys a little bit of time to try this. This one, oh, so maybe while you're trying, so the previous question is marked as a two on your question sheet. "
+  },
+  {
+    "start": 6123.35,
+    "end": 6154.286,
+    "speaker": "SPEAKER_01",
+    "text": "The actual, like this portion that we've just gone over, I would probably mark as a one. It's the fact that you only saw half of this question that makes it a two, because it's a slightly longer question. That, I think, I would expect to be fairly straightforward. Like there was nothing super involved. We did exactly what we did in lecture and sort of didn't apply outside thought. The same isn't true here. I think this is a pretty medium to hard difficult question. Maybe I'll leave this. "
+  },
+  {
+    "start": 6393.877,
+    "end": 6424.855,
+    "speaker": "SPEAKER_01",
+    "text": "Okay. All right, so how many people have attempted the problem? Cool, and so let's go through it. Like I said, this one's a little bit harder because you need to use, again, a couple of things that you have to combine. Does anybody wanna tell me, so like when you approach this problem, it's not like obvious exactly where to start, right? "
+  },
+  {
+    "start": 6424.875,
+    "end": 6458.13,
+    "speaker": "SPEAKER_01",
+    "text": "Like in the previous question, it was the case that we explicitly talked about a process for doing Bayesian inference. So where to start was straightforward. You follow the steps that we did in lecture. Here, this is a bit harder, because we haven't seen something like this, but you need to use the things that we've used. This is why I think it's a particularly hard question. But let's start by cataloging the things that we have up here. So what have we been told is true, and then what tools do we have, and let's work from there. "
+  },
+  {
+    "start": 6458.69,
+    "end": 6478.513,
+    "speaker": "SPEAKER_01",
+    "text": "So to start, All right, we know that a random variable satisfies this. That'll be the first thing. OK, the second thing we know. "
+  },
+  {
+    "start": 6488.897,
+    "end": 6526.228,
+    "speaker": "SPEAKER_01",
+    "text": "following. So these are our facts. So let me just separate out. We'll try and solve it here. OK. And then what does the hope, and one nice thing if you didn't have it in front of you is that on your equation sheet is some of the inequalities that we saw and that you might want to use. What inequality might we want to use here, and what's its form? Chebyshev, which is an application of Markov's inequality. "
+  },
+  {
+    "start": 6526.248,
+    "end": 6588.609,
+    "speaker": "SPEAKER_01",
+    "text": "It's probably the one I would reach for. I think you could do it with Chebyshev's. You might just take a slightly different route. And Markov's inequality, expectation of small probabilities. Yeah? Have I got that right? I hope so. All right. So one thing, so what's the, does anybody have a first step that they want to take? Because there's one other thing that if I still didn't know exactly what to do, I would try to do. Yeah? We can write, sorry, which side? b times the variance squared. "
+  },
+  {
+    "start": 6588.949,
+    "end": 6622.051,
+    "speaker": "SPEAKER_01",
+    "text": "That's essentially where I'm going. I'm going to take a very slightly different route. Again, there's multiple ways to solve this. If you hadn't seen that you could write that, one thing to do is notice that one of the pieces of information you've been given is different to the others. This is a variance, which we can write as an expectation. And then I have everything in terms of the expectation of x, which might make it easier to move things around. that this is the expectation of x squared minus expectation of x squared. "
+  },
+  {
+    "start": 6623.512,
+    "end": 6660.278,
+    "speaker": "SPEAKER_01",
+    "text": "And then I know the expectation of x is 0, so this thing goes away as 0. So I just have this application of that. And then if I just want sigma, then I could write this as sigma is equal to square root. of the expectation. OK. Now, another way to do it is to make the same observation but starting from going from here to the variance. "
+  },
+  {
+    "start": 6660.358,
+    "end": 6696.6,
+    "speaker": "SPEAKER_01",
+    "text": "So if you've written all of this down, then you have all of the tools. It still might not be exactly obvious how to compare things. If you were on an exam and you got to this point, you'd written everything down, you know exactly what to use, and you're still not seeing how to combine it, what I would essentially do is leave it for a bit, Move on to the rest of your questions. And then at the end of the exam, come and see if you can see what to do. Because it's one of those things where if it's not apparent what to do, I wouldn't waste a ton of time staring at a single equation and hoping that the answer jumps out at me. "
+  },
+  {
+    "start": 6696.66,
+    "end": 6707.983,
+    "speaker": "SPEAKER_01",
+    "text": "That's a nice thing to leave for the end. Does anybody want to suggest what I should do from here? How should I combine these things? "
+  },
+  {
+    "start": 6720.174,
+    "end": 6722.096,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah. "
+  },
+  {
+    "start": 6723.157,
+    "end": 6745.876,
+    "speaker": "SPEAKER_01",
+    "text": "Okay, yeah. We substitute what we know into Markov's inequality. Do you want to make a suggestion? So we'll need to figure out some A's, and we'll need to figure out some other things. So in particular, if I want... "
+  },
+  {
+    "start": 6762.569,
+    "end": 6796.101,
+    "speaker": "SPEAKER_01",
+    "text": "Right? And then I need some somethings. Yeah? Is that A or D sigma? Sure. You have D sigma. This gives us a starting point. Let's see if it works out. So what would I need to do here? Well, if I let this be t sigma, I'm close to what I want over there. But then when I divide by t sigma, I'm going to have to show that b is something. "
+  },
+  {
+    "start": 6796.361,
+    "end": 6870.002,
+    "speaker": "SPEAKER_01",
+    "text": "That might be tough. Because I know B up here. So somehow I want to use this rather than... So we've started from the end point. And now we can work back to the beginning. Of course, it goes both ways. But it depends on how you want to do it. So do you have a suggestion for how to proceed from here? No. Okay. If PX squared is different from A squared, is that the EFK? Square. OK, so you want to square. Make the x squared . OK, x squared. And then what do you have to do here? A squared. OK, a squared. And then this is equal to e x squared. We have some of these things, right? Okay, so now what should I do? So I can plug in, right? Okay. And now what do I, where do you want to go from here? "
+  },
+  {
+    "start": 6881.007,
+    "end": 6952.774,
+    "speaker": "SPEAKER_01",
+    "text": "T sigma? Well, we know we want a t to the fourth, right? So we have this thing x to the fourth. So if we square this again, so maybe we pick t sigma, which will give us x to the, well, t sigma squared. So x to the fourth, t sigma squared, t sigma squared. OK? That looks like some progress, because now we have the x to the fourth that we need. Maybe you just raise it to the fourth, and then . OK, so wait, wait, wait. So you raise the original x here. The original x here to the fourth? Yeah. Yep. A to the fourth? Okay, and then A to the fourth is out here. And over here? "
+  },
+  {
+    "start": 6966.54,
+    "end": 7007.311,
+    "speaker": "SPEAKER_01",
+    "text": "Sorry, so I agree with all of this. What do you want to set A equal to? A equals to t sigma. T sigma, OK. And then when I divide over, OK, so A is t sigma. So I'll have t sigma to the fourth, probability x to the fourth greater than t sigma to the fourth less than expectation of x OK. This definitely looks promising. Now I have lots of things that I know how to work with. Use the inequality that we know from the starch. "
+  },
+  {
+    "start": 7007.771,
+    "end": 7048.742,
+    "speaker": "SPEAKER_01",
+    "text": "Exactly. And so we know that this thing, we can plug in up top. This is where our b comes from. We'll have b times x squared. squared, right? And then we have all of this, t sigma to the fourth, probability of x to the fourth greater than t sigma to the fourth. OK, we're very close now. And then just the ex squared is sigma squared. Uh-huh, ex squared is sigma squared, perfect. "
+  },
+  {
+    "start": 7059.915,
+    "end": 7090.341,
+    "speaker": "SPEAKER_01",
+    "text": "Probability. So what we would end up with is we're really running out of room. OK, so what you want to do at the end here, sure, is you want to use the fact that we know what sigma is. In fact, sigma is this guy. And then it's going to be the fourth, so it's sigma squared. So both of those sigma squareds are going to go away. And you can check that this still works. This is still Markov's inequality. "
+  },
+  {
+    "start": 7090.941,
+    "end": 7112.292,
+    "speaker": "SPEAKER_01",
+    "text": "So we have t probability x to the fourth greater than just t. less than bx squared squared. Looks like we've lost something. OK. "
+  },
+  {
+    "start": 7152.358,
+    "end": 7184.238,
+    "speaker": "SPEAKER_01",
+    "text": "I think you're exactly right. We didn't quite get there in terms of the clarity of the solution. Because I think the thing that we were missing, or the thing that we are missing, is that one, the board space is a little too small. Oh, is it the next class? Ooh, sorry. OK. Apologies, everybody. We ran over time. The next class needs to start. The solution is already posted. The thing that we needed to do, the thing that was missing there at the end, is that sigma squared. So we have sigma as an expression of the expectation. "
+  },
+  {
+    "start": 7184.578,
+    "end": 7191.709,
+    "speaker": "SPEAKER_01",
+    "text": "If you plug that back in, you'll see things start to cancel, and you can apply Markov's again to get the final answer. But the solution is online. "
+  }
+]

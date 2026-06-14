@@ -1,0 +1,926 @@
+[
+  {
+    "start": 68.945,
+    "end": 106.405,
+    "speaker": "SPEAKER_00",
+    "text": "Let's start. Today we carry on a topic about vision and language. So in our last lecture, we introduced the concept of CLIP, which is a contrast learning method that aligns the feature space between image and language. So in the CLIMB framework, there are two components, the image encoder, which can take image input and generate features for each of the image, and the text encoder, the purple block here, which can take a sentence or a sequence of words as input and generate a feature. "
+  },
+  {
+    "start": 107.225,
+    "end": 140.205,
+    "speaker": "SPEAKER_00",
+    "text": "representing that sentence. Then we want to align the features between these images and text. And we build these similarity matrix, which contains n rows and n columns. Then we calculate the similarity metric between each of the image feature vector and each of the text feature vector. And along the diagonal, we want to maximize the similarities because those images and text, they are paired. "
+  },
+  {
+    "start": 140.805,
+    "end": 177.137,
+    "speaker": "SPEAKER_00",
+    "text": "And off the diagonal, we want to minimize the similarity because they are not paired. And when we define this kind of loss function, we write down in this form that you can see there is, it looks like across entropy loss and within the logarithm, we have this softmax function. And the softmax function encourage the, to maximize the similarity between ii and ti. R and TI, they share the same subscript, which means that they are paired image and text. "
+  },
+  {
+    "start": 177.797,
+    "end": 210.19,
+    "speaker": "SPEAKER_00",
+    "text": "And we want to discourage the similarity between I, I and T, K. When I is not equal to K, it means that these are unpaired image and text. And we can write down two of these loss functions. The first loss function calculates the contrast between images to text. And the second contrast loss function is defined between text to image. "
+  },
+  {
+    "start": 210.93,
+    "end": 250.578,
+    "speaker": "SPEAKER_00",
+    "text": "So for this second loss term, you can see that at the top, we aim to maximize the similarity between text TI and the pad image II. And at the bottom that we aim to minimize the similarity between TI and those on pad IK. And we can combine these two loss functions together and also that we can sum up all these loss terms for different samples. "
+  },
+  {
+    "start": 250.818,
+    "end": 283.578,
+    "speaker": "SPEAKER_00",
+    "text": "So we have n rows and n columns in our similarity matrix and we can sum up all these loss functions. And in the original clip paper, it showed that to implement these loss functions, you only need to write three lines of code. So these are pseudo codes, assuming that we already have the function implemented for the cross-entropy loss. If you look at this loss function in PyTorch, it normally takes two inputs. "
+  },
+  {
+    "start": 284.098,
+    "end": 316.075,
+    "speaker": "SPEAKER_00",
+    "text": "One is the logits. So logits means that if you have some kind of... softmax function, those terms within the exponential function or which is the power of the exponential function is they are called logits. And the labels. So labels essentially means that whether this image and the text, whether they are a positive sample with this path or a negative sample, which means they are not path. "
+  },
+  {
+    "start": 316.675,
+    "end": 352.821,
+    "speaker": "SPEAKER_00",
+    "text": "So as long as you can write down these logits and labels that you can just call this cross-entropy loss function to calculate the loss. And maybe in PyTorch or in some other deep learning libraries, if these logits and labels, if they are not list, if they are matrix, you can also specify whether you want to calculate this along the rows or along the column. Okay, so in order to train this kind of cliff model, we need to get some data. "
+  },
+  {
+    "start": 354.457,
+    "end": 384.873,
+    "speaker": "SPEAKER_00",
+    "text": "And a lot of AI companies in the past few years, they just crawled a lot of data from the internet, assuming those data are OK to share. I think that for a lot of images, you can check the license. So when you use Google Search to search for images, you can select just to search for those images with maybe CC BY license, which means that it's OK for you to use those to download those and use those to train for your model. "
+  },
+  {
+    "start": 386.054,
+    "end": 429.562,
+    "speaker": "SPEAKER_00",
+    "text": "And for this clip model, OpenAI was crawling data from Wikipedia and also from some other sources. And in total, they created a dataset with 400 million image text pairs, And then they refer this dataset as Web Image Text Dataset. And so when you have the dataset and you also know how to write down the loss function, that means that you can train this entire framework to get the image encoder and text encoder trained. "
+  },
+  {
+    "start": 431.952,
+    "end": 462.06,
+    "speaker": "SPEAKER_00",
+    "text": "And the next step is how can we evaluate the performance of these encoders? So if we are interested in the computer vision task, we can apply this image encoder to some other task. And previously, when we were talking about self-supervised learning, we mentioned that there are two ways we can evaluate these pre-trained image encoders. We can either use linear probing or fine tuning. And here that we can first do linear probing for this image encoder. "
+  },
+  {
+    "start": 462.902,
+    "end": 504.136,
+    "speaker": "SPEAKER_00",
+    "text": "So we can freeze all the parameters for the image encoder, then add a linear layer at the end to perform image classification task. And for this last layer, it contains some parameters, so we need to use some data set to train the parameter for the last layer. And once it is trained, we can evaluate performance of this entire model, which means your pre-trained encoder plus this last linear layer. If we look at the performance of linear probing and compare different methods, you can see all the results summarized in this plot. "
+  },
+  {
+    "start": 504.776,
+    "end": 537.784,
+    "speaker": "SPEAKER_00",
+    "text": "So the x-axis is essentially assessing the computational cost or computational efficiency of the different methods. And the y-axis is assessing the classification accuracy. And so where are we that we are here? So if we use a clip model that we can develop a method with a high computational efficiency and also with a high classification accuracy. "
+  },
+  {
+    "start": 538.838,
+    "end": 575.002,
+    "speaker": "SPEAKER_00",
+    "text": "And the other curves, different in this plot, they are not using CLIP, they are just using maybe ResNet or Vision Transformer, and also that they are not trained on a very large-scale dataset. By large-scale, I mean that here that we can access this data set with 400 million image text pairs. And for the other methods, maybe they are trained using ImageNet, where you have one million images with labels. "
+  },
+  {
+    "start": 575.363,
+    "end": 616.808,
+    "speaker": "SPEAKER_00",
+    "text": "So you can see that maybe this kind of comparison is not entirely fair, because apart from the difference of the algorithm, there is also an important factor here, which is the size of your training data. And the other way we assess the performance of this pre-training encoder is that we can use it to perform zero-shot learning. So what does this mean? So zero-shot means that we don't need any new training data, but basically using this pre-trained image encoder and pre-trained text encoder, we can apply them to some new dataset to perform classification tasks over there. "
+  },
+  {
+    "start": 620.298,
+    "end": 650.413,
+    "speaker": "SPEAKER_00",
+    "text": "Suppose that we want to, this data set, this image encoder is pre-trained on this pad image text data from Wikipedia, and now we want to apply it to some other data set. So here, this image encoder is already trained, and when we take a new image from this new data set, this new image can go through the encoder, generate some feature vector, which is the notice I want here. "
+  },
+  {
+    "start": 652.274,
+    "end": 685.65,
+    "speaker": "SPEAKER_00",
+    "text": "And because we have no knowledge about this new dataset, we don't know like how many, whether there are 20 different classes or like what the images in this new dataset looks like. Although we don't have those knowledge, we have the text encoder. So now we can see how we can use the text encoder to define the classes for the new dataset. We can assume that maybe the new dataset, it still contains the common objects we see in this planet. "
+  },
+  {
+    "start": 686.331,
+    "end": 721.892,
+    "speaker": "SPEAKER_00",
+    "text": "So maybe we can create a list of classes including plane, car, dog, bird, et cetera. And we use these basic concepts of classes to form a text string. So we just add a few more words, such as a photo of some kind of objects. And this can form the input to our pre-trained text encoder. And if we define there are n different new classes, then when they go through this text encoder for each of the class, we can generate some feature vector for that class. "
+  },
+  {
+    "start": 722.593,
+    "end": 754.774,
+    "speaker": "SPEAKER_00",
+    "text": "So we have T1, T2, all the way to Tn. And now we can assess the similarity between the image feature and each of these text feature. and we just calculate the inner product between I1 and T1, between I1 and T2, etc. And maybe that one of these similarities gives us the highest similarity, such as I1 times a dot product with T3 gives us a high similarity. "
+  },
+  {
+    "start": 755.514,
+    "end": 787.729,
+    "speaker": "SPEAKER_00",
+    "text": "And when we go back to see what T3 represents, T3 comes from this sentence, a photo of a dog. And then this can allow us to perform classification for this image to say, okay, we assign the label dog to that image. So here you can see that we just use this pre-trained image encoder, pre-trained text encoder. We don't need to add any linear layer onto this encoders to perform linear probing or fine tuning. "
+  },
+  {
+    "start": 788.469,
+    "end": 820.37,
+    "speaker": "SPEAKER_00",
+    "text": "And we don't need any any new data to do anything. We just use the pre-training code and we can already perform image classification for any new input image. And we can also assess the performance of zero-shot learning. So here that there is one data point which is This data point, this star, represents the zero-shot classification accuracy on some dataset. "
+  },
+  {
+    "start": 821.27,
+    "end": 856.286,
+    "speaker": "SPEAKER_00",
+    "text": "And the y-axis denotes the classification accuracy, and the z-axis denotes how many samples you need to use to adapt your pre-training encoder to this new task, or this new dataset. And because we are performing zero-shot learning, the number of samples we need is zero. And we can also use the same model because for the same clip model that we know, we can add a linear layer at the end to then do linear probing to tune the parameter for this last layer. "
+  },
+  {
+    "start": 857.247,
+    "end": 890.57,
+    "speaker": "SPEAKER_00",
+    "text": "And to tune the parameter for this last layer, we need some knowledge about this new dataset. For example, if we... get 16 training samples for this new dataset. And the number 16 means that 16 new samples per class for this new dataset. So if this new dataset contains 10 different classes, then we need 16 times 10 images, training images with labels for this new dataset. "
+  },
+  {
+    "start": 891.19,
+    "end": 923.395,
+    "speaker": "SPEAKER_00",
+    "text": "If we do that, we can... to the parameter for the last linear layer. And we can achieve maybe a higher performance for this data point. But at some point, we can see that if we only, sorry. if we only have less than four training samples per class for this new data set, then zero-shot learning for the CLIP model performs very similar to this linear probing performance. "
+  },
+  {
+    "start": 926.234,
+    "end": 957.826,
+    "speaker": "SPEAKER_00",
+    "text": "And I think in one of the lessons, a student also asked the question that when we develop either image segmentation models or object detection models, that if we don't know what objects are there in this new image, how can we segment it? So if we have both the image encoder and text encoder, that means that we can also do something called open vocabulary segmentation, or open vocabulary object detection. "
+  },
+  {
+    "start": 958.486,
+    "end": 994.932,
+    "speaker": "SPEAKER_00",
+    "text": "Because if this text encoder is trained using the text from Wikipedia, if we assume that Wikipedia contains the majority of the concept we can see on the planet, Then on this side that we can create a list, a very long list of concepts. And this is our vocabulary. And then we can generate the text features for all these concepts to assess the similarity between the image features and text features. And in this case, we are only generating a feature vector for the entire image. "
+  },
+  {
+    "start": 995.172,
+    "end": 1029.745,
+    "speaker": "SPEAKER_00",
+    "text": "So at the end, we can perform image classification tasks. However, if this I1 is not a vector for the entire input image, if I1 is a feature map, such as a 16 by 16 feature map, which is down sampled compared to the original input image, then when you assess the similarity, you can assess the similarity between the features on on each pixel on each location of this feature map to your text feature. "
+  },
+  {
+    "start": 1030.366,
+    "end": 1072.639,
+    "speaker": "SPEAKER_00",
+    "text": "And that will allow you to perform detection or segmentation in the image with the open vocabulary. Okay, so when OpenAI published a paper, they mentioned that they created this very large data set from Wikipedia. However, they did not release this data set. So in the open source community, there is some efforts to replicate this data set. And they also crawled from the internet for those images with no copyright issues, with maybe a CC BY license, and they called this dataset as Lion. "
+  },
+  {
+    "start": 1074.6,
+    "end": 1109.536,
+    "speaker": "SPEAKER_00",
+    "text": "And based on Lion, so they can train a model similar to CLIP, which is called OpenCLIP, because the dataset is open sourced, and also the model is open sourced. And in terms of data set size, it is even bigger than the OpenAI data set, at least bigger than the OpenAI data set when they published the paper. So the LINE data set contains over five billion pairs of image and text, and also it is multilingual. "
+  },
+  {
+    "start": 1110.436,
+    "end": 1146.575,
+    "speaker": "SPEAKER_00",
+    "text": "maybe 40% of these data are in English, but they're also like multiple languages. So here if you look at the image of the cat, so each image is associated with some text. I think these are English, these are Japanese, and I cannot, but there are some many more like languages describing the same cat. And that will allow you to also apply this data set to train something similar to CLIP. "
+  },
+  {
+    "start": 1147.436,
+    "end": 1178.992,
+    "speaker": "SPEAKER_00",
+    "text": "And also that for your text encoder, if you train on multiple languages, that means that your text encoder can also recognize multiple languages. And if we assess the performance to compare these open clip to the clip model, this plot summarize the results. So the orange curve or the orange data points are the performance from open clip and the blue curve shows the performance from these closed sourced clip model. "
+  },
+  {
+    "start": 1180.012,
+    "end": 1218.577,
+    "speaker": "SPEAKER_00",
+    "text": "And the y-axis denotes the error rate on image net classification performing image classification task. So which means that the lower the data point, the better the performance would be. And as the x-axis denotes the amount of computational resources you need. And you can see that They both follow this scaling loss, which means that the more compute you have, that maybe the better the performance would be. "
+  },
+  {
+    "start": 1219.077,
+    "end": 1251.425,
+    "speaker": "SPEAKER_00",
+    "text": "And also that in this region, their performance is comparable to each other. And there are also one region, which is here, on this right region, that the orange curve are have a lower error rate or better performance compared to the CLIP model. And I think one reason is that the line, the data sets you use, the line data set contains more training samples compared to the original CLIP model. "
+  },
+  {
+    "start": 1255.425,
+    "end": 1286.887,
+    "speaker": "SPEAKER_00",
+    "text": "OK, so now that we have two encoders, we have an image encoder and we have the text encoder, and they allow us to align the feature vectors or the representation between image and language. And this can open new avenues for the computer vision research, because before the clip paper, you can see in our lectures, we only talk about how to analyze images. how to detect the edges on the image, how to perform classification. "
+  },
+  {
+    "start": 1287.748,
+    "end": 1322.59,
+    "speaker": "SPEAKER_00",
+    "text": "But if we can link different modalities, that means that you can imagine new tasks. And one new task is called text-to-image generation, which is a model that can take text as input, then generate an image describing that text. Or alternatively, you can also develop some language models that can take images input, then generate some description about this image. So we can give you a high level overview of how this kind of model works. "
+  },
+  {
+    "start": 1325.423,
+    "end": 1363.479,
+    "speaker": "SPEAKER_00",
+    "text": "Okay, so first, how can we perform text to image generation? And one of the earliest work published was called the unclip. So because we can see the team clip, we can align the image and the text features. And if we do unclip, maybe we can decode these aligned features. And there is also a commercial name for that unclip method, it's called Dolly, so it is published by OpenAI. So here the task is that we were given some text, why, and we want to generate some image corresponding to the text. "
+  },
+  {
+    "start": 1364.22,
+    "end": 1402.308,
+    "speaker": "SPEAKER_00",
+    "text": "and this task can be decomposed to smaller problems. The first sub-task is, given some text, can we predict some feature vector describing this text? And the idea is that if we can, because now the image feature vector and the text feature vector, they are aligned, they live in the same space, so if we can predict this feature vector, we can get the image features. And the next task is to, given this image feature vector, can we reconstruct the whole image from just this single vector? "
+  },
+  {
+    "start": 1405.011,
+    "end": 1438.62,
+    "speaker": "SPEAKER_00",
+    "text": "So when we look at the... this problem, we first assume that we have done something similar to CLIP. So we have two encoders, the image encoder on the right and the text encoder on the left. And we already have some paired image and text data to pre-train this encoder. And after pre-training, these two encoder are pre-trained. And for each of these encoder, they can also generate some vectors. "
+  },
+  {
+    "start": 1439.743,
+    "end": 1472.059,
+    "speaker": "SPEAKER_00",
+    "text": "And for this brown colored vector, this is image feature vector, zi, i, standing for image. And this blue colored vector stands for the text feature vector, zt, where t stands for text. And there is some loss function aligning those, which is this similarity loss function we defined in CLIP. Okay, so this is already done, which means that we already know the parameters for the image encoder and for the text encoder. "
+  },
+  {
+    "start": 1473.08,
+    "end": 1513.266,
+    "speaker": "SPEAKER_00",
+    "text": "The next step is that we want to perform text-to-image generation. So this time, our only input is this text, and text can go through the text encoder to generate this text feature vector. And we know that this text feature vector is living in the space aligned with the image feature vector, So one idea is that we can simply assume this will be our image feature vector. That's one idea, but we can also add a bit more like parameters here that we assume although they are aligned, maybe they're still minor difference. "
+  },
+  {
+    "start": 1513.667,
+    "end": 1546.397,
+    "speaker": "SPEAKER_00",
+    "text": "So we want to add a few more linear layers, which can take the text feature vector as the input and predict the image feature vector. And in this way that we get this image feature vector. And the next step is that we need to add some decoder to generate the image from this image feature vector. And from the image feature vector to the image X, this model is normally a generative model. "
+  },
+  {
+    "start": 1547.257,
+    "end": 1584.823,
+    "speaker": "SPEAKER_00",
+    "text": "And there are different ways to develop the generative model and I believe in the fourth year there is one entire module just for generative AI. So in this way, we complete these text-to-image generation tasks. And we can also give you a bit more information how to get these kind of decoders. So here, the text encoder is already pre-trained. And when we go from text feature vector to image feature vector, normally it's just a few more linear layers, so it's also easy to train. "
+  },
+  {
+    "start": 1585.324,
+    "end": 1627.975,
+    "speaker": "SPEAKER_00",
+    "text": "And the only part we didn't describe is this decoder. And normally this decoder, they also need to be pre-trained. So we assume that there is another step we didn't cover here, which is this part. So if you already have a database of lot images, then for this database, you can develop some genetic models that contains the image encoder and image decoder. And then the image, when it goes through the encoder, it can generate a very small, low dimensional feature vector describing the image, and then when this vector goes through a decoder, we can reconstruct the original image. "
+  },
+  {
+    "start": 1628.936,
+    "end": 1660.53,
+    "speaker": "SPEAKER_00",
+    "text": "So this is how we can get this pre-trained decoder. And also that you may wonder what this decoder looks like. So I think that maybe 10 years ago that the most popular way to decode the image is called GAN, Genitive Adversarial Network. And maybe a few years ago, the most popular one was Variational Autoencoder, VAE. "
+  },
+  {
+    "start": 1661.69,
+    "end": 1693.986,
+    "speaker": "SPEAKER_00",
+    "text": "And at the moment, the most popular one is called the diffusion models. So they all follow a very simple idea, is that how can we generate the data? So what is the data generation? And the most simple case is that, let's say, can you tell me, if I tell you some information, like this person is a boy, how tall would he be? This is a generation problem. "
+  },
+  {
+    "start": 1694.607,
+    "end": 1733.709,
+    "speaker": "SPEAKER_00",
+    "text": "So we have maybe some conditions, which is the boy, and we want to generate the height for this boy. But it's a very simple generation problem because the height is just a number. And when we talk about how to generate the number, in mathematics there are two models we quite like. One model is uniform distribution, which means that, OK, that maybe the height of some person go from, let's say, 100 centimeter to 200 centimeters. "
+  },
+  {
+    "start": 1734.509,
+    "end": 1770.679,
+    "speaker": "SPEAKER_00",
+    "text": "And we have a uniform distribution here. And we can just use some random number generation. We can draw a sample from here. And that can generate the height for this person. And the other distribution we like Gaussian distribution is also called normal distribution. We use it a lot because in our world, a lot of distributions, we follow this rule that if it's just a number, it looks like this, looks like a bell. "
+  },
+  {
+    "start": 1771.8,
+    "end": 1803.562,
+    "speaker": "SPEAKER_00",
+    "text": "And maybe for the majority of people, that the average height, let's say, is 170. And then there is also some width, some standard deviation describing this distribution. And when we have a Gaussian distribution, we can also easily generate a number. So maybe we can draw a sample. So for the majority of the time, because the probability here in this part is high. So for the majority of time, we'll draw some number from this part. "
+  },
+  {
+    "start": 1804.342,
+    "end": 1838.955,
+    "speaker": "SPEAKER_00",
+    "text": "And then in some cases, maybe for 10% of probability, we'll draw some number from here. But anyway, that you can see, this is how we can generate a number. And now the problem is how we can generate the image. It's the same. We just assume that our image, they live in the feature space and within that feature space, they follow a Gaussian distribution and then we can draw samples. And there are two differences from this problem. "
+  },
+  {
+    "start": 1839.795,
+    "end": 1877.165,
+    "speaker": "SPEAKER_00",
+    "text": "The first difference is that if they live in the feature space, it's no longer just a number. Maybe this feature space is 10-dimensional or 100-dimensional. So you need to imagine that there is a space. And maybe within that space, there is some kind of Gaussian distribution. So that's still OK, that we can draw samples from this high-dimensional Gaussian distribution. And the other question is that, how can we make sure that all of these images, like the dog, the cat, they're all living in the Gaussian distribution? "
+  },
+  {
+    "start": 1877.986,
+    "end": 1913.185,
+    "speaker": "SPEAKER_00",
+    "text": "So that is a difficult one. And to make life easier, what we can do is that we can assume there are two distributions. The first distribution is something like this, which is very strange shape, which is where all the real data lives in. So if we like say, the dog image, for example, the dog image, it contains like one million pixels. "
+  },
+  {
+    "start": 1914.066,
+    "end": 1948.226,
+    "speaker": "SPEAKER_00",
+    "text": "If we just use this one million feature vector, one million dimensional feature vector to build the space, then we can throw in all the image of the dog, the cat, everything into that space. At the end that you can build some distribution in that space. Sometimes maybe that it is not like one million dimensional, it is kind of less dimensional, but we didn't do anything magic here. So all our original data, they were living in a very strange distribution. "
+  },
+  {
+    "start": 1949.567,
+    "end": 1985.931,
+    "speaker": "SPEAKER_00",
+    "text": "And there is another distribution, which is very nice, which is this. This is our Gaussian distribution. And so we would like to draw everything from the Gaussian distribution, but this is the real data distribution. So how can we map the two? So we can find the connection between the two space. So what we do is that we can develop some encoder. The encoder can take image as an input and do some convolutions or do something else. "
+  },
+  {
+    "start": 1988.388,
+    "end": 2030.314,
+    "speaker": "SPEAKER_00",
+    "text": "then the encoder would generate some feature vector. We would hope that after this encoder, the distribution of this very strange shape can be deformed, can be warped to a better shape, which is Gaussian distribution. And at the meantime, we also need to find the decoder that can go back from this Gaussian distribution to this real data distribution. And if you can do that, then each time we just draw a sample here, we throw the sample to the decoder, the sample will live in the original very strange shape. "
+  },
+  {
+    "start": 2032.135,
+    "end": 2062.68,
+    "speaker": "SPEAKER_00",
+    "text": "And if we look at some models, such as variational autoencoder, the encoder-decoder just look like this. So this is similar to the U-net, but we don't have those steep connections. So on the left-hand side, you have some convolution layers, maybe with some stride convolution. "
+  },
+  {
+    "start": 2063.161,
+    "end": 2094.381,
+    "speaker": "SPEAKER_00",
+    "text": "So at the end, you get a small feature vector out of the image. And on this side, again, some convolutions, but with transposed convolution, so this small feature vector can go back to the original image. And if we have some database of the dog, we can put this dog image as an input. And then we can also put the dog image on this side, the same dog image. "
+  },
+  {
+    "start": 2096.303,
+    "end": 2147.074,
+    "speaker": "SPEAKER_00",
+    "text": "And then we train this model to tune this parameter for encoder-decoder so that it can reconstruct the doc image. And the loss function we define here is reconstruction loss. And because we want this feature vector to be nice, to be Gaussian, we can also add some constraint here. The constraint is that this feature vector, maybe let's say it's an eight-dimensional feature vector, it should be very close to Gaussian distribution, which looks like this, with zero mean and like this. "
+  },
+  {
+    "start": 2148.127,
+    "end": 2179.782,
+    "speaker": "SPEAKER_00",
+    "text": "one identical standardization so this zero means that the mean is a vector with eight zeros and this standardization is eight by eight matrix with one along the diagonal and zero off the diagonal So that means that we have two loss term here. One is to perform reconstruction, the other is to constrain this vector, also called the latent space, to look like Gaussian. "
+  },
+  {
+    "start": 2179.802,
+    "end": 2213.151,
+    "speaker": "SPEAKER_00",
+    "text": "So then you just train this, you can get the encoder-decoder, which can map this very complicated real data distribution to a nice distribution where you can draw samples. For For this case, if we want to estimate or generate a number for the height of y, we can also add conditions. Maybe y is one condition. We can also add a condition. OK, this y is a volleyball player or basketball player. "
+  },
+  {
+    "start": 2213.812,
+    "end": 2249.313,
+    "speaker": "SPEAKER_00",
+    "text": "Maybe this would shift our Gaussian distribution. We shift the mu, the mean, for the Gaussian distribution. And here that when you develop these image generator is similar that maybe there are also some condition you can take in and this condition can affect these parameters for the Gaussian distribution or maybe parameter for the decoder part. And in this way that you can do conditional generation. "
+  },
+  {
+    "start": 2251.552,
+    "end": 2300.022,
+    "speaker": "SPEAKER_00",
+    "text": "And a simple example for condition generation is when you use these AI models to generate images, your text prompt is the condition. OK. So apart from those very simple idea of using this encoded decoder structure, there are also other ideas, such as diffusion model. But their mathematics may be different, but most of them follow a very simple idea, is that how can we go from a very simple distribution, such as a Gaussian distribution, to a more complicated distribution? OK. OK, then we can just show some results that all these images are generated. "
+  },
+  {
+    "start": 2300.763,
+    "end": 2333.29,
+    "speaker": "SPEAKER_00",
+    "text": "And these were the results from four years ago. And nowadays, you have much better results. And for each of these generated images, the text prompt is shown at the bottom. And we can also do text-to-visual generation. And this model was called Sora. published by Auburn a few years ago. And now there's again, you have more powerful generators. And the idea is similar to text to image generation. "
+  },
+  {
+    "start": 2333.871,
+    "end": 2372.912,
+    "speaker": "SPEAKER_00",
+    "text": "So basically that in our framework, we have this image encoder and image decoder. So if we can replace the image encoder by video encoder and at the bottom we also have a video decoder, then we can do this text to video generation. And in terms of video encoder, it's similar to image encoder. "
+  },
+  {
+    "start": 2373.473,
+    "end": 2413.558,
+    "speaker": "SPEAKER_00",
+    "text": "It's just the input data is slightly different. So for image encoder, the input is a 2D image. And for the video encoder, encoder, the input is image at different time frames. So if you have like 15 second video at each second, you have maybe 24 time frames, then you get this a few hundred time frames. And so you get this input data with dimension x times y times t, where this big T denotes the number of time frames. "
+  },
+  {
+    "start": 2414.038,
+    "end": 2445.341,
+    "speaker": "SPEAKER_00",
+    "text": "So it's still a data array, which means that we can still develop some encoder for it. Maybe the computational cost is higher, but the mathematics is the same. And in the In these SORA papers, you are using some transformer architectures to encode the video. So in transformer, if you remember, for the vision transformer, when we have the input image, we split the input image into a number of patches. "
+  },
+  {
+    "start": 2446.061,
+    "end": 2484.635,
+    "speaker": "SPEAKER_00",
+    "text": "then each patch is projected to be a token or feature vector. Then when we concatenate the features for all these patches, we can represent the entire input image. For videos, it's similar. So you are looking at a three-dimensional blob, and we can also cut or split into different maybe patches or maybe tubes. So here that... still that this block is x times y times t, but there are a lot of small blocks here. "
+  },
+  {
+    "start": 2485.235,
+    "end": 2524.992,
+    "speaker": "SPEAKER_00",
+    "text": "So each small block would contain maybe 100 pixel times 100 pixel times 20 time frame, something like that. And then you get a lot of these small blocks. Each block can be projected to be a feature vector. You concatenate them. you get this sequence of tokens, and then it can be processed by some transformer. Okay, so this is the result, but it was an old result, maybe two years ago, and at the bottom, it's a text prompt, and this is a generated video. "
+  },
+  {
+    "start": 2529.178,
+    "end": 2566.193,
+    "speaker": "SPEAKER_00",
+    "text": "OK, so you may also. Yeah, I think previously that we also talked about the. The scaling laws that when we assess the performance of these models that there are three major factors. The competition resource you can access the model size and the data set size. And I think that. Earlier this month, there was a very amazing model released by ByteDance called CDance, which is text to video generator. "
+  },
+  {
+    "start": 2566.993,
+    "end": 2604.891,
+    "speaker": "SPEAKER_00",
+    "text": "And I think that for ByteDance, maybe, or some other companies like YouTube, I think the advantage is the data sets they can access, which means for these scaling laws, at least they can train the model using a lot of data stored on that platform. And if you can do that, it can create some technical barrier between your company and other companies that only you can generate very nice video. Okay, so that's the task about text to image generation. "
+  },
+  {
+    "start": 2605.891,
+    "end": 2644.033,
+    "speaker": "SPEAKER_00",
+    "text": "The next task is also new. It's called a multi-model large language model. So we know that we can build a transformer model to analyze the relationships between different words, and we can use this predicting the next token as a path to train the model so that if we can train it for using a lot of language data, it can perform quite well. And as human, when we interact with this world, maybe language is just one form of data we can access. "
+  },
+  {
+    "start": 2644.613,
+    "end": 2682.895,
+    "speaker": "SPEAKER_00",
+    "text": "The other way that we can interact is that we can also see stuff, we can hear stuff. And how can we develop a model that can generate some understanding, taking input data with different modalities, such as we have both images and text as input data. And after we introduce the clip model, things become easier because even you have two different modalities, the image and text, at the end that you can encode some feature vectors and feature vectors live in the same space or very close space. "
+  },
+  {
+    "start": 2684.124,
+    "end": 2725.742,
+    "speaker": "SPEAKER_00",
+    "text": "So if we can do that, then we can first encode the different modalities into some feature vectors, maybe a sequence of tokens, and then provide these tokens to some large language models, which is LLM in this diagram. So this is a conventional LLM where you only take text as input, you create a sequence of tokens, maybe four words here, these orange words, and then you starting from these four words and also from this end of sentence token, you start to predict the next token. "
+  },
+  {
+    "start": 2729.684,
+    "end": 2767.402,
+    "speaker": "SPEAKER_00",
+    "text": "Now we have the data from different modalities. The images, the audio, the videos, et cetera. And this data can go through some encoders. And maybe we need multiple encoders here, maybe one encoder for the images, one encoder for the audio, one encoder for the video. And at the end, we can also generate a sequence of tokens for this input image. So if this image encoder is a vision transformer, then naturally that we can get this sequence of tokens from the image. "
+  },
+  {
+    "start": 2769.096,
+    "end": 2802.689,
+    "speaker": "SPEAKER_00",
+    "text": "and we can concatenate these text tokens and image tokens and they will form the input to the large language model. So that's the basic idea. And in engineering, we also sometimes we need to do some tricks. The tricks here is that if we just like, even if we haven't trained the clip model, which means that these image tokens is almost aligned with the text tokens, when we just concatenate them, the model can work but not work in the optimal way. "
+  },
+  {
+    "start": 2803.369,
+    "end": 2835.717,
+    "speaker": "SPEAKER_00",
+    "text": "So in order to make it work better, the engineering tricks we add is that we add a few more layers here, which can simply be some multilayer perception, some linear layers, to map these image tokens to some tokens even closer to the text tokens. And then we concatenate those orange text tokens with these blue image tokens and they would form the input to the language model. "
+  },
+  {
+    "start": 2840.035,
+    "end": 2870.852,
+    "speaker": "SPEAKER_00",
+    "text": "Okay, so here the language model can be frozen, which means that you can just take model from maybe some open source model like Lama or DeepSeq, and this part is frozen. And for this part, the modality encoder, which is an image encoder, is also frozen because we get it from Clip. And then there are only a few more layers here we need to train. "
+  },
+  {
+    "start": 2871.192,
+    "end": 2924.5,
+    "speaker": "SPEAKER_00",
+    "text": "This is called the connector. And we put a fire logo here, which means that these parts need to be trained. And to train this, we need to collect some data. The data is normally... Like you need to spend some time collect those kind of data that the input data include some image, some text, and output data will be just the text. And then you can use those kind of pad data to train this part. So after training, then for this kind of multi-modal language model, we can provide both images and text as the input, such as for the example on the left, we provide this receipt from some supermarket as input. "
+  },
+  {
+    "start": 2924.56,
+    "end": 2957.49,
+    "speaker": "SPEAKER_00",
+    "text": "We also ask some questions, which is our text input. How much did I pay for the tax? And then at the bottom, this is the output from this language model. So it maybe performs some recognition to see how much tax you pay, also give you some other information out of the receipt. It is not like, so it's amazing that nowadays we can already develop such models, but the performance is not yet perfect. "
+  },
+  {
+    "start": 2957.65,
+    "end": 2992.408,
+    "speaker": "SPEAKER_00",
+    "text": "For example, that we can also show you another example on the right. We provide this image of apples to the model, and we also ask the question, we count the number of apples in the image, and then the model can give us the wrong answer, which says the top apples in the image, but actually there are only 11. So this is still some very active area that people devote resources and ideas into this area to make this kind of model work better. "
+  },
+  {
+    "start": 2992.788,
+    "end": 3025.207,
+    "speaker": "SPEAKER_00",
+    "text": "I believe it will work much better in the next few years time. OK, to summarize, so we have introduced the CLIP framework to align the representation between vision and language. And also, based on this aligned feature space, we can develop new models to perform text-to-image generation and multi-model or large-language model to understand the different modalities. "
+  },
+  {
+    "start": 3026.127,
+    "end": 3062.632,
+    "speaker": "SPEAKER_00",
+    "text": "Is there any question here? OK. Yes. OK. Yeah, so here we don't need the ground truth for these blue tokens. Well, we need the example for that example where you show an image of apples, you also ask some question. "
+  },
+  {
+    "start": 3063.433,
+    "end": 3104.589,
+    "speaker": "SPEAKER_00",
+    "text": "And then you human can write down the correct answer for that question to create this kind of dataset. And once you have those kind of dataset, you can use those dataset to define a loss function for the generated text. And that loss function can guide the training of these connectors. Okay, so we'll talk for 10 more minutes on the next topic, on motion, then we'll take a break, and then we'll have a tutorial session. "
+  },
+  {
+    "start": 3105.17,
+    "end": 3136.485,
+    "speaker": "SPEAKER_00",
+    "text": "So you can find the tutorial sheet on Ciencia. If you want to stay, you can ask questions. Okay, so previously, most of our task are just to perform analysis for some static images. And today we move on to video understanding, and in particular, to understand the motion in the video. There are two questions that were interesting. One is to estimate motion. "
+  },
+  {
+    "start": 3137.286,
+    "end": 3169.972,
+    "speaker": "SPEAKER_00",
+    "text": "The other is to perform tracking for object. So we'll start from this first topic, motion estimation. So here, the data we're interested in is the video, which is a two-dimensional plus temporal image sequence we captured over time. And there are three dimensions here. The space, which includes x and y for the coordinates, and the time, t. "
+  },
+  {
+    "start": 3171.12,
+    "end": 3206.818,
+    "speaker": "SPEAKER_00",
+    "text": "which can be maybe, if you have video, you have 500 time frames, then that time t is the index for your frame. And then at each xy location, at each time frame t, then we have some intensity or color at that location. So this is how we describe a video. And when we perform motion estimation, we aim to estimate a displacement field that describes the motion between the adjacent two time frames. "
+  },
+  {
+    "start": 3207.458,
+    "end": 3246.617,
+    "speaker": "SPEAKER_00",
+    "text": "That for each pixel x, y at t, we would like to estimate how it moves to the next time point. So we want to estimate its corresponding position at time point t plus one and this position may be described by x plus u, y plus v. So here u and v denotes the displacement along the x dimension and the y dimension. So motion estimation takes this video as input and it tries to estimate this u and v at each pixel in the video. "
+  },
+  {
+    "start": 3250.677,
+    "end": 3287.971,
+    "speaker": "SPEAKER_00",
+    "text": "And there are some other names in computer vision for the concept of displacement field. It's also called the optic flow. So optic means the intensity or the brightness pattern in the image. Flow means motion. So optic flow basically means the motion of these brightness patterns. It's a synonym of the displacement field. Okay, so we're going to introduce a very classical method for motion estimation, or for estimating the optic flow. "
+  },
+  {
+    "start": 3288.091,
+    "end": 3343.929,
+    "speaker": "SPEAKER_00",
+    "text": "It's named after these computer vision scientists, Lucas and Carnet. So the Lucas-Carnet method, it first used some assumptions, and then based on these assumptions, derived the mathematics, then solved the mathematics to estimate the displacement field. so it assumes that we have two time frames input uh this image on the left and the other image on the right and the first assumption is that for the corresponding pixel between these two time point the brightness is constant which means that for this bus on the left, and in the next time frame, the intensity for the bars, maybe for the front of the bars, for the back of the bars, the intensity for each pixel on the bars should keep the same. "
+  },
+  {
+    "start": 3347.771,
+    "end": 3380.202,
+    "speaker": "SPEAKER_00",
+    "text": "The second assumption is called the small motion, which means that the motion between these two time frames is small. So maybe this bars only move by one pixel or a few pixels. it would not move by 100 pixels in these two time frames. And the third assumption is called spatial coherence, which means that maybe on the bus there are 100 pixels on the bus, they are close to each other, those pixels should move similarly. "
+  },
+  {
+    "start": 3381.422,
+    "end": 3415.993,
+    "speaker": "SPEAKER_00",
+    "text": "So these are the three basic assumptions for the Lucas-Karnad method. And then based on the assumption that we can start deriving the mass So based on the brightness constants assumption, we can write down this equation. On the right, it's the intensity at pixel x, y at time t. And on the left, it's the intensity for the corresponding pixel, but these pixels have moved, so it is at location x plus u, y plus v. "
+  },
+  {
+    "start": 3416.894,
+    "end": 3448.779,
+    "speaker": "SPEAKER_00",
+    "text": "And also for the time dimension, it becomes time frame t plus one. So this is our equation. So here, this big I denotes the intensity defined on the video. Because the video has three dimensions, this I is a function defined in this three-dimensional space. And if I is a function, then we can use some mathematics defined for the function. "
+  },
+  {
+    "start": 3449.56,
+    "end": 3497.619,
+    "speaker": "SPEAKER_00",
+    "text": "So we are going to use this Taylor expansion again, which we have used many times. So we can use the tail expansion to expand the left hand term of the equation. So that means that the intensity at x plus u, y plus v, t plus one is approximate to the intensity at x, y, t plus some first order terms. Because this function i has three dimensions, so when we write down this first order term, there are three terms, which are the derivative with respect to x, with respect to y, and with respect to t. "
+  },
+  {
+    "start": 3499.18,
+    "end": 3534.303,
+    "speaker": "SPEAKER_00",
+    "text": "And each of these derivative is going to be multiplied with u, v, and one. Okay, so that's just by using, so here that we have, when we do the tail expansion, we are inherently using the small motion assumption because only when u and v are very small, we can do this expansion and ignore the second order term, the third order term. If u and v are large, then the second order term be large, we cannot simply throw them away. "
+  },
+  {
+    "start": 3537.064,
+    "end": 3567.404,
+    "speaker": "SPEAKER_00",
+    "text": "Okay. And if we combine the first equation and the second equation, and you can see that this IXYT can be canceled out, and we'll only have DI DX times U plus DI DY times V plus DI DT equals zero. And this is called the optical flow constraint for the Lucas-Kane method. "
+  },
+  {
+    "start": 3569.146,
+    "end": 3602.801,
+    "speaker": "SPEAKER_00",
+    "text": "And in this equation, the video is already known. So when we take the video as input, we know it's 3D data. We know everything about this video. That means that dI dx, dI dy, dI dt are already known. And u and v are the displacement defined at each pixel. They are unknown. Here you can see that we have one equation, but we have two unknowns, which means we cannot solve this problem. "
+  },
+  {
+    "start": 3604.581,
+    "end": 3634.955,
+    "speaker": "SPEAKER_00",
+    "text": "But remember that previously we have used three assumptions, and here we only use two assumptions, so that we are still fine. When we use the last assumption, we can add some constraint to this equation and solve it. OK, so we will leave that to next Monday. So we can, is there any question here? OK, so we'll take a 10-minute break. "
+  },
+  {
+    "start": 3635.375,
+    "end": 3640.162,
+    "speaker": "SPEAKER_00",
+    "text": "And after break, you are welcome to stay for the tutorial session. OK, thank you. "
+  },
+  {
+    "start": 3652.298,
+    "end": 3660.423,
+    "speaker": "SPEAKER_04",
+    "text": "I was wondering, for the video we saw, we saw text on the images, but the generation seems quite a lot better nowadays. "
+  },
+  {
+    "start": 3670.349,
+    "end": 3677.451,
+    "speaker": "SPEAKER_03",
+    "text": "There are certain parts of images of people that we take out to be wrong. What are they going to make of it? "
+  },
+  {
+    "start": 3695.808,
+    "end": 3717.857,
+    "speaker": "SPEAKER_01",
+    "text": "the most general way to train a test video generation, but there are also many other training part in here. For example, to take the camera place consistently, to keep the identity of this person consistent, and also to keep the And these are all constrained to time. "
+  },
+  {
+    "start": 3717.877,
+    "end": 3721.54,
+    "speaker": "SPEAKER_03",
+    "text": "So those will be on top of these? Yeah, yeah, yeah. Yes. "
+  },
+  {
+    "start": 3721.58,
+    "end": 3762.197,
+    "speaker": "SPEAKER_01",
+    "text": "So that will be first detecting where the base is, and then once it's detected, you close the base down. Yeah, so you might... So you are generating... and maybe across the majority of the screen you can detect it in the face. And maybe you also have some reference image for this person. And then that means that for each time frame you are generating, that you can define some stimulus measures to compare that generated image to your reference image. "
+  },
+  {
+    "start": 3762.217,
+    "end": 3774.864,
+    "speaker": "SPEAKER_01",
+    "text": "So this can encourage you the model generally consists of identities. That works for the first one, but what about the other two? Yeah, so for that, I'm not quite sure. "
+  },
+  {
+    "start": 3775.044,
+    "end": 3801.361,
+    "speaker": "SPEAKER_00",
+    "text": "I think that... So even if you have multiple faces, if there are three faces, for the general range you can link, the faces generally can link in one of the graphs. And the linkage may be done by maybe a small motion assumption, such as, you know. "
+  },
+  {
+    "start": 3801.481,
+    "end": 3805.003,
+    "speaker": "SPEAKER_04",
+    "text": "Okay, very, very different possibility. "
+  },
+  {
+    "start": 3810.166,
+    "end": 3823.076,
+    "speaker": "SPEAKER_00",
+    "text": "I think that for the latest models, because it's a private model and they don't write paper about it, there should be a lot of engineering tricks involved. "
+  },
+  {
+    "start": 3823.096,
+    "end": 3832.384,
+    "speaker": "SPEAKER_03",
+    "text": "So how much would you say the models have engineering tricks versus new architecture, compared to some of these models that we're learning here? "
+  },
+  {
+    "start": 3838.669,
+    "end": 3842.393,
+    "speaker": "SPEAKER_01",
+    "text": "I think that the overall theorem for learning models for general modeling is as good as that. "
+  },
+  {
+    "start": 3874.325,
+    "end": 3882.672,
+    "speaker": "SPEAKER_04",
+    "text": "Yes, because we are only estimating, although it's a minimum right now, we are only estimating it as a specimen. "
+  },
+  {
+    "start": 3882.712,
+    "end": 3886.236,
+    "speaker": "SPEAKER_01",
+    "text": "So you can see that it's a minimum, normally. 24 times, right? "
+  },
+  {
+    "start": 3945.815,
+    "end": 3971.201,
+    "speaker": "SPEAKER_01",
+    "text": "Okay, so maybe you already learned. Maybe you should. to give to the text users. Yeah, so that's the idea. Can we skip that? Maybe this is the end. However, the idea is that there are still some gaps. After they've changed, there are still some gaps. "
+  },
+  {
+    "start": 4005.866,
+    "end": 4008.387,
+    "speaker": "SPEAKER_04",
+    "text": "At least that's what's on the list. "
+  },
+  {
+    "start": 4008.867,
+    "end": 4012.608,
+    "speaker": "SPEAKER_01",
+    "text": "And there was also news of family, you know, every, just about one child. "
+  },
+  {
+    "start": 4164.274,
+    "end": 4167.137,
+    "speaker": "SPEAKER_04",
+    "text": "Yeah, I just want you to like follow that. "
+  },
+  {
+    "start": 4419.664,
+    "end": 4422.446,
+    "speaker": "SPEAKER_03",
+    "text": "But if there is an issue, we kind of have to check. "
+  },
+  {
+    "start": 4510.317,
+    "end": 4515.823,
+    "speaker": "SPEAKER_01",
+    "text": "You can decide. You can decide. You can decide. You can decide. You can decide. "
+  },
+  {
+    "start": 4621.655,
+    "end": 4787.725,
+    "speaker": "SPEAKER_03",
+    "text": "So now I'm trying to That sounds so under-concreted. "
+  },
+  {
+    "start": 4872.893,
+    "end": 4878.819,
+    "speaker": "SPEAKER_04",
+    "text": "Because I don't think otherwise I would be doing that. "
+  },
+  {
+    "start": 4958.41,
+    "end": 4978.896,
+    "speaker": "SPEAKER_03",
+    "text": "And then there's like the reoccurring I was just trying to make sense. "
+  },
+  {
+    "start": 4999.33,
+    "end": 5000.531,
+    "speaker": "SPEAKER_03",
+    "text": "they should just expect . "
+  },
+  {
+    "start": 5108.581,
+    "end": 5114.783,
+    "speaker": "SPEAKER_03",
+    "text": "No, no. They should just work through it. "
+  },
+  {
+    "start": 5133.956,
+    "end": 5154.694,
+    "speaker": "SPEAKER_03",
+    "text": "It's for the data of the coursework. It's completely unrelated to the coursework, but I was just trying to make sure things in the data. So we have 001, 002, etc. And then there's these labels at the end. So I was trying to understand what it does. Is it different levels of the same brain to replace that it's not reading data? "
+  },
+  {
+    "start": 5154.714,
+    "end": 5168.667,
+    "speaker": "SPEAKER_01",
+    "text": "Yes, so brass is a name of a set, and 001 is ID for the patient, and then Z denotes which Z slice you take the image. "
+  },
+  {
+    "start": 5169.408,
+    "end": 5179.158,
+    "speaker": "SPEAKER_03",
+    "text": "Ah, okay, so the slice is actually, okay, so this one will be all for the same patient, and then this are all different slices. "
+  },
+  {
+    "start": 5179.178,
+    "end": 5181.06,
+    "speaker": "SPEAKER_00",
+    "text": "Yeah, so they found the same 3D volume. "
+  },
+  {
+    "start": 5181.56,
+    "end": 5204.233,
+    "speaker": "SPEAKER_01",
+    "text": "at different Z locations. And the reason we prepared... And then it gets smaller because you're essentially going from bottom up or the other way around. Yes. And we prepared in this way so that you only need to develop a 2D network. But essentially you can direct take a 3D volume, do some 3D compulsion and generate 3D selection. "
+  },
+  {
+    "start": 5208.358,
+    "end": 5245.777,
+    "speaker": "SPEAKER_03",
+    "text": "the 3D data, then we couldn't display it, but we would just have a vector with more information. Like now we just have grayscale, I guess, or x and y-axis. And then you would have grayscale, x, y. Just thinking how you would actually get, because then it wouldn't be a PNG, obviously, if you have the additional dimension. Yeah, it's a different format. There is a specific format for 3D or 4D data. So then for each... So then you just have a vector with three dimensions. Yeah, yeah. "
+  },
+  {
+    "start": 5259.363,
+    "end": 5294.841,
+    "speaker": "SPEAKER_02",
+    "text": "When you upload an image, let's say a slide or something like that, it's able to extract quite rich information from the slide so it can understand the graph, it can understand the text the same. What kind of models are they using to do that, if you know? Is it like they have multiple different types of image recognition models looking at multiple different types of features and then you can stitch it all back together into text or? "
+  },
+  {
+    "start": 5297.768,
+    "end": 5317.31,
+    "speaker": "SPEAKER_00",
+    "text": "Because I don't have access to that code, so I can't tell the exact details, but I imagine that at the end, the data, either some text or images, so even if it's PDF, you can extract the images and you can also extract the text. "
+  },
+  {
+    "start": 5318.691,
+    "end": 5344.969,
+    "speaker": "SPEAKER_02",
+    "text": "it's like when you're looking at the relationships in the charts that's not necessarily something that it could become like a novel, relatively novel features so it's the way it seems to get like understanding compared to just saying like this image contains a cat or something so I've seen two ways to process those kind of data. "
+  },
+  {
+    "start": 5344.989,
+    "end": 5348.309,
+    "speaker": "SPEAKER_01",
+    "text": "So still suppose it's slides or PDF. "
+  },
+  {
+    "start": 5348.429,
+    "end": 5358.571,
+    "speaker": "SPEAKER_00",
+    "text": "One way as I mentioned is to extract different images from this file, including text and images. "
+  },
+  {
+    "start": 5358.871,
+    "end": 5390.163,
+    "speaker": "SPEAKER_01",
+    "text": "And the other way is just regard every single image. And there was a paper from Deep Seek maybe two months ago that they just regard PDF as an image, and then split this image into a lot of patches, as tokens, and processes. Even if the image contains, even if the PDF contains both image and text, those kind of processes, or the text will become some kind of image. "
+  },
+  {
+    "start": 5390.443,
+    "end": 5396.205,
+    "speaker": "SPEAKER_01",
+    "text": "They still do that, and they show it can work out. Oh, interesting. I'm sorry to interrupt. "
+  },
+  {
+    "start": 5402.247,
+    "end": 5498.106,
+    "speaker": "SPEAKER_04",
+    "text": "Why do we, like the average person, Well, you could, as in like, so, let's say you have like 10 different, like, threshold signals, and you calculate the precision of your model at each threshold. Yes. Well, if you just took an unrated average. This is what an unrated average is. It's unrated. So it's not... So there's no point. Why? Sorry, I thought I saw something. I must be able to. I saw something that it was an area under the... "
+  },
+  {
+    "start": 5546.981,
+    "end": 5554.345,
+    "speaker": "SPEAKER_03",
+    "text": "They ask me to calculate the data shape and size for each layer. "
+  },
+  {
+    "start": 5569.491,
+    "end": 5622.663,
+    "speaker": "SPEAKER_03",
+    "text": "The data size is just times the water. The water is receptive. Oh, it's not part of the discussion. Yeah, no, there's a one part that they explained. Okay. And is this correct that, for example, after this point there, stride just means take two number out of the current size two by two, right? "
+  },
+  {
+    "start": 5623.752,
+    "end": 5635.136,
+    "speaker": "SPEAKER_04",
+    "text": "The kernels are two by two, and then they're, for every, you do strides with yours. Yeah. "
+  },
+  {
+    "start": 5635.696,
+    "end": 5666.996,
+    "speaker": "SPEAKER_03",
+    "text": "But the pulling, but the... Is there a script application for a kernel? So you can, I guess, you take some, you do some calculation with all the values, and then you take the value of that. So any pulling kernel of this size will strike, will reduce the damage. "
+  },
+  {
+    "start": 5668.44,
+    "end": 5683.608,
+    "speaker": "SPEAKER_03",
+    "text": "If the step is 1, then it will only reduce it by 1. If the stripe here is 1, then it will only reduce the size by 1. So if it's 24 by 24 by 22 by 20, it will be 23 by 22 by 1. "
+  },
+  {
+    "start": 5696.571,
+    "end": 5702.954,
+    "speaker": "SPEAKER_04",
+    "text": "If the size is 2 by 2, then the stride is 1. Yes. "
+  },
+  {
+    "start": 5704.154,
+    "end": 5720.941,
+    "speaker": "SPEAKER_03",
+    "text": "And if it's stride 2, then it will be 12.25. And if it's 3 by 3, then it won't be. So the odd number will come. And if it's stride 2, then it will come 24.25. "
+  },
+  {
+    "start": 5752.705,
+    "end": 5757.809,
+    "speaker": "SPEAKER_03",
+    "text": "Would this be a four or 23 over two? "
+  },
+  {
+    "start": 5757.849,
+    "end": 5765.373,
+    "speaker": "SPEAKER_04",
+    "text": "What is this time for? Twenty-two. "
+  },
+  {
+    "start": 5823.18,
+    "end": 5831.163,
+    "speaker": "SPEAKER_03",
+    "text": "And then you say, plus one. Why do you plus one? "
+  },
+  {
+    "start": 5833.844,
+    "end": 5876.505,
+    "speaker": "SPEAKER_04",
+    "text": "Because it's 24 minus three and plus one four. Because if you leave, you can't do it. Okay, yes, yeah, I get it. Okay, so two, and did you divide by two after you do this calculation, or you divide by two for this? They can draw a simple example of them. So we use this example. "
+  },
+  {
+    "start": 5876.946,
+    "end": 5937.423,
+    "speaker": "SPEAKER_03",
+    "text": "It's used in 3x3. We see that we register these two columns. So here, we'll describe the two. This is the first, and this is the first one. And then here. So we want the results to be one. We divide the whole thing by 2 if we can get to 1. But we divide this thing by 2. When we take a 12, we can also get to 1. "
+  },
+  {
+    "start": 5937.443,
+    "end": 5940.627,
+    "speaker": "SPEAKER_04",
+    "text": "So this one doesn't show anything. So we use a bigger example. "
+  },
+  {
+    "start": 5974.39,
+    "end": 6000.085,
+    "speaker": "SPEAKER_04",
+    "text": "1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30. "
+  },
+  {
+    "start": 6011.719,
+    "end": 6022.684,
+    "speaker": "SPEAKER_03",
+    "text": "Let's try seven. Seven minus two plus one is... "
+  },
+  {
+    "start": 6453.765,
+    "end": 6460.829,
+    "speaker": "SPEAKER_03",
+    "text": "Is that just the same as ? "
+  },
+  {
+    "start": 6474.835,
+    "end": 6481.241,
+    "speaker": "SPEAKER_04",
+    "text": "It's a cross-entropy loss. So it will be calculated between 10 different points. "
+  },
+  {
+    "start": 6481.261,
+    "end": 6497.616,
+    "speaker": "SPEAKER_01",
+    "text": "Between 10 different paths that are probably based on 10 different points. "
+  },
+  {
+    "start": 6502.477,
+    "end": 6508.921,
+    "speaker": "SPEAKER_04",
+    "text": "Oh, okay, I see this. Okay. "
+  }
+]

@@ -1,0 +1,1080 @@
+[
+  {
+    "start": 96.35,
+    "end": 98.59,
+    "speaker": 0,
+    "text": "I mean, we have so many . Oh, this is . ",
+    "model_probability": 0.2905
+  },
+  {
+    "start": 486.03,
+    "end": 516.39,
+    "speaker": 0,
+    "text": "Welcome to the final lecture of compilers this year. ",
+    "model_probability": 0.7499
+  },
+  {
+    "start": 517.97,
+    "end": 551.25,
+    "speaker": 0,
+    "text": "Did I say at the beginning this is the last time that compilers were run as a second year course? So this is the last time, the last lecture of the last time. Thank you for sticking with it. Much appreciated. And we're covering material which is new this year. It's arguably prototype for stuff that might be in the third year course, which will be offered not next year but the year after, because you've already studied compilers, so it won't be offered to you. So I'm interested in your feedback, actually, on this material. ",
+    "model_probability": 0.9945
+  },
+  {
+    "start": 551.97,
+    "end": 593.79,
+    "speaker": 0,
+    "text": "But between us and people who watch this recording, I shouldn't drop hints about the exam, should I? But I mean, if a person added new material and didn't ask exam questions about it, that would be weird, wouldn't it? Yeah. Mm-hmm. Okay. So, what we did last time was we looked at loop programs and the conditions under which you might vectorize them And we looked a little bit at the code you might generate to generate vectorized code. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 593.81,
+    "end": 625.87,
+    "speaker": 0,
+    "text": "So let me just go back a few slides. We were looking at simple things like this one. You remember this example we discussed at some length. This one's easy to see, I think, that this one should be... safely parallel, and we argued that it was safely parallel because if you look at the data flow graph of this computation, it was a separate data flow chunk for each iteration of the loop. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 626.07,
+    "end": 657.95,
+    "speaker": 0,
+    "text": "So you can think of each separate data flow chunk adding an element of A, an element of B, and producing a result as an element of C. You can think of each of those as running in an independent lane of the vector instruction sequence. And it's parallel because there are no arrows that join adjacent iterations of the loop. Does that make sense? So I'm describing something which I showed you in a picture a while back. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 658.41,
+    "end": 692.09,
+    "speaker": 0,
+    "text": "This kind of thing. You might know that. It's the counter example. Where were we? This kind of thing, right? So successive iterations. is an instance of a little control fluid little dependence graph and they're all independent all the iterations are separate little groups like that and each one of them is going to run in a sequence in the same lane of a vector instruction does that make sense? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 694.51,
+    "end": 725.73,
+    "speaker": 0,
+    "text": "Meanwhile, we also thought about examples where this isn't going to work. And here's one of them. So in this example, you will remember that there's a chain of dependencies. And we talked about how this is a loop carriage dependence. Because there's a dependence arrow that crosses the loop boundary. Each progressive iterative successive iteration. These arrows here. I think I hide that, didn't I? There they are. These are the loop-carried dependence arrows. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 725.81,
+    "end": 758.41,
+    "speaker": 0,
+    "text": "All the other arrows are within an iteration, but these cross iterations, and they sequentialize. They represent the fact that this is a sequential computation. Yep. So, what I promised I would do today is talk to you about compiler algorithms to check that this is true. And in simple examples, you can probably... figure something out. What I wanted to do was show you a little bit of a theory for answering that question. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 759.81,
+    "end": 791.89,
+    "speaker": 0,
+    "text": "And the reason to have a theory is to ask how we can generalize it. So, where do we go? in the program, by which I mean lines of code, or if we think about the intermediate representation, they might be simply nodes in our control flow graph. So when I talk about a statement, I could just mean a load node in the control flow graph. It might be a load instruction, an add instruction, a store instruction, and so on. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 793.79,
+    "end": 832.35,
+    "speaker": 0,
+    "text": "so the inset for a particular statement s or node in the control flow graph or even instruction but inset is the set of memory locations which might be read by some runtime execution of that particular statement so i'm drawing a distinction here between the static world that the compiler sees where we have a line of code that might be executed many times and the dynamic world where things execute and there's a particular execution of a line of code, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 833.13,
+    "end": 880.56,
+    "speaker": 0,
+    "text": "So what the compiler has to do is reason about all the dependencies that could happen with respect to this particular line of code, right? And at runtime, some dependencies might actually happen and some dependencies the compiler might have reasons could happen might not actually happen for various reasons like conditionals for example okay so this inset that we define is the set of memory locations that might be read right and the outset is the assertive memory locations that might be written by some instance of a particular statement s So there are dependencies between lines of code that the compiler sees if these intersect. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 880.6,
+    "end": 929.0,
+    "speaker": 0,
+    "text": "So if the outset of the first statement intersects, has a non-empty intersection with the inset of another statement, and let's suppose for a moment that S1 comes before S2, right so something a memory location might be written to by S1 and it might be read by S2 so we can conclude that there might be a data flow from S1 to S2 right now we need to be careful because these are might assertions right sometimes called may assertions It may be that in fact, at runtime, a particular instance of S1 doesn't actually write to this memory location. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 930.58,
+    "end": 993.5,
+    "speaker": 0,
+    "text": "Maybe it's in a conditional or something like that. And a later iteration of S2, or a later S2, might conditionally read it, but might not. But the compiler's going to have to make the worst-case assumption that if a dependence might be present, then we have to make sure that these statements are executed in the correct order, just in case they do, in fact, depend upon each other. Right? that data is actually flowing or at least may flow the distinction here and this is a popular source of confusion so I should do it carefully is what happens if we do have an empty intersection but in fact the reads precede the writes right so it's the first and the second statement overwrites it. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 996.62,
+    "end": 1029.33,
+    "speaker": 0,
+    "text": "What happens? What does the compiler need to look after? Well, let me spell it out. This reads something that this might overwrite. So we have to take care that we read it before it gets overwritten. That we definitely read it before it might be overwritten. Just in case. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1031.99,
+    "end": 1085.18,
+    "speaker": 0,
+    "text": "So this is called an anti-dependence. And it's confusingly named because it sounds like there's a dependence due to data actually flowing. It's a dependence in the sense that it leads to a constraint on the execution order. we have to take care of the ordering of S1 and S2 due to this anti-dependence and in fact the same could happen if you have an intersection between the outsets of two statements so this statement writes to a memory location or might write to a memory location this one might write to that memory location what's important is that after they've both executed the right thing is in the memory location In order to make sure that the right thing is in the memory location, we have to make sure that the second one is executed second. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1089.72,
+    "end": 1130.55,
+    "speaker": 0,
+    "text": "Does that make sense? And finally, we're not going to talk about this one at all, but it's in the textbooks, you can find out more. We're not going to talk about, today, we're not going to talk about programs with if-then-elses, really. But if that else is, I mean, they actually affect what we've said earlier on, because every time I talk about an insect, I talk about what might be red, and it might be that the statement is any conditional. The control dependence is where S2 only actually executes on the due to, or the whether S2 executes depends upon something, depends upon S1. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1131.83,
+    "end": 1194.85,
+    "speaker": 0,
+    "text": "And so there's a dependence. We have to do S1 first to know whether S2 should run or not. But that's a control dependence. It's a story for another day. All right? So... This is the version of the familiar example. Remember this one? There's a loop carry dependence here, right? And what does it do? well it does what we studied earlier on right so whoops we what are we going to get here we're going to get so this is the sum of that and that this is the sum of that and that this is the sum of one and two three and four and five and six and seven and eight right so it's a running total of the input array b and It's kind of inherently, fundamentally, serial. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1196.51,
+    "end": 1228.57,
+    "speaker": 0,
+    "text": "And we saw that with the arrows with the purple circles on, right? The loop carried dependencies are carried around that loop, as we saw. So if we unroll it, we can see that, as I showed you before. So here's where we dive into the compiler algorithm or analysis here. So what's going on is, the question is, is there a loop-carried dependence in our program or not? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1231.61,
+    "end": 1264.33,
+    "speaker": 0,
+    "text": "And to answer that question, the question essentially is, are there two different iterations, I1 and I2, I superscript I1 and I superscript I2, that make the dependence happen? What I really mean by that is this loop here assigns to that memory location a subscript i and it uses that memory location a i-1. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1265.33,
+    "end": 1307.7,
+    "speaker": 0,
+    "text": "Are there two different iterations that make these refer to the same memory location? There obviously are in this case, right? The general case, it might be that these expressions are more complicated expressions. In this case, it's kind of trivially easy to see that when I1 is... This is brain bending, isn't it? When I1 is 1, and I2 is 2, then this is going to refer to location A subscript 1, which was assigned by this one, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1309.36,
+    "end": 1361.7,
+    "speaker": 0,
+    "text": "So we can find two values, two iteration numbers, like subscript 1 and subscript 2, that make this happen. And furthermore, when we do that, we discover that the I1s... So... there's a dependence yeah let me show you this this is a nice way to look at it there's a solution to that equation for every red arrow in this picture each red arrow correct connects an i superscript one with an i superscript two and all the red arrows have the property that the i1 is smaller than the i2 So we've learned two things, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1361.74,
+    "end": 1393.86,
+    "speaker": 0,
+    "text": "There are solutions to the equation. So there's some kind of loop carry dependence. And because they're all I1 less than I2, they're true dependencies, right? They're truly data flowing. They're not anti-dependencies. Are you happy with this? Some of you are nodding. Some of you are just sitting there. We're going to see more of this, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1396.26,
+    "end": 1434.23,
+    "speaker": 0,
+    "text": "So I'm going to give you a little bit of notation. We're going to say that S2 has a loop carry dependence on S2. In this particular case, the loop is so simple it's only got one statement in it. So it's actually a dependence arrow from S2 to S2. If we break this down into individual control flow nodes or instructions, then actually it would be a dependence from the store to the load. But the fact is that what matters is the loop carried arrow in that dependence. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1434.27,
+    "end": 1472.82,
+    "speaker": 0,
+    "text": "So what we're saying is that this delta here says that the dependence from this to this is something that constrains the execution order of S2 with respect to S2. and the less than there says that it's a loop-carried dependence, and the delta by itself tells us it's a true dependence. Right? So, generalizing a little bit, if we imagine that, sorry, dependence occurs if we have two statements, SP and SQ, and in the previous case they weren't actually distinct, they were both S2, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1477.28,
+    "end": 1515.3,
+    "speaker": 0,
+    "text": "And there exists a pair of iterations such that the memory location referred to in iteration one of the execution of SP in iteration I1 may refer to the same memory location as the read in an iteration of SQ at iteration number I2. So I think I'm making this more difficult again. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1515.76,
+    "end": 1548.06,
+    "speaker": 0,
+    "text": "So if sp is a statement that refers to the same array as sq does, if we look at the subscript expressions with which they make that reference to this common array a, so we have two possible sub-expressions, phi p and phi q. Now, What we can think about now is an equation. Could that subscript, the store, ever be the same as that subscript for read? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1549.7,
+    "end": 1586.74,
+    "speaker": 0,
+    "text": "Can we find two iteration numbers that make them the same? That's kind of what we said before, right? So this is what people call the dependence equation. And in order to find loop-carried dependencies or anti-dependencies, we need to solve this equation. And later on, I might have time to actually show you how to solve it. But for the moment, we'll just think, yeah, we can look at it, we can reason about whether there are solutions and what values they might take. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1586.9,
+    "end": 1619.87,
+    "speaker": 0,
+    "text": "Are you happy with that so far? You can stop me with questions. Or I can just continue. Okay. Right. So, I mentioned that there are kinds of dependencies. So, when we solve this equation, what does it mean to solve the equation? It means that, well, what we could do is we could enumerate the entire set of I1, I2 pairs that satisfy the equation. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1622.77,
+    "end": 1681.27,
+    "speaker": 0,
+    "text": "Yeah, we could do that, right? So then the question is, is it the case that all the pairs in that set have the property that I1 is smaller than I2? If that's true, then every red arrow that we've found is a... loop carried data dependence from an earlier iteration to a later one happy now the thing is that that set of solutions that we found for more complicated examples it might not be as simple as that Let's look at another case that might happen. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1682.23,
+    "end": 1714.37,
+    "speaker": 0,
+    "text": "Suppose that we do find solutions, we do find pairs that satisfy the dependence equation, but in fact, when we look at their values, i1 is greater than i2, always. How could this happen? Well, if we have a loop that reads a value, and then the next iteration overwrites it, then we have a constraint on the execution order to avoid something being overwritten before we read it. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1715.59,
+    "end": 1725.6,
+    "speaker": 0,
+    "text": "So we have a loop-carried dependence due to an anti-dependence. And that's what this case tells us we found. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 1725.62,
+    "end": 1738.03,
+    "speaker": 1,
+    "text": "A bad name. We have a dependence on it. Say that again? We have a dependence on it. ",
+    "model_probability": 0.9977
+  },
+  {
+    "start": 1739.79,
+    "end": 1788.12,
+    "speaker": 0,
+    "text": "oh maybe i misspoke there's a in my mind there's a difference between a precedence ordering requirement and the reason why we have to respect that precedence ordering requirement right so we we have to execute the statements in a particular order due to either a true dependence or an anti-dependence do you mean No, what we're doing here is we're trying to look at the code to understand what constraints there are on the execution order. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 1788.81,
+    "end": 1831.0,
+    "speaker": 0,
+    "text": "yeah right and then later on we're going to come back and we're going to look well given these constraints and these perhaps absent constraints so we might have some flexibility in the execution order we might then think well in that case we can do these in parallel because they're not they're not ordered right or we could even do them in reverse even if you like or some other more complicated order yeah So I appreciate it's confusing there. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 1833.0,
+    "end": 1865.53,
+    "speaker": 0,
+    "text": "What I'm getting at is that we're talking about two different kinds of dependence, both of which cause an ordering constraint. Yeah? Yeah, some people talk about, it's still a bad name, some people talk about data dependencies and storage dependencies. So data dependence is due to data actually flowing, which is what we mean here by true dependence. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 1866.51,
+    "end": 1897.83,
+    "speaker": 0,
+    "text": "A storage dependence is a dependence due to memory being reused. It's due to the risk of over being overwritten. The reason why people think about it that way is because very often, or at least sometimes, you can make an anti-dependence go away by copying data. Yeah? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 1899.29,
+    "end": 1919.18,
+    "speaker": 0,
+    "text": "Should I show you the example? You're convinced already? Anybody else want to see an example? I'll show you an example just very quickly. We just need to remember what we're up to and go back a bit. Where's my anti-dependence example? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 1931.67,
+    "end": 1970.88,
+    "speaker": 0,
+    "text": "Oh, ah, that's because it's forwards, not backwards. It's because I was going to show it to you later, but I can show it to you now. We've got so many slides for today. This is the example we're talking about, right? So CI reads from CI plus 1, right? And then in the next iteration, it overwrites I plus 1. So if we unroll it, you can see that we have to read C1 in time, at the right time, because the second iteration is going to overwrite its value. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1970.92,
+    "end": 2107.64,
+    "speaker": 0,
+    "text": "That's an anti-dependence. That red arrow is a loop-carried anti-dependence. We could make this dependence go away by copying the C array into another array, perhaps D, and then instead of referring to ci plus one there we would sort of refer to d and then we'd have no dependence at all right so anti-dependencies are caused by the way you're reusing memory one of the reasons I'm saying this is because some people here like functional programming And functional programming doesn't have any overwriting, right? So we have no anti-dependencies to worry about. We have no loops to deal with as well. We have no loops to deal with. No, but you can, I'd like to think that you can make programs that do loopy things, right? Then it's not functional. I mean, you have four function passwords. So you can write a program that has all the character parents or doesn't, depending upon an array subscript access that it makes. Yeah, good question. Right, that was a slight diversion. It was actually a diversion to a diversion that I prepared earlier. Yeah, in this case, wouldn't copying the data cost more? It's likely in that particular example that making a copy of the data and then parallelizing will do. The good thing is that copying it is parallelizable, and then after you've copied it, it's also parallelizable. So you might still win. It might not be energy-friendly, environmentally conscious, but it might be faster. So how do we decide whether we should insert the copy? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2109.42,
+    "end": 2148.98,
+    "speaker": 0,
+    "text": "You could imagine a compiler for actually reasons about the costs. You could. yeah it's a good topic but we should move on exactly so you might have you might you might say it's always worth copying or you might say it's only worth copying if the number of iterations exceeds a thousand and then you could insert the conditions saying if m greater than a thousand then do this you could you could do all of these things That's anti-dependencies. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2154.01,
+    "end": 2188.48,
+    "speaker": 0,
+    "text": "You probably were just about to ask me this question. Suppose that we look at the dependence equation and we solve, we enumerate all the possible I1, I2 values that solve the equation. And I've told you that if they're all I1 less than I2, it's loop carried, if they're all I2 less than I1, then it's an anti-dependence. So forgive me, if it's I1 less than I2, then it's a true dependence. If it's I2 less than I1, it's an anti-dependence. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2188.5,
+    "end": 2221.07,
+    "speaker": 0,
+    "text": "But it might be that it's just a mixture of the two. You may know there's a dependence, you may know there's a loop carried dependence, but you might not know for sure whether it's a true or an anti-dependence. Or it might be that there are some iterations where it's a true dependence and some iterations where it's an anti-dependence. In that case, we just say there's something that constrains the ordering of sp and sq. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2221.79,
+    "end": 2255.81,
+    "speaker": 0,
+    "text": "It's a delta star. We don't know whether it's less than or greater than. We don't know whether it's true or anti, but it's definitely present. Right? Incidentally, if there are solutions, but it turns out that I1 is always equal to I2, what happens then? It's vectorizable. Exactly. Because if we go back to... Is this the right diagram? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2255.83,
+    "end": 2292.09,
+    "speaker": 0,
+    "text": "No, it's not. So... This one. There is a dependence from loading from A1, and there's a dependence from there to the add, and a dependence from the add to the store, but those are all dependencies within the same iteration. So the load and the store do indeed access the same location. The dependence equation is satisfied because our two iterations, I1 and I2, are equal. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2292.85,
+    "end": 2326.03,
+    "speaker": 0,
+    "text": "In that case, we're fine. What matters, or breaks parallelization, is when the arrows cross the iteration boundary. It's the loop carrier dependencies that cause the trouble. Okay? Where are we going here? Ah, yeah, here's a good one. It might just be that the dependencies that you find all have a nice pattern. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2326.11,
+    "end": 2416.31,
+    "speaker": 0,
+    "text": "It might be that when we find a solution pair I1, I2, this holds. I1 is I2 minus K. In fact, in all the examples I've shown you, that's true. Due to simple arithmetic here, this is always true. It wouldn't have to be true. this might not be the case but when it is then we can say that the dependence of distance is k so when we say the root carry dependence we mean the dependence distance is greater than 0 when we say the dependence distance is k it means we know exactly how many iterations that red arrow crosses ok one of the reasons that this is fun is because we're going to do multi-dimensional arrays in a moment so it might be the case that this holds and we have a uniform dependence distance vector people use this word uniform to mean that all the dependencies have this property it might be that there is a dependence it's definitely loop carried it's definitely true But we still don't know what the dependence distance is. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2417.29,
+    "end": 2451.43,
+    "speaker": 0,
+    "text": "Perhaps because it's non-uniform. So we're classifying the set of solutions to the dependence equation. All right. I put this slide up here because I was anticipating a question you might have. so we've talked about the out-in intersection and the in-out intersection and the out-out intersection what about the in-in intersection? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 2461.71,
+    "end": 2573.24,
+    "speaker": 0,
+    "text": "so have a look at this little example here what does this loop do? axis is an element produced no axis is an element of a which was read by an earlier iteration of the loop in fact five iterations earlier so there is a you can think of it as a loop carried reuse right with a distance of five you happen to know the distance because it's a nice simple program and you might wonder why this is useful it doesn't constrain the execution order right this is still a parallel program And indeed, it's perfectly fine, I think, it's perfectly fine to reorder those two statements. Why would you care that there's a loop-carried reuse with a particular distance? We could read it once and then cache it? Right, so if your processor has a cache, then on the first time that we read a element line, we load it into the cache, and the second time we read it, we expect it to be a cache hit, right? Because this dependence distance is small enough, basically. Small enough that the data is probably still going to be in the cache. That's what you meant, I think, right? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 2577.12,
+    "end": 2608.19,
+    "speaker": 0,
+    "text": "So loop carriage reuses aren't really relevant to parallelization, but they're very, very relevant to improving the cache performance of programs. And do you remember that loop, that matrix transpose example that I showed you with the huge speedup? That was all about cache performance, right? It's a big deal. Turns out you could actually, you could kind of do this with registers. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 2609.91,
+    "end": 2617.45,
+    "speaker": 0,
+    "text": "Then you could load AI into a register, keep it in that register, and use it five iterations later. ",
+    "model_probability": 0.9953
+  },
+  {
+    "start": 2617.47,
+    "end": 2636.93,
+    "speaker": 1,
+    "text": "Maybe the compiler is smart enough to make the distance zero. Oh, by doing what? Well, by doing the first five iterations and then... ",
+    "model_probability": 0.9974
+  },
+  {
+    "start": 2637.05,
+    "end": 2733.91,
+    "speaker": 0,
+    "text": "Right. Now we're talking. This is fun. So if you think about this, there's no dependence between these statements and these statements. So we could actually execute them on different iterations. So we could fix it. Yeah, we could. trouble is there's an assignment just yeah it still works yeah we can renumber this loop yeah that idea is a really good one it's so good that that idea is coming in a slightly more complicated form in a short while that was a really really nice idea good okay so I promised that we would generalize this theory for discovering dependence in loops to multiple dimensions of loops nested loops right um yep so here's our here's a multi-dimensional loop and I should probably apologize here we've got superscripts meaning two different iterations that might solve the dependence equation remember I1 and I2 Now we've got subscripts, because I wanted to talk about this in general terms, where we might have loops over arbitrary numbers of dimensions of the array, i1, i2, i3, i4, and arbitrary numbers of loopnests. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 2735.77,
+    "end": 2807.42,
+    "speaker": 0,
+    "text": "For i1, for i2, for i3, and for i4. So those are the subscripts, and we'll use the superscripts for this equation-solving thing. I hope that's okay with you I could have used I, J, K and so on here I thought that was more confusing but you be the judge anyway I hope you'll bear with me hope this makes sense so the question is now we look at a loop like this well why don't we do the first exercise which is what is going on in this loop Oops. ",
+    "model_probability": 0.9962
+  },
+  {
+    "start": 2816.03,
+    "end": 2819.81,
+    "speaker": 0,
+    "text": "Why have I got two versions of this? Oh, yeah. Hmm. ",
+    "model_probability": 0.9369
+  },
+  {
+    "start": 2837.26,
+    "end": 2912.71,
+    "speaker": 0,
+    "text": "Before we do that, we should just think about what do you think is going on here, right? Yeah. So we index the minus 1 here and here. And this is in the first step. This is in the second subscript. So I should have been careful to start from 1, not 0, should I? Yeah, there's a bounds error in my code unless my language has weird indexing, which it could have. It should have. Every language should have. So we should trust, let's pretend that it's all fine. The interesting question is what's happened, what are the dependencies from iteration to iteration of this loop? ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 2913.69,
+    "end": 2946.16,
+    "speaker": 0,
+    "text": "Yeah. Right. Yep, so if we think about the innermost loop, the I2 loop, So let's suppose, remember, that I1 is constant. Then what we're doing is we're assigning an element of A. And then in the next iteration, we're going to read it. And this dependence tells us that the same thing is going to happen with respect to the outer root. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2955.09,
+    "end": 3043.95,
+    "speaker": 0,
+    "text": "So let me show you a little theory for thinking about this. So the colors are intended to be meaningful here. So we have... I intended to use more colors than that. How did that happen? oh yeah yeah sorry these are different this is purple and blue right they are different they are different right so there's a purple red dependence here and that dependence occurs when that subscript expression refers to the same ring relocation as that subscript expression for that to be true there has to be a pair of iteration index vectors that make these two subscripts refer to the same memory location so we need an iteration dependence vector so this is our iteration 1 except that it now has two parts i subscript 1 and i subscript 2 i and j you might say and we need the first one to equal that due to that subscript expression and we need that one to equal that due to that i2, i2. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3048.82,
+    "end": 3080.77,
+    "speaker": 0,
+    "text": "Right? So we have a dependence due to the purple-red when or exactly where this pair of simultaneous equations has a solution. And then we can look at the blue-red story, and we get the analogous thing, except that we use the subscripts from the blue Russian side to make this equation. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3084.49,
+    "end": 3118.26,
+    "speaker": 0,
+    "text": "So again, we're looking for two different iterations, but this time they're two different iterations of the two-dimensional loop. So each iteration is characterized by I subscript 1, I subscript 2. But there's a number 1 of those and a number 2 of those. So when those index vectors make the dependence equation true, which is what we're saying here, we have a solution to the dependence equation. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3118.76,
+    "end": 3233.44,
+    "speaker": 0,
+    "text": "And we have a potential dependence in the loop. you could be forgiven for thinking that was confusing but you're shaking your head it's all fine another way to think of it is that we look at our loop and we draw a diagram of all of the iterations of the loop nest this is analogous to what I was doing when I showed you those unrolled sequences but now we're doing it in two dimensions instead of just one and the colors haven't worked very well these are purple red arrows and these are blue red arrows so what I'm asserting with this diagram is that there's a solution to the dependence equation for every arrow in the diagram And furthermore, the arrows come in two kinds, the purple-red ones and the blue-red ones. The purple-red ones come from that dependence, and the blue-red ones from that dependence. In fact, if we go to the previous slide, which we can do over here maybe, the purple-red arrows come from solutions to that equation. And the blue-red arrows come from solutions to that equation. Yeah? So I'd like to think that when I asked you to stare at that code and figure out what it meant, this is the diagram that was in your head. You could have said so at the time, couldn't you? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3233.62,
+    "end": 3269.86,
+    "speaker": 0,
+    "text": "So what we're doing here is we're simply uncovering the picture that should have been in your head. Are you happy with this? So we're really doing a kind of simple thing, having spent some time thinking about this problem in 1D. We're just extending it to the multidimensional case. And so when we look at a multidimensional array access, each of the subscript expressions has to match up. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 3270.4,
+    "end": 3302.39,
+    "speaker": 0,
+    "text": "They all do. Happy? All right. So, these are loop-carried true dependencies, aren't they? They're true, there's actual value being produced by an earlier iteration, earlier statement, that produces a value used by a later one. And they're loop-carried because it spans a loop iteration. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 3306.51,
+    "end": 3308.05,
+    "speaker": 0,
+    "text": "Can we execute this program in parallel? You can make two strats. ",
+    "model_probability": 0.9918
+  },
+  {
+    "start": 3308.97,
+    "end": 3330.72,
+    "speaker": 1,
+    "text": "One goes like that, and the other goes out like that. ",
+    "model_probability": 0.9623
+  },
+  {
+    "start": 3338.25,
+    "end": 3426.72,
+    "speaker": 0,
+    "text": "So you're saying that... So the first row and the first column. Yeah, this is fun, right? So you're saying we could run a thread that runs along row zero, and it's sequential, but we could do it in parallel with another thread that runs along column zero. Yeah, and then you start with the second row. Ah, yeah. Like peeling onions. Like peeling onions. Yep. so the first thing to notice here which I think some of you have already seen is that naively this is a sequential program because the inner loop is sequentialized by that dependence these arrows sequentialize the inner loop and the outer loop is sequentialized by that dependence the dependence due to that reference and that's what gives us these vertical ones which also mean that successive iterations of the outer loop have to be done in sequence so what you might conclude from this is that the first for loop is not a parallel for loop and the second for loop is not a parallel for loop so you might conclude from that that there's no parallelism And yet, our friend here has found some. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 3428.3,
+    "end": 3477.67,
+    "speaker": 0,
+    "text": "And he's not wrong. I'm going to show you how to get there. So the inner loop is not vectorizable, since there's a dependency chain. To use the vector instruction, we need to be able to operationally check elements in parallel. And similarly, the outer loop isn't parallel either, for essentially the same reason. oh yeah so in green I've shown the execution order that the programmer wrote right so if we think about our dependence distance vectors so remember we talked about dependence distances you know when there's a uniform k between i1 and i2 there's a uniform difference We now have a vector of those. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 3478.57,
+    "end": 3514.38,
+    "speaker": 0,
+    "text": "So our first dependence arrow is a, sorry, this dependence arrow is a zero-one arrow. And this dependence arrow is a one-zero arrow. All the purple-red arrows have this direction vector. So these arrows are uniform. and there are two families of uniform dependencies. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 3517.4,
+    "end": 3535.34,
+    "speaker": 0,
+    "text": "What about this? Would it be okay to change the execution order of our loop? For example, I showed you a green execution order. Why don't we do the red one instead? ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 3556.17,
+    "end": 3641.5,
+    "speaker": 0,
+    "text": "so there are kind of two questions here one is does that break our program? and the other is suppose it doesn't break the program does it help? so you're shaking your heads over there about one of those so it is safe to execute the red order right? so the way you can tell is to ask does the red order cross any arrows backwards right and it doesn't so we're safe right the green one didn't well the green one kind of couldn't because that's the iteration order that we derived the dependence arrows from the red one in this particular case it's safe but we've just now made the outer loop the inner loop and it's still sequential right it hasn't helped but it certainly hasn't implemented the trick that you described but we might be able to get there so in this particular case we can argue that the loop is interchangeable but that it doesn't help and I've told you for free that the previous loop was interchangeable. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 3642.21,
+    "end": 3644.65,
+    "speaker": 0,
+    "text": "What would a loop that's not interchangeable look like? ",
+    "model_probability": 0.979
+  },
+  {
+    "start": 3689.44,
+    "end": 3720.13,
+    "speaker": 0,
+    "text": "is that what you were thinking of? so we can test whether that's true by asking does this red execution order crossing the arrows backwards It totally does, right? ",
+    "model_probability": 0.9894
+  },
+  {
+    "start": 3721.11,
+    "end": 3728.25,
+    "speaker": 0,
+    "text": "Crosses these arrows backwards. So it's certainly not valid to execute this in the interchanged execution order. ",
+    "model_probability": 0.9612
+  },
+  {
+    "start": 3734.88,
+    "end": 3736.22,
+    "speaker": 1,
+    "text": "Oh, wow. ",
+    "model_probability": 0.915
+  },
+  {
+    "start": 3749.38,
+    "end": 3784.22,
+    "speaker": 0,
+    "text": "Oh, you mean flipping 0 to 3 and 3 to 0. That's a nice idea. So you're suggesting that we do a loop backwards. So if we look at that red execution order, it would be perfectly fine to do these, and then these, and then these, and then these, right? That's what you meant. Yeah. So we can interchange this loop. We just have to reverse it first. Now, this is fun, right? ",
+    "model_probability": 0.9967
+  },
+  {
+    "start": 3784.24,
+    "end": 3808.69,
+    "speaker": 0,
+    "text": "It tells us that there are loop transformations which independently might be invalid, but when you compose them together, make valid transformations. After you do that, you have a vectorizable. After you do that, you have a vectorizable. Yeah. Mm-hmm. Yes, exactly. Yeah, that's right. ",
+    "model_probability": 0.994
+  },
+  {
+    "start": 3821.35,
+    "end": 3830.08,
+    "speaker": 0,
+    "text": "So actually, if you think about it just for a second, should we go back to that? The loop was vectorizable before we did this. It's the interchange that was the problem. ",
+    "model_probability": 0.9746
+  },
+  {
+    "start": 3853.73,
+    "end": 3892.5,
+    "speaker": 0,
+    "text": "yeah okay so we've seen the counterexample and we should now ask what's going on how can we characterize the cases where the loop interchange is invalid so you could say well we just pattern match on arrows that do this bad thing you could sort of refine that a little bit the problem was the intuition here is that it's because these arrows are pointing in this quadrant, right? ",
+    "model_probability": 0.998
+  },
+  {
+    "start": 3895.27,
+    "end": 3925.37,
+    "speaker": 0,
+    "text": "It's because these arrows are diagonally backwards that we have a problem. So it's the presence of a dependent distance vector with this property. So is there a distance vector k1, k2, where k is greater than 1, but k1 is greater than 0, but k2 is less than 0? It's that case that creates the counterexample. ",
+    "model_probability": 0.9949
+  },
+  {
+    "start": 3927.33,
+    "end": 3960.87,
+    "speaker": 0,
+    "text": "In this case, k1 and k2 are 1, but we would have had a problem for any positive value of k1 and k2. Okay? The simple answer, if you're scratching your head about this, is to draw the diagram and then just ask yourself, am I going to cross any arrows backwards? When you come to build your vectorizing parallelizing compiler, you're going to need an algorithm. All right. ",
+    "model_probability": 0.9985
+  },
+  {
+    "start": 3962.43,
+    "end": 3996.27,
+    "speaker": 0,
+    "text": "Ha ha. So we should... Pause at this point to check that you're happy before we go on to another confusing thing. Do you have any questions so far? Well, in that case, we just go on, right? Okay, let me talk to you about something which takes us a step towards a couple of things that have been suggested. ",
+    "model_probability": 0.9178
+  },
+  {
+    "start": 3997.49,
+    "end": 3998.53,
+    "speaker": 0,
+    "text": "Have a look at this rule. ",
+    "model_probability": 0.9549
+  },
+  {
+    "start": 4010.26,
+    "end": 4016.26,
+    "speaker": 0,
+    "text": "Now, you're professional software engineers and programmers, so three lines of code should be easy for you, right? ",
+    "model_probability": 0.9781
+  },
+  {
+    "start": 4038.97,
+    "end": 4080.32,
+    "speaker": 0,
+    "text": "So the first thing to check is that you believe me when I draw the iteration space this way. So the progressive, the successive iterations start, the inner loop starts at K1, right? So iteration zero, K1, K2 is zero. Iteration one of K1, the K2 loop starts at one. And iteration two of the K1 loop, the inner loop starts the situation too, right? ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 4082.04,
+    "end": 4108.72,
+    "speaker": 0,
+    "text": "Now, does this diagram help? What I'm trying to show here is the elements of A that are accessed or assigned to by the iterations in this skewed diagram. What have I done here? Have I done it right, even? ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 4124.66,
+    "end": 4194.05,
+    "speaker": 0,
+    "text": "What have I done? What I'm trying to prove to you is that this program does what the first program I showed you did. So if we... So my climate is just the same thing as that one. Right, it's a variable substitution that's happened in a sense, right? so this is a transformation called skewing and skewing only changes the way we might think about the iteration space numbering in space or something it doesn't change the order in which the loop body is executed at all it just changes the numbering You might wonder why changing the numbering would be helpful or important. Let's have a look. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 4196.94,
+    "end": 4228.61,
+    "speaker": 0,
+    "text": "So what we can deduce from this is that not only have the iterations moved, but the dependence arrows between them have moved. So we have a direct connection between that and this. By taking that and shoving it over, we're skewing it. And all the arrows skew in the same way. Okay, so now we can ask, can this loop be vectorized? Well, no. It's still got the loop carry dependence, right? ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 4229.47,
+    "end": 4238.97,
+    "speaker": 0,
+    "text": "Can it be interchanged? Okay. ",
+    "model_probability": 0.9884
+  },
+  {
+    "start": 4251.18,
+    "end": 4308.51,
+    "speaker": 0,
+    "text": "You're arguing that this must be interchangeable because the previous version, because that version is interchangeable. Ah. But abstractly, it ought to be. You see, that's the interchange daughter, right? I think it crosses all the arrows forwards. So we're good. So this is interchangeable. This was interchangeable before. This is interchangeable now. It's just that the two schedules are different. So in particular, the inner loop is now No, no, no, the fun thing to do is... ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 4308.53,
+    "end": 4349.61,
+    "speaker": 0,
+    "text": "Yeah, yeah, yeah, yeah. After the interchange, if you think about this column here, these are being iterated by the inner loop, and they're all independent. Yes. Did you get that? These three iterations here are being iterated, visited, one after the other, by the inner loop of the transposed loop of the interchanged loop and they're independent so we can vectorize that inner loop so you might go back to this picture and ask where are they? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 4352.57,
+    "end": 4388.58,
+    "speaker": 0,
+    "text": "yes exactly so they're along here they're the diagonals yeah? So what this skewing has done is enabled us to interchange a loop in a way that visits these, that makes the inner loop a loop along the diagonal. So you might say what we've done is a variable substitution that creates an axis alignment of some kind. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 4389.5,
+    "end": 4462.21,
+    "speaker": 0,
+    "text": "we kind of aligned the innermost loop with the dependence free diagonal happy? if you're happy so we can think of is this helpful? what I've done here is instead of keeping the diagram the same and changing the green and the red arrows I've transposed the diagram so that the arrow is now in the left right top to bottom order and we should now see that these are independent rows so you might ask what have we done to the loop What we've got is we started with this, right, which is the same as on the right-hand display. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 4463.49,
+    "end": 4513.57,
+    "speaker": 0,
+    "text": "And now we've got this skewed loop, so we've still got our complicated subscripts, but we've interchanged K1 and K2 so that this inner loop is dependence-free because it runs along that dependence free diagonal we do need to be a bit careful with the bounds of these loops that's why we ended up with a moon here okay so where we're going with this is that firstly this thing is called a wavefront loop and I think you can see why This parallelism is along this wave. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 4513.61,
+    "end": 4551.49,
+    "speaker": 0,
+    "text": "One of the reasons why I wanted to show you this is, so earlier we saw that loop interchange might or might not be valid. We also saw, and it was suggested by someone here, that reversing the loop might enable loop interchange. So we have the property that two different loop transformations enable one another. One of them enables the other. In this case, the skewing didn't make the interchange valid, but it did make the interchange do a different thing. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 4551.51,
+    "end": 4556.95,
+    "speaker": 0,
+    "text": "You're interchanging the skewed loop, and that enabled us to align the parallelism with the innermost loop. ",
+    "model_probability": 0.9938
+  },
+  {
+    "start": 4570.96,
+    "end": 4604.29,
+    "speaker": 0,
+    "text": "So one of the early results in people thinking about this was to say that for some class of simple loops that look like these, we can always find the combination of skewing and interchange that exposes the maximum parallelism. We can do so efficiently. All right? So, some summary here. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 4604.31,
+    "end": 4635.64,
+    "speaker": 0,
+    "text": "Are you happy with everything we've seen so far? There's not very many questions today. All right? So, a loop can be executed in parallel if it has no loop carry dependence, either true or anti. I'll show you a little bit on that in a second, actually. A loop can be interchanged if the transposed dependence distance vectors are lexicographically forward. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 4642.28,
+    "end": 4685.67,
+    "speaker": 0,
+    "text": "Hmm. I'll show you what that means in a moment, if you like. Essentially, that's another way of saying this reverse downward... class of arrows block loop interchange oh something I should have shown you remember when I showed you that counter example skewing fixes it if we skew this loop just one step to the right to make that lozenge that we saw before then these arrows which are currently diagonal become vertical and then the interchange becomes valid. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4695.65,
+    "end": 4729.97,
+    "speaker": 0,
+    "text": "Yeah, where should we go next? I have loads more slides. There's a section just coming up which is here. And this section is for fun, and it's non-examinable. I promise all the non-examinable slides I'm referring to here have a purple sign on them saying they're not examinable. What we're doing here is getting more mathematical about these transformations. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4731.43,
+    "end": 4781.04,
+    "speaker": 0,
+    "text": "Yes! And in particular, since you're so keen, what we're doing is we're saying that we can represent transformations like reversal, transpose, and skewing as little matrices that represent geometric transformations on the iteration space. And when we transform the iteration space, the same thing happens to all the arrows in it. And then we can ask whether our transformation is parallel, whether interchange is valid, We can also, if we have a sequence of transformations, we can construct a matrix representing the whole sequence by just multiplying the matrices together. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4784.63,
+    "end": 4831.31,
+    "speaker": 0,
+    "text": "This leads to a world of fabulous theory called the polyhedral theory, or the polytope model sometimes it's called, for loop nest optimization, loop nest transformation. We don't have time for it here. It's really fun. It's a bit of a trap. I've had PhD students who started, and then they kind of fell into the trap, and they never came out. It happens with theory sometimes, right? But it's kind of cute. It's very cute, all right? It's very cute. The key idea, and arguably the big takeaway from this, is up until this point, up until previous to today, we'd thought about what compilers do when they optimize as a transformation on the intermediate representation, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4831.39,
+    "end": 4893.04,
+    "speaker": 0,
+    "text": "On the control flow, on the abstract syntax tree, or on the control flow graph, or something like this. Today, we're thinking about program optimizations as geometric transformations on the iteration space of the computation. And that is a powerful idea. That's the idea of the foundation of this polyhedral model. And I just wanted to give you a taste of that idea. Abhi? No, we don't. But I can give you some reading if you like. It is a trap. It is a trap. So the thing to notice here is that this whole theory, and all my examples have been trivial programs. They've been programs with very, very simple subscript expressions. And, I mean, we could talk about if-then-elses, they don't really mess things up too much. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4893.5,
+    "end": 4924.66,
+    "speaker": 0,
+    "text": "We could talk about sequences of loops, right? That maybe loops, all my loops have been perfectly nested. A loop is perfectly nested if it's exactly within an outer loop. We could have imperfectly nested loops, where there are other statements in the loop. The polyhedral people totally take all that on board. It just gets messy. What they can't do is anything with pointers, and they can't do anything with subscripting, where you have an array containing pointers into another array. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4926.72,
+    "end": 5010.55,
+    "speaker": 0,
+    "text": "And that means that the whole theory, it's fantastically beautiful, enables you to do wonderful things, but applies to a tiny class of programs. Really useful for your DSL. That's the point. It's a tiny class of ordinary... like software it's potentially very important classes within particular domains so if you're interested in solving partial differential equations or deep learning right let me show you some other stuff while we're here because it's fun and we've got a few more minutes well I think it's fun anyway I talked to you earlier today about anti-dependencies and so here we have an example with a true dependence and here an example with an anti-dependence the question you might ask is so this one is truly a sequential program this one Can we vectorize that? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 5024.37,
+    "end": 5057.73,
+    "speaker": 0,
+    "text": "If you copy it, yes, you can. But actually, I think it's safe to vectorize this even without copying A. The thing is that the vector load instruction that might load a block of eight values is going to load them all safely before they'll be overwritten by the store instruction that stores a block of eight values later. That's a good question. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5057.77,
+    "end": 5127.4,
+    "speaker": 0,
+    "text": "If the array is longer than one vector instruction, does this still work? I think it does. I think it's safe. You will need to store at least one element. Because you will write out of your bound, out of your vector. So we didn't talk about bounds here, because I was scared of making mistakes. It's like if you take a chunk of bunty, you will write something outside your vector. so the order of the vectors being executed is important so I think we can just so there's another transformation that I didn't tell you about called strip mining where we turn a loop into a loop of blocks where each block is perhaps eight elements And now we can turn each of those loops over eight elements into a single vector instruction. Or a sequence of single vector instructions. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 5128.92,
+    "end": 5159.38,
+    "speaker": 0,
+    "text": "And they're kind of still okay. The reason I'm telling you this is because what I want to persuade you of is that loop carrying anti-dependencies don't block vectorization. But they do block more general parallelization on a multi-core machine. So let me just show you. So here's our anti-dependence. I wonder if you've tried this. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5159.72,
+    "end": 5212.9,
+    "speaker": 0,
+    "text": "Has anybody ever tried using multiple threads or multiple cores to make a program go faster? I know some of you tried it for games the first time you've done it. Did it work? Well, it did work quicker, but it also exploded on my CPU. It should use audio. That was the point. Yeah. So shh. This is making sense. What I'm trying to explain is, we've talked about parallelizing loops using vector instructions, now let's think about parallelizing a loop using multiple cores. So the way I think about it is each core is running its own code, and so when it gets to the start of your loop, it asks, am I thread ID zero or not, right? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 5213.12,
+    "end": 5247.46,
+    "speaker": 0,
+    "text": "And if I am, I'll initialize this global variable I, the iteration counter to zero, and then this barrier Barrier is a synchronization where you wait for every thread that's participating to reach the barrier, and then you release them all, right? So nobody gets past the barrier until everybody's got to the barrier. Then, each thread, each core, executes this wire loop until the break, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5253.66,
+    "end": 5305.71,
+    "speaker": 0,
+    "text": "and what they're doing is they're picking up an iteration and executing it and then they're going around again what this line does is a fetch and increment so here's a possible implementation of a fetch and increment what it does is it reads the current value of i and returns it but it also increases i by 1 so when we go here, what we do is we get the next iteration of i that nobody's done, nobody's started work on and we bump that point, we bump variable i so that the other threads get the next iteration does this work? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 5307.67,
+    "end": 5339.2,
+    "speaker": 0,
+    "text": "And then we terminate where each thread terminates when it discovers that there are no more iterations that haven't been done by us or somebody else. And then we need another barrier because whatever comes afterwards, you want it to be able to read all of the elements of A that might have been written by any of the cores. What do you think of this solution? You say it will work. ",
+    "model_probability": 0.992
+  },
+  {
+    "start": 5340.7,
+    "end": 5397.73,
+    "speaker": 0,
+    "text": "It should work. I'm claiming it should work. Is it fast? In Pintos? If all your threads are running on one core, then this won't work at all. Right. The risk, I think, the add might be very very slow because in this particular case this line of code might only be a couple of instructions so basically we're going to spend all the time claiming and then releasing locks and you can't really afford to do that it's not going to pay off so what you need is perhaps hardware support to do that And there are tricks by hardware support to do that. ",
+    "model_probability": 0.9354
+  },
+  {
+    "start": 5398.21,
+    "end": 5527.82,
+    "speaker": 0,
+    "text": "So you can do that more quickly. The other thing you can do is you can, instead of grabbing one iteration at a time, you can grab a chunk of iterations at a time. So that the synchronization overhead is paid for whole chunks of 100 iterations instead of every single iteration, right? Yep. Instead of doing a job programming style, could you just split the job in two? Ah, that's a lovely question. So the question is, instead of doing this work sharing, this dynamic work sharing, we could just split the work. If we've got four cores, we could just split the iteration space into four, n divided by four for each core, right? And that has the advantage that it gets rid of all this fetch and add overhead. What might go wrong? It would go badly if one of your cores was busy with something else sometimes. If you have an n-dimensional array, you could just scan n threads and let the scheduler do its magic. If you have an n-dimensional... We could just divide this work. We might have four cores, but we could split it into... Suppose you have 10,000 iterations. We could split it into 100 threads of 100 iterations each. and then let the scheduler map 100 threads onto four cores we'd still need the work sharing thing but we would have paid less overhead to get it but your idea is a really good one the other reason why it might go wrong is if the loop body here were more complicated Like, maybe it's got an if-then-else in it, and sometimes, some iterations take more time than other iterations. ",
+    "model_probability": 0.9815
+  },
+  {
+    "start": 5529.04,
+    "end": 5568.19,
+    "speaker": 0,
+    "text": "So you'd have a load imbalance, and then you would wish to have some kind of dynamic scheduling scheme. Would the operating system scheduler help? It could do... I mean, what the operating system schedule will basically do is it'll grab the first four chunks, execute them, and then when a processor finishes a chunk, it'll go back to the scheduler for another thread and get another thread during 100 chunks, which is kind of okay. ",
+    "model_probability": 0.9975
+  },
+  {
+    "start": 5568.35,
+    "end": 5618.03,
+    "speaker": 0,
+    "text": "100 iterations, that's not bad, I guess. So, there are some choices here, and if you do this properly, so there's a software tool called OpenNP, and there are options to control how the scheduling is done and it really works and it's often the right solution there are other good solutions but it's a good one the reason I thought I'd show you this is So if we think about this on a two-core machine, so core 0 is doing this, and core 1 is doing the exact same code, except that this is the one that initializes the counter. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 5618.47,
+    "end": 5652.68,
+    "speaker": 0,
+    "text": "So they're going to be racing to see who gets which iterations to run. Right? In... so in this version of the slide we're executing this loop which we agreed has no loop carried dependencies no anti-dependencies or true dependencies let's modify this slide so that we now have an anti-dependence what happens? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 5677.42,
+    "end": 5711.82,
+    "speaker": 0,
+    "text": "so the thing is because we're dynamically scheduling it's possible that maybe this one runs a bit slow and this one runs a bit faster so this one runs ahead and executes more iterations of this so it might overwrite some of the elements of A that this one needs to read but hasn't read yet do you see what I mean? So what we see here is that the anti-dependence is a big problem. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5711.86,
+    "end": 5741.9,
+    "speaker": 0,
+    "text": "The loop-carried anti-dependence is a big problem for this parallelization scheme. Copying the array A would help, but if you don't copy the array A, then basically it's not going to work in parallel. Okay? So... I introduced this whole parallelization topic with vectorization. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5743.82,
+    "end": 5782.83,
+    "speaker": 0,
+    "text": "But I could have, and I thought about, introducing the whole topic in terms of parallelization just like this. And everything we've done with determining whether loops might be parallel applies to this, except that you do have to be more careful with anti-differences compared with when vectorizing. Also, when you're vectorizing, you really kind of have to vectorize the innermost loops. When you're parallelizing, if we had a loop nest here, we could decide whether the inner loops are actually in here. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5784.05,
+    "end": 5816.34,
+    "speaker": 0,
+    "text": "If the outer loop is parallel, we could do whole... inner loops here. We could parallelize the outer loop. And indeed, it might be a really good idea to parallelize the outer loop, because each thread would then be picking up a bigger body of work to do. OK. Do we have time for this? ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 5816.5,
+    "end": 5848.51,
+    "speaker": 0,
+    "text": "Let's do it. I thought, I've given this kind of, how do we solve the dependence equation? Why don't you scratch your head and you think about it, and you make a list. I thought I'd just try writing a program to solve the dependence equation. And I thought I'd choose something which you would have studied in the symbolic reasoning course. But none of you have taken the symbolic reasoning course. Is that right? One of you, have you seen Z3? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5850.13,
+    "end": 5884.2,
+    "speaker": 0,
+    "text": "Have you used it? Excellent. You can tell me if I used it right. I mean, I'd never used it before until a couple weeks ago, right? So, what have we done here? Should I be making this bigger somehow? So this is Python code. I import the Z3 library and we'll see what Z3 does in a moment. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 5886.46,
+    "end": 5916.71,
+    "speaker": 0,
+    "text": "And what we're looking at is suppose that we're considering a loop with a subscript expression phi1 and a subscript expression phi2 from the lecture, right? And the question, the dependence equation, is do there exist two different iterations i1 and i2 within the loop bounds, right, 1 to n, such that phi1 of i1 equals phi2 of i2. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5917.38,
+    "end": 5956.7,
+    "speaker": 0,
+    "text": "That's the dependence equation that I showed you on the slide, right? So what we're doing here is we're going to ask this Z3 library to solve it for us. So we've declared I1 and I2 as variables for Z3. Now what we do is we create a solver in Z3 and we add the bounds and the dependence equation. So the bounds are going to be i is between 1 and n, and the dependency equation is going to be this, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5960.06,
+    "end": 5994.21,
+    "speaker": 0,
+    "text": "Now, s.check calls the z3 library to ask whether that has any solutions at all, whether it can be satisfied by some choice of the variables i1 and i2. And if it can, if it can't, then there's no dependence present at all, and we know that this loop is parallel. If it has a solution, then we know some dependence has been found, and we can ask what solutions there are. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5995.07,
+    "end": 6043.29,
+    "speaker": 0,
+    "text": "So we ask Z3 for the model that satisfies this set of equations, this set of constraints. and we print out the model for I1 and the model for I2 and we can enumerate all of the solutions if we like here all of the arrows in our iteration space in fact so let's do an example this is the example I'm just printing it out for your clarity then we call the dependence test code on the left hand side of the slide we give it the bounds which are the and, i1 is greater than 1, i1 is greater than n, and similarly for i2, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6044.33,
+    "end": 6076.68,
+    "speaker": 0,
+    "text": "And then we have the dependence equation, which in this case is pretty simple, and it tells us that there is indeed a solution, and an example that satisfies it are i1 and i2 equals 1 and 2. Okay? So you could have done this, right? I actually extended this code to characterize the dependence, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6076.72,
+    "end": 6131.07,
+    "speaker": 0,
+    "text": "So no loop current dependence present. So we check, is there a dependence? Right, sorry. We check if there's no dependence. If there is a dependence, then we show you an example of an I1, I2 pair. Then... we check whether the I1 and I2 that we found I1 is less than I2 now actually I've made an assumption here which is wrong which is we're only looking at one of the satisfying pairs here so I've assumed that our dependencies are uniform in reality you don't know that the dependencies are uniform and so you would have to check them all right So in this code, you would have to iterate through the entire model that satisfies this for all possible values and check whether they're all i1 less than i2. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6132.67,
+    "end": 6164.35,
+    "speaker": 0,
+    "text": "And if so, that we have a loop-carried true dependence, otherwise we can check whether we have a loop-carried anti-dependence, right? So if you look at this example here, remember this one? This is the simple loop-carried dependence, and that's what it tells us. No? Ah, yeah, yeah, loop carried true dependencies found, but no loop carried anti-dependences found. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 6164.37,
+    "end": 6196.13,
+    "speaker": 0,
+    "text": "And another example, this one was easy, right? And this one, 2i, 2i minus 1, no dependence present. have I done that right? yes what about this one? should we make this one bigger for you? ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 6206.96,
+    "end": 6208.02,
+    "speaker": 0,
+    "text": "what do you think happens there? ",
+    "model_probability": 0.9971
+  },
+  {
+    "start": 6218.48,
+    "end": 6248.76,
+    "speaker": 0,
+    "text": "it's horrible, it's messy, it's carefully constructed and what we see is that there are indeed some dependencies that are found and there are actually true dependencies that are found, and also anti-dependencies, loop-carrying anti-dependencies that are found for this example. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 6252.18,
+    "end": 6286.22,
+    "speaker": 0,
+    "text": "So remember the delta star that I showed you. This is a case of a delta star, where there's clearly a loop-carrying dependence, but it's not uniform, so we can't... It's not uniformly true. It's not uniformly anti-dependent. It's sometimes one, sometimes the other. What do you think of that? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 6289.88,
+    "end": 6380.72,
+    "speaker": 0,
+    "text": "Does this do what you need in your compiler? You have four loops. You don't have four loops in your... Do you have arrays? You do have while loops, but it's difficult to argue about the indices from the start. Well, if you had induction variables, then you could treat them like loop control variables. Well, we just need... to do more and . So I taught you about induction variables. The loop control variables always trivially induction variables. But your program might have more induction variables. And if you wrote a while loop, you might still have induction variables. But if your while loop has some kind of early exit, then it's hard to parallelize. That's true. That's why we shouldn't have . Yeah, but even while loops are horrible, right? So the while loop might depend upon an induction variable, in which case its iteration count is known on entry. But if the while loop depends on something else, perhaps in combination, like have I found what I'm looking for yet? ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 6383.0,
+    "end": 6396.6,
+    "speaker": 1,
+    "text": "then it's got a loop carried control dependency, which we didn't talk about, but it spoils your day. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 6398.13,
+    "end": 6428.35,
+    "speaker": 0,
+    "text": "There's another thing here, which is that Well, firstly, I oversimplified in that we only sample from the model. We don't check everything in the model. But we also sort of assumed that the loop bounds are easy. Things could get a bit messier. And we only did the one-dimensional case. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6430.85,
+    "end": 6492.44,
+    "speaker": 0,
+    "text": "Okay. Okay. Do we have time for one more cute thing? Well, I like it anyway. I told you that this program is inherently sequential. Can't be vectorized, can't be parallelized or multi-core. True or false? Obviously, the reason we're here is because it's false. But look, it's a dependent chain of ads. What could we do with that? You could say, well, plus is associative, right? So we could compute the last element with a recursive tree of ads. Yeah? But that doesn't help us with the intervening elements. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6496.68,
+    "end": 6535.08,
+    "speaker": 0,
+    "text": "Let me show you. a way to do this so maybe I should just give you a moment to stare at this let me just map it for you right we start with the array B which is this thing whose running total we might calculate and I'm gonna for simplicity initialize it to all the ones because the running total of that array of ones is going to be 1 2 3 4 5 6 7 8 right So what we do is we take B and we shift it one step to the right and add it to itself. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6537.74,
+    "end": 6591.26,
+    "speaker": 0,
+    "text": "And then we shift it by two and then by four. The compiler would have to be really smart to figure this out. The compiler would have to be smart to figure this out. Yeah. So, I mean, there are absolutely research papers on finding loops like this one at the top and using this algorithm to do it. They generally have a bit of a pattern-matching flavor to them. You're pattern-matching for this parallel scan, this scan structure, and then replacing the code with this. Do you have to copy the data multiple times? ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 6592.22,
+    "end": 6626.38,
+    "speaker": 0,
+    "text": "I don't think you do. You could actually recycle storage here. How parallel is it? So each of these steps is parallel, right? This is a fully parallel addition operation except it operates on only seven elements instead of eight. This one is a fully parallel operation except it operates on six elements instead of eight. ",
+    "model_probability": 0.9937
+  },
+  {
+    "start": 6627.18,
+    "end": 6668.86,
+    "speaker": 0,
+    "text": "This one, four. So we've turned our sequential computation into a sequence of three parallel operations but they're not all full size so it's kind of log n steps but each step is smaller than the last one how many additions does this one do? ",
+    "model_probability": 0.9522
+  },
+  {
+    "start": 6669.54,
+    "end": 6718.42,
+    "speaker": 0,
+    "text": "This one's easy, right? It does 8. I think we're in 7. 1, 2, 3, 4, 5, 6, 7, 8. Yep. How many does that one do? More. This one does 7 already. But we do them in parallel. So it seems like we're being wasteful in order to get parallelism. It depends on how big the loop actually is. It depends on how big the loop actually is. Because bigger is better or bigger is worse? Bigger should be better because you can vectorize the addition. Yeah, when all of those additions are being vectorized. Yeah. Yep. ",
+    "model_probability": 0.9429
+  },
+  {
+    "start": 6718.7,
+    "end": 6743.67,
+    "speaker": 1,
+    "text": "It seems that we always need to do at least the same number of additions. But this one does half as many additions as... Oh right, so the shifts, if you count the shifts, then we do more. It's also that on the left we have eight additions, but on the right we have... ",
+    "model_probability": 0.8979
+  },
+  {
+    "start": 6754.93,
+    "end": 6787.27,
+    "speaker": 0,
+    "text": "well I guess it depends on what an addition means in brackets like if each of these makes this one so if you think 1, 2, 3 then it's easy if you think that's 7 plus 6 plus 4 then it seems like we are doing more work than this one so the parallel processing people call this work efficiency This is a non-work-efficient parallel algorithm. ",
+    "model_probability": 0.9937
+  },
+  {
+    "start": 6787.29,
+    "end": 6836.14,
+    "speaker": 0,
+    "text": "It does more work than the sequential one had to do. Now, you can make things look a little bit better if you... It doesn't help on a vector machine. If you were doing this on a multi-core machine, you can still parallelize this way, but within each thread, you can do it sequentially in the efficient way. so the work inefficiency becomes proportional to the number of threads you have but it's still not good turns out this is the most beautiful and simple version of this algorithm there are work efficient parallel scan algorithms and they're really fun and they're much too complicated for us to talk about today but it is fun Can I explain it? ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 6836.96,
+    "end": 6844.19,
+    "speaker": 0,
+    "text": "Did I have a slide about this? Here's my attempt to explain how this algorithm works. I'm not sure if that helps. ",
+    "model_probability": 0.9951
+  },
+  {
+    "start": 6854.37,
+    "end": 6886.72,
+    "speaker": 0,
+    "text": "So you can kind of look at this and ask, so what contributed to this sum? Well, it was this and this, which came from here and from here. Yeah. Yeah. So this is a naive parallel scan. It does more work than the sequential scan did, but it does use parallelism. There are work-efficient parallel scans, The best explanation of this that I've found is here. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 6887.7,
+    "end": 6920.27,
+    "speaker": 0,
+    "text": "This is from our manual on GPU programming from NVIDIA. Right, where are we going? I think that wraps it up. And it's five to six, so it's time to be finishing. If we look back at the whole picture of the compiler's courses, you've heard from Jamie, you've heard from Hongsheng, you've hopefully learned about all this stuff from me, mostly optimization things and this new parallelization material. ",
+    "model_probability": 0.9981
+  },
+  {
+    "start": 6920.79,
+    "end": 6956.04,
+    "speaker": 0,
+    "text": "We also saw a bit of SSA as well, I just introduced that to you. My objective, well, was to introduce you to things that I like. I wanted you to have a deepest, not quite the right word, I wanted you to have an understanding from top to bottom of how when you write a program it runs on the machine. And the compiler is part of that and that's what we're here for. And I'd like you to know something about making your programs efficient. ",
+    "model_probability": 0.9967
+  },
+  {
+    "start": 6956.53,
+    "end": 6995.89,
+    "speaker": 0,
+    "text": "either by getting the compiler to do it, or writing a compiler that does it automatically, or for that matter, by doing it manually. If you're going to do it manually, you should know something about what the compiler is going to do for you anyway. All right, with that, it's time for me to thank you very much. Thank you for your attention. Thank you for your questions. It's been a lot of fun. Go forth and do good things. Thank you very much. And of course, if you have questions, I look forward to what you can ask me now, but we can also continue with all of your questions and any questions on this topic in Edster. ",
+    "model_probability": 0.9855
+  },
+  {
+    "start": 7066.81,
+    "end": 7074.39,
+    "speaker": 0,
+    "text": "Is there a way to keep the formulas analysis if we don't have the reduction? Like for a generic plot of it. I'm sorry. ",
+    "model_probability": 0.2535
+  },
+  {
+    "start": 7094.13,
+    "end": 7114.92,
+    "speaker": 0,
+    "text": "So things get really nice. Or maybe you could argue that parallelable programs usually haven't done so well. You could argue that, wow, the condition of the hands on some people have not improved. Definitely not. Wow, this is a huge problem. The condition of the hands on some people have not improved. ",
+    "model_probability": 0.2189
+  },
+  {
+    "start": 7155.49,
+    "end": 7174.53,
+    "speaker": 0,
+    "text": "Which class it took him. It's taking a while to switch. It's a traditional function. But I think it's still the same. I think he taught a lot. He taught three people. He taught a lot, but I think it's a lot of money. He wrote it all by himself. He wrote it all by himself. He wrote it all by himself. He wrote it all by himself. He wrote it all by himself. ",
+    "model_probability": 0.1338
+  },
+  {
+    "start": 7174.57,
+    "end": 7179.45,
+    "speaker": 1,
+    "text": "He wrote it all by himself. He wrote it all by himself. He wrote it all by himself. ",
+    "model_probability": 0.0812
+  }
+]

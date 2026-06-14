@@ -1,0 +1,814 @@
+[
+  {
+    "start": 216.86,
+    "end": 253.65,
+    "speaker": 0,
+    "text": "Hello, so as Alessandro was saying, I'm Julian, and today I'm going to talk to you about some of what I've been doing during my PhD so far. So I'm a PhD student of Alessandro's, and I'm part of the Spike Research Group, which is led by Alessandro. So just a disclaimer, what I'm going to present is not examinable, but if you have questions, don't be afraid to interrupt me. So I did my undergrad at Imperial, the Department of Computing, that was started in 2016. ",
+    "model_probability": 0.994
+  },
+  {
+    "start": 254.39,
+    "end": 290.03,
+    "speaker": 0,
+    "text": "And also back then, I also took the logic-based learning course. And this has led me to a PhD that builds on logic-based learning. So I'm part of a doctoral network called ProSafe. Well, the full name is Smart Integration of Process Systems Engineering and Machine Learning for Improved Process Safety in Process Industries. But this basically means using AI to help improve chemical process safety. And it's a network of five European universities, and there are about 12 students in total. ",
+    "model_probability": 0.9822
+  },
+  {
+    "start": 293.13,
+    "end": 348.48,
+    "speaker": 0,
+    "text": "So my research project focuses on developing neuro-symbolic AI methods for fault detection in chemical processes. And you're probably wondering what that means exactly. So first of all, neuro-symbolic AI is something you've already been introduced to, so I'm not going to cover that. Then chemical processes, so the chemical process industry is one of the largest industrial sectors in the world and they produce many items from materials to customer goods for example pencils or there's different types of chemicals that you might use for example for cleaning And they take process safety very, very seriously. ",
+    "model_probability": 0.9643
+  },
+  {
+    "start": 350.56,
+    "end": 380.99,
+    "speaker": 0,
+    "text": "And they have different types of studies that are applicable for different phases of a process. So planning is the phase before a chemical plant is built. And in construction as well, it's being built. Use is when it's being operated. And then end of life is for tearing down the plant. And the reason why they take chemical process safety so seriously is because there are lots of hazards involved. ",
+    "model_probability": 0.9546
+  },
+  {
+    "start": 381.01,
+    "end": 421.58,
+    "speaker": 0,
+    "text": "So for example, gases that are at high temperature or high pressure, or substances that can be corrosive, toxic, flammable, or explosive. And they have a bunch of risk mitigation strategies and plans to avoid well to minimize the risk of these dangerous substances causing harm. But there have been many cases in the past where there have been catastrophic repercussions on both the population in the nearby area around the plant and also the environment. ",
+    "model_probability": 0.9556
+  },
+  {
+    "start": 422.54,
+    "end": 460.27,
+    "speaker": 0,
+    "text": "For example, one of the most famous ones is the Cveso incident from 1976. Another famous one is the Bhopal incident. So now we've covered chemical processes, so fault detection, So in fault detection, what's understood by fault detection is basically detecting, so a fault is a disturbance or series of disturbances in a process that cause the operations on a plant to deviate from their normal operating condition or their normal operating state. ",
+    "model_probability": 0.9689
+  },
+  {
+    "start": 462.39,
+    "end": 501.22,
+    "speaker": 0,
+    "text": "And just for an example, this automaton has nothing to do with chemical engineering. It's just to better understand what fault detection means. So as you can see here, you have four states. S0, S1, S2, S3. If you're in S0, you can stay in state S0 with transition A, or you can have transition B and move to state S1. Similarly for all of these. Now, normally you make the assumption that you can only follow those rules. But if you have some abnormal behavior, you might be able to go from state s1 to state s0. ",
+    "model_probability": 0.9925
+  },
+  {
+    "start": 502.6,
+    "end": 536.34,
+    "speaker": 0,
+    "text": "And this is the sort of thing you're trying to detect. So now we understand this. very slightly complicated title. So some motivations for the work. So in the process industry, automation has caught on, but not everywhere. Detecting process faults is still something that's very manual and relies a lot on the expertise of people who have been doing it for years and who've had lots of training in it as well. ",
+    "model_probability": 0.9786
+  },
+  {
+    "start": 537.9,
+    "end": 571.66,
+    "speaker": 0,
+    "text": "And this is made worse by the fact that fault data are rare by nature because faults don't occur often. And because of this, we don't have very large data, we don't have large data sets for training. Or we, well, there are very few of them. And when, and even in the ones that do exist are not that large and it's not very extensive. ",
+    "model_probability": 0.9861
+  },
+  {
+    "start": 572.7,
+    "end": 622.53,
+    "speaker": 0,
+    "text": "And the other main concern is that chemical engineers would want a very trustworthy system because of the risks behind the risk that exists if a system were to behave incorrectly, were to detect faults incorrectly. So just using a simple LLM1, I'll do. So let's first begin by talking about my first project So the idea was to create a first attempt Purely symbolic so not not no symbolic just symbolic approach for detect for detecting chemical process faults And so the idea was to apply this to a chemical process That's very simple. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 623.09,
+    "end": 661.52,
+    "speaker": 0,
+    "text": "So just to develop a first proof of concept and also simulated because we As I was saying before, we don't have very many real data. So a simulation will give us something that we can understand and then evaluate the approach with respect to. And the goal with this project was to learn fault-detection rules. And by fault-detection rules, I just mean a rule of the form a rule that has a head where the head is a fault and then the body is just a set of process conditions. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 663.66,
+    "end": 694.52,
+    "speaker": 0,
+    "text": "So to generate data for this project, my chemical engineering collaborators suggested modeling a process that involves ethylene oxidation. So ethylene oxidation is a chemical reaction where ethylene gets oxidized to form ethylene oxide. And this is the reaction here. It's oxidized in the presence of oxygen. And it's also an exothermic reaction, so it generates heat. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 696.2,
+    "end": 743.02,
+    "speaker": 0,
+    "text": "And this can cause all sorts of risks. So for example, if you have a small increase, if, for example, you are struggling to control the temperature the component in the plant in the process where the reaction is taking place and the temperature at that part of the process increases. if you're still struggling to maintain a safe temperature, then because the temperature is higher, the reaction will occur more quickly. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 743.26,
+    "end": 774.87,
+    "speaker": 0,
+    "text": "And because it occurs more quickly, the temperature rises even further. And then this just eventually leads to the temperature increasing and increasing and it becomes out of control. this is a situation that we want to avoid at all costs. This is called a runaway reaction, this case. So back to talking about how the data were generated. So we used a chemical process simulator called Aviva. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 774.89,
+    "end": 805.06,
+    "speaker": 0,
+    "text": "This is one of the common chemical process simulators that chemical engineers use. Yes? OK. I'll just hold it. Is this better? OK. So we modeled different faults. So as you can see here, these are different components in the chemical process. And for example, this is where all the gases flow into the process. ",
+    "model_probability": 0.9968
+  },
+  {
+    "start": 806.48,
+    "end": 839.88,
+    "speaker": 0,
+    "text": "So for example, the ethylene and the oxygen. mainly and here you have a flow rate sensor and this fluid sensor gives you a reading which is then read by this controller and if the controller tries to impose a specific a flow rate on this flow here. So if this value here is higher than what we want, the controller will close the valve a little bit. ",
+    "model_probability": 0.9981
+  },
+  {
+    "start": 840.52,
+    "end": 870.9,
+    "speaker": 0,
+    "text": "If it's lower than what we want, it will open a little bit. So this loop is what allows us to maintain a steady flow rate. This is a compressor. It compresses the gases. This is a pressure sensor. This is a heat exchanger. The idea of the heat exchanger is that you have cooling water flowing here, and then you have the main flow here, and you use this cooling water to cool down the temperature of the mixture of gases. ",
+    "model_probability": 0.9985
+  },
+  {
+    "start": 872.22,
+    "end": 906.17,
+    "speaker": 0,
+    "text": "And so if the temperature is too high, you open this valve a little bit, and more cooling water comes in. If the temperature is too low, then you reduce the flow of cooling water. This is a temperature sensor. It's what's used for this loop here. And then you have the reactor where the reaction happens. And then here you have the sink. So let's look at a few examples of faults. So for example, in this component, the source, one fault could be that you don't have enough oxygen flowing into the process. ",
+    "model_probability": 0.998
+  },
+  {
+    "start": 907.5,
+    "end": 939.03,
+    "speaker": 0,
+    "text": "And the consequence of this could be that the thermodynamic properties of the mixture of gases changes. And then this changes how all these steps behave. And so the reaction doesn't occur as we expect. Another fault could be, for example, that this valve is stuck closed, so there's no cooling water coming in, and the temperature here increases to a much higher value than what we would want. So it creates a buildup of heat. ",
+    "model_probability": 0.9982
+  },
+  {
+    "start": 941.52,
+    "end": 974.25,
+    "speaker": 0,
+    "text": "And also, yeah, this software is Windows only, so it's a bit annoying to use. But during the operation, normally the process is in a sweet spot and the conditions are constant. However, if suddenly a fault occurs, then the effects of the faults are seen gradually on the whole process. So imagine a fault occurs, I don't know, here. ",
+    "model_probability": 0.9975
+  },
+  {
+    "start": 975.49,
+    "end": 1013.19,
+    "speaker": 0,
+    "text": "Gradually over time, you'll see the consequences of this fault more and more here. And this is called a dynamic simulation. So to gather the data, what we did is that we simulated defaults by changing the process conditions in the simulator at time t. And then we waited a time delta t. And at that point, measured the readings of various process variables, which I'm going to explain a little bit later on. ",
+    "model_probability": 0.9976
+  },
+  {
+    "start": 1016.24,
+    "end": 1048.2,
+    "speaker": 0,
+    "text": "And our plan was to basically learn ASP rules to identify faults based on the conditions at t plus delta t. And we were going to experiment with different delta t. And from these experiments, identify a delta t that's small enough to diagnose early, but large enough to be able to see the effects of the faults. So here's a different way of looking at the project. We have this ethylene oxidation fault data set. ",
+    "model_probability": 0.9973
+  },
+  {
+    "start": 1049.36,
+    "end": 1087.1,
+    "speaker": 0,
+    "text": "We have an ILP mode bias, and we have FastLAS. And this allows us to generate ASP rules. But what is FastLAS? So let's go back to logic-based learning. So an overview of FastLasp. So very roughly, it's a less expressive but more scalable version of iLasp. You might remember this chart from early in the course. FastLAS does not allow learning choices or preferences and has a limited ability to learn constant constraints. ",
+    "model_probability": 0.9962
+  },
+  {
+    "start": 1088.42,
+    "end": 1121.79,
+    "speaker": 0,
+    "text": "But it's much more scalable. So these are extracts from the paper which show that here for the same task, it took ILASP 3 over 200 seconds and FastLAS only slightly under one second. And then similar here you can see a huge decrease in the amount of time to generate the optimal hypothesis. This one here, this task has a lower difference, but it's still a considerable improvements. ",
+    "model_probability": 0.9951
+  },
+  {
+    "start": 1126.18,
+    "end": 1156.62,
+    "speaker": 0,
+    "text": "And more formally, though, it's an ILP system that takes as input a learning task and a user-specified scoring function. So what FastLoss does is that it computes an optimal hypothesis with respect to the scoring function. And a lower score is better. There are also proofs online. And the scoring function can be specified in multiple ways. So first, each training example has a weight associated. ",
+    "model_probability": 0.9954
+  },
+  {
+    "start": 1156.64,
+    "end": 1188.91,
+    "speaker": 0,
+    "text": "And then you can also define additional mode bias rules and constraints. And these are given alongside the mode declarations. You can... So the first thing you can do is that you can assign a penalty to the rule heads and rule bodies that appear in a hypothesis. And I'm going to explain this a little bit more in detail later. And you can also eliminate rules from the hypothesis space. ",
+    "model_probability": 0.9963
+  },
+  {
+    "start": 1189.23,
+    "end": 1192.77,
+    "speaker": 0,
+    "text": "And this is done via constraints in the bias. ",
+    "model_probability": 0.9578
+  },
+  {
+    "start": 1293.38,
+    "end": 1335.87,
+    "speaker": 0,
+    "text": "Yeah, so I'm now going to define all this. So what you saw earlier in the course was the definitions for iLasp. And on the right here, I have some definitions for FastLasp. So what you saw was that in iLasp, An example E is a partial interpretation where you have inclusions and exclusions. And these are sets of ground atoms. And we say that an answer set A extends E inc, E exc, if and only if the inclusions are a subset of this answer set and the exclusions are completely distinct from the answer set. ",
+    "model_probability": 0.9952
+  },
+  {
+    "start": 1338.32,
+    "end": 1377.5,
+    "speaker": 0,
+    "text": "Now, in FastLAS, we have two new things. So we have the penalty. Each example or training example has a penalty, and it has a context. So the penalty is just a natural number, non-negative natural number. And E-ink and E-exk, as before, are sets of ground atoms. And the context is an answer set program called the context. So here, you saw that in ILASP, a learning for answer sets task is a tuple with background knowledge. ",
+    "model_probability": 0.9979
+  },
+  {
+    "start": 1378.24,
+    "end": 1415.43,
+    "speaker": 0,
+    "text": "You have the search space, and then you have positive and negative examples. Now, for simplicity, we're not going to look at negative examples in FastLAS. But so here you have the learning task definition for FastLass. And you can see that as before, you have the background knowledge and the mode bias and the positive examples. But you also have a scoring function. And you can see that this scoring function is from the search space, from the hypothesis space, to z. ",
+    "model_probability": 0.998
+  },
+  {
+    "start": 1418.83,
+    "end": 1455.55,
+    "speaker": 0,
+    "text": "for scoring candidate hypotheses. And now hypothesis in FastLAS is defined as basically a subset of the hypothesis space and you say that it's optimal if and only for every hypothesis H prime, H prime has a larger than or equal to score than the score of H. So the hypothesis is optimal if and only if it has the best possible score with respect to your task. ",
+    "model_probability": 0.9968
+  },
+  {
+    "start": 1458.66,
+    "end": 1492.39,
+    "speaker": 0,
+    "text": "So we've seen these two definitions. One more definition is about the example coverage. So given a task T, you say that an example is covered by a hypothesis, yeah, a hypothesis, if and only if there is an answer set, of the background union this hypothesis union the context of the example such that the inclusions are subset of A and the exclusions are completely distinct from A. ",
+    "model_probability": 0.9974
+  },
+  {
+    "start": 1493.65,
+    "end": 1528.82,
+    "speaker": 0,
+    "text": "So this is as before except that now the context is part of this. Then the example coverage is measured in terms of uncovered examples. and you write it like this. So basically, example coverage means basically an example is uncovered if, is uncovered by hypothesis if the hypothesis does not allow you, is not in agreement with this example. ",
+    "model_probability": 0.9973
+  },
+  {
+    "start": 1531.97,
+    "end": 1571.73,
+    "speaker": 0,
+    "text": "So here is one way of specifying the scoring function. So here, this is the example coverage component. So for each uncovered example, you have the penalty of this example. And then here, this is based on the size of the hypothesis. So basically, for each rule in the hypothesis, you take the sum of the head penalty and then the body penalty times the number of body atoms in the rule. ",
+    "model_probability": 0.9969
+  },
+  {
+    "start": 1572.61,
+    "end": 1578.95,
+    "speaker": 0,
+    "text": "So these are the points that were towards the bottom of the slide earlier. Yeah? ",
+    "model_probability": 0.9801
+  },
+  {
+    "start": 1595.12,
+    "end": 1621.12,
+    "speaker": 2,
+    "text": "So this is essentially a more specialized scoring mechanism that you can introduce in the learning system. Right? Which is very much domain specific. It really depends on what type of rules you want to capture. ",
+    "model_probability": 0.9965
+  },
+  {
+    "start": 1625.5,
+    "end": 1660.85,
+    "speaker": 0,
+    "text": "So let's look at an example. So imagine a system where you have a switch and a light bulb. And the switch and light bulb can both fail in different ways. So for example, the switch can be reversed. So the direction in which the switch is set up is reversed. So if the switch is off, the light is on. If the switch is on, the light is off. The switch can be disconnected from the circuit. So in this case, the light is always on. The light bulb can be near the end of its life, in which case when it's on, it appears very dim. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 1661.51,
+    "end": 1695.19,
+    "speaker": 0,
+    "text": "And it can be at the end of its life, in which case it's always off. And then we also have different actions. So when the actions describe what you need to do to fix the system. So if the switch has a fault state, you need to rewire it. And if the light bulb is at the end of its life, then you replace the light bulb. So we'd like to learn optimal rules for detecting faults and also for knowing what action you need to carry out. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 1697.35,
+    "end": 1732.18,
+    "speaker": 0,
+    "text": "So this can be defined as a fast last task. So each of these are positive examples. This is just a label here. These are the penalties of the examples. So we're just setting this to 10. These are the inclusions. So in this case, this corresponds to the first column, in which case there's no fault, and the system behaves as expected. So the set of inclusions is empty. This is the set of exclusions. So you do not observe any of the faults, and you also do not require any of the actions. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 1732.9,
+    "end": 1763.87,
+    "speaker": 0,
+    "text": "And then this is the example context. So the context for this example is that the switch and light bulb are both on. So when the switch is on, the light bulb is on. When the switch is off, the light bulb is off. Then this is the second column, and then so on and so forth. And in each of these cases, you do have the inclusions are not empty. ",
+    "model_probability": 0.9983
+  },
+  {
+    "start": 1764.79,
+    "end": 1803.8,
+    "speaker": 0,
+    "text": "You do have a fault, and you do have an action. These here are the mode head declarations. So the mode heads here are switch and light bulb faults. the ones from above, and then the actions are the actions from above. And the mode bodies are all the switch light bulb states. Here we define the hypothesis space penalties. So we see that if an atom appears in the head of a rule, the penalty is going to be one. ",
+    "model_probability": 0.9983
+  },
+  {
+    "start": 1804.14,
+    "end": 1866.78,
+    "speaker": 0,
+    "text": "If it appears in the body, it's going to be one as well. So, this is just a very simple, the most basic definition of the hypothesis size penalties, but with example penalties of 10. Remember that function from before. So, if you run this task with FastLass, this is the hypothesis that we get. the optimal hypothesis. And it says here that it has a score of 16. And if we now look at the table again, we can see that if the switch is on and the light bulb is dim, then it must be the case that we have to Yeah, it must be the case that the light bulb fault near end of life is present. ",
+    "model_probability": 0.9983
+  },
+  {
+    "start": 1866.9,
+    "end": 1898.94,
+    "speaker": 0,
+    "text": "And then here, similarly, we also have only one atom in the world body for this one. And this hypothesis is more compact than if we also had switch light bulb off off. in this first rule, and then in this second rule, a less compact version of the hypothesis would have two versions of this one. You can see how we get to 16. ",
+    "model_probability": 0.9981
+  },
+  {
+    "start": 1899.94,
+    "end": 1931.72,
+    "speaker": 0,
+    "text": "So here, all of the examples are covered, so this amounts to zero, and then here, we see that two of the rules have one body atom. So 1 plus 1 is 2 times 2. And then 2 plus 1, 3 times 4 is this. So we get to 16. So let's go back to my project. ",
+    "model_probability": 0.998
+  },
+  {
+    "start": 1935.63,
+    "end": 1966.69,
+    "speaker": 0,
+    "text": "So we looked at learning ASP rules to identify faults based on the conditions at t plus delta t, as I was saying before, and this was over a set of process variables. So I talked to you about the components before. Each component has a set of process variables. So for example, here, this is a compressor. Its purpose is to increase the pressure of, well, to compress mixture of gases, so to increase its pressure. ",
+    "model_probability": 0.9984
+  },
+  {
+    "start": 1968.38,
+    "end": 2006.27,
+    "speaker": 0,
+    "text": "You can see here it has two of the variables of this component are its inflow temperature and outflow temperature. These are just things that can be measured. So, we defined a task called TDynamic. This task is made up of training examples, which each have a penalty 100. They have a set of inclusions which contains only one atom, which is the specific failure associated with the example. ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 2007.55,
+    "end": 2041.58,
+    "speaker": 0,
+    "text": "a set of exclusions which are all the failures that did not occur. Then the context here is all the process measurements, the process conditions associated with the specific run of the simulator. Now, for each process variable, we have two facts. The first one tells us the value of the process variable at time t plus delta t. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 2042.19,
+    "end": 2078.33,
+    "speaker": 0,
+    "text": "So in this case, it's 295 degrees. And this one tells us the difference in value between t plus delta t and t, so between when the fault occurred and when we're measuring all of this. see that this one has not changed. This one, however, increased by 65. This one is a temperature. Then you can see that we can include as many as we want. We have a whole set of examples for each failure. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 2080.75,
+    "end": 2113.21,
+    "speaker": 0,
+    "text": "So one thing that is interesting with FastLAS is that it supports numeric variables. It's only applicable though to unary predicates. For example, this one. And this value must be a non-negative integer. When you define numeric variables, you have to specify the valid range for a numeric variable outside of the examples in the task. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 2113.77,
+    "end": 2151.21,
+    "speaker": 0,
+    "text": "So for example, you can say that this measured E2 TTI can vary, I don't know, from 250 to 350. And then given all the examples, you can learn the rules of this form. where you have a variable specified with this predicate, and here you have a condition on this variable. So let's have a look at the bias of this task. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 2152.21,
+    "end": 2186.36,
+    "speaker": 0,
+    "text": "So here we have a set of uh, bias rules and constraints that are interesting to look at. Uh, so the first one that's defined says that, so for each body atom, you, well, you count, sorry, for each rule, you count the bo- so these, one thing is that these, um, hash bias, uh, rules and constraints operate only on one rule. So you assume a rule. So given a rule, you count the body atoms and if they're less than, There are fewer than one of them. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 2186.4,
+    "end": 2218.06,
+    "speaker": 0,
+    "text": "So if there are no body atoms, then the rule is not allowed because it's a constraint. And similarly, we do not allow more than six body atoms. Then this one says that so for numeric variables, so assuming x is a numeric variable, you look at its lower bound. So imagine a rule says a of x and x is greater than or equal to 5. 5 would be the lower bound. if it has two lower bounds and they're different, then the rule is not allowed. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 2219.44,
+    "end": 2243.69,
+    "speaker": 0,
+    "text": "This just allows us to have cleaner rules without having to do any work later on. Same thing for the upper bound. This one associates a penalty of 50 to head atoms and penalty of five to body atoms, so for the hypothesis size. This is a bit more complicated. Yes. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 2300.93,
+    "end": 2313.22,
+    "speaker": 0,
+    "text": "And you can do things that are even more specific than this. You can condition on specific head atoms or body atoms. You can even put ground atoms. ",
+    "model_probability": 0.9977
+  },
+  {
+    "start": 2334.56,
+    "end": 2370.71,
+    "speaker": 0,
+    "text": "Yeah, it's okay. So this bias operates on exactly one rule, and then here this final bias operates on a candidate hypothesis as a whole. Here you have the syntax which allows injecting, basically injecting I guess injecting facts from this bias for use in the final bias. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 2371.69,
+    "end": 2404.79,
+    "speaker": 0,
+    "text": "So it allows you to know which rules, which faults basically in this case, which faults have a rule head. So to know which faults have a rule. Then here there's a constraint saying, if you have a possible head, so there's one of these for each faults. If you have a possible head, then it must be the case that you have a rule head from here if the rule is, if the hypothesis is to be accepted. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 2406.48,
+    "end": 2447.28,
+    "speaker": 0,
+    "text": "So this just says there should be at least one rule per fault in the hypothesis. Does that make sense? Yeah, OK. And one last thing, in addition to the numeric variables and to all this flexibility, you also have a probabilistic mode. And there's a different optimization algorithm for this that we're not going to cover today. But what it allows you to do is generate rules where each rule has a probability value associated. And these probability values are, so the set of probability values that can be used are specified alongside the bias. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 2449.28,
+    "end": 2480.29,
+    "speaker": 0,
+    "text": "And each probability value is associated with the proportion of examples covered by the rule. So if you have a rule with probability 1, then almost all the examples or all the examples should be covered by the rule. If it has a very low probability, then not so much. This is an example of hypothesis that can be generated with this task. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 2480.75,
+    "end": 2516.86,
+    "speaker": 0,
+    "text": "So you have this rule here saying that almost with certainty, if you have the pressure at the end of the process, at the sink, at the end of the process that decreases, then you have this fault that can be detected. Similarly for all of these, which have a high probability, a very high probability. And these correspond more to edge cases. They have a much lower probability. And here you can see an example of numeric variables being used, so a condition on a numeric variable. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 2518.02,
+    "end": 2548.13,
+    "speaker": 0,
+    "text": "In this case, you have this temperature reading here. And it must be between these two values. So in this range from 165 to 166 degrees for the rule body to be true. So just a bit more. So going further in the project, we looked at varying different hyperparameters. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 2548.81,
+    "end": 2580.62,
+    "speaker": 0,
+    "text": "So for example, the delta t that I mentioned before, the defaults that are included, the process variables, how many samples of how many runs from the simulator to include for each vaults. I also use something called the Receiver Operating Characteristic Graph. So that's our curve to compute a metric for accuracy. So these are just some examples. Here, the top one is ours. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 2583.12,
+    "end": 2620.82,
+    "speaker": 0,
+    "text": "This here is the false positive rate and the true positive rate. From this, we can compute the area under the curve here. For example, here it's 0.88, here it's one, and this becomes a measure for accuracy for a given hypothesis. This was done by holding some of the training examples while not including some of the training examples and keeping them for evaluation. Then we also looked at some neural baselines, for example, random forest and multi-layer perceptron. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 2621.34,
+    "end": 2652.99,
+    "speaker": 0,
+    "text": "These are some of these here. You can see here that it our approach performs similarly to or slightly better than the other baselines. But unlike the baselines, it's much more interpretable and explainable. There's an extension of the work that I won't mention here. Project number two is to extend on this work and build a neurosymbolic framework that's much more scalable, and this is ongoing research. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 2655.15,
+    "end": 2686.07,
+    "speaker": 0,
+    "text": "Back to logic-based learning. So in summary, FastLAS is a learning from Ansysets framework for learning ASP rules. It's much more scalable than ILASP, but less expressive. And some key extensions include the ability to learn rules with numeric ranges in their body. So through numeric variables and also probabilistic rules with a probability value that represents example coverage. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 2688.4,
+    "end": 2712.73,
+    "speaker": 0,
+    "text": "So in case you're interested, this is the paper about the original FastLast paper from 2020. This is just a paper that gives you an example of numeric variables used for weather forecasting rules. And then this is the paper on probabilistic mode. Thank you for listening. Let me know if you have questions. ",
+    "model_probability": 0.9986
+  },
+  {
+    "start": 2821.61,
+    "end": 2853.68,
+    "speaker": 0,
+    "text": "Do you mean FastLess or do you mean the project, the task that I defined? Yeah, it can be applied to lots of different domains and then you just have to specify, you just have to generate some training examples and then set the example penalties as as they would make sense for that application domain. And similarly for the bias. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 2853.76,
+    "end": 2895.21,
+    "speaker": 0,
+    "text": "It's just a matter of changing the bias and generating different examples. So yes, you could use it. That dataset is too large for this formulation. Yes, correct. There is a very common dataset called the Tennessee Eastman Process from 1992, and it's basically been used since then as the reference benchmark. ",
+    "model_probability": 0.9986
+  },
+  {
+    "start": 2895.51,
+    "end": 2942.55,
+    "speaker": 0,
+    "text": "There are lots and lots of papers that evaluate their system based on this benchmark. And it's one of the only few benchmarks like it. It's very hard to get data from the chemical engineering domain. Yeah. The other thing that's interesting with chemical engineering is that there are, because you have processes that when they behave normally follow a specific, well, they can be modeled by physics and math, you can inject theory background knowledge to help constrain your task. ",
+    "model_probability": 0.9984
+  },
+  {
+    "start": 2943.57,
+    "end": 2976.22,
+    "speaker": 0,
+    "text": "And for this, I mean, I didn't, I didn't go through the length of coming up with specific relevance back on knowledge, and especially since this would have to be done for every single new process. But you could imagine taking advantage of the fact that it's a symbolic system to use that knowledge. Yeah. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 3010.3,
+    "end": 3039.81,
+    "speaker": 1,
+    "text": "You can see a pattern here. You can see a pattern here emerge. Julian, this is the mic. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 3069.28,
+    "end": 3102.82,
+    "speaker": 1,
+    "text": "Yeah, so yeah, hello everyone. I guess most of you have seen me already. So I'm gonna be talking about what I actually do in my PhD, not exactly it, but sort of the rough area that's around it. I guess I've been involved in this course as I'm quite good with iLasp. I prefer it to FastLasp actually, because there are some things you can't incorporate into it, and I'm gonna show you a specific example. So my work revolves around neurosymbolic reinforcement learning. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 3103.99,
+    "end": 3142.62,
+    "speaker": 1,
+    "text": "And so yeah, let's get started. I guess most of you are not familiar with reinforcement learning in detail. So what it is, it's a collection of algorithms where you have an agent that's operating in an environment and has to sort of decide what are the best course of actions to take. So how this is usually done, the agent has access to something called the state of the environment, and as it executes an action, it gets a reward from the environment saying, I don't know, I've done something well, or done something poorly, and it gets the subsequent state. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 3144.13,
+    "end": 3177.93,
+    "speaker": 1,
+    "text": "And this is a very general and powerful framework, so you can see in the examples here, so on the left, you have a environment being a physics simulator, and the agent being the robot arm, where the action is the control of individual fingers. The second bit more classical one is a pong game, where the agent is you're controlling the paddle board going left and right, and the environment is just the video game itself. Let's go to something a bit more fundamental about this. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 3178.31,
+    "end": 3217.08,
+    "speaker": 1,
+    "text": "So when you start with reinforcement learning, you're usually introduced to this with words like this. You have an agent, let's say the stick world's figure here, and it has to reach a specific square. And in standard theory, you'll realize, oh, like a square that is, wait, can you see my pointer? Okay, no. A square that is here is closer to rating a male than let's say this one, and sort of this is what the theory models. But the problem comes with a very simple, sorry, with a very simple task is when you need to compose multiple things. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 3217.84,
+    "end": 3247.86,
+    "speaker": 1,
+    "text": "So if you have a task, of stepping on a cell with a coffee and then getting to a cell with the office. So the challenge here, so you can't really solve it with standard reinforcement learning because standard reinforcement learning assumes a memoryless property. So we somehow need to find a way to decompose this task so we can use standard off-the-shell algorithms. And this is gonna be where the neurosymbolic part comes in and does things quite well. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 3250.42,
+    "end": 3283.98,
+    "speaker": 1,
+    "text": "So to be specific, there is a concept called reward machines, which are fundamentally the automata way of representing the reward function in reinforcement learning. So to give you an example, the task I've been showing you is just step on a cell with a coffee, go to the office, The reward machine is given here. You can probably infer it directly from the slides. So you're in state U0. If you step on a cell with a coffee, go to state U1, and then to the office, you reach the accepting state. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 3284.1,
+    "end": 3323.02,
+    "speaker": 1,
+    "text": "Great, you solved the task. And then you should also avoid the ornaments. So this stepping on the ornaments takes you to the rejecting state. So there are a few benefits of doing this kind of representation. So first is that, as you can see from me going through the structure of the automata, it gives you a high level task specification and decomposition. it helps tackling sparse rewards. So what I mean by this is with the structure and when the agent sort of reaches a state u1, we know, well, this is closer to the goal. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3323.65,
+    "end": 3360.04,
+    "speaker": 1,
+    "text": "So we can give some additional guiding positive rewards to help with it. Then this is a very important one that I've highlighted. It serves as a compact representation of history. So specifically in the agent states, we not only include the standard state in the environment being the grid position, but we also includes the reward machine states. And this helps a lot. And finally, it can be learned from traces, and this is where RLASP comes in. And this is what I'm slightly gonna focus today, because I think it's gonna connect more with the logic-based learning module. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 3364.14,
+    "end": 3394.35,
+    "speaker": 1,
+    "text": "But first, let me just show you a brief example of policy learning with a good DRM. So we start in step U0, have the agent in cell four, six, and there are no symbols that are being detected. So there is a construct that we use in neurocebolic learning called the labeling function that gives a symbolic way of looking at this environment, and this is something we use. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 3396.3,
+    "end": 3440.15,
+    "speaker": 1,
+    "text": "So we continue, step on a cell with coffee. It's observed by the observation trace. We transition into a new state in the environment. Continue, going back, and now in standard reinforcement learning, this would seem as if this is the same state as before, but now we also have a different reward machine state, so agent knows that it should execute a different action. Again nothing is really observed from the symbolic point of view it continues so on reaches office transitions to the accepting states and we solve the task we use this experience to improve upon agents policy reinforces. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 3444.79,
+    "end": 3448.79,
+    "speaker": 1,
+    "text": "Great now how do yes. ",
+    "model_probability": 0.9911
+  },
+  {
+    "start": 3483.11,
+    "end": 3524.1,
+    "speaker": 1,
+    "text": "So the automaton works on the abstraction No, thanks for the interruption. ",
+    "model_probability": 0.9974
+  },
+  {
+    "start": 3525.11,
+    "end": 3558.03,
+    "speaker": 1,
+    "text": "So, now I'm gonna be sort of shift the focus to learning of this structure, and this is done with a interleaving algorithm. So what this means is we start with an agent in the environment, we have no prior knowledge of the reward machine, and we somehow need to learn a good policy, sort of the set of action agent needs to solve the goal, and the good reward machine, which helps actually to solve the task itself. So how we do this, we start with a very trivial reward machine. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 3558.57,
+    "end": 3590.49,
+    "speaker": 1,
+    "text": "Just say there's one state, accepting and rejecting, not connected in any way whatsoever. As is practiced in standard reinforcement learning, we explore the environment, suddenly we come up with a good example. So goal example here, the agent observes a coffee and the office. And this is a signal that there is a goal example in the environment. It's not captured by the automata, so we should trigger the ILS learning task. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 3591.33,
+    "end": 3626.37,
+    "speaker": 1,
+    "text": "I'll talk about the learning tasks slightly later, but let's just sort of focus on the interleaving for now. So let's say initially we do something like this. This is a reasonable solution. There is a coffee between state U0 and accepting states. And now we could keep iterating through the environments. We observe a dead-end example. The thing that we want to avoid being an ornament. So the ILS returns something like this next time. We should sort of see a cell with a coffee, but not see a cell with an ornament. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 3628.01,
+    "end": 3660.57,
+    "speaker": 1,
+    "text": "We see an incomplete example this time, so this means that this task hasn't been solved, but the automaton would suggest otherwise. So we again iterate, agent switches in Office. Additional incomplete example, we Here we get to the unsatisfiable states because the modeling itself assumes the number of states, and every time the task is unsatisfiable, we increase the number of states, improving the expressivity of the automaton. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 3662.13,
+    "end": 3697.55,
+    "speaker": 1,
+    "text": "This is because we want to have the minimal memory that can help capture the task. Again, then something like this is learned, additional data and example, and we sort of reach the final automata that captures every single thing. Great. Now, let's talk about the encoding of this in iLasp. I guess this is something that's gonna be a bit more familiar to you. Let's say we have the automata like the one on the slide. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 3698.79,
+    "end": 3731.32,
+    "speaker": 1,
+    "text": "And this is probably the first attempt one will make to try to capture the ASP encoding of the structure, like let's say something you might have done in the coursework. So initially you have a state u zero, u one accepting, rejecting, depending on the states that are here. And then you have a transition function. So between, for every state, so let's say for instance, this one for instance, you have a coffee, not office, not proposition, and we explicitly encode it in this rule. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 3732.12,
+    "end": 3775.39,
+    "speaker": 1,
+    "text": "We also include the step as well. And then we do this for every single state in automata as well as the self loops. Then for the counter examples, sort of the ones that trigger relearning, you have something like this. Just saying an example is a positive one if you see a coffee at a relative state of zero, if you see an office at a relative state of one, and one is the last state. Similarly for rejecting states, if you see an ornament at relative step of zero, or just coffee and an ornament, and the incomplete is that it's not neither accepting or rejecting, we're just seeing a coffee. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 3775.41,
+    "end": 3819.64,
+    "speaker": 1,
+    "text": "So far so good. Yep. So when inclusion and exclusion comes in, right? So that we see in the examples last week. So the inclusion is the first set, the exclusion is the second set. So if you say incomplete, Then because we see this is the biggest power of ILASP is the ability to incorporate background knowledge. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 3820.58,
+    "end": 3852.02,
+    "speaker": 1,
+    "text": "We include sort of these two. blocks of rules, one is for state tracking, saying that at time zero, we're in state u zero, and then at time t one, we're in states, depending on the previous states and what transition has occurred, we get into the next state. We include trivial rules for accept and reject, if we're in accepting states after the last time point, or if we're rejecting states after the last time point. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 3854.15,
+    "end": 3901.23,
+    "speaker": 1,
+    "text": "Great. But now let's dive into why this encoding that was shown on the first, a few slides ago, is not a good one. So let's say we want to capture every possible reward machine up to some number of states and some number of symbols. So this is something we want to include in the hypothesis space as we want the solution of the ILASP task to be the reward machine itself. The number of delta rules that we would get here is u squared because, just to go back here, obviously for every pair of rules, you would need sort of a, a pair of states, you would need a rule. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 3903.37,
+    "end": 3934.92,
+    "speaker": 1,
+    "text": "And then multiplied by two to the power of two s. What I mean by this here, so to give, go back to the example here, For every rule, the symbols can appear positively or negatively in each rule, and they can appear or not appear. So that's why you have this many rules with this structure. So yeah, I mean, I think you can all see that this is not scalable. It's sort of exponential in its complexity. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 3935.5,
+    "end": 3967.8,
+    "speaker": 1,
+    "text": "And as you know, ILS first writes out all the rules before it tries to solve a task. So obviously, the more rules you have, the more challenging it is for the learning system. Let's do a very simple conversion that's gonna give us a massive scale improvement. So let's try to do state encoding as before, but then instead of capturing the rule positively, we're just gonna capture it negatively. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 3968.28,
+    "end": 4000.21,
+    "speaker": 1,
+    "text": "So instead of saying we transition if proposition and so on, we're gonna say we don't transition if this doesn't occur at step t. And we just had a simple background knowledge that's gonna do the conversion. So we're gonna say that's delta between two states. It's not not delta that happens here. Obviously because this is not a safe rule, you also need a predicate edge here and a step D for things to be captured. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 4002.35,
+    "end": 4036.31,
+    "speaker": 1,
+    "text": "I think I guess you all know this, but just to think it's important to reiterate. A rule P if Q of R is semantically equivalent to rule P if Q and the rule P if R. So there is essentially a disjunction being written here. Let's look how this sort of impacts the actual learning task. Instead of the same setup, we want to capture any reward machine that has u states and s symbols. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 4038.31,
+    "end": 4069.28,
+    "speaker": 1,
+    "text": "And to do so, we now need to learn not delta and edge rules. Those sort of both need to be included in this case. But you can see with not delta, you have, again, for each pair of states you can have a proposition occurring positively or negatively. There can only be at most one proposition within a rule. So the total amount here is u squared multiplied by two s. ",
+    "model_probability": 0.9986
+  },
+  {
+    "start": 4070.22,
+    "end": 4102.75,
+    "speaker": 1,
+    "text": "And there's also u squared edge rules. So as such we just go, just without any loss of generality for this task, we went from, u squared multiplied by two to the power of two s. So this expression of rules without any loss of generality for our task. I just wanted to show you here maybe if you find yourself doing some modeling, maybe this is something that's gonna be useful for you. I don't think it's useful in the course though. All right. ",
+    "model_probability": 0.9986
+  },
+  {
+    "start": 4136.67,
+    "end": 4157.27,
+    "speaker": 1,
+    "text": "Yeah, and I guess just final thing, why this is useful, just a few graphs saying this is if you do standard hierarchical reinforcement learning, and this is like if you do it with reward machines, and this is even if you learn them or just handcraft them. So yeah, that's sort of all that I had for today. ",
+    "model_probability": 0.9983
+  },
+  {
+    "start": 4178.6,
+    "end": 4194.46,
+    "speaker": 1,
+    "text": "So this is, so specifically, HRLG is if you include the goal information, which is the state information in the. This is if you were to learn it, the yellow line. ",
+    "model_probability": 0.9958
+  },
+  {
+    "start": 4256.32,
+    "end": 4288.92,
+    "speaker": 2,
+    "text": "how this task, so each of these points, is when an automata is being learned. Right? So after a number of counter-examples of explorations and environment and generation, I do, wait, let me go back. ",
+    "model_probability": 0.9685
+  },
+  {
+    "start": 4291.08,
+    "end": 4293.95,
+    "speaker": 1,
+    "text": "I mean, it's the same grid world. Wait, let me go back. ",
+    "model_probability": 0.922
+  },
+  {
+    "start": 4339.33,
+    "end": 4412.23,
+    "speaker": 2,
+    "text": "is the yellow line compared with the green line. So the reason why the green line goes immediately to the maximum reward one is because you engineer the formatter. You give the solution already and then you use the formatter to learn the policy and then you get immediately the best reward. But don't underestimate the power of that as well because it's hard to just give the solution to a neural network. Like you can't really do it very easily. Yeah, whereas the yellow line is actually when you learn Yeah, I mean, you can... ",
+    "model_probability": 0.7691
+  },
+  {
+    "start": 4420.23,
+    "end": 4431.95,
+    "speaker": 2,
+    "text": "to a situation where the observation, if you go back to the labeling function. No, it doesn't matter. Go back to an example of an observation. ",
+    "model_probability": 0.8271
+  },
+  {
+    "start": 4472.02,
+    "end": 4523.6,
+    "speaker": 2,
+    "text": "So you're going to have, you can have traces. These are examples where the traces are exact, but you can generate the traces where these observations have a noise inside it, so they have a probability of being true or false. And then you can use that probability in the generation of the examples for the learner, and you give examples to the learner that have a noise to have a probability. So you don't have to cover everything, because your camera might be mistaken. I mean, same as what Julian was saying for the chemical processes. Yeah, very similar to the If you notice here, these are all a proposition, a proposition atom, half is true or false, half is true or false. What we have studied is for automata where the transition labels or the formula that you have there is a first order formula. ",
+    "model_probability": 0.8151
+  },
+  {
+    "start": 4557.62,
+    "end": 4636.15,
+    "speaker": 2,
+    "text": "So then the automata becomes bigger or smaller because you have a multiple possible transition of all propositional atoms that correspond to each individual site in place. But if you define an automata with a transition, you go from U3 to U1 to say, I've seen all of my sites in, so I finish this. so much more scalable and adaptable You can actually use, okay. ",
+    "model_probability": 0.2618
+  },
+  {
+    "start": 4636.17,
+    "end": 4640.12,
+    "speaker": 2,
+    "text": "I mean, we're not doing Greek. You can actually use a visual language model. ",
+    "model_probability": 0.3569
+  },
+  {
+    "start": 4640.62,
+    "end": 4724.04,
+    "speaker": 1,
+    "text": "So imagine that you're Yeah, I mean the biggest challenge obviously in neuro symbolic learning is what feel briefly touch upon is how do you bridge the point where you're at the neural part to the symbolic parts because they have different benefits. ",
+    "model_probability": 0.1493
+  },
+  {
+    "start": 4725.12,
+    "end": 4746.52,
+    "speaker": 1,
+    "text": "But. it's hard to train them in parallel. I think, so you've seen it, how NeurIse does it. And sometimes, so yeah, I think we see now with the power of visual language models, maybe we can avoid this process altogether, integrate neurocebolic ideas into the models themselves, which would be quite powerful. ",
+    "model_probability": 0.9198
+  },
+  {
+    "start": 4769.48,
+    "end": 4813.36,
+    "speaker": 1,
+    "text": "So specifically there's been works on the original language model, but on the progress estimation. So in things like, let's say you have this image, how close you are to reaching the goal. This is something people really want to do this, because they can train, because I think everyone agrees the next step is reinforcement learning with these agents. I think there's recently visual language action models started coming up. And if you have a model that can give you a reward for you being here, like straight out of the box, W brilliant like you can use it in so many different places and obviously reward machines can be used as a tool to sort of specify this reward. ",
+    "model_probability": 0.8954
+  },
+  {
+    "start": 4814.18,
+    "end": 4829.42,
+    "speaker": 1,
+    "text": "So you would specify the reward of saying I've been reaching a coffee I have reached a coffee and for different talks so it's going to be like a tool for helping other agents learn this is sort of the division we're currently pursuing. ",
+    "model_probability": 0.8488
+  },
+  {
+    "start": 4847.91,
+    "end": 4893.87,
+    "speaker": 1,
+    "text": "Yes, there is, I mean, I've had this discussion with Alessandro at one point. Because there is this power of what reward machines have, is you can specify any reward machine, like arbitrary structure, and the police will follow it. Like, straight out of the box. Like, give the reward machine of, I don't know, go to the coffee, then go to the mail, and go here. And just by changing the reward machine the behavior of agent changes it's like telling the like tragedy like how do you want me to act but at the like the most fundamental mental level possible which is really powerful and this is sort of where we're leaning towards because you can try to constrain the policy by using a reward machine. ",
+    "model_probability": 0.8448
+  },
+  {
+    "start": 4895.27,
+    "end": 4904.0,
+    "speaker": 1,
+    "text": "Like this is the this is this is the way there is I mean I can I can share a lovely keynotes that sort of talks about this I think it's if you're interested. ",
+    "model_probability": 0.4865
+  },
+  {
+    "start": 4971.56,
+    "end": 4975.07,
+    "speaker": 2,
+    "text": "about the mobility of humanity in public spaces. ",
+    "model_probability": 0.2316
+  },
+  {
+    "start": 5056.87,
+    "end": 5081.74,
+    "speaker": 1,
+    "text": "Just to follow up on this answer. So one more point here is reward machines are learned with ILASP, and ILASPs can learn preferences as well. So I've never gotten around to it, so thinking of how do you model the task of learning preferences to get the automata out that captures the preference as well. But it is theoretically possible, so yeah. Sorry to interrupt you. Yeah. ",
+    "model_probability": 0.4519
+  },
+  {
+    "start": 5224.07,
+    "end": 5275.88,
+    "speaker": 1,
+    "text": "Yeah, by the way, so there is a clear, so there is a paper, there is a mapping between linear temporal logic and reward machine. There's a one-to-one mapping. Yeah, so. Yeah, so this is. Yeah, yeah, exactly. Yeah, so, because obviously I didn't expect you to know, but yeah, there is, so people that do this, they either say reward machine or they refer to linear temporal logic, because you can, yeah. Yeah. I mean, Daniel started in 2018, I think. ",
+    "model_probability": 0.0303
+  }
+]

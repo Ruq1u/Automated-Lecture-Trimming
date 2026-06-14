@@ -1,0 +1,1297 @@
+[
+  {
+    "start": 9.86,
+    "end": 11.94,
+    "speaker": 2,
+    "text": "Can you please settle down? ",
+    "model_probability": 0.1442
+  },
+  {
+    "start": 12.14,
+    "end": 13.57,
+    "speaker": 0,
+    "text": "Oh, wow. I don't have to shout. ",
+    "model_probability": 0.3999
+  },
+  {
+    "start": 25.71,
+    "end": 58.79,
+    "speaker": 0,
+    "text": "So in hindsight, this lecture is traditionally always been run from 9 a.m. to 11 a.m. and everyone hated it, the time that is, not the lectures, including myself because 9 a.m. Is there a 9 a.m.? I didn't know before that. But in hindsight, given how much energy you have now and how noisy you are, I'm thinking maybe we should go back to 9 a.m. because at 9 a.m. we were all much more quiet. So let's see. So last time, we talked about some basics. By the way, if this is too loud, I was trying to overcompensate for Tuesday, let me know and I will turn it down. ",
+    "model_probability": 0.983
+  },
+  {
+    "start": 59.37,
+    "end": 94.75,
+    "speaker": 0,
+    "text": "We talked about these registers or the RMWs, the big and strong RMWs. At least two of you after the lecture asked me about the distinction and now someone's posted on as well, so I thought it's worth going through it one more time. I left it as a homework so that we can all go and read it, but you guys are all Gen Z and you like digestible vices material, so I guess I'll have to go through it with you. So, what's the idea? So, the thing that distinguishes weak RMWs from strong RMWs is their ability to allow threads to communicate with each other. ",
+    "model_probability": 0.9952
+  },
+  {
+    "start": 95.07,
+    "end": 130.27,
+    "speaker": 0,
+    "text": "So, what does that mean? So, it means in the most general case, if I have n threads for an arbitrary number n, And if they want to solve the problem, agree on something, can they use these RMWs to do so? In the case of the weak ones, they can't. In the case of the weak RMWs, as I will go through on the board, they at most allow two threads to communicate and agree on a general problem. Whereas for the strong ones, this number can be arbitrarily big. So, the problem that I mentioned that the homework that I gave you, which I assume none of you actually thought about, was a leader election algorithm. ",
+    "model_probability": 0.9981
+  },
+  {
+    "start": 130.45,
+    "end": 162.31,
+    "speaker": 0,
+    "text": "Like in distributed settings you have, or in a concurrent setting, you have n threads and they have to work towards a goal together. But the first thing they have to do is select one thread as a designated leader who decides who does what, for instance. You need to designate one thread to say this is special. This guy is special, he decides this. The only way you can communicate with each other, you have to agree in a civilized fashion with the leader, and the only way you can communicate with each other is of course through shared memory. So I have this location in memory, the address doesn't matter. ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 162.87,
+    "end": 195.08,
+    "speaker": 0,
+    "text": "I have two threads, thread one and thread two, and we need to decide the ID of the leader by talking to each other and write it to this location. And all I have, let's say, is a weak RMW. In this case, let's say it's an atomic exchange. Atomic exchange reads the old value, returns it, and puts the new value in. So if I say exchange, let's call this location x. If I write exchange x and 3, or in this case, let's say 1, if this guy calls that, it says write 1 to that location and whatever the old value was returned to me. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 196.01,
+    "end": 227.33,
+    "speaker": 0,
+    "text": "And let's say initially the value is zero, so no leader has been elected, right? So without loss of generality, let's say thread one comes in. He wants to be the leader. He doesn't know if there is a leader or not. All it can do is write its own ID to it, one, and return zero. So when thread one calls this, it will return zero. Now, let's say thread two comes along, doesn't know who's the leader. All it can do is do another exchange and return its own ID. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 230.09,
+    "end": 261.86,
+    "speaker": 0,
+    "text": "What value would it get? One. So, we have a dilemma here, but we can solve it. So, this guy was like, oh, well, there was no leader before. I am the leader, so he can rest. And this guy came along, tried to write two, but it's so that someone has already beaten me to it. So what it can do is essentially go back and write, sorry, we did this, we wrote two to it. And it was like, okay, well, I lost. Someone else beat me to it. So you can undo his work by doing Y, writing back Y. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 262.24,
+    "end": 293.89,
+    "speaker": 0,
+    "text": "Problem solved. Right? So for the case of two threads, the problem can be solved with an atomic exchange. But now let's say we are in a general case. We have n threads. I'm only going to consider three threads. I have one, two, and three. And initially, the value is zero. Right? Again, without most generality, this guy comes in. It says, well, it was zero. I'm going to write one to it. Right? Then this one, again, it doesn't matter. This guy says, I'm done, I'm the leader. And they all have to communicate the leader. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 293.91,
+    "end": 325.98,
+    "speaker": 0,
+    "text": "They all have to agree on who the leader is. This guy comes along. Remember, the only thing you can do is an exchange. You can do the trick that we did before. It will try and do another atomic exchange, write its own ID to it, but it will get one. back. Then it will say, well, I lost. I can't be the leader. I have to write back the value. But before he does so, this guy comes along and he says, okay, I want to be the leader, and he gets two back, and he realizes he has lost. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 326.76,
+    "end": 362.05,
+    "speaker": 0,
+    "text": "Then basically, he has to go back and write one, he has to go back and write two, and then again, when as they do so, they will see that the value constantly is fluctuating. Because from the point of view of this guy, two is the leader. So, it will communicate two and write back two. From the point of view of this guy, one is the leader, he will write back one. But they're not agreeing obviously. So, essentially, they can't converge on who the leader is. This is because all they can do is write. They can't conditionally write. And this writing and then rolling back and writing and then rolling back when threads can arbitrarily interleave with each other is not going to work. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 362.49,
+    "end": 396.37,
+    "speaker": 0,
+    "text": "That's why we need this strong RMW, which is a conditional write, that says compare the old value with this value that I expect to be. And if that's the case, then write that. For instance, if this ID, the CAS here, I won't just blindly write 1 here. I would do a CAS, say, is it 0? If it is, then switch it to 2, otherwise leave it unchanged. So in this case, the CAS would fail. I would see I'm not the leader, and I would see the old value. So in general, having n threads, in this case three, but for an arbitrary number of n thread n, synchronization between n threads can only happen if you have strong RMWs. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 396.39,
+    "end": 435.74,
+    "speaker": 0,
+    "text": "And this is one example of synchronization in the election. So I hope that was clear. Right, so today, as promised, we're going to start writing some formal semantics. I know you all loved models of computation. I actually used to teach that course, I don't anymore. But I think Sophia and whoever else has teaching it right now are doing a great job. So, do you remember small step operational semantics? Yes? Did you miss it? Are you looking forward to doing lots of structural induction? The good news is we're not going to do any more induction proofs in this course. ",
+    "model_probability": 0.997
+  },
+  {
+    "start": 435.88,
+    "end": 472.63,
+    "speaker": 0,
+    "text": "We're just going to write the semantics. We're also not going to ask you to write derivation, please. Collective sigh of relief. That's what I was expecting, but okay. So what are we going to do? So today, we're going to start writing semantics, but we're going to start from a simple model, an idealized model called sequential consistency, and I'll tell you what that means. Little bit of terminology, just because we're all academics, which means we all have big egos, as I always say, ego is the only currency in academia, because God knows they don't pay us enough. ",
+    "model_probability": 0.9981
+  },
+  {
+    "start": 473.77,
+    "end": 505.37,
+    "speaker": 0,
+    "text": "We cannot agree on a terminology, so we all use different things and we're all holding out to our guns who is right. So, concurrency semantics, consistency semantics, consistency model, concurrency model, they all essentially refer to the same thing, meaning some form of formal semantics. So you can hear me saying any of them. I often say memory model, but that's very context sensitive because when people talking about the C memory model in a sequential setting say that, they mean a different thing than when we're talking about concurrency side of things. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 505.83,
+    "end": 536.19,
+    "speaker": 0,
+    "text": "So consistency model is usually less ambiguous, so let's stick to that one. So, we have multiple threads of computation, and we want to model what it means for this program with multiple threads to execute. As I said, we're going to small with this strong model, strong and idealized model called sequential consistency, or SC for short, and we will see what it is in a minute. For instance, in the old machines, when you had a single processor, single core, and you wanted to achieve concurrency, this is the model you would have. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 537.29,
+    "end": 573.59,
+    "speaker": 0,
+    "text": "But it is no longer actually realistic because it's not very efficient, and we will see why. So why do we still teach it? So it's not very efficient. As a result, it's not supported by default in any hardware architecture or programming language, but it's still a very useful abstraction. So what do I mean by that? Remember I said every problem in computer science can be solved by adding one layer of abstraction, one of a living direction. This is exactly the case. The analogy I'd like to give the students is the duality or the dichotomy of classical Newtonian versus quantum physics. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 574.23,
+    "end": 612.95,
+    "speaker": 0,
+    "text": "When we're talking about everyday phenomena, So let's start the other way. When you go below a certain level, like at the micro level, when you go to the level of atoms and electrons and whatnot, you can no longer justify the behavior of matter using classical physics. We know we need to go to the level of quantum computing because there are some weird behavior that otherwise we couldn't justify. So at that level, we need all the details and bells and whistles of quantum physics. But when you go to a higher level of abstraction, let's say at the macro level in our everyday life, classical Newtonian physics is more than adequate to describe a lot of things. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 614.09,
+    "end": 653.53,
+    "speaker": 0,
+    "text": "including how to calculate the velocity of a car or whatever. I don't know the last time I did physics. This is exactly the case here. When we go to the hardware level, when we're talking about the modern CPU architectures at that low level, we cannot describe concurrency behavior. We need something more realistic and more fine-grained and sequential consistency. So that's why we will see other models that are not SC and they're weaker as in weirder. But when you go high enough through your abstraction tower and your software abstraction tower, for instance, when you are writing concurrent code using Java using concurrence, then sequential consistency is more than enough to reason about your program and say it has this or that behavior. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 654.07,
+    "end": 690.56,
+    "speaker": 0,
+    "text": "So that's why we still teach it. It's a useful abstraction depending on the level of program reasoning or understanding that you're referring to, it's still absolutely useful. It's a simple starting point. It has very intuitive semantics that I can describe in two lines, unlike the other models that you will see. As I said, on hardware, on modern machines, including all your MacBooks and all Intel machines, sequential consistency is actually a pipeline. It's not what's happening. The semantics is different. That's why on Tuesday next week, we will actually look at the semantics of Intel x86 architectures and how it's different from sequential consistency. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 691.22,
+    "end": 725.96,
+    "speaker": 0,
+    "text": "ARM architectures, much more complicated. We will need another extra five or six lectures to go through it, so we're not going to talk about it in this lecture, but there's lots of material out there if you were interested in understanding the ARM semantics. It is hairy. And at the level of software, like I said, when you're thinking in terms of low-level languages like C, I said low-level, and I'll explain why, then we again need something weaker, something weirder than sequential consistency. And in fact, we have been fighting over 14 years now on what the semantics of C is, and we still don't have a good understanding. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 726.34,
+    "end": 757.8,
+    "speaker": 0,
+    "text": "because they got it wrong, there's so many mistakes. We've been the formal semantics community talking to them saying this is wrong, that is wrong. This iteration has been going on for over a decade and we still haven't converged. So, when I say that more than 90 percent of the semantics we understand there are still some corner cases, some problems that we haven't solved. And of course, there's a Java memory model, which is weak. Again, it's broken. Surprise, surprise, but we're not going to go anywhere near that. For C, we will cover a fragment of it in this course, the simple, unbroken fragments of it. The rest, we won't touch. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 759.4,
+    "end": 791.98,
+    "speaker": 0,
+    "text": "So I have been saying weaker, oh, first the quotation marks. I said low-level semantics. When it comes to programming language, to formal methods research or in general computer science research, it's all, again, a matter of perspective. When people like me who do more reasoning and verification and semantics, when we think of C, we think of it as a low-level language. It's very gory. It gives you fine-grained control of our memory accesses and so on. It's not a language with a lot of abstraction. There are way better languages for writing clean code. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 792.1,
+    "end": 824.4,
+    "speaker": 0,
+    "text": "C is not exactly. But for systems people, people who develop things like OS, they actually view C as a high-level language. For them, things like assembly or maybe even lower is considered a low-level language. So it's all a matter of perspective. So low-level is not exactly an accurate description of C. A comment I have written at the bottom here is that anything in general, we have strong semantics and weak semantics. Strong semantics is on its own when we say strong and we often don't because there's only one semantics that's strong, that's sequential consistency. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 825.24,
+    "end": 884.34,
+    "speaker": 0,
+    "text": "Everything else that is not sequential consistency is called a weak memory model because it's weak as in it exhibits non-SC behaviors. So it has behaviors that we couldn't justify under SC. So whenever you see a weak model or weak semantics, essentially it means it's weird, it's not sequential consistency. Any questions so far? No? Are you all happy? No, if you're happy. Okay, my minions. Thank you. Right. So sequential consistency, also known as interleaving semantics. It's very straightforward. Like I said, remember I said I can explain it into lines. Here it is. It means I have multiple threads of computation. The instructions in each thread, line by line, can be interleaved arbitrarily with others. So, as I'm executing, I could be executing this thread, and then I do a context switch, I switch to another thread, and to another thread. ",
+    "model_probability": 0.9979
+  },
+  {
+    "start": 884.59,
+    "end": 916.55,
+    "speaker": 0,
+    "text": "So, there could be an arbitrary interleaving of the instructions of different threads. But, and that's key, within each thread, the instructions are executed in order. And that's not surprising because in first year when we teach you imperative programming at some point, you learn the semicolon. Semicolon is sequential composition. It means, hey compiler, execute this instruction first, semicolon, and then execute that other instructions. Not to burst your bubble or anything, but semicolon is an absolute illusion. ",
+    "model_probability": 0.9984
+  },
+  {
+    "start": 917.37,
+    "end": 953.48,
+    "speaker": 0,
+    "text": "It's not always respected. The compiler can do whatever it wants. You're all at the whim of the compiler. The compiler can decide to reorder instructions. For instance, if you say C1 followed by C2, if it can be optimized, the compiler may decide to execute C2 first. So often, thankfully, the semicolon is preserved, but lots of times the compiler can be reordering your instructions. This is why we have these weak models that we will see later. So under SC, we're saying ignore all of that craziness. Assume that within each thread, the instructions are actually executed in the order prescribed in the code. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 954.4,
+    "end": 991.57,
+    "speaker": 0,
+    "text": "and that's sequential consistency. But as we will see next week, lots of models at both the hardware level and the programming language level reorder instructions or it could be it's more efficient for instance because of the way these writes are propagated across the cache hierarchy, across the memory, then they become visible out of order in a different order, and that's why we get this weak behavior. So, let's look at an example, and here I want you to all pay attention because this is setting the notation for the rest of the material. So here I have two threads, the left thread and the right thread, or thread one and thread two. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 992.19,
+    "end": 1022.8,
+    "speaker": 0,
+    "text": "I'm separating them with this double vertical bar, that means they're running in parallel. It's a concurrent program and I have two threads. So this is thread one and this is thread two. In thread one, I have two instructions. In thread two, I have two instructions. Now, thread one is writing value one to shared memory location X. So whenever you see X, Y, or Z, that is a shared memory location. You can see that both threads are accessing X and Y. The left thread is accessing X here, the right thread is accessing X there, and so on. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 1023.81,
+    "end": 1061.09,
+    "speaker": 0,
+    "text": "Whenever I write A, B, or C, that is local private variables. Those are thread-specific. So here, I'm reading the value of shared memory location Y and writing it to local register or local variable B. So A, B, C, local, specific to that thread. X, Y, Z, shared across all threads. Meaning that to give you an analogy of something you know, X, Y, and Z, they actually live in memory in your RAM. or in the cache, but you know what I mean, they belong to the memory, whereas A, B, and C are in your stack. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 1061.23,
+    "end": 1092.49,
+    "speaker": 0,
+    "text": "They're defined in this scope, let's say. So, as I said, this first thread is writing value one to shared memory location X, and then reading from shared memory location Y, and writing it to local register B. Similarly, this is writing one to shared location Y, reading from X, and writing it to D. Whenever we say a write, we mean a memory write. So, this first one is a memory write because it's writing to memory. The second one is not a memory write. This is a memory read. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 1092.99,
+    "end": 1123.89,
+    "speaker": 0,
+    "text": "This is a read from Y. Of course, it's writing it to B, but that's not the part we're concerned with. When I say writes or reads or RMWs, I'm talking about memory instructions. So, it depends on whether or not they're writing to a memory location or not. So, this is a write, this is a read, this is a write, this is a read. Is that clear? You say that now in the exam, I'm always face forming myself because I'm like, okay, someone referred to this as a write again. Well, that's a read. Just so you know, this is a common mistake. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 1126.37,
+    "end": 1170.88,
+    "speaker": 0,
+    "text": "Okay, any questions? Yes. Why isn't a read underway? I am describing them as memory instructions. This is a memory write. This P lives in a register. It's not part of the memory. So it's reading from memory but writing to a register. A couple of other clarifications. This is not standard hardware syntax. You have all done assembly at some point. For instance, you would know that on Intel x86, I will be using move instructions, and I would have named registers. They're not called AVOC. They have weird names. But here, we're keeping the syntax clear, clean and simple. Another thing, for the sake of this lecture, I have given each one of these instructions a name because I want to talk about them in a minute. ",
+    "model_probability": 0.9986
+  },
+  {
+    "start": 1171.0,
+    "end": 1201.49,
+    "speaker": 0,
+    "text": "So, this is called A, B, C, and D. One final bit of notation, you will see the slash, slash. Whenever I have a read, I can put one of these annotations here to say this is the value it reads because I want to return to that value. So, I'm saying, here I'm reading from Y and writing it to register B, let's call that value that I read from Y VB. sometimes I put concrete values there. So, I'm writing like when I say slash slash one, meaning that I read one from location one. So, this annotation means the value that I read. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 1202.72,
+    "end": 1252.14,
+    "speaker": 0,
+    "text": "Okay. So, sequential consistency, we said threads can arbitrarily interleave, but the instructions in each thread are executed in order. So, if that's the case, what values can I observe for VB and DD? Zero and one. Zero and one, yes, that's definitely one valid outcome. Anything else? Come on, you're more sleepy than the last time. Is the novelty worn off? Yes. One and zero, absolutely, it's symmetric. Anything else? One and one, okay, so anything else? 0, 0, you can't. No, that was a trick question. Right. So, that one possibility is that I read 0 and 1, as you said. ",
+    "model_probability": 0.9979
+  },
+  {
+    "start": 1252.52,
+    "end": 1294.33,
+    "speaker": 0,
+    "text": "If I execute instructions in this order, so I execute all of the first thread before all of the second thread, Also, very kudos to you guys for saying zero and one. Technically, I hadn't told you what the initial values are because I forgot, but this reminds me. So, let's assume, we always assume memory is zeroed out, as in the initial value is always zero, so I'm not going to deal with initialization errors or whatnot. So, zero as a result, if I execute all of left thread before all of the right thread, I read 1 to x, then I read from y, I read the initial value 0, then this thread takes over, writes 1 to y, and then reads from x, so you will have to observe that value that I just wrote. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 1295.25,
+    "end": 1329.67,
+    "speaker": 0,
+    "text": "So basically, the intuition is that this write to x is executed before the read from x, so a before d, but the write to y is executed after I've already read the initial value. Symmetrically, if I execute all of the second thread before the first thread, then I'll get one and zero, exactly the same but flipped. And as one of you said, I can also have all these different interleavings that I've shown you here. For instance, I can have AC, BD, or AC, DB, and so on. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 1330.23,
+    "end": 1367.93,
+    "speaker": 0,
+    "text": "In all of these other interleavings, what happens is that I execute both of the writes before the respective reads. So both reads end up seeing the updated value, and I see one Y. Now, what was your name? What's your name? Alexander, the great, said that you can also observe 0, 0. Unfortunately, like the other Alexander, a little bit ambitious, you're jumping ahead to the next lecture. In this lecture, we can't, under sequential consistency, we can't see 0, 0. So under sequential consistency, we cannot see 0, 0, because I literally wrote down all the possible interleavings, and remember, things cannot be reordered, so I can't see 0, 0. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 1371.07,
+    "end": 1405.8,
+    "speaker": 0,
+    "text": "Okay, so this was the one-line elevated pitch of sequential consistency, and now we're going to formalize all of this. Conceptually, the mental picture that we have is as follows. I have multiple threads. I don't know how many. Let's generalize and say we have n threads. Each one of them have their private registers. Remember, A, B, and C, and D, and so on. And there is the shared memory at the bottom that is shared, so all threads can read and write to each other. As I said, this is the notation, XYZ, memory locations, ABC, private registers. ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 1406.46,
+    "end": 1441.72,
+    "speaker": 0,
+    "text": "I write big E's for expressions. You've seen expressions in models of computation. We'll talk about them in a minute. Expressions, notably, most importantly, when you say expressions, these are local expressions, meaning they only have values, constants, and private registers. So I can write things like A plus 1. but I can't write X plus one. So, expressions only involve local computations, things that the thread has locally access to. So, registers and expressions only registers and concrete values, but nothing to do with memory locations. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 1441.94,
+    "end": 1473.56,
+    "speaker": 0,
+    "text": "Of course, I have a read from location X into register A, as we said, a write to location X from register A or a concrete value, often we just inline it and write, or I can have assignments. I can assign to a local register a local computation. So this is a completely local operation. This is not a memory instruction. This is doing some local computation and assigning it to a local register, to a private register. Okay, questions? Good. ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 1474.56,
+    "end": 1505.14,
+    "speaker": 0,
+    "text": "Remember this? Models of computation? Have I triggered your PTSD here? But I would like to think that if you had such a strong reaction to it, you wouldn't be in this course because this is actually optional. That one wasn't. So if you're here and you hate it, that's your fault. So, this is the language, the sequential language that we dealt with in Models of Compensation last year. We have a bunch of Boolean expressions that include true, false, and logical and logical or and so on. ",
+    "model_probability": 0.9982
+  },
+  {
+    "start": 1505.84,
+    "end": 1539.24,
+    "speaker": 0,
+    "text": "We had expressions that we just talked about, local expressions. It includes, for instance, plus, summing two numbers, and we had our good old commands. which was local because it was sequential. It didn't need to talk to any other thread. So, we didn't have anything to do with memory. We had assignments, we had conditionals, sequential composition, skip, and while loops, but nothing to do with memory. And you would see that actually I'm not giving you the exact syntax of Boolean expressions or expressions because you're all grownups now. ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 1539.54,
+    "end": 1577.61,
+    "speaker": 0,
+    "text": "You're going to assume that this language exists, that you understand how its semantics is defined because we all aced models of computation and we went back and we read the material and we understand exactly how things work, right? So I'm saying there is some language of logical Boolean expressions, there is some language for these regular expressions and so on. Not regular expressions, that's a bad name. program expressions, let's call them program expressions. And this is what you've seen, and we know how to write the semantics of this. And now, we want to adapt this language, using our new notation, and extend it to formalize sequential consistency. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 1577.64,
+    "end": 1608.26,
+    "speaker": 0,
+    "text": "Specifically, we want to extend it to have these memory instructions of read, writes, and RMWs. And we will do so by defining this small step, operational semantics. This is something I've already said. We assume a language of Boolean and program expressions. We don't actually specify them here. They are local computations, and they can refer to values and registers, as I've said, but they don't refer to memory locations, and we don't care about their exact grammar. ",
+    "model_probability": 0.9986
+  },
+  {
+    "start": 1609.82,
+    "end": 1642.24,
+    "speaker": 0,
+    "text": "And most notably, I think it says on one of the slides, I don't exactly know where, these expressions are side effect-free. What does that mean? Come on. You all like Nick Wu's functional programming course, no? I don't know. What does it mean to be side effect free? It doesn't have a side effect. Well, what is a side effect? What a lovely definition. It means that, for instance, whenever I'm evaluating my expression with respect to a variable store, I don't update the store. ",
+    "model_probability": 0.9983
+  },
+  {
+    "start": 1642.26,
+    "end": 1677.16,
+    "speaker": 0,
+    "text": "It doesn't have any side effects. It doesn't produce any updates. It doesn't affect anything. It's a computation and that's it. So, if I pass it the store, the store is unchanged and you'll see that in white semantics. Now, we want to extend our language. That language was sequential. Here, we know we have, I took this and didn't take a sip. Thank you. Here we want to do concurrency. So first thing that we would do is that actually we would allow every thread to do this memory instructions and then say what it means to be a concurrent program. ",
+    "model_probability": 0.9979
+  },
+  {
+    "start": 1677.78,
+    "end": 1711.34,
+    "speaker": 0,
+    "text": "So here is my sequential commands as it was before. I have assignment and all these other things. And you will see that I've also added these three things. I've added a read, a write, and two RMWs. Specifically, I've added a CAS and a fetch and add. and we discussed this last Tuesday. You know what a CAS is, you know what a Fletcher-Nagd is. So, this says, compare the value of x with this expression. If the values agree, then set it to this one, otherwise leave it unchanged. Fletcher-Nagd simply says, increment the value of x by e. ",
+    "model_probability": 0.9983
+  },
+  {
+    "start": 1711.36,
+    "end": 1761.23,
+    "speaker": 0,
+    "text": "In both cases, we return something in a. Questions? No? Thoughts, comments, musings? Nothing? You guys are so quiet. Okay, so that's our sequential command. So already within each thread, we can have these memory instructions, but now we have to model the actual concurrency itself. So what we're going to do is we define what a concurrent program is. So concurrent program is nothing but a map. It's another joke in my community. Every problem can be solved with a map. You can doubt to use a map. So a program is simply a map from thread identifiers to commands. So it basically tracks how many threads there are in its domain and also what program each thread is executing in its range. ",
+    "model_probability": 0.998
+  },
+  {
+    "start": 1761.99,
+    "end": 1792.16,
+    "speaker": 0,
+    "text": "So it says thread one has this command, thread two has this command, and so on. So we have TIDs for thread identifiers. We'll range over them by tau. And... As you have seen, we will use this parallel bar notation. So, because it's tedious to define a program like this, whenever we have examples, I write things like, you know, C1 in parallel with C2, dot, dot, dot in parallel with Cn. That means I have a program P that has n threads, i.e., its domain is tau 1 to tau n. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 1793.51,
+    "end": 1834.08,
+    "speaker": 0,
+    "text": "And each one of these tau i's, for i between 1 and n, is executing the ci. So tau 1 is executing c1, tau 2 is executing c2, and so on. So that's a syntactic sugar when I write these parallel bars. Formally, mathematically, this is how I represent it. This brings me to another notation that's very common when you're formalizing things, or rather convention. We use metavariables. Does anyone know what I mean by metavariables? Okay, it means that it's very tedious, like if I pick arbitrary names, if I call x a thread in one place and x a memory location in one thread, every time I say x, I have to tell you what the type of x is. ",
+    "model_probability": 0.9985
+  },
+  {
+    "start": 1834.98,
+    "end": 1865.04,
+    "speaker": 0,
+    "text": "Rather than doing that, as I did with registers and memory locations, I will pick different kinds of variables with different fonts, different cases to refer to different things. So for instance, for thread IDs, I'm always using tau. So whenever you see tau, I don't have to tell you what its type is. I don't have to explicitly say that it's actually a thread identifier. You would know that it's a thread identifier. Whenever you see these big Cs, it means that it is a sequential command. Whenever you see capital P, you know it's a program and so on. And I will use variants of this. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 1865.08,
+    "end": 1896.39,
+    "speaker": 0,
+    "text": "For instance, I will use tau or tau1 or tau prime. I use subscripts, I use superscripts, I use primes. But the base meta variable is telling me what the type is. Okay. So, for instance, the program that you saw earlier when I was, just go back to this parallel bar notation, you know, the program that I started with, the two threads, let's call that PSV. The name will become clear later. It has two threads, as we saw. TAU1 and TAU2, i.e. the domain of this program is TAU1 and TAU2. ",
+    "model_probability": 0.9982
+  },
+  {
+    "start": 1896.85,
+    "end": 1931.03,
+    "speaker": 0,
+    "text": "Then the first thread is executed in this left thread, so PSP of TAU1 is, it writes 1 to X and then reads from Y, and the second thread has this program. So using the syntactic sugar, I would write the program like this, but formally it corresponds to this program. Yes? Questions? Okay. All right, now we have our programs. Remember the conceptual model was that here, not this. ",
+    "model_probability": 0.9969
+  },
+  {
+    "start": 1931.99,
+    "end": 1963.9,
+    "speaker": 0,
+    "text": "I have my threads, my programs, I've modeled that, and they all talk to the memory, they access the memory. So now I have to define what a memory is. So that's what I'm going to do next. A program, or a shared memory, sorry, is again a map, this time from locations to value. So it tells me what value is in each location. What value? Does X hold the value? Y holds and so on. So I have my memory, capital M as a meta variable for memory, which is defined as location to value. ",
+    "model_probability": 0.998
+  },
+  {
+    "start": 1964.74,
+    "end": 1996.61,
+    "speaker": 0,
+    "text": "Does anyone know what the equal triangle means? It's defining. It's not an equality saying these two are equal. It's saying it's defined as. It's saying I'm defining memory to be a map from location to value. D for a delta. The triangle is the delta. Delta for D. D for definition. Several layers of interaction there. Okay, so once again, you will see that I'm not explicitly saying what value, what is this possible set of values. ",
+    "model_probability": 0.998
+  },
+  {
+    "start": 1997.89,
+    "end": 2030.81,
+    "speaker": 0,
+    "text": "I'm keeping that ambiguous, but it, for instance, includes integers, it includes Booleans, and so on. Okay, we assume that this set exists. And, Remember I also said that threads have their own private registers, right? This is something you've seen before. We call them local variables or simply variables when you do models of computation. And you have actually seen that when we wanted to model that in models of computation, we did so via a store. A store is, what is it? ",
+    "model_probability": 0.9973
+  },
+  {
+    "start": 2032.45,
+    "end": 2065.44,
+    "speaker": 0,
+    "text": "and map, thank you, from registers to values. Once again, it tells me what each register for that thread has. So this is a store for one thread, remember? Now I have to say, what about all of the threads? So what do I do? I add another map, exactly. So I will call it a store map this time. So I'm going to say this thread corresponds to this store. So this store map tracks the correspondence between the threads and their stores. ",
+    "model_probability": 0.9967
+  },
+  {
+    "start": 2066.18,
+    "end": 2096.21,
+    "speaker": 0,
+    "text": "So I have a store map, this time big S. So for stores, I use little s. For store map, I use a big S. It's a store map from two IDs to stores. For each thread, it tells me where the store is. So if I have a store map S and a thread tau, and I want to know what location, what value, let's say, register B has in thread tau, I will first look up its store in big S. So I will first extract that. So let's say S is the store corresponding to thread tau. ",
+    "model_probability": 0.9968
+  },
+  {
+    "start": 2096.89,
+    "end": 2177.33,
+    "speaker": 0,
+    "text": "And then look up the value of B in that little S. Hopefully that's clear. So it's a map for a map. It's a nested map. Questions? This is either too easy, which is great, and I'm happy with that, or you're all completely lost. Or somewhere in the middle, but I just can't be bothered to say anything. Yes? Can you move the mic slightly up? We've been here. You still can't hear me, and this is quite loud. Now, can you hear me in the back? Ah, I think you need to turn the volume internally. I think they can hear me. Sorry. Yes. Why do we need the additional store map? Because I want to, well, you will see, I want to define the semantics of the whole program. I'm going to say this whole program, and I need to say where are all the stores. It's neater to track it in a map rather than writing like a string of end maps. Okay, so with that, I can now say what a configuration is. And a configuration essentially says, what is the program state? Because remember, operational semantics talks about literally the execution of the program. As you will see, it talks about step-by-step execution. ",
+    "model_probability": 0.9937
+  },
+  {
+    "start": 2177.97,
+    "end": 2213.2,
+    "speaker": 0,
+    "text": "and we want to say the step-by-step execution is transforming the program state from one to another. So, we call this configuration. So, a configuration specifically NSC configuration because we will see this different essentially for other memory models is the program itself, the store maps i.e., the stores associated with every thread, program being actually the sequential commands associated with each thread and the memory. So with these three components, I can actually say how does this program going to execute, how is it going to execute given all these stores of different threads and the memory. ",
+    "model_probability": 0.9952
+  },
+  {
+    "start": 2217.25,
+    "end": 2239.59,
+    "speaker": 0,
+    "text": "Okay. Right, before I get that, can anyone tell me what operational semantics is? I just told you if you were listening, you would know. And what's the difference between the two styles of operational semantics that we studied last year? Remember, I can stare forever. Someone needs to say something. Yes, thank you. ",
+    "model_probability": 0.9931
+  },
+  {
+    "start": 2239.61,
+    "end": 2241.73,
+    "speaker": 2,
+    "text": "Small-scale semantics. ",
+    "model_probability": 0.9446
+  },
+  {
+    "start": 2255.11,
+    "end": 2285.34,
+    "speaker": 0,
+    "text": "Yes. So, operational semantics is a constructive way of saying, how does the program execute? So, if I start from this initial state, what is the execution? What does it look like? And where does it eventually lead to? What's the final value? and we have two styles of doing it. The small step as, remind me your name? Xavier. Xavier. As Xavier said, the small step operational semantics does so with many steps. It says first I take this step, then I take this step, then I take this step, and eventually I will terminate. It gives you the step-by-step reduction. ",
+    "model_probability": 0.9951
+  },
+  {
+    "start": 2286.12,
+    "end": 2318.76,
+    "speaker": 0,
+    "text": "The big step doesn't tell you how it happens. It says there is some way of reducing this whole thing in one step, and this is your final value. That's why it's called big step. It's one big step that tells me, captures the entire execution. Now here, we will focus on small step operational semantics only, and I'll ask you towards the end of the second lecture why not big step, and hopefully by then it will be clear. Okay. So, we're also going to do things a little bit differently. ",
+    "model_probability": 0.9964
+  },
+  {
+    "start": 2319.28,
+    "end": 2352.36,
+    "speaker": 0,
+    "text": "We used to write the operational semantics to step-by-step one with the whole configuration as one. What we're going to do, and we have good reasons, trust me, for doing this, is we're going to split the configuration that we have, split the transitions into two different sets. We're going to talk about program transitions and storage transitions. Program transitions basically say, step-by-step, how does the commands that I have in each thread reduce? How do they reduce? For instance, if I have skip semicolon some other C, that doesn't access the memory, it doesn't do anything. ",
+    "model_probability": 0.9977
+  },
+  {
+    "start": 2352.46,
+    "end": 2387.21,
+    "speaker": 0,
+    "text": "It literally just takes a silent step and goes to C. You've seen this, right? or if I have an if true, then C1, LC2, it is true, so it will reduce to C1. So, it talks about these, how the program transforms. and it does not really say anything about the memory. And this execution of the program, this program transformations, as it were, this execution of the program part, is orthogonal to memory and the model that you're running on. Whether it is SC that we're studying today, or if it's x86 that we will study on Tuesday, it doesn't matter. ",
+    "model_probability": 0.9981
+  },
+  {
+    "start": 2387.69,
+    "end": 2418.8,
+    "speaker": 0,
+    "text": "If you have if true, then C1, else C2, regardless of your memory model, that's always going to evaluate to C1. It's got nothing to do with the memory model, with the consistency model. but how you interact with the memory itself, that obviously very much depends on your memory model. So, that's why we have this storage transition, storage in this case being only memory, but as we will see storage can contain other components when we come back on Tuesday. So, program transition is going to tell us that step-by-step these simple executions that I just told you. ",
+    "model_probability": 0.9982
+  },
+  {
+    "start": 2419.34,
+    "end": 2454.26,
+    "speaker": 0,
+    "text": "The storage transitions will only talk about memory instructions and how they interact with the storage system, in this case, memory. Then, we're going to find a way of connecting the two together and say, okay, this is the overall semantics. In tandem, they execute like this. The reason it's good to split it like this, because like I said, the first part is memory model independence. It's concurrency semantics independence. whereas the second part depends on your concurrency semantics, which means next Tuesday when we study the X86 architecture, we don't have to revisit all those details. ",
+    "model_probability": 0.998
+  },
+  {
+    "start": 2454.38,
+    "end": 2486.94,
+    "speaker": 0,
+    "text": "The program transitions are exactly the same and we will only rewrite the memory transitions. So, it's a more modular way of doing it. You've refactored the bits that are common between different memory models. Okay, I've said that, you can read it in your own time. As I said, the overall semantics will be combining the two together and making sure they agree with each other and we will see how. Okay, before doing that, We need one extra component that we didn't have last year, and that is we're going to label our transitions. ",
+    "model_probability": 0.9972
+  },
+  {
+    "start": 2487.53,
+    "end": 2522.37,
+    "speaker": 0,
+    "text": "And as you will see later today, these labels are crucial for connecting the two sides of the semantics, for connecting the program transitions and the memory transitions. So a label is either an empty label that we write epsilon for, or, so for instance, when you're reducing skip semicolon C to C, that's a silo transition, nothing's taking place. or it's a memory instruction label. So, essentially, either you have NC when you're not doing anything to do with memory like that reduction, or it corresponds to our memory instructions, a read, a write, or an RMW. ",
+    "model_probability": 0.9974
+  },
+  {
+    "start": 2523.27,
+    "end": 2555.2,
+    "speaker": 0,
+    "text": "So, let's look at read and write next. So, a read label is a triple like this. I have a read R, X, V. It means that I'm reading value V from location X. So this label is triggered whenever I execute a read instruction, a memory read instruction. So this is the value that the read reads. A write label analogously, so this R for read, W for write, this one is saying I'm writing value B to location X. So far so good? ",
+    "model_probability": 0.9968
+  },
+  {
+    "start": 2558.48,
+    "end": 2589.22,
+    "speaker": 0,
+    "text": "Next, and remember, so our memory instructions are reads, writes, and RMWs. So next, we have RMWs. But remember, the fetch and add always succeeds. It's not conditional. It always increments the value by what you've given, the location. Whereas CAS may succeed or may fail. So we have two cases. So we have the case where this CAS succeeds. It means, so u for update, that's another name for RMWs, atomic update. So it's easier to write u rather than RMW, so we use u. ",
+    "model_probability": 0.9943
+  },
+  {
+    "start": 2589.88,
+    "end": 2621.16,
+    "speaker": 0,
+    "text": "So this is saying, this is an RMW on location x, where the old value was vo. and the new value is VN. So I read the load of value VO, it matched what I expected, and I switched it to VN. So this model's either a fetch and add, because fetch and add is always successful, or a successful CAS when the values actually equate. In the case of a failed CAS, we have a similar label. So we have update again, X, and the old value. ",
+    "model_probability": 0.9931
+  },
+  {
+    "start": 2621.48,
+    "end": 2653.48,
+    "speaker": 0,
+    "text": "But because when we fail, we don't actually do any updates, we denote that by this bottom symbol. So this is saying the CAS failed. So whenever I have one of these failed labels, this is a failed CAS. Remember, fetch not doesn't fail. Only the CAS can fail. Questions? Yes. Yes. You will see later. Remember I said we separate program transitions from memory transitions and we need to connect them together. The way we connect them together is by comparing labels. ",
+    "model_probability": 0.9894
+  },
+  {
+    "start": 2653.84,
+    "end": 2707.41,
+    "speaker": 0,
+    "text": "If they have the same label, it means they can operate in tandem and we can put the pieces of the jigsaw together. And that will become clear in a minute. Any other questions? Yes. Are you using the read labels as opposed to the read, memory, write labels? Like when we've used them, etc.? ? because each one of these is one step and RMWs are atomic. So, that is one step of execution and read. Write is one step of execution. RMW is doing a read and a write in one step. If I write a read and a write, it means it's two steps. Each one of these label corresponds to executing one step of the execution, one memory instruction. That's why we need to separate them. There are ways in the literature, there are people who do that, but then in your semantics, you need extra checks, which makes it a bit messier to say, hey, you can only do this if nothing else is interleaved between the read and the write. ",
+    "model_probability": 0.9892
+  },
+  {
+    "start": 2707.43,
+    "end": 2741.26,
+    "speaker": 0,
+    "text": "So it's cleaner to keep it as one label, at least with the operational semantics. Was there another question? Okay. Any more questions? Can I help? What's the conclusion? So the command is what the user is written. This is when we write the operational semantics. You will see when I do one step, I'm saying this is a read step. So I'm annotating each two steps because as I said earlier, we need to put these two together. ",
+    "model_probability": 0.9804
+  },
+  {
+    "start": 2741.28,
+    "end": 2745.89,
+    "speaker": 0,
+    "text": "You will see in just a bit. Good question. Keep them coming. Any more? ",
+    "model_probability": 0.9425
+  },
+  {
+    "start": 2758.12,
+    "end": 2793.73,
+    "speaker": 0,
+    "text": "Because, so you're saying, in the case of a fail, why don't I just use a read label? Potentially, right? Because it's all listing. Because in other models, updates are not just a read. They act like memory barriers. So they have extra side effects that the read doesn't. So we still need to say, but this was a failed RMW, but it was an RMW nevertheless. So there are subtle differences between a read and a failed RMW. Anything else? Okay. Okay, so much preamble. ",
+    "model_probability": 0.9897
+  },
+  {
+    "start": 2794.01,
+    "end": 2836.64,
+    "speaker": 0,
+    "text": "Right, so now we're going to, remember I said there are program transitions and memory transitions. Now, a program is multiple threads, so I'm going to break it down again, talk about sequential transitions, how each command can reduce, and then lift it to the program, because program is a map from TIDs to sequential commands. So, what I'm going to do, I'm going to give this transition of sequential commands, and the transitions of sequential commands, the good news is, is basically what you've seen last year. It's exactly the same style. I will write things like this. If I have a command C, executed with this store S, it can take a step and result in the remaining program C prime and the resulting store S prime. ",
+    "model_probability": 0.9938
+  },
+  {
+    "start": 2837.6,
+    "end": 2869.25,
+    "speaker": 0,
+    "text": "The things that are different from last year is this extra label L that we just saw what it can be. It's either empty or it's a memory instruction label. And because we have so many of these arrows now, I'm also putting a subscript little c here to say this is a command transition. So that's just a notation. So this is a command transition with a label. So, remember when we had to write the operational semantics last year, we first had to give semantics to Boolean expression and then program expression and then the commands. ",
+    "model_probability": 0.9943
+  },
+  {
+    "start": 2869.83,
+    "end": 2901.29,
+    "speaker": 0,
+    "text": "Because you're all pros now, we're not going to write the semantics of expressions or Boolean expressions anymore. So, we assume that we know how to do it since we don't even have a syntax anymore. We're going to assume that all of that work is captured by this abstract function called Eva. So, I have a function eval for Boolean expressions. For instance, b is a total function that whenever I give it a store at a Boolean expression, it tells me what value it evaluates to. So, I won't write operational semantics for Boolean expressions, I will just use this function eval. ",
+    "model_probability": 0.9937
+  },
+  {
+    "start": 2902.81,
+    "end": 2937.11,
+    "speaker": 0,
+    "text": "So, eval sb, it will compute the value that b evaluates to. For instance, eval s true and true always evaluates to true. or Eva S2 and B1, provided that B1 is false in the store, we'll evaluate to false. It has the expected semantics. There's nothing fancy here. We just hide the details with this function. The same for program expressions, E. I assume that the same function with different signature, if given a store and expression will evaluate that program expression for me. ",
+    "model_probability": 0.9903
+  },
+  {
+    "start": 2937.13,
+    "end": 2967.79,
+    "speaker": 0,
+    "text": "So, if I have a plus one, it will look up the value of a and then add one to it and return that. So, I won't write this in an operational semantic style and I will use this function. So, a recap of the operational semantics from last year. This is literally nothing new here. This is what we've seen, except we have labels. So can someone tell me how I read this rule? Tell me what this is saying. Anyone. Because remember, you know models of computation. ",
+    "model_probability": 0.9855
+  },
+  {
+    "start": 2967.81,
+    "end": 2974.53,
+    "speaker": 0,
+    "text": "Otherwise, get out. So if I pick on someone, you have to be able to tell me what this means. Yes. ",
+    "model_probability": 0.87
+  },
+  {
+    "start": 2993.33,
+    "end": 3031.15,
+    "speaker": 0,
+    "text": "Yes. So, you go like this. Yeah. It's like a pie. Right. So, as your name? Yash. Yash. Okay. As Yash said, it's precisely right. Here I am, I want to evaluate, I want to execute this program. It's a sequential composition of C1 and C2 under store S. It's intuitive. If I have C1 semicolon C2, what do I do first? I first execute C1. So I'm saying, well, first go and execute C1. If C1 takes one step under S and it reduces to C prime 1 and S prime with this label, then this whole program takes a step. ",
+    "model_probability": 0.9578
+  },
+  {
+    "start": 3031.89,
+    "end": 3065.05,
+    "speaker": 0,
+    "text": "The first expression is the new expression here, C prime 1, and the second part I haven't touched it because I haven't got to execute in C2. That's all it means. On the other hand, this is the base case of my inductive definition. If I have skip semicolon C, of course, it reduces to C. And the label that I have is epsilon. So here, I propagate the label. I don't know what this label is. Whatever it is, I put it down here. Here, I know I'm not accessing the memory. I'm literally just doing a program transition when I drop this redundant skip. ",
+    "model_probability": 0.9623
+  },
+  {
+    "start": 3065.57,
+    "end": 3155.5,
+    "speaker": 0,
+    "text": "So that's an empty label. The if-then-else expressions. Yes. . No, epsilon is an empty label. Yeah. If I go back here, I will take the order here. Empty label epsilon. So, that's what you mean by ? Yes. It does say silent transition. Yeah. Sorry, maybe I didn't say it. . No, no. This is like one sequential command taking one step that's not actually accessing the memory or anything. Yeah. Okay. Okay? If-then-else, so I have if B, then C1, I'll C2. Well, we all know this. If I have an if-then-else, I need to first decide, can I help? No, it's good, but if you have questions, ask me. Unless you're discussing, I don't know, whatever it is you're discussing, a cat video on TikTok or something. Is it a cat video on TikTok? Oh, too bad. So if I have an if-then-else, I first need to figure out what B value is still. So remember, I'm not writing the semantics for B. I'm just assuming this lovely helpful function exists. I'm saying, go evaluate B under the same store S. This is the store that I have. If it's true, then I will reduce to the then branch, C1, and the store doesn't change. Once again, all I've done is a local computation by evaluating B. It is side effect free. The store hasn't changed. That's what I meant. ",
+    "model_probability": 0.8991
+  },
+  {
+    "start": 3155.54,
+    "end": 3208.19,
+    "speaker": 0,
+    "text": "Remember, these expressions are side effect free. So the store from here to here didn't change. And it is local, it didn't have anything to do with the memory, hence the empty label. Questions? This is all from last year, by the way. Alexander. That's what I said, expressions are local. So they can access registers, which is thread local, or constants, that's it. They do not access the memory, so these are local expressions. Any other questions? Okay, well, then this is analogous as well. This is when the branch, the if condition values to false. The store doesn't change. I have an empty silent transition to C2. I take the else branch. Again, nothing new here. ",
+    "model_probability": 0.888
+  },
+  {
+    "start": 3209.27,
+    "end": 3240.23,
+    "speaker": 0,
+    "text": "While loops. I mean, if you're accessing the online version, you already know the answer. Do you remember how I evaluate while statements? While loops with small step? Yes, is that your hand up? Exactly. So in other words, I unroll the loop once. What's your name? Angad. ",
+    "model_probability": 0.8406
+  },
+  {
+    "start": 3240.29,
+    "end": 3291.28,
+    "speaker": 0,
+    "text": "Angad. Angad is right. So what I'm going to do is I'm going to unroll the loop once. So I'm just going to say, well, if B holds, which is what it says, then execute the body of the loop, then execute the loop again, otherwise the loop is done, then do nothing. This is simple loop on rolling again from last year. You all remember this? And again, the store didn't change, because I didn't even access the store. All I did was unroll, I rewrote the program, and the transition is once again silent. And finally, assignments. Remember, this is a local computation. Again, it's not accessing the memory. Anything like that is a program expression that is local. So what I'm going to do is I evaluate the expression under the store that I have. Let's say it evaluates to v. ",
+    "model_probability": 0.8461
+  },
+  {
+    "start": 3292.32,
+    "end": 3324.57,
+    "speaker": 0,
+    "text": "Then the assignment itself becomes skip. There's nothing else left to execute. But the store is, of course, updated. because I'm saying assign this new value V to A, so what I'm going to do is I'm going to update A in the store to V. Do you remember this notation? What does that mean? I just said it. Yeah? Yeah. Essentially, it means that S prime and S are the same everywhere except for in A, and the value of A in the new S prime becomes V. ",
+    "model_probability": 0.7084
+  },
+  {
+    "start": 3326.93,
+    "end": 3347.18,
+    "speaker": 0,
+    "text": "Is this clear? Good, because it should be. Now new cases. So now we're going to write the memory transitions, which is actually quite simple. There's nothing complicated about it. Ooh, you're due a break. So take a break, 10 minutes break, then we'll come back and we will write these memory transitions. ",
+    "model_probability": 0.6325
+  },
+  {
+    "start": 3421.5,
+    "end": 3428.39,
+    "speaker": 1,
+    "text": "I can't do this. Just drop out. I can't abandon Group 11 either. Number one. Number one. Number one. Number one. ",
+    "model_probability": 0.0386
+  },
+  {
+    "start": 3555.36,
+    "end": 3560.32,
+    "speaker": 3,
+    "text": "I'm not replying to any of this. ",
+    "model_probability": 0.0108
+  },
+  {
+    "start": 3578.51,
+    "end": 3597.09,
+    "speaker": 3,
+    "text": "What did you do at UAL? I got my friends to reply, and they were like, I have good speed. And she just replied, cool. This person replied after a month. Thank you. Thank you. ",
+    "model_probability": 0.0009
+  },
+  {
+    "start": 3611.86,
+    "end": 3639.87,
+    "speaker": 1,
+    "text": "I literally paused it. I started using Hinge and then yesterday I do not miss this shit. ",
+    "model_probability": 0.0005
+  },
+  {
+    "start": 3673.23,
+    "end": 3674.89,
+    "speaker": 3,
+    "text": "How is it like they get started? ",
+    "model_probability": 0.0028
+  },
+  {
+    "start": 3690.5,
+    "end": 3691.7,
+    "speaker": 1,
+    "text": "The stack is the stack. ",
+    "model_probability": 0.0012
+  },
+  {
+    "start": 3705.92,
+    "end": 3782.3,
+    "speaker": 1,
+    "text": "I think the point is I'm writing something. I don't want to say the answer. . ",
+    "model_probability": 0.0005
+  },
+  {
+    "start": 3918.46,
+    "end": 3926.16,
+    "speaker": 2,
+    "text": "Hello, thank you. ",
+    "model_probability": 0.0084
+  },
+  {
+    "start": 3926.22,
+    "end": 3959.54,
+    "speaker": 0,
+    "text": "Before I resume, any questions? Any questions? Simple no would do, or I'm gonna shake up ahead. No? Oh, thank you, good. So, now we're going to write actual memory transitions. This is new stuff. All the transitions you saw earlier are technically from last year with this small addition of labels. So, what do we have? A memory write, a memory read, and RMWs. ",
+    "model_probability": 0.695
+  },
+  {
+    "start": 3959.84,
+    "end": 3991.76,
+    "speaker": 0,
+    "text": "So, we're going to have four transitions, memory writes, memory reads, and successful failed RMWs. Simple. So, I'm trying to execute this write to X. I'm saying write the value of register A to X, right? And this is my current store. So first, of course, I need to look up the value of A, this register in my store. It says A currently holds B. So as a result, I'm going to take a write transition. ",
+    "model_probability": 0.9742
+  },
+  {
+    "start": 3991.96,
+    "end": 4051.83,
+    "speaker": 0,
+    "text": "That's why I have the write label on my transition that says I wrote value B to X. The write is done, so it reduces to skip. And the store didn't change, because I didn't actually update the store. But what is this missing? Is this missing something? It's missing something glaringly obvious, yes? I'm not seeing a memory component. Yeah, it's a write. I'm basically saying, well, I'm pretending that I did a write, but where is the actual effect of the write? I'm not showing that because I actually need to update the memory. But remember, I've split my transitions into the program side and the memory side. I'm showing you the program side now. When we do the memory transitions for write, that's when I do the actual update. So here, imagine that you have essentially two agents sitting there in your computer. ",
+    "model_probability": 0.991
+  },
+  {
+    "start": 4052.13,
+    "end": 4084.33,
+    "speaker": 0,
+    "text": "One of them saying, oh, it's a write, I need one of these labels, and then the other guy who's actually in charge of accessing the memory and updating it will have to do the write. So, you have two agents as it were, yes, carrying out the different parts of your operation. So, at this point, it looks as if the write hasn't taken place. All I'm saying is that when I executed the write, the store didn't change and I tried to write this, I wrote this value v, and we'll see later in the memory transition what happens. Later, not later, memory reads. ",
+    "model_probability": 0.9967
+  },
+  {
+    "start": 4085.51,
+    "end": 4117.3,
+    "speaker": 0,
+    "text": "So, I'm trying to read, from location X and then write it to register A. So it's a read from location X which writes the value to the register A. How do I get the value of X? It's the same problem, isn't it? You're nodding, why is it the same problem? Exactly. If I want the value of X, I need to go fetch it from memory. This other agent has not checked in yet. ",
+    "model_probability": 0.9959
+  },
+  {
+    "start": 4117.64,
+    "end": 4154.88,
+    "speaker": 0,
+    "text": "I'm only writing the program transition. So, I'm saying someone needs to give me some value that I can write to A, and that value better be the value of X. So, at this moment, I'm saying I'm trying to read from X, and I can pick an arbitrary value. So, I'm saying for any V, essentially, I can do a read from X, and reduce this operation to skip, and update the value of A, the register in my store to B. So the value of B here is unconstrained. It could be any value. Later on, when you write the memory transition for the read, then the value that the label has will actually come from the memory. ",
+    "model_probability": 0.9985
+  },
+  {
+    "start": 4154.92,
+    "end": 4185.12,
+    "speaker": 0,
+    "text": "Remember I said then finally we will put the two pieces together, they'll have to do a handshake. So even though at this point this guy could have just issued an arbitrary value, because they have to operate in tandem when you put them together, they can't progress unless it's actually the exact value. So, here the values are constrained. Later on, when we put them together, they'll have to agree. So, at this point, so basically, whenever I don't have the information that I need, I generate an arbitrary value or I ignore the effect of the write. The memory side will take care of this. ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 4185.46,
+    "end": 4216.3,
+    "speaker": 0,
+    "text": "So, the memory side will do its thing. I do my thing in the program transition and then I glue them together and check that all the conditions hold, which is not that many. Yeah, so this is all in the text above. Is this clear to some extent? It will become more clear in a minute. Now, RMW. So, let's start with a fetch and add. So, a fetch and add always succeeds. So, I need to write increment the value of x rather with the value of e. ",
+    "model_probability": 0.9975
+  },
+  {
+    "start": 4216.9,
+    "end": 4250.28,
+    "speaker": 0,
+    "text": "So, first things first, I first need to evaluate expression e under the store. Let's say that's value v. So, it says increment the value of x by v. Now, I don't know what the, remember I have to issue one of the successful update operations. Fashion app always succeeds, so I'm going to have a successful update on X, so update on X for some old value that I don't know again, because I don't have access to the memory. So once again, I don't know what the current value of X in memory is, so I'm using an arbitrary VO for the old value. ",
+    "model_probability": 0.9984
+  },
+  {
+    "start": 4251.22,
+    "end": 4281.64,
+    "speaker": 0,
+    "text": "and then writing VN to it. So VN, it says whatever the old value was, add V to it. V is the result of this expression evaluation. So take the old value of O, old value of X, add V to it and update it to that. So here, I know what VN is roughly, but I don't know what VO is because I don't have access to memory. Once again, just like the read, I don't know the current value of X, so I'm guessing it's some VO. And later, the memory transition will tell me what that is. ",
+    "model_probability": 0.9977
+  },
+  {
+    "start": 4282.04,
+    "end": 4376.82,
+    "speaker": 0,
+    "text": "Now, of course, I do a fetch and add and also return the old value of X in A. So I also update my store so that A contains the old value. Questions? Yes. Yes. So VO goes to A and- Wait, either let me come closer or speak louder. VO goes to A and VN goes to X in memory. VO goes to, the old value, yes. So fetch the old value, give it to me, and the current value of X updated by this much. So I don't know what the old value is. Here I'm guessing it and returning it. And later the memory transition will tell me what that old value is. But the new value I can calculate based on the old value. There was a question here, yes. Define failure. Why would it? For instance, one source of failure is when you get things like a seg fault, that location doesn't exist. But here we assume the memory is defined totally and everything's initialized to zero. So obviously, yes, we have made some simplifying assumptions that the memory is always initialized. But that's one sort of failure. What are other sorts of failures? It could be others. Again, we're not talking... In fact, there's a whole branch of formal verification research that just deals with failure. ",
+    "model_probability": 0.9961
+  },
+  {
+    "start": 4377.2,
+    "end": 4410.64,
+    "speaker": 0,
+    "text": "So because we got, again, we are dividing and conquering. They're doing all the failure bits. We're saying in an ideal rosy world where there was no failure, this is how it should all work. Okay, so that's fetch and add. Then we have the CAS. It has a successful case and a failure case. I know you're always all web like that, but bear with me. So let's do the successful case first. It's very similar to fetch and add. I am saying check the current value of X against the expected value E of E and write E of N to it instead. ",
+    "model_probability": 0.9981
+  },
+  {
+    "start": 4411.79,
+    "end": 4444.81,
+    "speaker": 0,
+    "text": "So, I obviously have to evaluate both of these expressions under my store. So, the expected value that's called that VE, the new value that's called that VN. So, that's just a result of this. Now, I'm saying if the expected value matches the old value, Then I can succeed. That's why I have this success label. So I update x from vo to this new value vn. Once again, it reduces to skip. And I return one to indicate success in a. So I write one, so whenever I fail, I return zero, so it's a Boolean. ",
+    "model_probability": 0.9984
+  },
+  {
+    "start": 4444.87,
+    "end": 4477.06,
+    "speaker": 0,
+    "text": "It returns either one or zero for success or for failure. So I'm returning that value here. Once again, I don't know what the old value of x in memory is right now because I don't have access to memory. In the failure case, I do exactly the same. I'm saying this is the expected value. It doesn't match the old value in memory. So I fail. That's why I have bottom here. And I return zero. So I put zero in A to say that I failed. So the thing to note here, two things. ",
+    "model_probability": 0.9979
+  },
+  {
+    "start": 4477.24,
+    "end": 4522.01,
+    "speaker": 0,
+    "text": "One is that in the RMWs, this first value, VO, is always talking about the current value of X in memory, not the expected value or anything like that. It's always the old values. And the second one is the new value. I don't have access to the memory here, so I'm guessing what that old value might be. I'm calling it VO, and I'm constrained it by saying, well, are they equal or are they not equal? If they're equal, you succeed. If they're not, then you fail. And the thing that's missing, as with the writes, is that not only I don't have access to the old value, I'm throwing away right now the result of the updates of the fetch and adder in the successful cast, because they actually have to update the value of x in memory, remember? ",
+    "model_probability": 0.9978
+  },
+  {
+    "start": 4522.51,
+    "end": 4558.06,
+    "speaker": 0,
+    "text": "I don't have access to memory, so I'm also not carrying out that effect. The memory transition would do that. So in a minute, we're going to switch to the writing memory transitions. The things that we haven't covered yet here is whenever I need to read from X or do an RMW on X, I don't have access to its old memory. That needs to be covered. And whenever I do a write or a successful RMW, I need to make sure the effect is actually written to memory. So those two things will be taken care of by the memory transitions. Questions? Right. ",
+    "model_probability": 0.9967
+  },
+  {
+    "start": 4558.14,
+    "end": 4598.19,
+    "speaker": 0,
+    "text": "So, remember we said program transitions, memory transitions. To do program transitions, we went to sequential transitions because program has multiple threads. So, all we have to do now is a lift because the program has many threads. So, I'm saying, if you have program P with store map S, At any one point, let's say threat tau is trying to execute this sequential command C and its store is S. If that sequential command can take a sequential step, a command step with label L and reduce to C prime and S prime, then the whole program, can take a step with label L. ",
+    "model_probability": 0.9976
+  },
+  {
+    "start": 4599.03,
+    "end": 4636.38,
+    "speaker": 0,
+    "text": "This time, I also carry the thread ID. So, I'm saying thread tau in Program P took an L-step. and it reduces to something else. What's that something else? Well, the program, no one else has executed anything, so the program is exactly the same, except that this thread reduced from C to C prime, so I'm updating that to C prime, and its store analogously might have been updated to S prime, so I'm updating its store as well. Again, none of the other threads took a step, I took a step, they all stay the same, their stores stay the same, the threads that took a step is updated. ",
+    "model_probability": 0.9976
+  },
+  {
+    "start": 4637.93,
+    "end": 4669.68,
+    "speaker": 0,
+    "text": "So you see, rather than like, this is why these maps and lifts are useful, rather than considering is it one threads, n threads, whatever, I'm modeling it as a map, which could be an arbitrary number of threads, and rather than saying, is it the first thread taking a step, is it the second one, is it the third one, I'm saying, well, it could be any one of them at any one point. If one of them takes a step, then the whole program takes a step. Is that clear? And this rule here, It's doing a lot of heavy lifting. ",
+    "model_probability": 0.9964
+  },
+  {
+    "start": 4670.36,
+    "end": 4700.95,
+    "speaker": 0,
+    "text": "This is modeling the entire interleaving semantics. Tell me why. Tell me how. Yes. Very good. What's your name? Sean is absolutely right. Remember we said that instructions in each thread execute in order. We've seen our sequential commands. When we reduce them, we reduce them in order. The semicolon was always from left to right. ",
+    "model_probability": 0.9909
+  },
+  {
+    "start": 4702.07,
+    "end": 4732.91,
+    "speaker": 0,
+    "text": "But the instructions in different threads can arbitrarily interleave. This is what's happening here because this is one step of the execution. In one step, I pick one thread tau. In the next step, I don't have to pick the same thread. It could be thread two, it could be thread three. For instance, in an interleaving, when I want to go thread one, thread three, thread two, then I will first pick thread tau, one to take a step, then thread three, and then thread two. So, this is actually modeling my interleaving semantics, saying at any one step, you could pick an arbitrary thread. ",
+    "model_probability": 0.9961
+  },
+  {
+    "start": 4733.71,
+    "end": 4740.44,
+    "speaker": 0,
+    "text": "There's no ordering between threads. Is that clear? Any questions? Alexander. ",
+    "model_probability": 0.9554
+  },
+  {
+    "start": 4752.45,
+    "end": 4803.75,
+    "speaker": 0,
+    "text": "You mean here? I could have done it. I could have done it in place and I've written p tau. Yeah. What do you mean? Yeah. Remember, a program is a map from thread IDs to their commands. A program is saying, I have multiple threads, and each one of them is executing this command. So thread one, tab one is executing C1, tab two is executing C2. So that's how we model a program. Say, I have a bunch of threads, and each one of them has this command. It's not from commands to commands. It's from threads to their commands. So I was saying that this rule is doing a lot of heavy lifting in terms of the interleaving semantics. ",
+    "model_probability": 0.9894
+  },
+  {
+    "start": 4804.87,
+    "end": 4842.52,
+    "speaker": 0,
+    "text": "Remember the definition of sequential consistency is that the instructions in each thread are always executed in order. So when I wrote my sequential transitions, sequential meaning one thread, when I had semicolon, I evaluated them in order. There was no reordering. Another thing that SC says is that the instructions of arbitrary threads can arbitrarily interleave. So at this step, I can pick tau 1, then tau 3, then tau 5, et cetera. That's the interleaving semantics, right? So for instance, if I go all the way back, one of the interleavings that we had was, let's say, A, C, B, D, as in thread 1, thread 2, thread 1, thread 2. ",
+    "model_probability": 0.9962
+  },
+  {
+    "start": 4842.86,
+    "end": 4873.63,
+    "speaker": 0,
+    "text": "The way I model it is that I would say I would write multiple one of these transitions. I'll write a trace, and we'll see an example of this later. Well, I first say, okay, I'm going to pick the first thread to the transitions, then I'll switch to the other thread, then I'll come back to the other thread, and so on. So, this one is saying at any one step of the execution, you can pick any thread, it doesn't matter which. So, for any, you can pick an arbitrary thread tau, execute that one, and then carry on. In the next step, you don't have to pick the same tau, it could be another tau, it could be another thread. ",
+    "model_probability": 0.9963
+  },
+  {
+    "start": 4874.21,
+    "end": 4904.78,
+    "speaker": 0,
+    "text": "This is how we model the intermediate semantics. Was there another question? Okay. So that's the program transitions done. Now we have to deal with the storage transitions. So memory storage transitions, in this case, our storage is only memory. Later, we'll see that we have other things in our storage for x86. So we have right transitions like this. ",
+    "model_probability": 0.9955
+  },
+  {
+    "start": 4904.84,
+    "end": 4936.18,
+    "speaker": 0,
+    "text": "It says, excuse me, it's hard work talking to you. I have memory M. It takes a M step. That's why I have the M subscript. And it becomes M prime. And once again, I have this label. I need to switch this off to cough. Right. So now we're going to see what that looks like. And the good news is the memory transitions are only the ones that are executing memory instructions. ",
+    "model_probability": 0.9966
+  },
+  {
+    "start": 4936.2,
+    "end": 4966.94,
+    "speaker": 0,
+    "text": "We don't have to write memory transitions for if-then-elses or sequential compositions or while loops and so on or assignments. Memory transitions are by definition, storage transitions are by definition the ones that actually interact with the storage system. So that's exactly what we're going to do. Now here, you will see that's what node one says. There are this form. It says some thread tau took an else step. I don't have access to the program. I don't know who the tau is. That's why I can pick an arbitrary tau here. It's the jewel of the other one. ",
+    "model_probability": 0.9983
+  },
+  {
+    "start": 4966.96,
+    "end": 5002.43,
+    "speaker": 0,
+    "text": "When I wrote my program transitions in the previous slide, I knew exactly what tau's program is, for instance. I could pick a tau and execute its command. When I write memory transitions, it could be any tau. I don't know who it is. but we'll see an example of that. Now let's look at memory read. So remember when I did the read, I guessed the value because I didn't know what value it has. So now this is saying if you have memory m and you want to take a read step that reads from x value v, well that v better be actually the value of x in memory. ",
+    "model_probability": 0.9983
+  },
+  {
+    "start": 5003.41,
+    "end": 5039.35,
+    "speaker": 0,
+    "text": "So this is what connects V in the label to its value. So it's saying if M of X is V, then I'll do a read step and I'll read V. And again, the memory is unchanged because I did a read. It doesn't have any effects on memory. And another thing, which is this node one here, I don't know who tau is. Tau could be an arbitrary thread. I'm saying for any thread, I can do a read step from X value V provided that the value of X in memory is V. Similarly, in memory writes, remember I said when I do a memory write, the effect, I was throwing it away in the sequential transitions. ",
+    "model_probability": 0.9983
+  },
+  {
+    "start": 5039.41,
+    "end": 5071.28,
+    "speaker": 0,
+    "text": "Here, I actually have to make sure it's committed to memory. So I'm saying, this time I don't know what the value is that I'm writing because it's coming from the program. You know, I'm writing x semicolon equal as in assign a to x. Write the value of a to x. I don't know what that value is. So the value in the write label is unbounded. Right, so I don't know what I'm saying. At any one point, you can execute a write on memory, try to write V to X, provided that you actually update the memory to reflect that write. So now I update the memory to write V to X. ",
+    "model_probability": 0.9984
+  },
+  {
+    "start": 5071.62,
+    "end": 5105.78,
+    "speaker": 0,
+    "text": "So my memory becomes M prime. Yes, no? Maybe? Thank you. And lastly, the RMWs, again, very similar. I have successful RMW and then a failed one. Successful one says, once again, remember, successful RMW didn't know what the old value was and didn't show the effect of the update, but it knew what the new value is. So here, I know what the old value is. I'm saying, if you're trying to do a successful update where the current value of X in memory is VO, that actually might better be the value of X in memory. ",
+    "model_probability": 0.998
+  },
+  {
+    "start": 5105.8,
+    "end": 5136.48,
+    "speaker": 0,
+    "text": "So if M of X is VO, I can take such a step. and then I update the memory to hold this new value VN. Here, I don't know what that new value is, but in the program, in the sequential transitions, I know. In the sequential transitions, conversely, I didn't know what the old value is, or I didn't update the memory. I'm doing them now. I know the old value, and I'm doing the updates. And finally, a failed one, again, it says, well, you can always do a failed one. I don't know why it failed. You can always issue a failed RMW. ",
+    "model_probability": 0.9974
+  },
+  {
+    "start": 5136.76,
+    "end": 5157.17,
+    "speaker": 0,
+    "text": "We know when it fails from the sequential transitions when the values don't match. That condition is already checked in the sequential transition. Here I'm saying, well, provided that the old value is VO, you can always take a failed RMW step. And of course, unlike the successful one, this time we don't update the memory. Yes? ",
+    "model_probability": 0.9952
+  },
+  {
+    "start": 5160.57,
+    "end": 5168.35,
+    "speaker": 2,
+    "text": "Yeah, these transitions will be slightly different. Yeah, add those two. ",
+    "model_probability": 0.9505
+  },
+  {
+    "start": 5183.93,
+    "end": 5215.06,
+    "speaker": 0,
+    "text": "You need to, for instance, you're saying if I add an extra instruction, if I add a fence instruction, then of course you need to update your program and you need to write a sequential transition for it as well. Assuming the language is the same, then the only bit that changes is the memory transition. But even if you update your language to add extra instructions, you don't have to change the existing sequential transitions. You just have to add a new transition for that instruction. It's true. Exactly. Yeah. Any other questions? Okay. ",
+    "model_probability": 0.995
+  },
+  {
+    "start": 5217.38,
+    "end": 5248.91,
+    "speaker": 0,
+    "text": "Right. Yes, you said that. Okay. Now, we will put things together. We have seen program transitions of this form. The big program and the store map takes a step, subscript p to new program and new store map. We have the executing thread and its label, and we have memory transitions. Again, the same thing. Old memory, new memory with this label. Now we're going to put them together, because remember our configurations were triples. ",
+    "model_probability": 0.9971
+  },
+  {
+    "start": 5249.25,
+    "end": 5285.66,
+    "speaker": 0,
+    "text": "We have a program, a store map, and a memory. So I'm saying this configuration reduces to that configuration, when blah, blah, blah, blah. The blah, blah, blah is in the premise. So first we're saying, well, if you take in one of these silent transitions that doesn't affect the program, the memory at all, when you're reducing the skip semicolon C or when you're reducing an if statement and so on, then by definition, the memory is not affected. It's a silent transition. It doesn't interact with the memory. So if your program is taking a silent transition, then the whole thing can take a transition, take a step, and the memory is unchanged. ",
+    "model_probability": 0.9983
+  },
+  {
+    "start": 5286.46,
+    "end": 5317.53,
+    "speaker": 0,
+    "text": "So, under this transition, the program and the store maps are potentially updated, but the memory is not because it was a silent transition. You can see how much cleaner this is because imagine this is one rule that takes care of all the steps, reducing skip saving column to C, reducing if statements, reducing while statements, reducing the inductive case of sequential composition. We don't care. We're saying the whole thing can take a step provided that the program took a silent step. and we don't add the clutter of M everywhere. ",
+    "model_probability": 0.9983
+  },
+  {
+    "start": 5320.87,
+    "end": 5354.42,
+    "speaker": 0,
+    "text": "On the other hand, let's say your program didn't take a silent transition and it took one of these memory steps with the label. So, okay, this is an example. I'm getting ahead of myself. So, here's an example of what it means to put these things together. Remember, when I had a program, a command that was executing skip semicolon C for threads out with this store, I could get this transition. This is an application of that rule that we've seen earlier. Remember when I said you can pick an arbitrary thread and execute that, this is doing that. ",
+    "model_probability": 0.998
+  },
+  {
+    "start": 5354.44,
+    "end": 5385.54,
+    "speaker": 0,
+    "text": "Let's say program tile is executing skip semicolon C, blah, blah, blah, and the whole thing reduces to P prime and S, then I can also add any memory to it to get this in transition. Now, on the other hand, if I take one of these steps that is not silent, it's interacting with memory, then the labels better match. So, we've seen these transitions. This is saying the program is taking a step, tau semicolon L, and the memory is taking a step. ",
+    "model_probability": 0.9981
+  },
+  {
+    "start": 5386.4,
+    "end": 5421.69,
+    "speaker": 0,
+    "text": "and they're taking the same step. So same thread is taking exactly the same step with the same label. This is when we make sure the bits of information that the other one was missing matches. So for instance, the program transition tells me what value I'm writing, and the memory is doing the updates, or the memory is telling me what value I need to read, and the program transition is assigning it to the register that I want. So as long as they match here, you will see it's exactly the same, tau colon L, tau colon L. So if they're working in tandem, taking the same step, then the whole thing can take a step. ",
+    "model_probability": 0.9983
+  },
+  {
+    "start": 5426.29,
+    "end": 5458.02,
+    "speaker": 0,
+    "text": "Questions? Well, you get stuck. Yeah, but the semantics is general enough that you can always write traces that don't reduce to anything. But we're not going to prove that formally here, but we can show that for any program, you can always terminate. As long as you don't have infinite loops, then you're guaranteed to be able to reduce. You don't always get stuck. There are transitions that you pick the wrong value, but there's always a good value that you could have picked that would allow you to make progress. ",
+    "model_probability": 0.997
+  },
+  {
+    "start": 5458.04,
+    "end": 5497.13,
+    "speaker": 0,
+    "text": "Yes? Other questions? No? Okay. So it's all crystal clear, right? I can assess you and attest you and you'll know what's happening. Okay. Here's an example, I'm not gonna go through it, you can look at it yourself, but roughly this is saying the memory is doing a read step seven, and for instance, I didn't know, I know what I'm reading here, seven, so that as a result, here, the program transition is picking a random value seven. ",
+    "model_probability": 0.9953
+  },
+  {
+    "start": 5498.46,
+    "end": 5532.23,
+    "speaker": 0,
+    "text": "It doesn't know anything about what value it's reading from X. You can see that there is no condition of what the value of X in memory is here. But I can put these two transitions together and say the whole thing reduces. These examples are nothing new. This is an application of the rules that we've seen. If you look at the transition for programs, when I'm trying to execute a read in some threat style, this is exactly what I would reduce to. In fact, if this was still models of computation, I would have asked you to write derivations like this, but I'm not going to ask you to write derivations. I'm going to ask you instead to write traces, which are easier, and we'll do that in a second. ",
+    "model_probability": 0.9982
+  },
+  {
+    "start": 5534.18,
+    "end": 5565.56,
+    "speaker": 0,
+    "text": "Okay, so what's a trace? We write this arrow star, so remember arrow, the simple arrow was one step up the whole configuration. A program and a store map and a memory go to another program and another store map and a memory. So now I'm defining this arrow star and I'm defining it as a reflexive transitive closure of arrow. At least the JMC students should know what I mean. What's a reflexive transitive closure of a relationship? This is like first year discrete maths. ",
+    "model_probability": 0.9976
+  },
+  {
+    "start": 5566.12,
+    "end": 5613.65,
+    "speaker": 0,
+    "text": "It should be a shame if you don't know the answer. Are you ashamed yet? Admit it, then I'll give you the answer. It's psychological torture. Okay, so reflexive transitive closure essentially means that for this relation, either I take zero steps, either zero application of the relation, or many steps, one or more. So zero steps, one step, two steps, three steps, close it under all possible number of steps. And we will, of course, as usual, define it inductively. So this means, as I said, there exists a number of steps like when I write arrow star, it means I don't care how many steps, there is some number of steps that I took, let's call that number n, that's why it's existentially quantified, so natural number n, and when n is zero, so what does that mean when I took n step? ",
+    "model_probability": 0.9972
+  },
+  {
+    "start": 5614.19,
+    "end": 5696.69,
+    "speaker": 0,
+    "text": "Either n is zero and I didn't take any steps, so the left and the right are the same, or n is some k plus one for some k, and I first take one step to go to this double prime version, Then I take another k-step from this double prime version to get to the final step, final result. So that's the inductive definition. It's very straightforward. I mean, this should be easy to write even in something like Haskell. So, yeah. Because it could be zero. It can go from itself to itself. And if n is zero, it means you took zero steps and you're in the same state, same configuration. Yeah. Reflexive means everything with itself. When a relationship is reflexive, it means every element is related to itself. In this case, the relation being arrow, any zero, everything is related to itself with arrow zero. Questions? So that's what a trace is formally. And when we do a tutorial on Tuesday, we will actually write examples of traces. So this essentially means given a program and the store map and a memory, start from some initial configuration and tell me what the program eventually, when it terminates, what results it has. ",
+    "model_probability": 0.9963
+  },
+  {
+    "start": 5696.71,
+    "end": 5728.7,
+    "speaker": 0,
+    "text": "So what's the value in memory and what's the value in the store? So this is what we define. The initial memory, remember I said everything's initialized to zero. So m, we write m zero for the initial memory where everything is zero. Formally speaking, lambda x zero. You've all seen lambda calculus. This is just simple functional notation. It's a function that maps everything to zero. Initial store maps every register to zero. Initial store map maps every thread. ",
+    "model_probability": 0.9973
+  },
+  {
+    "start": 5728.78,
+    "end": 5759.84,
+    "speaker": 0,
+    "text": "Oh, no, this is the program. Yeah, right, yeah, here. Initial store map maps every thread's store to the initial store. I think this is all pretty obvious. And finally, a terminated program, PSkip, is one where every thread has finished executing. When has it finished executing? When there's nothing else left to execute, meaning the only thing that's left is skip. So when the program associated with each thread is skip, that's when the program is terminated. So P skip means lambda tau skip. ",
+    "model_probability": 0.9968
+  },
+  {
+    "start": 5760.2,
+    "end": 5793.13,
+    "speaker": 0,
+    "text": "You do know what this notation means, right? When I say lambda something something. Some nods, some very hesitant nods, but some nods nevertheless. Okay. This means it's a function that maps every tau to skip, every thread to skip. Right. So we have two choices now. We have about 15 minutes. I can either, we have a short tutorial for the previous part of the lecture, for those safety and liveness properties and so on, or I could press on. ",
+    "model_probability": 0.9957
+  },
+  {
+    "start": 5793.53,
+    "end": 5804.92,
+    "speaker": 0,
+    "text": "I would suggest we switch tacks and go back to the tutorial so you can get a bit more interactive. Do you agree? Okay. So let's look at some tutorial questions and also let's see who was paying attention last Tuesday. Okay. ",
+    "model_probability": 0.9961
+  },
+  {
+    "start": 5821.52,
+    "end": 5908.18,
+    "speaker": 0,
+    "text": "So, this was not an invitation for chit chat, by the way. We're going to do it together because it's short enough. These questions are very simple. Is this big enough or do you want me to zoom in? Here we go. Okay. So, let's do a quick recap. What is the safety property and what is the liveness property? Oh, boy. Is that the reaction? I think that can happen, yes. And how do we check if something is safety or liveness? Do you remember that? Yeah. Okay. So let's do a quick recap. So a property is a safety property if it says nothing bad happens ever, and you can check it by testing whether or not you can violate it in finite time, finite computation. Conversely, something is a liveness property if it's saying something good will eventually happen, and the way to check it is try and violate it. If you can't violate it in finite time, then it's a liveness property. So here we have a list in question two. a bunch of statements and they're all everyday scenarios, if you will, and you have to check if it's a safety property or it's a liveness property. ",
+    "model_probability": 0.9909
+  },
+  {
+    "start": 5909.1,
+    "end": 5939.13,
+    "speaker": 0,
+    "text": "So, I would say let's start with D and E, Delta and Echo. So, a trick to check if it's something is a liveness property is to see if you can inject the English word eventually into it. If you can inject eventually, that means it's a liveness property. So let's look at E. If an interrupt occurs, then a message is printed. Eventually meaning at some point in the future, but you're not saying when. Just to be clear about the meaning. ",
+    "model_probability": 0.9964
+  },
+  {
+    "start": 5939.57,
+    "end": 5975.74,
+    "speaker": 0,
+    "text": "I know we all speak English, but it can be ambiguous. So E is saying if an interrupt occurs, then a message is printed. This is not specifying a timeline. It's saying if an interrupt occurs, then eventually, at some point in the future, a message is printed. So, class, that's your clue. Is it a safety or aliveness property? Liveness, thank you very much. So, I would say this is typically an exam question. I gave you a couple of statements saying, that's the easy one. Is it safety or liveness? The things that I want you to do is, first, identify whether it's safety or liveness, then tell me why it's a liveness property. ",
+    "model_probability": 0.9965
+  },
+  {
+    "start": 5975.8,
+    "end": 6007.2,
+    "speaker": 0,
+    "text": "Here you will say, this is a liveness property because all it says is that eventually it will happen, doesn't specify a timeline, as a result, it cannot be violated in finite time. Because if a message hasn't been printed, it might still be printed at some point in the future, you don't know when. And another thing you have to identify is the good thing happening. Remember, liveness property says, what is the good thing that you want to happen? So here, the good thing happening, the good thing is the message being printed as a result of an interrupt. It's usually in the statement. There's nothing tricky there. ",
+    "model_probability": 0.9964
+  },
+  {
+    "start": 6007.22,
+    "end": 6042.82,
+    "speaker": 0,
+    "text": "Now, contrast this with D. D says, if the interrupt occurs, then the message is printed within one second. Can I violate this in finite time? Yes, that finite time being one second, because I can trigger an interrupt, and if there is no message printed within one second, I've violated the property. So, this can be violated in finite time, even though the two statements are very similar, that one is a safety property. I will share the answers with you, but I want to, in my experience, going through these questions together usually wakes you up, but also you learn something. ",
+    "model_probability": 0.9938
+  },
+  {
+    "start": 6047.01,
+    "end": 6080.09,
+    "speaker": 0,
+    "text": "Let's do them from the beginning. A, who wants to have a go at A? Is it safety or liveness? Yes, liveness. Tell me why and tell me your name. Eventually so you're not saying so you have the number of things that can go wrong At any one point if they haven't gone wrong yet, they might have still at some point in the future go wrong So you're not specimen timeline you can't violate it. ",
+    "model_probability": 0.9778
+  },
+  {
+    "start": 6080.41,
+    "end": 6110.67,
+    "speaker": 0,
+    "text": "Thank you Colby No one expects the Spanish Inquisition. No one expects being quizzed in the lecture Anyone yes Yes, why? Perfect. Even though these statements are quite nonsensical, but it's still easy to check, and that's exactly the point of this question. Two things are certain, death and taxes. This is the very American approach. ",
+    "model_probability": 0.981
+  },
+  {
+    "start": 6115.73,
+    "end": 6120.45,
+    "speaker": 2,
+    "text": "I said liveness because no matter how far you run, eventually death. ",
+    "model_probability": 0.9295
+  },
+  {
+    "start": 6120.79,
+    "end": 6176.45,
+    "speaker": 0,
+    "text": "Yeah, so this is saying two things will eventually happen. You will eventually die and the tax plan will eventually get you, right? Yes, the IRS. Right, so that's a liveness property because if you haven't died yet or if you haven't paid your taxes or been questioned for it yet, you will eventually have to. Yes? In theory, can't you destroy the IRS in one at a time? No, not even in theory. IRS is bigger than anyone. Also, this is, here it's His Majesty's Inland Revenue, which is still, yeah. IRS is a very American, that was for his sake, since he's American, but yeah. HMRC, yeah. Right. You don't see the E. Okay, I'll leave you to think about F, G, and H yourselves. Let's switch to questions three and four. Questions three and four are about Andal's Law. ",
+    "model_probability": 0.9869
+  },
+  {
+    "start": 6179.0,
+    "end": 6213.02,
+    "speaker": 0,
+    "text": "Let's do four first and if there is time, we'll go through question three as well. So, you have a choice between one uniprocessor, I mean it's just a single core, single processor machine that executes five zillion instructions per second. That's quite impressive. You have another multiprocessor machine. It has 10 processors and each of these processors can execute one zillion instructions per second. Now, the question is, How should you decide when to use which? ",
+    "model_probability": 0.9913
+  },
+  {
+    "start": 6213.19,
+    "end": 6266.94,
+    "speaker": 0,
+    "text": "What does your gut tell you? Which one is better? Perfect, I love your answer. What's your name? Paxton. Paxton? Paxton. Paxton, sorry. Jeremy Paxton. Okay, same answer, same energy. Do you guys know Jeremy Paxton? Oh, he does, okay. Right, so the choice which one you have to go with very much depends on the application that you have, meaning how parallelizable your application is. Remember Amber's Law said this kind of speedup that you get when you have multi-core, multi-processors, it depends very much on the application and how much of it can be parallelized. Do you remember the law? Please tell me yes, make my day. ",
+    "model_probability": 0.9871
+  },
+  {
+    "start": 6269.34,
+    "end": 6309.91,
+    "speaker": 0,
+    "text": "Okay. So, if I have N processors, here S10. So, if I write, this is the bad one. So, remember we would define the speed of when you have N units, N processors as SN. So, here I will have SN, but let's write SN. So, this was the law. I'm not going to explain it again. It was 1 minus P plus P over N. This is the kind of speedup you get when you have N processors. So here, we have 10 processors that can each instruct a zillion instructions, and I have one uniprocessor that can execute five zillion instructions. ",
+    "model_probability": 0.9876
+  },
+  {
+    "start": 6310.37,
+    "end": 6344.3,
+    "speaker": 0,
+    "text": "In other words, that uniprocessor is five times faster than each of these individual processors, right? That's like, okay. So I need to check when is it that the kind of speedup that I get with 10 processors, greater than five. Is this clear one? Because the other one is five times faster than each one of those individual ones. So, if I can show in cases where the speedup that I get with 10 processors is bigger than five, then I should use the 10 multiprocessor. ",
+    "model_probability": 0.9899
+  },
+  {
+    "start": 6345.36,
+    "end": 6377.55,
+    "speaker": 0,
+    "text": "But if it's smaller, then I'm better off using the uniprocessor. Now, So basically we need to solve this for p. We need to say when is it, for what values of p this holds. So I need to show when is it that one over one minus p plus p over 10, because n is 10, greater than five. And if you simplify this, I am not going to do that. ",
+    "model_probability": 0.9833
+  },
+  {
+    "start": 6377.57,
+    "end": 6411.48,
+    "speaker": 0,
+    "text": "This is high school stuff, right? This will tell me if p is greater than 8 over 9 or something like that, then you're better off using the 10 processors. And 8 over 9, I think it's something roughly like 8.9 or something, roughly. So, if more than 89% of your code, roughly, let's say 90%, if about 90% of your code can be executed in parallel, then you're better off using the 10-versuses. ",
+    "model_probability": 0.975
+  },
+  {
+    "start": 6412.01,
+    "end": 6448.71,
+    "speaker": 0,
+    "text": "Otherwise, stick to the simple unit versus set that can execute five times faster. Is that clear? Okay. Good. Let's quickly look at question three as well. Read the question while I erase, please. So, what does it say? Running an application on two processes yields speeds of S2 and SN, speed of S2, use Arnold's law to derive a formula for SN. ",
+    "model_probability": 0.9484
+  },
+  {
+    "start": 6448.89,
+    "end": 6483.29,
+    "speaker": 0,
+    "text": "So, that's easy. So, what is S2 class? No chit chat please. I'm not a school teacher. Don't make me disciplinary. Okay. So, what is this? One minus p plus p over two, exactly. So I basically, if I, anyway, S10 is... So I need to rewrite this to get an expression for p in terms of S2, and then I'll plug it in here. ",
+    "model_probability": 0.9338
+  },
+  {
+    "start": 6484.13,
+    "end": 6514.33,
+    "speaker": 0,
+    "text": "That's all. All just very simple algebra. So I'm saying p is some function of s2. I need to find what that is. And then plug that in here. And get a step. That's all. Okay. I think that's all. When we come back on Tuesday, well, this is really all the material that you need from the stuff that we covered on Tuesday, Handel's law, and the safety and liveness properties. ",
+    "model_probability": 0.8868
+  },
+  {
+    "start": 6514.43,
+    "end": 6533.68,
+    "speaker": 0,
+    "text": "Today, we almost covered all of sequential consistency. There's just a couple of things that we'll recap when we come back on Tuesday. Then, we will switch to the semantics of the x86 architecture, which at the very least, some of your machines are running. and then we'll do some tutorial questions. Great. Thank you. ",
+    "model_probability": 0.8918
+  },
+  {
+    "start": 6672.98,
+    "end": 6677.17,
+    "speaker": 1,
+    "text": "It means a lot. She was willing to drop her model for me to get that day free. That was a memory transition. ",
+    "model_probability": 0.0478
+  },
+  {
+    "start": 6759.51,
+    "end": 6767.78,
+    "speaker": 1,
+    "text": "Oh. The school has some place. Ah. The school has some place. But it's not BMO. Also the BMO. It's everything. In the UK. Everything. ",
+    "model_probability": 0.0154
+  },
+  {
+    "start": 6880.9,
+    "end": 6882.0,
+    "speaker": 1,
+    "text": "Did you think that was it? ",
+    "model_probability": 0.006
+  },
+  {
+    "start": 6901.12,
+    "end": 6903.96,
+    "speaker": 1,
+    "text": "I thought you were listening. I was worried I was making an assumption. ",
+    "model_probability": 0.0022
+  },
+  {
+    "start": 6940.47,
+    "end": 6967.96,
+    "speaker": 1,
+    "text": "I think it's because he just forgot to That's what you're talking about. You get the energy. ",
+    "model_probability": 0.0002
+  },
+  {
+    "start": 7030.26,
+    "end": 7034.51,
+    "speaker": 1,
+    "text": "I saw an example, which contains all of the variables, and even more points. ",
+    "model_probability": 0.0005
+  },
+  {
+    "start": 7045.37,
+    "end": 7053.57,
+    "speaker": 1,
+    "text": "And then, like, connect them. No, no, you have everything in your expression. Then you have it. You're connecting the two at once. Like, you can see it. Then write down the two. ",
+    "model_probability": 0.0004
+  },
+  {
+    "start": 7077.31,
+    "end": 7080.45,
+    "speaker": 3,
+    "text": "I just didn't get what you were saying. It's a notebook and a pen. ",
+    "model_probability": 0.0004
+  },
+  {
+    "start": 7123.25,
+    "end": 7127.21,
+    "speaker": 1,
+    "text": "Yeah, I've seen it. I've seen it. I've seen it. I've seen it. ",
+    "model_probability": 0.0006
+  },
+  {
+    "start": 7153.94,
+    "end": 7162.88,
+    "speaker": 1,
+    "text": "I guess you can't. Yeah, yeah. I was thinking about it. I don't know what this guy's going to do. I don't know what he's going to do. I think it has to be the laptop. ",
+    "model_probability": 0.0004
+  },
+  {
+    "start": 7184.36,
+    "end": 7193.0,
+    "speaker": 1,
+    "text": "I think you and Arnav were both doing Jameson. Oh, yeah, yeah, yeah. We had the exact same thing. What is it? Is that... I just searched it up. I've done wrong. ",
+    "model_probability": 0.001
+  },
+  {
+    "start": 7193.02,
+    "end": 7194.04,
+    "speaker": 3,
+    "text": "Please search it up. ",
+    "model_probability": 0.0027
+  }
+]

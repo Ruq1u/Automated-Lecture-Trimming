@@ -1,0 +1,1360 @@
+[
+  {
+    "start": 1.43,
+    "end": 12.05,
+    "speaker": 0,
+    "text": "Okay, let's get started. I will give you some time to go through the questions. Wow, there's no attendance. Yes. ",
+    "model_probability": 0.1785
+  },
+  {
+    "start": 31.81,
+    "end": 62.14,
+    "speaker": 0,
+    "text": "So, did I scare you all off when I asked you all to come to the lecture and you decided not to come to the lecture? Is that what you're saying? Should I have applied some reverse psychology? Don't come to the lectures and you're all over here. What's going on? Okay, it's your funeral. It's the hardest topic if you don't want to be here. For those on the recording who will be listening later, not the great people who are already in the room. So we will start with the tutorial from Tuesday on the operational semantics. ",
+    "model_probability": 0.8815
+  },
+  {
+    "start": 62.66,
+    "end": 95.98,
+    "speaker": 0,
+    "text": "We'll go over some of the questions for about half an hour, and then we will switch tact and start something new. Have you all looked at the questions? Very good. Which question should we do together? No, no, one and two are not assessed. We're not doing those. You can do those in your spare time. Question three, we started. We're not, I'm sure... You get the idea of what it is like. You'll get the model answers. So anything from question four onwards? Question six? ",
+    "model_probability": 0.9241
+  },
+  {
+    "start": 96.62,
+    "end": 129.86,
+    "speaker": 0,
+    "text": "Gregor? Yes? Why not? So let's see. So you have this four-threaded program, IRIW. It stands for, these are all well-known litmus tests in the literature. This doesn't matter, but it stands for independent reads of independent rights. So this program actually exhibits a very interesting behavior. So we're asking, is there an outcome as shown, where you can read one in A, zero in B, one in C, and zero in D? And if so, you need to give us a trace like we did the last time. ",
+    "model_probability": 0.9687
+  },
+  {
+    "start": 129.94,
+    "end": 143.19,
+    "speaker": 0,
+    "text": "Otherwise, you have to argue, why not? So why not give you a couple of minutes to figure out if that outcome is possible or not, and then we can go through it together. Yeah? ",
+    "model_probability": 0.9479
+  },
+  {
+    "start": 214.89,
+    "end": 244.28,
+    "speaker": 0,
+    "text": "So any takers? What do you think? Is this outcome possible? Some shakings of the head here. Anyone wants to say why? Argue why? True. Yeah. then it's not possible for D to read zero. But why? ",
+    "model_probability": 0.3997
+  },
+  {
+    "start": 244.62,
+    "end": 263.7,
+    "speaker": 2,
+    "text": "Because if A reads one, that means the memory write x equals one has already occurred, and there's no other memory that takes place, and there's no instruction reorder that can happen. Okay. ",
+    "model_probability": 0.1876
+  },
+  {
+    "start": 264.2,
+    "end": 302.77,
+    "speaker": 0,
+    "text": "Yes, so let's argue intuitively first why, and then we'll try and write a proof. This is not exactly proof, but it's as close as proof you will come at least in this part of the course. So essentially what Drew said is that As we will see, these two rights, the right to x and the right to y, the first and the fourth, have to reach the memory in some order. Either the first one, the right to x reaches the memory first, or then the right to y or vice versa. Let's imagine that the write to X reaches memory, specifically because we know from the second thread that you read one in X, but you still read the initial value Y. ",
+    "model_probability": 0.9977
+  },
+  {
+    "start": 302.99,
+    "end": 341.12,
+    "speaker": 0,
+    "text": "That tells us that actually there is a point during the execution that that write, because they're both in different threads, right? So they're not in anyone's store buffer. So when they're being observed by these middle threads, that means the writes are actually in memory. if we were to argue. So if there is a point during the execution where that read from x in the second thread is reading 1, it means that write is in memory. And it's not observing the write to y, so it's reading 0, which means the write to y hasn't reached the memory. So that means that the write to x reaches the memory first. But by the same reasoning, if I were to flip it around, in the third thread, we're observing the write to y without observing the right to x. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 341.14,
+    "end": 373.3,
+    "speaker": 0,
+    "text": "So this tells us the right to y has reached the memory first. So that leads us to a contradiction. So this is the kind of intuition, like when you see this in the exam, rather than immediately diving in and writing the proof, as it were, you need to convince yourself why it's not possible or it is possible, and then try and write the proof rather than waste any time. So let's try and, you would have seen at the top of this question that I've introduced this notation for execution order because here, remember, it says please argue in terms of, we're not talking about store buffers or anything like that. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 373.74,
+    "end": 403.84,
+    "speaker": 0,
+    "text": "I've told you previously when I ask you this style of questions in the exam, I tell you either give me a trace in which case you will be arguing in terms of store buffers and whatnot, actually writing a TSL trace. Or if I tell you to argue in terms of instruction reordering, you essentially don't go anywhere near the conceptual representation of the TSL and the store buffer. You basically tell me how things may have been reordered and what into leaving. would give us the desired behavior. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 404.18,
+    "end": 438.79,
+    "speaker": 0,
+    "text": "It is common courtesy, by the way, to erase this. Just tell your lecturers before the next lecture so that I don't have to toil here while lecture. Okay, so let's use this notation to say that one thing executes before the other. So first things first, can we have any instruction reordering in the second thread? Yes or no? It's two reads, so we know those two things can't be reordered, so we know the read from X must be executed before the read from Y. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 440.05,
+    "end": 479.19,
+    "speaker": 0,
+    "text": "Similarly, in the second thread, I can't have any instruction reordering because there are, again, two reads. The other two threads are single instructions, obviously there's no reorder. What else? So we're seeing that we're reading one from X in A. So that means that the write to X was executed before the read from X. And similarly, because the write to Y, we see the write to Y in C, we see 1 in C, it must be the case that I have this situation. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 480.21,
+    "end": 510.9,
+    "speaker": 0,
+    "text": "Y is 1, A is X. So now, do you yet... See a contradiction? We need some other stuff. So, what else can be inferred? Did you have a question? Right, you're absolutely right, thank you. So, I am seeing, I'm reading zero from Y in B. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 511.62,
+    "end": 543.12,
+    "speaker": 0,
+    "text": "What does that mean? in terms of the read from y in B and the y being right in one to y. Yes? Precisely, so I'll just write that here. So because I'm reading zero from y in B, that means that this must have been executed before that. And similarly, because I'm reading zero in D, Is that correct? Yes. It must have been executed. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 543.9,
+    "end": 574.32,
+    "speaker": 0,
+    "text": "And again, this question is telling you, if it's possible, give me a TSO trace. If it's not possible, argue in terms of interleavings and reorderings. We've already established there's no reordering. That's the constraints I've written. And interleaving is essentially this notation that I'm using, executed before. I'm saying whatever interleaving I have, they should have been executed in this order. Now, this is all the constraints that I have. Now, where is the contradiction? Can you see it yet? Let's start from here. So let's call this one. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 575.3,
+    "end": 606.06,
+    "speaker": 0,
+    "text": "I'll use another color. So from here, I know this is executed before that. And then I have b to y. This is number two. I go to y from there. I have that it's executed before. You shouldn't write it like this, by the way. I'll give you the model answers. This is too fast. Why is it this write is executed before this read, and this read is executed before that write? ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 606.9,
+    "end": 640.38,
+    "speaker": 0,
+    "text": "So, we form the cycle. We're saying, oh no, we haven't yet. This is number five. So you're saying this A gets X is executed before B gets Y. That itself is executed before Y gets 1. Then that is executed before D gets X, executed before X gets 1, and executed before A dot gets. So essentially what I have, by the transitivity of the execution order, I have that A dot X is executed before itself. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 642.8,
+    "end": 675.9,
+    "speaker": 0,
+    "text": "And that is a contradiction because... Intuitively, nothing can execute before itself, but also because, as you will have seen, this executed before is an order. It's a strict order. What does a strict order mean? It's not reflexive. It means that things are ordered, but nothing is ordered with respect to itself. Nothing is equal to, is executed before itself. So here we constructed a cycle showing that if this outcome was possible, it would mean that this read is executed before itself. ",
+    "model_probability": 0.9982
+  },
+  {
+    "start": 676.4,
+    "end": 730.24,
+    "speaker": 0,
+    "text": "And that can't happen. There's that contradiction. Did you have a question? That is probably because I've written something wrong. Yes, it has to be. How did we get here? Yes. Absolutely. So it means, okay, our cycle was wrong. We can start again. But, yeah. So we could have gone here, then here, rather than here. It would still give us the same thing. And then d of x goes to x.1. five, and six. Yeah, we can still get outside. Thank you. It's hard to step back and forth and see what I've written. Is this clear? ",
+    "model_probability": 0.9945
+  },
+  {
+    "start": 730.76,
+    "end": 761.07,
+    "speaker": 0,
+    "text": "You will get the model answers and you'll be familiar with the style that you argue this thing, but this is essentially the intuition. That you try, if it's not possible, you try to construct the cycle in your execution. And this is because I asked you, remember, one common mistake in the exam is I ask you to argue in terms of instruction orderings and interleavings and people start talking about the store buffer. The whole point is that you can either think of TSO in terms of the store buffers and that conceptual representation, or you can think of it as SC, i.e. interleaving semantics plus reordering. ",
+    "model_probability": 0.9956
+  },
+  {
+    "start": 761.43,
+    "end": 794.95,
+    "speaker": 0,
+    "text": "Here I'm saying argue in terms of SC plus reordering, so tell me why this outcome is not possible. Okay, questions? Okay, which question should we do next? And if you don't know, it's your fault because I posted something yesterday saying come with suggestions. Otherwise, we'll just go through things in order. That's not necessarily three. Eight. Sorry, I didn't see your other hand. Question eight. So why don't you then have a go at question eight and then we'll do it. ",
+    "model_probability": 0.9865
+  },
+  {
+    "start": 795.43,
+    "end": 816.67,
+    "speaker": 0,
+    "text": "Oh, come on. Let's do something a little easier and then we can do this. We can do this if you want. Any other suggestions? Is everyone happy with eight? I just wanted to do something a little more basic, not to scare you guys. Okay, then have a go at question eight. ",
+    "model_probability": 0.9826
+  },
+  {
+    "start": 840.97,
+    "end": 845.71,
+    "speaker": 3,
+    "text": "Sorry, I have to slide this up. ",
+    "model_probability": 0.4857
+  },
+  {
+    "start": 845.73,
+    "end": 851.77,
+    "speaker": 2,
+    "text": "You can use the other side. ",
+    "model_probability": 0.4889
+  },
+  {
+    "start": 862.44,
+    "end": 864.38,
+    "speaker": 0,
+    "text": "You have until I raise this board, by the way. ",
+    "model_probability": 0.7316
+  },
+  {
+    "start": 960.52,
+    "end": 966.64,
+    "speaker": 0,
+    "text": "Hopefully you can read the other side. I've blocked the slide. Sorry, this is not very easy. Okay. ",
+    "model_probability": 0.8898
+  },
+  {
+    "start": 986.82,
+    "end": 1017.53,
+    "speaker": 0,
+    "text": "The question is on the right. I had to move the whiteboard. Right, so x86 architectures actually provide another barrier instructions. As far as the fragment that we're studying here today is concerned, S fences are not very helpful. They will be helpful when you study your coursework. So this is a gentle introduction and preparation for your coursework. And they say I'm not nice. Actually, no one says that, but anyway. So, not that they know. TSO has another fence, store fence. It's weaker than the M-fence. ",
+    "model_probability": 0.9942
+  },
+  {
+    "start": 1017.57,
+    "end": 1058.76,
+    "speaker": 0,
+    "text": "Remember, the M-fence can't be reordered with respect to anything. It's an absolute wall. It sits there and makes sure everything stays in place. But S-fence is a little bit weaker. Specifically, it can be reordered with respect to later reads. So if I have an S-fence and a later read, I can pull the read back, exactly like a write. That's why I call this store fence. It has store semantics, meaning a write semantics, meaning in the same way that it can do write-read reordering, you can also do S-fence read reordering. So, now the question is, given this program, which should be familiar to you by now, this is essentially our store buffering program from the slides, and all I've done is I've inserted an S fence between the two instructions in each set. ",
+    "model_probability": 0.9979
+  },
+  {
+    "start": 1059.35,
+    "end": 1090.44,
+    "speaker": 0,
+    "text": "The question is, is the store buffering outcome, where I read zero from both X and Y, allowed here? And if so, tell me why. Who said yes first? Who was it? Come on, be brave. Yes, tell me why. Yeah? Exactly, on both sides. So this time, instead of doing one reordering on each side, we can do two reordering on each side. ",
+    "model_probability": 0.9972
+  },
+  {
+    "start": 1090.46,
+    "end": 1112.21,
+    "speaker": 0,
+    "text": "Again, remember, we can only reorder adjacent instructions. So what we can do is we can first order the S fence and the read. So let's say the read from Y. Put the read from Y before the S fence. Then the write and the read are next to each other. So I can, again, reorder them and put the read first. Same on the right-hand side. So what I usually write is essentially, let's say this. This is my program. I should have... ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 1122.83,
+    "end": 1148.89,
+    "speaker": 0,
+    "text": "The kind of reordering I expect you to show in the exam is to say, okay, I first reorder this to this by ordering the S fences. And then I do another reordering. You can even write, this is S fence read. This is white read. To get... ",
+    "model_probability": 0.9963
+  },
+  {
+    "start": 1161.74,
+    "end": 1194.51,
+    "speaker": 0,
+    "text": "Okay, now what? So I've reordered them, and now I have to give an interleaving that witnesses the behavior that I want. So if I say, do an interleaving that says execute the reads first, let's say this one, and then this one, and then the rest. In some order, it doesn't matter. So given this execution order, this interleaving, given those reorderings, it's clear that the two reads are executed first, so they will read the initial value and give me zero. ",
+    "model_probability": 0.9981
+  },
+  {
+    "start": 1194.53,
+    "end": 1230.32,
+    "speaker": 0,
+    "text": "Yes? No? Questions? Questions? Okay, so the next part is also easy. The part C requires a little bit more thinking. So now we want to extend the sequential transitions of TSO to support S-Fence. I haven't given you the hint. Remember when we added M-Fence to TSO, we added a new label for it, MF. Now we're extending it yet again with a store fence, so we're going to introduce a new label called SF for store fence. ",
+    "model_probability": 0.9982
+  },
+  {
+    "start": 1230.4,
+    "end": 1261.91,
+    "speaker": 0,
+    "text": "Now the question is, What should my transition look like? Anyone? Tell you what, anyone comes and does part B and then attempts part C, they'll get a box of fairly Russian chocolate. Any takers? Would it make a difference if I told you it's my birthday today? Thank you, you're so gullible. No, it is actually my birthday today. ",
+    "model_probability": 0.9949
+  },
+  {
+    "start": 1261.93,
+    "end": 1304.29,
+    "speaker": 0,
+    "text": "This is how much I love you. I didn't take the day off. I'm here to lecture. So it is my birthday. Does anyone want to actually come and have a go at Barbie? Keep tripping. Anyone? You're going to make me work on my birthday? Okay. So I'm trying to... So what is the storage transition components? What do I need? Sorry, sequential transition. So remember what format they have, what signature they had. It was the command that you have and the current store, arrow S, with some label, goes to some command and some other store. Now, the command or the sequential command that we're trying to execute here, what is it? It's an S-fence. ",
+    "model_probability": 0.9969
+  },
+  {
+    "start": 1304.77,
+    "end": 1354.26,
+    "speaker": 0,
+    "text": "So what is the transition going to be? I have an S-fence. Yes? Nothing. What can be skidded? Just tell me what the transition looks like. Espenzant. S. Very good. Very good. You see, if you come here, you will be getting a box of chocolate now. But you didn't, so you won't. Well, healthy options available on request. You could have asked. Right, so this is simply our sequential transition. Now, the memory transition. Is that correct? Yes, it is correct. ",
+    "model_probability": 0.9968
+  },
+  {
+    "start": 1355.84,
+    "end": 1388.33,
+    "speaker": 0,
+    "text": "What about the storage transition? So let's remind ourselves, what does the signature look like? I'll write it down for you since I'm doing all the work. Memory on the buffer map. Again, read the execution thread. And a label takes a storage step to some new memory and some. So this is the kind of thing we expect to write. So what should I do before actually going there? So what did mfence do? ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 1388.71,
+    "end": 1422.82,
+    "speaker": 0,
+    "text": "mfence, because it couldn't be reordered and it forces everything to stay in order, we had to make sure that the store buffer is empty when we execute it. The storpens doesn't do that. It can allow reordering. It itself can be reordered with respect to reads. When we wanted to model the reordering of writes with respect to reads, how did we do that? We said that the execution of a write can be delayed so that it can be reordered after the read. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 1423.1,
+    "end": 1454.31,
+    "speaker": 0,
+    "text": "So we added it to the buffer. I'm giving you so many hints. So what should I do then when I execute an S fence here? I have this M. I have this buffer map. I want to take this step to something else. Helen of Troy. Go on. No, that's MFence, right? ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 1454.35,
+    "end": 1488.42,
+    "speaker": 0,
+    "text": "That's because it doesn't allow any reordering, and it makes sure everything becomes as well. I gave this clue to you earlier. I said it's called a store fence because it's exactly like a right. It's called a store fence, a right fence. Say that again. empty instruction. We have to add something to the buffer. Now, in the case of a write, I added a write label. This sf is also a label, so I could just add its label to the buffer, saying there is a pending or delayed store fence, right? So I could say, imagine that the buffer of the executing thread is currently B. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 1489.86,
+    "end": 1531.86,
+    "speaker": 0,
+    "text": "This is currently B. And what I'm going to do is update it by saying tau becomes whatever it was before, and I add an sfence at the end. So this means that I delayed the execution disturbance because now if there is a read later on, I can execute that and then unbuffer SF later to model that reordering. This is exactly what I did. If you look at the transition, I mean, there's some other stuff. When I executed the write, I modeled that delaying, that reordering, by saying, well, I'm going to pretend this write hasn't been executed. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 1531.88,
+    "end": 1550.47,
+    "speaker": 0,
+    "text": "I'm going to put it in the buffer so that later reads can overtake it, go to the memory, do whatever they want, and then I unbuffer the write. So here, I also want to do something similar with the storefront, so I'm going to add it to the buffer to delay it. Do I need any other transitions? ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 1560.51,
+    "end": 1594.52,
+    "speaker": 0,
+    "text": "Exactly. So we had an other transition for unbuffering stuff, removing things from the buffer. And it had the shape saying, well, if you have a write at the head of your buffer, you can take it off and add its effect to memory, et cetera. Now, what happens if I have SF in my buffer? Well, at the moment, I get stuck because I can't get rid of it. So I have to add an other transition that says, OK, again, if I have an M and a B, And the current buffer of the executing thread of this form has SF at the beginning. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 1594.54,
+    "end": 1625.01,
+    "speaker": 0,
+    "text": "Remember, it's FIFO, so we have to do things in order. What I can do is I can take an epsilon transition, and the score B prime is B, where tau now becomes little v, so I drop the SF. And this becomes v prime. And the memory doesn't change. In the case of a write, I have to actually propagate that write to memory. SF doesn't actually have any vector memory. So the memory is the same, but the buffer is updated. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 1628.57,
+    "end": 1678.42,
+    "speaker": 0,
+    "text": "Are store fences useful at all in the fragment that we've studied so far? Tell me why. Because we have TSO, we have two reordering, like the write v and v. But in this case, it doesn't block any . Perfect. Yes, perfect answer. So the only reordering allowed that we had seen so far was store and write and read reordering. And inference was useful for stopping that, but the store fence, as we saw, doesn't stop that. That was the first question, because reads can overtake it anyway. So the read can be moved up and then moved up with respect to the write as well. So it doesn't do anything. That's why in the fragment that we saw, I didn't give you the store fence. But in your coursework, you'll study a weaker model called partial store ordering, where the store fences actually become useful Okay. ",
+    "model_probability": 0.9975
+  },
+  {
+    "start": 1679.34,
+    "end": 1715.05,
+    "speaker": 0,
+    "text": "Any questions? Because you still need to model the reorder because this is the launchpad for your coursework. You could have just chosen to completely discard it. This is a more accurate representation of what's happening, especially when you move to partial store reordering in your coursework. But as I said, it doesn't have an effect here, so could have just completely ignored it. All right, let's switch to something else. ",
+    "model_probability": 0.9973
+  },
+  {
+    "start": 1715.61,
+    "end": 1728.97,
+    "speaker": 0,
+    "text": "So in case you were, do you, if you're being honest with me, do you think this stuff matters, modeling things formally? I am being a little controversial. ",
+    "model_probability": 0.9969
+  },
+  {
+    "start": 1730.67,
+    "end": 1752.16,
+    "speaker": 2,
+    "text": "I think you have to prove like absolutely every Okay, yeah. ",
+    "model_probability": 0.8893
+  },
+  {
+    "start": 1752.48,
+    "end": 1790.11,
+    "speaker": 0,
+    "text": "So that's one good answer. There are other good answers. Absolutely. So if you want your programs to be correct, you need to understand what the heck is the program doing. So you need to understand formally what it's doing so you can be confident. And if you have that kind of training, you could actually start writing proofs that your program is actually correct. Testing will get you a long way. I have a lot of respect for testing. Testing is far more accessible than formal proof. But it can never guarantee that your program is bug-free. But there's a better argument for that, especially even at the low-level stuff. If you don't know the semantics, then, you know, like the field that I'm in, programming languages, we are a little full of ourselves, but we say we are an amplifier for everyone else. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 1790.55,
+    "end": 1822.34,
+    "speaker": 0,
+    "text": "When the programming language research advances, everyone else has a better job. That's why Rust has actually revolutionized the whole field of programming for secure programming. because it came from academia, from a guy with a formal background, and it was like, enough is enough. These developers are too stupid to write correct code. There's memory safety bugs everywhere. It's responsible for 70% of security vulnerabilities. We're going to do something draconian and write something that is correct for construction. But now imagine you're a compiler writer. You're trying to compile your C to x86 assembly. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 1822.66,
+    "end": 1854.02,
+    "speaker": 0,
+    "text": "If you don't know what's going on, Your compiler is going to be wrong. A newsflash. More or less every compiler out there is incorrect. They all have mistakes. So to give you an example, a few years ago, this goes back to a question you asked me the last time. x86, this is a very small fragment of it. It has actually other write instructions with other caching policies, like non-standard caching policies. And I was trying to understand what these instructions are doing. So what did I do? I went to a close contact at Intel who is supposed to know this stuff inside and out. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 1854.48,
+    "end": 1885.06,
+    "speaker": 0,
+    "text": "He gave me one answer. I went to one of my friends who is a compiler writer in Jane Street, actually. He gave me one answer. Then I went on to Stack, and these answers were different. Then I went to Stack Overflow, and I posted a question very thoughtfully, you know, giving examples in the style of store, you know, threads and litmus tests, saying, what are the possible behaviors? I got two answers. Two of them, both of them were different from each other and from the answers that the engineer and the developer gave me. So it turned out no one actually knew what's going on. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 1885.6,
+    "end": 1918.48,
+    "speaker": 0,
+    "text": "And they all assumed, and they gave the answer with such confidence that you would think that they knew it absolutely right. So what did I do? I sat down and I tried to formalize it and talk to the engineers and test it and test it and test it. Hey, presto, about a year later, we had a formal model. So then I came back after a year to this thread, and in answer to my questions as well as those two answers, someone wrote, if I can find it, Can I find it? Is it still here? Oh, yeah. This related article, I don't know if you can see it. ",
+    "model_probability": 0.9983
+  },
+  {
+    "start": 1920.46,
+    "end": 1965.12,
+    "speaker": 0,
+    "text": "This article here is, the introductory section of the paper has some good plain English descriptions of the various memory types before getting to formal symbology. Thank you very much. And it turns out, if my laptop blows, that's actually the paper that came as a result of our last meeting. So they were giving me my answer as my own answer. But no one knows. And the question is, if you don't know, you'll do the wrong thing. So these things do matter. That's why there has been a perspective shift in industry. At ARM, at Intel, at NVIDIA, they now have PhD graduates in this area called memory model experts to actually make sure they write the specifications of these instructions, not in plain English, but in mathematics, specifically the kind of mathematics that you're about to start studying today. ",
+    "model_probability": 0.9962
+  },
+  {
+    "start": 1965.58,
+    "end": 1996.52,
+    "speaker": 0,
+    "text": "Now, I'm not saying that after today you're all going to become weak memory enthusiasts and go to industry to do that, but there is a crazy subset of us who likes this, and we are making a difference. All right, so hopefully that's enough motivation to get you started with the difficult stuff. I am a woman of my word. I've got many gifts. Here we go. Let's start at the back on this side. There is more chocolate. I know these boxes are small. While I set up, help yourselves. ",
+    "model_probability": 0.989
+  },
+  {
+    "start": 1997.7,
+    "end": 2003.48,
+    "speaker": 0,
+    "text": "Start as in open it. Take one and pass it forward. Okay. Okay. ",
+    "model_probability": 0.8327
+  },
+  {
+    "start": 2025.29,
+    "end": 2060.8,
+    "speaker": 0,
+    "text": "okay right so so far we've seen two models sequential consistency and By the way, I'm still the center of attention, okay? Enjoy your chocolates, but pay attention to me. I can't bear not to be the center of attention on my birthday. Thank you. So, we've seen two models so far, sequential consistency and total store ordering for x86 architectures. ",
+    "model_probability": 0.9469
+  },
+  {
+    "start": 2061.42,
+    "end": 2091.59,
+    "speaker": 0,
+    "text": "And hopefully, although it's intuitive, you would appreciate that it was actually a lot of work to write these semantics with these different transitions and operations and so on. Today, we're going to study a different style of semantics called declarative semantics. Now, so far, you have seen operational semantics in your second year course. you will have seen something called axiomatic semantics, although it wasn't called that in your first year. That was whole triples. Remember the reason about programs where you had to write pre- and post-conditions? ",
+    "model_probability": 0.9974
+  },
+  {
+    "start": 2091.93,
+    "end": 2125.75,
+    "speaker": 0,
+    "text": "Some people refer to that as axiomatic semantics. If you read the unassessed material of models of computation, you would have also learned about denotational semantics. That's the third style. So this is none of that. It's completely different, and it's actually developed, made up, as it were, for the very weak models that we want to study from here on. Because these models are counterintuitive. We cannot explain them in terms of instruction reorderings. It's because of all the wacky things that the compilers do. And this is the simplest, most intuitive, even though it's not very intuitive, way of explaining these semantics. ",
+    "model_probability": 0.9985
+  },
+  {
+    "start": 2126.23,
+    "end": 2156.32,
+    "speaker": 0,
+    "text": "So I call them declarative semantics. These, confusingly enough, some people refer to this as axiomatic semantics as well. But I prefer the term declarative because axiomatic could also mean those whole triples. So we will stick with declarative semantics. So the way we're going to do this is, unlike in operational semantics, where we had a very constructive... By the way, if you run out of chocolate, then you know I have refills. I came prepared. I was expecting a higher attendance, to be honest, but there you are. Where was I? ",
+    "model_probability": 0.9986
+  },
+  {
+    "start": 2156.44,
+    "end": 2196.89,
+    "speaker": 0,
+    "text": "Right. So operational semantics is constructive. It tells you step by step, actually, this is how the execution happened. You know, you have a mental model of, okay, these are the interleavings, these are the buffers and whatnot, and this has happened. Here, we're not going to tell, we're not going to bother telling you how it happened. We're going to say, these are the possible executions. So specifically, given a program, we actually define what an execution is, the general notion of traces that we've seen earlier. So we come up with a bunch of candidate executions, things that could potentially correspond to the program, and then we're going to prune them, saying, okay, this is not allowed, this is not allowed, because it doesn't respect the predicates. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 2197.39,
+    "end": 2232.62,
+    "speaker": 0,
+    "text": "So a predicate is a consistency predicate that, given an execution, tells me whether or not something is a behavior of that particular model. You know what a predicate is, right? A predicate is essentially a function whose return type is a Boolean, true or false, or rather prop, if you are doing an interactive theorem program. So, and this predicate that we will write, at least today we will write it for SC and TSO, is going to be memory model specific. So our notion of execution is going to stay the same. And depending on what memory model we're studying, we're going to say, what does it mean for an execution to be SC consistent? ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 2232.97,
+    "end": 2264.43,
+    "speaker": 0,
+    "text": "What does it mean for something to be TSO consistent? In your coursework, you will tell me what it means for something to be PSO consistent. We will look at other models like coherence and release-acquire-ancy and so on. because these are more concise. So the semantics of a program then, essentially, is the set of its consistent executions according to that model. There is a caveat here. All of these weak models, the declarative, have you run out? Some, some? Ah, did you pass the, okay. Anyway, there is a caveat, and that's the catch-fire semantics. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 2265.11,
+    "end": 2297.97,
+    "speaker": 0,
+    "text": "So the catch-fire semantics, which is, for instance, in the case of C, when you have undefined behavior, it says, you know what, anything goes. If even one execution shows a bad behavior, then all bets are off. It's as if I was a very mean lecturer, and if one of you spoke loudly or disrespectively in some way, I will banish the entire class. I will say, you're all bad students, you're all bad eggs, get out of here. I might do that. So the catchphrase semantics, rather than, you know, in all cases we look at executions case by case and say whether or not it's consistent according to that execution. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 2298.31,
+    "end": 2331.28,
+    "speaker": 0,
+    "text": "The catchphrase semantics in the case of undefined behavior, you can circulate it again. You guys are so non-greedy. You're such Gen Zs, like millennials. Anyway, so the catch-fire semantics would say, even if one execution is bad, everything goes. For all I care, the program could produce a unicorn. For all I care, the program could, an arm could come out of the computer and slap me in the face. That's allowed. So that's undefined. It's completely ambiguous. Anything goes. We're not going to study the catch-fire semantics, so we'll leave that aside. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 2331.34,
+    "end": 2362.07,
+    "speaker": 0,
+    "text": "It's just something for you to know. We will focus on this pair execution, like defining the notion of an execution. and then talking about what it means for it to be consistent. So this, you better get used to it. We're going to draw a lot of graphs. As you will see, I will introduce a color scheme and like a style of arrows and stuff because it makes things more readable. You're more than welcome in the exam to use this color scheme. And yes, before you ask, you're allowed to bring in colorful pens and pencils in my exam. In fact, my scripts are always the most colorful. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 2362.14,
+    "end": 2399.95,
+    "speaker": 0,
+    "text": "I love it. And you don't even have to use my color scheme. You can use your own. But if you don't use mine, then you better give me a legend saying what each color means. That's all I ask. So in our graphs, we're not going to tell you how things are executed. We're going to give you the final result of an execution. by drawing this graph. So it's a graph, it has a bunch of nodes, it has a bunch of edges. The nodes correspond to memory events, memory instructions. So, for instance, in SC or TSO, each memory read, memory write, RMW, M fence, S fence if you're doing it, each one of those is going to have one node in the graph. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 2401.77,
+    "end": 2433.5,
+    "speaker": 0,
+    "text": "So for instance, here I have, well, we'll get there. And then the edges between them correspond to different relations in the program. The most simple one being the program order. So I need to know which events were in the same thread and are related by the program order. And there's an example of that here. So there is a lot packed into this graph, so please pay attention because this is where we will set the notation from now on. First of all, in our operational semantics, remember, we assume that the program always starts from initialized memory and everything's initialized to zero. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 2434.12,
+    "end": 2467.91,
+    "speaker": 0,
+    "text": "They did the same thing here, except that we assume for every location that the program used, we have a corresponding initialization memory event. And that's always the first line of the graph. So you will see this first line here in this program. In fact, this is the IRIW example that we saw now with the four threads. Here, I'm accessing two locations in my program, x and y. So I've added two initialization rights, writing 0 to x and 0 to y. After that first line, which is my initialization, I have several columns corresponding to the number of threads. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 2468.77,
+    "end": 2500.31,
+    "speaker": 0,
+    "text": "Here I have four threads, so four columns. So the first thread is writing 1 to x. The second thread is reading from x. In fact, it's reading 1 and then reading from y. The third thread is reading from y and then reading from x. And the fourth thread is writing to y. So each column is one thread. And you will see that the events in each thread are, ooh, are related by program order. So this is saying, this is PO before that one. And you will see, this is why I don't want the graphs to get cluttered. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 2500.65,
+    "end": 2533.05,
+    "speaker": 0,
+    "text": "So I haven't labeled all the edges. So I use this solid black lines to mean program order. And from now on, I won't label them. So that's why I use different colors and different notations with different styles of relations and edges. So here, these two threads are, of course, related by the program order. And the other relation that we have is the reads from relation. This thing in green, and from now on we'll be using this dashed green address to mean reads from. Intuitively, reads from is there to justify a read. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 2534.28,
+    "end": 2569.37,
+    "speaker": 0,
+    "text": "At this stage, we have candidate executions, as we will see in a minute. You don't have to justify every read, but if you want, you can. And it better be the case that when you say this read reads from that write, they better be on the same location, of course, and have the same value. A read of 1 cannot read from a write that wrote 42. The values have to match. So you're saying, did this read read 1, and where did it come from? You're saying it read from this particular write. So that's why here, for instance, we have this reads from edge here, saying this read of x1 is reading from that write, the reads from. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 2570.97,
+    "end": 2602.43,
+    "speaker": 0,
+    "text": "And here, for instance, these two reads are reading the initialization values, so they are like that. Those are the reads from edges. Another thing to note is that we assume that the initialization thread is different from everyone else. I could have put it on the side somewhere, but it's usually nicer to put it at the top to imply the chronology of it actually happened before everything else. And you will see very subtly, it doesn't matter so much if you don't do this in the example. It's at an angle. to everything else, to mean that they're not exactly the same thread. ",
+    "model_probability": 0.9986
+  },
+  {
+    "start": 2602.99,
+    "end": 2641.61,
+    "speaker": 0,
+    "text": "And it's not in the same thread as anything else. So the columns, the straight columns, mean the same thread. These two on top, at an angle to everything else, those are the initialization events. But we also assume, because it actually is initialization before everything else, it's program order. They are program order before everything else. So you can see this. For instance, this initialization right is program order before all the events. different threads and so on. Another thing to note is that I haven't drawn the transitive edges because the clue is in the name. ",
+    "model_probability": 0.9975
+  },
+  {
+    "start": 2641.81,
+    "end": 2673.18,
+    "speaker": 0,
+    "text": "It's a program order. In mathematics, when a relation is an order, what does that mean? It has a bunch of properties, one of them being Transitivity, yes. So if I say a relation is an order, it means it's transitive. Strictly speaking, an order means it's reflexive, it's antisymmetric, and it is transitive. But from now on, we will only be looking at more or less strict orders, which means they're irreflexive and transitive. That's all that matters. So this is, in fact, program order is a strict order. ",
+    "model_probability": 0.9969
+  },
+  {
+    "start": 2673.32,
+    "end": 2712.22,
+    "speaker": 0,
+    "text": "So it is irreflexive, and it's transitive. Irreflexive meaning nothing is program order before itself. Wouldn't make sense. And it is transitive, and that's why I haven't drawn the transitive edges. For instance, this initialization write is not only before this read, but also the later read as well in program order. But I haven't drawn it because I can see that by transitivity. If it's program order before this read, and this read is program order before that read, then the top initialization read is also program order before the bottom one. And for all the relations that we will study later on, for anything that's transitive, more or less every order that we will see, to avoid clutter in our graphs, we will drop the transitive edges. ",
+    "model_probability": 0.9942
+  },
+  {
+    "start": 2712.24,
+    "end": 2743.16,
+    "speaker": 0,
+    "text": "You're more than welcome to draw them, but there's no need. Okay, questions? Okay? You're either completely lost or I'm an amazing lecturer. That's why it's the latter. So here is our good old friend, the store buffering example. We're going to look at, remember, at this point, I'm not saying what it means for something to be SC consistent or TSO consistent. I'm only talking about candidate executions. So here is one candidate execution. ",
+    "model_probability": 0.9929
+  },
+  {
+    "start": 2743.42,
+    "end": 2775.93,
+    "speaker": 0,
+    "text": "In fact, this is the candidate execution that shows the store buffering behavior, but both reads are reading zero. So again, I have my initialization rights. to the birth of 0, then I have my two threads corresponding to these two columns. So I write 1 to x and read from y. I write 1 to y and then read from x. Here, the reads are reading 0. So they're reading from the initialization read. And that is one candidate execution of the program. Now, as you know, this is not allowed under SC, but it is allowed under TSO. ",
+    "model_probability": 0.9915
+  },
+  {
+    "start": 2776.35,
+    "end": 2811.25,
+    "speaker": 0,
+    "text": "And I haven't said what those conditions are. We will get there. So we're just talking about candidate executions for the time being. The other thing to note is that at this point when we're talking about candidate executions, this reads from relation, these green arrows, have a very relaxed condition. They're not very strict. They say if there is a reads from relation, then it has to be between events on the same location with the same value. But you don't always have to have these reads from relations. For instance, this is also a valid candidate execution. Here, I have only chosen to relate this read to a write, where I read 12, but not this one. ",
+    "model_probability": 0.9867
+  },
+  {
+    "start": 2811.88,
+    "end": 2846.69,
+    "speaker": 0,
+    "text": "That's a valid candidate execution. The reason we do it is because we want to allow for that catch-fire semantics, even though we don't study it. That's why the methodology is general. Because in the catch-fire semantics, remember, anything goes. You could read 42, even though no one wrote 42. That's kind of known as the out-of-thin-air problem in C. in case you're familiar with it. So candidate executions don't have to match every right of the read. Now, when we actually get to defining what each memory model demands, they more or less all demand, except for the catch-fire semantics, that all of your reads read from somewhere. ",
+    "model_probability": 0.958
+  },
+  {
+    "start": 2847.75,
+    "end": 2910.71,
+    "speaker": 0,
+    "text": "But if, like I said, if there is a reads from edge in your graph for each one of them, it better be the case that it's like the read is reading from some writes on the same location, in this case x, with the same value, 1. So if you justify it, it better actually be a justification, not some nonsense. Gregor? So can we have like a backwards read? No. What do you mean by backwards? So like say we have in this program execution, we have a write here. And we are sorry. I read here and write here, so you want to see. It depends on your memory model. And in C, that's allowed. So again, I haven't put any condition saying the reads from needs to be in the same thread or different threads, or it would have to be earlier or later. None of that makes sense. And here's another candidate execution. This time I have no reads from edges. And in fact, here I am reading 42. And indeed, if this were a C program and all of your accesses were non-atomic, if you're familiar with that terminology, you would have a data race. ",
+    "model_probability": 0.8624
+  },
+  {
+    "start": 2911.05,
+    "end": 2977.39,
+    "speaker": 0,
+    "text": "The program would have undefined behavior, and that outcome would actually be allowed. That's why we allow the absence of the edges. But I'm getting ahead of myself. Okay, so to formalize all of this, remember, those are the diagrams, intuitive. Now we're going to talk about the maths behind it. So let's stop here, have a 10-minute break, and then we'll resume with the maths. I'm not sure I understood how you could read 42. I think I missed something there. So what I said here is that these are candidate executions. I haven't said for what model. I'm just introducing the notion of execution. I'm not talking about SC or TSO or anything. And I'm saying... The only thing that we need at this point... Yeah, exactly. They don't have to all have reads from edges. If they do, they better be valid. When we actually see SC or TSO or other models, they more or less demand that all the reads actually read from somewhere and they read a valid line. ",
+    "model_probability": 0.2285
+  },
+  {
+    "start": 2978.19,
+    "end": 2990.08,
+    "speaker": 3,
+    "text": "I have another question. So I know this is all about formally approving the properties of programs under certain memory models. But wouldn't the memory models of processors, especially new processors, just change all the time? ",
+    "model_probability": 0.1014
+  },
+  {
+    "start": 2990.42,
+    "end": 3034.75,
+    "speaker": 0,
+    "text": "No. Or do they keep that in mind? The implementation changes. It's exactly the same, so it's like the queue has been queued for a, it's FIFO, I don't care how you implement it. It just says it's ordered, and things are added and removed in mode. Now you can implement it concurrently or sequentially. You can implement it as a linked list, you can implement it as a P3, so on. So the specification of ARM or Intel has not changed for a very long time. It's the implementation. What was the last time you changed it? I don't know. It's before my time. It's been a really long time. Yeah, exactly. So it's the implementations that change, the number, of course, that change, new technologies, new hardware technologies come along, but the spec is more or less the same. Because if they did, then they would have a huge problem with backwards compatibility. ",
+    "model_probability": 0.097
+  },
+  {
+    "start": 3034.77,
+    "end": 3050.46,
+    "speaker": 3,
+    "text": "Yeah, I mean, I was thinking about that. Obviously, this would be very important because a lot of programs rely on that kind of model. Exactly. I was... I think that... At some point, someone will be like, oh, I wonder if there's a better memory model that could maybe be better for performance. ",
+    "model_probability": 0.0403
+  },
+  {
+    "start": 3050.52,
+    "end": 3195.02,
+    "speaker": 0,
+    "text": "I mean, that's why the RISC architecture was introduced. RISC-V, also because it's open source, but it's still very close to ARM. You can introduce new architectures, but usually not by the same company. So you have Intel, which is TSO. You have ARM, which has its own memory model. And RISC-V has been around for a good few years now. It has its own memory model, but that's it. Okay, thank you. Excuse me, this is absolutely lovely. I love talking to you here. But just look at this queue. Whenever I say, is there a question, can you tell me why the answer is a yes? Just saying. Please, continue. First of all, this delay idea. It's to model the reordering. Because S-Fence and a read, like if I have a store fence, we saw this, followed by a read, I can essentially reorder this to a read, followed by S-Fence. In the same way that if this was a write and a read, It could be reordered to read and write. In the same way that we put the write into the buffer to delay it, for the read to take over, we put this in the buffer for the read to take over. And then you pass a match on the write read structure to somewhere around in the buffer. I mean, in the buffer there's no read. In the buffer I only have store fences of writes. But the read can just go through. So for instance, I execute the yes fence, it goes into the buffer, then I can execute the read, you can go to memory, do whatever it wants, then this is really executed when the SFence is unbuffered. So that's how a model works. So this is the intention to execute. When it's unbuffered, like when the YXP unbuffered, the effect goes to memory, then that is when the effect becomes, yeah. But the S friends, at least in this case, in the TSO model, it really doesn't achieve anything. So it's a little superfluous. What happens if it's got an S friend and the read is way down there? It has to be adjacent. I mean, it can't be there, for instance. Let's say you have anything else but a read. So, like, writes or other estimates, they're all in order. They will all be sitting in the buffer in order. So, like, let's call this SF1, SF2, blah, blah, blah, and write 1, write 2. So, they will be sitting in the buffer like this, and the read can still be executed, and we can unbuffer this later. ",
+    "model_probability": 0.0325
+  },
+  {
+    "start": 3198.83,
+    "end": 3205.56,
+    "speaker": 2,
+    "text": "It's not a question, it's just that Andrew... Andrew, oh my god. This is me. Big memory. Drew and Angus. ",
+    "model_probability": 0.0007
+  },
+  {
+    "start": 3225.25,
+    "end": 3231.8,
+    "speaker": 2,
+    "text": "That's why we said it's a candidate execution. I haven't told you when is one of these SC or TSO. ",
+    "model_probability": 0.0032
+  },
+  {
+    "start": 3241.99,
+    "end": 3396.99,
+    "speaker": 0,
+    "text": "At this moment, I'm just introducing the notion of possible executions. And then when we introduce SC consistency or TSO consistency, that's when we do conditions where SC won't allow this. Even TSO won't allow this. Yes. I have a question. We haven't got them, but yes. So with this one, I initially was confused why it was range. That makes sense now. Why is it RU and not? Read and update. Update is also read. Why is it not? I mean, RF is from rights to read. So if you look at ORF, it's from writes and updates to reads and updates. So the second component is the reads and the updates. So for here, is that 42 because of this program path? No, so what I was saying is that if I just look at this program, at the moment, I'm not talking about SC consistency or TSO consistency. I'm talking about candidate executions. So the reads can have any value they want. Later today, I will ask, is this execution SC or TSO? Then I will put conditions that will disallow this. But at the moment, I'm only talking about candidate executions, which means the reads can read any value they want. But if there is an RF, they have to match. Oh, if there is a green line. Yes. If there is a green line, the values better match. But if there is nothing, then it can read anything. So this is like describing the syntax? Essentially. It's a possible execution. In fact, in catch-fire semantics, this is a valid execution. So the point I'm trying to make here is that depending on different memory models, you have different executions that are allowed or not allowed. This one is not allowed according to SC or TSO, but the catch-fire semantics allows it. And this here... How does that, or like, I guess I don't understand. So it puts SF into the gong line. Yeah. And then I have a buffer. Which I don't buffer that non-deterministic side. And why does that block writes? It doesn't. Well, it blocks writes because it's in order, right? So imagine if I had X1 and then an S friends. Buffer is 5, all right? So I would be adding first write X1 and then an SF. in my buffer. This will be my buffer. Which means that they will be unbuffered in order, so this one will be unbuffered first and then this one. So they remain in order. ",
+    "model_probability": 0.0089
+  },
+  {
+    "start": 3397.71,
+    "end": 3432.58,
+    "speaker": 0,
+    "text": "Whereas the read doesn't go into the buffer. It can overtake and go to memory immediately. So the write and the storefence stay in order, but the read can't be in order. I mean I'm saying that if this were fine there's a candidate executions I think I confused all of everyone yeah I'm saying this is a possible execution depends on the memory model if this is C and these are all non-atomic which your program has erased Because there's no synchronization between them. ",
+    "model_probability": 0.0042
+  },
+  {
+    "start": 3432.66,
+    "end": 3486.58,
+    "speaker": 0,
+    "text": "And this is a possible behavior. Technically, the C semantics says it's possible. Okay, that makes sense. So the green line is like, this could happen. So it could do this, or it could do that. No, basically saying, yeah, exactly. I'm saying this program can have all these possible executions. Okay, that makes sense. Now, the memory model comes in and says which one of these are allowed. SC would say only this one, well, none of these are allowed on this. Because this is sober frame, you can't make 42, and here you need to tell me where that red from. Yep. TSO would allow this one, but not the other two. Okay. C would allow it. So we will talk about the memory model in a bit. Okay, so is it behind behavior just because you read this, but you write it somewhere else? I mean, it's on the, as in, this is on behind behavior because you can't justify the screen. You read a value that was never written in the program. Oh, is that, okay, okay, that makes sense. How would you possibly read forces in here? Okay. It says anything goes. ",
+    "model_probability": 0.0021
+  },
+  {
+    "start": 3486.64,
+    "end": 3488.88,
+    "speaker": 3,
+    "text": "That makes sense. Okay, thank you. ",
+    "model_probability": 0.0001
+  },
+  {
+    "start": 3489.24,
+    "end": 3508.07,
+    "speaker": 2,
+    "text": "I, um, okay, I, I... where the 42 comes from? Literally everyone asks me that. I'm going to go through it now. Wait, just a quick question. So that X doesn't have to relate to the Y or any other Xs from before? ",
+    "model_probability": 0.0002
+  },
+  {
+    "start": 3508.11,
+    "end": 3545.45,
+    "speaker": 0,
+    "text": "These are candidate executions. A candidate execution could read any value. But if there is an RF edge, one of these green edges, then it has to be into a read. Then it has to match the value. But why would that not have an RF edge? Because where would it read from? As long as you respect the shape of the program, which we have. So it's two threads, the write and the read, and the initialization. And the program order. And the program order needs to also match the program. ",
+    "model_probability": 0.0044
+  },
+  {
+    "start": 3545.52,
+    "end": 3546.89,
+    "speaker": 3,
+    "text": "But the reads from... ",
+    "model_probability": 0.0046
+  },
+  {
+    "start": 3547.35,
+    "end": 3549.87,
+    "speaker": 2,
+    "text": "So is that like an effect of the patch file? ",
+    "model_probability": 0.0242
+  },
+  {
+    "start": 3550.51,
+    "end": 3608.53,
+    "speaker": 0,
+    "text": "This is the model in the catchwords. This is saying, if this was a C program, this program would be considered ray C. These are all non-atomic accesses. So the semantic says anything goes, including reading a value that was never written. Okay. Let's continue. So two things. One, when I ask, is there a question, please actually ask a question rather than queuing up. You know, it's your break. You're supposed to use it. I don't mind. Second, a lot of you are confused by this, so I'm going to go over it again. Not the whole thing. So at this stage, we're only talking about candidate executions. A candidate execution means as long as you respect the shape of the program. Here I have two threads. and you have the events that match whatever happened in the program, and you have your initialization and the program order, that's fine. ",
+    "model_probability": 0.2036
+  },
+  {
+    "start": 3609.61,
+    "end": 3642.8,
+    "speaker": 0,
+    "text": "So, this is a candidate execution, this is a candidate execution, this is a candidate execution. I sound like Oprah. You get a car, you get a car. But they're all candidate executions because, again, they have the appropriate events. Here I have two threads. Here I have two threads. The first is a write, the second is a read. The values of the writes need to match, but from looking at the program, I don't know what value I'm expected to read. So I can read any value I want. So in candidate executions, you can read whatever value you want. and you have your initializations, and you need to have the correct program order. ",
+    "model_probability": 0.9381
+  },
+  {
+    "start": 3643.48,
+    "end": 3676.03,
+    "speaker": 0,
+    "text": "So that's all the conditions of candidate execution. For the reads from edges, you don't have to have them in a candidate execution. Here I don't have any reads from edges for my read. Here I have one, here I have two. But if I have them, then they better match. So what does that mean? It means a read that reads from the right, but they both have to be on the same location with the same value. So here I'm reading zero from X, And it's fine, because this write is writing 0 to x, and similarly for that. Here, I'm also reading from x1, but this one is not reading. ",
+    "model_probability": 0.9886
+  },
+  {
+    "start": 3676.07,
+    "end": 3712.21,
+    "speaker": 0,
+    "text": "That's fine. So you don't have to have reads from edges in your candidate executions. But if you have them, they better be right. And again, here, I don't have any reads from edges. Again, a valid candidate execution. The reason we do it is because different memory models have different conditions. Like I said, SC doesn't allow any of these executions. TSO allows the first one. The catch-wire semantics allows all of them for this program. So that's why we define the biggest possible set of executions at the beginning, and we narrow it down by putting conditions on them later through consistency and defining it per memory model. ",
+    "model_probability": 0.996
+  },
+  {
+    "start": 3713.11,
+    "end": 3749.2,
+    "speaker": 0,
+    "text": "Is that clear? Okay, good. So now we're going to formalize that. Remember I said the nodes in your graph are the events that correspond to a memory instruction. So an event is going to be a triple. It's going to have a thread ID to tell me who the thread is. That's the tau, the second component. It's going to have a label to tell me if it's a write or a read and an RMW and so on. That's the third component. And the label is non-empty. Here, we don't bother with non-empty labels because we only represent, we're not telling you how the program is executed, so we don't need to worry about reducing skip semicolon C to C. ",
+    "model_probability": 0.9974
+  },
+  {
+    "start": 3749.96,
+    "end": 3784.92,
+    "speaker": 0,
+    "text": "So we don't have empty labels. So we have non-empty labels. We have our thread ID. And a thread ID could be 1 to n, start from n. And we have a special thread ID 0 for the initialization event. So the initialization events all have thread ID 0. And n is a unique event identifier. So just tell me in the same graph if I have multiple events, multiple nodes with the same label, with the same thread, I can distinguish between them. Now, if I go back from this mathematical representation to my graphs here, you will see that I don't show you the thread ID explicitly. ",
+    "model_probability": 0.9986
+  },
+  {
+    "start": 3785.46,
+    "end": 3816.39,
+    "speaker": 0,
+    "text": "I represent it through separate columns because it's more intuitive. I don't write the thread ID. This means that here, for instance, these two instructions are by thread 1. These two instructions are by thread two. These two are by the initialization thread. So the columns per thread and initialization at the top. I also don't write the event identifiers, the unique event identifiers, because they are unique by the virtue of the fact that there are different nodes in the graph. So in the graphs, for conciseness, I only write the labels. Mathematically, though, this is how I would model it. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 3817.05,
+    "end": 3849.43,
+    "speaker": 0,
+    "text": "Okay. And the labels, we've seen them. It depends, for instance, in SC we have reads and writes and RMWs, successful or failure. In TSO we will have memory fence events and later on store fence events and so on. The labels we have seen, so we're not gonna go through it. So for instance, this is, you know that that's how a read label looks like and so on. So this is not new. And of course, x is again, as before, a shared memory location. These are values and so on. Questions? Okay. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 3850.89,
+    "end": 3888.3,
+    "speaker": 0,
+    "text": "Yeah, I've said that. Right, now onto some juicy notation. I hope you all actually reviewed slide seven. This one is easy. All I'm going to do in this slide is just introduce some getter and setter functions for my labels and events. So, whenever I have a label L, like a read or a write or an R and W, I write type to tell me what is it. Is it a read, a write, or whatever? So the type is the type getter, this TYP. So when I write type of read, it's a read. Type of write is a write. Duh, right? So the second thing that I'm going to introduce is this log function and the val R and val W function. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 3889.38,
+    "end": 3920.19,
+    "speaker": 0,
+    "text": "Unsurprisingly, for a label, the log function extracts the location. So for a read on X, the log function is going to give me X. for read on y or write on y, it's going to give me y and so on. The valr and valw are telling me the value read and the value written. So valr of a read event is defined, for instance, when I read value vr from x, the valr of it is vr. But it's not defined for a write event. So these are partial functions. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 3920.71,
+    "end": 3952.56,
+    "speaker": 0,
+    "text": "So valr means what value did you read? So it doesn't make sense for a write to have read anything because it didn't read anything. Symmetrically, truly, a write has, a val W is defined for a write, but not for a read. Because a write actually writes something, the read doesn't. For an R and W, they're both defined. Because an R and W does a read and a write. So the val R of an R and W is telling me what value I read and what value I replaced it with. And of course, the lock is again, like I said, gives me the location. Clear? ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 3954.16,
+    "end": 3986.44,
+    "speaker": 0,
+    "text": "OK. And finally, I will write a TID of an event to get the thread ID. So if I have an event like this, it's TID style. And its label is the lab. It gives me the label. It tells me what the label is. Again, these are all very straightforward notation, nothing here. And what I can do, remember I introduced these functions, the type, the valor, valor, and look on labels. They take a label and extract things. I can lift it to the event because an event has a label in it. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 3986.98,
+    "end": 4020.48,
+    "speaker": 0,
+    "text": "So instead of writing the type of label of E, as in first get the label, then tell me the type, I will directly write type of E. So if E is a read event, it will be read and so on. Yeah? Yes, no? Okay, so that's easy. And this line we can skip, right, because you all reviewed it. It makes perfect sense. Yeah, relational notation. Okay, so this will all become clear why we need it, because we will write our axioms using this relational algebra. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 4021.2,
+    "end": 4055.29,
+    "speaker": 0,
+    "text": "So I have a set A, and two relations are on our prime, which is over A product A. That bit is clear, right? This is high school stuff. So if I write square bracket A, that's the identity relation on A. It means take a set and turn it into an identity relation for me. So A is a set. I want to lift it to a relation to make it a set of pairs. That's what the relation is. And I do it by making it the identity relation. So in this square brackets A or box of A, I relate everything to itself. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 4055.95,
+    "end": 4106.8,
+    "speaker": 0,
+    "text": "That's just the identity relation on A. Then I have given a relation. Its domain is the first components of the pairs, everything on the left-hand side. The range of a relation is everything on the right-hand side. Yes? What difference does it make whether A is on the left or on the right? What's the intuition here? I mean, it's a relation. It's like I am the owner of my cat. My cat is not my owner. Although cats can't be owned, but you know the bad example. It's like a directional order. Exactly. You can think of a relation as father of. Your father is your father. You're not his father. So his father would be a relation from him to you. You would be an instance, not from you to him. The order matters. You will see in program order, it matters who comes first, who comes second. It tells you what is the order. Program order is a relation. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 4110.4,
+    "end": 4142.94,
+    "speaker": 0,
+    "text": "R minus 1 for the inverse of a relation, which means take every pair and flip it. sequential composition or composition for relations, it means intuitively glue them together. If I can go from A to B with R, and I can go from B to C with R prime, then I can go from A to C with R semicolon R prime. Then our question mark with the reflexive closure, which means anything that appears in your relation, make sure it's also related to itself. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 4143.04,
+    "end": 4179.14,
+    "speaker": 0,
+    "text": "So whatever you had in R, that's why our question mark is R union some other stuff. So it says anything that was either on the left-hand side in the domain or on the right-hand side range related to itself. How are we saying related to itself? We put it in the square bracket. We're saying take this set and make it the identity relations. So reflexive closure, again, you're not going to be quizzed in the exams about the actual definitions. I just need you to understand what they're saying intuitively. So the reflexive closure means whatever appears in your relationship, you make sure you add enough elements that everything's related to itself, if they're not already. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 4180.82,
+    "end": 4211.78,
+    "speaker": 0,
+    "text": "Transitive closure means close it on the transitivity. So for instance, if your relationship is A and B and B and C, you should add A and C to it to make sure it's transitive. So if you were so inclined, this would be its mathematical definition. So it means close it for all n on ri, r0 being the initial relationship, ri plus 1, this is inductive definition, compose it with the next one. So you keep closing it on the transitivity until you reach a fixed one, essentially. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 4212.71,
+    "end": 4244.15,
+    "speaker": 0,
+    "text": "You make sure the relationship is transitive. I don't know about you. I studied this stuff in high school. So that's why I find it a little annoying to go through this. But I hope that it is clear. R star for the reflexive and transitive closure of R. So first take a transitive closure, then make it reflexive. So it means everything related to itself, but also it's transitive, the relationship. If I'm going too fast, Tough. No, I'm kidding. If I'm going too fast and you have a question, just ask, please. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 4249.4,
+    "end": 4354.92,
+    "speaker": 0,
+    "text": "And finally, this is easy. Yes? You don't need to learn the definition or even understand it. Does it make sense to you what it means to take a transitive closure of a relationship? That's all you need. If you want to understand, we can go through it. Essentially, what it's doing is that it's taking the transitive closure, transitive composition over and over. You can see it says, take R and then compose it with itself, and then compose it with itself. But if you look at the definition of composition, doesn't it occur to me that R cubed is extending R squared? Is it not? Doesn't it? Yeah, because what if I have, for instance, A, B, and I have B, D, and D, E? Yeah. How do I, if you only compose it with itself once, it goes through one hop. It doesn't add A and D. It only does it for two hops. Each one of these does it for N hops. We can go through this later. You do it once. Oh, it's just combined. So if I write something as irreflexive, it means it is irreflexive. In the relation, nothing is related to itself. So irreflexive means as is the relationship is not reflexive. Nothing relates to itself. So you don't have any loops, self-loops. Acyclic means there are no cycles. So you can't start from A, take many hops, and come back to A. So irreflexive means one hop. Acyclic means for any hop. You can't come back to itself. So if I were to take its transdip closure, then that would be reflexive. ",
+    "model_probability": 0.9984
+  },
+  {
+    "start": 4355.92,
+    "end": 4386.21,
+    "speaker": 0,
+    "text": "So acyclic, no cycles. Irreflexive, no self-loops. Questions? Okay, now this is our, that is standard relational notation more or less. This is again some helpful notation that we will use. So given any set of events this time, we know what events are now, we've been through it. If I, given a set of events A, if I write A0 means all the initialization events in A. So you restrict in A to those events that are by thread zero. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 4386.25,
+    "end": 4421.31,
+    "speaker": 0,
+    "text": "So it says A0 is the set of all events in A who are by the initialization thread zero. So for instance, in this graph, if the set A is these six events, A0 will be these two top events. So it restricts the set of events to the initialization events. Similarly, if I write A tau, I'm going to use this subscript to restrict things. ",
+    "model_probability": 0.9979
+  },
+  {
+    "start": 4421.33,
+    "end": 4452.17,
+    "speaker": 0,
+    "text": "So if I write A tau, I mean everything in A who is by threat tau. That's for sets. I can do the same thing for relations. So if I write R tau, it means all those edges in R that are between threat tau events. So they start from threat tau and go to threat tau. So the beginning and end of an edge, they're both by threat tau. That's what it means to write R tau. Okay, you're awfully quiet. It's jarring. Do you need more chocolate? ",
+    "model_probability": 0.9967
+  },
+  {
+    "start": 4455.63,
+    "end": 4458.75,
+    "speaker": 0,
+    "text": "Yes? Okay, there's more chocolate there. Where's the other top? ",
+    "model_probability": 0.9205
+  },
+  {
+    "start": 4458.79,
+    "end": 4483.64,
+    "speaker": 2,
+    "text": "I'll leave you in charge. I think you're all in the sugar rush. Should we just pour all these in the same cup? I want to parallelize. So pour this into that and this into that. Actually, you do this. Thank you. Can you pour this and pass it back? Okay, eyes on me. ",
+    "model_probability": 0.8137
+  },
+  {
+    "start": 4485.25,
+    "end": 4523.73,
+    "speaker": 0,
+    "text": "Thank you. So if I write, given a relation r, if I write ri, it now means restrict r to the internal events. Internal events mean they're either by the same thread or one of them, the first one is thread zero. So intuitively means, if I write ri, means r is not between two different threads. Either they're in the same thread or they're from the initialization event to something else. So they're not different threads. That's all it means. So RI means any A and B in R such that either they're both by the same thread, they have the same TID, or the first one is the initialization, one of the initialization events. ",
+    "model_probability": 0.9945
+  },
+  {
+    "start": 4526.09,
+    "end": 4559.24,
+    "speaker": 0,
+    "text": "And RE by external means R minus RI, set minus RI. So anything that's not internal is external. Yes? Okay. That's how the chocolate makes a difference. Now, if I write AX, you see where this is going. It means all events in A whose location is X. So I'm using all those getter functions that I have to introduce this new notation. So AX means all events on X. And similarly, RX means all edges that are from an event on X to an event on X. ",
+    "model_probability": 0.9953
+  },
+  {
+    "start": 4561.02,
+    "end": 4592.47,
+    "speaker": 0,
+    "text": "That's why it's saying R cap or intersection with AX times AX. All right. Is this clear? Okay. And finally, I will have this lovely notation, bar lock. So AX or RX meant specifically between the events of the same location X. In R lock, I don't care what location they have as long as they have the same location. So it's for all locations. So R lock is anything in R that is between the events of the same location. ",
+    "model_probability": 0.9965
+  },
+  {
+    "start": 4595.98,
+    "end": 4604.18,
+    "speaker": 3,
+    "text": "So on the internal same thread, the internal agents, we have the today equals to be four. ",
+    "model_probability": 0.9594
+  },
+  {
+    "start": 4604.24,
+    "end": 4637.03,
+    "speaker": 0,
+    "text": "That's why I say it's either within the same thread or between initialization events. Because we treat initialization a little specially. So we pretend when it suits us that it's the same as everyone else. External means they're different. That's all. Okay, so now we can actually define what an execution graph or what a candidate execution looks like. So you saw, this is a formalization of our graphs. Our graph had a set of events, the nodes, and a set of relations, the program order, and the Rf. ",
+    "model_probability": 0.9984
+  },
+  {
+    "start": 4637.45,
+    "end": 4669.91,
+    "speaker": 0,
+    "text": "This is exactly what we're writing. So an execution graph is a topo, or a triple in this case, of events, the program order, and the reads from relation. Now the event is a finite set of events, so we're only considering finite executions here, not executions that don't terminate. PO, unsurprisingly, as we've said, is the program order, and it has these conditions. So it's either, so it's between E0 and everything else. What is E0? Exactly. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 4669.97,
+    "end": 4736.55,
+    "speaker": 0,
+    "text": "So either initialization events are PO before everything else, so E0 to E minus E0. Or we have a PO between different threads. So this is saying the set of all PO taus for each thread. So for each thread, we have a separate PO. We call it PO tau. And each PO tau within that thread is a strict total order. It means it's strict. Nothing is related to itself. It's total meaning... What does the total order mean? There is a relation between them. Everything is related to everything else. Exactly. So PO within a thread is always total because it's a chain, essentially, of execution for that thread. That's my program order. And this is my RF. It has a bunch of conditions. Remember, I don't have to have RF for everything. But if I do, it better meet these conditions. So if I have a W and an R related by RF, then obviously they should be different. Nothing can read from itself. So W and R are not the same. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 4737.25,
+    "end": 4769.46,
+    "speaker": 0,
+    "text": "The write better be either a write or an update. You can't read from a read. And the read better be a read or an update. A write doesn't read from anywhere. They have the same location, as I said. The location of the W and the R is the same. And the value written by the write is the same as the value read by R. So the values need to match. This is what I was saying. If you have any RF edges, they better be on the same location. They better have the same value, as in the value written by this one is the same read by that one. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 4769.85,
+    "end": 4801.18,
+    "speaker": 0,
+    "text": "And of course, we're saying that the first one better be a write on an off day than the second one read on an off day. That was the intuitive part. Make sense? Okay? And this is another thing. Rf minus 1 should be functional. What does that mean? This is, again, a formal description of something very intuitive. It means that each read reads at most from one place. You can't have multiple RF edges into the same read, because otherwise, what would that mean? ",
+    "model_probability": 0.9983
+  },
+  {
+    "start": 4801.46,
+    "end": 4881.36,
+    "speaker": 0,
+    "text": "You need to tell me where it is reading from. You don't have to tell me where it reads from. But if you do, it better be at most one. So if I have W1 and R and W2 and R both in RF, then the writes are the same. So you have one edge. That's the definition of a function for the investigation. Yes? We have this definition. When we had the candidate executed before, why did we not draw program order errors between the different threads? Because they're between different threads. Program order is between either initialization and everything else or between the events of the same thread. That's PO tau. PO tau is a stricted order on E tau, E tau being events of the same thread tau. That's right. Any questions? OK. And so I will use the dot projection, yes? Program order by definition is within one thread. When you write sequential composition in your program, you're talking about one thread. You're not talking about concurrency or interleavings. So that's why PO is either from initialization to everything else or PO within each thread. That's PO tau. The union of all taus, PO tau. ",
+    "model_probability": 0.9948
+  },
+  {
+    "start": 4882.08,
+    "end": 4939.04,
+    "speaker": 0,
+    "text": "PO tau is program order within thread tau. So that's why PO tau is a strict total order on the events of tau. You don't have program order from this thread to another thread. It's not program order. Okay. Yes? Yeah. Like I said, because PO is an order, it means it's transitive. it means that I don't draw the transitivity. I could, and you're more than welcome to, but it will add a lot of clutter. Because if I have it to the first one, the first one is connected to the second one, then by transitivity, I have it all the way to the end. But you're absolutely right, yes. Any more? Okay. And we're almost there. One more slide of notation. This is very easy. And then we'll write the consistency predicates for SC. So... ",
+    "model_probability": 0.9957
+  },
+  {
+    "start": 4939.99,
+    "end": 4987.46,
+    "speaker": 0,
+    "text": "Here, I have a graph, again, a tuple of events, program order, and the RF. And I would just use the dot projection to say, well, g.e is actually these events. g.po is its PO relation. g.rf is its RF relation, and so on. And the same thing. Remember, I said the set of reads. I'm going to define the set of reads in graph g or in execution g as those events in g who have a read label. Set of writes, those who have a write label. Set of updates, those who have an update label, and so on. And so I will introduce this one. I will write ru for reads and updates. It's just sometimes because I need to talk about things that are like a read. So I will write ru to mean either a read or an update. I will write w to mean either a write or an update. ",
+    "model_probability": 0.9972
+  },
+  {
+    "start": 4988.51,
+    "end": 5020.44,
+    "speaker": 0,
+    "text": "And I can use the same tricks as before. So, for instance, if I have GRX, it means GR for events for those reads who are on X. So GRX is GR cap, all those events whose location is X. Nothing new here. This is just derived relations, essentially. Okay? Remember, this is where we started. So we said we will define what a candidate execution looks like, which we have formally, and intuitively we know what these graphs look like. ",
+    "model_probability": 0.9953
+  },
+  {
+    "start": 5021.75,
+    "end": 5055.54,
+    "speaker": 0,
+    "text": "Then we will define a consistency predicate, one for each memory model. So for SC, we will say, given an execution, blah, blah, blah, it's SC if the graph has these properties. For TSO, a set of different properties, and so on. So the semantics for that model would be a set of consistent executions according to that model. So this is the first simplest possible memory model. Remember I said for everything except for the catch-fire semantics, really we want all the reads to read from somewhere. ",
+    "model_probability": 0.995
+  },
+  {
+    "start": 5056.06,
+    "end": 5091.3,
+    "speaker": 0,
+    "text": "So this is the most basic memory model. It comes without saying. If it's not catch-fire semantics, it will have this property. You say an execution is complete if the range of its RF is reads and updates. Someone tells me what that means, even though it says it on the slide. Remember, reads from was from writes and updates to reads and updates, right? Your reads from relation could be empty, so it could be nothing. But for it to be complete, every read or an update in your execution needs to read from somewhere. ",
+    "model_probability": 0.9915
+  },
+  {
+    "start": 5092.2,
+    "end": 5125.69,
+    "speaker": 0,
+    "text": "So this is what this is saying. It's saying your RF, the range of RF, i.e. the right-hand side, all the right-hand side bits, must coincide with the reads and updates, as in every read and update in the graph has one incoming RF edge into it, i.e. every read and update in the graph is reading from somewhere. Every read and update reads from some write or update. Questions? No, this won't fly. ",
+    "model_probability": 0.9711
+  },
+  {
+    "start": 5126.21,
+    "end": 5187.38,
+    "speaker": 0,
+    "text": "Either questions or I'll ask you a question you'll have to answer. Someone explain why this is the case. Why is it the maths that I've written saying the English that's saying at the bottom? Consider the second explanation. I know it's obvious to some of you, but it may not be to everyone. Yes? You're saying that the range of all the read-from-hours, which is where all the read-from-hours come from, is the same as just all of the reads? Exactly. So every read has an incommunal refuge, precisely, or read-and-update, meaning every read-and-update is read-in from somewhere. OK. Very good. That's the end of part one. So at this point, we're going to switch to SC. We won't get to TSR. My only concern is that ordinarily this will be an issue because we will be meeting each other on Tuesday. But as you know, I will say goodbye to you today for four weeks. ",
+    "model_probability": 0.9319
+  },
+  {
+    "start": 5188.15,
+    "end": 5227.7,
+    "speaker": 0,
+    "text": "Ali will take over from Tuesday. And after four weeks, we'll have to come back and resume. It's not my fault, I promise. We had to accommodate Ali's traveling. But you have to promise me that when you come back, you'll remember this stuff. I'm not going to go through it again. So just have a refresher. I'll send you a reminder just to prepare yourselves. But this stuff is not necessarily immediately intuitive. It will become more clear. But you have to practice. Yes? So RNG takes on their parts, which is... Am I not? Sorry. Can you say it again? ",
+    "model_probability": 0.892
+  },
+  {
+    "start": 5227.76,
+    "end": 5232.14,
+    "speaker": 2,
+    "text": "RNG takes in a set of parts, which is... ",
+    "model_probability": 0.3509
+  },
+  {
+    "start": 5233.99,
+    "end": 5235.93,
+    "speaker": 3,
+    "text": "But RF. ",
+    "model_probability": 0.5355
+  },
+  {
+    "start": 5236.39,
+    "end": 5285.78,
+    "speaker": 0,
+    "text": "RF is from reads and updates to reads, writes and updates to reads and updates. Yeah, so it's a pair. It's a relation, yeah. But I'm saying range of RF. And range, doesn't it? It does. A range of a relation. R is a relationship. Well, you can't put a relation here. Can you? The range of R is a relationship from A to A. This is saying the range of R is a set of all things that are on the second hand side. Now, we're going to talk about good old SC. So remember SC, the simple model? What was it? The instructions of each thread can interleave arbitrarily, but within each thread, they're executed in order. This is Leslie Lamport. Leslie Lamport actually is a Turing Award winner. ",
+    "model_probability": 0.9551
+  },
+  {
+    "start": 5285.8,
+    "end": 5317.41,
+    "speaker": 0,
+    "text": "He's the first person to formalize concurrency through SC. That's his definition in English, how badly it matters. So, the good news is, remember the whole of operational semantics we had to write all the transitions, many, many pages? This is the definition of SC in one slide. This is why this style of semantics is very nice. It's very concise. So, let's see what it says. Remember, SC says there is an execution order, an arbitrary interleaving. And we're going to capture that exactly by a relation. ",
+    "model_probability": 0.997
+  },
+  {
+    "start": 5318.23,
+    "end": 5348.99,
+    "speaker": 0,
+    "text": "So, we're going to say... There is a total execution order SC in purple, that little SC. So I'm going to say, if I have a relationship SC on the events of an E, it is actually a C consistent if these following conditions hold. So first of all, remember, in the thread, in each thread, instructions are executed in order, which means SC respects program order, which means the program order better be in SC. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 5349.67,
+    "end": 5381.41,
+    "speaker": 0,
+    "text": "So if SC is the total execution order across all threads, it better agree with the program order. So if any pair is in PO, they're also in SC. In other words, PO is included in SC. That's condition one. The second one says, remember, again, on the whiteboard when I was doing that exercise, I was like, it's reading one, so that thing should have been executed before it. So you only see a read in SC if it's already been executed, not from a future read, if it's already reached a memory. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 5381.47,
+    "end": 5412.57,
+    "speaker": 0,
+    "text": "Remember, in the SC, the read would go immediately to memory. So if the write is already in memory, it means it must have already been executed. So if you read it from somewhere, if W and R are in RF, then they must have been executed in that order. So W and R must be in SC. So if they're in RF, then they're in SC. That's easy. The last one. says that you better observe the latest write in memory. So imagine if you have multiple writes executed before you, you can't pick a stale one and read from that one. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 5413.23,
+    "end": 5447.67,
+    "speaker": 0,
+    "text": "So you read from the latest. The operational semantic step was implicit because we would always go to memory, and memory was being overwritten every time we wrote. So by definition, we were writing the latest write. Here, I need to say explicitly, if w and r are in Rf, then w better be the latest write before the read. So how do I say it? So I'm saying there shouldn't exist another write, w prime, on the same location. So I'm saying there shouldn't exist w prime in G dot w u log r. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 5448.63,
+    "end": 5514.15,
+    "speaker": 0,
+    "text": "Let's unpack that. So w prime is a write or an update. and it's on the same location as the read. So there shouldn't exist another write or update on the same location, W prime, such that W prime is also SC before the read, but it's SC after the write I read from. So you can't have this situation. It shouldn't be the case. If I am reading, actually that's a bad color. you have the slide over there. If I have a white and a red and I have ORF between them like so, it better not be the case that there is an other W prime such that It's executed SC after the write I read from and before me. Because if they're executed in this order, this is the latest write, and I should have been reading from that one. ",
+    "model_probability": 0.9984
+  },
+  {
+    "start": 5514.83,
+    "end": 5575.76,
+    "speaker": 0,
+    "text": "So I'm saying, if I'm reading from somewhere, that better be the latest write, i.e. there is no other write between us in SC. That's all that's saying. Is that clear? Oh, it's my birthday. I told you. I'm very popular today. Okay. Ah, stop Snoopy. Okay. Oh, wrong one. Where are my slides? Okay, one more second, one second. Oh my god, I should have done this before. It is under-understand, I don't understand. Okay, is this, oh no, that's why. Let's do this, that's better. There's a bug. Right. So, excuse me. ",
+    "model_probability": 0.9976
+  },
+  {
+    "start": 5576.34,
+    "end": 5610.77,
+    "speaker": 0,
+    "text": "I get to be distracted. You don't. Right. So an execution as a result is SC consistent if there exists, A, first of all, it must be complete, i.e. every read or update must read from some write or update. And it better be SC consistent with respect to some strict total order SC. Whose definition is up there? Yeah? And that's all SC consistency is declaratively. So let's look at some examples. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 5613.99,
+    "end": 5640.75,
+    "speaker": 0,
+    "text": "See, it threw me off. So we know that this is SC-consistent, and we have a choice. We can either show why this is SC-consistent, or we can show why the next one is not SC-consistent. The store-buffering, right? Remember, we know that the store-buffering example is not. So let me just repeat that here, and you try and convince yourselves. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 5659.58,
+    "end": 5691.77,
+    "speaker": 0,
+    "text": "Okay, which one should we do? Let's do the first one, since you're not answering. By the way, you will see that I've dropped all labels now. I'm not writing what is PO, what is RF, because the notation should tell you that. This dashed green arrow is all RF, the solid arrows are PO. So, first, to show it's a C, I need to argue that it is complete. Is this complete? Yes, because? Yes, all the reads have an incoming RFH, they're all reading from somewhere. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 5692.72,
+    "end": 5724.43,
+    "speaker": 0,
+    "text": "Second, I need to show there exists some strict total order SC between all events such that those three conditions hold. So, let's draw the SC edges in blue. What are my SC edges? I know some of them, not all of them. Because remember, I need to construct the total order with some constraints. The first constraint was... Hello? You have the slides. What's the first constraint? Program order is an SCH. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 5724.47,
+    "end": 5754.86,
+    "speaker": 0,
+    "text": "So every program order edge is also an SCH. So I know these will have to be executed in this order. And I'll give you a freebie. For initialization events, it doesn't matter what order they're executed. So let's say they're executed like that. I also know, in fact, I dropped, I forgot one. These are also in PL. These are my PL edges. So... What is not related? ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 5755.08,
+    "end": 5787.53,
+    "speaker": 0,
+    "text": "So I have these two initialization events are now related to everything, because they're related to the first one in each one and by transitivity. Now, so this one is related to that one, but not to these two. So let's try and do these two. Can I relate them this way? From left to right? So you have to try something that works, right? Let's try... I'm going to do it in red so you can see whether or not it works. Because those ones we know will surely work. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 5788.15,
+    "end": 5820.16,
+    "speaker": 0,
+    "text": "Between these two, we have to pick one that works. We have to relate them one way or another. So let's try this way. Let's say they're SC-related this way. Does this work? Does it violate it? Why not? Because we have to refocus the initialization and we have to add them. Oh, that is because, sorry, this is my bad. ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 5820.2,
+    "end": 5871.3,
+    "speaker": 0,
+    "text": "This is a rate of x1. That's why I got confused. Okay, let's do it the other way around. Does this work? Your answer was correct. I just drew it badly. It's the same problem on the bottom back there. Exactly. So what's your name? Lucas. Lucas is saying there is a problem here. Can you all see it? And in fact, he actually explained it. Remember, the third axiom of SC says that if you read them from somewhere, it better be the latest in SC. If I relate these two by SC like this, I have SC from here to here, and I have SC from here to here, which means by transitivity, I have also SC from here to here. Now, I am reading from the initialization. This is SC before that one, before me. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 5872.08,
+    "end": 5904.84,
+    "speaker": 0,
+    "text": "The third axiom said, if I'm reading from somewhere, it better be the latest write in the SC order. And I'm not reading from the latest write. There is an intermediate write that is SC before me that I'm not reading from. So I'm violating that third axiom. If I were to go back... The third axiom said if you read them from somewhere, I'm here reading from them, it better be the case that there's no other right w prime, in this case this one, that's between us and sc. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 5905.38,
+    "end": 5937.56,
+    "speaker": 0,
+    "text": "So this one is now between that right and me in sc. So this doesn't work. So we have to flip this around. Does this work? Okay, yep, this is a C. There is no intermediate joint. This is already reading from that guy. That's fine. So now I've related this guy to everything else. And how should I relate these two? ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 5939.82,
+    "end": 5972.02,
+    "speaker": 0,
+    "text": "These two are not related yet. So, in fact, this is no longer red. We know it's blue. It's valid. How should I relate these two? Does it matter? It does matter. Helen, why? Exactly. Same problem. If I put it this way, I would have the same problem that we saw just a minute ago. It would have had to read from here, not the other way around. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 5972.28,
+    "end": 6002.61,
+    "speaker": 0,
+    "text": "So this read will have to be before that write. Otherwise, it will have to observe it. And here's my SC order. Now, the annoying thing about these models, their definition is concise, but they put a lot of work on the user. They're not telling you how it's executed. It's telling you, find me the execution. So you have to construct it yourself. So the annoying thing about this is that it says there must exist an SC, and potentially, depending on the size of the program, there are many candidate SC orders that you could find. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 6005.84,
+    "end": 6040.56,
+    "speaker": 0,
+    "text": "So, if I were to look at the other example, the Stovall-Ferrin example, which I will let you do yourself, you would see that, like in this example, if I put the SC in this way, it's broken, and if I put it that way, it's also broken. Because either way, I'll have an intervening right that I should have read from. That's why it's not SC. So two things. First, about many things actually. So you might be wondering that I've said we're going to study SC, TSO, PSO in your coursework, at least two more memory models. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 6041.0,
+    "end": 6071.15,
+    "speaker": 0,
+    "text": "And they all have a bunch of axioms. Do I have to remember all of them for the exam? The answer is no. Depends on how nice I feel under there. The answer is no, because I don't, this course, I'm not trying to lecture you literally into memorizing all of this. This has no value for me. All of these definitions you can find on the internet. I need you to be able to parse these relationships and definitions and understand them. So in the exam, I will give you a formula sheet with all the definitions on. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 6071.69,
+    "end": 6103.12,
+    "speaker": 0,
+    "text": "You just have to convince me, give me a proof or a counter proof why something is or is not consistent according to a definition. You also have to be confident enough to understand new models. I might invent a completely arbitrary memory model for the exam, give you the axioms, and ask you to check whether or not it's consistent according to that model. It's not open book. I'll give you a formula sheet, and you can bring one cheat sheet. What do you mean by open? One cheat sheet, yes. I'm nice, aren't I? ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 6104.0,
+    "end": 6134.95,
+    "speaker": 0,
+    "text": "Yeah, yes, that's the correct answer. Right. The second thing to note is that, like I said, here the onus is on the developer or whatever to check if there is an SC order. So if I was asking you to show that it is SC consistent, the definition is there exists. You just have to find one and convince me that it works. If I ask you to show that it is not SC consistent, then you have to convince me that no candidate works. Is that clear? ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 6135.47,
+    "end": 6168.14,
+    "speaker": 0,
+    "text": "You have to show me, like in the second example, no matter what choice of SC you pick, because you have to order these two rights with respect to each other, neither choice works. That's why it's not SC consistent. So be careful about that. Was there a question at the back? Yes. I'm going to let you check that yourself. You have four weeks to do it. considering the early exam question. Right. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 6168.46,
+    "end": 6204.58,
+    "speaker": 0,
+    "text": "So because enumerating the choice of SC is going to take a long time, we're going to come up, as great as Leslie Lamport is, we're going to come up with an alternative definition of SC that's a little bit easier to check. And it is equivalent to that definition. So here, this actually captures a phenomenon that is very much real in the architectures. Regardless of how weak your architectural memory model is, per location, more or less, unless you're in the Java crazy world, but we'll get there when we get there, you have this coherence property. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 6205.25,
+    "end": 6236.77,
+    "speaker": 0,
+    "text": "That means for every location, there is a total order that the writes on that location reach the memory. So that part is not weak. The writes on each location are totally ordered, always. There is a total order. So we're going to capture that with this order called modification order, MO. And I'll bring an orange marker from now on to our lectures for the good old MO. MO, modification order, totally orders the writes on each location, the writes and updates. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 6238.03,
+    "end": 6270.29,
+    "speaker": 0,
+    "text": "Mathematically, it's a union of all MOXs for every location x, and each MOX is a strict total order on the Royston updates of x. And with that, this is our new SC definition. I hope that you appreciate how easy it is to write these models, in a sense of space at least. I literally switched it to the definition and again to axioms. That's SC. So this time, again, I'm saying It is SC-consistent if it is complete. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 6271.43,
+    "end": 6302.31,
+    "speaker": 0,
+    "text": "And the union of all these relations needs to be acyclic. In my graph, I cannot construct the cycle using these relations. Essentially, you can think of it as the union of all of them being a subset of your SC total order. These are the one parts you care about. The rest is arbitrary. The SC arbitrarily asks that everything be ordered. We only care about some parts being ordered, and those some parts are the PL, the program order. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 6303.08,
+    "end": 6334.53,
+    "speaker": 0,
+    "text": "The reads from, as we had in SC. The modification order, the writes on each location are totally, writes and updates on each location are totally ordered, and they're executed in that order, MO. And the final one being RB, the reads before relation, which is defined here. This is why I said you need to be comfortable with relational notation. So what does reads before say? It literally means, I read before you. Reads before is from a read or an update to a write or an update. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 6335.07,
+    "end": 6396.84,
+    "speaker": 0,
+    "text": "And it says, well, dude, you know what? I read before you, I win. Why? Because, let's say you have this situation, and those two are ordered. So let's say I have a write and a read, and this one reads from that one. Okay? Now, later... I need my orange. Later, that write is overwritten by another write. So I have this W prime. And remember, they're all on X. So this is a write on X. This is a read on X. And this is another write on X. Later, this is overwritten by another write. This is the notation that we use. Dotted orange arrows for MO. I'll write it here. So this one is MO after that one, which means it's executed after that one. So if I'm reading from this earlier one, then I read before that write. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 6396.92,
+    "end": 6430.72,
+    "speaker": 0,
+    "text": "So this read is RB related read to that write. So reads before relates every read to the writes that are after the write it read from. So if I read from here, later it's overwritten. I read before those later writes. That's why it's defined as RF minus one, as in follow RF in the reverse direction, follow it by MO. So the thing that I read from, everything MO after it. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 6431.74,
+    "end": 6480.77,
+    "speaker": 0,
+    "text": "That's what reads before is. Now you would notice that there is a minus ID there, as in I don't read before myself. Do you know why? Yes? Sure, but when is it that, because you would see that the RB is from a read or an update to a write or an update. So the types would tell you something, that it's only for the update case. Because if it's a read or a write, it can't end up in itself anyway, if it's an update. So let's have a look at that example. The situation that we want to eliminate is the following. Let's say I have a write. There is an update on X. I don't care about the value. ",
+    "model_probability": 0.9981
+  },
+  {
+    "start": 6480.81,
+    "end": 6511.56,
+    "speaker": 0,
+    "text": "I read one, I wrote two, I don't care. And I am, I need an assistant here to open these markers for me. I read from here, and they're also MO related, this way. So I could go RF minus one, MO, and end up being RB before myself. I would want to eliminate that case. So for updates, you don't read before yourself. It doesn't make sense to read before yourself. ",
+    "model_probability": 0.9963
+  },
+  {
+    "start": 6511.83,
+    "end": 6574.52,
+    "speaker": 0,
+    "text": "That's why we're saying rf minus one followed by mo minus the identity relation. You can't read before yourself. And that's all SC is, this alternative definition of SC. So if I take the union, so if I am executing the program order, that's part of my order, execution order in a sense, reads from this MO, which is per right, per location rights, and this reads before. Now the union of all of these needs to be acyclic. Right. Now what we can do, we have about two minutes left, I can go look at an example. On the board here, you can go. I'm not going to keep you, but if you want, you can stand and go through this example, since there's no other class after us. So here is my example, again, the store buffering. I won't draw it on the board, thank God. I have my initialization lines. I have the events, as you would expect. The RF edges are us. Now, remember, MO is also existentially quantified. ",
+    "model_probability": 0.9957
+  },
+  {
+    "start": 6574.74,
+    "end": 6608.8,
+    "speaker": 0,
+    "text": "But the nice thing about MO is it's much smaller than SC. SC is between all events. MO is only between writes and updates. Not only that, between writes and updates of the same location. So in this graph, I only have two MO edges, between the initialization writes of every location and the other writes. And the convention is MO is always from initialization writes to all the other writes. So here, I only have one choice of MO. So I have MO going there and MO going there. Now, do you understand why there's an RB edge there? ",
+    "model_probability": 0.9943
+  },
+  {
+    "start": 6610.6,
+    "end": 6650.1,
+    "speaker": 0,
+    "text": "Someone, Lucas, why is there an RB edge there? Yeah, exactly. So from read by zero, I can RF minus one to the initialization right on Y and then MO to the other way. So I'm reading before that later right. Now, do you see a cycle? Remember, of the union of these four relationships. Can I construct a cycle? What about this one? This is the store-bought for an example. Now you can see, again, I have the same RB, but I have another RB. You can convince yourself that that's the... Do you see a cycle? Where is the cycle? ",
+    "model_probability": 0.9827
+  },
+  {
+    "start": 6650.4,
+    "end": 6685.76,
+    "speaker": 0,
+    "text": "Andy? Is that Andy? Paxton. Paxton. Which one is Andy? I'm sorry. Huh? Exactly. So I can have this protoid shape. From the right to x, I can go to the read by 0, RB to this right, PO to this one, RB back. So I get a cycle. So this one has a cycle. It's not SC. This one doesn't have a cycle. It is SC. This is much easier to check because, again, I have to find, test all MOs, but the choice of MO is much more restricted than the choice of SC. ",
+    "model_probability": 0.9683
+  },
+  {
+    "start": 6688.55,
+    "end": 6712.16,
+    "speaker": 0,
+    "text": "Okay, we will stop here. I'll see you in about four weeks' time. Don't forget about me. You can forget about me. Don't forget about the material. Please refresh. For all I care. For all you care, I don't exist. But please, please, please go through these slides. We won't have time to repeat it. I'll answer questions, but revise. ",
+    "model_probability": 0.9021
+  },
+  {
+    "start": 6758.91,
+    "end": 6763.94,
+    "speaker": 2,
+    "text": "Yes? Sure, sure. Yeah. So what I was saying is that the definition of RB, this is rubbish. ",
+    "model_probability": 0.0712
+  },
+  {
+    "start": 6774.8,
+    "end": 6829.47,
+    "speaker": 0,
+    "text": "rv was rf-1 followed by mo minus rv. So nothing should read before itself. And we said, well, when does that situation happen? It could be in this sense. You have a write followed by an update. So the update is reading from that write. It's also mo after it. So if I do rf-1 after here, and I come back mo down, so it means that I have an rv from myself to myself. And that's not what happened. That's where it happens. like, any resources for, like, practicing? Papers. Academic papers. Okay. I mean, okay, so all of our students get, we'll give you a tutorial sheet, and there's lots of questions there you can practice, and there's also past exam papers. Those are, there's the course. ",
+    "model_probability": 0.0077
+  },
+  {
+    "start": 6829.77,
+    "end": 6831.11,
+    "speaker": 3,
+    "text": "Alright, that's my next word. Sorry. ",
+    "model_probability": 0.0075
+  },
+  {
+    "start": 6833.76,
+    "end": 6838.04,
+    "speaker": 2,
+    "text": "I'm not sure, like, why is this? So it's always MR. ",
+    "model_probability": 0.0029
+  },
+  {
+    "start": 6838.4,
+    "end": 6866.34,
+    "speaker": 0,
+    "text": "Like, if you had two rights on the same location, you have to pick. But it's been initialization rights, and other rights, it's always from initialization rights. your initialization right is always PO before all the other ones. Because it's initialization. Remember, MO talks about the order on the rights on the same location. By definition, initialization is always first. So initialization, this one is MO before that one, and it is per location. So this is on X, this is on X, so there's an MO. This is on Y, this is on Y, there's an MO. ",
+    "model_probability": 0.0014
+  },
+  {
+    "start": 6872.2,
+    "end": 6887.67,
+    "speaker": 3,
+    "text": "So for the definition of SC, one of the constraints is that it's complete in both of the cases. But there's so many different arrows, I don't understand complete. It means that every read has to have an incoming RFH. ",
+    "model_probability": 0.0003
+  },
+  {
+    "start": 6887.69,
+    "end": 6912.99,
+    "speaker": 0,
+    "text": "It has to read from somewhere. Because when we talked about candidate executions, I said candidates, because of cash force on this, it could be that the read doesn't read from somewhere. But for... Thank you. Happy birthday to you. Oh my gosh, that's so sweet. Thank you. Happy birthday to you. Thank you all. Thank you so much. ",
+    "model_probability": 0.0002
+  },
+  {
+    "start": 6927.23,
+    "end": 6929.26,
+    "speaker": 0,
+    "text": "I'll keep it so that I can bring more suits. Thank you. ",
+    "model_probability": 0.0002
+  },
+  {
+    "start": 6942.25,
+    "end": 6949.07,
+    "speaker": 1,
+    "text": "Just in general, in practice, are these kind of diagrams what is used in practice, or are they like tools which have been made from this? ",
+    "model_probability": 0.0002
+  },
+  {
+    "start": 6949.09,
+    "end": 6979.2,
+    "speaker": 0,
+    "text": "That's a good question. So the mathematics that you saw is how we write it, and now there are people in ARM that write exactly the style of mathematics, literally with RF and RB and all of that. The graphs are there to communicate visually. They're a lot easier to understand than reading. If I were to represent each execution literally as events and so on, it would be very tedious. Whereas these graphs are just a visual way of representing an execution. But the axioms and everything is just exactly how Arm would write. And then they develop tools. ",
+    "model_probability": 0.0006
+  },
+  {
+    "start": 6979.32,
+    "end": 7025.21,
+    "speaker": 0,
+    "text": "They're like, but this program generates all these executions. I want to see what's possible. And those, again, generate, like they have a visual interface, generate these graphs for you. Exactly like what you see. So when you have the experts who do these kind of things in these companies, if they're just using these tools, why do they... and need to know like is it because the specifications 5000 pages is written years ago it's not formal they're slowly forming right so that's why they're like and then there's a lot of back and forth between the designers is this allowed is this not allowed so they can actually see what the hell is going on like i did and it's like those instructions how did they behave and everyone gave a different answer but then we did a lot of testing to see what happens and that's how we do that Thanks for the lectures. ",
+    "model_probability": 0.001
+  },
+  {
+    "start": 7025.23,
+    "end": 7044.65,
+    "speaker": 1,
+    "text": "We'll see you in four weeks. Yeah, sorry. But, like, yeah, very much appreciate the lecturing style. It's, like, super, super engaging. I would, like, be contributing more, but I'm a little bit behind on things. Oh, fine. No problem at all. Thank you. Have a good rest of your birthday. Thank you very much. Sorry. Don't forget your laptop. ",
+    "model_probability": 0.0008
+  },
+  {
+    "start": 7045.71,
+    "end": 7047.03,
+    "speaker": 0,
+    "text": "I am all over the place today. ",
+    "model_probability": 0.0036
+  }
+]

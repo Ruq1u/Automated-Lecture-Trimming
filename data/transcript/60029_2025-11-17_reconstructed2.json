@@ -1,0 +1,1346 @@
+[
+  {
+    "start": 0.131,
+    "end": 4.774,
+    "speaker": "SPEAKER_05",
+    "text": "So we did both the models for increases and decreases. Yeah. "
+  },
+  {
+    "start": 21.355,
+    "end": 29.338,
+    "speaker": "SPEAKER_06",
+    "text": "We didn't want to be stuck here. Oh, really? No, it was slow. They only have the medium. "
+  },
+  {
+    "start": 112.906,
+    "end": 144.223,
+    "speaker": "SPEAKER_08",
+    "text": "Cool. All right, I'm gonna switch on the room mics. Okay, so I heard the words layers and performance. That's related to this coursework, or is it related to something else with layers and performance? Machine learning. That was machine learning. OK, cool. I thought, you folks, who's done with the coursework? I haven't done the report. "
+  },
+  {
+    "start": 144.243,
+    "end": 179.386,
+    "speaker": "SPEAKER_08",
+    "text": "Like, test, pass. OK, cool. Do you guys experiment with performance a little? Not yet. So initially, competition for this module. And I thought about making this programming competition. I thought, ah, not the first time I run this course. It's a little too risky. But I actually think it would be kind of cool, maybe also pitching other index structures against it, like IDF or something around B trees plus Z ordering. "
+  },
+  {
+    "start": 179.406,
+    "end": 264.555,
+    "speaker": "SPEAKER_08",
+    "text": "It would be kind of cute. OK, cool. But with respect to performance, so You know, what works well for you folks? I haven't actually, like, I have a reference implementation, but I haven't found time to tune it or look into performance. What do you mean by performance, like speed or accuracy? I would say at a given accuracy, you know, what's speed? Like, I'm curious, for example, like number of layers, decay factor. Yeah, I guess those are the, well, connectedness, I suppose. There's something about that. The interesting factors here. Has anyone found something interesting? We've just been using the toothpaste. Yeah? So hypothetically, yes. I mean, they should have, well, I think there's, did we put this in the test, or is this an assertion I have in my code, that obviously one layer should always have no more points than the one we need. So in that respect, they're all bounded by the lowest one and the decay factor. But in principle, yeah, they can grow arbitrarily. "
+  },
+  {
+    "start": 264.575,
+    "end": 303.26,
+    "speaker": "SPEAKER_08",
+    "text": "I mean, otherwise, how are you going to index arbitrary amounts of data? I wanted to say something about that. OK, cool. So you folks, oh, yeah, right, right. That's what I wanted to say. So, I mean, in the tests and in the benchmarks, right, we said, I said, what was it, two layers, 0.3 as a decay factor, normalization factor, a couple of other parameters, right? "
+  },
+  {
+    "start": 303.62,
+    "end": 373.447,
+    "speaker": "SPEAKER_08",
+    "text": "But those are by no means the only ones that are possible, right? So your implementation should also work. for other numbers of layers, other . In the spec, it says that in our report, we need to talk about the challenges for each of the three engines. Yeah, yeah, yeah, sorry. That's a copy-paste error. I mean, you can imagine that writing these specs isn't a huge amount of fun, and so you copy-paste stuff. And that is the last year. What do we actually need to talk about then? Well, what I'm curious about is anything out of the ordinary. So why have you made certain design decisions? So what would have been . Basically, what I want to make sure is that you have space to explain how your thing works. And I would prefer it if it weren't the comments in the code, right? "
+  },
+  {
+    "start": 373.487,
+    "end": 391.081,
+    "speaker": "SPEAKER_08",
+    "text": "Because I'm not a big fan of crappy but heavily commented code. In my opinion, I'd much rather have clean code and then a decent piece of documentation. Also, TAs need to read that, right? So be considerate. "
+  },
+  {
+    "start": 393.743,
+    "end": 400.243,
+    "speaker": "SPEAKER_03",
+    "text": "OK. Yeah. So that is, yes, I made a mistake. "
+  },
+  {
+    "start": 423.217,
+    "end": 456.705,
+    "speaker": "SPEAKER_08",
+    "text": "There is a pull request, which is pull from the main repo into your code. That should be fixed. Oh, yeah, and then there was this question, right, just for everyone. There are these two heuristics in all, well, there's the simple approach and then the heuristic approach or something in the paper where they discuss how to connect nodes within a layer, right? The simple ones. You don't have to implement the complicated one in which they create this really long. "
+  },
+  {
+    "start": 457.445,
+    "end": 480.318,
+    "speaker": "SPEAKER_08",
+    "text": "But I also said, I answered this question on the complicated . Ideally, that is something that, for example, you could discuss in the report. You could say, oh, yeah, we've tried the simple. We've implemented the complex one. And the complex one should, I guess, improve accuracy. "
+  },
+  {
+    "start": 483.417,
+    "end": 494.729,
+    "speaker": "SPEAKER_05",
+    "text": "I implemented both, and I was just doing some very rough playing around with it. And if I did the heuristic, sometimes I would fail test cases more frequently than I would fail test cases in simple. "
+  },
+  {
+    "start": 494.949,
+    "end": 536.206,
+    "speaker": "SPEAKER_08",
+    "text": "Oh, interesting. So I was wondering about this, because it is, in principle, a randomized data structure, right? And I thought, hmm. Yeah, could they fail test cases? Well, probably the connectedness of the graph that we post is high enough, at least in my experiments, and I've spent a fair amount of time with this, I never ran into failing test cases. And I thought, but this could hypothetically happen. I wonder. And there's very little I can do about that. So for the purpose of the coursework, put in the one that passes the test cases, right? "
+  },
+  {
+    "start": 536.626,
+    "end": 581.233,
+    "speaker": "SPEAKER_08",
+    "text": "And then I would say for the extra test cases, you can have some that test maybe the heuristic, right? You can have a flag for this or something. And then write that in the documentation so the TAs know what Why, you know, sometimes you have, I think in total we've defined what, 100 test cases or something, or 100 assertions, and if you have 150, but 50 of which occasionally fail, that's the point. But also, you know, I want to know, because I haven't actually implemented the heuristic approach, so I've gotten with the situation. "
+  },
+  {
+    "start": 583.605,
+    "end": 609.472,
+    "speaker": "SPEAKER_08",
+    "text": "Okay, cool. Anything else on Foursport? The deadline is, what is it, this Friday? Or, yeah? Next Monday. Next Monday. Okay, cool. I felt both mean and nice of me, I guess, setting it after the weekend. Sorry about that. But everyone's on track for that. Very good. Cool. Okay, good. What are we just talking about? "
+  },
+  {
+    "start": 615.622,
+    "end": 649.943,
+    "speaker": "SPEAKER_05",
+    "text": "I'm not sure if I'm missing something here, but when you talk about invertible, distributive aggregation functions and the implementation in C, I think either I don't understand it or the code is wrong. Yeah, I think I have that as well. Or both. Yeah, or both. If you go to the slide, I think you overwrite the value in the window before you subtract the value in the window from your aggregate value. "
+  },
+  {
+    "start": 649.983,
+    "end": 671.326,
+    "speaker": "SPEAKER_02",
+    "text": "Also, the update is happening, so the value that you're removing is like... Sorry, can you give me a slight number? 34. 34, okay, cool. Close. Why is this... Here. OK. "
+  },
+  {
+    "start": 675.31,
+    "end": 697.548,
+    "speaker": "SPEAKER_08",
+    "text": "Shit, what did I do? Sorry. Why is this like this? I don't want that. Well, OK, fine. I guess it's readable. OK, so I'm doing what? "
+  },
+  {
+    "start": 698.645,
+    "end": 716.232,
+    "speaker": "SPEAKER_05",
+    "text": "While you're writing to the window with the new tuple that's come in, would you do that before you remove the old, like the tuple which is coming out of the window for aggregate? "
+  },
+  {
+    "start": 722.987,
+    "end": 773.026,
+    "speaker": "SPEAKER_08",
+    "text": "I'm getting the, I'm adding, so okay, we're talking about the process, right? So I'm getting a new tuple, I'm getting its value, and then I'm adding it to the array, okay. And now I am overwriting, storing that new value, okay, in the array, and then I'm checking, okay, fine, have I filled the array already? And then I am using one that is the previous one, right? The way I understand it is, shouldn't aggregate be equal to the sum of all of the elements in window? I think the ring buffer is one element larger than the window. "
+  },
+  {
+    "start": 777.703,
+    "end": 798.357,
+    "speaker": "SPEAKER_05",
+    "text": "And you define that as window size. Oh yeah, that's a good point. Even then, wouldn't the value that comes out of the window then be the 1 after i instead of a or doing 1? Maybe for i minus 2. "
+  },
+  {
+    "start": 799.618,
+    "end": 812.206,
+    "speaker": "SPEAKER_02",
+    "text": "So this thing here, right? What did you want to say about that? Yeah, because that would be the whole .. "
+  },
+  {
+    "start": 812.467,
+    "end": 843.725,
+    "speaker": "SPEAKER_08",
+    "text": "Oh, that is a good point. Yeah, you have a good point. So we're filling the array. Off by one error, sure, I'm liable to those as much as the next person. So I'm filling the window from here, first value, second value, third. "
+  },
+  {
+    "start": 843.805,
+    "end": 893.979,
+    "speaker": "SPEAKER_08",
+    "text": "Let's say after four, I wrap around. And then I am putting in a new one here. So that's what's happening in window blah, blah, blah. And then I am... advancing the pointer and then I'm trying to remove this one but you're right this is actually the one before the one I've just inserted rather than the oldest one so I should really so that minus two here is should actually just be an i right should be a zero huh how do I do that Because then checking before doing the increment. "
+  },
+  {
+    "start": 895.1,
+    "end": 926.107,
+    "speaker": "SPEAKER_02",
+    "text": "So for instance, if i equals your size, you'll be overwriting the oldest value. And then subtracting the one before that. So you're not . So you mean this condition here? Yeah. Because if you take the case where i equals window size, then you're already overwriting the oldest value in the buffer before the condition itself. "
+  },
+  {
+    "start": 927.828,
+    "end": 972.997,
+    "speaker": "SPEAKER_02",
+    "text": "You're not actually removing the oldest value from the aggregate. But if the condition doesn't hold, that is that the window isn't full yet, right? Yeah, yeah, yeah. Right? It's like if i equals window size, we will update the aggregate with the new value that we're pushing in. and we will overwrite the oldest value without actually subtracting it from the aggregate. But if i equals window size, that is the first time I need to evict, right? Yeah. I think it's like before checking the condition, we've already overwritten the value that we need to evict. "
+  },
+  {
+    "start": 989.449,
+    "end": 990.751,
+    "speaker": "SPEAKER_04",
+    "text": "Do the subtraction. "
+  },
+  {
+    "start": 995.455,
+    "end": 1027.378,
+    "speaker": "SPEAKER_08",
+    "text": "Okay. Store stuff in here. Temporary failure. So if I equals window size, I mean, okay, if I equals window size, like this, I'm at the beginning again, right? Like the module puts me here, right? And I am writing to that value. So I filled my array, and I'm overwriting a value here. "
+  },
+  {
+    "start": 1027.778,
+    "end": 1028.959,
+    "speaker": "SPEAKER_08",
+    "text": "And you're saying... "
+  },
+  {
+    "start": 1031.188,
+    "end": 1039.832,
+    "speaker": "SPEAKER_02",
+    "text": "You're updating the buffer. Yes. You're overwriting the value you need to evict. The aggregate won't be corrupted. "
+  },
+  {
+    "start": 1040.892,
+    "end": 1055.858,
+    "speaker": "SPEAKER_04",
+    "text": "I've already evicted it last time. Is that the point? Because you incremented i last time and the condition would have actually, the condition actually holds when you enter the process. i is one less than when your size is actually when the first time and that's correct. "
+  },
+  {
+    "start": 1059.88,
+    "end": 1093.467,
+    "speaker": "SPEAKER_08",
+    "text": "I actually wasn't sure. I think window size still needs to be, the buffer needs to be, for this to work, it needs to be larger, one larger than the window size. In which case, I want to evict the next one. And when I'm in the condition, right, I've already incremented i, so I would be evicting the next one. "
+  },
+  {
+    "start": 1093.547,
+    "end": 1106.277,
+    "speaker": "SPEAKER_05",
+    "text": "In the case when it's i is window size minus one, then you wouldn't be evicting the first element in your ring buffer, right? When you should be. Like, shouldn't it be an increment in i? "
+  },
+  {
+    "start": 1107.857,
+    "end": 1139.517,
+    "speaker": "SPEAKER_08",
+    "text": "So I was also wondering about that, but let's work this through. I mean, so the case, okay, let's say window size is four, okay? And I've allocated my buffer size five, right? So zero, one, two, three, four. Okay, cool. So now I am receiving the fifth value and putting it here. Wait. "
+  },
+  {
+    "start": 1140.098,
+    "end": 1161.021,
+    "speaker": "SPEAKER_08",
+    "text": "Am I? Wait. I? Yes. Yes. Okay. Then I am advancing one, which puts me here. And I am inside the condition now. I'm evicting this value. "
+  },
+  {
+    "start": 1162.68,
+    "end": 1187.574,
+    "speaker": "SPEAKER_05",
+    "text": "It doesn't I plus plus do a return I and then add 1 to I. So I, at the start of us inserting, I was window size minus 1. And then we're comparing window size minus 1 greater than or equal to window size. No, no, wait, wait. So I was 4 at this. No, 3 at this point, right? OK, I'm meaning when it's 4. "
+  },
+  {
+    "start": 1187.834,
+    "end": 1218.896,
+    "speaker": "SPEAKER_08",
+    "text": "I'm getting, oh, yeah, right. No, I said. OK, look, here's the thing. I should revise this code, but I'm not sure if this is something that we have to do all together. Can you send me an email? And just as a reminder, I'll have another look. Because this seems like an off by one error, and that's kind of silly to debunk here with everyone. "
+  },
+  {
+    "start": 1219.156,
+    "end": 1240.265,
+    "speaker": "SPEAKER_08",
+    "text": "But I hope the concept is clear. OK, cool. So concept clear, but quote, potentially wrong. Well, definitely wrong, but maybe wrong in more than one way. But definitely the other bit, yeah, you are definitely right, the oldest ones. Maybe I should have a visualization for this. OK, cool. Anything else? "
+  },
+  {
+    "start": 1249.958,
+    "end": 1266.503,
+    "speaker": "SPEAKER_09",
+    "text": "When it comes to handshake joints, it seems to me that the window size for the two input streams are different. They can be different, yes. In that case, how does the comparison happen for top bone? "
+  },
+  {
+    "start": 1267.956,
+    "end": 1269.056,
+    "speaker": "SPEAKER_00",
+    "text": "Oh, yeah. OK, OK. "
+  },
+  {
+    "start": 1269.497,
+    "end": 1299.965,
+    "speaker": "SPEAKER_08",
+    "text": "Good. So, sorry, this was the question where I said I don't quite understand the question. OK, sorry about that. I didn't know what else to say. OK, cool. So the idea behind this, I mean, this handshake joint, like, have you seen football players do this? Yeah, OK. I think the guy who came up with this thought that it would be really fun. So... In principle, this is a nested loop join, right? "
+  },
+  {
+    "start": 1300.265,
+    "end": 1335.77,
+    "speaker": "SPEAKER_08",
+    "text": "The only thing is where with a normal nested loop join, you would go and start with this element and then scan through the entire thing and then the next one and scan through the entire thing. In this case, you always do this pairwise comparison Well, and then the order in which you return the tuples is different, but the result would still be the same. Now, you're saying, at least this is how I understand the question, what happens if I have one really large array and one that's much smaller? "
+  },
+  {
+    "start": 1336.451,
+    "end": 1366.583,
+    "speaker": "SPEAKER_08",
+    "text": "Well, I mean, what would happen? I would compare these two. And then in the next iteration, one of them would move forwards. Let's say this one. And then I would be comparing these. And then another one would be moving. Let's say this one would be moving forwards again. And I would be getting a lot of errors here, but you get the idea. "
+  },
+  {
+    "start": 1366.943,
+    "end": 1402.824,
+    "speaker": "SPEAKER_08",
+    "text": "So they still slide past each other. It doesn't actually matter how large they are. The only difference it makes is the degree of parallelism. The degree of parallelism is determined by the smaller of the two windows. But other than that, the algorithm is exactly the same. And what's cool about this, and I think this is why it was originally developed, is this degree of parallelism is something that works really well on things like GPUs or FPGAs or sensor processing units, like hardware that has massive parallelism built in. "
+  },
+  {
+    "start": 1403.124,
+    "end": 1497.09,
+    "speaker": "SPEAKER_08",
+    "text": "And a lot of stream processing applications, especially in this city, where there is a lot of finance and other stuff going on, is real-time analytics on dedicated hardware. Wayne Look has basically made a career out of selling FPGA research to financial companies. This was also the context in which these handshake jobs were developed. Make sense? Isn't any less optimized if, like, the difference in the window size are, like, really large? I mean, what do you mean less optimized? I mean, yes, the degree of parallelism obviously decreases, yes. But you could, in principle, work around this, right? Like, it kind of sacrifices simplicity. But you could also say, well, maybe I'm comparing this one element with four elements at the same time. I would then need a hardware instruction for this choice. It's something you could build. Other than that, are you thinking about locality, or are you thinking about... Not really, just based off like feeling, just looking at it. It just feels... Okay, feels less... Okay, no, I don't know. Don't think so. I think it's perfect. I mean, it's also something that, quite frankly, The only interesting thing about this is really the fact that they play with the order in which results are returned. "
+  },
+  {
+    "start": 1497.831,
+    "end": 1517.656,
+    "speaker": "SPEAKER_03",
+    "text": "You had a question? Yeah, I guess I was going to ask how it was parallelized, but I guess it's hardware-dependent, right? You mean how it was parallelized? Like, how, like, I don't know, like, for, like, a window size of R, how could you have, like, concurrently, like, R comparisons going on? "
+  },
+  {
+    "start": 1519.616,
+    "end": 1552.108,
+    "speaker": "SPEAKER_08",
+    "text": "So, I mean, if you implement this on an FPGA, right, on a, yeah, if you implemented this on an FPGA, you would have, basically, special circuitry synthesized just for that. If you implemented this on a GPU, this would probably be a kernel that you schedule with multiple instances of parameters here, basically. The more interesting question I actually think is, how do you make this comparison? "
+  },
+  {
+    "start": 1552.148,
+    "end": 1583.844,
+    "speaker": "SPEAKER_08",
+    "text": "How do you implement these arrays? Because we've implemented in the other thing, we've implemented Windows as ring buffers. But if this is a ring buffer, then we somehow, we're not actually, well, we're not shifting, physically shifting the buffer. But we would actually just, well, put a new element, whenever a new element comes in, say, from here, we would actually be putting it here. "
+  },
+  {
+    "start": 1584.68,
+    "end": 1615.848,
+    "speaker": "SPEAKER_08",
+    "text": "And then we would have to do comparisons across multiple lanes, which is not something that CPUs do particularly well. Instead, what you can have is you can have these shift registers. This is how I think they implemented it in the original paper, where you actually get hardware support for something. moving, shifting, like, you know, many, many points in a memory region. But on CPU, that doesn't work particularly well. "
+  },
+  {
+    "start": 1616.288,
+    "end": 1623.292,
+    "speaker": "SPEAKER_08",
+    "text": "So, sounds like an interesting time question to me. Okay. "
+  },
+  {
+    "start": 1625.583,
+    "end": 1633.471,
+    "speaker": "SPEAKER_03",
+    "text": "For bloom filters, basically if an element is inside the hash table, you mark it from the entry in the hash table from 0 to 1. "
+  },
+  {
+    "start": 1646.088,
+    "end": 1654.155,
+    "speaker": "SPEAKER_03",
+    "text": "So what happens if there are a lot of elements and then the table just all becomes one, for example? "
+  },
+  {
+    "start": 1654.235,
+    "end": 1684.648,
+    "speaker": "SPEAKER_08",
+    "text": "Or is that not practically a problem? That's why when you configure a Bloom filter, you need to determine the number of distinct elements that you expect, right? And basically, I think the case that you're describing is, well, what if that number is, well, I made a mistake. I expected 20 and I got 5,000. "
+  },
+  {
+    "start": 1685.508,
+    "end": 1716.928,
+    "speaker": "SPEAKER_08",
+    "text": "And that would then lead to many, many collisions, right? And a Bloom filter that is mostly once. And then the false positive rate would go up, right? So, This is a fairly common case, but you need to make, you configure the Bloom filter to make sure that that doesn't happen. That's why we have all these equations. I mean, the equations, to be completely honest, at some point, I thought, hey, I should really explain how to derive them. And then I looked at the original papers. "
+  },
+  {
+    "start": 1717.008,
+    "end": 1824.326,
+    "speaker": "SPEAKER_08",
+    "text": "I tried to understand them. I thought, nope, I'm not a theory person. I don't deal with this. I don't decide it against it. But in principle, as long as you have the equations handy, you can configure it. Yeah? I was actually curious about that, because we're in theory operating on streams, right? So we actually don't know what the size of the filter is. So the interesting thing is that the filter does not require knowledge of the number of inputs, right? It just, yeah, you need to somehow... find a bound on the well not not about you actually want an accurate number for reasonably accurate number for the number of distinct elements right what would happen if the if you set the number too high let's say you know you you expect 500 uh distinct elements but you only get 20. Okay, is it? So if you think about what are the parameters we can use to configure a loop filter? What are the physical parameters, not the input parameters? How can I distinguish two bloopers? Number of hash functions, yeah. The size of the . Right, and the size, right? "
+  },
+  {
+    "start": 1824.526,
+    "end": 1877.193,
+    "speaker": "SPEAKER_08",
+    "text": "The number of bits I use, right? So if I, and then, yeah, the number, well, no. I set the number of bits and the number of hash functions independent of, or depending on the input parameters, right? The false positive rate I want, and... and the number of distinct values. Now, if I get the number of distinct values wrong, it may have been, I will actually have to look at the equation, but it might be that we end up using either too many bits, or actually we get a higher false positive rate than we could have achieved had we configured the Bloom filter for the right number of distinct elements. "
+  },
+  {
+    "start": 1879.137,
+    "end": 1911.313,
+    "speaker": "SPEAKER_08",
+    "text": "So it's not just strictly better, we're not actually making good use of the memory we have available. And so we actually want not just an upper bound on the number of distinct values, we actually want a good approximate. Make sense? Otherwise, we're basically underutilizing the space that we've allocated to the Bloom filter. "
+  },
+  {
+    "start": 1911.353,
+    "end": 1918.523,
+    "speaker": "SPEAKER_08",
+    "text": "We get a suboptimally configured Bloom filter. False positive rate is higher than it needs to be. "
+  },
+  {
+    "start": 1922.069,
+    "end": 1944.694,
+    "speaker": "SPEAKER_00",
+    "text": "OK, yeah. In your example with the football players, if someone has a red card, then they'll have a red card forever. So what if you want to invalidate the red card after a certain period? So how do you remove the entry from the hash table? How do you remove an entry? Maybe they got a red card a few games ago. Oh, OK. Right. OK, it's fine. We're good. "
+  },
+  {
+    "start": 1945.534,
+    "end": 1958.284,
+    "speaker": "SPEAKER_08",
+    "text": "In the hash table? In what hash table? This way. It's the slide... For a Bloom filter. No. Slide 43, right? 43. "
+  },
+  {
+    "start": 1959.444,
+    "end": 1974.353,
+    "speaker": "SPEAKER_00",
+    "text": "It's just before Bloom filters, yeah. I think it's 43. Mm-hmm. Maybe if you add one more condition where maybe the timestamp of the red card is like after a certain period? "
+  },
+  {
+    "start": 1975.794,
+    "end": 2049.79,
+    "speaker": "SPEAKER_08",
+    "text": "Wait, wait, wait. So the idea here... Sorry, where would I remove the hash? You mean here? Because the thing is the following. In Bloom filters, you do not remove values from the hash. They don't support deletion. You can't remove red cards after a certain period. No, not at all. Once you've set a bit in a Bloom filter, you cannot delete. You cannot unset it. Because you do not know for a given value why it was, or for a given slot, why it was set. And so the idea behind a Bloom filter really is it's an approximate and over-approximate inclusion test. So you cannot guarantee that a value is actually in there, and you cannot remove a value once it goes out of scope for some reason. "
+  },
+  {
+    "start": 2049.81,
+    "end": 2117.078,
+    "speaker": "SPEAKER_08",
+    "text": "So the primary use case for Bloom filters is not actually what we are doing here, but they're used as an approximate data structure before, say, a hashtag. So you can have a really large hash table that might even live out of memory. And then you have a Bloom filter that might even just be 512 bits that protects every access to the hash table. You first check the Bloom filter to see if there's the value that you're looking for could even be inside the hash table based on that and that value the bloom filter itself would then definitely be cache resident it might even be if you're really like you know stingy with bits you might use a single 64 byte page for a bloom filter and that way that one page will be super hot in memory right and then You don't really use a lot of anything resources. "
+  },
+  {
+    "start": 2117.138,
+    "end": 2156.343,
+    "speaker": "SPEAKER_08",
+    "text": "Well, you use a lot of compute resources, but you don't use a lot of memory to protect accesses of something really big that potentially lives outside memory. But then you could also, one thing you can always do is you can rebuild the filter. Let's say one thing I could imagine myself doing here is saying, okay, I will keep a bloom filter for performance, but then we'll also keep the last 500 elements in a green buffer, just on the side. "
+  },
+  {
+    "start": 2156.383,
+    "end": 2178.698,
+    "speaker": "SPEAKER_08",
+    "text": "And every so often I flush the bloom filter or throw away the bloom filter and then rebuild it using the last 500 elements. And then, you know, keep operating. Maybe every so often, whenever the false positive rate goes up a lot, I can estimate that. Yeah. "
+  },
+  {
+    "start": 2179.359,
+    "end": 2215.426,
+    "speaker": "SPEAKER_02",
+    "text": "Question on this. So because, again, the streaming context, the build stream and the probe stream would be coming in at the same time, right? Yeah. So I'm assuming this won't then be suitable for us to essentially do When we start probing the hash table, we'll only get joinPartners up to the tuples that we process, right? So you can't use it to get essentially joinPartners on timestamps after you, right? "
+  },
+  {
+    "start": 2215.466,
+    "end": 2253.762,
+    "speaker": "SPEAKER_08",
+    "text": "Well, I mean, anything that's been inserted has been detergent, right? So the Bloom filter will not allow checking of any attributes. It doesn't have a payload. So you can't really check the timestamp. If the question is, oh, what if I get a value in from one side and I want to check that it's within the window bound, and within the lateness bound of the other one, I can't do that with a blue. "
+  },
+  {
+    "start": 2255.362,
+    "end": 2290.711,
+    "speaker": "SPEAKER_08",
+    "text": "So you are, I guess in that respect you are, I'm not sure if this is what you're asking, but if you are asking can I potentially join values with future values, then yes. But that's not even specific to the Bloom filter itself. It is just the fact that if I had a hash table without a payload, I would have the same problem. So yeah, filters are, well, approximate. "
+  },
+  {
+    "start": 2291.251,
+    "end": 2323.976,
+    "speaker": "SPEAKER_08",
+    "text": "But the interesting thing here is also you would probably, in practice then, do Bloom filters and combine them with symmetric hash joins, right? So you would want to build Bloom filter, basically one filter on either side and then, well, you basically get false positives from either side, but you also get the cumulative benefit. Otherwise you will have to, you could also build something where one side is approximate and the other one is accurate. "
+  },
+  {
+    "start": 2324.953,
+    "end": 2331.061,
+    "speaker": "SPEAKER_08",
+    "text": "Would that do anything for you? Because you still can't check the timestamps. "
+  },
+  {
+    "start": 2331.101,
+    "end": 2354.076,
+    "speaker": "SPEAKER_02",
+    "text": "It's another question I had. So natively, just as we discussed symmetric hash joins, that's not something we can practically implement, right? Just because, as we discussed, it would require infinite memory. keep track of the hash table. Is this something we'd have to then combine? We'd have to combine this concept with, as you were saying, like a Bloom filter to be actually able to use it. Yeah. Oh, so maybe was that your question? "
+  },
+  {
+    "start": 2354.096,
+    "end": 2399.785,
+    "speaker": "SPEAKER_08",
+    "text": "It wasn't the question, but yeah. No, no. I meant the person behind you. Because in this case, you could very much do that. Here, because you are keeping an accurate hash table, you can keep a payload, and you can use that to evict. And so here you could actually get, if you introduce something, if you combine this with lateness bounds or watermarks, you can remove all tuples from the hash table on either side and thereby get bounded memory but accurate results. "
+  },
+  {
+    "start": 2401.462,
+    "end": 2448.446,
+    "speaker": "SPEAKER_08",
+    "text": "The only thing is how you would remove tuples from a hash table based on a condition that is on the payload and not the key. Is the question clear? OK, so let's say I In this case, right, like I join, let's say, R and S, and R has maybe A and B, right, and S has C and D, and I'm joining on B equals C, and I want, well, actually, no, let's make it A and C, A equals C. "
+  },
+  {
+    "start": 2448.873,
+    "end": 2482.924,
+    "speaker": "SPEAKER_08",
+    "text": "And I want the time, and b, actually, let's be more specific here, timestamp, and this also timestamp. And I'm now building, and I want these attributes to be equal, and I want the timestamp, r.timestamp is, you know, between, s.timestamp and s.timestamp plus 5. "
+  },
+  {
+    "start": 2483.244,
+    "end": 2518.954,
+    "speaker": "SPEAKER_08",
+    "text": "Something like this, right? So I would now build a hash table, in this case, on a, right? On this side. So r.a is my key. Let's say I have one here, here, and here. And I insert the tuples here. Well, ts. Would that also be filled? And I do the same thing here. I build a hash table, s.c and s.ts, and I fill it. "
+  },
+  {
+    "start": 2519.034,
+    "end": 2549.167,
+    "speaker": "SPEAKER_08",
+    "text": "That's a key. Good. Now, I join on these attributes. Easy works, right? But every time I get a new tuple in, whatever, let's say, you know, there's a new R coming in. I probe this hash table and I find, let's say, this one is a match. And I check its timestamp. And let's say I emit the tuple. Okay, cool. "
+  },
+  {
+    "start": 2549.607,
+    "end": 2563.516,
+    "speaker": "SPEAKER_08",
+    "text": "And I insert the new tuple here. here, right? Let's say it goes here. Now I need to remove everything that's just gone out of the window. How do I do that? "
+  },
+  {
+    "start": 2579.289,
+    "end": 2610.642,
+    "speaker": "SPEAKER_08",
+    "text": "So what's the naive way of doing it? We just iterate over all the slots and find the slots. You could just iterate over the entire hash table, yes, and find the slots. So basically, but iterating over the hash table isn't just iterating over the keys, right? It is because you don't know which slots are set. So you're doing a linear operation, linear scan over the hash table every time you are inserting a new topic. You don't need to do that. "
+  },
+  {
+    "start": 2610.902,
+    "end": 2638.864,
+    "speaker": "SPEAKER_08",
+    "text": "Well, no, actually, no, you still need to do that here because the lateness bound, this R, has now set the newest timestamp. So everything older than that needs to be evicted. So I need to do the same thing here. So I'm doing a scan here and a scan here over the entire hash table. If the fill factor is low, I'm, that's a lot of wasted men. "
+  },
+  {
+    "start": 2639.024,
+    "end": 2656.43,
+    "speaker": "SPEAKER_04",
+    "text": "Yeah. Yeah. You could store, um, instead of tuples pointers to tuple hash tables for each, like a hash table by a hash table by timestamp. And then, uh, when you want to remove things, if the tuples knew also where they're being stored, then you could remove them. "
+  },
+  {
+    "start": 2657.397,
+    "end": 2690.016,
+    "speaker": "SPEAKER_08",
+    "text": "right oh okay so you would build a second hash table with r dot yes yeah exactly and then just to a point just to the top okay would that um would that help so um what are we trying to remove here from the hash table? No, no, sure, sure. But what's the predicate, right? Like, you know, if I implemented this in SQL, right? "
+  },
+  {
+    "start": 2690.036,
+    "end": 2731.984,
+    "speaker": "SPEAKER_08",
+    "text": "Like, it'd be delete from... It could be sorted or something. Instead of being just like a sorted list rather than a hash table. Okay, sorted list would be one thing, right? Yeah, delete from R... where some condition, and the condition is, well, timestamp is older than our new, I'm just giving this name now, our new dot, yes, minus two, five, five. Or whatever my latest path is, okay. Good, so you want to keep a sorted list here. "
+  },
+  {
+    "start": 2734.023,
+    "end": 2779.113,
+    "speaker": "SPEAKER_08",
+    "text": "That would be expensive on insert, right? Oh yeah, okay. So you'd implement a ring buffer. Okay, yeah, ring buffer would work unless, if you assume that the tuples come in in order, right? If the tuples don't come in in order, you need a linked list. There's some other data structure that you would want to use. B3 would work, but inserts are still quite expensive. I would probably use a heap. "
+  },
+  {
+    "start": 2779.654,
+    "end": 2811.109,
+    "speaker": "SPEAKER_08",
+    "text": "But basically, you keep a second index structure. This is actually something I've seen. I'm not sure of any systems actually implement this. I've seen this in papers, that people then basically keep another priority queue. just with the timestamps and pointers to the hash table buckets that they have stored in and that allow efficient deletion. Possible. "
+  },
+  {
+    "start": 2811.569,
+    "end": 2822.693,
+    "speaker": "SPEAKER_08",
+    "text": "It gets quite convoluted at some point. And estimating any reasoning about the cost of that becomes quite possible. Does that make sense? "
+  },
+  {
+    "start": 2826.951,
+    "end": 2841.183,
+    "speaker": "SPEAKER_03",
+    "text": "Yeah? Just a clarification on the slides. I think I couldn't see the error rate in the tuning Bloom filters. I'm not sure if it's included in the slides as well. "
+  },
+  {
+    "start": 2841.243,
+    "end": 2865.678,
+    "speaker": "SPEAKER_08",
+    "text": "Yeah. Oh. Yeah, it was cut off. Shoot. OK, you can. Yeah, OK, fine. I should fix that. Can you shoot me a mail about this? I'll fix the slide. But it's also something, I mean, Bloom filters are like a textbook thing. I think I took it from the original paper, but I suspect Wikipedia probably also has it. I think you can rely on Wikipedia. "
+  },
+  {
+    "start": 2867.299,
+    "end": 2908.474,
+    "speaker": "SPEAKER_01",
+    "text": "But those are useful to have. Yeah? So for scheduling, we use this push-driven operators. And to my understanding, that's kind of like busy polling. For scheduling? For scheduling, yeah. Scheduling. The stream processing, the scheduling, when we talk about the push-driven operators. Oh, yes. OK. So I want to ask, why come with something that's like an interrupt-based handler, so you don't have to dedicate the full computational powers to that? Can we look at a specific slide? "
+  },
+  {
+    "start": 2908.494,
+    "end": 2974.944,
+    "speaker": "SPEAKER_08",
+    "text": "This might just be something that I did for illustrative purposes. wait i don't i don't really uh so yes there is this push versus pull this thing Is it this thing, the while true? I just want to ask, why don't we use interrupts? Have you used that? So the way this works in practice, so there are these dedicated stream processing systems. And I guess the primary one is Apache Flink. arguably the biggest one. And what they do is, in principle, the concept we have is you have your system, right? And you get a tuple in, right? Tuple one, and then later you get another tuple in, tuple two, and then you get tuple three. "
+  },
+  {
+    "start": 2975.304,
+    "end": 3015.263,
+    "speaker": "SPEAKER_08",
+    "text": "The way this works in practice is not actually like this. What you get for efficiency purposes is a buffer, with T1, T2, T3 pushed into the system at once. And that buffer is very much, well, I mean, it comes from the network. like it's driven by an interrupt, but then once it enters the system, the system still has a loop like this, right, like over all the inputs of the buffer, and then, well, pushes those through the system one by one, right? "
+  },
+  {
+    "start": 3016.124,
+    "end": 3032.09,
+    "speaker": "SPEAKER_08",
+    "text": "So it's... Technically, it's a hybrid between what you're describing, something that's interrupt driven and something that's here. But I mean, this is mostly for illustrative purposes. Yeah. "
+  },
+  {
+    "start": 3049.263,
+    "end": 3091.207,
+    "speaker": "SPEAKER_08",
+    "text": "Okay, so when I was in undergrad, the coolest class I took was on sound analysis and synthesis. And there, you use this to no end, like any kind of filtering or smoothing of sound, right, for echo effects in, well, if you want to simulate a room like this, right, an echo is basically a weighted average of values over a window, because you have older values that you're adding to the current value. "
+  },
+  {
+    "start": 3092.292,
+    "end": 3135.213,
+    "speaker": "SPEAKER_08",
+    "text": "So in digital signal processing, this is all over the place. If you've ever seen a synthesizer, loads of that. But for our purposes, it's much more to recognize trends in, say, data sets, like when you see One thing where string processing systems are super useful is for things like infrastructure monitoring. So I know I've spoken to some folks who do this kind of work at Google, and what they do is they basically have big clusters that just get all the telemetry over entire data centers, and if you get a load spike over At second, that's fine. "
+  },
+  {
+    "start": 3135.293,
+    "end": 3168.53,
+    "speaker": "SPEAKER_08",
+    "text": "That's not an issue. If you get a low spike over smooth over, let's say, five minutes or 10 minutes, then that's something that triggers some higher up alerts and might page something. And at that point, I also have friends who used to work for Amazon where everyone is on pager duty every so often. If you get this wrong and you page people in the middle of the night, they get upset. So, this is really something where it matters. "
+  },
+  {
+    "start": 3168.65,
+    "end": 3177.914,
+    "speaker": "SPEAKER_08",
+    "text": "Okay, cool. So, what I would say is let's take a break now. And then, like, you know, five minutes or so past, well, three minutes past, we start working on the worksheet. "
+  },
+  {
+    "start": 3178.655,
+    "end": 3182.997,
+    "speaker": "SPEAKER_06",
+    "text": "Cool. Saving the primary, secondary, and then the beautiful. Go ahead. "
+  },
+  {
+    "start": 3220.552,
+    "end": 3240.165,
+    "speaker": "SPEAKER_06",
+    "text": "I was just, like, thinking about it in terms of, like, the algorithm. Oh, I see. So, like, I see. So we're going to go to both sides of the building. Yeah, no. So the, like, the points that you used to get that instead of, like, the building. "
+  },
+  {
+    "start": 3251.058,
+    "end": 3262.744,
+    "speaker": "SPEAKER_06",
+    "text": "Recruiter was just coming through. Recruiter was like, oh, I'm going to revive, and I was like, oh, fine. Yeah, yeah, yeah. It's like the two, there are already like two enemies in it. I guess I could. "
+  },
+  {
+    "start": 3262.764,
+    "end": 3267.046,
+    "speaker": "SPEAKER_07",
+    "text": "You could jump up and down on it. Should we demonstrate? I wasn't able to jump up and down. "
+  },
+  {
+    "start": 3267.126,
+    "end": 3268.387,
+    "speaker": "SPEAKER_09",
+    "text": "What is this thing? "
+  },
+  {
+    "start": 3269.447,
+    "end": 3270.808,
+    "speaker": "SPEAKER_05",
+    "text": "Yeah, that's just the old stuff. "
+  },
+  {
+    "start": 3282.162,
+    "end": 3285.504,
+    "speaker": "SPEAKER_06",
+    "text": "In the office, in the back. "
+  },
+  {
+    "start": 3285.784,
+    "end": 3293.328,
+    "speaker": "SPEAKER_08",
+    "text": "But I need to have a proof of this, of course. Yeah, exactly. And it's 10 with a 15 to this, so... "
+  },
+  {
+    "start": 3293.368,
+    "end": 3300.992,
+    "speaker": "SPEAKER_05",
+    "text": "A minute more, or like seven minutes. I'm going to say it's not bad. Not bad. "
+  },
+  {
+    "start": 3326.029,
+    "end": 3357.418,
+    "speaker": "SPEAKER_05",
+    "text": "I think London cars are quite... I feel like I'm better than the average cyclist. The average cyclist is quite I don't run with lights. Oh, that's good. It's already better. You're already, like, top, like, 5%. Exactly. You see, it's not just me being, like, the computer man. You can, like... "
+  },
+  {
+    "start": 3365.243,
+    "end": 3376.13,
+    "speaker": "SPEAKER_06",
+    "text": "It's a lot of fun. It's supposed to be like, oh yeah, we got first. It's like the maximum. How do I do it? I'll go on top speed. Because it goes in this direction, right? We fall off. "
+  },
+  {
+    "start": 3393.06,
+    "end": 3421.84,
+    "speaker": "SPEAKER_06",
+    "text": "Because you just don't break a heart So the thing is, I've actually done this on the website. "
+  },
+  {
+    "start": 3447.258,
+    "end": 3475.005,
+    "speaker": "SPEAKER_08",
+    "text": "I don't know if you seed it. So it's like not doing anything about the generation. You're not touching on the generation. We don't know how you are drawing. If you are drawing a random number. So even if I gave you a hash around a random number generated function, I could be certain that you are drawing the values in the same way. Yes. "
+  },
+  {
+    "start": 3475.085,
+    "end": 3478.166,
+    "speaker": "SPEAKER_06",
+    "text": "I'm really impressed. Why would you tell your parents? "
+  },
+  {
+    "start": 3500.286,
+    "end": 3545.504,
+    "speaker": "SPEAKER_06",
+    "text": "My sister just told me that she has a boyfriend. You know the guy though, he's nice. I told my sister way back like If someone's going to date you, they have to be faster than I am. He's the only guy there who is faster than me. He's 20 kilograms lighter. He's 20? He's very light. He's like about 15, about 15 kilograms. Not the same weight as my sister, but I'm a little shorter. Only a little bit. I'm the same age for one, so my sister is a peanut. Last time. I think that was routine. He's also a little taller than me. You know, he does seem like a nice fellow. He's got an IST. "
+  },
+  {
+    "start": 3556.189,
+    "end": 3586.662,
+    "speaker": "SPEAKER_06",
+    "text": "I got that vibe a while ago. Surely no one else does that. I think she did it. She's only ever did it, guys. A lot of times. I think that's what happens. So I don't think my parents are going to... They're all so shit, guys. How do we choose which one? It's like me and my friend, Gamble. It depends on the person, right? Maybe some of them might want to be on the team. Maybe they're waiting to have enough music on. They grab the songs, that's fine. "
+  },
+  {
+    "start": 3609.6,
+    "end": 3611.161,
+    "speaker": "SPEAKER_06",
+    "text": "For IML, how many models do you have? "
+  },
+  {
+    "start": 3626.047,
+    "end": 3629.009,
+    "speaker": "SPEAKER_06",
+    "text": "What do you mean? Because they don't all have the same training. "
+  },
+  {
+    "start": 3642.738,
+    "end": 3645.659,
+    "speaker": "SPEAKER_07",
+    "text": "Do we just change the shitload for every size instance? "
+  },
+  {
+    "start": 3645.679,
+    "end": 3651.481,
+    "speaker": "SPEAKER_06",
+    "text": "Wait, did you stop me out there? Oh, I noticed that before the temperament. You have a rune at the same time. Ideally, surely, it should take more time. Oh, shit. "
+  },
+  {
+    "start": 3665.645,
+    "end": 3685.026,
+    "speaker": "SPEAKER_06",
+    "text": "Ideally it should be at the same time. So then you would have to keep track of your facts. The other one is also up to you. And then you have to... Well, you're doing one of these pairwise attacks. "
+  },
+  {
+    "start": 3706.86,
+    "end": 3710.303,
+    "speaker": "SPEAKER_06",
+    "text": "Yeah, I'm hoping, I'm hoping for two. I'll push tide. I'll push tide. "
+  },
+  {
+    "start": 3722.292,
+    "end": 3727.153,
+    "speaker": "SPEAKER_05",
+    "text": "Yeah but, grind grades, grind internships, get 250k for yourself too. "
+  },
+  {
+    "start": 3727.173,
+    "end": 3728.554,
+    "speaker": "SPEAKER_07",
+    "text": "250k for this uni event shit. "
+  },
+  {
+    "start": 3728.574,
+    "end": 3731.834,
+    "speaker": "SPEAKER_06",
+    "text": "You're choosing short term money over... I was talking about you. "
+  },
+  {
+    "start": 3742.597,
+    "end": 3790.864,
+    "speaker": "SPEAKER_06",
+    "text": "I'm trying to focus not to crash. That's my main priority. I don't even know how to get my email out. 90% because you missed the 10% I'm fucking not natural Is it like, has to be four on the other side with two randoms? I don't mind Because that was the case with the kiotti thing, he was like, I'm better than me No, look at that, you're like 10 times better than me They're not like twice the size of Comfort. "
+  },
+  {
+    "start": 3794.254,
+    "end": 3795.855,
+    "speaker": "SPEAKER_06",
+    "text": "I don't know how they do it. "
+  },
+  {
+    "start": 3822.289,
+    "end": 3825.211,
+    "speaker": "SPEAKER_06",
+    "text": "Oh wait, wait, there was one question, right? What's... "
+  },
+  {
+    "start": 3852.578,
+    "end": 3881.286,
+    "speaker": "SPEAKER_08",
+    "text": "Do you still want to talk about it? OK, sure, of course. OK, so the way I understood the question is, why are we doing this silly thing with the symmetric hash joins? Why don't we just build a hash table on one side and use the other one to probe it and be done with it? Is that roughly the? OK, let me bounce that back. Why are we doing this thing with the symmetric hash joins? "
+  },
+  {
+    "start": 3892.708,
+    "end": 3924.419,
+    "speaker": "SPEAKER_08",
+    "text": "I think everyone, like, you know, who feels like they have no idea what the point of this whole thing is, of this symmetric hashtag thing is. Okay, so everyone else can give me an answer to the question. No, I have no idea. Okay, very good. Thanks. Okay. So, you guys have an idea. No. OK, so it just looks like a complicated, convoluted hash join. "
+  },
+  {
+    "start": 3927.8,
+    "end": 3957.835,
+    "speaker": "SPEAKER_04",
+    "text": "Yeah, go. Yeah, the point is we get data from both. Like in the naive implementation with infinite memory, we get data from both things, and we never delete it correctly. So you might get something being inserted into the build side that then had a match with the previous thing from the probe side, but it didn't have a hack table in it, you wouldn't still have access to it. The point is that if we get a new piece of data from either thing, my understanding is that then you can go find the answer. "
+  },
+  {
+    "start": 3958.475,
+    "end": 3989.111,
+    "speaker": "SPEAKER_08",
+    "text": "Okay. Okay, let me ask the question differently. Forget about stream processing systems. Let's just think about a classic volcano on-disk database system. Would there ever be a point to implementing a symmetric hash join? Yes or no? Who feels there's absolutely no point in implementing it? "
+  },
+  {
+    "start": 3991.212,
+    "end": 4029.345,
+    "speaker": "SPEAKER_08",
+    "text": "All right. One, two, three. OK. Everyone else feels like there is a point to implementing a symmetric hash join in a volcano system? Who feels that there is? You're just raising. Maybe if you don't know which one will be bigger, you can hash both sides. OK. You don't know if suddenly one might explode. But OK, so what would be the advantage of this if you, because you'd still use, you'd build two hash tables, right? That would presumably be more space. So why would I want to do this? "
+  },
+  {
+    "start": 4042.143,
+    "end": 4077.15,
+    "speaker": "SPEAKER_08",
+    "text": "OK, what join algorithms did we discuss? When we talked about join algorithms. No, no, algorithms, not types of joins. We had nested loop join, yeah. So merge join, hash join, right? OK, cool. So which of these is the best? Depends, OK. "
+  },
+  {
+    "start": 4080.091,
+    "end": 4086.914,
+    "speaker": "SPEAKER_07",
+    "text": "Obviously, sortMergeJoin, you can only do it if you have sorted values. Well, you can sort your inputs, right? "
+  },
+  {
+    "start": 4088.254,
+    "end": 4118.309,
+    "speaker": "SPEAKER_08",
+    "text": "But yeah, you would have to sort your inputs. OK, cool. So not always applicable. OK, so if the input data is sorted, cool. We use sortMergeJoin. What are other cases where we would want to use sortMergeJoin? What were the heuristics we talked about? "
+  },
+  {
+    "start": 4118.349,
+    "end": 4146.244,
+    "speaker": "SPEAKER_08",
+    "text": "Okay, what was the case for hash jobs? When would we use hash jobs? Good. If one relation is significantly smaller than the other, right? Or we could partition such that. Okay, so the inverse of that is Right, if they're roughly the same size, you would use a sort merge joint. Would you ever use a nested loop joint? "
+  },
+  {
+    "start": 4149.787,
+    "end": 4151.048,
+    "speaker": "SPEAKER_07",
+    "text": "You can parallelize it. "
+  },
+  {
+    "start": 4151.569,
+    "end": 4161.517,
+    "speaker": "SPEAKER_05",
+    "text": "You can parallelize it, okay, cool. Smaller inputs, then the time it takes to construct a hash table or sort the input might be more expensive. "
+  },
+  {
+    "start": 4161.537,
+    "end": 4229.145,
+    "speaker": "SPEAKER_08",
+    "text": "Okay, so if comparing, if the number of comparisons with the smaller side, times the cost of that is less than the calculation of a hash. OK, that would be another case. What is another advantage of a sort of merge join? Sorry, not of merge, lesser loop join. As good sequential access? As good sequential access, OK, yeah. What else? So I guess that's what you meant with locality. It's pipelineable, right? It's not a pipeline breaker. So merge join is a pipeline breaker. Hash join is a pipeline breaker. Symmetric hash join is not a pipeline breaker. Because you can produce the first tuple, first output tuple before you've seen the entire input. "
+  },
+  {
+    "start": 4230.965,
+    "end": 4265.487,
+    "speaker": "SPEAKER_08",
+    "text": "And so what the trade-off is here is you would get, you get another join implementation that's significantly more efficient than a nested loop join because nested loop join unless one of the relations is really small. A larger relation would be prohibitively expensive. And when I say larger, I mean 1,000 tuples on one side would already be something where you say, OK, I would no longer consider a nested loop join. "
+  },
+  {
+    "start": 4265.507,
+    "end": 4357.918,
+    "speaker": "SPEAKER_08",
+    "text": "A symmetric hash join still has O of 1 cost per tuple. Sure, it uses up a lot of memory, but it's pipeline. And I also think I say that in the slides. Let me see what I actually say. We talk about symmetric hash joins. Operator that produces the first correct table after all input tables from one side of the process. So you need to process everything before you can output the first correct table. Pipelineable version of hash store. Pipelineable as they come in. So that's a key advantage, right? comes at the cost of higher memory requirements but if you are in an application where for example the time to first couple really matters there was for a while people were really into and I guess some people still are into this idea of like interactive data visualizations right you have a query and you want to produce an approximate version of the answer before refining it further because you want to within half a second produce an estimate or an approximate version and present that to the user. "
+  },
+  {
+    "start": 4358.338,
+    "end": 4426.758,
+    "speaker": "SPEAKER_08",
+    "text": "You couldn't do that if you had a sort merge join or a hash join inside your query. And you couldn't use an asset loop join because, well, your input data is large, and you can't have a symmetric hash join actually is the answer to this problem. You can have tuples. We can have approximate results, have some tuples immediately, and then produce the rest over time. Yeah? If the data coming in are both streams, then how does it not quite find a goal? It is not, right? That's the problem with, that's why I discuss these here in the stream processing. That you couldn't apply a pipeline breaking join operator in a stream processing context unless you accept that you're not going to produce correct or complete outputs. But this first bit is the key advantage. So that's the answer to your question, right? Why would I want a symmetric cache join? "
+  },
+  {
+    "start": 4427.118,
+    "end": 4442.485,
+    "speaker": "SPEAKER_08",
+    "text": "Because it's pipeline. Okay, cool. Thanks so much for bringing this up. Yeah, apparently it was worth discussing. Good. Let's go to the worksheet. "
+  },
+  {
+    "start": 4453.612,
+    "end": 4469.132,
+    "speaker": "SPEAKER_08",
+    "text": "Okay, maybe I'll give you like, you know, three, four minutes to think about this, and then we go through the questions. Let's only go work all the way to here. Don't start the calculations just yet. "
+  },
+  {
+    "start": 4536.774,
+    "end": 4538.355,
+    "speaker": "SPEAKER_06",
+    "text": "That's why I don't want to pay. "
+  },
+  {
+    "start": 4567.2,
+    "end": 4576.043,
+    "speaker": "SPEAKER_06",
+    "text": "So bad at doing to-do lists. It's just processing time. It's just time. So the advantages of event time, by the extent. OK. Shall we check? "
+  },
+  {
+    "start": 4597.195,
+    "end": 4608.704,
+    "speaker": "SPEAKER_08",
+    "text": "So, what class of aggregation functions do we have? Okay, invertible, non-invertible. Okay, that's one dimension. "
+  },
+  {
+    "start": 4610.466,
+    "end": 4613.108,
+    "speaker": "SPEAKER_02",
+    "text": "Distributive, algebraic, and holistic. Cool. Can you explain these? "
+  },
+  {
+    "start": 4626.028,
+    "end": 4629.209,
+    "speaker": "SPEAKER_07",
+    "text": "The distributive is just that you can... "
+  },
+  {
+    "start": 4631.75,
+    "end": 4634.431,
+    "speaker": "SPEAKER_02",
+    "text": "It's hard to explain it, but it's not like... "
+  },
+  {
+    "start": 4634.491,
+    "end": 4650.017,
+    "speaker": "SPEAKER_08",
+    "text": "You better start practicing. You have, what, two and a half weeks or something? Is it that you can calculate it, like, one tuple at a time? Yeah. "
+  },
+  {
+    "start": 4650.097,
+    "end": 4669.219,
+    "speaker": "SPEAKER_07",
+    "text": "One tuple at a time. You don't need the whole data set to be able to... I like that one better. Even though it kind of means the same thing. Maybe it's easier to start with holistic. What does holistic mean? Holistic means you need a holistic view. You need the entire data to be able to calculate the function. "
+  },
+  {
+    "start": 4669.639,
+    "end": 4699.949,
+    "speaker": "SPEAKER_08",
+    "text": "Right. So even calculating one instance of a function requires access to memory in the order of the input. So what's a classic example? Percentiles. Yeah, percentiles, median, all quartiles, all kinds of tiles. Yeah. OK, cool. And then, yeah, distributive. Well, you just need constant network, basically. "
+  },
+  {
+    "start": 4700.169,
+    "end": 4721.352,
+    "speaker": "SPEAKER_08",
+    "text": "And algebraic is, well, distributive is technically you only need one value, and algebraic is you might need more than one, but a fixed amount, right? Okay, and then invertible, non-invertible. Yeah, yeah, you can remove values. "
+  },
+  {
+    "start": 4733.295,
+    "end": 4761.042,
+    "speaker": "SPEAKER_08",
+    "text": "Okay, cool. Next one. Why is push-driven execution more suitable for stream processing systems? Sounds like a good example. Could we build a volcano-style stream processing system? How would that work? "
+  },
+  {
+    "start": 4765.508,
+    "end": 4786.963,
+    "speaker": "SPEAKER_02",
+    "text": "If it was pull driven, you'd need the tuples to be able to be buffered along each step of the pipeline because you've pulled them through and in the lower layers as the stream is producing more data, you need the lower layer operators to . "
+  },
+  {
+    "start": 4790.686,
+    "end": 4795.988,
+    "speaker": "SPEAKER_04",
+    "text": "If you were doing ,, you need to buffer in push anyway. Or is it still the same problem? "
+  },
+  {
+    "start": 4796.669,
+    "end": 4815.197,
+    "speaker": "SPEAKER_08",
+    "text": "Right. I mean, somewhere you need to buffer, right? Sure. But then that buffer could, in principle, even live on a remote server or at the source where the data is being produced. But why does this seem like a bad idea? "
+  },
+  {
+    "start": 4822.612,
+    "end": 4842.863,
+    "speaker": "SPEAKER_03",
+    "text": "Because for stream processing, maybe latency is sensitive, so you want to have an upper bound guarantee as to when you process the data. So having the system decide when to pull the data to the process is not acceptable. "
+  },
+  {
+    "start": 4844.766,
+    "end": 4877.516,
+    "speaker": "SPEAKER_08",
+    "text": "Sure. OK. So in principle, you are right that latency is important. But on the other hand, if there's no input data, you can't produce output data. So latency being defined as whenever a value occurs, is produced, to when is it reflected in the output, that would not be prohibitive. See what I mean? Sure, you might not be producing values, but that's because there's no input data. "
+  },
+  {
+    "start": 4877.616,
+    "end": 4945.65,
+    "speaker": "SPEAKER_08",
+    "text": "A push driven system wouldn't produce any values either. Yeah? No? If it's awkward, then you still have to wait for more values. Oh, sure, but you could have a buffer where you say, well, okay, I'm waiting for a couple of tuples, but no more than one. I think I saw your hand. I was about to say that. Oh, okay. Because it's unbounded, like, amount of data. So I would argue that the key issue is one of resource management, right? So in a tuple... In a volcano-style system, right, you would have an operator, right, sequence of operators, and they all call, you know, next, next, and then one of them calls next, and then say, you know, here's the network boundaries. "
+  },
+  {
+    "start": 4945.73,
+    "end": 4977.674,
+    "speaker": "SPEAKER_08",
+    "text": "This is all happening on a thread. What is that thread going to do? while waiting for a tuple. Well, it's spinning. Maybe occasionally checking if a packet has come in. Or I think you talked about interrupt-based approaches earlier, right? Sure, it could also be waiting for an interrupt. But in the end, it's going to spin. This is whatever, thread one. You could now say, well, OK, maybe I have multiple CPU cores. "
+  },
+  {
+    "start": 4977.754,
+    "end": 5011.149,
+    "speaker": "SPEAKER_08",
+    "text": "OK, I can have multiple of these queries. But each of the queries would basically block a thread here waiting for input data to become data. And the buffering, sure, it's annoying, but it's not actually a huge issue. The fact that you're blocking a CPU thread, in the worst case, even a CPU core, to, well, most of the time wait here because, well, data isn't coming in at a fast enough rate to occupy your system. "
+  },
+  {
+    "start": 5011.67,
+    "end": 5047.109,
+    "speaker": "SPEAKER_08",
+    "text": "That is a huge source of over, right? It's just poor design. for a system in which it is unclear at what frequency values are being sent in. We didn't have that problem in a volcano-style system because all the data was assumed to be, well, at least locally available. We knew how much data we had, and we would process it as fast as we could, and only the line rate of the disk or whatever channel we're reading the data from limited what we could do. "
+  },
+  {
+    "start": 5047.81,
+    "end": 5051.233,
+    "speaker": "SPEAKER_08",
+    "text": "Here, it is the rate at which the data is produced. "
+  },
+  {
+    "start": 5053.094,
+    "end": 5087.237,
+    "speaker": "SPEAKER_03",
+    "text": "So if I understand this correctly, it's like if let's say my pull-based system is set to pull at a given frequency, that frequency is not going to be good enough compared to if the system were to react immediately on a push base. Wait, so you're saying the frequency at which your data polls? No, as in like the frequency which like the stream processor polls for like new data. Is that the problem? "
+  },
+  {
+    "start": 5087.418,
+    "end": 5166.643,
+    "speaker": "SPEAKER_08",
+    "text": "But that's not something that, it's not even a concept that exists in Volcano, right? In Volcano, you don't have a poll frequency. You don't really have the option of saying, oh, well, there's no data available right now. Let me return a null tuple to the top, and then the query execution engine at the top could then maybe pull on another query. That's something you could build, but that's not built into the volcano model. It sounds like that's what you were suggesting. I'm just not very clear on why. Based on the explanation, I just still don't understand. Okay. So the point is the following. This is happening in one execution thread. And returning the tuple would also be happening in one execution thread. Most of the actual work would happen on the way up the operator chain. The question is, what happens down here? When an operator is asked for the next tuple, but the next tuple hasn't come in. "
+  },
+  {
+    "start": 5167.504,
+    "end": 5238.854,
+    "speaker": "SPEAKER_08",
+    "text": "There's no data available. What does the operator do? Yeah, then it will wait. It will wait, yeah. And the way it waits is blocks a thread, right? It can busy wait or it can go to sleep. Well, I guess also... But if the stream has enough data coming in, it wouldn't wait long enough, right? Right. If the input data rate were really high, then you could say, oh, well... there's another red or like network card or something is filling a buffer here and all this operation does is it reads from that buffer right right now the problem with that is that the buffer ether is filled at a rate that's higher than what can be processed here in which case the buffer will overflow eventually or it is lower, the rate at which data is ingested here is lower than what the system can process, in which case the buffer will run dry and we're back to waiting. "
+  },
+  {
+    "start": 5240.575,
+    "end": 5308.734,
+    "speaker": "SPEAKER_08",
+    "text": "Only if either the, well, the system needs to on average, right? Because the buffer could buffer load spikes in troughs, right? But it can't, if the sustained data rate, the average data rate over a long time isn't exactly the data rate that the system can produce, one of these two things will occur. So the argument is more of like resource safe, like saving resources rather than like actual performance, right? Well, I mean, yes, yes, you could say that. You could say, I would argue that if you have CPU core, if you have 64 CPU cores, And on average, 63 of them are stalled, waiting for data to come in. That is a performance issue, but you could say, no, no, this is just about efficiency, not really about performance. Okay, fine, yeah. "
+  },
+  {
+    "start": 5309.374,
+    "end": 5343.595,
+    "speaker": "SPEAKER_08",
+    "text": "Semantics, potato, potato. But the key point is that if you don't if you implement a volcano-based system textbook volcano you will run either into resource overload or under load or you build something fancy like you know returning null tuples through the curriculum but that's quite frankly, pretty dumb. You ask, is there somewhere at the bottom of the query, is there data? "
+  },
+  {
+    "start": 5343.895,
+    "end": 5351.258,
+    "speaker": "SPEAKER_08",
+    "text": "No? Good. And then you tell him, like, you know, it goes all the way up through the query again, just to say, nope, still no data. "
+  },
+  {
+    "start": 5352.77,
+    "end": 5367.033,
+    "speaker": "SPEAKER_00",
+    "text": "Yeah? For the push operator, so if only the data source is blocking and occasionally sending data, then how does it actually break up the thread, which is like... "
+  },
+  {
+    "start": 5367.233,
+    "end": 5401.005,
+    "speaker": "SPEAKER_08",
+    "text": "Right, yeah, okay. So in a push-based, in a practical push-based system, I'm going to draw the same thing, 90 degrees turn. What you have is, again, let's suppose you have two cores, okay? Now you get some data in. You have a, let's say you have three cores. And data comes in, and you actually have an ingestion thread that is one thread that actually is in a spindle, right? "
+  },
+  {
+    "start": 5401.405,
+    "end": 5444.466,
+    "speaker": "SPEAKER_08",
+    "text": "Or probably sleeping. And that will be woken up using an interrupt. and then fill a buffer and this be time right uh fill buffer uh and then it will dispatch the for execution in a push-based manner uh dispatch for execution using either thread one or two you can actually choose right let's say you know it uh dispatches it with thread two thread two will now fill the buffer This thread will then either go back to sleeping, well, yeah, will go back to sleeping, and let's say, you know, it gets another buffer of data come in. "
+  },
+  {
+    "start": 5445.007,
+    "end": 5485.102,
+    "speaker": "SPEAKER_08",
+    "text": "Again, it fills the buffer, and this one's still occupied, so that one is dispatched to thread one, which will then be processing in a push base. And if it gets another buffer in here, at that point, it... Well, actually, I don't know. In this case, it's fine, right? It can dispatch it here. But let's say, you know, it actually has more data available. Let's say it dispatches it longer. Here, it has data available to be processed during, while the other two are occupied. "
+  },
+  {
+    "start": 5485.482,
+    "end": 5550.745,
+    "speaker": "SPEAKER_08",
+    "text": "What would happen? Oh, very good. Wow, that was fast. Who said that? Okay, very good. Yes, that would be the situation in which the ingestion thread would exert back pressure and say, okay, fine, I'll take the buffer for now, but I'm actually, my node is fully utilized. You can't send me any more data, or at least... So it's acting like a load balancer? High load balance, you mean back pressure as a concept. I mean, the thread, but not really. I mean, it's more dispatching, right? But what it does is it pushes a load balancer sounds like this, like it has resources available, but it does not, right? What it does instead is it pushes back towards the source, and the source would then... load balance and push work somewhere else, potentially starting more nodes or doing something else. "
+  },
+  {
+    "start": 5550.765,
+    "end": 5585.415,
+    "speaker": "SPEAKER_06",
+    "text": "Yeah? So Thread 3 is the one that's controlling the data and sending it off to other threads then? In your example, you're saying Dread3 is sending the data over to another Dreads and then making them do the work. Dread3 is like the control Dread? Yeah, I called it a gesture Dread. This seems super familiar to XDP in networks. I don't know what that is. It's like the same concept in networks. One thread is always controlling the data, and then it always sends exactly the same concept in my head. "
+  },
+  {
+    "start": 5585.655,
+    "end": 5615.872,
+    "speaker": "SPEAKER_08",
+    "text": "In principle, you could build this up, I suppose. You could even build this without this dedicated ingestion thread here, but then the interrupt would need to be handled I could, I guess, be handled in kernel, and then be sent to one of the threads, but it doesn't really matter, right? As long as you only have, you still have some sleeping going on here, but it's only one thread, right? "
+  },
+  {
+    "start": 5615.972,
+    "end": 5630.876,
+    "speaker": "SPEAKER_08",
+    "text": "Or at least a constant number, and not all threads sleeping. OK, cool. Why is processing time a poor metric to generate back pressure? I think I even said that. "
+  },
+  {
+    "start": 5635.318,
+    "end": 5646.425,
+    "speaker": "SPEAKER_04",
+    "text": "Yeah? It's just a poor time because you don't know what's going to happen between when you start doing the work and when you're finished. You could get de-scheduled by the OS or something. Exactly. It could happen. Yeah. Yeah. "
+  },
+  {
+    "start": 5646.445,
+    "end": 5679.912,
+    "speaker": "SPEAKER_08",
+    "text": "So I mean, also the... Processing time is technically just the length of this box. So it could be that thread one or core one is superutilized using processing data, but the other threads or cores could still be idle. And that would not be reflected in processing time as a measure of thread pressure. "
+  },
+  {
+    "start": 5681.819,
+    "end": 5711.466,
+    "speaker": "SPEAKER_08",
+    "text": "Yeah, you would want something like CPU utilization would probably be a logical problem. Okay, cool. What concepts of time do we have? What types? Yeah, okay, that was one. What else? Ingestion time? Ingestion time, yeah. Processing time? And processing time, yeah. Okay, good. "
+  },
+  {
+    "start": 5711.506,
+    "end": 5720.251,
+    "speaker": "SPEAKER_06",
+    "text": "Now let's explain this. "
+  },
+  {
+    "start": 5723.112,
+    "end": 5728.415,
+    "speaker": "SPEAKER_00",
+    "text": "Okay, cool. The time where we receive the data. "
+  },
+  {
+    "start": 5729.056,
+    "end": 5805.901,
+    "speaker": "SPEAKER_08",
+    "text": "Okay. So, basically assigned by... Yes. Okay, cool. The thing is just each operator when it receives the data. Well, yeah, all when it starts processing. Yeah. Yeah. Cool. Then the classes of Windows. Yeah. Sliding, tumbling, and stream-tumbling. Right. Sliding, tumbling, and? Stream-tumbling. Stream-tumbling. I think sampling is what I mean. Yeah. Okay, cool. So how do we distinguish those? Yeah, sliding is when there's overlap. Tumbling is when they exactly are adjacent to each other. And sampling is when there are gaps between them. OK, cool. Yeah, I'm happy with that. Good. Let's do some calculations. There we go. There was also the. Oh, did I forget one? No, there was also, there was an extra window or something. Oh, yes. Yeah, but we didn't talk about those trigger windows yet. Good. Yeah, let's work on the calculations. "
+  },
+  {
+    "start": 5835.564,
+    "end": 5838.286,
+    "speaker": "SPEAKER_06",
+    "text": "Where are we coming in? "
+  },
+  {
+    "start": 5877.009,
+    "end": 5878.169,
+    "speaker": "SPEAKER_06",
+    "text": "I just struggle with numbers. "
+  },
+  {
+    "start": 5902.838,
+    "end": 5905.4,
+    "speaker": "SPEAKER_06",
+    "text": "I want to see like a billion trillion things. "
+  },
+  {
+    "start": 5929.195,
+    "end": 5951.26,
+    "speaker": "SPEAKER_06",
+    "text": "No, I mean run down You don't need to have the entire input data. You can just hash on both. "
+  },
+  {
+    "start": 5975.995,
+    "end": 5984.83,
+    "speaker": "SPEAKER_06",
+    "text": "So it's actually ad hoc circuit. Yes. I thought that was the name of the app. Look at that look. "
+  },
+  {
+    "start": 5984.91,
+    "end": 5988.396,
+    "speaker": "SPEAKER_07",
+    "text": "I am sleeping. Because you hash on the right. Let's say you got time. Correct. "
+  },
+  {
+    "start": 6001.556,
+    "end": 6003.136,
+    "speaker": "SPEAKER_07",
+    "text": "at this time, right? "
+  },
+  {
+    "start": 6003.677,
+    "end": 6038.671,
+    "speaker": "SPEAKER_06",
+    "text": "So you get one on the right, and you have it, and then you move it a little. Like one of the side objects is holding its head. That's me right now. You need to have all of one side to be on the right. A spare set of clothes. Here we go again. But that's the problem. That's the tip. It was checking whether it was there or something, right? Oh, OK. I forgot. It's going to be the most tiring day of my life. How long is ACA because DPS? "
+  },
+  {
+    "start": 6056.547,
+    "end": 6057.768,
+    "speaker": "SPEAKER_06",
+    "text": "You can do it in your head. "
+  },
+  {
+    "start": 6082.988,
+    "end": 6089.131,
+    "speaker": "SPEAKER_06",
+    "text": "I mean, I know it, but I don't know. It's taking a long time. This is looking like they didn't join the . "
+  },
+  {
+    "start": 6109.559,
+    "end": 6143.749,
+    "speaker": "SPEAKER_06",
+    "text": "It was just like, I don't know. I think we joined the metric, or discuss a lecture. These are fucking... Fucking heads. Yeah, it's like, because I... Because we have, like, emergency gas for things. Did you guys do the calculations? Yeah, we did. Whoa. That's a bit generous, don't you think? "
+  },
+  {
+    "start": 6163.792,
+    "end": 6182.775,
+    "speaker": "SPEAKER_01",
+    "text": "I just have one register. That's right. I watch these and then nothing gets in my head. Because if it has to do, I mean, I watch the video. What's the value of it? I guess you just multiply it. "
+  },
+  {
+    "start": 6203.21,
+    "end": 6219.835,
+    "speaker": "SPEAKER_06",
+    "text": "So let's just do the standard. Let's just do the standard one. Oh, the top one? How do you get that? Surely you don't have many bits. How many do we have? Let's see. "
+  },
+  {
+    "start": 6246.989,
+    "end": 6257.274,
+    "speaker": "SPEAKER_06",
+    "text": "That's 65. I'm going to put one foot, not two, using all seven of them. Oh, shit. Yeah, we're coming in the back side. That's 40. "
+  },
+  {
+    "start": 6257.475,
+    "end": 6259.175,
+    "speaker": "SPEAKER_01",
+    "text": "If you end up . "
+  },
+  {
+    "start": 6296.421,
+    "end": 6300.946,
+    "speaker": "SPEAKER_06",
+    "text": "So first one should be relatively easy. It's just applying the equations. What are the numbers you get? "
+  },
+  {
+    "start": 6315.407,
+    "end": 6323.57,
+    "speaker": "SPEAKER_07",
+    "text": "17,135 bits. Yes. And seven hash functions. "
+  },
+  {
+    "start": 6323.77,
+    "end": 6352.008,
+    "speaker": "SPEAKER_08",
+    "text": "Yeah, 6.631. It's kind of interesting that whatever a fractional hash function is, there are actually papers on just how do you round that number. And I don't understand these papers either, but I also tend to just round up and go with seven. But, yeah, okay, cool, that's correct, okay. For the second one, do we have any numbers? "
+  },
+  {
+    "start": 6354.189,
+    "end": 6365.011,
+    "speaker": "SPEAKER_04",
+    "text": "Sorry, can I? Yeah. For working out the number of hash functions, you can't just use the equation, right, because you don't know the number of bits, or do you just take? "
+  },
+  {
+    "start": 6365.031,
+    "end": 6419.346,
+    "speaker": "SPEAKER_08",
+    "text": "So you first calculate the number of bits, and then you calculate the number of hash functions, basically. Perfectly. Yeah, but they're closed equations, right? Sorry, when I was doing this, I wasn't sure how to do this. Sure. I mean, okay, if we... I probably missed something. I mean, to be completely honest, I would have to just look up the equations. Oh, those are... No, wait... Here we go. So this gives you the number of bits, right? Number of distinct values. And the error rate was 1%. Oh, sorry. And then you plug that in here. "
+  },
+  {
+    "start": 6420.307,
+    "end": 6468.845,
+    "speaker": "SPEAKER_08",
+    "text": "And the rest is... I mean, honestly, yeah, that one's it. I missed that. Okay, cool. Good. For the second one, well, let's see if we can... We still need the sheet. Does anyone have a number? In that case, it shouldn't take too long. So what's the difference between the two implementations? In one, I have a hash join. and I build on R, right? And I probe using S. "
+  },
+  {
+    "start": 6469.505,
+    "end": 6503.289,
+    "speaker": "SPEAKER_08",
+    "text": "Okay, and presumably I would like to return the entire time, right? So I build a hash, well, let's start with the scan cost, right? So scan cost for S, is, well, 150K, right, times the size of a tuple, it's two integers, so that's eight parts, okay? So 800, so roughly 12, sorry, 1.2 megabytes, right? "
+  },
+  {
+    "start": 6503.729,
+    "end": 6542.144,
+    "speaker": "SPEAKER_08",
+    "text": "That's for scanning, scan test. I divide it by each side. Yeah, yeah, yeah. And you would then divide it by half. And then you do the same thing for R. And that's 50k, same thing, right, times 8 bytes. And that would be 400 kilobytes, right? Both, okay, divided by page size. Page size, I said 64, right? Yeah, so divided by 64. "
+  },
+  {
+    "start": 6545.027,
+    "end": 6583.015,
+    "speaker": "SPEAKER_08",
+    "text": "Good, so that's common in both cases, right? Now I need to calculate the cost for the hash join. And for that, I calculate, let's start with the smaller one, right? Oh, sorry, yeah, I would obviously start with the smaller one. So hash build cost on R. would be, well, first, the size of that hash table is 50,000 tuples times 8 times an over-allocation factor of 2. "
+  },
+  {
+    "start": 6584.035,
+    "end": 6652.291,
+    "speaker": "SPEAKER_08",
+    "text": "So it would be 800 kilobytes. That is strictly over our 32k. So we know that this is an out-of-memory hash join, both on the build phase as well as the probe phase. So good. So how many, what's the cost of this in terms of IOPs? What's our rule for out of memory hash joins? One per tuple. One per tuple. Exactly. Yeah. It's random access one per tuple, right? So that would be 50,000 pages, right? Same thing, well, yeah, that. And then during, that's for building, hash pro on R using the tuples of S would be the same thing, but now I'm probing 150,000 times, right? So 150K. And yeah, that's basically, now I sum this all up and I get a number. "
+  },
+  {
+    "start": 6653.391,
+    "end": 6701.232,
+    "speaker": "SPEAKER_08",
+    "text": "I don't know if anyone can, like, Oh, actually, no, I have one. What do I have? Oh, no, I don't have the accurate number. I just have the final result. Well, OK. But basically, that's on HashBuild and HashPro. Now, the total cost of regular hash join would be, well, $1.2 billion. plus, wait, divided by 64, right? Over 64, 400k divided by 64 plus 50k plus 150k, right? "
+  },
+  {
+    "start": 6701.592,
+    "end": 6732.719,
+    "speaker": "SPEAKER_08",
+    "text": "So I'm basically summing up all the values. The difference to a symmetric hash join would basically be, well, this would be the exact same. This would be the exact same. would be doubled because I'm always probing and building on both sides. And so basically, I get on the one side, I get basically 50k for building. "
+  },
+  {
+    "start": 6733.497,
+    "end": 6751.487,
+    "speaker": "SPEAKER_08",
+    "text": "plus 150k for probing the other hash table, plus 100 on the other side, again, 150k for building that hash table, plus 50k for probing the other. "
+  },
+  {
+    "start": 6751.547,
+    "end": 6762.133,
+    "speaker": "SPEAKER_06",
+    "text": "Yeah? The probing stage isn't sequential. Like, you put the cost as 150k. "
+  },
+  {
+    "start": 6762.473,
+    "end": 6794.074,
+    "speaker": "SPEAKER_08",
+    "text": "Yeah. So I'll post the exact calculations on EdSTEM, but the number I get out as, oh yeah, and then if you want to know the performance penalty, you would divide that number by that number. and I get 1.89-ish, roughly. "
+  },
+  {
+    "start": 6794.474,
+    "end": 6825.232,
+    "speaker": "SPEAKER_08",
+    "text": "So it doesn't quite double the cost because, well, these costs are shared, right? But this part of the cost will be doubled. So it's not quite a factor two. So I'm paying about a 90% overhead, but I get a pipelineable join operator. May or may not be a good trader. Good, on that note, done for today. Good luck with the rest of the coursework, and I'll see you on next Monday. "
+  },
+  {
+    "start": 6884.465,
+    "end": 6893.388,
+    "speaker": "SPEAKER_07",
+    "text": "It's not that much, but it's like, I don't know, it can't be bad. It might be mental. It's like, I do aces, and mine are not like some. Yeah, it's like, you know, in one scene. "
+  },
+  {
+    "start": 6901.962,
+    "end": 6925.714,
+    "speaker": "SPEAKER_06",
+    "text": "Right, that makes sense. For me, it's just like facing... I'm getting so like... I'm not a guy, which is like very dark. It's basically freezing. I get more light from my LEDs on the house. Wait, why would you get a bath? That's why I got it. He does play Fretless. He does play Fretless. "
+  },
+  {
+    "start": 6941.181,
+    "end": 6968.059,
+    "speaker": "SPEAKER_06",
+    "text": "I'm not totally sure yet, but I'm thinking that the Earth is basically like a... Depending on how badly this goes. Damn. I've been... Why would you use a computer vision thing? Like, run over... I've seen people do it. It's not very practical. I feel like the top is like, same like... Warriors. Activision. This man's like... Do you think the short... "
+  },
+  {
+    "start": 6969.1,
+    "end": 6971.983,
+    "speaker": "SPEAKER_03",
+    "text": "No, wanting to be threatening. Slash. Slick. "
+  },
+  {
+    "start": 6981.532,
+    "end": 7013.063,
+    "speaker": "SPEAKER_06",
+    "text": "Just let them have like 10% of your income So instead of getting taxed almost 50%, go to the casino. And then have someone take you. Yeah, I mean, lose it all to... I'm like a lecture behind the scenes. You know, take a small cut. "
+  },
+  {
+    "start": 7013.083,
+    "end": 7055.186,
+    "speaker": "SPEAKER_06",
+    "text": "They get something out of it as well. You only get like 4%. That's one of the most common ways to launder money. This is you and a friend. He has all the money that you need. He loses it all. And then, as far as the government is concerned, he's won a bunch of money. Just get paid minimum wage at your job and get the rest paid. Yeah, last year was so much. It's like 5 or something. I put myself over it. I thought it was too grueling. Hey, think about it. If someone's salary is like 200k, it's like 150k. Like, done with it, or what? 200k. You just need to make some 100 different cases, you know, for a while. "
+  },
+  {
+    "start": 7061.295,
+    "end": 7082.023,
+    "speaker": "SPEAKER_07",
+    "text": "I would just like Like I have all the coursework to do first. "
+  },
+  {
+    "start": 7082.063,
+    "end": 7089.485,
+    "speaker": "SPEAKER_06",
+    "text": "I kind of have to finish the ACA for tomorrow and the IML. What's your paper? It's about huge pages. You have the normal four kilobyte pages and two megabyte pages. "
+  },
+  {
+    "start": 7101.953,
+    "end": 7161.685,
+    "speaker": "SPEAKER_07",
+    "text": "Oh, we're going to introduce between 32 megabytes and 32 kilobytes. Between basically. But I might wait. Just assessing the performance. It increases the abstract. It says they increase performance on memory-bound programs by 40. It's quite a big, insane claim, if you ask me. 40% for general memory-bound programs is a bit... I think people would have tried that before. Right? And I looked at the code... It's like two stars. It's like empty. I'm like, no impact. No one has ever read this paper. It's like three citations. I don't know. Apparently, it also works on virtualized machines, which it has a 30% increase on utilization. So you would think Docker would be using it straight away. "
+  },
+  {
+    "start": 7161.965,
+    "end": 7163.005,
+    "speaker": "SPEAKER_06",
+    "text": "Everyone would be fucking using that. "
+  },
+  {
+    "start": 7164.245,
+    "end": 7167.146,
+    "speaker": "SPEAKER_02",
+    "text": "I don't know. I definitely pulled that out of it. "
+  },
+  {
+    "start": 7167.186,
+    "end": 7187.904,
+    "speaker": "SPEAKER_07",
+    "text": "Maybe it's just a hidden gem that no one's found. Maybe they're really specific in their test cases. Yeah, maybe. I think they only implement it I don't know. But maybe it's not possible on x86 or something. I need to finish reading it. See you. "
+  }
+]

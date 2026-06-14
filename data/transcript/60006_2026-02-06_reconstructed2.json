@@ -1,0 +1,1208 @@
+[
+  {
+    "start": 1.072,
+    "end": 11.542,
+    "speaker": "SPEAKER_02",
+    "text": "Presumably your previous lecture is for you. Okay. Okay. Okay, maybe we'll leave it here. "
+  },
+  {
+    "start": 69.631,
+    "end": 101.074,
+    "speaker": "SPEAKER_09",
+    "text": "Good afternoon, let's start. So today we'll first have one hour lecture on the topic of image segmentation, then we'll have break, and then we'll have the tutorial session. So last time we introduced the concept of image segmentation, which aims to divide an image into a number of regions, and each region shares similar properties. And they can share similar colors or similar intensities or similar meanings. "
+  },
+  {
+    "start": 103.576,
+    "end": 136.42,
+    "speaker": "SPEAKER_09",
+    "text": "And we mentioned that there is a basic assumption that when we look at the feature of all the pixels, they can be classified into different clusters. And then we can develop some algorithms such as k-means clustering to divide all these pixels into different groups. To describe each cluster, we need some parameters. And the basic parameter is that we can use a mean value for each cluster. Here, the notation mu k denotes the center of one cluster. "
+  },
+  {
+    "start": 137.703,
+    "end": 181.301,
+    "speaker": "SPEAKER_09",
+    "text": "And we can formulate an optimization problem. We calculate for each data point, if it's belonging to one of the cluster, we can calculate the squared error between that data point x to the center of the cluster mu k. And x here can denote some properties of a pixel. For example, the pixel intensity or the pixel color or maybe even some feature vector on this pixel. And there can be big K clusters, so we can calculate this kind of sum of squared difference for each of these cluster, and this will be our objective function to minimize. "
+  },
+  {
+    "start": 183.262,
+    "end": 222.797,
+    "speaker": "SPEAKER_09",
+    "text": "There is another way to write this equation, which is that, so here in this equation, for the second summation, we take X coming from the case cluster, We can also replace this notation using different one. We just take all of x, but we add this Kronecker notation, data x k to the equation, which means if this pixel x or data point x belonging to the k-th cluster, this data x k is equal to one, otherwise it's equal to zero. "
+  },
+  {
+    "start": 224.225,
+    "end": 264.573,
+    "speaker": "SPEAKER_09",
+    "text": "And this is our object function to minimize. And when we minimize it, we realize there is a challenge that there are two unknowns. The first unknown is this beta x k, which means for each pixel x, which cluster it belongs to. And second unknown is mu k, which means the center for each cluster. And there are two unknowns, and when we see this kind of problem, there is a common strategy to solve it, which is to perform alternating optimization, which means we first optimize one, and then we optimize the other. "
+  },
+  {
+    "start": 265.933,
+    "end": 306.377,
+    "speaker": "SPEAKER_09",
+    "text": "And in this way that we can split this difficult question into two sub-questions. In each sub-question, it's become simpler because we only need to handle one of the unknown. And if you look at a computer algorithm, they also have different names for that. It can also be called divide and conquer. So we divide this big problem into small problems and conquer each of them. So to perform alternating optimization, we first assume we already know one of these unknown practices, such as we already know where the center of the cluster mu k is. "
+  },
+  {
+    "start": 307.526,
+    "end": 338.046,
+    "speaker": "SPEAKER_09",
+    "text": "And the way we do it is that we can assume that if we're looking at pixel intensity, we know for grayscale images, the pixel intensity is between zero and 255. And if there are three different clusters, then maybe mu k can be equal to zero, and mu three can be equal to two five five, and then another mu would be in the middle of the value range. "
+  },
+  {
+    "start": 338.627,
+    "end": 369.261,
+    "speaker": "SPEAKER_09",
+    "text": "And so you can find a way, based on our knowledge about how large, how small this feature can be, we can assign three different initial values for the cluster centers. And so this unknown is solved. And the next step is that we, based on this cluster center, we can calculate for each data point x, which cluster it belongs to. This can be very simple. "
+  },
+  {
+    "start": 369.661,
+    "end": 413.976,
+    "speaker": "SPEAKER_09",
+    "text": "We just calculate the difference between x to mu one x to mu two x to mu three. And if one of these mu k has the closest distance to the data point x, then we assign that cluster to this data point x. In this way, we can calculate this data x k, which means that the membership of x belong into cluster k. And once we know our data points for all these pixels, which cluster they belong to, we can now update mu k, which is the cluster center. "
+  },
+  {
+    "start": 416.377,
+    "end": 457.385,
+    "speaker": "SPEAKER_09",
+    "text": "And for example, our problem is that we want to minimize this problem, x minus mu one, square, and then there is some summation here, and want to minimize this. And here, because we already know that for each x, which cluster it belongs to, suppose for x one, which means the first pixel, it belongs to mu one, and for x two, it also belongs to mu one, and you can write down all these sum square difference. "
+  },
+  {
+    "start": 458.365,
+    "end": 499.628,
+    "speaker": "SPEAKER_09",
+    "text": "So here that these blue terms are for those x belonging to mu one, maybe there is some other term which is at certain pixels, we start to see x six belong into mu two, and we need to write down this square difference. So at the end, because there are, suppose there are three different cluster, When you look at the sum square difference, they can be split into three parts. The first part is the sum square difference relevant to mu one, and then we can minimize this part. "
+  },
+  {
+    "start": 504.259,
+    "end": 538.62,
+    "speaker": "SPEAKER_09",
+    "text": "we can find the best mu one that can minimize this sum square difference. Then there is another part which are all those square difference relative to mu two. We can also minimize those part with respect to mu two. And when we minimize this kind of sum square difference, which has the form x minus mu square, we know that the best mu is the center of all these x. "
+  },
+  {
+    "start": 539.661,
+    "end": 555.99,
+    "speaker": "SPEAKER_09",
+    "text": "And center means that mu1 should be equal to x1 plus x2 plus all the x that belong to this cluster, then divided by the number of x belong to this cluster. "
+  },
+  {
+    "start": 566.02,
+    "end": 600.0,
+    "speaker": "SPEAKER_09",
+    "text": "Okay. And then, so in this way, we finish one iteration. So in this iteration, we calculate delta xk, which assigns each data point to one cluster, then we update the center of the cluster. And this can go for several iterations. And we can show you like a diagram, suppose we are looking at some two-dimensional data points. It has this X-dimensional feature and Y-dimensional feature. "
+  },
+  {
+    "start": 600.981,
+    "end": 633.238,
+    "speaker": "SPEAKER_09",
+    "text": "And these data points are split on this feature space. And we can assign the initial class center, which are the red, green, and blue dots. Then for all the data points, we basically calculate which of these colored circle is closest to that data point. And then we can get the value for data XK. And data XK will tell us, okay, for this X, this should be belonging to the green. "
+  },
+  {
+    "start": 633.658,
+    "end": 663.751,
+    "speaker": "SPEAKER_09",
+    "text": "For some other X, this should belong into the segment cluster, should have the blue color. And then we update our class center. So we just look at maybe there are five eggs that are green. We just calculate their mean value, and then we'll move the class center to that mean value position. And similarly, we calculate the new class center for the red color and new class center for the blue color. "
+  },
+  {
+    "start": 664.191,
+    "end": 698.511,
+    "speaker": "SPEAKER_09",
+    "text": "And you can see that the class center moved to this light red, light green, and light blue area. And the first re-image is for one iteration, and then we can do the next iteration. So for the next iteration, we can update this data XK, update the membership. And after we update this membership of each X belonging to a certain cluster K, we can update the cluster centers again. "
+  },
+  {
+    "start": 698.591,
+    "end": 733.778,
+    "speaker": "SPEAKER_09",
+    "text": "You can do this for quite a few iterations, and we hope at some point that this algorithm can converge, that the position of this red circle, green circle, and blue circle does not change so much, and you can stop. And if we apply these kinds of k-means clustering algorithm to the image at the top, we can also set the number of cluster, this big K equals to two, we can generate a segmentation at the bottom. "
+  },
+  {
+    "start": 735.237,
+    "end": 766.345,
+    "speaker": "SPEAKER_09",
+    "text": "And here that for each pixel X, you can use its maybe RGB color to represent its feature. You can also calculate some other features. For example, you can use its position, use its maybe gradient. So this, how do you define the feature is empirical. So in k-means clustering, that we have this notation that xk, which is either one or zero. "
+  },
+  {
+    "start": 767.046,
+    "end": 801.233,
+    "speaker": "SPEAKER_09",
+    "text": "So if it is one, it means the pixel x belonging to this cluster k. If it is zero, it means the pixel x does not belong to this cluster k. And this is called a hard assignment. And we can also use a soft assignment, which means that that xk becomes a probability. It becomes a value between zero and one. And when we introduce the concept of probability, the easiest probability distribution we can use is a Gaussian distribution. "
+  },
+  {
+    "start": 802.19,
+    "end": 839.0,
+    "speaker": "SPEAKER_09",
+    "text": "So we can assume that if in our image there are three cluster, we can assume for each cluster maybe the features like the intensity follow a Gaussian distribution. And with the Gaussian distribution you can write down whether each pixel belong to certain cluster. For example that for the, for this pixel xj, we use yj to denote that it belongs to this cluster k, and this probability is given by this Gaussian function. "
+  },
+  {
+    "start": 839.821,
+    "end": 871.211,
+    "speaker": "SPEAKER_09",
+    "text": "And we know that in this Gaussian function, there are some parameters such as the center of the Gaussian is called mu k, and Gaussian also have this standard deviation, which is this, and we can also add another term in front, which is pi k, which denotes how likely each pixel would belong into a certain cluster. And if you look at this, we have three clusters in this image at the bottom right. "
+  },
+  {
+    "start": 871.992,
+    "end": 915.738,
+    "speaker": "SPEAKER_09",
+    "text": "Maybe for the blue cluster, it contains many, many pixels, maybe 90% of the pixel belonging to this blue cluster. And that will mean that when you calculate Gaussian function, you can multiply it with a big value for this pi k. So this pi k can denote the density or the proportion of the number of pixels belonging to that cluster. And after we define this probability, we can use the previous idea again to find the good parameter for this mu k and sigma k, so we can use the alternation optimization. "
+  },
+  {
+    "start": 918.56,
+    "end": 952.997,
+    "speaker": "SPEAKER_09",
+    "text": "So what we do is that we first assume we already know these parameters. So we know that maybe there are three cluster. For each cluster, its Gaussian distribution are described by pi k, mu k, and sigma k. And based on these parameters, we can calculate the probability for each data point belonging to each cluster, given by the second equation here. And once we know for each pixel which cluster it belongs to, we can update the Gaussian parameters. "
+  },
+  {
+    "start": 953.797,
+    "end": 1000.348,
+    "speaker": "SPEAKER_09",
+    "text": "And here that each pixel can belong to multiple clusters with some probability. Maybe for one pixel, it belonging to cluster one with probability equals 0.9. It also belonging to cluster two with probability of 0.1. This can happen. And when we like, when we calculate the Gaussian parameters, for example, to calculate the mean of Gaussian for one cluster, if we look at mu k, which means the mean of mu k of cluster K, we can calculate the mean value for all the X belonging to this cluster. "
+  },
+  {
+    "start": 1000.989,
+    "end": 1048.498,
+    "speaker": "SPEAKER_09",
+    "text": "But because X belonging to this cluster with the probability, so when you calculate the mean, you need to calculate the weighted mean. So X is multiplied with the weight, which is the probability of this X belonging to certain cluster, and then you take the sum and divide it by the sum of the probability. So in this way you can update the mean of these multiple clusters. And also when you calculate the other parameter for the Gaussian distribution, which is this sigma k, sigma k squared is equal to x minus mu k squared, and then we calculate the weighted average for this term. "
+  },
+  {
+    "start": 1051.052,
+    "end": 1083.881,
+    "speaker": "SPEAKER_09",
+    "text": "And the last parameter is how likely each pixel would belong to a cluster, or how large, how tall each cluster is. For this parameter, pi k, it is equal to the sum of the probability that each pixel belonging to this cluster, divided by the total number of pixel, n. And we need to repeat this process for several iterations. "
+  },
+  {
+    "start": 1085.161,
+    "end": 1123.121,
+    "speaker": "SPEAKER_09",
+    "text": "And when we do this, when we use this Gaussian probability to describe the membership that one data point belonging to one cluster, we call this method as a Gaussian Match Model, GMM. And at the end, we want to perform classification for each pixel to see which cluster we should assign it to. And once we know all the Gaussian parameters, we can calculate the probability for each pixel belonging to each of the cluster. "
+  },
+  {
+    "start": 1123.661,
+    "end": 1163.369,
+    "speaker": "SPEAKER_09",
+    "text": "And the cluster that gives us the maximum probability would be the cluster this pixel belongs to. And Gaussian Mixed Model was once a very popular method for performing image segmentation. And in PowerPoint, it was implemented maybe 15 years ago. So PowerPoint, in PowerPoint, when we collect the image, there is a function called Remove Background. And that function essentially uses Gaussian Mixed Model to determine which pixels belong to the foreground and which pixel belong to the background. "
+  },
+  {
+    "start": 1164.34,
+    "end": 1197.29,
+    "speaker": "SPEAKER_09",
+    "text": "And because it only performs a foreground background segmentation, it means the big K, the number of clusters, is equal to two. And in terms of what kind of features they use for the pixel, they use more than just the colors. So actually they use the RGB values, represent the color, they also use the XY coordinates, and maybe something else. And also that when you use this function in PowerPoint you will notice that it allows you to edit the segmentation. "
+  },
+  {
+    "start": 1198.992,
+    "end": 1232.16,
+    "speaker": "SPEAKER_09",
+    "text": "Let me try whether I can do it here. So if I click this image, picture format, it has this remove background function. And then, yes, you can see that all the background is shown as a purple color and the foreground is shown as this bright color. I believe that... Okay, it does not show up, but you can see there are two buttons here. The first button says, mark areas to keep. "
+  },
+  {
+    "start": 1232.34,
+    "end": 1283.859,
+    "speaker": "SPEAKER_09",
+    "text": "The second button says, mark areas to remove. So this allows you to perform some interactive segmentation so that although this Gaussian mixture model give you some results, but human can also intervene to change some, to edit these foreground and background. Yes? Why is the boundary looking like a curve and not a straight line if I have just two classes? Which boundary do you mean? So the boundary between the classes is like some kind of curve. However, if I have two classes, it should be just a line. Okay. Yes, so... Let's... "
+  },
+  {
+    "start": 1311.026,
+    "end": 1347.912,
+    "speaker": "SPEAKER_09",
+    "text": "Suppose that we are looking at two dimensional feature space, which means for each pixel, we use two number to represent its feature. And then suppose we have a number of pixels and they belong to two clusters. So we need to estimate the center and also standardization, this kind of Gaussian parameter for each cluster. And at the end, maybe one Gaussian distribution looks like this. "
+  },
+  {
+    "start": 1350.453,
+    "end": 1391.571,
+    "speaker": "SPEAKER_09",
+    "text": "Another Gaussian distribution looks like this. And they will touch each other. And between these two Gaussian distribution, where they meet, where they have the equal probability, those positions give us the decision boundary. Yes, if we only have two Gaussian, maybe where they meet would look like, if they're both spheres, maybe it will look like a straight, but if they don't have the same size, don't have the same shape, maybe this decision boundary can be slightly curved. "
+  },
+  {
+    "start": 1393.553,
+    "end": 1427.684,
+    "speaker": "SPEAKER_09",
+    "text": "And this decision boundary is happening on the feature space, which means that for each feature, For each pixel, we have that feature which is X1 and X2. So that means that in the feature space, maybe we are either using a line or a curve to split the feature space into two clusters. And when you look at the segmentation on the image, it's different. So here it's the image space that we are looking at the X and Y coordinates. "
+  },
+  {
+    "start": 1428.464,
+    "end": 1444.434,
+    "speaker": "SPEAKER_09",
+    "text": "So how to the shape of decision boundary does not necessarily transform into the same shape on that pixel space. Yes? "
+  },
+  {
+    "start": 1446.117,
+    "end": 1465.933,
+    "speaker": "SPEAKER_02",
+    "text": "working with higher dimensional data. When we're trying to calculate the distance between an instance and a cluster mean, do we calculate the distance between the different features element-wise, or are we engineering a new feature and calculating some sort of complex distance? "
+  },
+  {
+    "start": 1466.173,
+    "end": 1502.45,
+    "speaker": "SPEAKER_09",
+    "text": "Okay, so for this algorithm, so which implement by PowerPoint, which is Gaussian mystery model, it does not introduce another step to calculate features. Basically, when we look at each pixel, maybe from this pixel, the simpler case, we use its RGB value as feature. Maybe it also has its XY value, coordinates, it can also be feature, and the last feature, maybe it can be the magnitude of gradient. "
+  },
+  {
+    "start": 1503.831,
+    "end": 1548.813,
+    "speaker": "SPEAKER_09",
+    "text": "And in this way, we define the feature for that pixel. And if the feature has six numbers, when you calculate the Gaussian, so in Gaussian, it has this... In Gaussian, you have the center of the Gaussian, which is mu. Mu would also be a vector with six number. Okay, so Gaussian mystery model was used for segmentation before the era of deep learning. "
+  },
+  {
+    "start": 1550.548,
+    "end": 1590.419,
+    "speaker": "SPEAKER_09",
+    "text": "And you can see that when we develop a Gaussian mesh model or the k-means clustering that we don't do any machine learning. We don't need any training data. We just need to take the image, want to segment, then we determine some cluster centers, then we can perform segmentation for this image. And these methods are called unsupervised method. In the next, we are going to introduce the supervised method, which means that it would involve some machine learning model with parameters, and we also first need to collect some training data to train this model to estimate its parameter. "
+  },
+  {
+    "start": 1590.96,
+    "end": 1630.052,
+    "speaker": "SPEAKER_09",
+    "text": "Then when you have a new image, you can apply this trained model onto this new image, and these are called supervised method. And for supervised methods, maybe nowadays the most popular one is to use deep learning models, such as using convolution neural networks. So we assume that we have some input image, and then we develop some convolution neural networks here in the middle. Then the convolution network will generate this segmentation map for you. And to train the parameters for the convolutional network, we need to take some training data. "
+  },
+  {
+    "start": 1630.392,
+    "end": 1673.324,
+    "speaker": "SPEAKER_09",
+    "text": "The training data would contain some pet image with this segmentation. Normally segmentation is drawn by human. So it's a human annotated segmentation. Maybe you can collect like 100 pairs of images with human segmentations, then you can use this to train your model. Segmentation can be considered as a classification problem. So if we want to segment this image into four different colors, four classes, it is equivalent to, at each pixel, we classify this single pixel to one of the four colors. "
+  },
+  {
+    "start": 1674.444,
+    "end": 1705.239,
+    "speaker": "SPEAKER_09",
+    "text": "So if you can do that for all the pixels, you basically complete the segmentation for the entire image. So segmentation is actually related to classification problem. It's a pixel-wise classification problem. So in the previous lectures, we have already introduced deep convolution neural networks. We know how to develop a network that take image and generate a label for this image. "
+  },
+  {
+    "start": 1705.52,
+    "end": 1738.641,
+    "speaker": "SPEAKER_09",
+    "text": "We call this image classification problem. And since segmentation is also a kind of classification problem, which means perhaps these two problems are linked to each other, if we already know how to develop a classification network, maybe we can directly apply this classification network to perform segmentation. For example, that we already developed a classification network, which is shown on the right. So this network can take an image and generate one label for this image. "
+  },
+  {
+    "start": 1741.024,
+    "end": 1771.78,
+    "speaker": "SPEAKER_09",
+    "text": "So we can apply it to perform sanitation for this image. So for this image on the left, we can draw this orange window on this image. And then we use only the information within the orange window as a new image. So this is like a cropped image. And this cropped image can be used as an input to our classification network. And our classification network predicts a label for that orange region. "
+  },
+  {
+    "start": 1772.601,
+    "end": 1820.293,
+    "speaker": "SPEAKER_09",
+    "text": "Maybe it's the background. And we can move this orange window to another place, for example, around the cat, and then the classification network will tell us this is a cat. And here we apply this classification network twice for these two different orange window. If we can move this orange window across all the pixels on this image, maybe this image contains one million pixels, but we can do that, we can move this window across all the one million pixels at each pixel location, we apply this classification network, we generate a label, and then in this way we can complete this segmentation problem, because for each pixel we know its label. "
+  },
+  {
+    "start": 1822.146,
+    "end": 1852.58,
+    "speaker": "SPEAKER_09",
+    "text": "You can also see that it's actually a very expensive process because you need to apply this network to all the pixels within this image. And we wonder why. So why it is so expensive? And the reason it is expensive is that when we develop a classification network, we only use it for classification cost. So we assume the output from this network is just a probability for the entire image. "
+  },
+  {
+    "start": 1854.64,
+    "end": 1887.737,
+    "speaker": "SPEAKER_09",
+    "text": "If we can change this network somehow, so it can output not a probability for the entire image, but instead the probability for each pixel, or a pixel-wise probability map, then we can use this modified network to perform segmentation very quickly. So to do that we need to go back to the architecture of classification network. So at the bottom you can see this is the architecture for the AlexNet. "
+  },
+  {
+    "start": 1888.757,
+    "end": 1926.195,
+    "speaker": "SPEAKER_09",
+    "text": "So on the left this is our input image, then we add one convolution layer, we add a max pooling layer, another convolution layer, max pooling layer, another three convolution layers, and finally we have three fully connected layers. And you can see that for the last layer, we put 1,000 neurons to perform classification for 1,000 different classes. And this is the reason that why we can only get one probability vector describing the entire image because all the information has been condensed to this vector. "
+  },
+  {
+    "start": 1928.245,
+    "end": 1962.912,
+    "speaker": "SPEAKER_09",
+    "text": "So, if we don't condense all the information into just a vector, maybe we can first discard this fully connected layer, because it is this fully connected layer that connects to all the pixels here, then to only generate output for 1,000 neurons. So we can discard them and look at this part. So this part, this is... the last convolutional layer. So from this last convolutional layer, what we get is a feature map. "
+  },
+  {
+    "start": 1964.073,
+    "end": 1994.78,
+    "speaker": "SPEAKER_09",
+    "text": "So feature map has dimension x times y times d. And you can see that in terms of x and y dimension, it is smaller than the input image here. And that is because we have done some max pooling, you know, for each max pooling, it reduced the dimension by a factor two. And sometimes, maybe even these convolution layers, it has this parameter called stride. If you set stride equals to two, you also perform image down sampling. "
+  },
+  {
+    "start": 1995.34,
+    "end": 2030.971,
+    "speaker": "SPEAKER_09",
+    "text": "So there are some image down sampling process in this layer, so that's why the X and the Y for this feature map is smaller than the X and the Y for the original input image. However, there is some correspondence between the input image and this feature map. So one pixel in this feature map actually is corresponding to one small region in the input image. And how large this green region is, depending on how many downsampling you have done across these layers. "
+  },
+  {
+    "start": 2032.352,
+    "end": 2066.412,
+    "speaker": "SPEAKER_09",
+    "text": "So for this example, maybe, we have down sampled by a factor of 16, then that means that one pixel in this feature map would describe a 16 by 16 gradient region in the original image. And also that for this single pixel, you have this dimension, dimension D, which means at this pixel, we use 128 numbers to describe the feature for this image. "
+  },
+  {
+    "start": 2066.652,
+    "end": 2098.058,
+    "speaker": "SPEAKER_09",
+    "text": "Oh, sorry, for this green region. And we can start working on this feature map. The reason we are interested in is that this feature map looks like an image. It has the X and Y dimension. It's just a bit smaller than input image. If we do something here, maybe we can generate a segmentation very easy. And in this way, when we want to segment the input image, we only need to apply this network once. "
+  },
+  {
+    "start": 2098.398,
+    "end": 2130.636,
+    "speaker": "SPEAKER_09",
+    "text": "We don't need to apply it multiple times. Okay, so this diagram is similar to this AlexNet. So basically it tells you that at certain point, if we look at one of these convolutional feature maps, it's bit like a downsampled version of the input image. And at each pixel in this downsampled version, you have some features describing some local region in the input image. "
+  },
+  {
+    "start": 2132.368,
+    "end": 2164.482,
+    "speaker": "SPEAKER_09",
+    "text": "And if this feature is describing whether this region belonging to a cat, then in this feature map you can see some pixels will be highlighted to denote that those are the cat region. And then the other pixel will be very dark, denoting these are the background. So we also show the comparison between image classification network and image segmentation network here. "
+  },
+  {
+    "start": 2164.742,
+    "end": 2196.137,
+    "speaker": "SPEAKER_09",
+    "text": "So at the top is the classification network. So originally it takes a 2D image and it generates some feature map. And these feature maps, it has X or Y dimension. But when you go to the last few layers, we lose this x and y dimension, or they become x equals one, y equals one. And we can only use the information here to perform classification task. "
+  },
+  {
+    "start": 2197.198,
+    "end": 2227.276,
+    "speaker": "SPEAKER_09",
+    "text": "And if we don't use, if we discard these fully connected layer, we only use convolution layer, as this part, we still have some x and y dimension. and we can use such feature map to perform segmentation task. Okay, so now that we don't have any fully connected layer, all the layers are convolution layers, maybe also some max pooling layers. "
+  },
+  {
+    "start": 2227.976,
+    "end": 2264.118,
+    "speaker": "SPEAKER_09",
+    "text": "So this network is called a fully convolution network. And we can use it to perform segmentation. And to perform segmentation that we need to define a loss function and also maybe we want to recover the original image resolution because you can see if we look at the X and the Y for this feature map, it is smaller than the original input image. So when we develop this network, we have done something by using the max pooling layer or by using convolution with a stripe. "
+  },
+  {
+    "start": 2265.216,
+    "end": 2295.467,
+    "speaker": "SPEAKER_09",
+    "text": "So now we want to recover this feature map to the original image size. We want to do upsampling. So maybe that you can add one layer to do upsampling. Then the feature map become the same size of the original input image. And then from this feature map, you can generate some segmentation. So how to do upsampling? So we have shown you that how to do down sampling in the neural networks. There are two common ways. "
+  },
+  {
+    "start": 2295.627,
+    "end": 2332.523,
+    "speaker": "SPEAKER_09",
+    "text": "We can do a strided convolution. We can also do max pooling. And the way we perform up sampling is that we also do convolution, but these are called transposed convolution. So transposed convolution is similar to convolution, but it perform up sampling. So here you can see we are performing convolution with a stride equals two. So if the kernel size is three by three, if this kernel is yellow at the top left, when we apply it, we can get the output from this kernel. "
+  },
+  {
+    "start": 2332.823,
+    "end": 2372.088,
+    "speaker": "SPEAKER_09",
+    "text": "And this output is this gray cell on the right. And because we set stride equals two, Next time, this convolutional kernel will move to two pixels away, and we generate, we calculate its output, we put the output into this gray cell on the right. And we move this convolutional kernel every time by two pixels, we can move it across the entire image, and then you get some output feature map, which is on the right, which is half size compared to the original input image. "
+  },
+  {
+    "start": 2373.236,
+    "end": 2413.7,
+    "speaker": "SPEAKER_09",
+    "text": "So this is a strided convolution with stride equals two. We can reverse the process to develop a transposed convolution also with stride equals two, but this time stride equals two means that we are upsampling by a factor of two. So on the left it's input, it's small, it's only four by four. On the right we try to upsample it to be eight by eight. And here we take the first pixel on the input feature map, and this pixel will contribute to one convolutional kernel on the right. "
+  },
+  {
+    "start": 2414.341,
+    "end": 2450.606,
+    "speaker": "SPEAKER_09",
+    "text": "It will contribute to this yellow region on the right. The next pixel contributes to this yellow region on the right, and because we set stride equals two, it means every time you move this yellow region by two pixels. And when you follow on this process, at the end when you scan through all these red pixels on the left, on the right you can calculate a feature map which has a size eight by eight. "
+  },
+  {
+    "start": 2451.507,
+    "end": 2485.58,
+    "speaker": "SPEAKER_09",
+    "text": "So in this way you perform up something. And why is it called transpose convolution? So transpose is a term you'll come across in linear algebra. So when you have a rectangular matrix, you can transpose it. So maybe originally it's very tall. When you transpose it, it becomes very wide. And this is why we call this convolution transpose convolution, because it transpose the matrix. So here we assume we are performing convolution just for some 1D data. "
+  },
+  {
+    "start": 2486.808,
+    "end": 2525.456,
+    "speaker": "SPEAKER_09",
+    "text": "and this is standard convolution, it's not transpose convolution. So we have some x as input, we convolve x with some very small yellow kernel with w's, we generate output y. If we write this convolution down using linear algebra, it becomes some w's are multiplied with some x to generate these y's. And for transposed convolution, if we look at for one dimensional data, we start from X1. "
+  },
+  {
+    "start": 2526.316,
+    "end": 2559.696,
+    "speaker": "SPEAKER_09",
+    "text": "X1 will contribute to Y1, Y2, Y3. Its contribution is determined by this weight, W1, W2, W3. And X2 also contribute to this signal on the right. X2 will contribute to Y2, Y3, Y4. And after this transpose convolution, that y becomes longer than x. If you write down this using this matrix, it's still some w's multiplied with x and then generates the y. "
+  },
+  {
+    "start": 2560.336,
+    "end": 2598.845,
+    "speaker": "SPEAKER_09",
+    "text": "And if you compare the equation on the left and on the right, you can see that this w matrix has been transposed. So this is the reason that why we call this kind of convolution as transpose convolution. So, in PyTorch, you can find this layer called transpose conv2d to implement transpose convolution, and when you apply this transpose convolution layer, you can perform ARP sampling for an input feature map to make it larger on the right hand side. "
+  },
+  {
+    "start": 2601.153,
+    "end": 2636.925,
+    "speaker": "SPEAKER_09",
+    "text": "And we can use this transpose convolution. So we can, after this feature map, we can add a transpose convolution with some stride. You can see that we want to up sample by quite a large factor, maybe by a factor of 16 here. So you need to set stride equals 16. And after that, you will get this very large feature map. And then we can use this feature map to perform segmentation task. "
+  },
+  {
+    "start": 2637.866,
+    "end": 2672.233,
+    "speaker": "SPEAKER_09",
+    "text": "So if we are looking at a segmentation task where there are 21 different classes, the class can be cat, dog, et cetera, in total you have 21 of those classes. If that is your task, then for this last feature map, when you add this transpose convolution, you can set the number of filters to be 21. So at the end, at each pixel of this feature map, you get these 21 different numbers to describe the feature for that pixel. "
+  },
+  {
+    "start": 2674.094,
+    "end": 2708.275,
+    "speaker": "SPEAKER_09",
+    "text": "And these 21 different numbers, if you add some, softmax function, it will become a probability for 21 different classes. And in this way, for this pixel, you can perform classification for this pixel depending on which class give you the highest probability. So that is how we develop a fully convolutional network to perform segmentation. And we know that each of these layer, including the convolution layer, and also this transpose convolution layer, they all contain the parameter, which are those W's. "
+  },
+  {
+    "start": 2709.036,
+    "end": 2739.302,
+    "speaker": "SPEAKER_09",
+    "text": "So we want to optimize those parameters. We know if we want to optimize something, we need to define a loss function. So if it's a classification problem, we can use a cross entropy to be the loss function. the cross entropy can measure the difference between some predicted probability against ground truth probability. And for the segmentation path, it is essentially a pixel-wise classification problem. "
+  },
+  {
+    "start": 2740.303,
+    "end": 2775.62,
+    "speaker": "SPEAKER_09",
+    "text": "So that means that for this pixel here, if we look at pixel X, where this red cross is, at this pixel, because this feature map has 21 different output. So at this pixel, we get this probability against the 21 different classes. We also have our ground truth. Maybe our ground truth is here. The ground truth says, okay, maybe this red X is in this green region, which belong to the background. "
+  },
+  {
+    "start": 2776.381,
+    "end": 2809.535,
+    "speaker": "SPEAKER_09",
+    "text": "And then you can write down the ground truth probability. So here we have probability Q from this pick of X predicted by the neural network. And the probability P for this X coming from the manual segmentation map. So manual segmentation map tell us this is background. So P would be equal to one. for this background class, and then followed by a lot of zeros for all the other classes. "
+  },
+  {
+    "start": 2809.975,
+    "end": 2848.073,
+    "speaker": "SPEAKER_09",
+    "text": "So this kind of P is called the one hot encoding. And once you have this Q and P, you can define the cross entropy loss just for this pixel. And for this image, it contains quite a few pixels. So, you can calculate the cross entropy loss for each pixel, then you calculate the sum of this cross entropy for all the pixel, and that would define a loss function for your segmentation network. Okay, so we can, so you can see that it's, Very straightforward to transform a classification network into a segmentation network. "
+  },
+  {
+    "start": 2848.733,
+    "end": 2888.427,
+    "speaker": "SPEAKER_09",
+    "text": "You just need to remove something and then add something. You need to remove all these fully connect layers at the end that condense every information just to a few neurons. You will need to remove them and then you need to add some transpose convolution layers. And in terms of the loss function to train this segmentation network, we can still use classification loss, which is cross entropy. We define the cross entropy for each pixel, and then we calculate either the average or the sum of this loss for all the pixels. "
+  },
+  {
+    "start": 2889.027,
+    "end": 2921.715,
+    "speaker": "SPEAKER_09",
+    "text": "And then you can optimize this segmentation network. So here we show some performance of this network. So the input image is shown in the last column. We show four examples. Each row is one example. And the first column shows the performance of this Fourier convolution network, in short, FCN. You can see that it performs quite nice segmentation for some objects. "
+  },
+  {
+    "start": 2921.795,
+    "end": 2967.578,
+    "speaker": "SPEAKER_09",
+    "text": "For example, for the horse or for the lady, the segmentation looks quite nice. And it's very close to the ground truth, which is shown in the third column. It also makes some mistakes sometimes. And we'll see how we can improve this. Okay, so to summarize that we have formulated segmentation as a pixel-wise classification problem. And we introduced two kinds of algorithm to solve this classification problem. We can use unsupervised method, including thresholding, k-means clustering, and the Gaussian mesh model. We can also use supervised method, which are convolutional neural networks. And we have 10 more minutes. "
+  },
+  {
+    "start": 2967.638,
+    "end": 3010.954,
+    "speaker": "SPEAKER_09",
+    "text": "We're going to show you how, based on these neural networks, how can we further improve its performance. So here, the first column shows the performance of these fully convolutional networks. So at least we are quite pleased that it's working. And however, there is some part which is not that perfect, which is that if we compare first column to the third column, third column is ground truth, you can see that the details of boundary is a bit blurry in this FCN segmentation. "
+  },
+  {
+    "start": 3013.615,
+    "end": 3045.707,
+    "speaker": "SPEAKER_09",
+    "text": "If you look at where the horse legs are, they are a bit connected to each other, but in the ground truth segmentation the leg of the horse is very clearly separated. And there is one reason that why our segmentation by this fully convolution network is bit blurry. And that is because we perform upsampling. So here we start from this very small feature map. "
+  },
+  {
+    "start": 3047.008,
+    "end": 3087.325,
+    "speaker": "SPEAKER_09",
+    "text": "We upsample it by a very large factor in just one step. And if you have played with upsampling, for example, maybe you have an image of size 100 by 100 in Photoshop, you can upsample it by a factor of 16, and you will see that after upsampling, some detail is a bit blurry because in upsampling, interpolation is used. maybe that's interpolation just like calculated average intensity between these different classes, so it's not giving you very clear boundaries. "
+  },
+  {
+    "start": 3089.446,
+    "end": 3121.887,
+    "speaker": "SPEAKER_09",
+    "text": "If we, our initial input is like this, which says class zero, class one, class two, class zero, and up something by a factor of 16, you get a very large segmentation map but there is a lot of maybe zeros duplicated and the form of some square shape. And this makes your segmentation map a bit blurry. "
+  },
+  {
+    "start": 3124.568,
+    "end": 3157.488,
+    "speaker": "SPEAKER_09",
+    "text": "So to accurately delineate the boundary of object, we're not satisfied with this part. we're not satisfied with this part because at the end, the reason we can perform segmentation is that we're using this very small feature map and we're not happy with it. This small feature map can tell us some global features, which means that it can tell us within certain regions what this object is. "
+  },
+  {
+    "start": 3158.448,
+    "end": 3199.676,
+    "speaker": "SPEAKER_09",
+    "text": "However, it is not giving us local features. Local features means that features at the accuracy of every pixel. And we cannot get these very local, very fine, fine detailed features from this feature map. And we'll introduce two methods that can improve the segmentation performance to utilize both global features and local features. So first to give you an overview, here we compared the network architecture for three different networks. "
+  },
+  {
+    "start": 3200.583,
+    "end": 3250.204,
+    "speaker": "SPEAKER_09",
+    "text": "The first network is the network we just introduced, which is called Fourier convolution networks. We draw it slightly differently. Previously, we draw it in the horizontal direction. And this time, we draw it in the vertical direction. So you can see that the input image is at the bottom left here. Then it goes through some convolution layer. and there is one convolution layer provides you the information how to perform segmentation we up sample that convolution layer by a factor of 16 we generate our predicted segmentation and this predict segmentation is a bit blurry it does not show the detail The second method, the second column shows a method called deep label or deep lab. "
+  },
+  {
+    "start": 3251.485,
+    "end": 3292.119,
+    "speaker": "SPEAKER_09",
+    "text": "And it's one of the version called version three. And the last column shows you a network called UNET. And we will implement UNET in our coursework. By the way, the coursework is today's Friday, yeah. The coursework is released today and So you can find the coursework on Ciensa, basically it's the same, it's the same GitHub location as last time, when you go to the same GitHub repository, that you'll find there is a coursework too, which is also a Jupyter notebook, and the task is to perform this image segmentation using a unit. "
+  },
+  {
+    "start": 3293.885,
+    "end": 3331.022,
+    "speaker": "SPEAKER_09",
+    "text": "And the coursework is due in about two weeks' time. So today is Friday, and the due date is actually a bit more than two weeks, it's on one of the Monday. You'll see the exact date on the answer. And initially we set the due date to be just in two weeks' time, but I was informed by the department there are quite a few modules that have a due date at similar times, so they suggest to me to extend the due date to one of the Mondays. Okay, so we'll first show this deep lab. "
+  },
+  {
+    "start": 3333.302,
+    "end": 3365.274,
+    "speaker": "SPEAKER_09",
+    "text": "So this is deep lab and we'll explain two ideas here. The first idea is called spatial pyramid pooling. The second idea is called skip connection. So first, what is a pyramid? So a pyramid is some building in Egypt which looks like this. And we can also use image to build a pyramid. And what we do is that we start from the image at its original resolution, which is called scale one. "
+  },
+  {
+    "start": 3366.074,
+    "end": 3398.153,
+    "speaker": "SPEAKER_09",
+    "text": "Then we downsample it by a factor of two. We go to scale two, which is smaller. And we further downsample it by a factor of four. We go to scale three. At the end, you can create multiple scales of this image. But because downsampling is being performed, So each scale has a different size. And you can put them together, it looks like a pyramid. This is called an image pyramid. In deep lab, it introduced some pyramid for the feature map. "
+  },
+  {
+    "start": 3399.014,
+    "end": 3432.105,
+    "speaker": "SPEAKER_09",
+    "text": "And they give it a name, they call it spatial pyramid cooling. So we have some feature map. This feature map comes from one of the convolution layers. It give us some feature map. And then in spatial parallel pooling, four different versions of analysis is applied to this input feature map. And they extract features at different scales, at different resolution levels. "
+  },
+  {
+    "start": 3433.026,
+    "end": 3475.158,
+    "speaker": "SPEAKER_09",
+    "text": "And after you extract features at four different scales, you can combine them back to create these aggregated feature map the way that you can combine four feature maps together is you just concatenate them so if each feature map is if this feature map has x times y dimension and along the feature dimension maybe it has dimension d1 so it becomes In PyTorch, it becomes a data array or tensor with this dimension, x times y times d1. "
+  },
+  {
+    "start": 3475.198,
+    "end": 3506.918,
+    "speaker": "SPEAKER_09",
+    "text": "Maybe the order is slightly different in PyTorch. And then for the second feature map, it has the same xy dimension, but then it also has some feature dimension that's called d2. When you have these two feature maps, you can concatenate them to form a new tensor. This new tensor will become thicker. "
+  },
+  {
+    "start": 3507.698,
+    "end": 3545.483,
+    "speaker": "SPEAKER_09",
+    "text": "So along this feature dimension, it will have D1 plus D2 features. And if we have four feature maps, we can concatenate them together to become very thicker feature map. Okay, so here that we extract features at multiple scale and the motivation is that we want to utilize maybe both global and local features. And how do we extract features at different scales? And there are different ways to do that. For example, we can use convolutional kernels with different sizes or convolutional kernels with different dilation factors. "
+  },
+  {
+    "start": 3546.303,
+    "end": 3578.604,
+    "speaker": "SPEAKER_09",
+    "text": "And for this de-plug method, it uses a second way. So it uses a convolution with different dilations. And here you can see on the left, we have a convolutional kernel which has nine numbers or nine crosses. And it uses a dilation equals two, which means each cross is two pixel away from another red cross. So in this way that we can use the convolutional kernel with just nine parameters to capture a very large region. "
+  },
+  {
+    "start": 3580.606,
+    "end": 3614.175,
+    "speaker": "SPEAKER_09",
+    "text": "And in this method dplab, it use this convolution with the dilations. And for the first convolution, it's just use one by one convolution. And for the second convolution, it's used a dilation equals 6. So you can imagine if each of these red cross is 6 pixels away from each other, at the end, you still only have 9 red crosses, but they cover a very large region. "
+  },
+  {
+    "start": 3617.257,
+    "end": 3654.147,
+    "speaker": "SPEAKER_09",
+    "text": "And we also have the third convolution, which has dilation equals 12. and fourth convolution which has dilation equals 18. At the end you generate four convolutional feature maps and then you concatenate them to form your output. So spatial pyramid pooling allows you to analyze features at different scales and then combine them back. The second component of deep lab is that it uses skip connection. "
+  },
+  {
+    "start": 3655.187,
+    "end": 3690.702,
+    "speaker": "SPEAKER_09",
+    "text": "Again, that it combines features, it combines local features with global features. So we can look at what is on the left and on the right of skip connection. So on the left, we start from images. This is the input image. And then we apply some convolution for this input image. Maybe we do max pooling with the factor 2. Maybe we do convolution with stride equals 2. And after this, the feature map becomes smaller. "
+  },
+  {
+    "start": 3690.782,
+    "end": 3722.275,
+    "speaker": "SPEAKER_09",
+    "text": "So that is what is 0.5 in here. and then we add another convolution layer, and we also introduce a stride equals two, and when we arrive at this location, we have down sampled the image by a factor of four. So, although this is not the original image resolution, but a factor of four is something we can stand. "
+  },
+  {
+    "start": 3723.355,
+    "end": 3755.329,
+    "speaker": "SPEAKER_09",
+    "text": "It is better than doing something here. So if you look at the most top feature map, if we compare that to the image, that top feature map has been done sampled by a factor of 16. So if we up sample something from the top feature map, everything will become very blurry. And to avoid that, we can use a this feature map, which has only been down sampled by a factor four. "
+  },
+  {
+    "start": 3756.329,
+    "end": 3795.946,
+    "speaker": "SPEAKER_09",
+    "text": "So this is the left of the skip connection. On the right of skip connection, we have this. This is that feature map we just mentioned, which is very coarse because it has been down sampled by a factor of 16. If we want to combine them, because they have been downsampled by different factors, they have different size, so for one of them, we need to do some upsampling. We can upsample this top feature map by a factor of four, so it has the same x and y dimension as this feature map on the left. "
+  },
+  {
+    "start": 3796.927,
+    "end": 3828.103,
+    "speaker": "SPEAKER_09",
+    "text": "And then at this part, we concatenate this feature map on the left, and the up sample feature map on the right. And this allows us to concatenate local feature and global feature. So this is a feature map here. It is still not the original image resolution. "
+  },
+  {
+    "start": 3828.644,
+    "end": 3880.198,
+    "speaker": "SPEAKER_09",
+    "text": "To recover the original image resolution, we need to upsample again by a factor of four so that the segmentation map or this yellow map can have the same size as the original input image. So there is still some upsampling being performed here, but compared to upsample by a factor of 16, here we only upsample by a factor of four. So this can, we assume that this will be better than 16. Okay, so if we want to write the code for this skip connection, so you can see on the left we have feature map, we denote as X1, it capture like these more local features, and on the right we have X2, which we call it the global feature map. "
+  },
+  {
+    "start": 3881.299,
+    "end": 3916.738,
+    "speaker": "SPEAKER_09",
+    "text": "We first up sample this global feature map by a factor four, then we concatenate this X1 with this op sample X2. This would give us X3, which is output of this feature map here. So this, this diagram compare the difference between FCN and D-PLAB. So I think the major difference is that we don't perform very large upsampling by effect 16 in this way that we can improve the segmentation performance. "
+  },
+  {
+    "start": 3919.119,
+    "end": 3953.215,
+    "speaker": "SPEAKER_09",
+    "text": "And you can see that when we apply this D-PLAB to perform segmentation for the same input image, if you look at maybe the horse head, yeah. maybe this part compared to this part, you'll see that the boundary of the horse head seems to be better. And also there are other details such as the leg of this lady has also been segmented better by D-PLAB compared to FCM. "
+  },
+  {
+    "start": 3959.411,
+    "end": 3992.867,
+    "speaker": "SPEAKER_09",
+    "text": "Maybe I'll finish at u-net so that you know what to do for the coursework. So u-net is similar to deep lab, but it also use skip connection, but it has more skip connection. Yeah, so you can count that we have skip connection here, here, here, there are more skip connections. And the reason it's called U-Net is that if you draw it in a different way, it looks like a letter U. "
+  },
+  {
+    "start": 3995.949,
+    "end": 4032.244,
+    "speaker": "SPEAKER_09",
+    "text": "And this is a diagram that the original U-Net paper had drawn, so it's very like a U-shape. And all these gray arrows denote the escape connection. And this kind of architecture is also called encoder-decode architecture. On the left hand side it's called encoder, on the right hand side it's called decoder. The encoder encodes the input image into some very low dimensional feature vector up here. The decoder then decodes this very low dimensional feature vector back to the original image size. "
+  },
+  {
+    "start": 4035.47,
+    "end": 4068.155,
+    "speaker": "SPEAKER_09",
+    "text": "And when we look at these feature maps, which are denoted by the blue color, so each of these blue rectangle is one of the feature map. If this feature map is at the starting position, for a feature map here, it will capture more local features because from the input image to this feature map, we only perform maybe three by three convolution without any downsampling, so it capture these local features. "
+  },
+  {
+    "start": 4069.575,
+    "end": 4100.005,
+    "speaker": "SPEAKER_09",
+    "text": "If we go to some feature map at the bottom, it will capture more global features because each each pixel here in this kind of feature map would respond to maybe a 16 by 16 region in the original input image. So it contains more global feature. We will show how it works. So starting from the input image to this part, it's the same as the fully convolution network. So we have some input image. "
+  },
+  {
+    "start": 4100.665,
+    "end": 4130.721,
+    "speaker": "SPEAKER_09",
+    "text": "So each time you see this blue block, it means we have applied one convolution layer. And each time you see this, red arrow pointing downwards, it means that we have performed a max pooling by a factor of two, so the size of this feature map becomes smaller. So at the end, after one, two, three, four, four of these max pooling layer, the feature map becomes very small compared to the original input. "
+  },
+  {
+    "start": 4132.322,
+    "end": 4178.114,
+    "speaker": "SPEAKER_09",
+    "text": "So this is the encoder path. Now let's recover the image resolution. So we add this transpose convolution, which is this green arrow. And from this green arrow, we get a feature map, which is unsampled from this one. We also add the skip connection, which means we combine the feature map on the left with this feature map. And afterwards, we perform a few more convolutions And at this part, we add another green arrow to perform a transpose convolution again, and then we add skip connection again. "
+  },
+  {
+    "start": 4179.674,
+    "end": 4210.93,
+    "speaker": "SPEAKER_09",
+    "text": "So you can do this for a number of layers or scales. You can see that each time when you add skip connection, we borrow some features from left-hand side. And especially, for this part, for this part, for this number one, number two part, for this skip action, we borrow those feature map which contains a lot of local features. So this feature map contains a lot of local features. "
+  },
+  {
+    "start": 4211.17,
+    "end": 4248.873,
+    "speaker": "SPEAKER_09",
+    "text": "We borrow their information to concatenate them with feature map on the right hand side. So, it performs more skip connection compared to dplap, but in this way, it injects a lot of local features into the final segmentation. And if we apply this, we can generate very nice segmentation. You can see, these are some cell images. The segmentation can, is denoted with these different colors, you can see that we have very nice boundary from segmentation. "
+  },
+  {
+    "start": 4250.196,
+    "end": 4291.05,
+    "speaker": "SPEAKER_09",
+    "text": "These are just some more segmentation results, so UNET is Currently, I think that you can find the most popular application of UNET in two areas. The first area is medical image segmentation. So all of these images are some kind of medical images. They can be x-ray scans or MR scans, and it can generate a very nice segmentation. Because for medical image analysis, we want a very high accuracy in delineating the boundary of a different structure. And certain common use of U-Net is if you go to the other module, the generative AR module, and one of the most popular generative model is called the diffusion model. "
+  },
+  {
+    "start": 4291.751,
+    "end": 4307.92,
+    "speaker": "SPEAKER_09",
+    "text": "U-Net is also used as one component in the diffusion model. Okay, so I'll stop here, and so that you have the knowledge to work on the coursework. Thank you, and if you have, we'll take a break, and if you have any questions, you can ask in the tutorial session. Thank you. "
+  },
+  {
+    "start": 4352.154,
+    "end": 4360.358,
+    "speaker": "SPEAKER_03",
+    "text": "You mean here? Right at the end, yes. "
+  },
+  {
+    "start": 4360.398,
+    "end": 4364.34,
+    "speaker": "SPEAKER_02",
+    "text": "It's a one-by-one convolution. Yes. Is it just applying an activation function? "
+  },
+  {
+    "start": 4364.82,
+    "end": 4428.894,
+    "speaker": "SPEAKER_09",
+    "text": "Okay, so here that... No, it's not just the... So this is the convolution. And when we write down W times X, this... Wait. So if it's just one-by-one convolution, it means that... Wait. we only apply convolution to here, to a single pixel. However, within that single pixel, there are 64 numbers. So when you apply that convolution, it means you are multiplying each of these 64 numbers with some weights, with some w. and then you add them up to generate one number here. Yes. Okay, I see. Yeah, so it's not just like applying softmax. "
+  },
+  {
+    "start": 4429.034,
+    "end": 4437.092,
+    "speaker": "SPEAKER_09",
+    "text": "Actually, you are also like... integrating all these different 64-channel information. Yeah. Okay. Amazing. Thank you so much. "
+  },
+  {
+    "start": 4437.132,
+    "end": 4466.235,
+    "speaker": "SPEAKER_06",
+    "text": "You're welcome. Actually, I'm not sure what I do in our section. So, just problem-holding, I need to answer all the questions. So, if you go to CSS, I think I've got it. "
+  },
+  {
+    "start": 4485.038,
+    "end": 4525.139,
+    "speaker": "SPEAKER_09",
+    "text": "Yes, so if you go to Ciencia, there is a tutorial sheet. Oh, sure, I have seen this. Okay, okay. Yes, so basically if you have any questions about these tutorials or if you have any questions about the lectures, you can ask questions. Okay, just let them ask me. Pardon? So just like that last question. Yeah, yeah, yeah. So I don't need to just explain all the answers or something? No, no. So actually that next week we're going to release the solution to the tutorial on Ciencia and you can check by yourself. Okay. But you are welcome to stay to work on it. It depends on how you want to manage your time. "
+  },
+  {
+    "start": 4526.82,
+    "end": 4535.647,
+    "speaker": "SPEAKER_06",
+    "text": "Hi, I've got a quick question. Yes. Yeah, I'm so sorry, I'm like kidding. Oh, yeah, that's fine. "
+  },
+  {
+    "start": 4537.008,
+    "end": 4578.604,
+    "speaker": "SPEAKER_07",
+    "text": "Yeah, yeah, maybe you can ask the RTA, yes. This is a lecture program. Yeah, yes, you can ask it. So for the unit, I can see the last layer of the unit only have two, sorry, the last phase of the unit only have two layers. So how can this tell a lot of segmentation? Because in the first model, FCN, there are a bunch of, the depth is really high in the last layer. So you can tell in one layer is some kind of circumcision. No, I'm not sure. Okay. Because this was architecture from the initial paper. Okay. "
+  },
+  {
+    "start": 4579.044,
+    "end": 4585.813,
+    "speaker": "SPEAKER_08",
+    "text": "And in that paper, they use it to perform segmentation like this. Oh. "
+  },
+  {
+    "start": 4586.013,
+    "end": 4600.14,
+    "speaker": "SPEAKER_09",
+    "text": "So you only have this foreground of a cell and background. Oh, so only two? Yes, so that's why they only draw two here. But if you want to generate segmentation like this, you need to set a high number for this. "
+  },
+  {
+    "start": 4600.54,
+    "end": 4614.302,
+    "speaker": "SPEAKER_07",
+    "text": "Oh, okay, okay, that makes sense. But in real applications, if we modify this, we can have a lot of layers? Yes, yes. Because you can see, we have 128 layers here. Why do we need to compress? "
+  },
+  {
+    "start": 4614.882,
+    "end": 4646.196,
+    "speaker": "SPEAKER_04",
+    "text": "Okay, thank you. In the earlier slide about the transposed... Transposed convolution. The weights W1, W2, W3 is in order. There wasn't a flip. So I was wondering why that is on the previous PowerPoint. Yes. So the kernel, the W1, the convolution kernel is in the order. it's in the normal order. "
+  },
+  {
+    "start": 4646.537,
+    "end": 4647.858,
+    "speaker": "SPEAKER_04",
+    "text": "There isn't a flipping procedure. "
+  },
+  {
+    "start": 4648.339,
+    "end": 4659.271,
+    "speaker": "SPEAKER_08",
+    "text": "Okay. Yeah, so here we, for simplicity, we didn't do any flipping here. Okay. We just want to show you that these two metrics are transposed. "
+  },
+  {
+    "start": 4659.712,
+    "end": 4669.817,
+    "speaker": "SPEAKER_04",
+    "text": "Ah, gotcha. So, basically... you just flip the value for W3 and put it into W1 and you get this. Yes. Cool, cool, cool. Thanks. "
+  },
+  {
+    "start": 4673.059,
+    "end": 4675.121,
+    "speaker": "SPEAKER_08",
+    "text": "Yes, maybe you can first. "
+  },
+  {
+    "start": 4675.321,
+    "end": 4721.458,
+    "speaker": "SPEAKER_05",
+    "text": "Okay. It's lecture related as well though. Yes. I'm not sure. Yes, you can try first. Okay. I was just wondering for the Gaussian mixture model, where we initialize the parameters to the number of classes where we have, like first of all maybe, does this mean that for each pixel we set kind of a random, let's say we have two classes, we just set it randomly, and then we do like the process of calculating the direct delta and then updating the mu essentially for each pixel, or is this a correct understanding of how it works? I suppose that's the initialized kin. There is an animal in the initialization, but it's... yes. "
+  },
+  {
+    "start": 4721.478,
+    "end": 4725.119,
+    "speaker": "SPEAKER_02",
+    "text": "So we initialize the parameters for Gaussian. "
+  },
+  {
+    "start": 4740.635,
+    "end": 4776.289,
+    "speaker": "SPEAKER_08",
+    "text": "And once we have this naturalized parameters, we can calculate the probability for each pixel belonging to each cluster. So for each pixel, okay. So for each pixel, we check for both labels, essentially, for both centers, kind of. Yes, if there are foreground and background, there are two clusters, which means there are two Gaussian distributions. For this pixel X, we get its feature vector. We use the first Gaussian distribution to calculate its probability belonging to the foreground. We use the second Gaussian distribution to calculate its probability belonging to the background. "
+  },
+  {
+    "start": 4777.268,
+    "end": 4778.609,
+    "speaker": "SPEAKER_02",
+    "text": "Okay, that makes sense. "
+  },
+  {
+    "start": 4779.39,
+    "end": 4800.565,
+    "speaker": "SPEAKER_05",
+    "text": "And now for, you said there was the feature essentially that you can, that the user can kind of pre-select what should be the foreground or background. Do you then, like, how is it done in a computation? Do you set a different probability for, like? Yes. Okay. So, we can go here. "
+  },
+  {
+    "start": 4814.16,
+    "end": 4842.426,
+    "speaker": "SPEAKER_08",
+    "text": "and I think that if there are two... I forgot the mathematical formulation. What I remember is that you may have some photo and you have a background. "
+  },
+  {
+    "start": 4872.927,
+    "end": 4874.888,
+    "speaker": "SPEAKER_08",
+    "text": "Maybe it's the input. Maybe one and then cut. "
+  },
+  {
+    "start": 4874.988,
+    "end": 4878.449,
+    "speaker": "SPEAKER_02",
+    "text": "And when you use the mouse to control the score. "
+  },
+  {
+    "start": 4902.978,
+    "end": 4944.157,
+    "speaker": "SPEAKER_08",
+    "text": "We have constrained these three pixels. This is constrained by the human edges. And for these pixels, they have some soft properties given by Gaussian probability. Then you can write down and also we assume there is some smoothness that neighboring pixels would be belonging to similar classes. "
+  },
+  {
+    "start": 4944.417,
+    "end": 5064.815,
+    "speaker": "SPEAKER_08",
+    "text": "So what you can do is you can form a cost function. And that cost function contains some terms. It contains the term for these probabilities, which we already provided to the cost function. way yes I'm yeah yes and then or when you that money is already but yeah label of I'll one is the build input, the other is the custom distribution. "
+  },
+  {
+    "start": 5065.696,
+    "end": 5119.651,
+    "speaker": "SPEAKER_08",
+    "text": "So the build input only affects this single stroke. However, it also influences the segmentation for this resource. The reason for that is that we add some smoothness to the string. we uh... yes and uh... the way it is if we have if uh... the amount of the same it's fine if the don't belong one And how large this panel is depends on how similar these two pixels are. "
+  },
+  {
+    "start": 5120.573,
+    "end": 5206.527,
+    "speaker": "SPEAKER_08",
+    "text": "If we have very similar feature vectors, then we'll assign very high parameters. if they have different visual vectors, the panel will be small. So in that way, we can add some smoothness to control the segmentation. So even if you draw your human edit here, it will make those neighboring pixels to your human edit also belong to the photo. . However, each time when you segment this new image, actually you don't need to require your you have a previous training day to tune your camera the parameter for the Gaussian is only determined by this new integer so it is not the supervisor of the training model of the fixed data it does not learn anything at all from the past and if you want to know that how the exact algorithm, you can search . "
+  },
+  {
+    "start": 5207.107,
+    "end": 5215.772,
+    "speaker": "SPEAKER_02",
+    "text": "I still want that. Yeah, yeah, yeah. I have one other question. Yeah, yeah, yeah. "
+  },
+  {
+    "start": 5223.765,
+    "end": 5257.718,
+    "speaker": "SPEAKER_05",
+    "text": "One that is more general and not related to what you said in class. We had spatial pyramid today where you kind of add like the features from different layers and I was just, I understand here like you have different rates for the convolution, so you kind of aggregate different features, like feature pixels. The only thing I was wondering is you kind of have, you still have always the center pixel, right? "
+  },
+  {
+    "start": 5258.218,
+    "end": 5287.897,
+    "speaker": "SPEAKER_05",
+    "text": "So do you accept that if you concatenate this, the center pixel will be very strong, or is there a way, like, do you average this out when you actually can calculate it? Because, like, in my mind you will have here, in the aggregate feature map, you will have, like, in terms of contribution, you will have one, one, one, one, and then suddenly three here, and the rest of them kind of one, because you won't be taking, like, one. I suppose that, um... Let me see, so... "
+  },
+  {
+    "start": 5293.483,
+    "end": 5295.839,
+    "speaker": "SPEAKER_02",
+    "text": "Can you tell me what's going on? "
+  },
+  {
+    "start": 5304.725,
+    "end": 5336.237,
+    "speaker": "SPEAKER_06",
+    "text": "So basically all the windows are like this slide, all these slides to the, which is some, I think the most pixels are calculated in the same fixed number. So for example, so we just ignore the like limit one, so maybe for central one, so it will be calculated by one. convolution, and also like three times the set. "
+  },
+  {
+    "start": 5336.537,
+    "end": 5369.199,
+    "speaker": "SPEAKER_06",
+    "text": "That's the pixel, likely the pixel between it, it will also calculate three times. So actually, what we want is a difference between these two values, not the values, not the difference between this one and inside the convolution. So exactly So maybe you can understand it as, so this is to calculate the features of this central pixel itself. "
+  },
+  {
+    "start": 5369.78,
+    "end": 5385.129,
+    "speaker": "SPEAKER_06",
+    "text": "And the other condition, so if your size is one pixel wide, you will calculate the features of the neighbor's pixel of it. So this will not influence the results. "
+  },
+  {
+    "start": 5393.352,
+    "end": 5397.135,
+    "speaker": "SPEAKER_03",
+    "text": "The kernel is kind of different. "
+  },
+  {
+    "start": 5397.276,
+    "end": 5406.084,
+    "speaker": "SPEAKER_05",
+    "text": "It's the wrong way of thinking about it. You don't have to center it three times because it's a different calculation process. "
+  },
+  {
+    "start": 5406.144,
+    "end": 5419.135,
+    "speaker": "SPEAKER_06",
+    "text": "It's trying to just calculate all the features of all the pieces by calculating the convolution kernel surrounding it. So it doesn't influence the results between them. That makes sense. "
+  },
+  {
+    "start": 5420.016,
+    "end": 5429.44,
+    "speaker": "SPEAKER_05",
+    "text": "The greater intuition is kind of wrong here. We're not adding three times the same thing. Yeah. Even though it's the same position, but we're applying different combinations. "
+  },
+  {
+    "start": 5429.46,
+    "end": 5458.346,
+    "speaker": "SPEAKER_03",
+    "text": "Do you know what I saw in your email yesterday? I was just running my phone because I'm trying to zoom in. I just saw dancing street. February 20th. I was good luck. It is actually like time for... Yes, that is great. 28th. Even 28th is like... So, if anyone has a problem about the tutorial? Yes. Yeah. But that is great. I'm like, wow. "
+  },
+  {
+    "start": 5458.366,
+    "end": 5488.737,
+    "speaker": "SPEAKER_08",
+    "text": "So, yeah, because in the past hours of... Yeah, the two weeks talk. Yeah, I remember. Yeah, I know, I know. He just, he didn't stop my heart from beating too fast. Okay, sorry. But if you have other emergencies, feel free to talk to me about it. "
+  },
+  {
+    "start": 5489.277,
+    "end": 5520.414,
+    "speaker": "SPEAKER_03",
+    "text": "Don't worry, we'll try our best to come back. Yeah. We're trying to prepare for everything. And you know, I found it the last time I started writing already. I started writing in 1996. Yeah, I entered the writing phase too. So you just Yeah, so much writing. And I think I got a little bit ambitious. I'm trying to write two papers. I do have the method. I just need to benchmark all. "
+  },
+  {
+    "start": 5520.775,
+    "end": 5536.111,
+    "speaker": "SPEAKER_03",
+    "text": "Yeah, that's it. It's so much. It's a very important process. Yeah, it is, it is. There's nothing to complain about. I think so. Yeah, you hope. Yeah, yeah. Oh, okay. "
+  },
+  {
+    "start": 5536.131,
+    "end": 5572.094,
+    "speaker": "SPEAKER_08",
+    "text": "Very nice meeting you. Thanks for the interview. I'm sorry that I realized that I emailed you to come at five, but actually that I didn't finish my lecture in time. Oh, that's great. Sorry about that. Oh, yeah, I was also here at five, so I was sitting for the lecture. Okay. So I don't know why you're apologizing just to him and I'm not part of it. Nice to meet you. Nice to meet you too. Next time I'll write him saying you can come at 15 plus five. Don't worry, don't worry. "
+  },
+  {
+    "start": 5572.754,
+    "end": 5586.563,
+    "speaker": "SPEAKER_03",
+    "text": "It's 15 minutes. It wouldn't kill anyone. Yeah. Today is fine. So they have started the second coursework already? Yes. The moment they submitted the first. How long? Three weeks? "
+  },
+  {
+    "start": 5587.103,
+    "end": 5616.895,
+    "speaker": "SPEAKER_08",
+    "text": "Uh, I interested two weeks, but I also received an email from the department telling me there were a lot of different coursework, all with similar deadlines. So they asked me to extend for three more days. So it's 17 days. Come on. I was thinking those in one week. Three more days is yet enough. Come on. So today's Friday. So it will be due in one of the Monday. "
+  },
+  {
+    "start": 5617.555,
+    "end": 5637.759,
+    "speaker": "SPEAKER_03",
+    "text": "OK. I see. Okay, so when it's due, it's like almost when we have submitted, one week after we have finished marking, that's when it will be due, and we'll go into another 30. So the second one will be the same range of 30, only a bit smaller for each marking? "
+  },
+  {
+    "start": 5638.019,
+    "end": 5680.52,
+    "speaker": "SPEAKER_08",
+    "text": "I think it will be, if the same bunch of students, it will be a similar amount. So I actually... Yu Pei is not here today. I was trying to see, because Yu Pei works on NLP problem, I want to check with Yu Pei whether he can try out to use some large language models. to read the PDF and then to see if we also provide the marking guideline as a prompt, how well it can do the automated marking. "
+  },
+  {
+    "start": 5681.041,
+    "end": 5711.874,
+    "speaker": "SPEAKER_08",
+    "text": "Yeah, I think it works. Yeah, so because if we, so there are two ways of marking automated. One way is that ping, we need to implement something that can be uploaded to this lab PS. And what we do is that, for example, if it's a segmentation task, let's say if it's a classification task, we just provide a test set, the student can classify 100 samples and test them. "
+  },
+  {
+    "start": 5712.175,
+    "end": 5743.315,
+    "speaker": "SPEAKER_08",
+    "text": "Then we can compare. their classification without wrong truth. And this can be done automatically. However, if it's about checking, for example, for Gaussian filtering, whether they have been implementing the Gaussian filter correctly, Yes, we can still do this kind of check only for the final result, but you want to check the internal code. Only large-language models can do that. "
+  },
+  {
+    "start": 5744.016,
+    "end": 5791.57,
+    "speaker": "SPEAKER_08",
+    "text": "And I don't know at the moment how accurate it can perform this task. Oh, I see. So that's why I planned. I'll check whether you can have time to try this. Yeah. It's maybe a bit hard to test for it. So you need to give it a lot of, to see whether it can tell the wrong answers or not. So what we can do is that because we have you to provide the human annotation, and at the end, you will mark, okay, this submission is marked as 90. and then we just check the automated marking score, whether it's consistent with the manual marks. "
+  },
+  {
+    "start": 5793.63,
+    "end": 5825.416,
+    "speaker": "SPEAKER_03",
+    "text": "I see. I think the code one, as you said, maybe he should check. But I know when it comes to code, the acquirers, I think that's one of the things they are very good at, at the end of the day. Sometimes, and you know, because students... change. Different students use different code and they are very fast too. They just don't look at the exact code. They already understand if the code makes sense or not by looking at it. So that is one best way I think for the code discipline. "
+  },
+  {
+    "start": 5825.436,
+    "end": 5851.365,
+    "speaker": "SPEAKER_08",
+    "text": "As you said, we would have to And if we use this large function model, then we also need to generate some feedback of students. And again, for that, I think, yes, we will have the training data, which will be your feedback, and we can calculate maybe the blue score or some other score. "
+  },
+  {
+    "start": 5853.946,
+    "end": 5904.703,
+    "speaker": "SPEAKER_06",
+    "text": "Well, I take the conservation course in my undergraduate. In my community, they just provide some hidden cases and some showing cases. And they were just marked with these two cases. So basically, they provide six hidden cases and do not let student hard codes answer. In your case, you mean the test sample? Yes, so it will not be given to the students. And it will give students some test samples, but not all. Okay, I see. And which will provide students from hard coding the answers. So essentially, the students have given training set, validation set. Yeah, and we don't have test set yet. And if the accuracy gets some margin, like 19%, and it will fall mark, and just like this. Okay. Yeah. Maybe, yeah. And this can be done by Laptius, I think. "
+  },
+  {
+    "start": 5905.023,
+    "end": 5937.868,
+    "speaker": "SPEAKER_03",
+    "text": "Yes. Yeah, Laptius does that. I think that's what it is for intro to ML, intro to machine learning. There's always a hidden private test. Okay. It's a rule. And the hidden private tests, what they do is, of course, that gives us a lot of work as GTA. Because you have to, so the students are asked to put instruction on how to run their code. So it has to be .py, Python, one you can just run. So I just go to their data set, the one they use to trade. "
+  },
+  {
+    "start": 5938.218,
+    "end": 5976.939,
+    "speaker": "SPEAKER_03",
+    "text": "just change the name and put the ED test data set name. So I just click. So it's the only clue because I'm manager. Yeah, you have to do that sort of thing. And the manager is going to go and change the name of the test set so that it would load the secret test set instead of your own test set. So when you run it and you see that the secret test set, because we already know what secret test set the range should be. So if there's does not perform close to that, or what they got, maybe their own test is way higher, what they reported, than the secret test, and they will know something is fishy. "
+  },
+  {
+    "start": 5977.34,
+    "end": 6000.061,
+    "speaker": "SPEAKER_08",
+    "text": "Okay, so they are all fitted. I think that sometimes also some students ask me whether we will be marked based on the accuracy we get. So at the moment, for my class, I was telling them that no, we will only check whether your model is working properly. We would not like to set some threshold for accuracy to give you marks. "
+  },
+  {
+    "start": 6000.401,
+    "end": 6034.524,
+    "speaker": "SPEAKER_03",
+    "text": "Yeah. But how would you... Again, now we've said this, I'm wondering, how would you know if it's properly implemented? Because a model... Less is the binary model, and it's getting 20% accuracy, which is baseline is higher than. It means something is wrong with the code fundamentally. So which means accuracy should be expected to be above a particular charge shock. But again, it's good that since they said that, because some of them now get obsessed with QB dance. "
+  },
+  {
+    "start": 6038.586,
+    "end": 6080.959,
+    "speaker": "SPEAKER_03",
+    "text": "So, hi. Your job is not easy, man. It's always hard for coding, marking. I know. I don't like that coding stuff, especially when they put it, oh, GTs, you have to look at the code to comment in. I'm like, oh, my God. What have I done to deserve this? I know, I know. It's crazy that anytime I'm marking, like in intro to... the student has passed the test. So that makes marking easy. So anytime I'm opening the student's PDF, I'm always praying that the student passes the whole test. "
+  },
+  {
+    "start": 6081.259,
+    "end": 6112.245,
+    "speaker": "SPEAKER_03",
+    "text": "Because if they pass the whole test, you don't have to think too much. You just read their report. So the only place you put so much work is the report, because they could pass. But the moment that it fills one or two tests, that's when your work starts. Because you have to now read the error. Check why they're wrong. Yeah, sure. Go back to the line of work. Yes. See what happened. Try to start thinking of the book. Yes. Because you have to give feedback. Yes, sure. Or it's possible soon. "
+  },
+  {
+    "start": 6113.066,
+    "end": 6143.542,
+    "speaker": "SPEAKER_06",
+    "text": "Yeah, I have tried to, like, use the large-ranging model, too. Like, you've got to use some code with one or two test case fields, but the result is not good. So, it always gives some, like, tight arrow like this, but not enough. I'm not sure why. So, I think large-ranging model is sometimes work not good in checks, to check where it's... exactly error is, they just can fix them, for example. And I don't know where it's wrong sometimes. "
+  },
+  {
+    "start": 6143.922,
+    "end": 6176.345,
+    "speaker": "SPEAKER_03",
+    "text": "Oh yeah, I think the good thing for the intro to machine learning is that's what I'm using as reference. The test sets, anytime it fails, it says the particular test that fails. So what I just do is I go to the function that does that particular test. So I just copy the function, copy the error, that is if I'm too lazy to pop my brain, just put it on loud loud mode, that is the function. So I give it water concentrate and from the function it already knows why did that error come up and what should be done to fix it up. "
+  },
+  {
+    "start": 6177.697,
+    "end": 6180.678,
+    "speaker": "SPEAKER_03",
+    "text": "Oh, no, don't give them the whole file, yeah. "
+  },
+  {
+    "start": 6181.158,
+    "end": 6215.733,
+    "speaker": "SPEAKER_06",
+    "text": "Do we need to implement the coding? If there is coding assignment, do we need to implement the coding instructions or something like that? Coding instructions. Yeah, previously I have, like, do the teaching systems in the computer system, so I need to implement the standard answer and also some instructions of how to do this. This function is for, yeah, like this. Do we need to do that in these courses, or do we have the problem now? So the students submit PDF. PDF, only PDF? "
+  },
+  {
+    "start": 6216.053,
+    "end": 6228.135,
+    "speaker": "SPEAKER_08",
+    "text": "Yes, and then you are given a marking guideline. And then it tells you if they have done this, they get a full mark if they haven't done something. Thank you. "
+  },
+  {
+    "start": 6249.373,
+    "end": 6284.466,
+    "speaker": "SPEAKER_02",
+    "text": "So, you mean that you get the like the first one, or first term, but you don't know how to get it like this? "
+  },
+  {
+    "start": 6284.666,
+    "end": 6294.391,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah, basically. So we just like to try to, maybe I can, maybe you can just, you can, you can just show the answer here, so. "
+  },
+  {
+    "start": 6295.052,
+    "end": 6325.7,
+    "speaker": "SPEAKER_06",
+    "text": "It's just like to do the, right here, so twice, so the x and the y, x and the y is symmetry, so. I got it. Yeah, so. Yeah. This one? Yeah, I got it, yeah. So this term is obviously the same as the crosses. So you, so it's just like, this two is just like the difference by the theta. You can compare them. "
+  },
+  {
+    "start": 6326.72,
+    "end": 6329.941,
+    "speaker": "SPEAKER_02",
+    "text": "Let's just say that. No, that's fine. "
+  },
+  {
+    "start": 6349.638,
+    "end": 6364.17,
+    "speaker": "SPEAKER_06",
+    "text": "to get the relations between this term and this term line. So you're putting together relations between these two knots, this one and this one. "
+  },
+  {
+    "start": 6368.193,
+    "end": 6370.234,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah, yeah, yeah. "
+  },
+  {
+    "start": 6404.333,
+    "end": 6406.815,
+    "speaker": "SPEAKER_08",
+    "text": "I don't know whether it was left by a crazy selection. "
+  },
+  {
+    "start": 6458.334,
+    "end": 6492.044,
+    "speaker": "SPEAKER_03",
+    "text": "I had to check if my code is still running. Your code? Yeah, I'm running a code, you know. Yeah, yeah, yeah, for the benchmark I'm trying to do. So I'm trying to train him. That is the problem with multimodal. Sometimes my laptop is gone for like four days, even using HP 63. "
+  },
+  {
+    "start": 6493.955,
+    "end": 6495.456,
+    "speaker": "SPEAKER_03",
+    "text": "It's crazy. "
+  },
+  {
+    "start": 6496.157,
+    "end": 6507.427,
+    "speaker": "SPEAKER_08",
+    "text": "Yeah, I normally use my desktop to do some training so that I can just leave it. If I use my laptop, I need to keep it on. It's over. "
+  },
+  {
+    "start": 6508.067,
+    "end": 6519.157,
+    "speaker": "SPEAKER_03",
+    "text": "Oh, yeah. I know what you're saying. If I do the training, I'm supposed to start. I can't start it until I go, you know? So that I will leave it on throughout the night and run over the weekend. Okay. "
+  },
+  {
+    "start": 6520.898,
+    "end": 6531.414,
+    "speaker": "SPEAKER_06",
+    "text": "So do we try to use the T-max? It can be always on, even if you just disconnect with the server. "
+  },
+  {
+    "start": 6531.954,
+    "end": 6544.446,
+    "speaker": "SPEAKER_03",
+    "text": "Yes, yes, yes, if I'm using the HP server. I don't know what happened. The system just shut down also. Yeah, I almost cried. So I had to go and learn how to run it off without the system being turned on. "
+  },
+  {
+    "start": 6563.032,
+    "end": 6601.213,
+    "speaker": "SPEAKER_03",
+    "text": "Yeah, I see. At least the good thing with this tutorial session is that it helps me refresh my brain. You know, when I was going through, I saw one symbol, I'm like, hmm, this symbol looks like a symbol of change. But I'm like, oh, I'm forgetting what it means. When I went online and I saw it was a symbol of partial depreciation, and I said, what is happening? How did I forget? I see me going through differentiation, using behinds, I'm like, oh my god, this is, this is spotty. "
+  },
+  {
+    "start": 6602.974,
+    "end": 6678.471,
+    "speaker": "SPEAKER_08",
+    "text": "Yeah, so basically, I realized that when I'm designing the tutorials, I'm designing exam papers, that it's quite difficult to design for image classification networks, because it just lost function of my, and I, i need to think very hard to find a proper topic that can be assessed either be interesting that can open their mind or with some math yeah exactly exactly i think i think that is the best thing especially like um like the fight last question you need to do of the know complexity and because at the end of the day no matter how good your model is and the people is bigger than another one that accuracy is just one percent difference it's your mother really yes the better one yeah yeah I think it since maybe two or three years ago that was some linear transformer which reduced the complexity Yeah. Thank you. Thank you. Thank you. Thank you. I'm sorry for my . I need to find how to deal with this. I just emailed the . "
+  },
+  {
+    "start": 6679.512,
+    "end": 6692.1,
+    "speaker": "SPEAKER_04",
+    "text": "Is the exam going to be similar to the tutorials? Yes. Yes. I was wondering how is this going to be assessed in 90 minutes? Because the exam is only 90 minutes, right? "
+  },
+  {
+    "start": 6692.241,
+    "end": 6729.798,
+    "speaker": "SPEAKER_08",
+    "text": "Yes. Or open? Normally, it's open book. Oh, really? One piece of paper? At least for all the previous years, we used open book. That's a department change policy. So you are allowed to bring one piece of A4 paper to print some equation or print whatever you like on it. Oh, okay. There's no equation book or anything like that. So bring your own book. There's no equation. Yeah, but I assume that maybe for the previous generation students, maybe they have to compile some good version. "
+  },
+  {
+    "start": 6730.038,
+    "end": 6742.123,
+    "speaker": "SPEAKER_02",
+    "text": "There is some open writing there. There's what? I'm not sure, so in my previous school there is. Ah, okay. So as long as I get through the tutorial sheet, I'll be all right. Yes, yes. "
+  },
+  {
+    "start": 6742.304,
+    "end": 6773.639,
+    "speaker": "SPEAKER_03",
+    "text": "Okay, I will see you in three weeks. And then, again, don't forget I'm still the consultant for you. In case at the time you need extra help or work notes, yes. Thank you. So normally I try to minimize the workload for TTI. Yeah, I know you do that a lot. Trust me. Thank you. You do that. Yeah, that's why I came to tell you so that you don't forget to change. If you become overwhelmed or you need anything extra. "
+  },
+  {
+    "start": 6786.084,
+    "end": 6791.688,
+    "speaker": "SPEAKER_02",
+    "text": "I'm sorry? Are you Roman? No. I'm Roman. He's still a friend. He just comes here all day. Okay. "
+  },
+  {
+    "start": 6928.399,
+    "end": 6946.787,
+    "speaker": "SPEAKER_01",
+    "text": "That's actually Bernhardt. Oh, Bernhardt. Okay. Yes. So there are two cables. Yes, yes, yes. Okay. But Bernhardt is not here today. Okay. We need to give it back to Matthew. Okay. Let's see. Okay. Thanks. "
+  }
+]

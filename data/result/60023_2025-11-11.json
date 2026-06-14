@@ -1,0 +1,1101 @@
+[
+  {
+    "start": 328.74,
+    "end": 329.75,
+    "speaker": 1,
+    "text": "We have to move forward. ",
+    "model_probability": 0.0244
+  },
+  {
+    "start": 498.78,
+    "end": 500.96,
+    "speaker": 4,
+    "text": "So I hope you're picking up on the fact that it's a tournament. ",
+    "model_probability": 0.0176
+  },
+  {
+    "start": 865.53,
+    "end": 870.55,
+    "speaker": 2,
+    "text": "really big numbers. When you do the album, yeah. Yeah. ",
+    "model_probability": 0.0241
+  },
+  {
+    "start": 871.2,
+    "end": 872.4,
+    "speaker": 1,
+    "text": "So there's one, two, three. ",
+    "model_probability": 0.0541
+  },
+  {
+    "start": 896.94,
+    "end": 899.26,
+    "speaker": 1,
+    "text": "Should I do that? ",
+    "model_probability": 0.0913
+  },
+  {
+    "start": 899.3,
+    "end": 914.63,
+    "speaker": 4,
+    "text": "You can. So it's a safe way to do it. So if you want to count that, that's a safe way to check in. What I'm doing here, once I start explaining what I'm doing here, you'll see there's a short one. ",
+    "model_probability": 0.8946
+  },
+  {
+    "start": 938.31,
+    "end": 968.7,
+    "speaker": 3,
+    "text": "So the question asked me to check if the rewrite rule s applied to kx and to ky reduced to k applied to xy. is a typeable rewrite rule. That's the essential question. So what you have to check is if the principal pair of the left-hand side is a valid pair for the right-hand side. Okay. So I can start the principal pair algorithm on the left-hand side and do my calculations, or I can use my understanding of my insight and do a shortcut. ",
+    "model_probability": 0.9985
+  },
+  {
+    "start": 968.78,
+    "end": 1005.53,
+    "speaker": 3,
+    "text": "So that's what I'm doing here. So I know that... in the type assignment for the rewrite rule, the defined symbol should have the environment type, exactly the environment type. So there's no choice there, that's that type there, which means that this term has to have this type, that term has to have that type, and the result type is this. There's no choice. So now I need to see, can I assign types to x and y such that it clicks? And I'm doing this in my head in the most economical way, because I'm simulating the principle of type algorithm. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 1006.15,
+    "end": 1045.03,
+    "speaker": 3,
+    "text": "So I want the type for k to be as less specific as possible. So I have here that the k applied to x is this type, and k has the type a to b to a, So from this result type, I know that the type that K itself has, has to have this shape. And this is minimal, because this was minimal. Because this minimal comes from the environment type. So I could make this, no, there's just no, I'm fixed on these one, two, and three. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 1045.35,
+    "end": 1091.36,
+    "speaker": 3,
+    "text": "There's no choice, and thereby I get two to three, and that's it. There's no choice there as well. Okay, so that's principle. The second term... is types 1 to 2, and therefore the k there is 2 to 1 to 2. Again, no room for any choices. So that means that doing this the minimal way comes out with saying that x has this type and y has that type. Okay, now with this type, I go to the right-hand side and see if I can type the term on the right-hand side. And I can here, because x applied to y has type 3, and this k now gets type 3 to 1 to 3, and that's the valid type for k. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 1095.01,
+    "end": 1113.91,
+    "speaker": 3,
+    "text": "So this is a type of rewrite rule. Okay. So similarly, you can try the other two rules. Do this quick analysis. See if you find the answers. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 1124.95,
+    "end": 1137.6,
+    "speaker": 1,
+    "text": "There's about 20 registered at level 3. OK, this example. Yeah, and 65 in total registered at 2 or 3. ",
+    "model_probability": 0.9331
+  },
+  {
+    "start": 1138.2,
+    "end": 1146.0,
+    "speaker": 3,
+    "text": "OK. Yeah, yeah, so the, yeah, okay. ",
+    "model_probability": 0.9144
+  },
+  {
+    "start": 1189.7,
+    "end": 1201.18,
+    "speaker": 1,
+    "text": "Part two, we assume that i has the type one to one in the environment. It's not specified. Oh, it's not specified. Yeah, sure, yeah. ",
+    "model_probability": 0.942
+  },
+  {
+    "start": 1211.32,
+    "end": 1215.89,
+    "speaker": 4,
+    "text": "Yeah, that's okay. Amazing. ",
+    "model_probability": 0.8385
+  },
+  {
+    "start": 1452.69,
+    "end": 1514.46,
+    "speaker": 1,
+    "text": "So how about the fourth one? Any ideas? Is this the time when we run home? So I guess it's not typeable because I requires that the types 1 and 2, the environment of S, are the same? Yes. So you can type the left-hand side, you can type the right-hand side at the same time, but while doing that you're not using the environment of S. So if it was like S's type 1 to 1 to 3, and then 1 to 1, 1 to 3, it would be typed? ",
+    "model_probability": 0.894
+  },
+  {
+    "start": 1517.67,
+    "end": 1565.05,
+    "speaker": 4,
+    "text": "So these rewrite rules, they are very old. So when people, I always forget which one it is now. This is the Currie. So when Currie did this, so he defined the combinatorial logic with S and K. And he started studying it as a rewriting system. And then he very quickly found his optimization And the nice thing about these is that you, as is normally, as is everything three. It only fires if it has three arguments. But these rewrite rules let fire, let us fire with two arguments. ",
+    "model_probability": 0.9878
+  },
+  {
+    "start": 1565.75,
+    "end": 1605.74,
+    "speaker": 4,
+    "text": "So it's a strange addition to the rewrite system. And I mean, he did a little bit of work on types. He's very, very small. So I think he never realized that these, that you get a conflict in the system, really. And so this technique is used very much in the early functional languages implementations, where you had the translation of the problem into a terminal combinatorial logic. ",
+    "model_probability": 0.9863
+  },
+  {
+    "start": 1606.6,
+    "end": 1625.17,
+    "speaker": 4,
+    "text": "And there's something that's called the SCIM, the S-K-I machine. And it's work done by Pete Harrison and Tony Field. Have you had Tony as a lecturer? Because he has retired. High school. ",
+    "model_probability": 0.9396
+  },
+  {
+    "start": 1625.93,
+    "end": 1637.33,
+    "speaker": 2,
+    "text": "He set our paper, but he wasn't our lecturer. He was not your lecturer, but? No, but he set the paper. ",
+    "model_probability": 0.9177
+  },
+  {
+    "start": 1638.42,
+    "end": 1648.97,
+    "speaker": 3,
+    "text": "He set the paper. Okay. So who was your lecturer? Was it Nick? Okay. Very nice. Were you raising your hand, Tom? ",
+    "model_probability": 0.942
+  },
+  {
+    "start": 1649.15,
+    "end": 1666.89,
+    "speaker": 1,
+    "text": "Yeah, it was just... I don't know how much... Yeah, that's the point. Yeah, it was meant to try and make the logic of how to do that, so it was a combination of stats, doing the same thing, doing that speed, so it's a fraction of the citizens of the community. ",
+    "model_probability": 0.8975
+  },
+  {
+    "start": 1671.33,
+    "end": 1679.33,
+    "speaker": 3,
+    "text": "Okay, fair enough. ",
+    "model_probability": 0.8808
+  },
+  {
+    "start": 1679.56,
+    "end": 1714.43,
+    "speaker": 4,
+    "text": "No, they can be nice, they're both okay. So, as a reprogramming rule, I have the principal pair on the left-hand side should be a vertical pair on the right-hand side, and this thing is tied to the environment. Okay, when I do that, when I try to practice with the environment type, I can't type it. Because the environment type says that a second argument, these two should be different. ",
+    "model_probability": 0.8835
+  },
+  {
+    "start": 1714.57,
+    "end": 1799.68,
+    "speaker": 4,
+    "text": "Any substitution instance of this type is a valid type for this. So I can substitute one and two with different types. But when I apply this to identity, identity insists that these two are the same. So I can type this, but I have to change this type. Yeah, yeah, yeah. So if this is a rule that you value, that you want in your system, then you pay the price by changing the environment type. So if you change the environment type, because the other rules type check with this particular type, so this is the only one that is because the point is that if I don't do that if I draw that the environment type S is just a type like this. ",
+    "model_probability": 0.9068
+  },
+  {
+    "start": 1809.06,
+    "end": 1840.88,
+    "speaker": 4,
+    "text": "And that's not what I want. Because this type doesn't characterize what S does. As I wanted the type to express the functional behavior and abstraction of the function. So if I take this type for the environment, then I cannot type the first three rules. If I drop the restriction that the defined symbol should have confinement, then I can type all these four rules at this time. ",
+    "model_probability": 0.9072
+  },
+  {
+    "start": 1840.9,
+    "end": 1911.23,
+    "speaker": 4,
+    "text": "But then there is no sense anymore at this time, because if I see this as a function that takes these operands and returns that, that's what I want to type to express. And it's not what this does. This just says it's a term applied to a term, another term and returns a term. So this type is not specific. So the yeah. So the same holds in the So in a lot of the algorithms in recursion, we analyze the definition of the name, so we look at the term that's associated with it, and that's the type that we give to the identifier. And then we insist that all the calls use that type, the type that we've associated with the definition. ",
+    "model_probability": 0.9543
+  },
+  {
+    "start": 1911.69,
+    "end": 1919.36,
+    "speaker": 4,
+    "text": "And that's the same thing here. So I can see this as definitions for S, And so this should produce me the goal difference. ",
+    "model_probability": 0.7419
+  },
+  {
+    "start": 1926.38,
+    "end": 1961.34,
+    "speaker": 3,
+    "text": "Good. So I think we will finish in two weeks. Okay, so we have the test next week, and I will finish teaching the week after on the Tuesday. If everything runs as normal, then it should work. Okay. So, what's next? Well, the next is that we want to extend our programming language and introduce the notion of data structures. ",
+    "model_probability": 0.9344
+  },
+  {
+    "start": 1962.52,
+    "end": 1985.48,
+    "speaker": 4,
+    "text": "And we do that in an F-type way, so I won't immediately talk about traces But I'll talk about how you represent those basic time structures in time. And I do that by introducing two notions. ",
+    "model_probability": 0.9318
+  },
+  {
+    "start": 1985.52,
+    "end": 1991.69,
+    "speaker": 3,
+    "text": "The first one is pairing. Okay, it's easier. ",
+    "model_probability": 0.8413
+  },
+  {
+    "start": 2005.64,
+    "end": 2071.36,
+    "speaker": 4,
+    "text": "So the pairing is that you have two things together. And so this is the primitive operation . So we have a new term construct that takes two terms and puts them in a pair, and represented by the practicing comma. and I have two term constructors, the left and the right. I could have made left and right terms themselves, but I've chosen not to because I think these type assignment rules are better to understand. So that's one thing, and the other thing, I add a up there. So I also enrich my type language, and the type language says that you, so a pair has a product type. ",
+    "model_probability": 0.975
+  },
+  {
+    "start": 2072.26,
+    "end": 2076.58,
+    "speaker": 4,
+    "text": "Now, and this corresponds exactly to what you have in maths with Cartesian products. ",
+    "model_probability": 0.7666
+  },
+  {
+    "start": 2077.82,
+    "end": 2079.38,
+    "speaker": 1,
+    "text": "I'm not aware of that. ",
+    "model_probability": 0.5687
+  },
+  {
+    "start": 2087.85,
+    "end": 2119.0,
+    "speaker": 3,
+    "text": "So it's very nicely associated. So it says that a pair has the type A times B, the product of A and B. If the left-hand component is type A and the right-hand component is type B. So perfectly okay. And then the left and the right operators, they work as projections. And they say, well, if you have a thing that has a pair type, then you can project out the left component. And then you get something of type A. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 2120.06,
+    "end": 2156.12,
+    "speaker": 3,
+    "text": "And similarly, if you have something of the product type that you can project out the right component, you get, of course, something of type B. So these are the type assignment rules. And of course, there's nothing that insists that this E is indeed a pair itself. It can be a variable. It can just be a big term producing a pair. So this allows you to do a left projection on something that will, with a bit of log after computation, have the pair structure. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2156.14,
+    "end": 2227.43,
+    "speaker": 3,
+    "text": "But it might be an active computation. So the revert rule says, yeah, so you add the, so when you build an extension, you add types, you add terms, and you add type assignment, and reduction. Those are the four steps. So the reduction is an extension of making, specifying how pairing and left and right projection interact, and this is a pattern matching rule. So when you talk about pairing, you're immediately outside of the calculus, the elliptical calculus. So you can represent this in the elliptical calculus, but not with the notion of the types that we have here. So it's better to treat type assignment on this extended language rather than trying to model this into the elliptical calculus because it doesn't really work. Okay, so it works as you want. So the left of a pair takes the left component, the right of a pair takes the right component. So it is pretty straightforward. And then, of course, you've got the contextual rules that allow you to run inside a pair and inside the left and the right projection. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2229.03,
+    "end": 2276.87,
+    "speaker": 3,
+    "text": "Okay, so if I would have taken left and right, so left just to turn by itself, then this would be an application. It's not an application. It's the left of a pair. And I should officially write the round brackets there. Yeah. Okay, so that's on the one hand. On the other hand, I need the OR operator, which I think is, I mean, it's very natural once you see what you're doing with it, but I think it's more difficult to justify why this is in there. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2285.04,
+    "end": 2320.86,
+    "speaker": 3,
+    "text": "Yeah, so the or is also used in pattern matching when you have various alternatives in the definition. And then you can, yeah, okay, that's what you need to offer. Okay, so as we've remarked before, yeah, we have seen that example before. If I add the rule that says that the left of an E and the right of an E runs to E itself, then I get something which is not confluent. And as a term writing system, this is called the left-comparing term writing system, because it insists that these two things are identical. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2322.76,
+    "end": 2398.27,
+    "speaker": 3,
+    "text": "And that's computationally undecidable. So it is a tricky rule. Good. So we don't add that rule, because then we get something which is no longer confluent, and we are very keen on confluence in the context of functional programming. So in the notes, there's a remark that if you are trying to use the encoding of pairing into the lambda calculus, as is done in chapter one, I skipped that because it's, for me, not the most interesting part of what we're doing here. So if you take that encoding, then you can't type it anymore. It falls flat very quickly. Because what you get is the, you can only build pairs of terms of the same type. So this is, the moment that you try to do this in the laptop, it gets very poor. Good. Second extension, we're using the OR. So you can see the pairing and the way pairing is typed as comparable to how AND is treated in logic. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2399.23,
+    "end": 2431.6,
+    "speaker": 3,
+    "text": "You have a proof for A, you have a proof for B, then the AND gives you the combination of those two proofs. And you can do the projection by saying, well, if I have a proof for A and B, that I can build a proof for A by applying the left. This is a similar thing. It's called plus in the type assignment system. It's based on the or. But it's not exactly the same or as we have in logic because, for example, the... ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2445.18,
+    "end": 2480.84,
+    "speaker": 3,
+    "text": "For example, we don't have the association between implication and the or, because we have no indication in the type language, so it's not exactly the same. Good, so what I have now is a similar thing. So I can say, well, if I have an object of type A, then I can build an object for type A plus B, or A or B. But what I do is I put a marker on there. I'm saying this is actually an A. So I take out my ink and I paint it red. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2481.84,
+    "end": 2513.55,
+    "speaker": 3,
+    "text": "The other one says if I had an object of type B, then with injection right, it says, well, the thing has the OR type, but this actually is the one of type B. Okay, so, and again, it's a marker. and I have a case construct, and the case construct is really the logical OR rule. It says that if I have a term of type A plus B, and I have a function from A to C, and I have a function from B to C, then the case construct, based on those three terms, has type C. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2514.18,
+    "end": 2544.94,
+    "speaker": 3,
+    "text": "Okay, so what does this represent? Well, the thing E1 has type A or B, and I don't know which one it is. Okay, I don't know which one is going to pop out in the end, because I need to run A1 before it becomes either an injection or injection left or injection right. But with this rule, it says it doesn't matter, because in both cases, I can feed it to the term A2 or I can feed it to the term A3, and I get something that's type C. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2545.94,
+    "end": 2577.54,
+    "speaker": 3,
+    "text": "So irrespective of what E1 is becoming in A or B, this construct, this case construct, has type C. Again, this is the same in logic. In logic, you have A or B, and I say my case is A take A, A go to C, A take B, A go to C, and I say C holds. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 2580.0,
+    "end": 2615.49,
+    "speaker": 3,
+    "text": "Yeah. that's the destruction logic, and the same thing happens here. I have, instead of the or, I use the plus. Okay, so this goes back in the rewrite rules. If I have a case construct where the term that I'm checking on is in fact, so this is type A plus B, so if this in fact is an A, then I'm going to feed that thing to the thing that takes an A, which is E2. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2616.73,
+    "end": 2652.68,
+    "speaker": 3,
+    "text": "So I apply E2 to E1. In the other cases, if the object that I'm checking is in fact an injection right, then this is the thing that has type B, so I take the function that has type B, so I apply E3 to that one. And I have the the reduction rules again, extending over all new positions and terms. So this is either? It is not either. It is choice. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 2652.7,
+    "end": 2657.96,
+    "speaker": 2,
+    "text": "It is either? ",
+    "model_probability": 0.986
+  },
+  {
+    "start": 2658.0,
+    "end": 2666.03,
+    "speaker": 0,
+    "text": "Yeah, it is either. Because I was trying to understand what that rejected, and I realized, okay, it's either. ",
+    "model_probability": 0.9554
+  },
+  {
+    "start": 2668.53,
+    "end": 2728.92,
+    "speaker": 3,
+    "text": "Good job. I don't mean that you have two things that are exclusive. I said, I mean, that's not my reading of this. Because I'm not demanding anything on E. The term that I'm, so these can be the same term. Yeah, it's just the hassle time. Oh, okay. Fair enough. Good. Okay, sure. Okay, good. So it's patient, just extending the syntax and the family of the types and the type assignment rules and the reduction rules, so you get this bigger engine. Of course, if I combine these two, so I combine this, the AND and the OR combination, then my contextual rules, they all combine, yeah? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2732.55,
+    "end": 2772.51,
+    "speaker": 3,
+    "text": "i have all the all the so i need then also the the the addition with the end and the so i can define them in one call i just split it here because the two independent solutions good the next thing that we need to do is to to look at recursion recursive types and that's because the uh the the we need a way of representing infinite structures Like, for example, a list is a recursive concept, because the list is either empty or it is a pair of an element in a list. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2774.03,
+    "end": 2784.26,
+    "speaker": 3,
+    "text": "So we see the two things coming back here that I just discussed. I have the or operator there, and I have the pairing there. So they both come back in the definition of list. Yeah? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2788.44,
+    "end": 2825.78,
+    "speaker": 2,
+    "text": "union type in our type system why don't we just introduce types with additional type variables okay you have to help me understand what you're saying there so I'm saying that we use this type and you're saying that I'm saying that why don't we just allow some of the types to take in other types as variables Can we generalize that? ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 2828.43,
+    "end": 2892.32,
+    "speaker": 3,
+    "text": "Sorry, again, sorry. I can't follow. I don't follow. So for this type, so what I'm saying is that if I have something that has type A and have another thing, that has type B, that I can look at these things together and I take the pair. Yeah. So is this, in this rule, do you want type variables in there? Yeah, I'm asking why do we specially handle pairs? So I don't see how to generalize this. But it might be that I'm not following where your mind is going. But the point is that I'm leading up to be able to express that. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 2907.51,
+    "end": 2910.21,
+    "speaker": 3,
+    "text": "We can let the user specify it. ",
+    "model_probability": 0.9914
+  },
+  {
+    "start": 2912.93,
+    "end": 2932.54,
+    "speaker": 1,
+    "text": "I think that it's sort of a walk in the park because you can write any inductive type as a pair, you know, sums and pairs with some recurrence. But that's, it's easier just to look at sums and pairs plus what you think about properties. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2932.6,
+    "end": 2963.61,
+    "speaker": 3,
+    "text": "But you're right that this doesn't generate Yeah, yeah, but on the other hand, so, I mean, in Haskell you can specify algebraic data types because it's built in that you can define it. I mean, you can't do algebraic data type on the lambda calculus. If you just have the lambda calculus engine, you can't do any of these declarations. So you can specify them at the user level because the compiler... recognizes that you can do an abstract data type. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2963.67,
+    "end": 3028.31,
+    "speaker": 3,
+    "text": "An abstract data type is the outcome of what I'm doing today. For example, the type list is built in in the compiler. You don't have to specify that yourself. and the way that it's built in is through the fact that AND and OR are also that these types are built in as well so I'm extending the rewrite systems I have so far and adding sugar and I appreciate the sugar to the rewrite engine So because pairing is expressible in the lambda calculus, The Journal of Functional Programming is not really interested in rewriting because it says, well, we are doing lambda calculus here, so why should we bother with anything else? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3029.07,
+    "end": 3060.76,
+    "speaker": 3,
+    "text": "And my point is, it's not true. You're working with rewriting because you can't translate this back to the lambda calculus with all the properties that you have, that you would like to have. So this is true here as well. I can't do this in the elliptical algorithm because I have to add it to the elliptical algorithm to give it the expressivity that I want. And then on top of that, you can do a lot of user-defined languages and systems. Okay. So... First of all, so we have a recursive notion. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3061.36,
+    "end": 3098.82,
+    "speaker": 3,
+    "text": "And what I want to do is I want to express this as a type. And so basically what I want to solve is this particular kind of equation. So if I have a unit type, and I have a special object, the rhythm of two brackets, that has the unit type assigned to it, that's the only one that gets that type, then I can express a type for lists of type A as a solution to this equation. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3100.48,
+    "end": 3132.12,
+    "speaker": 3,
+    "text": "So it's either a unit, which is the empty list, or it is a pair of something of type A, B, and the thing that I'm defining. So how do we solve this? Well, one way to solve that is to have recursive types. So we add a recursor. It's mu. So it's a new symbol added to the type language. And the mu binds type variables. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3132.6,
+    "end": 3246.0,
+    "speaker": 3,
+    "text": "Now, for historic reasons, that variable that you bind is written as a capital X. But it's just a variable position. It's just a position. It's a node in the type. Okay. So we add to the type language that we add those symbols, the ones that we combined and we bind the recursive type declaration. Okay. And now the essential operator in this extension of the type language is that we add an equivalence relation on these types. So we consider types to be equivalent or convertible, if you like, through a mu equality, and it says, well, if I have a type of the shape mu x of A, then I consider that the same as I take A, and all the occurrence of x in A are going to be replaced by mu x of A again, exactly as the fix for ML, but now in types. Okay. So I consider these types equivalent. Okay. So using this insight in what I'm trying to solve there is that I want the recursive types of list, which is the thing on the left and the right, to satisfy that equality. And I satisfy this by taking A to be that type. So it's nice that the mu operator gives me a solution for that particular equality there. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3248.81,
+    "end": 3306.58,
+    "speaker": 3,
+    "text": "and it's very easy and straightforward to check that this is the case, because you say, okay, well, if this is my definition of the recursive type, so it's the type for list, then list of type B is this expression, and a new expense into this expression, which corresponds to this expression, and this is exactly that thing there. So it does exactly what you want. So the list of B is the same as mu equal to unit plus B, a pair of B and the list of B. Okay, so that's what we want. So before we break... I want you to realize that if I try to build a graph for a type like this, then I have a recursive graph. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3306.62,
+    "end": 3360.68,
+    "speaker": 3,
+    "text": "I have an edge going back up to the root node. Yeah. Or if I don't want to do that, then I'm forced to have an infinite tree. Yeah. And now we are back in the situation that we discarded in the beginning, is that I have a type that is equal to a subtype. It's its own subtype. Because this whole infinite tree is the same as this whole infinite tree. Yeah. So it is... Yeah, yeah. All the elements have type B. No, there's no, in that infinite graph, there's no x. And in the recursive graph, also x is not there. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 3361.48,
+    "end": 3412.78,
+    "speaker": 3,
+    "text": "So the x is the node that you point to, the thing that you point to there. So are we allowed to have double recurs? Yeah, you can have nested recursive types, sure. not to the same node because you can't bind it twice but I can have that this is part of a larger recursive type that comes back so effectively it can only so if we say mu x of something x only appears once no it can appear more than once That's a good question. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 3416.9,
+    "end": 3448.63,
+    "speaker": 3,
+    "text": "Yeah, I understand the question. I've never thought about this. Does x occur only once? No, no, it doesn't. The representation... Yeah, I think that if x occurs more than once, that I can't do this kind of representation. Okay, that's the effect. No, x can occur more than once. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 3448.65,
+    "end": 3547.55,
+    "speaker": 3,
+    "text": "There's no reason why it shouldn't. Yeah. Okay, that's a quick insight. Well done. I wasn't there yet, but this... Well, happy is a strong word. I mean, is that actually what we are looking for by happy? No, no, what we're looking for. So this again is you get what you bought and you, you know, it's the, if it breaks, you get to keep the pieces. That's what this is. So we want to solve this problem. And the solution that we have for this problem brings in a lot of stuff that we don't want. but we have to smile and be content and say, yes, thank you, thank you. You've got something that breaks, wonderful. Yeah, no, that's true, but we'll get back to that, yeah? So the, so in... So in ALGOL 60, that's one of the first programming languages where they really dealt with types in a mature way. They really tried to do it well. And they allowed recursive types in there. And there is a... I've never seen the paper, but I know the guy who wrote it. ",
+    "model_probability": 0.9984
+  },
+  {
+    "start": 3548.33,
+    "end": 3576.23,
+    "speaker": 3,
+    "text": "There's an algorithm that checks if two recursively defined types are equal. It's not small. It's Koster's algorithm. Koster's the guy who did that. But that's an aside. That's not really important to what we're doing here. Okay. So, let's do a break. I'm back in 10 minutes. ",
+    "model_probability": 0.9985
+  },
+  {
+    "start": 3684.49,
+    "end": 3687.31,
+    "speaker": 2,
+    "text": "How do you type distribute over additions? ",
+    "model_probability": 0.8713
+  },
+  {
+    "start": 3690.59,
+    "end": 3700.4,
+    "speaker": 3,
+    "text": "Does what distribute over additions? Of course. No, it's a, because it's a term constructor. ",
+    "model_probability": 0.6029
+  },
+  {
+    "start": 3700.44,
+    "end": 3719.26,
+    "speaker": 4,
+    "text": "So it'd be. So it'd be the same thing. Okay. Or F. There's five constructors. There's three constructors. ",
+    "model_probability": 0.2674
+  },
+  {
+    "start": 3747.04,
+    "end": 3750.55,
+    "speaker": 4,
+    "text": "What do you want to do? ",
+    "model_probability": 0.1748
+  },
+  {
+    "start": 3750.59,
+    "end": 3772.7,
+    "speaker": 2,
+    "text": "What do you want to do? What do you want to do? What do you want to do? What do you want to do? What do you want to do? ",
+    "model_probability": 0.0576
+  },
+  {
+    "start": 3782.84,
+    "end": 3804.35,
+    "speaker": 2,
+    "text": "cross unit plus x, let's say. We're saying it's equivalent to . It's probably just me messing up this myself. ",
+    "model_probability": 0.036
+  },
+  {
+    "start": 3804.47,
+    "end": 3807.05,
+    "speaker": 1,
+    "text": "We haven't used distribution. ",
+    "model_probability": 0.0133
+  },
+  {
+    "start": 3811.98,
+    "end": 3914.81,
+    "speaker": 4,
+    "text": "i was also curious yeah can we can we actually distribute this inside well the point is that so so my point is that the thing is that you do you create a new type do you want the type to be assignable to the same time as before So it's very likely that if I find how to do this, then outside the base will look like this. ",
+    "model_probability": 0.0007
+  },
+  {
+    "start": 3914.83,
+    "end": 3926.01,
+    "speaker": 1,
+    "text": "You know, I can normally choose from this. And practically, that also means... It seems like from there, you could start writing up a type of that. NumInt will have this. ",
+    "model_probability": 0.0004
+  },
+  {
+    "start": 3947.94,
+    "end": 3949.28,
+    "speaker": 1,
+    "text": "You shouldn't do that to types. ",
+    "model_probability": 0.0014
+  },
+  {
+    "start": 3949.7,
+    "end": 3974.59,
+    "speaker": 4,
+    "text": "Well, the thing is, you need to understand what this property means when you assume it's types. Because this says, the thing that I have is either this or that. And does that mean that it is both these? No, no, yeah, because then it's an A. Wait a minute, sir. ",
+    "model_probability": 0.0073
+  },
+  {
+    "start": 3986.87,
+    "end": 4021.54,
+    "speaker": 1,
+    "text": "and the... So this is a pair. Yeah. And this is no pair. No, I agree. That's what I'm saying. If they have to go over the other round, it does make sense. If they have to go over the other round, so if you have A and B, then maybe the types... they wouldn't be possible. What's that? ",
+    "model_probability": 0.0033
+  },
+  {
+    "start": 4062.73,
+    "end": 4064.94,
+    "speaker": 4,
+    "text": "No, because the thing is, there's only words. ",
+    "model_probability": 0.0007
+  },
+  {
+    "start": 4283.8,
+    "end": 4291.52,
+    "speaker": 2,
+    "text": "Also, why did we decide to define left and right and case as derivation rules instead of functions? ",
+    "model_probability": 0.0013
+  },
+  {
+    "start": 4291.8,
+    "end": 4297.24,
+    "speaker": 4,
+    "text": "It's a notational issue. There is no big gain or big loss if you swap. ",
+    "model_probability": 0.0025
+  },
+  {
+    "start": 4380.09,
+    "end": 4444.15,
+    "speaker": 4,
+    "text": "I think they're kind of equivalent. That's why I actually asked. Yeah, sure, sure. I mean, yeah. So you can do this. So the paper that I, of course, it's not part of my research. The paper that I based this section on used your notation. Oh, actually. so he he talks uh he talks you through and the case construct. But he does that in a different way. ",
+    "model_probability": 0.002
+  },
+  {
+    "start": 4444.53,
+    "end": 4445.77,
+    "speaker": 3,
+    "text": "Yeah, so the injection left. ",
+    "model_probability": 0.0137
+  },
+  {
+    "start": 4472.82,
+    "end": 4485.89,
+    "speaker": 1,
+    "text": "Yeah, so I wrote this many, many years ago and I don't remember exactly what the thing was that I said to myself. ",
+    "model_probability": 0.179
+  },
+  {
+    "start": 4485.99,
+    "end": 4538.23,
+    "speaker": 4,
+    "text": "It's better to do it like this. Yeah, I see. So I decided to use these three things for the pairing as term constructors. So you have a term and you put a left around it rather than saying it's a term constant. Yeah. Yeah, okay. So the one reason to not do this is that you, if you do it like this, then left on its own is a term. So you can have a computation that goes back to left. And I think that left should always be on something that has... That's a reasonable argument. Yeah. ",
+    "model_probability": 0.3111
+  },
+  {
+    "start": 4542.19,
+    "end": 4543.27,
+    "speaker": 3,
+    "text": "Good, let's go back to... ",
+    "model_probability": 0.2491
+  },
+  {
+    "start": 4560.57,
+    "end": 4572.83,
+    "speaker": 3,
+    "text": "Actually, look at this. We might actually finish Friday. Coming Friday. Okay, so the... ",
+    "model_probability": 0.9759
+  },
+  {
+    "start": 4587.23,
+    "end": 4655.0,
+    "speaker": 3,
+    "text": "So this works if you have a type assignment system that builds on top of this. And one of the things that creates difficulty, so when you start implementing it, is that you have rules that yeah, with recursive types, you have that the recursive conversion takes place inside the derivation, and the, so let me see if I have an example there. Is this an example? Yeah. So for example, so the, if I, okay, let's look at an example. So let's see how we can do a, represent a list, yeah, in this system. So, If I have that B is my list type, list of type B, yeah. Okay, yeah, sorry, this is, okay, I've been thinking I'm skipping something and I know that I'm skipping. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 4658.04,
+    "end": 4691.48,
+    "speaker": 3,
+    "text": "Good. So if we have recursive types and we have this equality, then the rules that belong to that new enrichment of our type language is allowing the type to convert. So if we have an object of type A and we know that A is equal in the mu relation to B, then we allow B for the type, for the term as well. And this is natural because we can see the type for list of B, for example. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4696.85,
+    "end": 4736.17,
+    "speaker": 3,
+    "text": "So this is mu equal to unit... plus b times this b. And when I do an injection left, then I need to have this is my type. So I need to have information in the type. So if I have derived that a term has an injection left, is an injection left and has type list B, then this information is not strong enough. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4736.27,
+    "end": 4802.35,
+    "speaker": 3,
+    "text": "I can't pick the type that this thing actually has because there is no plus operator there. So I do my conversion, and I do this swap, and I write injection left E. So I know that these things are the same, and this is allowed by that rule there. okay and now my type assignment system says yeah okay i can do this because now i can say okay therefore e is type unit so i can talk about the component that has the type yeah but i need i need to unwrap this i see this as the compact representation of the recursive type and you see this as an unfolding of the recursive type so You either do it by the mu rule, which is perfectly okay in terms of type assignments, perfectly okay in terms of building derivations by hand, perfectly okay. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4803.13,
+    "end": 4838.62,
+    "speaker": 3,
+    "text": "But there is no synthetic marker for this step. You can't see at the term that you need to do this. So implementation makes it tricky. So rather, what happens is that you have a, you split them out in a fold, an unfold and a fold step. So rather than do the conversion, because this is arbitrary equality, here you say, okay, now I'm folding or unfolding, and then the next step is that you put this marker on the term, okay? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4839.0,
+    "end": 4872.6,
+    "speaker": 3,
+    "text": "But let's do this first. So we have fold and unfold, and now I can look at a thing that has type list of B, So it's either an injection left or an injection right, so this is this here. So if I have, so I know that the unit object has a unit type, and then I do an injection left, and I put it in the sum type for the list, and do the mu conversion, and I know that that thing has type of list B. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4873.72,
+    "end": 4908.82,
+    "speaker": 3,
+    "text": "And it's similar there. if I have a pair of an element of type B and a list of type B, then I can put them in a pair and get the product type, and then I put the injection right into the sum type, and now I can do a mu conversion to the list type. So this is how you assign list types to either the empty list or a non-empty list. So you do the mu conversion step. If I now do... ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4911.67,
+    "end": 4931.28,
+    "speaker": 3,
+    "text": "This is the implementation of the length of the list. So let's focus on that one first. So it's a recursive function, of course, because the length of the list is recursive. You take a list and an input, and then you do case analysis. And the case analysis looks at the parameter that has been given. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4942.97,
+    "end": 4995.42,
+    "speaker": 3,
+    "text": "Oh my God. Yeah, it's so annoying that these things are in my notes for years, and I put them on the wall, and then shit, it's wrong. Okay, I think this should be L. Yeah, so rather than this, it should be L. Okay. So I think I decided, I think I had list everywhere and it became too big and I'm, et cetera. Forget it. So good. So this is the parameter. So the thing that you feed into this function is of course a list. So this is something of type list B. Okay. Of list phi. And the... Yeah, here. So this is where we have to function itself. And then you do a case analysis on the parameter. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4996.24,
+    "end": 5082.37,
+    "speaker": 3,
+    "text": "And the parameter says, well, it's either an injection left or it is an injection right. So the So the case says, so this is the plus type. And then this says, well, if it is an injection left, I do this. So I return zero. I pass the list to this function and it returns zero. Or I pass it to this function and then I do the recursive call on the right of the pair, which is the tail. And I add one. So there are two functions here. One says, if you have the empty list, this is what you feed in the empty list, and this is what I return. And the other one says, well, if it's not the empty list, feed me that object, and this is what I return. So these are inferred independently. This is straightforward. So the interesting bit then sits here. In this particular case, I'm feeding it a list of pair A and B. and this is an injection right, so therefore by the time that I do the reduction, so if I do this contraction, so this function applied to this argument, then I do first the unfolding of the fix, and then I get the abstraction there, and that this goes into the case position, and it's an injection right, so the case passes the argument to the second part, so you get... ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5086.97,
+    "end": 5146.89,
+    "speaker": 3,
+    "text": "Yeah? So it's doable, but you have this rule there. So in your implementation, you need to know when to do this. And that's difficult. It's difficult to implement. So rather, some sugar gets added to the language. and the language that we have, so this is the example where it's shown that the reduction works, okay. So we add sugar to the language, and we add, we make the steps for the mu conversion explicit in the term. So the term tells me that you have to do a mu conversion. So we have the term constructors, fold and unfold, that we add to the language. And now my mu conversion has a syntactic marker. So when I just look at the expression, I know, ah, I need to do a conversion there. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5147.83,
+    "end": 5183.09,
+    "speaker": 3,
+    "text": "Okay. And there as well. The point is, again, if you do type inference, you're stuck because it might be that the type that you have here So you're just working on a fold E. So what is the type that you're working with? It has to be a recursive type. So you have the difficulty of constructing a recursive type. So the problem is not yet solved. It is better because you have to fold in your own fold as markers, but it is not solved. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5184.75,
+    "end": 5219.83,
+    "speaker": 3,
+    "text": "So rather what you have then is that you go So recursive data type. So I'm not going into detail here, I'm just flagging it. So what you have is that you mark the fault and the unfold with the type itself. So you know which is the folding that you have to do when you do a type inference, when you're looking for your type. The type is given, and now we are in a completely different world, because now we have terms that have type information in them, which we haven't seen at all before. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5220.91,
+    "end": 5254.82,
+    "speaker": 3,
+    "text": "up to now we had terms and types two different things now they are starting to get mixed yeah so you can do this you can mark the falls and then if you go one step further and you go to algebraic data types so mark that this is uh this section as an asterisk yeah so this is uh not examinable that's why i fly through it okay just for further reading um So then you can go to algebraic data types, and here it gets bigger even. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5254.96,
+    "end": 5288.59,
+    "speaker": 3,
+    "text": "So in algebraic data types, you have a type declaration like this. This is very cryptic right here, but I have a type constructor there and have some type variables there. And then this is a product of some, or this is a sum of some types. And there was label information in there. And the label information, this is the injections. The injections are in the type declaration itself. So we had terms depending on types, and now we have types depending on terms. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5290.01,
+    "end": 5341.88,
+    "speaker": 3,
+    "text": "So term information is a type, type information is terms. It becomes a mess, but for a program, it's okay. But the formal machinery behind this is big and nasty and... I'm personally not interested in this at all. So you get a definition like this. So bool is a type declaration, so you have two term constructors, true and false, and they both have type unit. Okay. So now you get the case construct gets translated into a build operator, and you have a label function. This is the injector, the correspondent for the injection functions that we saw before. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5343.54,
+    "end": 5440.03,
+    "speaker": 3,
+    "text": "So it all works out, all straightforward, but it's, for me, this is Yeah, it's sugar. There's nothing interesting happening there. It's just making it easier for people to build a type inference algorithm. Because your language now has all the information that you need when you start to compile to infer the type. There's nothing left to be discovered. So let's go back to the observation we had before. Can we type different terms now if we allow recursive types? And the answer is yes, you can do scary stuff. So we have two approaches for dealing with recursive types. This is what I call the ACRI recursive type system, which is based on the quality of the types, where the type conversion is not labeled. You can't see it happening. And we have the ISO recursive approach where the labeling does happen. And there we have the, so we have the syntactic markers, fold and unfold, that tell you when the thing is happening. Okay. Now, let's look at things that we get for free that we perhaps don't want, yeah. So first of all, can I type XX? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5447.61,
+    "end": 5449.47,
+    "speaker": 3,
+    "text": "And he's doing something else. Are you on TikTok? ",
+    "model_probability": 0.998
+  },
+  {
+    "start": 5464.86,
+    "end": 5493.85,
+    "speaker": 3,
+    "text": "So let me... So let's start with mu x. X to x. X to x. OK. It's like . Yeah, yeah. OK, so. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 5504.24,
+    "end": 5535.96,
+    "speaker": 3,
+    "text": "So I'm not writing the context anymore. So the one on the left should be an error type. Yeah? So this should be error elimination, because you have an application step there. So this is the type that I have for x. So let's say on the right I do nothing, but just take the type. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 5536.9,
+    "end": 5544.0,
+    "speaker": 3,
+    "text": "And on the left, then I need to have an error type. So that's the result type. ",
+    "model_probability": 0.9925
+  },
+  {
+    "start": 5557.45,
+    "end": 5619.4,
+    "speaker": 3,
+    "text": "No, that's okay. We can, I mean, this is all together. We can construct the type that we need here. So you want, so we are looking for something of the shape mu max A, yeah? And we want this to be the type for the left-hand side, okay? So this should be equivalent to an error type, yeah where this thing occurs on the left hand side and on the right do you do you need that type to come back on the right as well not necessarily okay so we can do this yeah so we want this and therefore ux This should work. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 5619.42,
+    "end": 5652.0,
+    "speaker": 3,
+    "text": "I hope I'm correct. I hope somebody stops me from making mistakes. So this is, maybe we call it equal to mu x, x to b, to b. ",
+    "model_probability": 0.9963
+  },
+  {
+    "start": 5653.0,
+    "end": 5697.31,
+    "speaker": 3,
+    "text": "Yeah? It cannot be mu x, a to x. Then you get, so if you have mu x, a to x, that is equal to a, arrow, no x, a to x. Okay. And I want, sorry, I want that the input, so I want to create a function type, but the input of that function type should be the type itself. Because this x and x should be the same type. I can make A polymorphic. ",
+    "model_probability": 0.9968
+  },
+  {
+    "start": 5697.67,
+    "end": 5763.21,
+    "speaker": 3,
+    "text": "Okay, let's not blow up the system completely. Okay. No, because the thing is you have to focus on the essential of what you want to do here. You want to find a type for X so that this is the same as A to something else. That's the thing you want to solve. Yeah. Yeah. So if I have that A, let's call A to B, if that's the same as A, then you do the fixed point construction on this. Yeah, so mu X, X to B, that does that. That's A. Good. We were almost there. If I do this. Now let's take the p. ",
+    "model_probability": 0.9933
+  },
+  {
+    "start": 5775.68,
+    "end": 5800.67,
+    "speaker": 3,
+    "text": "Okay. So this follows because that x is in the context. And this follows by a mu step. Okay, where I had mu x, x to b, because this is in the context. Yeah? ",
+    "model_probability": 0.9917
+  },
+  {
+    "start": 5812.09,
+    "end": 5853.31,
+    "speaker": 3,
+    "text": "So can I do the error introduction step and I get that not xx, as type mu x, x to b, to b. Which is, by mu, mu x, x to b. So how about, Can I type this too? ",
+    "model_probability": 0.8794
+  },
+  {
+    "start": 5875.67,
+    "end": 5906.91,
+    "speaker": 3,
+    "text": "Sorry? Do you accept what I've done here? Yeah? Okay. So there are two derivations in there. There's a derivation for this result and there's a derivation for that result. So we have a nonsense term, a non-communicating term, a term that has no meaning. ",
+    "model_probability": 0.9758
+  },
+  {
+    "start": 5906.93,
+    "end": 5937.27,
+    "speaker": 3,
+    "text": "It has a type B. Okay, so adding recursive types or recursion in the language is the same side effect. You get typable nonsense. Similarly, you can type this too. ",
+    "model_probability": 0.9714
+  },
+  {
+    "start": 5945.32,
+    "end": 5947.38,
+    "speaker": 4,
+    "text": "It's a dot there, yeah? ",
+    "model_probability": 0.7227
+  },
+  {
+    "start": 5947.42,
+    "end": 5949.82,
+    "speaker": 3,
+    "text": "So try to create a type for that term. ",
+    "model_probability": 0.7572
+  },
+  {
+    "start": 5961.31,
+    "end": 5964.69,
+    "speaker": 3,
+    "text": "Yeah, so you have to figure out the type that you want for f as well. ",
+    "model_probability": 0.5011
+  },
+  {
+    "start": 6083.62,
+    "end": 6111.91,
+    "speaker": 3,
+    "text": "So the type X to apply to itself, we've done that, yeah. So we use for X the type. Okay. Then this thing has type A, so F is type A over B. Okay, so this function is U X X to A. ",
+    "model_probability": 0.9725
+  },
+  {
+    "start": 6121.98,
+    "end": 6123.68,
+    "speaker": 3,
+    "text": "What if I apply this term to itself? ",
+    "model_probability": 0.9485
+  },
+  {
+    "start": 6170.58,
+    "end": 6173.78,
+    "speaker": 4,
+    "text": "Yeah. ",
+    "model_probability": 0.73
+  },
+  {
+    "start": 6175.04,
+    "end": 6185.37,
+    "speaker": 3,
+    "text": "So if A is B, then this is, we go the exact same way. ",
+    "model_probability": 0.9902
+  },
+  {
+    "start": 6202.35,
+    "end": 6234.93,
+    "speaker": 3,
+    "text": "this whole thing is this thing do you agree or not So you can see, so this is type for the left-hand term. This is the type for the right-hand term. So this is type A. ",
+    "model_probability": 0.997
+  },
+  {
+    "start": 6238.95,
+    "end": 6240.33,
+    "speaker": 3,
+    "text": "And if I now do lambda f. ",
+    "model_probability": 0.988
+  },
+  {
+    "start": 6252.27,
+    "end": 6285.75,
+    "speaker": 3,
+    "text": "The fixed point type. It's nice, huh? Yeah, so this I find is much more interesting than algebraic data types. Well, the test, the material of the test was up to last week. You might. The thing is, I mean, so how does maths work? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 6286.55,
+    "end": 6324.22,
+    "speaker": 3,
+    "text": "If you've seen the solution once... You have the solution. Yeah? That's how maths works. You know that joke about the mathematician who is camping and he wakes up in the middle of the night and his campsite is in chaos. People panicking, running everywhere. So he sticks his head out of the tent and he sees that the whole campsite is on fire. And he looks to the right and he zips up his tent and he goes back to sleep. Why? Because he saw the fire and he saw the river, so the problem was solved in principle. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6328.92,
+    "end": 6372.4,
+    "speaker": 3,
+    "text": "Yeah. So this is the difference between what I tell the first years that I spend a lot of time this year on that again, between doing a proof and arguing that something is correct. It's not the same thing. Doing the proof is putting out the fire. arguing that it's correct is seeing, okay, what a five, good. Okay, so final thing to say, so we can, so this is a derivation in the equi system where the mu conversions are anonymous, you don't see them in the term, and if you make them explicit, then we get a derivation like this. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6373.23,
+    "end": 6414.99,
+    "speaker": 3,
+    "text": "So now the actions that I had before when I did the mu conversion corresponds to a fault. So the nice thing is you can do the same thing here. And that would be a nice exercise. We can start with that on Tuesday. No, on Friday, where we look at what this term will become when we have fault and unfold in our language. and then show that it is still a fixed point constructor. Okay, it's a quarter. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6432.48,
+    "end": 6467.24,
+    "speaker": 3,
+    "text": "Substitution? In what sense? Oh, yeah, sure, sure, sure. No, no, no, no, no. Yeah, so officially you would have to check that the type assignment rules that I have added are, yeah, that these type assignment rules are sound, that they do not affect subject reduction. But I think it's pretty straightforward. because the right-hand side is just the SOP term itself. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6467.74,
+    "end": 6498.5,
+    "speaker": 3,
+    "text": "So the type inference that you have for the left-hand side, the minimal one, is automatically valid for the right-hand one. So it's going to be fine. Yeah, but you're right. Obviously, you need to check. Okay, that's it for today. Yeah, no, okay, with a bit of luck, we will finish on Friday. Next week. I fly to Italy. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 6502.0,
+    "end": 6513.32,
+    "speaker": 3,
+    "text": "Actually, I'm actually going to fly to Italy. No, I don't. I want you to grow up, go out into the world. ",
+    "model_probability": 0.9941
+  },
+  {
+    "start": 6522.13,
+    "end": 6568.74,
+    "speaker": 4,
+    "text": "What is the difference between A I'm sure, like, if you went to other theorem solvers and made it this term, what would it do? ",
+    "model_probability": 0.4658
+  },
+  {
+    "start": 6569.86,
+    "end": 6592.95,
+    "speaker": 1,
+    "text": "It's much harder to interpret. Right. Don't type this. Say that it's wrong. Oh, and you have to unify those, huh? Oh, they don't allow it in there. like a list of stuff. ",
+    "model_probability": 0.1831
+  },
+  {
+    "start": 6685.58,
+    "end": 6708.69,
+    "speaker": 2,
+    "text": "start getting a bit weird after we introduce the recursions. Yeah, no, the thing is it's really strange that these two independent paths lead to the same thing. But can we still do the type derivations or, let's say, to type something in one way? ",
+    "model_probability": 0.2045
+  },
+  {
+    "start": 6711.51,
+    "end": 6756.04,
+    "speaker": 4,
+    "text": "The, if you combine everything, but this time it's just, this time it's just, so the, before what I did is the, I added recursion to my language. I added recursion to the types. Yeah, yeah, but at first I added recursion to the self. Because, because, because. So now we can go back, and I think because the type of the fixed one is exactly what we want. The only thing is that you have now more viable terms, because even in systems with recursion, you still cannot type the fixed one. ",
+    "model_probability": 0.0119
+  },
+  {
+    "start": 6772.32,
+    "end": 6798.17,
+    "speaker": 4,
+    "text": "No, we can't. No. Now we are able to find that. That's kind of the side effect. By the way, can we fix xx? How would you do this? Yeah, fix x dot x. Yeah. Because that's the fixed front of identity. So it's just lambda xx and then lambda xx. Yeah. Yeah. Which are just that. So . ",
+    "model_probability": 0.0634
+  },
+  {
+    "start": 6803.36,
+    "end": 6806.89,
+    "speaker": 2,
+    "text": "We start to be given the power to type. ",
+    "model_probability": 0.1507
+  },
+  {
+    "start": 6807.53,
+    "end": 6809.77,
+    "speaker": 0,
+    "text": "Undefined is actually undefined. ",
+    "model_probability": 0.024
+  },
+  {
+    "start": 6809.79,
+    "end": 6817.07,
+    "speaker": 4,
+    "text": "No, I said the point, for me, from the aesthetic point of view, this is too much. I don't want all this. ",
+    "model_probability": 0.007
+  },
+  {
+    "start": 6818.38,
+    "end": 6830.07,
+    "speaker": 2,
+    "text": "No, I want a well-behaved system. This is no longer well-behaved. Can we still unify stuff? Can we actually prove that unify still terminates? ",
+    "model_probability": 0.0444
+  },
+  {
+    "start": 6830.69,
+    "end": 6834.65,
+    "speaker": 3,
+    "text": "Okay. I've never looked at it. That's a good question. ",
+    "model_probability": 0.062
+  },
+  {
+    "start": 6834.93,
+    "end": 6893.82,
+    "speaker": 4,
+    "text": "With recursive types, it's a different thing. Yeah, I feel like... So it is decidable if the recursive types are equal. But I don't know if it's signability or unifying. I don't know. I think it is because it's used inside Haskell. Oh, shit. It's a little bit nasty if you want to talk about it. For example, if you build your own list, can the Haskell compiler decide that those times are the same? Exactly. But Haskell doesn't give you the full power of recursive text. Yeah, by default you can't type lambda x. No, no, no. So the recursion that you get in Haskell is the recursion that is left after you do all the labeling. So you're trimming it down, you make it well-behaved, and then you type that in. So you don't get a raw new code. ",
+    "model_probability": 0.0101
+  },
+  {
+    "start": 6898.81,
+    "end": 6905.01,
+    "speaker": 1,
+    "text": "So why don't we stick to the Haskell convention? ",
+    "model_probability": 0.0504
+  },
+  {
+    "start": 6905.17,
+    "end": 6910.12,
+    "speaker": 0,
+    "text": "Haskell is the egg. ",
+    "model_probability": 0.0118
+  },
+  {
+    "start": 6910.18,
+    "end": 6943.35,
+    "speaker": 4,
+    "text": "For me, Haskell is the output. If you start on this level, and then you say, okay, this is too much. How can we tame this? And so how can we provide an interface to the programmer that has good... But it's easy to write a good quote. That's all the stuff they've done. So we have learned more than half of it. Yeah, but you've also learned, you've seen more or less the departure point of people who are hiding. ",
+    "model_probability": 0.0014
+  },
+  {
+    "start": 6944.19,
+    "end": 6995.67,
+    "speaker": 4,
+    "text": "30 years ago when they started doing this. So I haven't touched on classes for example. The more dirty bits are coming out. So I mean classes will come a little bit in with the next one, the instruction types. Yeah, you kind of skip the record times. Like, are these just, are these not almost the same as classical? No, the records are the, that's repeated pairing. Classes is more overloading. Classes is a... Oh, you talk about inheritance and interfaces. No, no, no. It's the Haskell class. Oh. Yeah, it's different. ",
+    "model_probability": 0.001
+  },
+  {
+    "start": 6995.9,
+    "end": 7023.8,
+    "speaker": 1,
+    "text": "So in Haskell, you can do what's called manual type classes, where you write records that are your type classes. You must write manually. password is overloaded. Yeah. They're more like interfaces in Haskell. Yeah. But those things, the way Haskell does it is during type inference, it figures out what type inference, and then it inserts the output file. So it's... It doesn't generate the code for the overloaded object, it makes instances for the load. ",
+    "model_probability": 0.0007
+  },
+  {
+    "start": 7023.82,
+    "end": 7026.66,
+    "speaker": 4,
+    "text": "Okay. You guys need to watch this. ",
+    "model_probability": 0.0067
+  },
+  {
+    "start": 7026.68,
+    "end": 7028.48,
+    "speaker": 3,
+    "text": "See you Friday. ",
+    "model_probability": 0.0065
+  },
+  {
+    "start": 7028.69,
+    "end": 7032.43,
+    "speaker": 0,
+    "text": "Thank you. Can we understand... ",
+    "model_probability": 0.0032
+  },
+  {
+    "start": 7042.6,
+    "end": 7066.13,
+    "speaker": 1,
+    "text": "Yeah, Monads came from categories. They're just an unfortunate name. They came from maths. That's a scary name. I feel like Monads, the best way to understand them is just to work with them. You can... ",
+    "model_probability": 0.0003
+  },
+  {
+    "start": 7066.15,
+    "end": 7078.75,
+    "speaker": 0,
+    "text": "I do know how to work with them. Because they should have a theoretical root somewhere. ",
+    "model_probability": 0.0007
+  },
+  {
+    "start": 7079.35,
+    "end": 7189.02,
+    "speaker": 1,
+    "text": "Yeah. So that root is in category. So it's not exactly the same? No. So type theory, you wouldn't get much more out of it than you do with just Haskell, as in from a programmatic perspective. You can consider these syntactic things that you call patterns. There's not much more. If you want to know really about what patterns are, you need to dive into the category theory. There isn't one even in the master plan. There isn't what? There isn't a Kafka Theory course. No, Kafka Theory is really a niche, frankly, and mathematicians don't... It's not that they don't care for it, it's that they only know the bits they need to, because it's sort of mostly too abstract for most people. I heard it's an extension of topology in the classical world. Yeah, so you can come to it from a few avenues and the way it first came about was in algebraic topology. They wanted, it wasn't monad, it was natural transformations. I love how the computer scientists just dig that out from the mountain of category theory. I think it's because a lot of the history of computer science started off as mathematicians in the fewer area and those mathematicians knew a bit of topology and then Plotkin, Gordon Plotkin I think started to really go oh and someone else in the 70s, 80s started to realise hold on we can model events with these. ",
+    "model_probability": 0.0019
+  },
+  {
+    "start": 7191.1,
+    "end": 7193.28,
+    "speaker": 0,
+    "text": "Now it's pretty far away. ",
+    "model_probability": 0.0284
+  }
+]

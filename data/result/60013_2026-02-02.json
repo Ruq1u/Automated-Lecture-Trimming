@@ -1,0 +1,1234 @@
+[
+  {
+    "start": 0.03,
+    "end": 1.3,
+    "speaker": 1,
+    "text": "I wouldn't go like that, never mind. ",
+    "model_probability": 0.8789
+  },
+  {
+    "start": 33.65,
+    "end": 87.88,
+    "speaker": 1,
+    "text": "Have you been working on the coursework? How did you find it? Difficult? No? Normal? Good. So I will be marking it, right? I will do it directly, so don't give it a GTA. Glass is not that big. Okay, shall we wait a few more minutes? So today, we're going to look at one new system, another system called Top Directly Adaptive Learning System, or TAL. It was published in a number of papers, and it was also used in a number of applications. So this is T-A-R. And then we do a tutorial on that. And on Friday, we are starting probabilistic stuff. We're doing a little bit of probability and logic put together. ",
+    "model_probability": 0.9968
+  },
+  {
+    "start": 88.97,
+    "end": 119.07,
+    "speaker": 1,
+    "text": "and this is how we lead it to, in a couple of weeks time, in a week and a half time, to a new symbolic approach, the things together, new network, and the rule of representation and learning. Okay, so then we keep moving forward and forward. Okay, so this is the system that... For the first, we did the last, we started on Friday, I think, did we? ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 120.37,
+    "end": 171.73,
+    "speaker": 1,
+    "text": "We had this, do you remember this? Friday's a long time ago. Okay, so I have also for you guys, not just for you. Okay, so actually let me go on the presentation board here. So what are we doing now? We developed, we looked at systems that can do learning of definite problems, so that's the models which are written in the definite clauses, without negationist failure. And we said on Friday, we want to understand the specificity of these systems, so to be able to learn a problem they are much more expressive, and negationist failure is an important aspect in knowledge representation, because it allows you to reason about different assumptions. So when you don't have a partial information about things, you can make assumptions that what you don't know is false unless other evidence comes about. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 171.83,
+    "end": 204.85,
+    "speaker": 1,
+    "text": "And then it becomes true. So it's a kind of non-monotonic thing. So it's typical of non-monotonicity in negationist failure. The Canadian negationist failure was a professor here, Keith Clark. But his department was really, really strong for those things. What do you think? So what happens with negationist failure is that, of course, it's non-monotonic. So we cannot have this, you know, covered in glue, right? So you cannot do batches. So learn something from one batch, and then keep learning something else, and so forth, and then put it all together. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 204.87,
+    "end": 235.13,
+    "speaker": 1,
+    "text": "Do you remember? So we said that. So learning in the context of the Asian Australia is much, much harder. And one way of doing it that people have developed in the literature, in the research, is this kind of a top, is kind of a meta-level learning, right? Because the issue is that you cannot now learn the bottom clause and then generalize it, right? And learn the bottom clause for each example. You need to learn everything in one go, right? And this is computationally harder. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 235.15,
+    "end": 268.6,
+    "speaker": 1,
+    "text": "So what people have done, they come up with a way of, rather than doing the bottom of the top down, actually have a meta-representation of the entire search space so that you can reason on top of this meta-representation and in one go learn something. Okay, and you can learn a solution given the full set of examples, right? Not anymore in a batch way or with a problem. Is it clear, yeah? So what we're looking at, meta-level representation of the search space of a learning task, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 269.52,
+    "end": 314.23,
+    "speaker": 1,
+    "text": "A very first initial approach that we had it on fly day, let me put all this out, was something called TopLog, but TopLog had a lot of limitations. So what does that mean? In a search space, in a search space, you have, so if this is your search space, right, you normally start from rules here, maybe it's just the head atom, and then if you go down in specialization, then you have the head, If there is a certain body condition, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 314.65,
+    "end": 345.76,
+    "speaker": 1,
+    "text": "On another side, you might have, I don't know, head and a different, sorry, if a different body condition, let's say body two, this is body one, this and this, it means you have both body conditions, so forth. This is the kind of structure of programs, rules, which are more general and more specific. and then I have a body predicate, so you can add to that, okay? In negation as failure, this can also be negated, not a certain body one, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 345.88,
+    "end": 384.58,
+    "speaker": 1,
+    "text": "So the negation accounts in the body and never in the head, right? So that, okay. So when you wanted to represent that, you want to be able to talk about, okay, I have a particular head, I have a predicate in my rule, and then I reason if I needed some body conditions, how many of these body conditions I need, right? So what this metafury does, represent this kind of structure by declaration, right? So it will start from, it looks at the language bias, and it says how many more the age of God, you know, depending how many more the age of God, you start from clauses that have this predicate in the head, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 384.68,
+    "end": 422.07,
+    "speaker": 1,
+    "text": "So of the clause. And then you have this particular predicate called body that allow you to reason about what are the conditions, This body predicate is an auxiliary predicate, so you define this in a recursive function, in a recursive mechanism. You can say body is automatically satisfied for whatever x, and if it is automatically satisfied, it means that this is always true, so you only have the rule of penguin x for every x, okay? So if instead the body needs to go through this reasoning mechanism, then this is another possible branch, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 422.09,
+    "end": 456.48,
+    "speaker": 1,
+    "text": "So the first one will correspond to this, Then if you go through this other part of the rule and you're looking for alternative solutions, you're really looking for body condition that you can put next to the rules, right? So in this rule, we say body is satisfied if, and here you have as many of these rules as more the body you have in the language parts. Okay, because of through the recursive mechanism, you can say, okay, I can read about cane, then a body, it will go back again, it will pick up another literature, it will pick up another literature, and so forth, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 456.84,
+    "end": 487.46,
+    "speaker": 1,
+    "text": "And that allow you really to go down along this path of your search trends. Does that make sense? Right? So the mechanism here used this very simple top theory, and then you start from the examples. Here in topology, you use only the possible example. You start from the POSI example, you try to construct the proofs. And these proofs are constructed in a standard SLD derivation, because now we lift the problem to a meta-level reasoning, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 487.52,
+    "end": 519.42,
+    "speaker": 1,
+    "text": "Not anymore the object level reasoning. So SLD in this case was still effective, okay? And then, so this is the kind of derivation, so you keep track of which rule you are using. So again, we did this on Friday, right? So you keep track of the rules you're using. So these succeed using these two rules, T1 and T2, which would be these two rules here. And you extract from these just the plenica that correspond to language bias. So here we just give you this solution. And in this other case, you go for a more complex proof here. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 519.86,
+    "end": 556.37,
+    "speaker": 1,
+    "text": "And you use multiple rules here. This is because you go for these other static derivation, all right? You pick some of the recursion here. And then you end up using multiple rules here. You don't care about the predicate they use in the background knowledge, right? Because those are given the approval rule, you know. You only care about the predicate you need from the language parts, okay? And this will give you T1, T3, T2. So T1 talks about penguin. T3 talks about the predicate can, which is in the body. And then in the proof, you're going to have a can, where is it, T3, which is going to be ground, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 557.47,
+    "end": 593.05,
+    "speaker": 1,
+    "text": "And the language bias tells you that I need a constant, right? So in the construction at the end, when you extract it from here, the rule, you got penguin X, if can X, the constant, the constant that this derivation has generated, right? So, and this is now another rule, right? What top-log does, starting from the positive example, goes through all these derivations, constructs alternative proofs, and then it checks the consistency of each of these possible solutions with a negative example. So if it's a solution of Cobb as a negative example, then you flew it away, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 594.47,
+    "end": 608.44,
+    "speaker": 2,
+    "text": "So that's, yes? Sorry, say it again. Can you have it twice here? Can you? Just in the definition of T. Here? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 608.74,
+    "end": 639.72,
+    "speaker": 1,
+    "text": "Yeah, so T3. You will, yeah, well, you don't need to write it twice. You don't need to write twice in here, but you can in the proof, right? When you call this predicate again, you can recursively go here and find some additional constants for that. And that will give you rules so when you have a multiple, more than one occurrence of the predicate. Okay? So the rule needs to mention just once. Yeah? Is this clear? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 640.42,
+    "end": 672.5,
+    "speaker": 1,
+    "text": "Okay. But this was a very simple system. Although the idea was interesting, the money had its own implications, okay? So basically, we were only able, with this method, to learn that we closed it again, so it wasn't really a big advantage, right? With this top theory, because SLV doesn't need implications, right? Essentially, okay? And so you couldn't also learn from negative examples. Negative examples were only a way of cutting out solutions, but not generating more solutions, right? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 672.86,
+    "end": 705.27,
+    "speaker": 1,
+    "text": "In learning, a negative example is a counter-example that can be used for learning, okay? So it was limiting in the way you used the data. You only used a negative example for pruning a positive example for learning, okay? And then we were only able to support mainly operational critical learning with that system. So we wanted to have this kind of idea of a meta-theory, but expand the expressivity. So this is just to give you an example of why, for instance, non-monotonicity is a problem when you do the common root. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 705.55,
+    "end": 711.21,
+    "speaker": 1,
+    "text": "Suppose you have a very simple background knowledge. You have this example that you want to explain. ",
+    "model_probability": 0.9978
+  },
+  {
+    "start": 728.3,
+    "end": 751.44,
+    "speaker": 0,
+    "text": "There's a red light over there. If you want I can quickly turn it off and turn it back on again. That's what we do normally. How long it takes to turn it on? Five minutes maybe. Or you can just go with one for now. It will take five minutes to fix it. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 751.66,
+    "end": 771.36,
+    "speaker": 1,
+    "text": "To reboot everything? Okay, what do you want to do guys? The fact is I need to go through some derivations here on the board. No, okay, let's leave it. Let's leave it. I don't want it. So, but for next time, what do I do? I switch off, shut down, and then turn it on again? ",
+    "model_probability": 0.9986
+  },
+  {
+    "start": 772.08,
+    "end": 783.19,
+    "speaker": 0,
+    "text": "Yeah, you do that. So you just turn it on, turn it off, and then turn it back on again, and then it would reboot the projector. Okay. But yeah, it will take five minutes, so if you don't want to waste time, yeah. ",
+    "model_probability": 0.9981
+  },
+  {
+    "start": 783.43,
+    "end": 856.17,
+    "speaker": 1,
+    "text": "No, I'd rather not to, because we're just in the middle of the lecture. All right. Yeah, I think it would be, I'll try to do it my own way. Okay, thank you for coming anyway. Then one more thing now. for computer science, they always reach out to computers. Okay, so this is a bigger lunch, this is a temple. So we'll have, what is the first solution? If we're doing covering loop, and here we have a negation of failure. in the background knowledge now. Suppose we're doing this covering mechanism, we're taking the first example, P, we try to learn something that will explain P. So what would be, for instance, an example, you learn that just a single clause R, because Q is false. I don't know anything about Q, so Q and not Q would be a point of truth, but if I knew about R, then I can write P. So this could be one solution. So then I take this solution and I add it to my Begdahl knowledge, right? And now I want to try to prove Q because I have to prove the next example. But now if I wanted to learn Q, what is the only possible solution in this very simple context to prove, to explain Q? ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 856.67,
+    "end": 937.68,
+    "speaker": 1,
+    "text": "Would be Q itself. There's no other way. I have no other mechanism here, right? But then if I take a Q and I add it together with R, so if I put the two clauses together, then I can prove Q, but I cannot prove anymore P. Because to get the P, I need to have not Q, and I just added Q, right? So this is the fundamental issue when you have negationist freedom. As you're learning through the covering loop, you add information to the background knowledge, and you break proofs that you had having it before. It's just a very simple abstraction example to give you the idea. So we cannot do cover loop. We have to learn all from one go. So what we are looking at is this system called ,, which is an abductive learning. And it is very similar of .. So you take the search space, and you translate this into a theory, into a top theory. and on top of this top theory, due to abduction. And abduction is much more powerful than SLV, because it can deal with a patient's failure, it can deal with technical strains, it can deal with everything, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 937.94,
+    "end": 969.6,
+    "speaker": 1,
+    "text": "So the idea is, okay, how do we generalize expressivity? We need to have a more expressive top theory, and use a more expressive reasoning mechanism, right? Which is what abduction gave us. Is it clear, guys? Yeah? Where we are at? Okay. So... These are the reasons why we want to do the abducting stuff. So, interestingly, for this idea of top-meta-level learning, two systems were developed in the literature. One was CAL, that is more like prologue, or if you like, goal-directed proof, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 969.65,
+    "end": 1000.04,
+    "speaker": 1,
+    "text": "Abducted proof. And another system is called ASPAL, which we're going to look at in a couple of weeks. And this is used, as I said, for programming. So these are the mechanisms uses SAT-solver that is in God-directed derivations, but it still works on a meta-level representation, right? So you can use different form of reasoning engine, but they have to be powerful enough to cope with negation sphere. Does that make sense? Because your top theory talks about now reasoning with negation sphere. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1000.77,
+    "end": 1060.99,
+    "speaker": 1,
+    "text": "Okay, and from this, then we had the final one, but we'll be doing it towards the end of the course, that also uses ASP as a reasoning engine, and is the most powerful one. Right, so this concept of meta-level representation became the key of how we do learning in the context of non-monotonicity. Right, essentially, this is fundamental. Okay, so let's have a look how we're doing this. So what does TAL essentially do, this system, what does it do? You start, remember, a learning task, this is representing a slightly different way in the diagram, but remember, we say that you always have a background knowledge, positive and negative example, right? And an M, which is a language bias, and the potential integrity constraints, which I always say the integrity constraints are here, all right? Here, I put them separately because it's easier for abduction, but essentially, the background knowledge is this and this put together. Okay? That's the input of your learning system. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1061.41,
+    "end": 1109.55,
+    "speaker": 1,
+    "text": "And now, positive and negative example really don't make much difference, because we want to learn from both. Right? So we represent normal ideas as just a single big example. Okay? The only difference is because these should not be covered, then we'll always have a negational spirit in front. And because these need to be covered, then we'll not have a negational spirit in front. Okay? We'll do example there. Some example in a minute. Okay, so given an input of a learning task, as we call it a learning task, the mechanism is to map this into a different task, reasoning task, which is an abducting task, where together with the bigger knowledge, now we put this top theory, that we're going to see in a minute, it's a little bit complicated, but remember me, this top theory, and we're using the abducting influence on top of this, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1110.14,
+    "end": 1142.38,
+    "speaker": 1,
+    "text": "And then the integral strength will be the same thing. And the goal of this abducted theory is the conjunction of all my data set. So my data set becomes tremendous. I have a goal that becomes tremendous, right? I have to prove all the positive and the negation of each of the negative put on a conjunction with each other, right? That's a big reasoning side, okay? And the mechanism is this abduction will generate a solution, an abducted solution, Now you might tell me, Alessandra, how do I adapt this solution normally to ground? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1143.82,
+    "end": 1174.65,
+    "speaker": 1,
+    "text": "Right? But what we want to learn here, first of all, the program. So how does this work? And that is the nudge of this kind of method. So you have an adaptive solution, which is ground, which essentially encodes in a particular way your program. So you learn the ground level. or you already know all these are one-to-one mapping, or how I go from here to here, from here to here. We proved that there is a bijection translation mapping there. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1175.01,
+    "end": 1261.29,
+    "speaker": 1,
+    "text": "So from here, we can generate automatically the program, and this program is guaranteed to be a solution to this task. Right? So you take a problem, you map it to another domain, another username task, you compute the answer, and then you can map back the answer. Does it make sense? Yeah? Okay. So what we really need to understand here, how we do this mapping. Because this is really the key part. And what is this dot field? Right? This is the chain of the parts in this system. OK. So let's have a look. Let me put everything out. OK. This is a little bit of . It's quite an interesting piece of work. This was a PhD thesis here, by the way. Somebody was interested in PhDs. OK. So very nice guide for me today. And extremely successful. AI leader in finance companies. Okay, so what happened, what do we do? What we have, the key point, when we are learning, so we want to understand how do we go from delta, the adaptive solution, into our hypothesis H. But what defines the H? The language bias. So this is expressed in the language bias. So how do we do this correspondence here? So we take a given language bias, let's take that particular language, let's say mode body, can be a mode height, we'll see in a second also the mode height. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1261.97,
+    "end": 1293.3,
+    "speaker": 1,
+    "text": "So we have the mode body, which says there's a predicate load, it's got an input, a constant, and an output. So what we are taking, we are looking at all the language bias M, which is a set of all these things. We give it to each of these unidentified, a unique identifier, so that is going to be mode M1, then there is a mode M2, mode M3, or whatever, okay? So this is to refer more or more the declaration this representation factor would correspond to, okay? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1293.82,
+    "end": 1324.95,
+    "speaker": 1,
+    "text": "So we have an identifier, and then we keep track. There are two possible ways, right? We start in a more complicated way, and then we end up in a very simple way, right? So in principle, when you construct an hypothesis, you want to take into account if they are constant, what are the input variables, what are the output variables? All right, so given a particular language model declaration, imagine that you have now, you say, okay, how many constants there are in the declaration? How many input variables there should be in the declaration? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1325.17,
+    "end": 1356.3,
+    "speaker": 1,
+    "text": "And how many output variables should be in the declaration? Okay, so if I have a particular language bias with a platicator load, it will correspond and translate it into this, facts representation into one term that is the tuple, the identifier of the bias, the least of the constant argument, the least of the input argument, the least of the output argument of the particular predicate. Can you see that? So this is an immediate encoding of that particular language bias. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1357.12,
+    "end": 1387.43,
+    "speaker": 1,
+    "text": "Okay? So, and if you remember, in the top log, we had a predicate called body. So we are going to be in similarly in this, and we have here some terms here. So what we are going to do, just to give you a preemptive next slide, we do something similar. We will have something like, we'll talk, there will be in delta, we are constructing the facts of the form rule. And we want to put here a big term. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1388.29,
+    "end": 1420.7,
+    "speaker": 1,
+    "text": "And this big term is this tuples that corresponds to all the different parts of the form of a rule, right? So in a sense, this becomes now grounded, right? And then I know how to go from here to here and vice versa, okay? So what we are constructing in the tuple is the term, the constant, that will go in this abducible code rule, right? And this term is a list, because a rule is a list of, it's a head and a list of body conditions, okay? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1421.18,
+    "end": 1452.39,
+    "speaker": 1,
+    "text": "Are you following, guys? Okay, so let's have a look. So if you take, for instance, that's how we do some of the mapping, right? So if you take now a set of language bias, right? So what kind of, so in this bias, this could be a possible rule in my search space, right? Because you have a head predicate with an input variable is here. We can have two mode predicates, right? This is input and constant, input and output. So a possible rule. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1452.87,
+    "end": 1484.74,
+    "speaker": 1,
+    "text": "would be X, Y, and then R, Y, N, right? Because this is the output and this is the input that links to that, that's always correspond to this, okay? All right? This is a possible rule in my search space. So now I have a way of going from here to a term, right? Literally a term, and each of these elements in my list correspond to each of these components in the loop. All right? So for P, P is the head and it's got M1 as an identifier. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1485.16,
+    "end": 1515.59,
+    "speaker": 1,
+    "text": "So I have the term M1. I have no constants here because this is just one input variable. I have X and I have no output, right? So this is Q. Q has got M3 as an identifier. So we have a tuple with M3. It's got no constants because these are two variables, input and output. So the X will be the input one and the Y will be the output one. And then these are the ones that would be m2 that correspond to this one, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1515.61,
+    "end": 1541.74,
+    "speaker": 1,
+    "text": "Which has got a constant. This is an example of how it would eventually be learned. A constant with an input and no output. Okay? As you can see now, there is, and I'll pause a minute because I can see some doubting faces, there is a direct mapping from here to here, from here to here. Right? Now, questions. Yes, I know how he was, you know, in space for a little bit. Yeah, go ahead. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1541.84,
+    "end": 1552.51,
+    "speaker": 2,
+    "text": "What if you had, I don't know, a body which took two bodies of the same type, so like two constants, and then you just put them into your... ",
+    "model_probability": 0.9982
+  },
+  {
+    "start": 1553.13,
+    "end": 1568.65,
+    "speaker": 1,
+    "text": "So, you're talking about... You're talking about, I had... So this is just a representation. We're seeing how we're going to learn those, right? But what you're saying is that it's a ruler which has got what? Whatever is in the head, right? And then you say what? There is a predicate with a constant A? ",
+    "model_probability": 0.9972
+  },
+  {
+    "start": 1569.03,
+    "end": 1571.56,
+    "speaker": 0,
+    "text": "No, like a predicate which takes two constants. ",
+    "model_probability": 0.9629
+  },
+  {
+    "start": 1572.66,
+    "end": 1611.18,
+    "speaker": 1,
+    "text": "Ah, okay. Like something like that. Okay, okay, okay. So you have something... Okay, you have something like a mode B... which has got whatever, there's a predicate which has got a constant of a set of type one, followed by a constant of set of type two. Or two inputs. Or two inputs, whatever. Okay, so then the D, so in the representation, we're going to see what will happen. In the representation, this will be, let's say that this mode is called M, this particular component of the rule will correspond to a tuple that's got M, and then we have as a constant, you will have made a list of constants. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 1612.1,
+    "end": 1664.67,
+    "speaker": 1,
+    "text": "And the constant that you generate here will correspond to exactly this order in the way that you generate. You will see, it's magic. It's actually really magic. And then if you have some other input, more input, you're going to have a list of inputs, right? So this example, this is only one element, because it's only one argument. But if you start with an argument, this is going to be really big, right? And the reasoning process of the metatheory will construct these terms. that's really all is, which is really ingenious, right? Because you construct all of these, and then in the end, you press a button, the rule comes out, right? And you don't know for all the rules. Okay, so that's the mechanism, but we then realize, this is an interesting thing, we realize that we can simplify the representation even further because of these input-output connections that you have in the rules, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1665.11,
+    "end": 1697.06,
+    "speaker": 1,
+    "text": "So what do we thought about, okay, do I really need to keep track of the output variables, right? So if you think about that given a rule, you always read the left to right, right? And imagine that every new, new variable occurrence is it's got a certain index, okay? So if I think about this rule, this is the first occurrence of X, so put index one. This is the first occurrence of Y, put index two. And you only think that this y is linked to this. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1697.56,
+    "end": 1729.76,
+    "speaker": 1,
+    "text": "So all I need to say about the representation of this body condition, that this variable is the same, the variable index two. So I don't need to differentiate between input and output anymore. Imagine I just index all the variables in a rule by the first occurrence of that variable. So if I have that, then what happens, rather than having a ternary in a five, four elements here, I end up having only a couple of three elements. The constant I still need to keep track of, because those are really key. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1730.36,
+    "end": 1770.92,
+    "speaker": 1,
+    "text": "And then this list, because now the list on the index of those variables, right? So here, because this variable doesn't have any occurrence before, this becomes an empty list, right? And then this term, I know m1 will correspond to this predicate, this then doesn't depend on anything before in this list, so therefore must be the head predicate, so I just give a name, x, right? So I can go from here to here automatically, okay? Then this other term will say, look, there's no constant, And then whatever variable appear here has to refer, M3 has got the input output, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1771.24,
+    "end": 1802.46,
+    "speaker": 1,
+    "text": "So the important bit is that the input variable is the first one that occurred before. And the output, you can give a new name. You can always introduce output variables, right? So you can go from here to here, from here to here, right? And the one is the index of the X, right? And if you look at this term here, this is L2, which has got an input and a constant, so you need to keep the constant. And the input variable here is the variable with index 2 in the rule, all right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1802.83,
+    "end": 1878.49,
+    "speaker": 1,
+    "text": "So then you end up writing this particular term here. Okay, so we simplify them all. Yes? What happens if we have nesting? What do you mean nesting? Like Q of Q of... Oh, sorry, no. You cannot. You cannot have nested, all right? You cannot have nested, okay? So let's have a look how we go quickly from one rule to the template and from the template to the rule, all right? So I've got this particular example here of language bias. Then I can write this big rule, all right? So this is, let me write here in a slightly different way because X1, 2, 3 can be confusing. So I've got uncle, uncle, uncle, uncle, uncle. which has got, let's call it X and Y, if I have father, which has got the Z, Y, and siblings, which has got Z, X, followed by gender, which has got X, X. Okay, so that's what we have here as a rule. Okay, let's see whether you can, the slide says, in case you see the slides, you understand it, but let's tell, you tell me what would be the tadpole that I need to have here, here, here, and here. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1879.68,
+    "end": 1910.0,
+    "speaker": 1,
+    "text": "Right? And let's assume that the u anchor is m1, m2, m3, m4. Okay? So what are we going to put here? Remember, it's the identifier, the constant, and the list of inputs. Right? That's what we want to get. Okay? So what do I put here? Very good. m1, blank, blank. That's this term. followed by, so this is a big list we are constructing. What is going to be now here? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1910.48,
+    "end": 1966.09,
+    "speaker": 1,
+    "text": "This corresponds to father. Father is M2, right? So what do I put here? Another person. Yeah? M2 blank. M2 blank because I have no constants. One or two. I think it's two because it's wider. So imagine, exactly, so if you take this, all right, now the index of this variable is one, the index of this variable is two, all right, this is the second one, but the first occurrence of y, so this, the index of this variable is three, because of the first occurrence of z, and this variable, what index has gone? Two, exactly. So this is going to have three, this is going to have one, right, and this is going to have one, and then the constant, okay? So here we're going to have m2, with no constant, there is no constant in that, and this is two, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1966.33,
+    "end": 1998.27,
+    "speaker": 1,
+    "text": "So it's basically telling me that that, whatever it is, that input variable will be this one, right? This is an input to the corresponding, okay? All right, so that's what happens there. Then we have these other situations here, and so forth. So if you continue all of this, let's see if I get this right. All right, so that is the indexes of the variable, and this is the top four that you get. So here you're going to have S, which is M4. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1998.43,
+    "end": 2036.07,
+    "speaker": 1,
+    "text": "So this is M4. And then M4 has got input, input. This is Z and X. So it's got no constant. It's got 3 and 1. And this you close it. And then you do the other. So you basically have now an automatic way of taking any rule in your search space and mapping into a list of terms, a list of tables. Is that clear? So you can go from here to here, and what we are learning in the computational process, we are constructing these terms, so then we can go from here to the rules again, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2036.43,
+    "end": 2092.18,
+    "speaker": 1,
+    "text": "So the delta that we are learning will be things of the form, my delta will include the predicate of the form rule, and it's got all of these in it, right? They are really constructing this big term. So this is reasoning at the meta level. Yes? So it's the self. Perfect. So if you take the language bias, you'll see what are all the possible rules you can construct, and the set of abducible in your adaptive task is all the possible terms. Each of these big terms will correspond to one rule and node in the lattice. All right? With a predicate rule, because this is a term, so you want an abducible predicate. This is an auxiliary predicate. All right? In the language. So it says, there is a rule of this form. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2092.46,
+    "end": 2125.36,
+    "speaker": 1,
+    "text": "Or there is a rule of another form. You have different forms depending on what rule you have in your search text. What rule the language bias would induce. So now here we are reasoning to everything at meta level. Everything gets one lift up. And the interesting bit is, although you're learning, you're abducing ground facts Because of this, I work around the facts. You see, the moment I use the index of the variables, I don't have any variable here. I'm working at ground levels, like deep learning work, the instance level, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2125.66,
+    "end": 2158.27,
+    "speaker": 1,
+    "text": "But this instance level is a clever representation of a generalized rule. So I do at the same time a generalization. Yeah, does that make sense? Excellent, okay. Now, we know how to go through this. So from here, this is to show you how you can construct back, right? You generated this rule. If you just learned something of this term, you can go back to the rule itself. Because the program will lose, doesn't lose, keeps track of identifiers, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2158.59,
+    "end": 2209.79,
+    "speaker": 1,
+    "text": "So with identifiers, you know what the structure of that pedicle should look like. And the information here will tell you what value to use, OK? Yeah. What if we order the body clauses differently? Is it going to have any impact? If we're putting this in a different way, in a different order. Yeah, it doesn't really matter because of what happened, you will see in a second, each of these things here, right, each of these are kind of part of a body, literally, right? So, and in the derivation, you can have multiple possible branches. So each branch of derivation, we can explore this and that, or this and that, or whatever is actually allowed. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2209.91,
+    "end": 2315.22,
+    "speaker": 1,
+    "text": "So the big tree, the big proof tree, will cover the entire search space. So that's really what is very powerful. So you cover everything, essentially. And you also cover negation as failure, because now these mod body could have negation. Right? And you just, you don't care about this, but it's all in here. And the only thing you have to check is the consistency with it. And then you will see in a second. All right? So this is a, really was a big, quite a big breakthrough. Now, what we needed to do now slowly, for 10 minutes, and I'll take you step by step. So we know how we go, hold on, we know how we go from delta to H, right? We kind of understand that. The question is how do we compute this, right? And what we said is that you have the background knowledge, you need your top theory, right? So we need to understand what is this top theory here. I think it's very powerful to reason with that. So that's what we're going to look at together, okay? So let me just, can I, let me see what comes next. Hold on, so, okay, let me do step-by-step. So, the top theory has to be, remember, the search has got always head, and then here, heads with body, and things like that, right? So the top theory, For every mode H declaration that you have, for every possible head, you introduce in the top theory, in the meta theory representation, you introduce a close of this form. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2316.02,
+    "end": 2349.01,
+    "speaker": 1,
+    "text": "And this predicate here is essentially the head atom, the head predicate load, we'll see an example in a minute, with a particular template that we just did it, right? So I got to show you what this is. And then you have these auxiliary body predicates. right, this auxiliar body vernicus says, okay, there is a potential head, I want to check if I have to put some body in it, all right? And what you do here, the body will say, let me keep track of the input variables, which are here, all right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2349.61,
+    "end": 2380.38,
+    "speaker": 1,
+    "text": "And then this term here is the first tuple that you have in the head, all right? So it says, I've constructed, I've gone through this proof for this hydato, so I need to keep track. that I'm in that part of the theory, right? And then I want to check what body conditions we go after, right? So what is important here, how we define this predicate body, right? So let me go next. It's a little bit complicated. Why don't I put it all together? Okay. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2381.72,
+    "end": 2412.14,
+    "speaker": 1,
+    "text": "So this is a little bit complicated, so I will say, okay, a body condition, right? has got all the input that I constructed so far, right, coming from the proof so far, you will see in a second, and it's got all the rules so far, so what kind of tuple I constructed so far, right? So, you know, once you went to the head, then at the beginning, this really, the rules so far just go the head tuple, right? Because the first time you go, you just go the head, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2412.77,
+    "end": 2447.55,
+    "speaker": 1,
+    "text": "But this can be recursive, okay? So this rules so far is a term that grows, as you go into derivation, okay? So then you want to do this, you want to create these indexes. Three, one, two, you know, you need to construct those indexes. So how do I do these indexes? So this logic programming mechanism has got a library function called the link that basically takes a variable here, right, or a list, this is a list, takes another list and returns the index of this element, this list in this list. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2448.3,
+    "end": 2480.83,
+    "speaker": 1,
+    "text": "Right? So for instance, if I have the predicate, if I'm calling in the proof, the predicate, link, which has got A, and I should say X, and here I have an X and Y, and then this is a variable, right? So when this predicate succeeds, this variable will have the least one, because the first X is the first element here. So this predicate does the trick of constructing the indices of the list. right, and by the linear, okay? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2480.85,
+    "end": 2512.27,
+    "speaker": 1,
+    "text": "Then you want to check that the mode of body is provable, right? The condition that you put, this corresponds to the mode of body, the mode of body is provable, and now you're doing all this append. So append means the rule so far, so the term I have so far, and I am appending to that, so the rule so far, and I take the mode, the type that corresponds to this mode of body, I append it to that, and I get a new term, right? So this append, during the proof constructs your big list, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2512.59,
+    "end": 2546.52,
+    "speaker": 1,
+    "text": "And there's a plan here, the input is so far, we'll take the output variable and then we add that, it keeps track of those output variables, and it gets a new list, new input, which now it's got also the output that you have encountered, right? And so continuously in the derivation, you construct a big term, the corresponding rule, and you keep track of the input variables, right? And then you go back again to the cursor. And then there is a base case, so in principle you write this base case first, because a top-down mechanism, if you do this at the end, this will loop. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2547.32,
+    "end": 2585.81,
+    "speaker": 1,
+    "text": "You write this first, right? The base case will say, okay, I've constructed a rule so far, and this body succeeds, and I have to use it. So that's what the abduction is. Right? So you basically go, you go in the derivation from you start from your hand, which is your star there, you go, you try to prove something abductively, for all these more the body, for all these body predicates recursively, you get a tuple, a big tuple, a list of big tuples here that you keep constructing, and in the end you do a rule of this, and you abuse it. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2586.53,
+    "end": 2620.29,
+    "speaker": 1,
+    "text": "Right? Right? okay, and when you do this abduction, then you need to check also the negative examples, right, there is also this method, because here you do on all examples, positive and negative, so someone is abducible, we become out, and someone is abducible, we maintain, okay, so let's have a look at how it looks overall, just an example, I think this is the most difficult part of the course, so this is a definition of of the list predicate, this is an auxiliary one. You don't need to know really how this is defined, you just need to know that it returns the list of indexes. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2621.09,
+    "end": 2652.19,
+    "speaker": 1,
+    "text": "Okay? And then, so if you go back here, this is an example. So that, if I have the model bias over there, how many model h I've got? Only one, so I've got only one predicate with a predicate, with a predicate p. It's got only one argument in this, so I've got only one variable. And then I have this auxiliary predicate. And then the auxiliary predicate body takes the input so far. So the input so far is just this. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2652.25,
+    "end": 2687.53,
+    "speaker": 1,
+    "text": "This is the least here. And it takes the top of the predicate encounter so far. So so far it would just be. So this is the top that correspond to the motor bias. So it's M1, no constant, and no constant because it's the head. So the head rule in the top field will always have this. Okay? And then you define how many body rules you define, depending by how many mode body you have. Okay? So if you have a two mode age in your language bias, you're going to have two clauses like that. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2688.59,
+    "end": 2718.87,
+    "speaker": 1,
+    "text": "Okay? And if you have a three mode body, you're going to have three clauses. Each of these clause in the body has got the specific predicate that the mode body corresponds to. Right? So this clause captures the M3, right? And this clause captures reasoning about the M2. Can you see that? So if you look at this predicate, so these are templates. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2718.97,
+    "end": 2748.99,
+    "speaker": 1,
+    "text": "They're always written like that in the program, right? So they are just a metaphor. You always need to have these two variables here. You have to have a link now. because it's a QM1, V1, V2, it's got only an input variable, so the input so far is only one argument, and then you have the input so far as a list, and this is the index list that is computed, and this becomes the predicate of the mode body, the third one that this rule checks at the meta level, okay? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2749.58,
+    "end": 2789.44,
+    "speaker": 1,
+    "text": "And these are the two append, so what is the append here? We want append this tuple, because this tuple is the representation of this multiple, right? So it's got a free, doesn't have constant, so it's empty, and the links of the index here depend on whatever I constructed so far in my derivation, all right? And then you take this tuple, you append it to whatever tuple you have so far, and it gives you the new rule so far, okay? And this, in the append here of the variables, all the inputs so far, But you have to be careful, because this has got a new variable, which is the output variable. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2789.98,
+    "end": 2827.24,
+    "speaker": 1,
+    "text": "So this is, you take the list of how many output arguments you have there, and you append it, and you've got a new potential input. Because once you encounter an output, what comes next can be an input that links to that. So you have to keep track of those. And then you call it a body game. And these other clause correspond to the second mode of body declarations, all right? So what happens here, you have the variable, you have the constant, the placeholder. When you do the derivation, this variable gets unified, so it will give you the particular constant in the final solution. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2827.96,
+    "end": 2861.65,
+    "speaker": 1,
+    "text": "Okay, so if you have multiple constants, some of you are asking if I have multiple constants, by doing the body again, all right, you will ground these constants multiple times, okay? and this becomes now the same template, and in addition to that, then you have the base case. That's it, right? And this is the power of logic for you, right? You can take three rules like that, and these three rules lead you in turn over the huge search space with an abductive engine on it, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2862.35,
+    "end": 2899.36,
+    "speaker": 1,
+    "text": "Is it clear to everybody? So is this clear, guys, if you don't have any questions on this? Yeah? okay so let's do an example here right so what i did here i kind of started to go um let me let me do so these are these what everything links so this is when you go through the derivation this is how things are constructed right this is how the variables are unified so i'll give you the example what's happening so here i started from V1, this is the term so far when we call it these body goals here. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2899.86,
+    "end": 2931.5,
+    "speaker": 1,
+    "text": "And then the links has got the V1 and V1 because of the input so far is just V1. So that will get passed here. And this succeed, give you the index point. That's beautiful. It makes the index sensation of the variables. And then at this point, when you do the append, you append the rule so far is just this. and you're appending a new term, right? So you're appending the new term. So this, you append this, it gives you a new list, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2931.74,
+    "end": 2962.42,
+    "speaker": 1,
+    "text": "So this term variable here, new rule, gets unified, returns this. The append, succeeds, returns this, right? So then the new input will be the input so far, which is the v1, plus the new v2, and then you get a new list of variables here, all right? Stuff like that. And then you keep going. The interesting bit that in all these rules, everything succeeds, so this succeeds always. Append always succeeds. This succeeds always, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2962.8,
+    "end": 2999.92,
+    "speaker": 1,
+    "text": "So this succeeds always. The only thing that doesn't succeed are these conditions here, because this really is the rule that you're learning, right? What are the conditions you need to learn for the particular data to be explained? So potentially, this can fail, this can fail. So if this has got a negation as failure in front, so if m3 was not q, here you are going to have not q. Right? So if I want to learn the negative conditions in my rule, a normal clause with negation as failure, you just have to keep the negation as failure here. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3000.48,
+    "end": 3055.12,
+    "speaker": 1,
+    "text": "You need to prove that the not q is satisfied. Right? In your derivation. Okay? Does that make sense? Right? And that's it, right? So that's all, so at the end, you will go through this and you learn this rule, and this rule will be eventually corresponding to that, right? The term corresponding to that big rule at the end. Okay, so let's have a look. The old algorithm, the entire learning system has three procedures, right? So you start with an input, then you, you do this pre-processing, you create a top theory, you call abduction, and abduction is called on all the abducible, all the ground facts rule like you were suggesting, all the terms you can construct here, these are the set of abducibles, and the goal is the entire example, positive and negative together. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3055.16,
+    "end": 3122.2,
+    "speaker": 1,
+    "text": "This is why the old magic happens. And once you learn the abductive answer, you post-process and you do the transformation again, and that gives you the theory. in one go. So this is the power of the meta reasoning. So working everything in meta, right? You have to engineer a little bit in the meta representation, but then you can reason about everything, the entire search space in one go. Okay? Yeah? Do you include declarations with binary methods? Ah, that's a very good question. So what about when you have the recall that has got a finite number of things? Correct. So what we have done here, which I'm not telling you, it's under the book, under the carpet, there are some slightly realistic checks. So there is a check here that the program doesn't loop, right? So if there's a lot of caching mechanism to speed up this abduction, so you can do a lot of logic stuff in competition logic. So we cache, so when we encounter the same goal, we stop, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3122.64,
+    "end": 3153.11,
+    "speaker": 1,
+    "text": "And then another of these things we do is counting, how many of those terms I have. So I check with the recall. And then I stop with the proof step. So I don't go further. So that, you can do really quite a lot of things. So I have now, what is the time? Let's go. Shall we go through this example a little bit? So there is an example here. This is the program that we have. This is my metatheory. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3153.49,
+    "end": 3186.91,
+    "speaker": 1,
+    "text": "That's what I got. And I want, these are my examples, right? I want to, my example has got SOC, not SOA, not SOB, because SOA, SOB are in my negative example. So I negate it in front, I have just a big set of pictures, right? And that's my goal, right? I start from the entire set, okay? And I want to try to prove that. So remember, this is a language bias, and we said, okay, this is my theory, my top theory, So I'm going to do the Bayesian knowledge together with this. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3187.81,
+    "end": 3220.05,
+    "speaker": 1,
+    "text": "And I'm constructing my derivation, okay? So when I start the way that I want to prove a C, a C goes with the first rule over there. This is an abducted derivation. We haven't done this so far. So I constructed that as I need to prove a POC, okay? So POC is nothing there. But I can actually try to learn it, right? Because a POC would appear here. Right? Because it's ahead of a rule that I can learn, because it's in my mode H, P or something. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3220.07,
+    "end": 3250.46,
+    "speaker": 1,
+    "text": "Okay? So I use now this rule. So then a P unifies with this, and I need to prove this body neutral. So then this is against this, body neutral, right? And I want to prove this. So to prove this predicate, I have one, two, and three possible proofs. Right? And depending where it is, I get different points in my lattice. Right? So, suppose I go for the first base case. Okay? So, I take this first rule. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3251.06,
+    "end": 3290.54,
+    "speaker": 1,
+    "text": "So, that body condition unifies with that body query, unifies with this. Right? So, then I have a rule predicate here with an argument, which is this second argument here. Okay? So, this gets embedded here. So, what does this part of the proof correspond with? When I get to this point, and I do an abduction, what am I actually stating in my reasoning? What kind of rule I've learned? If I get to this point, right, in my derivation, remember, this is a derivation on top of your structure, okay? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3291.0,
+    "end": 3351.41,
+    "speaker": 1,
+    "text": "So if I'm saying there is a rule which has got this template, what rule is, how does the rule look like? Same one. Empty, empty. Yeah? Why not? Just a p of x. Right? Exactly. And p of x, so it means that in my lattice, I'm starting at this point. I have a hydator. Right? So that part of the derivation says, oh, let's assume that all you need is p of x. Right? I'm reasoning over this structure. I'm needing just P of X. So at this point, what do I need to do? I can explain my possible example. I prove SOC. You know, if I abduce this, if I abduce like I do here, I abduce this rule that corresponds to this, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3351.87,
+    "end": 3386.98,
+    "speaker": 1,
+    "text": "What do I need to do? I need to check to make an example, right? So I need to continue proving not SOA, not SOB. Right? So, and if I go for, I want to prove not S of A now. This is a negation . So S of A should never be proved in any possible way, all right? So then I get S of A, all right? S of A goes back here, right? And because, so not S of A is to be success, so S of A is to fail, right? So S of A will unify with that, so I need a P of A to fail, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3387.24,
+    "end": 3419.94,
+    "speaker": 1,
+    "text": "But P of A to fail, we'll go back to these rules. So for POA to fail, body has to fail. And the body has to fail, it means one, two, and three, all possible derivation has to fail. So it's sufficient that you find one success derivation, then you stop, right? And now at this point, when I take this and I unify with this case, right? I'm going to end up having rule one, m one, one. I'm going to have the same thing. And this succeeded because I just abused it. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3421.0,
+    "end": 3451.06,
+    "speaker": 1,
+    "text": "So then this solution is not acceptable, right? And if you look in fact at your problem, if you had learned p of x, you can clearly prove SOA and SOP, right? So the beauty is we're doing all of these things in just one single dimension. All right? So that's really what is really the power of logic. So then at these clauses, now I have to prove through other things, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3451.12,
+    "end": 3500.59,
+    "speaker": 1,
+    "text": "Let's take one branch so we see how these things link together, okay? So I want to prove that body C, so I finish with the first rule, I go to the second rule, because the first rule fails, my branch fails. So I go to the second rule, and the second rule is this one. So then if I take body C, so that unifies with this, so therefore the list with C is this, so this is a list with C, this is a variable, so this query already replaced it, but in principle, at that point in the derivation, you have a query that says link with something which is a variable, I don't know what this is, it's like X list variable, a list with just C, and it gives me the list of index, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3501.13,
+    "end": 3532.47,
+    "speaker": 1,
+    "text": "And this will succeed, so I try to find any possible unifications of this that will match and give an algorithm, because this always succeeds, it never fails. So the only possible way for this to match is this has got C on it, right? Because any other constant would be different, okay? So this will succeed, return me now the list one, right? So that's what happened here. So this real unifier will generate this as a list of C with C as it turns one. And now I'm going to prove this predicate here, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3532.91,
+    "end": 3567.79,
+    "speaker": 1,
+    "text": "So this is the predicate, the Q with the same variable, which are unified, and the variable V2. This is the output variable. I don't know what it is. So I want to prove a QC something, and I have it in my background. So QCB is success. So this succeeds. So V2 becomes B. Right? And now I need to do this to append. Okay? Which always succeeds. So you take the rule so far, that comes from here, is this term. This corresponds to this particular term, which is written here in the top theory, and I want to append it. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3568.37,
+    "end": 3599.29,
+    "speaker": 1,
+    "text": "So I end up here having a new rule, and this new rule will correspond to M1 followed by M3. Okay? So at this point, If I was going to obduce it, right, in the branch, I constructed these rules. So what is this rule? What's the rule m1 followed by m3? So we said this is not good. So I was going down. So I got the p of x. What would be m3? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3599.43,
+    "end": 3632.17,
+    "speaker": 1,
+    "text": "What would correspond to m3? q of x, y. Very good. So this looks at this rule, right? And if I do this rule in my search, visually, and I do some consistency checking, means I'm checking the negative example if they are broken down, so this is the proof continues, right? You will check if this is satisfiable or not, right? If it is satisfiable, these are usable, will stay in the set of possible solutions, okay? And then you can essentially continue like that. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3632.26,
+    "end": 3683.55,
+    "speaker": 1,
+    "text": "So this is when you want to prove this. Again, remember, you have three possible branches. So this could be success here. Actually, the consistent check will reject it. So this is also rejected. Later on in the next slides, I'll give you the example of this step. And here, you now want to continue with the other possibilities. So either this or that. So as you can see, the branching looks essentially all the possible paths in your search space. And as it goes through it, what succeeds, they get abused. And what doesn't succeed because it covers the example gets rejected. All right? Is it clear, guys? Yeah? So this is an entire learning system that was never done before, how we learn a negationist failure program. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3684.09,
+    "end": 3722.15,
+    "speaker": 1,
+    "text": "So we're able to, so this is the examples of the other two parts of the proof, right? This is the consistency of the branch A, and this is the consistency of the branch B. So by consistency here, I mean checking the negative example, because if you remember in one slide, a few weeks ago I said, A solution is complete if it covers all the positive, and it's consistent if it doesn't cover the negative. So I call this the consistency check. But don't get confused with the abducting consistency check. It's a consistency check of the learning, which means that at this point, you want to prove that the negative example are not truthful. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 3722.55,
+    "end": 3755.21,
+    "speaker": 1,
+    "text": "So this goes back in here. And then when you go to the consistency check, And then going to the proof, this is what you have used so far. This is a rule that you think you need. And you want to check the negative example of proof. So you want to prove the negation of each of the negative examples. And that's where you go with the proof. And then the same thing you do with the second step, and then finish the exercise. And at the end, magically, you have a program. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 3755.27,
+    "end": 3789.04,
+    "speaker": 1,
+    "text": "It will return the program that you have learned. So inductive operation, just to conclude, the current rule that we are learning are modified during the derivation, because the derivation is at meta-level. So more I diesel, more I spend my time playing for my list, more I change the rule, which will be potential solutions, right? So, and then make an adaptive assumption means adding a new rule to my current hypothesis, And then adding a new algebra can be, okay, this is just a simple heuristics. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 3789.06,
+    "end": 3820.27,
+    "speaker": 1,
+    "text": "This goes back to heuristics, right? There are some heuristics here to make this of that influence more controlled, okay? All right, so, but don't worry about heuristics. So what you need to remember from these notes is the power of the top theory, how this top theory looks like, and then the fact that now we can do top-directed adaptive learning, and then we can, transforming the model declaration of theory, applying the abduction, and do the post-processing. There are really three steps. Right? ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 3820.51,
+    "end": 3926.74,
+    "speaker": 1,
+    "text": "And that's the entire algorithm. Okay? And when we end up doing the ILASP, which is the current state-of-the-art system, this abductive stuff is done in ASP. We're going to see together next week how the abduction with a SAT solver, not with a go-directed proof, And it is very similar. You create a meta theory, and you do a lot of things with this meta theory, and you have a really very powerful system. So the learning in ancient Australia has to be a meta level. There is no other way. All right? Okay, so that's concluded this unit, and I think I want to stop here, which is, I'm not sure what time is it. Oh, three o'clock. So I'll give you a break, and what I would like you to do, I would like you to have a three questions, you can do one, all right? But even if you do the first one, that would be a very good hour because some of these questions might come up in the exam. I want to make sure that you actually understand it. But they're also in the students area, but you cannot do it. So if you do question number one, start the simple one. It's not too complicated. And you see whether you can understand all of this, and we go through it together. If you have any questions on the assessment or the coursework, let me know. I don't know. You need a sheet? Yes. Who wants a sheet? You want a sheet? I don't know whether I've got enough for everybody. I might. There's one you can share. There's one maybe you can share. I don't know. I'm not sure. Okay. Yes. Yes. Yes. So have a break, guys. ",
+    "model_probability": 0.988
+  },
+  {
+    "start": 3926.78,
+    "end": 3952.03,
+    "speaker": 2,
+    "text": "And then again, you can So there's more than just one individual, which is almost one. ",
+    "model_probability": 0.2863
+  },
+  {
+    "start": 3975.77,
+    "end": 3983.17,
+    "speaker": 2,
+    "text": "It would be specific to the head characters, because the head characters, before you do the eye glance, before you look at the variables, will be grounded, right? ",
+    "model_probability": 0.3269
+  },
+  {
+    "start": 3983.25,
+    "end": 4001.44,
+    "speaker": 1,
+    "text": "Because you've got the head character first up, so they are grounded hands. So it might well be that for that constant, some of the body are more beautiful. So for that hand, it might not appear beautiful. But for some other hand, with some other concept, it might appear, right? ",
+    "model_probability": 0.0922
+  },
+  {
+    "start": 4001.84,
+    "end": 4013.79,
+    "speaker": 2,
+    "text": "Yeah. Yeah, if they are both global, if all the body conditions are the same, you should understand that. Yeah. Yeah. ",
+    "model_probability": 0.0146
+  },
+  {
+    "start": 4080.62,
+    "end": 4086.52,
+    "speaker": 2,
+    "text": "You take the full count, right? And then this is the only constant. ",
+    "model_probability": 0.0057
+  },
+  {
+    "start": 4086.62,
+    "end": 4108.6,
+    "speaker": 1,
+    "text": "And then for every constant that I have, this will be the same. So, yes. So, basically, if a rule has something like that, A is something about C, or B, or whatever, A becomes X. B becomes Y, C becomes Y, or B becomes whatever. So, the rule that was made... ",
+    "model_probability": 0.0008
+  },
+  {
+    "start": 4140.66,
+    "end": 4160.87,
+    "speaker": 1,
+    "text": "A linear degeneralization will generalize all the constants that you've learned in the future, kind of, only when the modifiers decline into the last one. But if the modifiers require a constant, then you have to give them a credit because you need to keep the constant. Right? Because that's what you're going to find. Okay? Okay. ",
+    "model_probability": 0.0007
+  },
+  {
+    "start": 4168.93,
+    "end": 4194.21,
+    "speaker": 2,
+    "text": "That kind of took me to the back of it. It's always slow because we have the number. I think... I don't know. I think we should... Let me double check. I'm just going to check. I'm just going to check. ",
+    "model_probability": 0.0002
+  },
+  {
+    "start": 4208.01,
+    "end": 4230.33,
+    "speaker": 2,
+    "text": "Yeah, they should be too. I wasn't sure if that was a question. Always better if you made it like that. That's a good point. So it's just like, yeah, it's good for you. It's very useful. ",
+    "model_probability": 0.0001
+  },
+  {
+    "start": 4311.71,
+    "end": 4328.54,
+    "speaker": 2,
+    "text": "What I did is . ",
+    "model_probability": 0.0
+  },
+  {
+    "start": 4398.68,
+    "end": 4406.6,
+    "speaker": 2,
+    "text": "No, no, actually, you can do it. ",
+    "model_probability": 0.0
+  },
+  {
+    "start": 4426.86,
+    "end": 4460.12,
+    "speaker": 2,
+    "text": "Right. So this, yeah, this is a bit tricky. So this, uh, this, uh, this, uh, this, uh, this, uh, Yeah. ",
+    "model_probability": 0.0
+  },
+  {
+    "start": 4461.32,
+    "end": 4469.34,
+    "speaker": 2,
+    "text": "So the hydrate is... Oh, good for you. So when you put this... Yeah, yeah, yeah. When the body... ",
+    "model_probability": 0.0001
+  },
+  {
+    "start": 4493.89,
+    "end": 4510.22,
+    "speaker": 2,
+    "text": "So the body has to be the love of the body. Right? So the body is the positive. Yes, yes. Okay. Yes, yes. Okay? So the body is the negative example. It's another one. ",
+    "model_probability": 0.0002
+  },
+  {
+    "start": 4510.38,
+    "end": 4512.42,
+    "speaker": 1,
+    "text": "It's another one. It's another one. ",
+    "model_probability": 0.0237
+  },
+  {
+    "start": 4526.84,
+    "end": 4529.12,
+    "speaker": 2,
+    "text": "Is that not just like, yeah. ",
+    "model_probability": 0.1199
+  },
+  {
+    "start": 4584.25,
+    "end": 4589.29,
+    "speaker": 1,
+    "text": "Guys, try to go for the slides and have a look whether it's something you don't understand. We'll go for it together. ",
+    "model_probability": 0.3831
+  },
+  {
+    "start": 4607.15,
+    "end": 4609.67,
+    "speaker": 1,
+    "text": "On the first day, we're doing two hours lecture. ",
+    "model_probability": 0.5775
+  },
+  {
+    "start": 4611.29,
+    "end": 4615.19,
+    "speaker": 2,
+    "text": "Right? and then we'll order to have a list of stuff and some talk. ",
+    "model_probability": 0.6483
+  },
+  {
+    "start": 4673.2,
+    "end": 4709.88,
+    "speaker": 1,
+    "text": "Can you, are you checking if you can see the solution? Can you check? Because I made the mobile available in the week. Yeah? You can see everything, yeah? Okay. Just want to make sure you do have access to it. So normally, we might need some questions. Think about it, because I would like to ask you something else next week. My example questions, normally I tend not to mix too many things in one single question. ",
+    "model_probability": 0.8669
+  },
+  {
+    "start": 4710.79,
+    "end": 4741.75,
+    "speaker": 1,
+    "text": "So I tend to, some people will have three questions, and I think you'll have to, I don't know about, maybe all of them, I think. There's only three questions. And because it's a choice, either the examiner got four questions, or three out of four, or three questions, one out of three, right? And I normally go for the three questions because I don't want to get confused in the four questions. ",
+    "model_probability": 0.8626
+  },
+  {
+    "start": 4741.77,
+    "end": 4749.42,
+    "speaker": 1,
+    "text": "So normally, I have one topic of that question. So questions can cover one part of the course. And questions are part of the course. ",
+    "model_probability": 0.8327
+  },
+  {
+    "start": 4749.77,
+    "end": 4765.68,
+    "speaker": 2,
+    "text": "I don't mix things together, right? So if you go and have a look at the previous exam papers, then it's a headline on the question that says, this question is about this. So this question is about that. So you're fundamentally not going to be able to actually cover it. You're not going to answer it. ",
+    "model_probability": 0.3067
+  },
+  {
+    "start": 4812.07,
+    "end": 4829.11,
+    "speaker": 2,
+    "text": "I'll check it. I haven't done it for the past two years. I'll double check. ",
+    "model_probability": 0.1962
+  },
+  {
+    "start": 4829.29,
+    "end": 4834.77,
+    "speaker": 1,
+    "text": "So you can see the question. I don't have the space to upload the answer. I will set it up. ",
+    "model_probability": 0.2009
+  },
+  {
+    "start": 4860.64,
+    "end": 4866.85,
+    "speaker": 1,
+    "text": "I think if you're able, by the end of this hour, to request your warning fully, then you are very good. You've done a very good thing. ",
+    "model_probability": 0.1287
+  },
+  {
+    "start": 5032.32,
+    "end": 5046.29,
+    "speaker": 1,
+    "text": "You could make them a little more elaborate. If you want us to do some more time checking, you will have to add them. Oh, I'm sorry. I'm sorry. I'm sorry. Yes, human, it is always home. ",
+    "model_probability": 0.0103
+  },
+  {
+    "start": 5046.59,
+    "end": 5069.69,
+    "speaker": 2,
+    "text": "So, what have you done? We need to run it there. How do we get this? We need to show you how to do it. ",
+    "model_probability": 0.0592
+  },
+  {
+    "start": 5103.19,
+    "end": 5104.53,
+    "speaker": 2,
+    "text": "So if you're going to start. ",
+    "model_probability": 0.0027
+  },
+  {
+    "start": 5143.98,
+    "end": 5158.58,
+    "speaker": 2,
+    "text": "Sometimes I am lost with the names of the people. ",
+    "model_probability": 0.0023
+  },
+  {
+    "start": 5158.96,
+    "end": 5164.0,
+    "speaker": 1,
+    "text": "I know. This is why we do these exercises. I feel it's a good kind of way. It's not true. ",
+    "model_probability": 0.0026
+  },
+  {
+    "start": 5255.88,
+    "end": 5378.56,
+    "speaker": 2,
+    "text": "In this case, we've decided that we're putting Yeah. ",
+    "model_probability": 0.0002
+  },
+  {
+    "start": 5379.54,
+    "end": 5398.29,
+    "speaker": 2,
+    "text": "So it's just finding the index. Yeah. Oh, OK. So that's how you know exactly how you're going to . ",
+    "model_probability": 0.0003
+  },
+  {
+    "start": 5498.14,
+    "end": 5507.45,
+    "speaker": 2,
+    "text": "And then if you break it, yeah, it's the same. It's the same. It's the same. Yeah. ",
+    "model_probability": 0.0015
+  },
+  {
+    "start": 5620.86,
+    "end": 5647.09,
+    "speaker": 2,
+    "text": "So 22, I'll stop this, but it could be together, right? Yeah. Yeah. You just attempt. Yes. In this case, that's not true. So it turns. Yeah. Whatever you have in the input, you just have it. Yeah, yeah. I could have used this value, but it's better than that. ",
+    "model_probability": 0.0031
+  },
+  {
+    "start": 5647.75,
+    "end": 5651.03,
+    "speaker": 1,
+    "text": "Because it is a norm. In this case, there's a more powerful one. ",
+    "model_probability": 0.0011
+  },
+  {
+    "start": 5694.97,
+    "end": 5707.53,
+    "speaker": 2,
+    "text": "I'm sorry, the first one. The first one we just got. And this is another one. So this one. Yes, yes. So this is just an example. ",
+    "model_probability": 0.0014
+  },
+  {
+    "start": 5721.92,
+    "end": 5725.12,
+    "speaker": 1,
+    "text": "Yeah, I mean, it's in the same way. ",
+    "model_probability": 0.0064
+  },
+  {
+    "start": 5725.26,
+    "end": 5729.02,
+    "speaker": 2,
+    "text": "Okay. Yeah. Right. Okay. ",
+    "model_probability": 0.0141
+  },
+  {
+    "start": 5750.09,
+    "end": 5763.84,
+    "speaker": 2,
+    "text": "In your example, . ",
+    "model_probability": 0.2854
+  },
+  {
+    "start": 5773.86,
+    "end": 5777.3,
+    "speaker": 1,
+    "text": "We're trying to go through them together. ",
+    "model_probability": 0.6367
+  },
+  {
+    "start": 6016.32,
+    "end": 6047.06,
+    "speaker": 1,
+    "text": "Okay, should we try to go through a little bit? I don't know what the time is where what should actually die is when it's not. Okay, so let's see. Let's look at the first one, and let's see what questions you have as you're doing the exercise, all right? So we got order B. I don't need to rewrite it, whatever is in the question. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 6047.46,
+    "end": 6080.78,
+    "speaker": 1,
+    "text": "I want to write look at the M, all right? The M has got a mode body, sorry, a mode head, which has an officer, I like that, with an input variable. And then it's got, I know for the time being the type, mode B, which has got nothing else. And then we have has bunch, and it's got an equal to variable two, right? That's what we have. Now, we want to define the structure. We want to define the top theory, right? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 6080.82,
+    "end": 6115.1,
+    "speaker": 1,
+    "text": "The top theory T. So we have one head and one body conditions, right? So then they take all the predicate hat, and the first rule, you do as many rules as mode H you have. Here you have a one mode H, right? So you take the predicate, and you put in front, right, of the top theory, and then you need to say, okay, let's call this a variable, let's call it a V1, right? And then you say if, and now the top theory, we need to look for possible body, okay? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6115.57,
+    "end": 6150.54,
+    "speaker": 1,
+    "text": "So what do we put in the top view in here? You put whatever input variables are here. We can call that V1. If there were multiple ones, because these had definitions too, right, then this would have been a V1, a V2, and here you would have a V1, a V2, okay? But here you don't. There's only one variable, so there's only a list of one argument, okay? Is it clear? Yeah. And then you're doing here, you put, the construct, the tuple, that correspond to this part of the rule, okay? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6150.92,
+    "end": 6180.99,
+    "speaker": 1,
+    "text": "So we, first of all, you need to name this. Let's call this M1, M2, all right? So this is going to be what? The tuple, the least of only one tuple, because it's only one predicate. We're looking at this part of the field, not just the head. So what do we put here, guys? M1. empty, empty, right? This is really template, you know, just very simple. That's the first part of the rule. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6181.39,
+    "end": 6215.75,
+    "speaker": 1,
+    "text": "The second part of the theory, that does with the motor body. Depending how many motor body you have, you always have a base case, always, and the base case is a very simple structure. You do, the base case would be input let me just have a look at those so you can match with that, will be the input list so far, input so far, and the rule so far, and this is if, and now you have used here, this is a possible, so you take this argument and you put it here. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6216.42,
+    "end": 6284.83,
+    "speaker": 1,
+    "text": "This is rule so far. That's always a fact, right? This is just a template. It's always that. It's always your best case. Nothing to think about this here. What you need to think about is the other one. the rule that correspond to this multiple, right? So in here you're going to have a body, predicate, that has got the input so far, that will do the derivation in a second, and then you got the rule so far, and then what I'm going to put here? Yeah? Very good. Link, okay, V2. With an input so far. And then links. Right? So this will eventually unify, find the more variables here that match with this. It gives me the indices. What else? You can also go to V1. It doesn't really matter because when you go for a new step, this will be considered a new flash variable. This is always an extension because V2 doesn't appear here. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6286.29,
+    "end": 6318.11,
+    "speaker": 1,
+    "text": "Okay, what else do you need to put? Yeah? HasBatch. Very good, because that's the predicate that I've got here, right? So this is hasBatch, and then you put whatever argument, so whatever argument you have here, you want to have it here, right? So if you call this V2, call it V2. If you call this V1, call it V1, right? So let's call it V2, right, for the time being. And then we want append, right? And these append are fixed, I always have those in the room. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6318.53,
+    "end": 6382.41,
+    "speaker": 1,
+    "text": "And there is another append here, right? This append will do. What do we need in this personal append? Rule so far. This is the keyboard. What do you need to put? Yeah, so there's a list with a tackle. And this is M2 because we call this M2, right? Does this have got constants? no so therefore this is an empty list and then it's got some some what do i put here links the the system will come from here right so this is going to the links and close the top and close the list right so append the rules of five this new term and you need to collect it somewhere right so you need to keep track so this is the new rule right okay And now you go here, this is to do with the collecting, if there's been any output values there, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6382.83,
+    "end": 6414.31,
+    "speaker": 1,
+    "text": "So what do we have here? Input so far, with what else? Blank, empty list, empty list, and then new input, right? And correctly, one of your students, your colleague said, actually, this is nothing, this can only succeed if this and this match, because this append, append to a list and then to this return the same list. Right? But in principle the template and the execution becomes the same. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6414.59,
+    "end": 6450.56,
+    "speaker": 1,
+    "text": "What do I need next? Body. Right? Is the next recursion. Right? And now I need to do whatever new input is that. So I need to keep track here. New input. And whatever is the new rule so far. Right? New rule. So really, These allow me to construct the rule, so far in my search, my lattice, and these allow me to keep track of all the valuables I've put in particular valuables, right? So, and then each time I call it, so I call this again, it will go back again, it starts here, and it goes back, okay? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6451.24,
+    "end": 6455.56,
+    "speaker": 1,
+    "text": "So that's it, that's all the top theory. So the only thing really, yeah? ",
+    "model_probability": 0.9985
+  },
+  {
+    "start": 6469.37,
+    "end": 6526.64,
+    "speaker": 1,
+    "text": "Yes, you could, but in principle, you don't know. This is a very general template, a very general theory. You don't know exactly how the program would look like, right? But it is true, because this unifies. In this case, this case corresponds when I don't have any output available, so you could simplify by just doing that. Yeah, in principle. But we do systematically the same type of template for each type of... Okay, so now let's see the proof. Right? So where do I start from? What is the abducible? What is the set? Remember, you want to define the set of abuse, the adaptive task, always. So the adaptive task is the same background knowledge, are the abuse boards, there is another strength, and there is the goal at the end. Right? So what is the set of abuse boards? So here is very simple. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6527.04,
+    "end": 6558.8,
+    "speaker": 1,
+    "text": "What would be the lattice here? There is, okay, there's an empty one which we don't, which you ignore it, right? Because you cannot construct a really an empty clause here, because the empty clause would be meaningless, but you always have a first, the head, right? Always, the proof. So we always start, so what is the top part of the lattice? We'll have an officer with an X, right? And then there is another part of the lattice going down, which has got the body conditions, okay? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6559.1,
+    "end": 6590.73,
+    "speaker": 1,
+    "text": "So there is an officer with an X, if you have a has-badge next, all right? So this is really your lattice, given that it's language bias. So what are the abducible then? What do I do? Rule, I have all the possible rules, right? Everything, all the possible rules which are in this lattice will have to be part of my terms here. So what would be one of the ground possible abducible? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6592.27,
+    "end": 6624.07,
+    "speaker": 1,
+    "text": "A list which has got what? Yeah? Empty list, empty list. Just one term. And then I have another fact here, which has got another list, which has got now one and two terms, right? So that's got a term which has got m1, empty list, empty list, followed by m2, empty list, and they list slide. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6625.05,
+    "end": 6693.14,
+    "speaker": 1,
+    "text": "Right? Okay? And that's it. Right? These are not possible abducibles. So you list the abducibles. Okay? Once you list the abducibles, you can then start to construct the piece. Okay? And the proof has got us a goal. What is the goal? Here's the question. What is the goal? I can't see because it's in the book. Yeah. Obey Bob Tom. Yeah. It's obey Bob Tom. And not obey. Not obey Tom Bob. All right? So this is your goal. So when you do the proof, you need to prove both things. All right? You will start the proving with obey Bob Tom. And after that, comma, you need to prove not obey, tongue, and bone. Okay? So when you start now, you're doing a simple abducted derivation. Okay? So this is obey. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6693.38,
+    "end": 6728.9,
+    "speaker": 1,
+    "text": "So you go here. Where does obey exist? Obey is in the background knowledge. You find, right? So this is an abducted derivation from the union, the opto-theory, which is this one. Okay? You have to use all these rules. And then you can start to construct. Now, officer, officer Tom, okay, the first thing you want to do here, you want to prove officer Tom, okay? What you can do if there's a big derivation letter or derivation in the exam, you can just do dot, dot, dot, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6729.52,
+    "end": 6760.0,
+    "speaker": 1,
+    "text": "Don't spend time writing. As long as you keep me track of what is your current goal when you try to do this. Right? And don't forget you need to prove this once this has been proved. Right? Yeah? Do we always have to go left to right? Always. There's always a left to right. Because if you go directly to the method, always left to right. Okay? So, office atonement, where does that come from? It comes from here. Right? Because the bag of knowledge doesn't have a rule of offices in the head. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6760.96,
+    "end": 6792.17,
+    "speaker": 1,
+    "text": "Okay? So because I've got that, then to prove office atonement, I go here, v1 becomes tom, so I need to prove now, I need to prove a predicate called body, which has got a list with just a constant tom, followed by m1, empty, empty. Okay? Right? Comma, everything else. Okay? And then at this point, you have one or two rules to prove body. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 6793.76,
+    "end": 6823.87,
+    "speaker": 1,
+    "text": "So here you have potentially a branch. The first branch to prove this body predicate, I can use this rule. So this becomes rule. So now I want to prove rule in my goal. I want to prove rule. And I use this in here. And then dot, dot, dot. And at this point, what happens? In this part of the branch, what can I do here? Now remember, rule, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6824.73,
+    "end": 6855.45,
+    "speaker": 1,
+    "text": "So I end up now having, actually, let's write it full. I have a tuple which has got m1, empty, empty. It is exactly what I have here. So this is an allowed abducible. So here, I'm starting to abduce it. I put a delta, and then this delta will include this rule fact, okay? You can, in the exam, if you want to speed up, you can say ideological consistency. because we should be doing logical consistency, but don't waste time. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6855.85,
+    "end": 6889.77,
+    "speaker": 1,
+    "text": "You know, just write n logical consistency. So this means a rule and not rule, which is automatically checked. It doesn't really make sense, so don't waste time. So the logical consistency, but then what do I need to do after this? So I proved this now. I proved this, so I proved this, because I have this. So what is left? Remember, this comma dot dot dot. Yeah, I need to make an example. I need to make sure that not, what was it? ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 6891.31,
+    "end": 6939.78,
+    "speaker": 1,
+    "text": "Not to bang with Tom and Bob is provable. Yeah? Just as an example, because before that, when we went from the first one, there was actually some things introduced, like where's that person? Would we have to write like... Ah, yeah, yeah, yeah, all the body conditions before that. Yeah, yeah. I mean, you could do that very simply. You can say there's officer, the next line is a warehouse, warehouse, and then you do person, right? So you're going to do that simply, okay? But as it's, so hold on, this comes from, yeah, yeah, yeah, that's right. But, okay, you're right. So after, you're right, you're right. So before getting to the negative example, you have to prove whatever was after in the opposite, right? Which is in the background knowledge, yeah. ",
+    "model_probability": 0.9981
+  },
+  {
+    "start": 6940.36,
+    "end": 6970.39,
+    "speaker": 1,
+    "text": "Okay? I mean, you could speed up. You can say, you can put a star node and say all the other body conditions are directed to more from the background knowledge, a full stop, and then you go to the main part, right? So I really want to see in the solution the main key steps of the derivation. As long as you tell me these are the conditions succeeds automatically, right? It's all the background knowledge. As long as I know that you checked in the question, okay? You haven't skipped. Okay? Does it make sense? Am I going too fast here? Is it okay? Are you following? ",
+    "model_probability": 0.9974
+  },
+  {
+    "start": 6970.41,
+    "end": 7002.98,
+    "speaker": 1,
+    "text": "Yeah? Okay. And now you want to prove all the negative examples. So what happened here, I don't have enough space. Oh, maybe I can do it here. All right. So tell me what the time, the guy is not here. I don't know, maybe he's not teaching today. So now I want to try to prove I want to try to prove the negation here. So not officer, which has got Tom, Tom and Bob. ",
+    "model_probability": 0.9885
+  },
+  {
+    "start": 7003.7,
+    "end": 7033.87,
+    "speaker": 1,
+    "text": "And this has to be a success, right? So to prove a success to this, I have to do what? Yes, I have to fail. Remember, this has to be double nine. I have to fail officer Tom, Bob. Okay, this has to fail. Right, we'll take a look at the second, the negative example, the second and the negative example. Okay, so officer, bomb comes where? ",
+    "model_probability": 0.9923
+  },
+  {
+    "start": 7035.25,
+    "end": 7039.04,
+    "speaker": 2,
+    "text": "Oh, sorry, obey. ",
+    "model_probability": 0.9349
+  },
+  {
+    "start": 7040.36,
+    "end": 7083.23,
+    "speaker": 1,
+    "text": "Yes, obey. Bomb, okay. And then, but the first finger will be, so this is to fade, so we go left to right, so the first finger try to fade is officer, all right? Tom Bob, officer, sorry, Bob. Okay? And then everything else. Okay? Now, to prove, to fail officer Bob, officer Bob, this is a rule, so I have to fail the body, which has got Bob as an argument, as a list, and then has got M1, because of the same point, right? ",
+    "model_probability": 0.9227
+  },
+  {
+    "start": 7084.41,
+    "end": 7114.53,
+    "speaker": 1,
+    "text": "There's still another head. Right? Yeah. So, and to fail this body, now you can be a bit clever in the proof. Right? Don't go for the complicated rules. Check if the base case can fail immediately. Right? Because as long as you fail one rule, sorry, as long as you succeed one proof of body, then this failure stops. Right? So in this case, to fail this body, you have to fail here, you have to fail here. Right? So let's take the first case. ",
+    "model_probability": 0.9307
+  },
+  {
+    "start": 7115.05,
+    "end": 7160.96,
+    "speaker": 1,
+    "text": "Ah. There we are. So the first case here, I need to try to fail in rule, and I cannot fail in rule because I have abduction. All right? So then the solution gets cut out, and you need to continue from the other solution. Okay, guys? All of this will be in your model answer for you. So once you start to do a couple of them, you become very mechanic. I can guarantee you this. I haven't seen you before. Come, come. So, on Thursday, we have two hours later, okay? Let's go to that new topic. ",
+    "model_probability": 0.3953
+  },
+  {
+    "start": 7183.5,
+    "end": 7185.1,
+    "speaker": 2,
+    "text": "Okay, so I was able to use the USB-C. ",
+    "model_probability": 0.2426
+  }
+]

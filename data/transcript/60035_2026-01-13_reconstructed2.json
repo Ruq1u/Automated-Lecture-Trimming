@@ -1,0 +1,986 @@
+[
+  {
+    "start": 0.191,
+    "end": 25.846,
+    "speaker": "SPEAKER_02",
+    "text": "The other lecture theatre is booked as well I was like, yeah, I have love. "
+  },
+  {
+    "start": 38.534,
+    "end": 40.816,
+    "speaker": "SPEAKER_02",
+    "text": "We also have space in 311 as well. "
+  },
+  {
+    "start": 40.936,
+    "end": 44.798,
+    "speaker": "SPEAKER_01",
+    "text": "If you can't find any spaces here, please check out 311. "
+  },
+  {
+    "start": 70.298,
+    "end": 74.98,
+    "speaker": "SPEAKER_01",
+    "text": "Demonstration of, like, reinforcement learning versus, like, learning and planning and imitating learning. Very cool. It's a big place. I think it's, uh, so much less, I think. Yeah. I don't know what it is. "
+  },
+  {
+    "start": 295.922,
+    "end": 323.561,
+    "speaker": "SPEAKER_00",
+    "text": "Hello. Yeah, okay, this is working. I'll keep this right next to this speaker. Okay, I hope you can hear me. Just want to test this for the overflow room. Nuri, if you can confirm if it's working, I'll just very quickly come to 311 and check. "
+  },
+  {
+    "start": 386.656,
+    "end": 417.028,
+    "speaker": "SPEAKER_00",
+    "text": "So, first of all, happy new year and welcome to Natural Language Processing. We have a big cohort to manage and hence we have an overflow room. If you can't find a seat in this room, you can move to the next room, 311. There's a delay in streaming. What's happening here is streamed in the next room a few seconds later. "
+  },
+  {
+    "start": 417.868,
+    "end": 457.099,
+    "speaker": "SPEAKER_00",
+    "text": "But I hope it's manageable. It will be fine. OK. Let me begin. So, my name is Chirag. Many of the BNG and MNG students know me because I taught Q, Linear Algebra in the first year and I am also your year three and year four coordinators. The postgraduate students may not know me. I am a teaching fellow in the department and I Besides teaching linear algebra, I'm also involved in NLP research and do some administrative work. "
+  },
+  {
+    "start": 457.259,
+    "end": 491.327,
+    "speaker": "SPEAKER_00",
+    "text": "This module will be taught by four lecturers, four instructors. Marek is going to be teaching you for one week in this module, he'll be teaching about more advanced concepts about large language models. Joe, he's going to take for a week and a half. He will talk about classification and language modeling. And then our main lecturer, who's currently sitting in the overflow room, he'll be teaching everything else. "
+  },
+  {
+    "start": 492.087,
+    "end": 525.669,
+    "speaker": "SPEAKER_00",
+    "text": "Right. Oops. So, So, this is the first introduction to this module, so I'll cover the logistics, the housekeeping, some important links, and then I'll let Noori take over. So, first of all, The main links that you should have access to is the Panopto for the video recordings of this lecture, then EdSTEM, where we will be posting announcements. "
+  },
+  {
+    "start": 525.809,
+    "end": 556.885,
+    "speaker": "SPEAKER_00",
+    "text": "You can ask your questions and doubts on EdSTEM, and we'll try to resolve your doubts there. And then ScienceShare to access all the resources that we provide in this module. Please, I insist that you check EdSTEM discussion board regularly. Most of the announcements and all the important details will be posted on EdSTEM. Post questions if you have any doubts. Just post it on EdSTEM. "
+  },
+  {
+    "start": 556.945,
+    "end": 590.154,
+    "speaker": "SPEAKER_00",
+    "text": "Hopefully someone should answer in time. If you know an answer, feel free to, I encourage you to just respond to a question, respond to any post from your peers. This reduces my workload a bit. I just need to endorse an answer and that makes my life easy. Yeah. The lectures, you know the lectures will take place in 308. "
+  },
+  {
+    "start": 590.614,
+    "end": 621.811,
+    "speaker": "SPEAKER_00",
+    "text": "Because it's a huge cohort, we have 311 as the overflow room. Lectures are on Tuesday for two hours, 4 to 6 p.m., and on Thursdays for one hour, 2 to 3 p.m. There are lab sessions from 3 to 4 p.m. on Thursdays. It's the big lab on level two. It's mainly for you to work on lab exercises, and the lab exercises are self-explanatory. You don't really need an instructor or a tutor to guide you. "
+  },
+  {
+    "start": 622.812,
+    "end": 658.201,
+    "speaker": "SPEAKER_00",
+    "text": "You just need to follow. It's IPython notebooks, Jupyter notebooks, so you just need to follow the instructions and then understand and then just work through the notebooks. There will be a few teaching assistants available to answer questions in case you need some help. I posted this on EdSTEM, but I'm just mentioning this again. "
+  },
+  {
+    "start": 658.261,
+    "end": 704.919,
+    "speaker": "SPEAKER_00",
+    "text": "This is an LLP module. There's a nice description about this module. The main takeaway here is that this module is designed to introduce you to the fundamental concepts and techniques of modern natural language processing. And that's basically the essence. I just want to manage our expectations. You are not going to be learning how to The applications of LLMs is probably not something we are going to cover in this module, so if that is your expectation, then probably this is not the right module for you. "
+  },
+  {
+    "start": 705.219,
+    "end": 747.618,
+    "speaker": "SPEAKER_00",
+    "text": "But we will cover the foundational models, how they work, the maths behind it, the natural language processing, the ideas behind the concepts. In some sense, so the goals of this module is to introduce you to the different tasks in the field of natural language processing, the different challenges of this field, provide you an overview of the popular and state-of-the-art methods and models that have shaped this field and give you some practical hands-on experience in designing, implementing, and training NLP systems and models. "
+  },
+  {
+    "start": 750.058,
+    "end": 799.51,
+    "speaker": "SPEAKER_00",
+    "text": "In other words, what we have basically done is collected all the seminal papers that have shaped modern natural language processing. The seminal papers and ideas and concepts combine them together to create this module. So now you know what this module is all about, okay? I've basically taken this from Nuri's lecture notes. So these are the key models, concepts, papers, and ideas that we will be covering in this module, starting from the distributional hypothesis in 1950s all the way to word embeddings like Word2Vec and then Transforma Architecture, more recently the Transforma Architecture and the GPT models. "
+  },
+  {
+    "start": 801.271,
+    "end": 833.04,
+    "speaker": "SPEAKER_00",
+    "text": "Yes. One disclaimer. This module is dense. Very simply put, there is a lot of information. It's not challenging. It's not difficult. If you're paying attention, you will be able to understand everything we teach. These concepts are straightforward. They're easy to understand. if you invest a little bit of time and effort. But the only thing that makes this module a bit challenging is that it's dense with information. "
+  },
+  {
+    "start": 833.44,
+    "end": 867.686,
+    "speaker": "SPEAKER_00",
+    "text": "We are covering a lot of information, all the progress that has taken place in the last 10 to 20 years. And so yeah, just making you prepared for the content that is going to be taught. Very quickly, timeline. So we will be having regular lectures and lab sessions for seven weeks. We are currently in week two. And then we have lectures for seven weeks until week eight. "
+  },
+  {
+    "start": 868.786,
+    "end": 899.863,
+    "speaker": "SPEAKER_00",
+    "text": "And then in week nine, week nine is the revision week. No, sorry. Week 9 is when we revise the content. We'll have exam preparation sessions. And then week 10 is the revision week where we will not have any contact hours, no lectures, no sessions. And then week 11 is exams. So it is going to be all taking place in the next seven, eight, nine weeks. "
+  },
+  {
+    "start": 899.923,
+    "end": 932.347,
+    "speaker": "SPEAKER_00",
+    "text": "And the module, before you realize it, the module will be over. So just be prepared that it's going to be fast-paced and dense. Very quickly, I would like to talk about the coursework. There will be one piece of coursework which is worth 30% of your final grade. The coursework will be released on the 2nd of February next month, and you'll have about three to four weeks to work on the coursework. "
+  },
+  {
+    "start": 932.367,
+    "end": 965.449,
+    "speaker": "SPEAKER_00",
+    "text": "The submission will be due on 27th of February. You'll be working in groups, groups of four members, four members randomly assigned. And I should emphasize the workload. We don't expect you to invest too much time on the coursework. At most, I should have perhaps mentioned up to 20 hours per person. "
+  },
+  {
+    "start": 966.63,
+    "end": 1001.962,
+    "speaker": "SPEAKER_00",
+    "text": "The 20 hours in the slide is a ceiling, is an upper bound. If you're really good at the coursework, you should get it done in less than 10 hours. So just managing your expectation, you are not expected to work on the coursework forever. And then there's this idea of diminishing returns. The more time you invest, the gains that you get are just marginal. So keep that in mind. The group formation will take place after the registration deadline, which is model registration deadline, which is on 31st Jan. "
+  },
+  {
+    "start": 1002.462,
+    "end": 1036.705,
+    "speaker": "SPEAKER_00",
+    "text": "It is then, after 31st Jan, I know which students are taking this model for credit and which who are taking this model to just audit. and then we only form the groups comprising of students who are taking this model for credit. The coursework is designed to give you an experience of a typical NLP research project. So it's going to help you appreciate how an NLP researcher works. "
+  },
+  {
+    "start": 1036.745,
+    "end": 1068.171,
+    "speaker": "SPEAKER_00",
+    "text": "What is the workflow? How do they look at an NLP task? How do they approach a problem? and how do they design their experiments and models and how do they investigate the results. So with that in mind, we are designing this, the course will be designed on that theme. All right. Yes. So it will be an NLP shared task. "
+  },
+  {
+    "start": 1068.471,
+    "end": 1113.675,
+    "speaker": "SPEAKER_00",
+    "text": "So progress in natural language processing usually takes place in the form of a shared task. So there will be an NLP task where teams, academic teams, research teams from around the world compete to develop models. And then you have leaderboards. Something very similar to, if you're familiar with Kaggle, and semi-vile shared tasks, you should know how it works. So it's going to be similar, so these teams of four, groups of four students will be competing to, you will be competing with other teams to develop models that outperform on a given task, outperform the baseline on a given task. "
+  },
+  {
+    "start": 1114.156,
+    "end": 1152.201,
+    "speaker": "SPEAKER_00",
+    "text": "But you will not get marks just for outperforming the baseline. You will get marks for how creative and how rigorous was your analysis, how creative was your model and things like that. So, you should not be discouraged if your model does not perform very well. You will get marks for other things, the analysis and how... and how you frame a research question and on things like that. "
+  },
+  {
+    "start": 1152.461,
+    "end": 1188.804,
+    "speaker": "SPEAKER_00",
+    "text": "Yes, so the implementation of GitLab or a GitHub repository. Yeah, and the structure of the final report, everything. I'll provide all the details when the coursework will be published on 2nd of Feb. Okay. We encourage you to work with Jupyter notebooks, IPython notebooks. It's typically in NLP, most of the coding happens in the Python programming language. "
+  },
+  {
+    "start": 1189.685,
+    "end": 1229.744,
+    "speaker": "SPEAKER_00",
+    "text": "We will be using Python's library, but you are free to use any other machine learning library. And this is some additional material, additional reading, if you are interested. Throughout this module, we will ask questions only on topics that are discussed in the lectures, in our lecture slides. So if I were to give, in the order of importance, you should first attend the lectures, watch the lectures, and read the lecture slides. "
+  },
+  {
+    "start": 1230.525,
+    "end": 1270.416,
+    "speaker": "SPEAKER_00",
+    "text": "Then if you are interested to pursue any particular topic in more detail, you can read the corresponding seminal research paper from where we are extracting this information. The different research papers that the topics are based on. And then if you're interested in more information, you can refer to these books. And then obviously, you'll be developing machine learning based models for your coursework and for different NLP tasks. "
+  },
+  {
+    "start": 1271.096,
+    "end": 1305.931,
+    "speaker": "SPEAKER_00",
+    "text": "So here are some links to various books on machine learning and various papers on machine learning and NLP. Okay, so let's get started. Today, I will be very quick because, as I mentioned, this model is very dense. I don't want to spend too much time on just the introduction. Want to get done with this introductory part and let Nuri take over once we cover this basic topics. "
+  },
+  {
+    "start": 1306.972,
+    "end": 1342.568,
+    "speaker": "SPEAKER_00",
+    "text": "Okay, so let's begin. We'll start with... Natural language. So by natural language, you all know we refer to natural language as languages we humans speak and use to communicate with each other. Unlike code, it is much more ambiguous, much more... challenging, subjective. So the ultimate goal in processing of natural language is to, one, understand natural language, make computers understand natural language. "
+  },
+  {
+    "start": 1342.709,
+    "end": 1379.399,
+    "speaker": "SPEAKER_00",
+    "text": "Two, produce a response in natural language. So one is natural language understanding. Two, natural language generation. And third, execute requests and tasks and commands given a natural language input. So you can think of natural language understanding as helping computers understand, like sentiment analysis is a task which helps computers understand natural language, whether the input text is of a positive sentiment or negative sentiment. "
+  },
+  {
+    "start": 1379.419,
+    "end": 1410.148,
+    "speaker": "SPEAKER_00",
+    "text": "So that's an example. Natural language generation is when a system responds back in text or in speech, okay? That would be response that you get from ChatGPT. And then... Executing commands is more like agents. So agents, if you ask them to book a ticket, they go to various websites and then travel websites and book a ticket for you. So something like that would be an agentic thing. "
+  },
+  {
+    "start": 1410.808,
+    "end": 1460.93,
+    "speaker": "SPEAKER_00",
+    "text": "All right, so the focus in this module is on written English language. We are not interested in speech or optical character recognition. We will be discussing machine translation, but we are not necessarily focusing on other languages. All right, so back in 1900s, making computers understand and respond in natural language was considered a challenge and something which only science fiction writers could imagine, but now this is a reality. "
+  },
+  {
+    "start": 1461.85,
+    "end": 1499.084,
+    "speaker": "SPEAKER_00",
+    "text": "You are, I'm pretty sure most of you are using ChatGPT or other LLMs for various tasks. It could be writing a report for your coursework or using them as your coding buddies or as your assistants. So yeah, this is now becoming a reality. But it still has problems. At first, when you start using these technologies, it looks like it works perfectly. "
+  },
+  {
+    "start": 1499.164,
+    "end": 1531.257,
+    "speaker": "SPEAKER_00",
+    "text": "But the more you work with LLMs, the more you spend time with them, you soon realize that it makes mistakes. One of the key reasons, one of the main challenges of a natural language is that it is complex and that complexity is rooted in ambiguities of various kinds. So let's start with different examples of ambiguities in national language. So one would be at a word level. "
+  },
+  {
+    "start": 1532.717,
+    "end": 1565.656,
+    "speaker": "SPEAKER_00",
+    "text": "So in this example, the word fi could have multiple different meaning. So you need more context to disambiguate the meaning of that word. It can be syntactic based on the way the sentence is written. You don't know whether The person is using the telescope or you are seeing a boy having a telescope. So there is this ambiguity in the way a sentence is structured. "
+  },
+  {
+    "start": 1566.997,
+    "end": 1600.492,
+    "speaker": "SPEAKER_00",
+    "text": "Semantic ambiguity. In this example, nobody... For 10 days is just an exaggeration here, right, in this example, because it just basically means that the person has not slept for a very long time. Semantic ambiguity, another example. In this case, we don't know if you are referring to rabbit being ready for lunch or the rabbit is the lunch, right? "
+  },
+  {
+    "start": 1601.717,
+    "end": 1633.028,
+    "speaker": "SPEAKER_00",
+    "text": "More examples of ambiguity here. Referential ambiguity, which is, we don't know the word they. The word they in this sentence, what is it referring to? Is it referring to the bananas being eaten or it is referring to the monkeys? What is ready to be, in this case? Are the monkeys ready to eat or are the bananas ready and ripe to be eaten? And then, yes, exaggeration of various kinds. "
+  },
+  {
+    "start": 1633.888,
+    "end": 1666.752,
+    "speaker": "SPEAKER_00",
+    "text": "Yeah, so I have kind of established that one of the main foundational problems, the foundational, the problem in its essence that we are trying to tackle is resolving ambiguities of different kinds. And that is a theme that you will see keep being addressed in all the different lectures again and again. "
+  },
+  {
+    "start": 1669.614,
+    "end": 1702.144,
+    "speaker": "SPEAKER_00",
+    "text": "Again, this is about the various NLP tasks at various levels of language. Starting with the most atomic level, which is at the level of words and at the level of lexicon. Yeah, and then going further up, syntax is just the order in which words appear, the grammar of the language, the English grammar, for example. Semantics refers to meaning of individual words in the sentence, the meaning of things. "
+  },
+  {
+    "start": 1703.085,
+    "end": 1749.256,
+    "speaker": "SPEAKER_00",
+    "text": "This course is processing text, a larger piece of text like paragraphs and essays, the theme or the tone. Yeah, so various levels of language, okay? And here are a few examples of NLP tasks at various levels. These are tasks that were mostly pre-processing tasks. So before we feed in the text to any model, we pre-process them to get rid of Ambiguities that are caused at the word level, for example, by tokenizing. "
+  },
+  {
+    "start": 1749.756,
+    "end": 1779.868,
+    "speaker": "SPEAKER_00",
+    "text": "You want to get rid of the comma from the word high. And in German language, words are often compounded, so you want to break them down into subword categories which have different meaning. OK? Right. word normalization and a few more examples of morphological analysis. "
+  },
+  {
+    "start": 1781.849,
+    "end": 1812.701,
+    "speaker": "SPEAKER_00",
+    "text": "And then, so again, these are just examples of pre-processing of text. So sometimes you want to, now in modern NLP, we don't really do the lemmatization and stemming. We directly jump to byte pair encoding, which is a, way to break words into subword categories that your language model can then process. "
+  },
+  {
+    "start": 1813.342,
+    "end": 1845.404,
+    "speaker": "SPEAKER_00",
+    "text": "So we will be covering byte pair encoding in one of the lectures. At the morphological level, you can also classify individual words into different categories, and in English grammar, we refer to these categories as part of speech, okay? Just another word for different kinds of words in the language, okay? "
+  },
+  {
+    "start": 1845.464,
+    "end": 1883.047,
+    "speaker": "SPEAKER_00",
+    "text": "You have nouns, you have words, you have adjectives, et cetera. Okay? And then, Previously, NLP, before the deep learning era, natural language processing was built on having different models for each of these different tasks. We have a different model to do part of speech tagging or classification. You had a different model to then extract coreference resolution, or which words are related to which other words. "
+  },
+  {
+    "start": 1883.667,
+    "end": 1922.665,
+    "speaker": "SPEAKER_00",
+    "text": "So you had different models for different tasks, and then you would combine them together for some downstream task. But today we have a... single model that basically processes from start to the end. More end-to-end models in modern times. But it's good to know how NLP was practiced previously. Before, let's say, before 2010, how, before 2015, how NLP was, how research and how progress in NLP worked. "
+  },
+  {
+    "start": 1923.895,
+    "end": 1961.862,
+    "speaker": "SPEAKER_00",
+    "text": "Okay, so a few more examples of morphological analysis, different kinds of tasks at the word level. And then at a sentence level, at a syntactic level, one of the tasks would be to figure out if the syntax of a sentence is... If the sentence is... is it follows a certain rule, follows a certain structure, there's structure to how we construct sentences and that is addressed by the task of parsing. "
+  },
+  {
+    "start": 1962.862,
+    "end": 2002.262,
+    "speaker": "SPEAKER_00",
+    "text": "We would structure a sentence, we would consider if a sentence is valid if it followed certain grammatical structures. If you could break the whole sentence into different phrases, a noun phrase and a verb phrase, and they followed a structure which looks like a tree. And then the task, let me just jump ahead, which looks like this tree on the right. And then the task would be to to estimate or to find out this parse tree for any given sentence. "
+  },
+  {
+    "start": 2003.942,
+    "end": 2039.026,
+    "speaker": "SPEAKER_00",
+    "text": "So parsing was, again, a popular task people worked on. And back then, we had rule-based and probabilistic models to get these parse trees for sentences and for bigger pieces of text. So, yeah, this is about syntax. Then about semantics, word sense disambiguation is about, again, it comes back to words having multiple different meaning. "
+  },
+  {
+    "start": 2039.367,
+    "end": 2074.332,
+    "speaker": "SPEAKER_00",
+    "text": "It comes back to ambiguities, right? So, previously we were building different models for different kinds of disambiguation tasks, so disambiguating words with different meanings, so you need additional context, so people were building word-sense disambiguation models, which would read the context and then decide what the meaning for individual words was, so word-sense disambiguation was this task, to assign the correct meaning for a given word in the sentence. "
+  },
+  {
+    "start": 2075.673,
+    "end": 2105.689,
+    "speaker": "SPEAKER_00",
+    "text": "All right? yeah some more tasks you can refer to these slides and have a look at different tasks at different levels of the language I'll quickly move on to the history of NLP again Most of the initial research in this field was driven by machine translation. "
+  },
+  {
+    "start": 2106.369,
+    "end": 2136.688,
+    "speaker": "SPEAKER_00",
+    "text": "Mainly during the Cold War era, people wanted to develop systems that could translate from from the language spoken by our enemies. You want to translate them so that you know what the plans of your enemies are, right? So that was the object. That was the main reason people were pursuing research in this field. And then once the Cold War ended, so did So did the research in this field. "
+  },
+  {
+    "start": 2136.728,
+    "end": 2182.06,
+    "speaker": "SPEAKER_00",
+    "text": "And most of the approaches back then were rule-based, handcrafted. You needed linguists to develop these models. But soon people realized that the more data-driven approaches were better, as in 1980s and 1990s. Especially, one of the driving factors was the Europal corpus, I remember, Europal corpus, so for the European Union, the proceedings of the European Union were translated in multiple languages by expert translators, so now you had a corpus, or you had a data set of the same sentence or the same text in different languages. "
+  },
+  {
+    "start": 2182.681,
+    "end": 2231.62,
+    "speaker": "SPEAKER_00",
+    "text": "So now you had a lot of data, parallel data, that you could use to train a model, rather than hiring a linguist or an expert translator to do the translation for you, you could train a model using this dataset. So that drive the... empirical developing models from data, the approach to use statistical and machine learning models. And then in 2014, after the invention of neural networks, neural networks were there for a long time, but after it became popular to use them for encoding text, for processing text, the field just exploded, okay? "
+  },
+  {
+    "start": 2231.7,
+    "end": 2271.921,
+    "speaker": "SPEAKER_00",
+    "text": "And in recent times, you have pre-trained large language models. So, right. Why do we use machine learning? As I mentioned, it's just because of the data, you can just train a model that can extract the rules or extract the patterns in language and then use that to understand or generate text. All right? So... Yeah, so you get rid of the feature engineering step for which you needed experts and now you don't really need experts, you just need a lot of data and then train the model to learn the patterns. "
+  },
+  {
+    "start": 2272.562,
+    "end": 2303.135,
+    "speaker": "SPEAKER_00",
+    "text": "Train your deep learning model to learn the patterns and identify which features in your input data are best suited for your task. All right, I won't go over the neural network refresher. This is self-study. This part is self-study. Yeah, there are so many other modules that talk about how deep learning works. So I'm pretty sure you've studied or some other module where these concepts are covered. "
+  },
+  {
+    "start": 2304.715,
+    "end": 2336.429,
+    "speaker": "SPEAKER_00",
+    "text": "OK, so this is all. self-study and then applications. I'm pretty sure you're familiar with many NLP applications. Spam filtering, it happens in your email inbox automatically. You don't even realize it. But if you just check your spam filter, it will have a lot of trash emails. And you have an NLP system, a spam filter, which is doing that classification for you. "
+  },
+  {
+    "start": 2336.969,
+    "end": 2368.181,
+    "speaker": "SPEAKER_00",
+    "text": "It reads an email in your inbox and then decides whether it's relevant or not, useful or not. Google Trans, or translation in general, Google Translator, any other translation system. Grammar correction, if you're using Grammarly or any other software. This happens if you're just doing Google search. Text to image is very popular. "
+  },
+  {
+    "start": 2368.221,
+    "end": 2399.959,
+    "speaker": "SPEAKER_00",
+    "text": "It's getting more and more creative. Finally, LLMs like ChatGPT, Gemini, etc. I'm pretty sure you're familiar with this. What I just did before coming to this lecture was I asked ChatGPT what it's not good at. So it gave me a list of things that this is not just for ChartGPT, but it's true for many LLMs. "
+  },
+  {
+    "start": 2400.059,
+    "end": 2445.151,
+    "speaker": "SPEAKER_00",
+    "text": "So it gave me a list of all the things. It's not good at it. One of the things that makes factual errors, it hallucinates, it creates, for example, if you are using LLMs to cite papers, it will cite, it will create a research paper and cite it, like it will cite papers which are not there, not published. So it hallucinates a lot. It is another interesting shortcoming of LLMs is It struggles to deal with ambiguous or sarcasm or jokes or humor. "
+  },
+  {
+    "start": 2446.312,
+    "end": 2496.656,
+    "speaker": "SPEAKER_00",
+    "text": "So this part, it sometimes struggles for more subtle, more nuanced, not subtle, but more nuanced meaning of hidden in that text. So if someone is cracking a joke, especially sarcasm, it might take it literally. Right. Besides these mistakes, it is, in my experience, is, it's a system, these LLMs are most, there's a term for it, I'm forgetting the term, but they basically are more like They're more like, they'll always agree to what you are asking to do, right? "
+  },
+  {
+    "start": 2496.976,
+    "end": 2531.065,
+    "speaker": "SPEAKER_00",
+    "text": "They won't, they may not necessarily tell you the truth, they'll just say you're right. There's a term for this, sycophant, I think? Yeah, so that's one, one behavior, and there are many such behaviors of LLMs where they are, may not be ideal. So basically what I'm trying to say here is that it is not fully solved. The problem of understanding text and generating text is not fully solved. "
+  },
+  {
+    "start": 2531.785,
+    "end": 2583.205,
+    "speaker": "SPEAKER_00",
+    "text": "And in this query, it's not like... when I asked ChatGPT what it's not good at, what kind of mistakes it makes, it's not like ChatGPT went and introspected and came up with this answer. It's basically people who have critically reviewed the outputs of subsystems have written blogs and articles and research papers, and as an engine that summarizes all that knowledge and then generates a text, it has essentially, it's more like, it's not like it has introspected and come up with an answer, it's more like it has extracted, it has processed text that has reviewed the outputs of ChatGPT and then extracted all the shortcomings and then provided you that. "
+  },
+  {
+    "start": 2583.725,
+    "end": 2614.313,
+    "speaker": "SPEAKER_00",
+    "text": "So it's different from, it's more like if in an interview, if I'm asked a question, what are your strengths and weaknesses? I introspect, I try to figure out what are my strengths. It's not like I'm asking my friends, please tell me what are my strengths and weaknesses and then summarize it and then tell it to the interviewer. So in that sense, if you can figure out, in that sense, these systems are slightly different from the way process text. Okay? All right. "
+  },
+  {
+    "start": 2614.593,
+    "end": 2642.044,
+    "speaker": "SPEAKER_00",
+    "text": "That's it for the intro part. Any questions? Right? Two basic, very basic introduction. Straightforward. So now we'll take a five minute break and then we'll resume with the first technical lecture, and maybe we'll take over. So we'll have a five minute break, okay? Thank you. "
+  },
+  {
+    "start": 2959.501,
+    "end": 2985.936,
+    "speaker": "SPEAKER_01",
+    "text": "Can you hear this now? And anyone here? And anyone? Who is working for the computer vision lab? Well, if you don't... Let me try again. Either way, you can just put that on your shelf. So, that's it. "
+  },
+  {
+    "start": 2988.899,
+    "end": 2999.883,
+    "speaker": "SPEAKER_02",
+    "text": "Does this work? Can anyone hear me? Why is this not working? "
+  },
+  {
+    "start": 3077.002,
+    "end": 3083.863,
+    "speaker": "SPEAKER_00",
+    "text": "Can we get this thing to work? I was using the... Are these dead? Hello? None of them are using this. "
+  },
+  {
+    "start": 3083.903,
+    "end": 3097.066,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah, but none of them... There used to be an option to adjust the volume of this microphone. Do you want to get someone to do this? I did try. "
+  },
+  {
+    "start": 3133.936,
+    "end": 3153.05,
+    "speaker": "SPEAKER_02",
+    "text": "Is that the camera? This is working. Is there no way to get this working? It would be really nice to be able to. It should work. What's happening? I'll just start on this. Can you get some help at some point for this? I can report it to ICP. "
+  },
+  {
+    "start": 3153.09,
+    "end": 3156.371,
+    "speaker": "SPEAKER_01",
+    "text": "Okay. He'll fix it. Try to get this kind of... So if you just press from the top. This one? Oh, okay, gotcha. Is that good? I'll just do it. Okay. "
+  },
+  {
+    "start": 3179.772,
+    "end": 3211.409,
+    "speaker": "SPEAKER_02",
+    "text": "Okay guys, can we start please? Can you hear me? Can everyone hear me? Guys, can we please settle down and slowly make a start? That's better. I know it's 5pm and some of the mics are not working so some other day in the office is all I can say. All right. So we have some other people in the overflow lecture. "
+  },
+  {
+    "start": 3211.469,
+    "end": 3241.811,
+    "speaker": "SPEAKER_02",
+    "text": "So apologies if we're having technical issues over there. But for those who are here, welcome to the start of natural language processing. Shirag has done the sort of introduction. And anything admin related, he's definitely the person to go for. So I know it's 5 PM, so we're going to hopefully start with some nice content and then dive into more ugly stuff as we go along. So how about this? Is it better when I speak like this? Can you still hear me? Is that all OK? OK, good. "
+  },
+  {
+    "start": 3241.831,
+    "end": 3277.358,
+    "speaker": "SPEAKER_02",
+    "text": "Because I don't want to lean down all the time. And if these work at any point, I'll just take care. In case it does come back online, I can switch to that as well. Okay, so welcome, everyone. As Shirag said, my name is Nuri. I'm a guest lecturer in the department. I used to be a teaching scholar, and I graduated with not only my PhD, but also a postgraduate certificate in teaching, and I'm a fellow of Higher Education Academy. Hence, I was given the opportunity to teach this because it's also related to my research where I do neurosymbolic reasoning. Okay, so if you have any questions, because there's too many of us, you can also keep it at the end. "
+  },
+  {
+    "start": 3278.199,
+    "end": 3310.886,
+    "speaker": "SPEAKER_02",
+    "text": "But I want you to sort of think about it as we embark on this journey. There's a lot of content out there and on the slides, but please sort of try to interact on EdSTEM and try to interact after the lectures and at tutorials. I think that really helps to give you an understanding of what's happening. So we start this journey with this question of what does it mean? Natural language is something very unique to us in terms of how we communicate, but it's definitely not the only animals that we do it. "
+  },
+  {
+    "start": 3311.367,
+    "end": 3343.209,
+    "speaker": "SPEAKER_02",
+    "text": "And we often assign some meaning to these words, and we can sort of talk about the experiences, the fuzzy concepts, and this is something quite philosophical. We have developed this cognitive ability to communicate and talk about things, sometimes artificial stuff or myths. If you read the Sapiens book, humans, Homo sapiens, developed this ability 70,000 years ago. And we can talk about all sorts of things when it comes to our world and things that don't exist in the world. So just to give a warm up, I know it's five to five. "
+  },
+  {
+    "start": 3343.309,
+    "end": 3374.403,
+    "speaker": "SPEAKER_02",
+    "text": "It's what we call the graveyard slot. It's the end of the day. So I find this slide fascinating because you see languages evolved in so many different ways. And I love that we have different languages, different symbols that come together. So just to give ourselves a bit of a warm up, I would like you to raise your hand if you can speak at least four languages. Anyone? Raise it all the way. Can I see? Four languages. We got one person there. Two? Okay, three? "
+  },
+  {
+    "start": 3374.624,
+    "end": 3405.881,
+    "speaker": "SPEAKER_02",
+    "text": "Anyone that can speak five? Anyone that can speak five? Yeah, maybe, maybe then. Five? Six? Anyone speaking six languages? Okay, okay, let's focus back, let's bring the attention back here, please. Okay, so I think, I personally think it's remarkable that someone could communicate in five, six different languages. You have different symbols, you have different syntax, different grammar, but first of all, you also have different potential meanings. "
+  },
+  {
+    "start": 3405.981,
+    "end": 3434.512,
+    "speaker": "SPEAKER_02",
+    "text": "Not every language translates to one another, so it's a challenging thing, but we have evolved to handle this really well. Now, one of the fascinating things about language is it could be made up. I can talk about imaginary things. And it's also compositional. So I want you to imagine a duck, a rubber duck maybe. Maybe it's yellow and it's sort of sitting in the Huxley Building classroom. And it could be imaginary. I can communicate this. You could imagine it in your minds. And it could be subjective as well, right? But not on this occasion. "
+  },
+  {
+    "start": 3445.874,
+    "end": 3477.717,
+    "speaker": "SPEAKER_02",
+    "text": "Thank you. So this is Big Steve. Big Steve has been in our department and our research group for a while. That's all I'm going to say about Big Steve. He's just going to enjoy watching you for the rest of the lecture. But what I'm trying to say is language could be different. Some of you might have imagined Big Steve coming out, but I bet most of you didn't. But that's the thing. I communicated something. And you can imagine this being very difficult for machines to grasp and do something useful out of it. Furthermore, language is more complex than you think, and how we interact with it is probably different than you originally think. "
+  },
+  {
+    "start": 3478.077,
+    "end": 3510.072,
+    "speaker": "SPEAKER_02",
+    "text": "And most of you in this room, after I said that, could potentially read this already. And it potentially takes your expectations of how we interact with language, or it's a sequence of characters, but actually it's quite different. Our brains and our minds work differently. As a friend of mine once put it, instead of saying, what do you mean, my friend used to say, what do you mean? That was his phrase. I completely understood what it meant. There was a meaning, he was communicating with me, and it worked. And you can see language evolves over time. "
+  },
+  {
+    "start": 3510.232,
+    "end": 3542.612,
+    "speaker": "SPEAKER_02",
+    "text": "So in 2025, the Oxford University Press World of the Year was rage bait. Very appropriate. In 2024, it was brain rot with all the AI stuff. And one of my personal favorites in recent times is the 22 after we came out of the pandemic. It was this word coined, goblin mode. And it described everything really well. So even if you decide not to take the rest of the course, you at least now know what goblin mode means. And it was the word of the year in 2022. OK? Anyway, I hope that was a good five minute warm up for you all. "
+  },
+  {
+    "start": 3544.05,
+    "end": 3574.101,
+    "speaker": "SPEAKER_02",
+    "text": "This first section, I take enormous attempt to make sure that the content is right because it really builds the foundations of everything else that comes after it. And then it's sort of an exponential growth after people sort of put certain things together. So I've prepared lecture notes for this section, and you are not only encouraged, but you have to sort of go through them because all of that material could be examined. And the link is in my doc homepage. If you also want to catch up on machine learning, I used to teach intro to machine learning in the department for years ago. "
+  },
+  {
+    "start": 3574.821,
+    "end": 3605.082,
+    "speaker": "SPEAKER_02",
+    "text": "And my personal lecture notes for how machine learning neural networks work and how we train them, all of that is also spilled out in all of its glorious detail in the other set of lecture notes I have here. So philosophy aside, language aside, what we really are, we are in the computing department. We are trying to solve some problems. We give you an engineering degree or a science degree. We don't give you a philosophy, unless you do a PhD, I suppose. And there is an initial problem. "
+  },
+  {
+    "start": 3605.142,
+    "end": 3638.305,
+    "speaker": "SPEAKER_02",
+    "text": "We want to solve certain things. And one of the things that people wanted to do was sentiment classification. There was all this social media posts, and there was all this content flying around. I was like, wouldn't it be nice if we just had the machine, a model, and then we just said, OK, well, it will maybe classify for us. So really, it comes down to this representation problem. How do we chuck this sentence, which makes perfect sense to us. We have representations of things. As I said, with the rubber duck, you can imagine certain things. "
+  },
+  {
+    "start": 3638.345,
+    "end": 3670.837,
+    "speaker": "SPEAKER_02",
+    "text": "But with the machine, this is all gibberish to start with. So really, we first have to understand what this representation problem is. We have to appreciate, first of all, that machines work with numbers, right? They have transistors in them, it's ones and zeros, and somehow we need to represent language in the first place. It's almost like the first step is how to get this language and chuck it in there. And we have to somehow allow numbers to represent this language inside machines. And there is a way or a perspective of looking at this that will allow us to transition to this as we go along. "
+  },
+  {
+    "start": 3672.287,
+    "end": 3703.352,
+    "speaker": "SPEAKER_02",
+    "text": "Now, one of the things that people have done, obviously, to make computers work is the ASCII representation. I mean, it's just numbers for letters, and you can sort of use it. And nowadays, I think it's Unicode. And in all of the machines in front of you, the laptops, it processes that and displays you the characters. And it's all nice and fine. It doesn't really tell you how to represent language to a computer algorithm. It just tells you what the association between ones and zeros and characters are. It doesn't have any usefulness beyond translating between a number and converting it back to a character. "
+  },
+  {
+    "start": 3704.172,
+    "end": 3735.757,
+    "speaker": "SPEAKER_02",
+    "text": "So we're really kind of stuck in some sense. And as we embark on this journey, I want you to ask yourselves not only the what that we cover in this course, but also the why. As I've mentioned in the lecture notes, if you had a sneak peek, we're going to go back in time. I want you to think about the context. Some of the stuff we will cover now would look easy because you already have ChatGPT in front of you. It's already like the work is done for you. You've arrived at 2026. But if you go back 12, 15 years, 30 years, some of these things were unknown. "
+  },
+  {
+    "start": 3736.077,
+    "end": 3769.541,
+    "speaker": "SPEAKER_02",
+    "text": "And one of the questions was, how do we represent language? Where do we start? What are the sort of atomic units of it? How do we represent it? So the first thing we do is something called back-of-words or one-hot encoding. It's the most simplest thing that you can come up with It's the most simplest thing you can come up with to represent language. And it's just sort of showcases that certain symbols exist in a language. But before we dive into the actual representation, there's certain terms that we will use a lot. "
+  },
+  {
+    "start": 3769.581,
+    "end": 3802.502,
+    "speaker": "SPEAKER_02",
+    "text": "You would have heard this on the internet as well. And one of them is corpus. So this is a collection of documents that usually NLP practitioners or, in this case, machine learning engineers deal with when it comes to natural language. It's an entire data set, but these days it's also the entire internet. The data set could be the common crawl, which is all websites taken up and turned it into what we call a corpus. A document is just one of those items in our corpus. And again, distinction in LLM error is quite subtle. "
+  },
+  {
+    "start": 3802.682,
+    "end": 3833.027,
+    "speaker": "SPEAKER_02",
+    "text": "It could just be the entire internet. It could be the pages. It could be a Wikipedia page. But usually what is common is a document is typically a sequence. We imagine language to be left to right or right to left. And then there's a sequence of tokens. And this is where the idea of predicting one token at a time comes from. We imagine language to be a sequence. But, you know, you can potentially think about which movie was that, the Arrival movie, where the alien language didn't have time and it would go both directions and so on. "
+  },
+  {
+    "start": 3833.047,
+    "end": 3864.962,
+    "speaker": "SPEAKER_02",
+    "text": "So, you know, you can think of different languages where it's not maybe left to right or, you know, in a sequence that you expect. It could be a spiral. That would be a nice exam question, wouldn't it? Imagine this spiral language. And finally, there's this sort of concept called a token. Now, this is very interesting to me because we used to work with tokens and sort of spoke about tokens in the department, but now it's mainstream. You can go to an LLM API and it will charge you based on the number of input and output tokens that you have. And suddenly tokens, everyone knows what a token is. "
+  },
+  {
+    "start": 3866.35,
+    "end": 3898.895,
+    "speaker": "SPEAKER_02",
+    "text": "So in this context, we are talking about the atomic unit of a sequence. And for the purposes of this course and in the past, this has always been a word. We split the sentences into words. Words get composed together, just like we did with Big Steve. And then you start building up paragraphs and articles and bigger concepts. But this is not always the case. Most modern LLMs have tokenization as at the sub-word level, just like the MetaLlama 3 tokenizer, where it will break up. "
+  },
+  {
+    "start": 3898.995,
+    "end": 3935.288,
+    "speaker": "SPEAKER_02",
+    "text": "So C shells into three sub-tokens. And there's some semantic there. C is used in C shells. So maybe there's some relationship there and so on. And we will see how this is done. And then finally, we have the vocabulary. So if you think about 15, 20, 30 years ago when people used words as tokens, then all the unique tokens was called the vocabulary and it made sense. These days, if someone says you a vocabulary, it's actually the unique tokens in the language. So if MetaLlama3 has a vocabulary size of 128,000, that means there are 128,000 unique tokens that it can process and do something with. "
+  },
+  {
+    "start": 3937.717,
+    "end": 3968.15,
+    "speaker": "SPEAKER_02",
+    "text": "So this is really nice, like in some sense you have a corpus, you have documents, a token that's at the fundamental unit, and then finally you have the vocabulary. And we're revisiting this idea over and over again, and this will evolve from being simple sentences to being the entire internet as you go into scaling era in the last five, six years. So building a one-hot representation is very simple. But again, it's a starting point. "
+  },
+  {
+    "start": 3968.19,
+    "end": 4000.056,
+    "speaker": "SPEAKER_02",
+    "text": "I don't want you to think of 2026. Think of way back when people were trying to think of ways to bring language into machines. We have a document, which is a sequence of a certain length. And then the one-hot encoding of this will be just a sequence of vectors where one indicates the index of where this symbol has occurred in the vocabulary. But it's very simple. And what does this actually tell us? It only tells us that this symbol actually exists. It doesn't tell us anything else. In this document, we have the word this. "
+  },
+  {
+    "start": 4000.496,
+    "end": 4031.783,
+    "speaker": "SPEAKER_02",
+    "text": "We have the word or the symbol movie. And for you, obviously, this is quite obvious. But I could have put triangles and circles. And it would have been the same thing. For someone who doesn't understand English, this would be as alien as it gets. And then the bag of words representation is really the set of these vectors. If you sum it up row-wise, you will get the counts. So how many instances does a word occur in a document? And this was heavily used in information retrieval. Things like TFIDF was the basis, or BM25. "
+  },
+  {
+    "start": 4032.064,
+    "end": 4062.809,
+    "speaker": "SPEAKER_02",
+    "text": "These were the basis of information retrieval systems that you would search. And if you search on Wikipedia, it used systems like this. It would look at the bag of words counting and so on. And it was very efficient. good days, and it was very simple to understand and implement. But there's a problem. If you just pass this to a model, and when we say a model, it could be a neural network, it could be a decision tree, you can use different models along the way from your machine learning days, and you'll notice that it doesn't scale well because it's just looking at the existence of a word. "
+  },
+  {
+    "start": 4062.889,
+    "end": 4093.173,
+    "speaker": "SPEAKER_02",
+    "text": "It doesn't look at the semantics or the relationships of words. And one of the problems is that the definitions don't bear any similarity or context in this world. It just says, oh, well, this word just exists, and it has no relationship to any other word. And if you think about the side-dimensional space where you're projecting these words into vectors, they'll just be orthogonal to each other. There's no useful information to make any sense of them. "
+  },
+  {
+    "start": 4094.513,
+    "end": 4125.611,
+    "speaker": "SPEAKER_02",
+    "text": "They're highly dimensional, with high dimensionality vectors, and they're sparse, so you'll just be interested in the number and not necessarily the vector itself, because the rest is just filled with zeros. And the number, I mean the index of that token or that word. And it uses a fixed vocabulary, and you have to use special things like unknown or sort of different approximations to make sense if you see a previously unseen word. Now there's this thing called WordNet, and I used WordNet a lot. "
+  },
+  {
+    "start": 4126.272,
+    "end": 4157.452,
+    "speaker": "SPEAKER_02",
+    "text": "I remember whenever a problem arised, you would usually go to WordNet in natural language processing, and you would try to rough out the edges. So you would start off doing a task, and you'll see, oh, actually, cat and kitten should be similar. They're just feline mammals. And WordNet offered you that lookup table. It was a manually curated data set. It was used by a lot of researchers to make sense of edge cases. So I trained my model on cat and suddenly kitten appeared. There was some broader concept and ontology that people have built around. "
+  },
+  {
+    "start": 4157.912,
+    "end": 4189.581,
+    "speaker": "SPEAKER_02",
+    "text": "But this was obviously specific to English and it took a lot of effort and you had this And transition from feature engineering, so this was the NLP's version of feature engineering to deep learning systems, which kind of gotten rid of this by adding more data and sort of coming up with algorithms that learn the features for you. But still, it's good to know it exists. If it ever pops up, you now know what WordNet is. And a lot of us researching or studying 10 years ago, 15 years ago, came across it and used it. And I'm just going to stop there. "
+  },
+  {
+    "start": 4189.662,
+    "end": 4227.126,
+    "speaker": "SPEAKER_02",
+    "text": "I'm not going to tell how it went. So it maps similar words together, reduces the vector size, but relies on the completeness of manually curated database, misses out on rare and new meanings. As I said, if you have goblin mode, WordNet will probably not have that in its dictionary, because someone has to go and put it in there. And this ambiguation, as Shurhag mentioned in the introduction, could be some problems. OK. So we've set the scene, and this is in my opinion, one of the critical parts of natural language processing. "
+  },
+  {
+    "start": 4227.146,
+    "end": 4260.772,
+    "speaker": "SPEAKER_02",
+    "text": "So I'm going to slow it down a little bit before we ramp up a bit more when things become more obvious. So this idea of embedding comes up a lot. You would have heard it everywhere. Every language model, every sort of NLP library, retrieval augmented generation, this and that, always slaps you in the face with this idea of an embedding. It could be a word embedding, it could be a document embedding, and they all have the same fundamental underlying sort of structure and sort of intuition, and that's what we're going to look at. And then we're going to look at word embeddings specifically and how to learn them, okay? "
+  },
+  {
+    "start": 4263.132,
+    "end": 4296.262,
+    "speaker": "SPEAKER_02",
+    "text": "Probably this slide is the most important slide for you to appreciate the grand scheme of things of what we're trying to convey. And there's this thing called the distributional hypothesis. And the best way to summarize this is the two people who gave a good description of this. And the idea is that words which are similar in meaning occur in similar contexts. And that was by 1954 guys. The war has finished, life is coming back to normal, and people are thinking about how we can learn representations of words. "
+  },
+  {
+    "start": 4297.442,
+    "end": 4333.849,
+    "speaker": "SPEAKER_02",
+    "text": "Of course, Cold War was coming up, so they wanted machine translation systems. And the other one is you shall know a word by the company it keeps. This is so important, and I'll tell you in the next slide why exactly that is the case. But this applies to all of you here as well. You are not randomly distributed in this room. You're probably sitting next to your friends who maybe speak the same language, maybe take the same courses as you. It's not a complete uniform distribution of students in this class. Right? You can potentially segment them, and I can tell you, okay, tell me who your friends are, where do you sit with them, and I can probably tell you if you take which courses, what do you, like, enjoy doing, what hobbies do you have. "
+  },
+  {
+    "start": 4334.15,
+    "end": 4366.718,
+    "speaker": "SPEAKER_02",
+    "text": "And the same principle applies to language. Turns out that if you look at the word magazine and newspaper, you'll see that they appeared in similar contexts, similar to how you guys potentially sit together. You appeared in similar friendship groups, and the same applies to potentially words or tokens. And in this case, he is reading a magazine. I was reading a newspaper. Oh, that sounds a bit similar, doesn't it? So there's something about magazine and newspaper that might be related. I don't know what it is. This could be a different language for all I know. This magazine published my story. "
+  },
+  {
+    "start": 4366.838,
+    "end": 4401.0,
+    "speaker": "SPEAKER_02",
+    "text": "The newspaper published an article. OK, so there's something about maybe the word published and newspaper. really turns the problem on its head. We go from a philosophical question of what does it mean to what is it similar to. OK? fundamental change in how we approach it. Instead of letting machines understand language at a fundamental level, I'll be like, nope, forget all of that. I just want to understand what different symbols and words are similar to. "
+  },
+  {
+    "start": 4401.52,
+    "end": 4431.659,
+    "speaker": "SPEAKER_02",
+    "text": "And if I find the similarity between these words, then I can potentially use them interchangeably and try to figure out what the person is trying to say. But I can't necessarily say whether ChatGPT understands what it means. That seems to be too philosophical and a human concept to appreciate. But this similarity is different. And the most important thing about similarity is you can calculate it. You can calculate similarity with numbers. And remember, machines like numbers. "
+  },
+  {
+    "start": 4431.679,
+    "end": 4463.5,
+    "speaker": "SPEAKER_02",
+    "text": "So suddenly we transition from my favorite part, which is more philosophical and linguistic, to something a bit more engineering and suitable for the computing department. And that's exactly what we're going to do. So when we look at the motivating example for word similarities, imagine we take these animals and we come up with features of them about cuteness and size. Someone comes along and says, oh, OK, 80, 85, 10, and so on. But it doesn't matter what these numbers mean, nor does it matter if you recognize any of these animals. "
+  },
+  {
+    "start": 4463.94,
+    "end": 4499.239,
+    "speaker": "SPEAKER_02",
+    "text": "The animals could have been symbols. It could have been an alien language, again. It could have been circles, triangles. And there's some features about them. But what you can suddenly do when you come up with these numbers is you can talk about similarity. You can say, oh, actually, elephant and dolphin is similar. I don't truly know what that means, but I can calculate some similarity. And maybe they share some features between them. And in this case, they're of a certain size and of a certain cuteness. Furthermore. "
+  },
+  {
+    "start": 4500.58,
+    "end": 4532.624,
+    "speaker": "SPEAKER_02",
+    "text": "We can calculate this. I can calculate the Euclidean distance between an elephant and a lion. I can calculate the Euclidean distance between a dolphin and an elephant. I don't know what that exactly means. But again, we've now transitioned to solving practical problems. We're not in philosophy land. And Euclidean distance, I'm sure you're all familiar with from delayed algebra, is one way of doing it. And then there you go. I have WASP and hyena. Maybe you've never seen or heard the WASP. You've never seen or heard what a hyena is. "
+  },
+  {
+    "start": 4533.945,
+    "end": 4564.144,
+    "speaker": "SPEAKER_02",
+    "text": "But you can calculate the similarity between the two. And it's 30. That's it. 30. 30. Now, it doesn't sound like much because for us, hyena and wasp are insects, animals. There's so much meaning in there and so on, but a machine will tell you, oh, it's dirty. And there is some usefulness in this, quite a fundamental usefulness in transitioning out of it. And you can see these are numbers, so we can work with them. "
+  },
+  {
+    "start": 4565.717,
+    "end": 4599.736,
+    "speaker": "SPEAKER_02",
+    "text": "So I can calculate the distance between horse and a pig. That doesn't sound as interesting to us. What does it mean to calculate the distance? I mean, if a horse and a pig was in a field, you can calculate the distance physically between them. And there's some reality associated with that. But in our numbers world, that reality doesn't really exist. It's some features. And those numbers will be learned by a machine learning process. And similarly, I can calculate the distance between mouse and lion. Maybe there's some association between them. And what's really interesting is that it also works in higher dimensions. "
+  },
+  {
+    "start": 4599.956,
+    "end": 4631.267,
+    "speaker": "SPEAKER_02",
+    "text": "You know, you can add ferocity as another feature. You can add more features. This is where I would walk, but unfortunately the microphone's here. But you get the idea. This will extend to higher dimensions. In fact, it will be extended to 100. We will extend it to 384, I think is what Bert used. And then let me see if I can remember. 1,536 is, I think, what ChatGPT uses or used to use last time I checked. So imagine 1,536 numbers describing a word or a sentence. "
+  },
+  {
+    "start": 4633.969,
+    "end": 4669.261,
+    "speaker": "SPEAKER_02",
+    "text": "Let's see if this works. Or maybe it doesn't. It's just a video of a three-dimensional thing. You can look at it at your own time. Oh, yeah, there you go. So now these animals or these symbols live in some three-dimensional space, right? Each axis potentially means something, but it's probably a mixture. So we're not quite sure what it might actually correspond to, but there is some relationship between that. This is not necessarily part of the course, but I wanted to show you how this could extend to other areas. "
+  },
+  {
+    "start": 4669.301,
+    "end": 4701.302,
+    "speaker": "SPEAKER_02",
+    "text": "And this was a research I've done in 2018. And we were trying to solve logic programs with neural networks. And I investigated what the internal representations of neural networks would be if you were giving predicate logic. So as you can see in this case, the symbols are organized in terms of the predicate into columns and the constants organize themselves into this three-dimensional space. The model is able to differentiate between predicates and constants in that space. "
+  },
+  {
+    "start": 4701.362,
+    "end": 4735.372,
+    "speaker": "SPEAKER_02",
+    "text": "There is an area of research called mechanistic interpretability. You might have heard it in the news. It's usually led by Anthropic. There's a really good team there. They really try to understand the internal representations of their model's cloud and why does it, for example, predict certain things when you ask it. So if we're in numbers land, we can also use a different measure. And the other very common one, if not the one that's used, is the cosine distance or the cosine similarity between these two points. And points would be words or symbols or tokens or documents as it comes along. "
+  },
+  {
+    "start": 4739.063,
+    "end": 4775.503,
+    "speaker": "SPEAKER_02",
+    "text": "The cosine distance measures now the angles between these two things, and if you normalize them, then the magnitude at the bottom will be one, so it just becomes the dot product, which is very convenient, right? GPUs love that, and we can sort of process the similarity of many different entities really quickly. There is also a relationship between Euclidean distance and cosine similarity. I have mentioned it in the lecture notes. So if your vectors are normalized, they will become equivalent to a certain constant. So again, this intuition, this change, I really want you to understand. "
+  },
+  {
+    "start": 4775.683,
+    "end": 4809.571,
+    "speaker": "SPEAKER_02",
+    "text": "What we've done is we've created continuous numerical representations. to group things together, right? We're not necessarily venturing down the route of what does it mean. We're sort of trying to venture down the route of what is it similar to. And we can apply functions over these vectors to measure similarity. That's effectively screaming out to you, say, that's a computation. Machines can do that. And we looked at two kinds of distances, which is Euclidean and cosine, and we will move on from there. So how does this actually look like in word vectors? "
+  },
+  {
+    "start": 4809.591,
+    "end": 4840.331,
+    "speaker": "SPEAKER_02",
+    "text": "So we will go back to 2013, maybe 14. Actually, I have the paper here. 2013. It was submitted on 7th of September, 2013. And the idea of converting words into vectors and how we can learn them. So this is now a numerical definition of a word. And we don't know what each dimension means. And it looks something like this. Now, this is not as good as the cuteness and the size features, right? "
+  },
+  {
+    "start": 4840.511,
+    "end": 4873.91,
+    "speaker": "SPEAKER_02",
+    "text": "It seems quite random, and you can't really tell which feature corresponds to which property of a word. But in this expanse of numbers and vectors, so there is some potential similarity between these words. And if we look at, for example, this particular column, you might maybe notice, oh, maybe it's actually related to features like long hair or dress. This one's a bit more obvious. It seems to be higher when you're talking about a king or a queen, but not so much when you're talking about man and woman. "
+  },
+  {
+    "start": 4874.23,
+    "end": 4905.783,
+    "speaker": "SPEAKER_02",
+    "text": "And maybe it might be related to royalty. And here are some other words taken from the actual embeddings done by these researchers. You can see that, you know, obviously TV is very different to man and woman. But what's fascinating is you can cluster them. Just like you guys sat together today, these features that we have created allows us to form similarity between them and maybe interchange these words together. "
+  },
+  {
+    "start": 4905.883,
+    "end": 4937.727,
+    "speaker": "SPEAKER_02",
+    "text": "Remember this problem of cat and kitten and there was like feline mammals? You can see some grouping happen in this high-dimensional space. Well, in this case, it's... project it down to two dimensions. So ball, pitch, kick, these all group together. These are words that are maybe used in similar ways. And they have some intrinsic connection between them. So the key takeaway is that similar words will have eventually similar vectors. And we will find a way to actually obtain these similar vectors. "
+  },
+  {
+    "start": 4940.848,
+    "end": 4971.978,
+    "speaker": "SPEAKER_02",
+    "text": "So that brings us to this idea of, well, actually, I have this idea. I have some numbers I don't know. But I have to find them. And someone knocks on your door and says, have you tried machine learning? Most of the problems in the department has eventually switched to, have you tried machine learning? Why don't you let the machine come up with these numbers and make sense of these words? And that's where we come in. So this idea of we want to machine learn fixed dimensional dense representations of these words. "
+  },
+  {
+    "start": 4972.018,
+    "end": 5012.816,
+    "speaker": "SPEAKER_02",
+    "text": "So this is the paper that was published in 2013. As Chirag said, there's some seminal papers. I encourage you to go and read it. And it's titled Efficient Estimation of Word Representations in Vector Space. That's exactly what we're building up to. And I'll read the abstract for you to appreciate what's going on. We propose two model architectures for computing continuous vector representations of words from very large data sets. It's a great opening. The quality of these representations is measured in a word similarity task, and the results are compared to the previous best performing techniques based on different types of neural networks. "
+  },
+  {
+    "start": 5013.985,
+    "end": 5049.909,
+    "speaker": "SPEAKER_02",
+    "text": "We observed large improvements in accuracy at much lower computational cost. It takes less than a day to train high quality word vectors from a 1.6 billion words data set. So it took them less than a day, and that was really good back then, from 1.6 billion words. Imagine if you printed that, you'd probably go to the moon and back several times. Don't fact check that. OK? So the last sentence is, furthermore, we show that these vectors provide state-of-the-art performance on our test set for measuring syntactic and semantic word similarities. "
+  },
+  {
+    "start": 5050.229,
+    "end": 5082.317,
+    "speaker": "SPEAKER_02",
+    "text": "OK? So it's all contained here. This paper describes a fundamental change that actually we can use word representations, and we can scale them up to 1.6 billion words, and then hit the train button, and then something will happen. OK? And this is the word-to-vec idea. So they propose these two models here. And there are two models. There's the continuous fag of words representation, and there's the skip gram model. That's what the two models that they're referring to. And the training strategy was twofold. "
+  },
+  {
+    "start": 5082.337,
+    "end": 5112.549,
+    "speaker": "SPEAKER_02",
+    "text": "There was either hierarchical softmax, and there was negative sampling. So for this course, we're going to look at skip gram, which is slightly different than what you would expect. And there is negative sampling, which will look at how to scale this up to better problems further down the line. But I strongly encourage you to read it. It's very friendly. Look at this first sentence. It says, many current NLP systems and technique words treat words as atomic units. There is no notion of similarity between words, as these are represented as indices in the vocabulary. "
+  },
+  {
+    "start": 5112.569,
+    "end": 5142.71,
+    "speaker": "SPEAKER_02",
+    "text": "Does that sound similar? That was one hot encoding. So they go on about detail and present it. And I encourage you to read their introduction and understand what 2013 looked like in natural language processing. So I will obviously give you the easier version in the slides and help you understand. You don't have to read the full paper. I strongly encourage you to do so. So the idea was we would come up with this target word that we want to learn its representation of. "
+  },
+  {
+    "start": 5144.1,
+    "end": 5175.38,
+    "speaker": "SPEAKER_02",
+    "text": "And this target word, let's say in this case, is riding. I want to learn some numbers that represent the word riding. And then to do that, I'm going to look at Which other words riding spends its time with? Is it hanging out with bicycle? Is it hanging out with demolition? What does riding spend its time with? Is it hanging out in the pub? Is it hanging out with the other context words it's around? So I'm going to look at this data set. And every time I see the word riding, I'm going to look at its neighboring words. "
+  },
+  {
+    "start": 5175.68,
+    "end": 5206.917,
+    "speaker": "SPEAKER_02",
+    "text": "And that will be our context. We will refer to this a lot. And that context has a certain window size. So I'm not going to look at the entire document or the entire corpus. I'm going to look at a certain size around this one. And hopefully, this will tell me something about the word writing and what it goes with. So if you're learning a second language, usually we teach it with this idea of fill in the blanks. "
+  },
+  {
+    "start": 5207.665,
+    "end": 5249.643,
+    "speaker": "SPEAKER_02",
+    "text": "Raise your hands if you have done fill-in-the-blanks exercises when you were learning a language. Yes, there we go. I remember there used to be this, like, oh, XYZ went to the groceries, picked up blank. I'm like, what? And, oh, I would always go for banana. Well, it was in French, but I would just type banana every time. And the idea is the same, okay? So if you're learning a language, you want to fill in the blanks. And the researchers were like, why don't we do this with machines? Let's see if they can fill in the blanks effectively. And that question mark in the middle is the blank. "
+  },
+  {
+    "start": 5250.784,
+    "end": 5281.373,
+    "speaker": "SPEAKER_02",
+    "text": "So we want the model to get the words around it in the continuous bag of words, sum them up, and then say, can you predict me the words that's missing? So in this case, it would be writing. Fill in the blank. So this is continuous bag of words. And this is maybe a bit more intuitive for you guys, right? There's one word that's missing. In the skip gram model, it's the other way around. We will give the word riding and ask the model to fill in the blanks around it. So which words does this word hang out with? "
+  },
+  {
+    "start": 5281.413,
+    "end": 5312.396,
+    "speaker": "SPEAKER_02",
+    "text": "Oh, riding will hang out with bicycle. It may be hanging out with roads and other things that come out in that data set. So again, it's a fill-in-the-blanks problem. And this time, we just use the representation of the single word, and then we try to predict all the context words around it. I'm just checking before you all fall asleep at 5.30 PM how dense we can go here. So luckily, this model is quite simple. I don't know how we'll survive the later weeks at 5 PM, but we'll manage. "
+  },
+  {
+    "start": 5315.392,
+    "end": 5348.248,
+    "speaker": "SPEAKER_02",
+    "text": "So as I said, we're trying to do fill-in-the-blanks exercises. Your model is built from two vectors. Now, it's represented as two matrices. But in summary, what we have is two vectors, one that is the vector of the word that we're inputting. And then there's also the context vector, which is the columns of the other one. And then we will take the dot product of these to come up with a prediction of the target word. I wish I could point and explain. "
+  },
+  {
+    "start": 5348.828,
+    "end": 5379.696,
+    "speaker": "SPEAKER_02",
+    "text": "So imagine the world is coming in as writing, and then we take the vector of that world, we index into this matrix. There's some numbers in there. And then that outcomes a hidden representation of the world writing. And then we'll be like, OK, I will now take the dot product with all the other words and see which ones it's similar to. So this is your cosine similarity in action using vectors. So it's really, I want you to think of it as two vectors interacting with each other, but they're represented as matrices. "
+  },
+  {
+    "start": 5379.716,
+    "end": 5416.359,
+    "speaker": "SPEAKER_02",
+    "text": "So every row of the matrix is one vector, and the other matrix is the context vector, and the interaction between the two of them will tell us if a word is similar or not. So in this particular representation, I have to say I have inherited these slides. So bear with me as we go through some of these examples. So we start with the one-hot representation of our input word. So writing is the word that we're interested in. And then we take the vector of that word. So when you do the matrix multiplication of the one-hot encoding with the matrix, that just picks out the row. "
+  },
+  {
+    "start": 5416.739,
+    "end": 5447.637,
+    "speaker": "SPEAKER_02",
+    "text": "It's like an index. It's like a lookup. It's not really a big computation. And then that gives you the representation of writing. So this H1, H2, H3 to Hn is this really long vector. I mean, it could be 100 dimensions, it could be 300 dimensions, and so on. So we do that multiplication. And then we take the other matrix and then multiply it with the word's representations there, which is the context representation. It says, I have the word writing. Which one of you want to be similar to it? "
+  },
+  {
+    "start": 5447.877,
+    "end": 5483.184,
+    "speaker": "SPEAKER_02",
+    "text": "So it's like asking, I pick one of you, and I say, okay, you have a vector, and now you tell me which are your friends. Who is your friend? And then you will give me a selection of people that go around, and then you can also say, oh, well, actually, I'm good friends with that person. I'm less friends with that person. And then that will come out on the other end as y prime. So that softmax of y at the end will give you a distribution of the words that we're interested in. So we would maybe expect bicycle to be high on that probability distribution. It could have a high similarity to the word riding because they appear and are used in similar contexts. "
+  },
+  {
+    "start": 5485.34,
+    "end": 5516.362,
+    "speaker": "SPEAKER_02",
+    "text": "So to summarize, what we actually have is the one hot encoding of the word that comes in. This could be an index lookup as well. I will explain what that means. We get the embedding of that word. So that is the embedding, the famous embedding that's been going around. This is where it kind of starts. And then we sort of multiply it with the representations of the other words in W prime. And then we sort of get a score for each word. And then we take the softmax to turn it into a probability distribution. "
+  },
+  {
+    "start": 5516.402,
+    "end": 5549.015,
+    "speaker": "SPEAKER_02",
+    "text": "And that says, oh, actually, the similarity between these words is distributed like this. So two matrices of embeddings without a nonlinearity. This is quite unusual these days. And so this is a linear model. And we're trying to directly optimize the target embedding from w to be similar to the context embedding from w prime. Okay? So there is like a hidden step in the middle. That's the representation we're trying to learn. Now when you design machine learning models and in your coursework, you will take this leap of faith, right? "
+  },
+  {
+    "start": 5549.415,
+    "end": 5580.113,
+    "speaker": "SPEAKER_02",
+    "text": "There is this idea, there's this model, it's computing similarities and so on, but when you initialize this, it will be filled with random numbers and it will do nothing. It will be absolute garbage in predicting anything. But that's a leap of faith. You're going to say, well, I give the ability, I imagine the model potentially using this representation, and using this architecture to make something out of it. And then that gets plugged into gradient descent, and then gradient descent starts to search for numbers, and then your loss hopefully goes down, and you seem like the model is learning something. "
+  },
+  {
+    "start": 5582.194,
+    "end": 5612.685,
+    "speaker": "SPEAKER_02",
+    "text": "If you don't have gradient descent, we used to joke in the department that you have postgraduate descent, where you assign more postgraduate students to the problem, and eventually the loss goes down. In this case, gradient descent is more than sufficient. But imagine you don't know the answer to these problems, right? 2013, 2014. You just don't know if this thing is going to work or not. So there is a lot of tweaking. When I just go like, boom, here's Skipgram. Here's the paper that's published. It's like, oh, yeah, this could work. Like, I can imagine how this would compute the similarity. "
+  },
+  {
+    "start": 5612.725,
+    "end": 5646.452,
+    "speaker": "SPEAKER_02",
+    "text": "There's vectors and multiplication. And there's some similarity computation between the two. But when you're first doing it, and as you would in your coursework, there's a leap of faith. You actually don't know if this thing's going to work and you have to keep tweaking it and so on. And that's part of the research of this process. So just to visualize it a bit more, so how would the data set or the training examples look like? So we take a target word, let's say we take brown, because it has a bit more context there, and then we put all the pairs that appear in the context to brown and say, look, brown happens with jump, brown happens with quick, and so on. "
+  },
+  {
+    "start": 5646.552,
+    "end": 5676.708,
+    "speaker": "SPEAKER_02",
+    "text": "And ideally, we would like brown and the representations of these other words to be similar to each other, because they're in the same friendship group. They appear together in our natural language. So you do this for 1.6 billion words, by the way, not just for five sentences. The scale really matters here for you to come up with useful stuff. And then we say hello to this objective function. "
+  },
+  {
+    "start": 5677.208,
+    "end": 5709.324,
+    "speaker": "SPEAKER_02",
+    "text": "And it's really the negative log likelihood. There is really no surprises. If you have done machine learning in last term or you have seen this equation a lot, it's the negative log likelihood of this objective function that we've just described. So what we want to do is we want to maximize the probability of observing a context word Wt plus j given a target word t. And theta are the parameters. Now, we will derive this because, at least personally, whenever I see an equation that pops back at me, I'm like, what is this? "
+  },
+  {
+    "start": 5709.945,
+    "end": 5742.394,
+    "speaker": "SPEAKER_02",
+    "text": "What's happening? There's a lot of subscripts and sort of summations. So I'm just going to take this, let's say, 60 seconds to break it down for you. So this is what we want to do. We want to say, oh, actually, in this data set that we have, the word brown occurs with the preposition the. So Wt is brown. Wt plus j is the. And I want the model to maximize this. I want to say, look, model, please, can you give me a higher probability for this word? "
+  },
+  {
+    "start": 5742.434,
+    "end": 5779.741,
+    "speaker": "SPEAKER_02",
+    "text": "Because they appear together in my data set, in my corpus. And I want to be able to do this for every context word. Remember, if the window size is two, there's four of these things every time. And there's potentially larger context window sizes that you can play around with. That is a hyperparameter. And then I would like to do this for every target word. I can't just do it for one. I'd like to do it for every 1.6 billion words I have in my corpus, in my vocabulary. So to maximize that in gradient descent, we usually use the minimizing the negative of that. "
+  },
+  {
+    "start": 5779.761,
+    "end": 5818.51,
+    "speaker": "SPEAKER_02",
+    "text": "So we want to optimizations usually consist of minimizing the loss function. So we do the minimization of the negative of that. And then to not deal with multiplication, we apply the log. And when we apply the log, we propagate it through. And then we end up with this standard negative log likelihood objective that you might have seen. OK? And finally, when you plug this all together with the softmax, you say, well, where does this probability come from? Remember, these are numbers. So if you ever find yourself reading a paper or someone talking about negative log likelihoods or probability distributions, it all boils down to some numbers, and they come from somewhere. "
+  },
+  {
+    "start": 5818.53,
+    "end": 5856.83,
+    "speaker": "SPEAKER_02",
+    "text": "We calculate them. And in this case, the actual probability distribution comes from the softmax function we applied at the end. So we compute the dot product of all of them, and then we normalize them to a probability distribution using softmax. I hope that was helpful. I think we sometimes skip this because we expect you to already know what's happening. So using board embeddings, is the key part. We go all the way back to the initial problem and say, OK, well, I wanted to create the sentiment classification and save Twitter from dying a horrible death because everyone's posting negative stuff there. "
+  },
+  {
+    "start": 5857.251,
+    "end": 5887.533,
+    "speaker": "SPEAKER_02",
+    "text": "I want to now optimize this, and I want the model to automatically filter this stuff out. People still use stuff like this to do financial news analysis. Is it positive? Has Trump said something bad? Or did he say something positive? And then you need to act faster than a human can. And sentiment analysis in some niche areas are still used. And you have to be very efficient and fast in doing that. So you can't just wait for ChatGPT to analyze a news article and give you a sentiment. By that time, the trade might have already been gone. "
+  },
+  {
+    "start": 5888.973,
+    "end": 5921.892,
+    "speaker": "SPEAKER_02",
+    "text": "So we use Word2Vec. We take all of those tokens, and then we use their Word2Vec representations. Instead of relying on cat or kitten specifically, we're like, OK, well, what's the representation of these words? And hopefully, these are similar together. So we've grouped up this data together. And now, if I pass those to my model, my model is much better at generalizing. It doesn't need to learn the specific words. It just needs to learn what these groupings are in this high-dimensional vector spaces. So it's a very big step forward of getting away from specific symbols and uniques. "
+  },
+  {
+    "start": 5921.912,
+    "end": 5954.759,
+    "speaker": "SPEAKER_02",
+    "text": "You just go for the embedding. And it's so common that almost every model nowadays will start with an embedding. It will never start with the raw tokens that you work with. You will always embed them into a high dimensional space. And this is where these embedding matrices come from. Transformers have them. RLNs will have them. Almost all natural language processing models we look at will have this embedding stuff there. And the key thing about this is that it's like a lookup table. So most libraries like Keras or TensorFlow will actually present it as a lookup table. "
+  },
+  {
+    "start": 5954.839,
+    "end": 5991.046,
+    "speaker": "SPEAKER_02",
+    "text": "So you will see, OK, what is the index of this word? Let's say it's, I don't know, 220,000. It's just a number. And then you will take that row from that learnable matrix. And that will become your embedding. And you pass that upstream. And then you do back propagation and stuff. And your entire transformer model learns that representation for you. So it's a normal weight matrix. You learn it through gradient descent, even if it's part of larger models. It's not something that's standalone. Now, let me just think how much time we have. "
+  },
+  {
+    "start": 5997.047,
+    "end": 6027.785,
+    "speaker": "SPEAKER_02",
+    "text": "Just quickly checking before everyone falls asleep. Okay, I'll give you a hint of this. Give me five more minutes, and then we'll break. And I promised to go to the overflow lecture to answer some of their questions afterwards. So, there is a small problem when you do this. Forget what the problem is for a moment. Just appreciate that there is a problem, okay? Whenever you do things like this, it's not just going to work because you're now going from theory to practice. "
+  },
+  {
+    "start": 6028.385,
+    "end": 6059.07,
+    "speaker": "SPEAKER_02",
+    "text": "And that's when you have to put in the engineering work. You suddenly realize, oh, actually, this denominator is really expensive. And I mean, 100K is not as large. And in this case, it was 1.6 billion words, right? That is a really big denominator. That summation is going to not scale well. And this is where the idea of negative sampling comes into. Instead of saying, I want to compute the softmax of everything, I'm just going to approximate it. I'm just going to take a word that I know is in the context, which is your left-hand equation. "
+  },
+  {
+    "start": 6059.09,
+    "end": 6090.802,
+    "speaker": "SPEAKER_02",
+    "text": "So the probability of d equals 1, given the target word and its context. And then I'm going to add some noise words into it, which I know is not in the context of that word. I'm going to sample these randomly. So I'm going to change my objective from being this negative log likelihood across the softmax that we calculated. I'm going to split it into two. I'm going to say, model, please predict 1 for the words that are in the context of this word, and predict 0 for the words that are not in this context, which I will call noise words. "
+  },
+  {
+    "start": 6093.282,
+    "end": 6126.908,
+    "speaker": "SPEAKER_02",
+    "text": "So this now becomes a binary classification problem. We're now calculating the probability of seeing the word in the context or not. So we're just asking yes or no, yes or no. And then every time we do this, we'll give it a positive example of a yes. And then we'll also give it a noise word where we want to predict no. And that's the two equations. I think I'll do the derivation of this on Thursday because I don't think I can derive the gradients right now. Approximate expectation by drawing K contrastive words. "
+  },
+  {
+    "start": 6126.948,
+    "end": 6163.844,
+    "speaker": "SPEAKER_02",
+    "text": "You take K of these and then you try to approximate it. If you took all of the noise words, then you will essentially get something very close to softmax. If you only take a couple, you speed up the process. You don't have to compute the softmax, but you're approximating it. But when you do this over many training iterations, you start to see that the model converges to something useful. And here is the example of it. So you see that here is the word that we were considering, and then we suddenly say if K was one, we pick one random word, like sheep, and it says, well, it doesn't appear in the context at the moment, so we will ask the model to predict that's not in the context, please. "
+  },
+  {
+    "start": 6164.345,
+    "end": 6194.438,
+    "speaker": "SPEAKER_02",
+    "text": "So adjust the representations of these accordingly. And I will, as I said, I will do this on Thursday, I think, to see how exactly that happens. We will really need to hammer that down. There can't be any magic here. But I don't think I can derive it right now. So one final thing is that we transitioned from a softmax function to a sigmate function. So we now have this logistic function that's applied. And the model is effectively a binary classification task now. "
+  },
+  {
+    "start": 6194.498,
+    "end": 6227.004,
+    "speaker": "SPEAKER_02",
+    "text": "So we just ask it yes or no for each possible context word that we've obtained in the data set. And finally... How many do you want to take noise examples from your data set? Five to 20 works well for smaller data set. How do we know this? Well, we try both. We're like, oh, my experiments are running. Means basically I've tried all of these combinations of hyperparameters, and I'll see what works and what doesn't. Otherwise, you can take two to five negative words if you have a lot of these. I think we will recap this section. "
+  },
+  {
+    "start": 6227.064,
+    "end": 6254.777,
+    "speaker": "SPEAKER_02",
+    "text": "It's quarter to, and I know we started a bit early, so I will stop here. I will recap the negative sampling part on Thursday. So I hope you enjoyed the opening section. As I said, there's different ideas going around and different segments going around. But if it's something that you're interested in and you want to continue, we will continue on Thursday where I will recap negative sampling and maybe reveal some backstory of Big Steve if you are in this lecture theater. All right, thank you very much, and I hope you have a nice evening, and I'll see you on Thursday. "
+  }
+]

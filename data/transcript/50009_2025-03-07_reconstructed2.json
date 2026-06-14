@@ -1,0 +1,548 @@
+[
+  {
+    "start": 0.516,
+    "end": 59.409,
+    "speaker": "SPEAKER_00",
+    "text": "I did try getting the question sheet up on the computer, but it didn't load. So it's on my laptop. But I think that's OK, because if it turns off and on again, I think that's fine for the tutorial sheet. That's all we're doing today, the tutorial sheet. Have you taken a look at it? That's OK. These are actually pretty straightforward. Maybe I'll wait another minute to get started. How are you finding this half of the module so far? Excellent. So we're actually a lecture ahead right now, because I did three and four in the same one. "
+  },
+  {
+    "start": 59.99,
+    "end": 92.431,
+    "speaker": "SPEAKER_00",
+    "text": "I don't know why I thought each of them by themselves would take a whole hour. So that leaves us an hour. So we're an hour ahead right now. And I was thinking of talking about how some of the theory solvers work in practice as well. Because something that we don't really talk about is So we talk about theory solving abstractly. We do a bit of the SAT solver, and then we pass it to a theory solver. "
+  },
+  {
+    "start": 92.612,
+    "end": 124.283,
+    "speaker": "SPEAKER_00",
+    "text": "But maybe I'll talk a bit about theory solving as well, because I think there's a pretty cool method for solving linear integer arithmetic. It's not the simplex method, but there is a simplex solver as well. Hello. "
+  },
+  {
+    "start": 124.903,
+    "end": 161.516,
+    "speaker": "SPEAKER_00",
+    "text": "Should we get started? I think we can get started. At least one is pretty straightforward. I think I can probably do most of the tutorial sheet today. So I think I can even do all of these questions. So in the first case, all we're doing is boolean constraint propagation on these formulas. "
+  },
+  {
+    "start": 161.576,
+    "end": 195.666,
+    "speaker": "SPEAKER_00",
+    "text": "Nothing special, nothing fancy. So in the first case, we need to find any unit clauses. I think all of these have unit clauses. Otherwise, you would just say, we're done. So for A, the unit clause is A. So we would force that to be true. So A, true. And then we end up with a sub-formula of this. "
+  },
+  {
+    "start": 196.947,
+    "end": 201.93,
+    "speaker": "SPEAKER_00",
+    "text": "So that would be not A, odd with C, odd with not D. "
+  },
+  {
+    "start": 214.54,
+    "end": 249.876,
+    "speaker": "SPEAKER_00",
+    "text": "So we've gotten rid of the unit clause and we've gotten rid of the first clause as well. Hang on. We can go a step further as well. I think we can get, we replaced the not As with falses. Yeah, that makes sense. Hello. So now what we can do is we can do a bit more boolean constraint propagation. We have this one here. "
+  },
+  {
+    "start": 253.705,
+    "end": 284.518,
+    "speaker": "SPEAKER_00",
+    "text": "to indicate that it's because of that. And what we find is this ends up with, well, we satisfy this formula clause. We satisfy this clause. And what we're left with is d. So obviously that means that we propagate d must be true. And I guess we're left with just the empty clause. which I think just says true. "
+  },
+  {
+    "start": 284.538,
+    "end": 316.023,
+    "speaker": "SPEAKER_00",
+    "text": "Does that make sense? Cool. Yeah, pretty straightforward. All of this is actually pretty straightforward. Maybe the proofs might be a little bit trickier to get, but compared to other types of proofs, this is sort of a walk in the park. So in the first case, again, we have R. "
+  },
+  {
+    "start": 316.083,
+    "end": 349.528,
+    "speaker": "SPEAKER_00",
+    "text": "I'm not going to write the original formula out again. The final clause means R is true because it's unit. Then what we have is P or with Q or with false, false D. Second clause is true. So we're left with just two clauses. Yeah. And I think, no, hang on. "
+  },
+  {
+    "start": 351.669,
+    "end": 383.98,
+    "speaker": "SPEAKER_00",
+    "text": "Yeah, I think that's it. I think that's what you're left with, right? So BCP obviously isn't enough to solve this, this formula, because you're left with P or Q. and with p or not q, which obviously just depends on the value of p, but the question's regarding just boolean constraint propagation. That's right. "
+  },
+  {
+    "start": 385.681,
+    "end": 387.182,
+    "speaker": "SPEAKER_00",
+    "text": "Happy with that? Cool. "
+  },
+  {
+    "start": 404.98,
+    "end": 439.151,
+    "speaker": "SPEAKER_00",
+    "text": "Oh, this is an easy one. Not Q is the unit clause. So this is just the same as writing this. But I tend to always, well, actually, I'm probably not consistent with how I write it. So any of these ways is fine. That's true. What we end up with is P augment that. "
+  },
+  {
+    "start": 440.752,
+    "end": 513.912,
+    "speaker": "SPEAKER_00",
+    "text": "And then we have not Q ended with not P. You might see where this is going. P must be true. Then we end up with R, well, R would be nothing. So then we have R is true as well. And we're done. Have I made, oh, is that not R? No, we've gotten rid of the, What do you mean? This is C. Did I just miss the negation? Done. Okay. Yeah. Yeah. Nice. That was an easy one to fix. "
+  },
+  {
+    "start": 528.127,
+    "end": 558.9,
+    "speaker": "SPEAKER_00",
+    "text": "Last one. Okay, let's try and not make a mistake here. And the unit clause. What we have then is We've gone rid of the not A. "
+  },
+  {
+    "start": 560.26,
+    "end": 591.987,
+    "speaker": "SPEAKER_00",
+    "text": "Not B. And then run out of space. Not D. Sort of going down. OK. B is the next one. "
+  },
+  {
+    "start": 593.028,
+    "end": 640.263,
+    "speaker": "SPEAKER_00",
+    "text": "I think we probably all had the hang of this after the first one, actually. So we're left with, I'll see if I can fit this in. Let's see. Got rid of that. You can probably see there's a big old chain happening here. Okay. Obviously. "
+  },
+  {
+    "start": 665.515,
+    "end": 670.638,
+    "speaker": "SPEAKER_01",
+    "text": "Is this one unsat? That's going to be forced. "
+  },
+  {
+    "start": 670.979,
+    "end": 777.42,
+    "speaker": "SPEAKER_00",
+    "text": "That's going to be forced. I think, yeah, it's going to be unsat. That was this one. And then we have D2O. I'm going to reduce all of them together now. I should have done that earlier. Yeah, I mean, if you have change of these showing up, I'm not going to mark you down, but simplifying it. What I would say is, if you could write, that's what you've done. That would be useful for me. But I'll probably be able to tell. Are you marking the column? Yeah. That's what they have to do. Whoever lectures the course writes the exam question, and then they have to mark the exam question as well. What's the courses with ? They have to mark all of them. I feel bad now. . it's not that bad it it goes quickly uh yeah and then we have so then yeah which is i guess you would choose something like i'm only doing this because it says boolean constraint propagation so i'm forced i'm forced to do it so then we have Ordered no. "
+  },
+  {
+    "start": 780.446,
+    "end": 787.561,
+    "speaker": "SPEAKER_00",
+    "text": "So it's unsigned. Make sense? "
+  },
+  {
+    "start": 809.322,
+    "end": 847.409,
+    "speaker": "SPEAKER_00",
+    "text": "I think the next one's a bit more interesting. Oh, OK, yeah. OK, so I think there's two questions on proofs. I think we'll get through both of them today, so you don't really have to worry about it. You've probably already done proofs as well, anyway, right, last year? Like, proving something? So all we need to do here is prove that the two different formulas are equi-satisfiable. "
+  },
+  {
+    "start": 847.669,
+    "end": 881.458,
+    "speaker": "SPEAKER_00",
+    "text": "I've not even read the first bit. I will, but eventually. And to show that, all we need to do is show two conditions, and that would be C1 and C2 is, if it's satisfiable, then this implies that It's OK, he'll come back, I think. Yeah, so that's one condition that we need to prove. "
+  },
+  {
+    "start": 883.158,
+    "end": 926.651,
+    "speaker": "SPEAKER_00",
+    "text": "And then the other is obviously the other way around. So we don't have any particular constraints on actually what the assignment is. I mean, obviously they'll be similar. But this is all that we care about to show equisatisfiability. Yeah, does that make sense? Because then you have something like, all I've done here is break down the if and only of sign, which is just like, I put sat to mean satisfiable. "
+  },
+  {
+    "start": 926.671,
+    "end": 949.088,
+    "speaker": "SPEAKER_00",
+    "text": "That's all I'm showing. Anyone have any ideas on how I'd show 1? So it's basically an if and then a then. So if C1 is handed with C2, it's satisfiable, and CR will be satisfiable as well. "
+  },
+  {
+    "start": 959.181,
+    "end": 992.397,
+    "speaker": "SPEAKER_00",
+    "text": "Sorry? Yeah, so I can just say, like, well, I'll write it soon. So given this assumption, now I need to show that, okay, that's definitely getting worse. I did try and load the question sheet up on the computer, but the sheet wasn't loading, so I just didn't do it. "
+  },
+  {
+    "start": 993.398,
+    "end": 1041.427,
+    "speaker": "SPEAKER_00",
+    "text": "So now we need to say, we need to go from this case to show that when this is true, we'll be able to find some satisfying assignment for CR as well. So maybe, how do I say this right? So if C1 and C2 are satisfiable, then that means we can find a full assignment for them. So maybe I'll write... This is basically the same. "
+  },
+  {
+    "start": 1041.567,
+    "end": 1072.225,
+    "speaker": "SPEAKER_00",
+    "text": "This is the same thing as the assumption that we have. Because we know that we can find at least one A, which is a satisfying assignment to C1 and C2. And now what we need to do is somehow transform A in, I guess, a fixed way. Fixed might be the wrong word. But transform A to show that whatever we transform A into will also be a satisfying assignment for C1. "
+  },
+  {
+    "start": 1085.937,
+    "end": 1092.402,
+    "speaker": "SPEAKER_00",
+    "text": "It's getting worse. It's definitely getting worse. Anyone have any ideas? "
+  },
+  {
+    "start": 1093.803,
+    "end": 1095.685,
+    "speaker": "SPEAKER_01",
+    "text": "Would it satisfy the C1 and C2 ? "
+  },
+  {
+    "start": 1107.712,
+    "end": 1130.653,
+    "speaker": "SPEAKER_00",
+    "text": "I don't think so, because CR isn't the OR of C1 and C2. It's not the OR of C1 ORed with C2. It's C2 prime and C1 prime, which are like sub clauses of C1. So we have to do something with the L. "
+  },
+  {
+    "start": 1140.846,
+    "end": 1154.273,
+    "speaker": "SPEAKER_00",
+    "text": "Yeah, we need to show that, I think. I think cases is a good way to go. So... "
+  },
+  {
+    "start": 1166.522,
+    "end": 1220.787,
+    "speaker": "SPEAKER_00",
+    "text": "Should we start with the case where... Let me just start with that side. I think the cases might be L is true and L is false. That's not about right. Okay, so... Clearly, because it's a satisfying assignment to C1 and C2, then that means what we have, I guess we could rewrite this as L ord with C1 prime and it with not L ord with C2 prime. "
+  },
+  {
+    "start": 1225.171,
+    "end": 1267.241,
+    "speaker": "SPEAKER_00",
+    "text": "So I think in the case of if L is true, then what we have. So if L maps are true in A, then we've satisfied this one. But we also must have the rest of A must satisfy C2 prime. "
+  },
+  {
+    "start": 1271.062,
+    "end": 1308.917,
+    "speaker": "SPEAKER_00",
+    "text": "And I think because of that, it's supposed to be a y. It must also satisfy CR because it's the all of the two. All right. If L is false, then, well, we have a symmetric argument. "
+  },
+  {
+    "start": 1333.78,
+    "end": 1345.926,
+    "speaker": "SPEAKER_00",
+    "text": "I think that's pretty much it. So regardless, I guess I don't think you wouldn't need to write regardless. "
+  },
+  {
+    "start": 1358.693,
+    "end": 1394.489,
+    "speaker": "SPEAKER_00",
+    "text": "Regardless of the mapping of L, A will be a satisfying... I actually think the earlier bit doesn't matter, because you've already shown Ricardus about... It's just nice to make it clear. It will be a satisfying assignment. Okay, does that make sense, what we have so far? "
+  },
+  {
+    "start": 1394.829,
+    "end": 1425.353,
+    "speaker": "SPEAKER_00",
+    "text": "So this shows that condition one is true. If we find ourselves some satisfying assignment to C1 or with C2, then we've also found a satisfying assignment to CR. We also need to go back which is probably the harder thing to do, and I've run out of space. All right, let me clear this out. "
+  },
+  {
+    "start": 1426.915,
+    "end": 1428.677,
+    "speaker": "SPEAKER_00",
+    "text": "Maybe I'll do this first. "
+  },
+  {
+    "start": 1446.893,
+    "end": 1473.783,
+    "speaker": "SPEAKER_00",
+    "text": "I think the approach is pretty much the same. We're allowed to assume that we have some satisfying assignment to CR. Maybe I'll call it B instead. I'll call it A prime, actually. I prefer A prime. "
+  },
+  {
+    "start": 1495.821,
+    "end": 1521.051,
+    "speaker": "SPEAKER_00",
+    "text": "And all we need to do is then show that this will, well, if we take this, change it up a little bit, it will satisfy C1 and C2. Anyone have any ideas how we're going to do that? It's quite nice for me to write it like this. "
+  },
+  {
+    "start": 1536.705,
+    "end": 1580.915,
+    "speaker": "SPEAKER_00",
+    "text": "Any ideas? Maybe write this as well. I'll give you a hint. There are cases again. I don't think L matters. I don't think the cases are over L though. I think that the cases are over which of the two clauses A prime satisfies. "
+  },
+  {
+    "start": 1580.935,
+    "end": 1611.642,
+    "speaker": "SPEAKER_00",
+    "text": "So we're going to say, I'll call it I. Maybe case one. A prime. A prime satisfies C1 prime, then clearly to find... "
+  },
+  {
+    "start": 1612.623,
+    "end": 1690.311,
+    "speaker": "SPEAKER_00",
+    "text": "So then we know that C1 is satisfied, right? So that... Done half of it. We can't guarantee that C2 prime is satisfied, but what we can say is... we're gonna take uh well we can just augment a prime with assigning not l right and that's that's a pretty straightforward transformation so we can say uh satisfies C1 and C2. "
+  },
+  {
+    "start": 1690.391,
+    "end": 1722.181,
+    "speaker": "SPEAKER_00",
+    "text": "That make sense? And again, the other case is basically the same, where we can say, OK, Well, if this isn't true, then the only other case can be that C2 prime is satisfied. And then we do the other operation. "
+  },
+  {
+    "start": 1723.962,
+    "end": 1754.206,
+    "speaker": "SPEAKER_00",
+    "text": "Well, the other assignment. Satisfies C2 prime. So then all we need to do is A prime L maps true. I've skipped writing the same thing there. "
+  },
+  {
+    "start": 1757.629,
+    "end": 1792.997,
+    "speaker": "SPEAKER_00",
+    "text": "Satisfies C1 and C2. so you may be thinking there there is technically another case and that's the case where a prime actually satisfies both but in that case you don't really care well you've already covered it for one um and for two you don't need to do anything to say it's satisfying assignment it's not really i don't think you need to include something like that because you it's covered already. "
+  },
+  {
+    "start": 1793.017,
+    "end": 1834.575,
+    "speaker": "SPEAKER_00",
+    "text": "Does that make sense? So what we've done is we've shown 1 and 2. So we've shown C1 and C2. And conclusions like this are good to write in general. "
+  },
+  {
+    "start": 1836.516,
+    "end": 1867.389,
+    "speaker": "SPEAKER_00",
+    "text": "Does that make sense? Good. If anyone has any questions, ask. I don't think I'm that scary. I hope not. Okay, back to the easy questions now. Oh, not that this was difficult. "
+  },
+  {
+    "start": 1870.932,
+    "end": 1914.867,
+    "speaker": "SPEAKER_00",
+    "text": "Do you remember what pure literal propagation is? Oh, that's OK. I can remind you. Where they all have the same clarity. Yeah. Yeah, exactly. When the literals only appear with either no negation or a negation, pretty much. I'll scroll back. Oh, wait. There we go. OK. What was the other proof I was talking about? "
+  },
+  {
+    "start": 1915.828,
+    "end": 1966.188,
+    "speaker": "SPEAKER_00",
+    "text": "That might be a bit . OK. So for A, can we identify any pure literals? A, I think. Yeah. Yeah. A is pure. So all we can do is just say, set it to true. What are you left with? Not B or not C. Anded with C or D or not E. Not C or not D. "
+  },
+  {
+    "start": 1974.23,
+    "end": 2004.345,
+    "speaker": "SPEAKER_00",
+    "text": "So there is another. Yeah, not B. If it just appears by itself, it's, well, pure. So we got rid of that. I feel like maybe I've written something wrong. Is that supposed to be a not? Is this a not? No. I was looking at the next question. That leaves. "
+  },
+  {
+    "start": 2005.206,
+    "end": 2013.831,
+    "speaker": "SPEAKER_00",
+    "text": "I don't know. Can you see the board with the light? I can shut the blind. Sorry? "
+  },
+  {
+    "start": 2024.74,
+    "end": 2033.692,
+    "speaker": "SPEAKER_00",
+    "text": "I think that's it. Yeah. Yeah. Easy. So it's a simplification. "
+  },
+  {
+    "start": 2053.458,
+    "end": 2084.841,
+    "speaker": "SPEAKER_00",
+    "text": "Should we just do C and then move on? Yeah. Yeah, I think so. Can anyone spot any pure literals in C? I guess. Oh, that's pretty useless. "
+  },
+  {
+    "start": 2086.122,
+    "end": 2116.362,
+    "speaker": "SPEAKER_00",
+    "text": "Okay, let's do B then. I thought it was not C, but maybe... Yeah, no, that's B. Sorry? Yeah, I think that's probably the joke with this question. Each of the first pure literals of the... Numbers. Not C, though. Yeah, not C. OK. What was it? "
+  },
+  {
+    "start": 2116.442,
+    "end": 2147.154,
+    "speaker": "SPEAKER_00",
+    "text": "B. B is pure. We satisfy the first three causes. So we're left with not C, ord with D, ord with not E, ended with not C, ord with not D. I think this is just going to evaluate to the same thing. "
+  },
+  {
+    "start": 2149.416,
+    "end": 2185.346,
+    "speaker": "SPEAKER_00",
+    "text": "Not C is pure, or something equivalent. Oh, actually, no, we're done. Done. So it doesn't really matter. If you were to give a satisfying assignment to the formula of B, the only literals or variables that matter are B and C. "
+  },
+  {
+    "start": 2185.406,
+    "end": 2272.772,
+    "speaker": "SPEAKER_00",
+    "text": "The rest, you don't care about. You can give them any assignment you want. So I would... I think I mentioned this before, but I would regard something like this as a partial assignment, but a full satisfying assignment would be... Let me change that. Is A in there? Yeah. I mean, I always just set everything to true if I can. Is D in there as well? So I would say that this is an actual satisfying assignment. Because with the first one, you still have symbols. You can't evaluate the whole formula. This gives me the full mapping to replace everything in the formula and evaluate it. OK. All right, let's see if we can do four. "
+  },
+  {
+    "start": 2272.812,
+    "end": 2304.609,
+    "speaker": "SPEAKER_00",
+    "text": "OK, this one's a bit trickier than two, mainly because it doesn't really give us the nice the nice ways to rewrite the formulas, I think. I think that's what makes it difficult. So obviously, obviously again, we have C is satisfiable and find the, what am I gonna call it? "
+  },
+  {
+    "start": 2304.669,
+    "end": 2348.976,
+    "speaker": "SPEAKER_00",
+    "text": "Oh nice, I call it the C prime there as well. And then I have the second condition. All right. So they're pretty much the same thing. What we know is that the clauses of C prime are all present in C. "
+  },
+  {
+    "start": 2351.058,
+    "end": 2393.403,
+    "speaker": "SPEAKER_00",
+    "text": "All right. So maybe knowing this, maybe it makes more sense to start off with one. Because, yeah, because also these are CNF formulas, right? So if we know Let A be applying assignment C. "
+  },
+  {
+    "start": 2394.864,
+    "end": 2467.494,
+    "speaker": "SPEAKER_00",
+    "text": "So obviously, A must satisfy all clauses. in c so clearly that's by by cnf yeah and we know that c prime uh is otherwise how do i phrase this right uh maybe I'll just state it this way the clauses of C prime are a subset of those in C yeah so therefore A satisfies C prime. "
+  },
+  {
+    "start": 2467.574,
+    "end": 2500.452,
+    "speaker": "SPEAKER_00",
+    "text": "Does that make sense? So it's just arguing, really. That's what proofs are. Like irrefutable arguments. Yeah. So I'm happy with one. It's done. So I think we need to do two now. Unless anyone has any problem with one? "
+  },
+  {
+    "start": 2501.472,
+    "end": 2544.586,
+    "speaker": "SPEAKER_00",
+    "text": "No? Good. So what we have is A prime now, which is our satisfying assignment to C prime. Sorry about my handwriting. I'm trying to write quickly. Obviously, A prime's a little bit different because there are some literals in C that aren't present in C prime because we removed them because they were pure. "
+  },
+  {
+    "start": 2546.926,
+    "end": 2559.865,
+    "speaker": "SPEAKER_00",
+    "text": "So we sort of need to take them into account. Anyone have any ideas? "
+  },
+  {
+    "start": 2583.448,
+    "end": 2589.909,
+    "speaker": "SPEAKER_00",
+    "text": "That's exactly the right idea, but we need to phrase it the right way, I think. Yeah. "
+  },
+  {
+    "start": 2589.969,
+    "end": 2590.97,
+    "speaker": "SPEAKER_01",
+    "text": "Yeah. So... "
+  },
+  {
+    "start": 2609.324,
+    "end": 2652.602,
+    "speaker": "SPEAKER_00",
+    "text": "Trying to think of a nice, complete way of stating it. I guess we can just do it this way. So obviously we know that the set of clauses that didn't have a pure literal in are satisfied. So what we need to do is I think let P be a pure literal in C. "
+  },
+  {
+    "start": 2653.502,
+    "end": 2758.523,
+    "speaker": "SPEAKER_00",
+    "text": "So we know that A prime isn't going to have P in it because there were no pure literals. There are no pure literals in C prime. Oh, it's a bit disjointed now. OK. So I think what we need to say, if P appears with positive polarity, then then add interesting order of spelling add p is true otherwise obviously the only otherwise is if it appeared with negative polarity add So if we do this, do for all pure literals in C, maybe I'll rephrase this to a prime. "
+  },
+  {
+    "start": 2765.365,
+    "end": 2798.236,
+    "speaker": "SPEAKER_00",
+    "text": "Yeah, so then, satisfied all clauses with p, because obviously they're set up like this, p or with dot dot dot, or with dot dot dot, you know, like that. So obviously we've satisfied those clauses that didn't appear in A prime. "
+  },
+  {
+    "start": 2799.877,
+    "end": 2830.02,
+    "speaker": "SPEAKER_00",
+    "text": "C is made up of two types of clause, which is, I guess, how do I... I'll call it P. P, no, not all. P and it with Q. So obviously, these are those clauses. This might be unnecessary. Those clauses with pure literals. "
+  },
+  {
+    "start": 2832.601,
+    "end": 2863.826,
+    "speaker": "SPEAKER_00",
+    "text": "How do I want to phrase this? And then I'll just write, this is C without P. So then, so what this, this is getting a bit confusing maybe. So what this means is that P is, all of the P is, capital P is satisfied. We already had the Q is satisfied by a prime. "
+  },
+  {
+    "start": 2865.247,
+    "end": 2898.761,
+    "speaker": "SPEAKER_00",
+    "text": "So what we know is that C is satisfied by A, P. Maybe I would have defined a set of the pure literals, and then written the combination of those two, the union of those two. OK, maybe that doesn't really make sense for me to write that. "
+  },
+  {
+    "start": 2899.661,
+    "end": 2933.811,
+    "speaker": "SPEAKER_00",
+    "text": "By A prime, and this is OK, though, and assignments to pure literals. And we've, oh, my board writing needs to get better. But does that make sense? OK. Cool. Cool. And the solutions will come out as well in a week's time. So I'm pretty sure this is basically the same thing as that. "
+  },
+  {
+    "start": 2934.791,
+    "end": 2980.212,
+    "speaker": "SPEAKER_00",
+    "text": "They might have done it more concisely. What's the next question? Oh, OK. All right, we can definitely do a few more. "
+  },
+  {
+    "start": 2982.502,
+    "end": 3016.832,
+    "speaker": "SPEAKER_00",
+    "text": "Where am I? There we are. All right, alphabetical order. Let's try, the first one might be too easy. Maybe we try the second one, B. I have the, what am I gonna, how am I gonna do this? Let me write the formula down, because I have the algorithm from the slides and a different tab. "
+  },
+  {
+    "start": 3017.233,
+    "end": 3035.31,
+    "speaker": "SPEAKER_00",
+    "text": "But when I swap to it, p or with q. p or with q. p or with q. "
+  },
+  {
+    "start": 3049.192,
+    "end": 3079.497,
+    "speaker": "SPEAKER_00",
+    "text": "It's tedious. Not R, not S. It's a good thing computers do it. And S. Not P, not R. OK. "
+  },
+  {
+    "start": 3079.677,
+    "end": 3110.788,
+    "speaker": "SPEAKER_00",
+    "text": "I think this is a 3SAT bombing. Yeah. OK. That's CDCL. And what are we doing? We're doing just the standard one. OK. Let's do this. "
+  },
+  {
+    "start": 3114.95,
+    "end": 3147.383,
+    "speaker": "SPEAKER_00",
+    "text": "Alphabetical order, P, Q, and R, I think. So what we want, obviously we can't do any, hang on, can't do any BCP, but we might be able to do pure literal propagation. So we want to check. It doesn't look like we can. Can we? I can't see. I've seen both for p, both for q, both for r. "
+  },
+  {
+    "start": 3148.464,
+    "end": 3189.256,
+    "speaker": "SPEAKER_00",
+    "text": "And then there's the not s there as well. But we were close. And I think we'll be able to do it very soon because our first decision would be, so we're doing it in alphabetical order, assigning true first. All right. Wow. Actually, I wouldn't write that because it's not CTCL. Okay. P is true. What that gives us is a simplified formula. "
+  },
+  {
+    "start": 3191.296,
+    "end": 3222.08,
+    "speaker": "SPEAKER_00",
+    "text": "Satisfied that one. Satisfied that one. Satisfied that one. And that one. We still have one last. Yeah. Everyone agree? Bless you. "
+  },
+  {
+    "start": 3223.06,
+    "end": 3253.414,
+    "speaker": "SPEAKER_00",
+    "text": "Everyone agree with me? Yeah? OK. What's the next choice? The next choice is we go back. Can we do any Boolean constraint propagation? No. Can we do any pure literal propagation? Yes. We can do it on the s. So s is true. "
+  },
+  {
+    "start": 3256.948,
+    "end": 3289.585,
+    "speaker": "SPEAKER_00",
+    "text": "I would rewrite the formula, but I'm not going to to save a bit of time. That's done now. That's how I'm going to show that. So what I'm left with is... Maybe I will rewrite it. I don't think we can do anything interesting now. So we have to make another decision, and that's Q is true. "
+  },
+  {
+    "start": 3290.946,
+    "end": 3327.435,
+    "speaker": "SPEAKER_00",
+    "text": "Right? Yeah. Q is true means that the only thing that we're left with is R. We re-enter the loop, and obviously boolean constraint propagate R. And we're done. which is really great. And the partial, not the partial, the full assignment is p is true, q is true. "
+  },
+  {
+    "start": 3328.415,
+    "end": 3359.093,
+    "speaker": "SPEAKER_00",
+    "text": "It doesn't matter the order you write it in this list. I just write it alphabetically. And then s, unless s is after. Yeah, that's it. Yeah, so that's That's what the algorithm would give based on the chooseSpar function, which was given in the question. Where did I put the... Oh, I left it over there. "
+  },
+  {
+    "start": 3359.113,
+    "end": 3370.016,
+    "speaker": "SPEAKER_00",
+    "text": "Maybe I'll try and talk quickly through the other question. "
+  },
+  {
+    "start": 3395.345,
+    "end": 3396.485,
+    "speaker": "SPEAKER_01",
+    "text": "Oh, yeah, we definitely don't have time. "
+  },
+  {
+    "start": 3399.046,
+    "end": 3443.46,
+    "speaker": "SPEAKER_00",
+    "text": "Okay. Might be useful to try C, although it's quite difficult. Oh, we probably shouldn't. Maybe I'll do these at the start of the next session. But pretty much, you try to... You use the implication graph to figure out what the original clauses are. I think that's interesting to try. Then there's drawing the implication graphs from partial assignments or a decision order. "
+  },
+  {
+    "start": 3444.761,
+    "end": 3506.574,
+    "speaker": "SPEAKER_00",
+    "text": "Working out what the conflict clauses are. Again, I will release the solutions to these. You could wait until next week if you want the solutions. So this is comparing the same formula. Where are we? Oh, and then we get to the heuristics as well. Is that cool? Nice. Anyone have any questions? So we've got... I think three, well, we've only got one tutorial left, so three lectures. I'm not sure when, I think maybe Wednesday we'll have two lectures, and then the tutorial, and then the final lecture. I think that makes sense, maybe. Except I have to talk for two hours. Quite a long time. "
+  },
+  {
+    "start": 3510.965,
+    "end": 3528.992,
+    "speaker": "SPEAKER_00",
+    "text": "OK. And if you have any questions, ask on the Ed Step. I do look at it when there's activity on it. But aside from that, I think we're done. OK. Nice. "
+  }
+]

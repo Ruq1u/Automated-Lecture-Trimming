@@ -1,0 +1,1274 @@
+[
+  {
+    "start": 58.762,
+    "end": 89.048,
+    "speaker": "SPEAKER_01",
+    "text": "All right. Cool. I'd say let's get started. What are we going to talk about? Oh, let me switch on the room mics. My iPad is still synchronizing the slides. In the meantime, storage. That's what we're talking about. Everything clear? "
+  },
+  {
+    "start": 126.112,
+    "end": 201.361,
+    "speaker": "SPEAKER_01",
+    "text": "Somehow I struggle to believe that. Okay, let me ask some questions. Why are there different ways of storing data on disks? Thank you. I have a question. In unspanned and spanned pages, the records cannot be of variable size, right? Right. Well, they can be in principle, but what happens if I make them variable size? That adds some metadata to say how long each record is. Right. Or something like that, right? That's one way of doing it. I mean, okay, I need some information. Why do I not get... Here we go. Okay, so I need some information to distinguish where one record ends and another one stops, right? I think, and you said that some metadata would serve that purpose. Okay, what would we call that? "
+  },
+  {
+    "start": 202.282,
+    "end": 261.645,
+    "speaker": "SPEAKER_01",
+    "text": "We added some metadata. Yeah, go. Outer flames. Is that? Outer flames. Out of place search. Out of place? No, no. I wouldn't say so. So let's talk about just in place. I think you're talking about in place span, sorry, spanned pages. Or unspanned, I guess. Or unspanned, yeah. Okay, fair enough. Variable record size. So out of place storage solves that problem, but it's not quite, I think, what he has in mind. Okay, so, but how could I determine where a record starts? I could add a header. OK, what would the header look like? OK, fantastic. Thank you, by the way, for kicking it off. "
+  },
+  {
+    "start": 265.908,
+    "end": 301.875,
+    "speaker": "SPEAKER_01",
+    "text": "And I did bring a marker. Let's see how well that works. Good. But I think it's also good to just, at this point, recap what spanned and unspanned pages do. So let's start with the simpler ones, which are unspanned pages. So this is my page. And a tuple is, in the simplest case, it's, let's say, an int, another int. "
+  },
+  {
+    "start": 303.119,
+    "end": 338.834,
+    "speaker": "SPEAKER_01",
+    "text": "and a var char with length five. Okay? Cool. So that one is the simple case, right? Because they are, I said var char five, so that has an allocated size, right? So my tuple would be an int, four bytes, another int, four bytes, And then a var char, how many bytes is that? 20? 20. "
+  },
+  {
+    "start": 341.917,
+    "end": 352.266,
+    "speaker": "SPEAKER_06",
+    "text": "Characters times four bytes. Why four bytes? Sorry, character is one byte, so five. "
+  },
+  {
+    "start": 352.346,
+    "end": 382.545,
+    "speaker": "SPEAKER_01",
+    "text": "I thought you were going to say Unicode, which would Unicode is then variable length per character, which makes things super complicated. So let's ignore that. Let's suppose we're talking ASCII strings only, and then character is one byte. OK, cool. So how many bytes? Five, six. You need a terminator. Do I need a terminator? "
+  },
+  {
+    "start": 382.565,
+    "end": 416.275,
+    "speaker": "SPEAKER_01",
+    "text": "Very good. That's the question I'm asking. Do I or do I not? No. No. Okay. So you're saying no, in which case this thing would be five bytes in size. Why do I not need a terminator? Terminator is clear, right? Like, you know, I've always used this red X in slides, but in practice, I think someone asked. Oh, yeah, one of my tutors asked me that in a personal tutor meeting today. "
+  },
+  {
+    "start": 416.596,
+    "end": 457.848,
+    "speaker": "SPEAKER_01",
+    "text": "It's a null character, right? So it's literally the byte zero. Do I need that? So you're saying no. Okay. So technically, I do not need it. But... A lot of database systems still store a null terminator there. Why would they do that? That's wasting a bunch of space, right? Like it's one-sixth of that column is wasted. I don't need it because I can look at the schema, right, and I can see, oh, well, the string starts here and it ends, well, at the very latest here. "
+  },
+  {
+    "start": 458.309,
+    "end": 488.364,
+    "speaker": "SPEAKER_01",
+    "text": "It might be shorter than that, in which case I have, you know, a bunch of zeros here, or it doesn't even matter. Let's say my string is sam, right, three characters, then a null terminator. It doesn't really matter what goes here because no one's ever going to look at it, right? But... That's for simplicity, assume that it is filled with zeros, padded with zeros. But what if I don't have those, right? "
+  },
+  {
+    "start": 488.424,
+    "end": 552.477,
+    "speaker": "SPEAKER_01",
+    "text": "What if I have the string, I don't know, what's a five-character string? Okay, now I have that string here. What happens? No null termination. Is that ever going to be a property? Yeah. I guess it would mean when you return a result, then you'll have to recopy out the tuple with the string being null terminated. Okay, very good. Yes. Right? Like, you know, if I want to return this, but even if I don't, right? Let's say you want to use a build on a library that you haven't implemented yourself. Let's say, you know, you want to use the C standard library string compare function. strings being now terminated, what would happen if that were not, that string were not now terminated? "
+  },
+  {
+    "start": 554.038,
+    "end": 586.051,
+    "speaker": "SPEAKER_01",
+    "text": "Well, string compare would go and read until it finds a zero, right? And it would then start a continued reading into the next tuple. We're lucky, and this is an integer that has its leading byte set to zero, cool. That accidentally serves as a null term. If it's not, if it's a really large integer and it is, wait. "
+  },
+  {
+    "start": 586.791,
+    "end": 619.477,
+    "speaker": "SPEAKER_01",
+    "text": "or it is stored in little-endian format, then, you know, the string compare function will just continue reading. And in the worst case, all these integers are large big-endian integers, or are all, no, are all large integers, and the var pairs are all filled. This thing will read the entire database. So for backwards compatibility with standard library functions, you often put an out-terminator there. "
+  },
+  {
+    "start": 621.173,
+    "end": 662.674,
+    "speaker": "SPEAKER_01",
+    "text": "I, in the course of the lecture, always assumed that we don't need an out-terminator when we do the calculations, because I think we, well, it simplifies the calculations, and also simplifies thinking about it, and it saves space. But in practice, you might actually want an out-terminator there, I guess. So I got super sidetracked. Oh yes, we were actually talking about, how do I, do I need metadata? Right. So in this case, obviously no, Now, let's say, you know, this isn't a var char with a length, which a lot of database systems support, right? "
+  },
+  {
+    "start": 662.694,
+    "end": 688.079,
+    "speaker": "SPEAKER_01",
+    "text": "Like back in the 80s or something, I think you actually had to specify the length here. And for exactly that reason, today, modern database systems think that's pretty stupid, right? But, okay, let's say this is just a var char and the string could be arbitrary. Do I need metadata? OK, you're kind of backpedaling, are you? I guess not. "
+  },
+  {
+    "start": 691.621,
+    "end": 714.003,
+    "speaker": "SPEAKER_03",
+    "text": "If you're trying to search for the second record on this page, for example, I guess you could you know where the first integer is and the second integer is, and then if you loop over all of the characters in the string until, like, then when you reach the null terminator, then you're a bit more searching, and then you'll reach the second tuple. Yes. But, yeah, I guess that wouldn't be very efficient. "
+  },
+  {
+    "start": 714.023,
+    "end": 749.067,
+    "speaker": "SPEAKER_01",
+    "text": "Exactly. Okay, very good. Yeah, you've basically answered your question, right? So the answer is you do not need metadata, but it just means that you have to basically parse if you want to access a tuple, the fifth tuple, you need to parse the actual tuple, and everything that's a fixed size type, the two integers, easy, you just skip that many bytes, right? When parsing. Anything that's a var, variable length character, you will have to go through the string to or. "
+  },
+  {
+    "start": 749.627,
+    "end": 788.328,
+    "speaker": "SPEAKER_01",
+    "text": "whatever it is, it could also be, I'm always using strings as an example, but there's also this idea of binary data, binary large objects, putting those in there, behave the same way. But you would basically have to go through all the bytes, parse the string, or the end of the string if it is a bounded string, and then go look at the next tuple, and you basically have to process all tuples to find where the next tuple starts, and you will have to read all tuples in front of the fifth, if the fifth is what you're looking for. "
+  },
+  {
+    "start": 789.22,
+    "end": 856.203,
+    "speaker": "SPEAKER_01",
+    "text": "Terrible, right? So there are two solutions to this. I've already given one away, and that is, well, allocate fixed size types. That was what people did in the 80s and maybe early 90s. But what's the other solution? I thought that's what you were going to say. What's the other, the alternative to this? Yeah. Storing the indexes at the start, storing the pointers. Yeah, what do we call this? No, out of place would be, oh, oh, oh, I see. Yeah, out of place, okay, that would also be an option. That would be storing everything that's variable length. Yeah, and then storing indexes so you can get to it. Okay, sure, fine, that's a third alternative. I wasn't thinking of that one. What's the other alternative? Catalog at the start. Catalog at the start, how would that help? Right, then you can... What would the catalog contain? "
+  },
+  {
+    "start": 857.704,
+    "end": 889.706,
+    "speaker": "SPEAKER_01",
+    "text": "I think, so the catalog that we've discussed in the lectures would not solve this problem. But you could imagine some really fancy catalog that might solve this problem. But honestly, I think it would probably take us 10 minutes to develop something like that. Possible. Let's postpone this. So catalog, probably not the answer. What else? Yeah. Slotted pages? Exactly. Use slotted pages. That's exactly what slotted pages were for. "
+  },
+  {
+    "start": 890.706,
+    "end": 901.673,
+    "speaker": "SPEAKER_02",
+    "text": "So what's a slotted page? So essentially, you just keep the pointer to the start of each double at the end. So you can just find the end double pointer and . "
+  },
+  {
+    "start": 902.114,
+    "end": 939.334,
+    "speaker": "SPEAKER_01",
+    "text": "OK, cool. Yeah, exactly. In slotted pages, the idea is you always have a bit of space at the beginning to store metadata. Sometimes catalog information, things like sortedness also sometimes go here. If you want to have sortedness on a page-by-page granularity, actually sometimes useful. But most importantly, write a number of tuples. And then you have pointers. And for every tuple that you put into the page, you store a pointer. "
+  },
+  {
+    "start": 939.654,
+    "end": 972.915,
+    "speaker": "SPEAKER_01",
+    "text": "And the pointer points to the beginning of the tuple. And so if the first tuple starts here, that's where the first pointer points. If the second tuple, you know, it's getting a little messy here, if this is my first tuple, my second tuple starts here and then continues and goes all the way to here, that's where the second pointer would point and so forth, right? And that's technically, I think, when you set metadata, right, I mean, this kind of is metadata, right? "
+  },
+  {
+    "start": 972.935,
+    "end": 1003.387,
+    "speaker": "SPEAKER_01",
+    "text": "Like, it basically is a metadata on the position of the tuple. And so, yeah, it kind of serves that purpose. And so, as I said, right, like, in the 80s, database systems, well, made this mandatory that you declare the maximum length of a string. And so, basically, it did not have slotted pages. And slotted pages, like, you look at it and you think, yeah, well, duh, that's how you do things. not when relational databases were started. "
+  },
+  {
+    "start": 1003.407,
+    "end": 1064.036,
+    "speaker": "SPEAKER_01",
+    "text": "This was a big innovation. Ooh, storing pointers inside a page. So they solved this problem. And they suddenly allowed really long data types and even obviated the need for a pretty . Yeah? How can we store the whole couple? Why don't we put the whole thing rather than just the variable length bits? Right, I see. If I understand correctly, what you're proposing is you're saying, okay, technically the pointer stores the starting position of each tuple, but instead I could also store the length of each tuple. "
+  },
+  {
+    "start": 1064.456,
+    "end": 1124.118,
+    "speaker": "SPEAKER_01",
+    "text": "And then I could store not the length of the entire tuple, but just the length of the variable length bits of the tuple. Is that what you're proposing? I'm not entirely sure. What problem are you solving? I don't know. I feel like because you can't guarantee that everything's kind of in order, right? Well, yes, you do. Yeah, yeah. Oh, the idea is that the first tuple has its pointer at the very end of the page and its actual tuple at the beginning. And the second tuple has the second pointer from the back and, well, the second allocated tuple from the beginning of the page. So they kind of grow towards each other. That's the idea. Please do not, well, you could now ask, well, what happens if I delete some of this? "
+  },
+  {
+    "start": 1124.338,
+    "end": 1179.351,
+    "speaker": "SPEAKER_01",
+    "text": "Yes, so that's a good question. Maybe we should actually discuss it. That's an interesting question. It's a question I would ask. But does this, I'm not sure if this answers your question. You had an optimized, I think you had an optimization in mind. I don't know if it was an optimization. I was just wondering if like, just having the points to the bar chart, you could kind of go through, like say I just wanted access to the end, Oh, I see. I see. Yeah, but, okay, okay. I think I get it, but, so first, there's no down, I don't think there's a downside. I think you're, well, no, there's, no, I don't think so, no. I think you, you don't gain anything by doing that, but you also have to remember there might be multiple of these, right? So, at that point, it becomes kind of easy. So you really want the beginning of the couple. "
+  },
+  {
+    "start": 1179.691,
+    "end": 1211.637,
+    "speaker": "SPEAKER_01",
+    "text": "You could even argue that if you have multiple bar charts, you would now have to parse the first one to get access to the second one. So maybe you actually want something that even has one pointer per bar chart, but that's not how Scott's pages are implemented. I think it's just accepted that In most databases, you have a bunch of fixed-size data columns, and then there's one that is comments or something like this. "
+  },
+  {
+    "start": 1211.717,
+    "end": 1244.354,
+    "speaker": "SPEAKER_01",
+    "text": "In real life, a lot of data looks like that. When we talk about special purpose databases, especially with the advent of AI, of generative AI in the last couple of years, this is no longer the case. But especially when slotted pages were invented, most databases look like that. But we wanted to talk about, oh yeah, what happens if I delete something? If I now want to delete, the system wants to delete a tuple on a page, what happens? "
+  },
+  {
+    "start": 1245.455,
+    "end": 1247.197,
+    "speaker": "SPEAKER_00",
+    "text": "You replace the pointer with a null pointer maybe? "
+  },
+  {
+    "start": 1248.658,
+    "end": 1281.414,
+    "speaker": "SPEAKER_01",
+    "text": "Okay, what would a null pointer do? I mean, okay, wait, for the record, I'm saying pointer, But this isn't a real pointer. You know, it can't point to arbitrary positions in memory. It is an offset from the beginning of the page. Okay, wow, this is really good. So why can't this be a real pointer? Yeah, go for it. Would that be too large? Sure, yeah, you could say so, right? "
+  },
+  {
+    "start": 1281.454,
+    "end": 1344.463,
+    "speaker": "SPEAKER_01",
+    "text": "We have this optimization there that in the slides where we say, oh, well, depending on page size, you don't actually need a four-byte or even an eight-byte pointer, okay, yes, size is one thing, but size is kind of an optimization, right? What else? What would happen? Yeah. It's also related to access permissions, because that could point into some other table maybe that you don't have access to. So you're saying it's a safety issue? Yeah. Okay. But I have something even more basic in mind. Yeah. That only works if it's in memory? Exactly. The moment you spill this page to disk and then read it again later on, there's a good chance it will end up somewhere completely different, right? And all your pointers will be invalidated. It will simply not work. Or it may work if the page ends up being put back into the exact place where it was before, but that's highly unlikely. "
+  },
+  {
+    "start": 1344.743,
+    "end": 1358.855,
+    "speaker": "SPEAKER_01",
+    "text": "So there have to be offsets. They cannot be actual pointers. Good. So now back to the null pointer. So what would happen if we put the equivalent of a null pointer in here, null offset? "
+  },
+  {
+    "start": 1359.805,
+    "end": 1370.014,
+    "speaker": "SPEAKER_00",
+    "text": "could just ignore that entry because its pointer is some invalid special value and now treat it as deleted. "
+  },
+  {
+    "start": 1371.055,
+    "end": 1404.196,
+    "speaker": "SPEAKER_01",
+    "text": "Okay. So you're basically saying you put a value there that is known to be invalid. Okay, you could do that. What do we call these things when we want to delete something but we don't really delete it? We had a term for that. I had a term for that. Tombstone. Yes, we call those tombstones, exactly. So I could basically piggyback a tombstone on the offset pointer. "
+  },
+  {
+    "start": 1405.396,
+    "end": 1426.104,
+    "speaker": "SPEAKER_01",
+    "text": "So I could do that. Or I could just designate a bit here, right? And say, okay, that bit must always be zero. If it's one, the value is deleted. I could also have, theoretically, have something here, right, that marks a tuple as deleted. But I need to put a tombstone somewhere. "
+  },
+  {
+    "start": 1426.164,
+    "end": 1444.095,
+    "speaker": "SPEAKER_03",
+    "text": "Doesn't that ruin the random access part of it? You don't know where the pointer to the second tuple is anymore because you can't calculate that. You have to loop over the first pointer and check if it's this null tombstone. If it is, then you have to continue. "
+  },
+  {
+    "start": 1444.495,
+    "end": 1517.866,
+    "speaker": "SPEAKER_01",
+    "text": "So the question is, I would argue that's a question of semantics. So you're saying the second tuple, if I want to retrieve the second tuple on the page. What is that? Is that the second not deleted tuple? Or is that just the second tuple that was ever put on the page? I mean, I guess it depends. I would say the second non-deleted one. Right. Okay. So that's a... It becomes quite interesting there because what does the second or the third tuple actually mean? Is that useful to anyone? Not really by itself. When this will become super important is when I think, not the next one, but the lecture afterwards, I talk about index structures. And for index structures, they actually map a value to a tuple id but that tuple id better be stable because otherwise we also need to update the index right so the tuple ids we actually assume that they stay constant, right? "
+  },
+  {
+    "start": 1517.906,
+    "end": 1550.662,
+    "speaker": "SPEAKER_01",
+    "text": "So if you're saying the second tuple, I would actually say that is the second tuple on the page, not the second not deleted tuple. But arguably, there are probably operations where you want your semantics, and yes, it would then ruin that, but that would hold in general for any kind of tombstone-based pattern, right? And so what's the solution if So let's say, you know, if we delete one value, two values, okay, they might all be off by one or two. "
+  },
+  {
+    "start": 1551.283,
+    "end": 1612.211,
+    "speaker": "SPEAKER_01",
+    "text": "Not a huge problem, right? But over time, we're accumulating more and more, well, dead bodies, dead tuples. And so what do we do to fix that? Some kind of compaction. Exactly. We run regular compactions. And the same would hold here as well. The problem now is, and again, this is an interplay with indices, is if we now compact this page, now the tuple IDs suddenly change. Because the tuple IDs are kind of implicit in the position, if we move the tuples around, the IDs change. Now we also need to update any secondary index structure. So we probably don't want to do this kind of compaction on a page-by-page basis, but we want to do it in one big operation on the entire database or the entire, yeah, no, actually at least the table, and then also update any secondary index structures. "
+  },
+  {
+    "start": 1612.791,
+    "end": 1618.014,
+    "speaker": "SPEAKER_01",
+    "text": "This will make more sense once we talk about index structures. But yes, compaction is the answer there. "
+  },
+  {
+    "start": 1618.314,
+    "end": 1632.815,
+    "speaker": "SPEAKER_04",
+    "text": "Yeah, go. Would the compaction here look like everything after, the first deleted at the bottom, taking it away. So taking away the size or the index of that, all of it moves down the offsets. "
+  },
+  {
+    "start": 1633.376,
+    "end": 1686.182,
+    "speaker": "SPEAKER_01",
+    "text": "Yeah, oh, you're talking there might be an optimization for an index. If we know how the tuple IDs are going to change, yeah, you could probably optimize this. Sorry, maybe I'm reading too much or interpreting too much into your question right now. I was thinking if there's wasted space about all the tuples. Yeah. Basically, dead tuples take up space and that's the reason why we want to compact. how exactly to implement the compaction, and what granularity, and what else we need to update, and lock, and that. That's actually, I don't think we'll get to that. If we have time at the end, I'm happy to talk about it, but I suspect we won't. "
+  },
+  {
+    "start": 1686.282,
+    "end": 1696.953,
+    "speaker": "SPEAKER_05",
+    "text": "OK, yeah, go. How do slotted pages handle too big bar charts? Because it has the same problems with Spanned pages. "
+  },
+  {
+    "start": 1697.053,
+    "end": 1729.622,
+    "speaker": "SPEAKER_01",
+    "text": "Yeah, yeah, yeah. I mean, spanned pages basically have a, well, I mean, slotted pages actually make this a little bit easier, right? So what happens if I have, let's make things really simple, okay? Let's say all I have is a single var cam, and it's really big, okay? Or it's unbounded. Okay, and now let's say I'm looking at my And number of couples, well, would be one, right? "
+  },
+  {
+    "start": 1730.223,
+    "end": 1771.297,
+    "speaker": "SPEAKER_01",
+    "text": "And so the bar, and there would be one pointer at the beginning. And, sorry, at the end. And that would point to offset zero. And then all of this would be filled with my big bar cap, right? And let's say, you know, I have a 4K page, normal size, right? Minus, let's say, four bytes here and four bytes here. I'm not optimizing particularly well. I'm just making So it would be 4096 minus 8 bytes, and let's say my string is, you know, 8000 bytes long, okay? "
+  },
+  {
+    "start": 1771.818,
+    "end": 1805.261,
+    "speaker": "SPEAKER_01",
+    "text": "So it would then naturally spill over to the next page, which would then be, okay, I mean, this one would then be 4088, right? And this means that I would have here So this many bytes is how, sorry, I sometimes do calculations mostly in my head. If something isn't clear, point at a number and say, why is this like this, right? Like don't sit here in silence thinking, oh, I'm sure this makes sense to everyone else. "
+  },
+  {
+    "start": 1806.402,
+    "end": 1837.569,
+    "speaker": "SPEAKER_01",
+    "text": "It probably doesn't. So 4,088 bytes is how many we store on this page. And on this page we could store 3,912, right? Right? Roughly, well, whatever the rest, right? Good. So this should fit, yeah, this will fit on this page. So the tuple will basically, the var char will go on here. And let's say it goes all the way to here. "
+  },
+  {
+    "start": 1838.37,
+    "end": 1868.458,
+    "speaker": "SPEAKER_01",
+    "text": "Okay? Cool. So this is fine. I've stored the bar here now. Now what is interesting is there's still some space left here, right? I mean, the header and the, well, it's 4088 minus 3912. is left here. And so that is where the next tuple will go, right? The next tuple will start. "
+  },
+  {
+    "start": 1868.878,
+    "end": 1900.296,
+    "speaker": "SPEAKER_01",
+    "text": "So what's the page, the tuple count on this page? 1, 0, 5. We don't actually know, right? Because if that varchar of yours could, in principle, have length 0. In which case, well, how many of those fit onto a page? Well, a bunch. They still occupy pointers. "
+  },
+  {
+    "start": 1900.657,
+    "end": 1930.96,
+    "speaker": "SPEAKER_01",
+    "text": "But in principle, OK, I mean, let's do the math. Let's do the math here. No. I can fit a bunch of tuples here. So the tuple count here could be 1, could be 10. There's a limit, right, because I still need the pointers. But the pointers, the last one, would now be pointing here to the beginning of the next tuple, tuple 2. "
+  },
+  {
+    "start": 1931.86,
+    "end": 1970.716,
+    "speaker": "SPEAKER_01",
+    "text": "And then I could have another one that would point here, and so forth. So in principle, slotted pages actually work better than spanned pages for really long data types. Because they naturally allow you to jump to the second or the third or the fourth tuple without having to parse it. So they actually combine the random access properties that you get out of slotted pages and unspanned pages with the ability to store really long strings. "
+  },
+  {
+    "start": 1972.256,
+    "end": 2026.513,
+    "speaker": "SPEAKER_01",
+    "text": "Yeah? OK. Cool. I think that was, yes? No matter you put the metadata at the end, maybe the last block is the number of... Yeah. What problem would that solve? You don't have to, like, plus eight bytes every time you do that. Oh, I see. Yeah. Fair. Okay, so the proposal is to have this bit... Instead of having it at the beginning of the page, having it at the end of the page. Yeah, yeah. I think you could do that. I don't think it has much of an advantage. I mean, in the end, when you load the page, you probably store its offset. You could store it. You're really concerned. I mean, I hear you, right? What you're saying is, oh, there's this extra pointer plus eight. "
+  },
+  {
+    "start": 2028.31,
+    "end": 2058.986,
+    "speaker": "SPEAKER_01",
+    "text": "operation that I need to do when I dereference the offsets. And if you're really, really, really concerned of your CPU, you could argue that you could not store that, but then you could also just say, okay, when you load the page into main memory, you don't store a pointer to the beginning of the page, but you store a pointer to the beginning of the first couple. "
+  },
+  {
+    "start": 2060.066,
+    "end": 2124.761,
+    "speaker": "SPEAKER_01",
+    "text": "Yeah. Honestly, I don't think it matters much, but yeah. I can kind of see that it might seem a little less elegant, right, that we have the fixed size part in the beginning and a fixed size part at the end, and then all this variable size stuff in the middle. Yeah, I don't know. Okay, good. What else? yes if you were to update it yeah yeah um i mean in principle you would uh you can hope for the best right you could say okay um let's say the length of your new string uh is four bytes longer than your old one You could then move all the tuples further back by four bytes, update the pointers. "
+  },
+  {
+    "start": 2125.142,
+    "end": 2158.294,
+    "speaker": "SPEAKER_01",
+    "text": "If they spill over, you spill over into the next page. And if that spilled over, you spill over into the next page and so forth, up to, in principle, the entire database. Or you just mark the tuple as deleted, allocate a new tuple somewhere else, and call it. So I would probably, I think the likelihood, if your tuple, well, there are two likely cases that could happen, right? "
+  },
+  {
+    "start": 2158.314,
+    "end": 2188.991,
+    "speaker": "SPEAKER_01",
+    "text": "Actually, no, no. One is not very likely. Because if you're updating, what are the chances of you updating a tuple that is somewhere to the back of your database? It's relatively low. The expected value, expected position of a tuple that you're updating is right in the middle. In general, if you access randomly, assume that you're accessing a tuple right in the middle. "
+  },
+  {
+    "start": 2189.592,
+    "end": 2231.548,
+    "speaker": "SPEAKER_01",
+    "text": "And so that means that the cost of moving all those tuples out, because you've so nicely, neatly packed them with no space overhead, is likely right and so you're basically the cost of moving all those tuples by just one byte is basically linear with the size of the database right that's terrible so you probably don't want that there are two solutions i see one is um well yeah delete the tuple and create a new one at the end or when you allocate Memory for your marker. "
+  },
+  {
+    "start": 2232.308,
+    "end": 2259.121,
+    "speaker": "SPEAKER_01",
+    "text": "Allocate 10% extra. And then hope that no one does something . Or maybe leave some slack space at the end of the page. But in any case, you need to leave some slack if you're optimizing for updates. Cool. What else? We still have about 10 minutes or so before break. "
+  },
+  {
+    "start": 2259.262,
+    "end": 2295.597,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah. So I just had a question about the implementation that we did for writing tuples to disk. So in the code, it says that essentially if it overflows, we write it to a new page, and then we flush that to disk. What you mentioned in the picture was that that would just be like a new file. So we'd get the file name out, and then we would add that. Would we not instead just append that memory page to an existing file that we have for Yeah, OK. "
+  },
+  {
+    "start": 2295.917,
+    "end": 2330.376,
+    "speaker": "SPEAKER_01",
+    "text": "That's a very good question. So philosophically, honestly, I'm starting with philosophically because this was for a really long time the mental model behind most data management systems is that the folks implementing them didn't trust the operating system folks to do the right thing. And so in that case, so DB2, right, like one of the oldest, maybe the oldest major database system, they've done this. "
+  },
+  {
+    "start": 2330.396,
+    "end": 2363.241,
+    "speaker": "SPEAKER_01",
+    "text": "They've basically implemented disk IO by allocating a ginormous file on disk and then managing everything themselves in that big file. Implementing what is de facto a file system. on top of a file that sits in another file system. I think it's funny. I used to actually work in that team for a bit. And the mainframe version of DB2 actually didn't even use the operating system. "
+  },
+  {
+    "start": 2364.653,
+    "end": 2398.522,
+    "speaker": "SPEAKER_01",
+    "text": "it would just like access a device, a disk device straight away. On the other side of that spectrum is Microsoft. Microsoft famously builds an operating system and they actually do roughly what I described in the lecture, which is one file per page. Sometimes you will see that they allocate pages in bulk, right? But then you will see that, for example, the size, if you look at an SQL Server database on disk, you will see that the files are 32 megabytes. "
+  },
+  {
+    "start": 2398.982,
+    "end": 2433.473,
+    "speaker": "SPEAKER_01",
+    "text": "But they're all 32 megabytes, right? But you know the page size is configured to 4 kilobytes or something. In which case, they kind of have meta pages on top of it. But in the end, it's still... a file or a constant number of pages. And I think this is arguably the better way to implement it, why we implement an operating system inside your database system. So on the one hand, it seems like the right design, But it's also, for our purpose, just easier. "
+  },
+  {
+    "start": 2433.914,
+    "end": 2464.653,
+    "speaker": "SPEAKER_01",
+    "text": "But on the other hand, you have systems like SQLite. I've been talking about SQLite being the most widely used database system. They have everything in one file, and that's a feature. But it's also highly inefficient. In that case, I don't think they do anything with slotted pages or anything. It's all pretty dumb, basic key value lists. So if you don't care about performance, you can do that. Have one file. But if you care about performance, you want to build that. "
+  },
+  {
+    "start": 2464.793,
+    "end": 2497.364,
+    "speaker": "SPEAKER_01",
+    "text": "You want to partition your data into smaller files and have the operating system handle those. So I kind of sidestepped your question, I think. Basically said, no, that's not what you want to do. OK. So one thing I was curious about, I mean, don't want to stop anyone from asking questions. Okay, the question, the quiz that I've given, are you folks using this? "
+  },
+  {
+    "start": 2499.965,
+    "end": 2535.947,
+    "speaker": "SPEAKER_01",
+    "text": "Yes, no, maybe. The idea was to provide this as a, well, harness, if you will, when you go watch the lecture. At the end, you should be able to answer all those questions. But I've seen, I've looked at the submitted answers today, and I saw that four or five people had started the quiz, and no one had finished it. I mean, if someone has, this Qualtrics platform is terrible, so it might also be a bug, but has anyone, actually submitted this? "
+  },
+  {
+    "start": 2536.047,
+    "end": 2585.241,
+    "speaker": "SPEAKER_01",
+    "text": "Have you? I think I have. OK. In that case, you did click Submit. No, not the feedback form, right? The quiz. Where is the? Is it after the feedback form? No, no, no, no, no. Wait, in the announcement? Okay, good. Good thing we're discussing. We put a lot of effort. Matt was really big on like, you know, having something like this. So in the EdSTEM post, when I announced the lectures, there is a link to a quiz, and that's kind of a new thing that we're doing for the first time this year to kind of connect the recorded material to this, right? "
+  },
+  {
+    "start": 2585.581,
+    "end": 2618.603,
+    "speaker": "SPEAKER_01",
+    "text": "And then, like, I was a bit perplexed that no one came here and asked, oh, so is binary search better when, like, you know, what role does NSM play? I've had David, one of my PhD students, had to re-watch all the lectures to come up with some questions. And then I lecture them a bit. But have a look at those when you watch the lectures. At the end of it, you should be able to answer Sorry, all those questions. "
+  },
+  {
+    "start": 2618.663,
+    "end": 2656.155,
+    "speaker": "SPEAKER_01",
+    "text": "These are not assessed or there are no reference answers. They are just food for thought. So don't come back asking for a marking scheme. But use those to guide and check if you kind of have a handle on the content of the lectures. You should be able to answer those. So are these the ones that you've submitted? Yes? OK, then there seems, OK, then in that case, I apologize, well, the Fortrix people. "
+  },
+  {
+    "start": 2656.395,
+    "end": 2658.756,
+    "speaker": "SPEAKER_01",
+    "text": "I'll have another look. Maybe I did something wrong. "
+  },
+  {
+    "start": 2659.136,
+    "end": 2668.019,
+    "speaker": "SPEAKER_05",
+    "text": "But I was curious that I didn't see any answers. OK, what? Yes? "
+  },
+  {
+    "start": 2668.199,
+    "end": 2678.861,
+    "speaker": "SPEAKER_06",
+    "text": "Doesn't the catalog just make the binary source search not necessary, or do you think it's just Okay, fantastic, very good. "
+  },
+  {
+    "start": 2679.181,
+    "end": 2714.139,
+    "speaker": "SPEAKER_01",
+    "text": "I'll tell David that his questions are useful. Right, so the question is, do we need, so the first question in that questionnaire is, or in that quiz is, do we, when do we want to use binary search to retrieve tuples, and is this always more efficient? And I actually thought that's a very interesting question. And your answer now was, or your take was, well, I have a catalog. "
+  },
+  {
+    "start": 2714.799,
+    "end": 2734.112,
+    "speaker": "SPEAKER_01",
+    "text": "Why would I need to do binary search? Can't I just jump to the right tuple if I know the value? Why do binary search? Of those of you who have watched the lecture, why can't I just, why do I need to do binary search if I have a ? "
+  },
+  {
+    "start": 2736.053,
+    "end": 2754.417,
+    "speaker": "SPEAKER_06",
+    "text": "Sorry, if I understand it correctly, you can have multiple pages where your tuple, like your different information, like the tuples are in multiple pages, so you wouldn't be able to just use one catalog for specifically one page, is that right? "
+  },
+  {
+    "start": 2754.998,
+    "end": 2819.934,
+    "speaker": "SPEAKER_01",
+    "text": "So, okay, that is an interesting question. So in the lecture, to keep things reasonably simple, I've assumed that we have one catalog, and not a catalog per page. In practice, you will actually see what you're describing, that systems keep metadata, catalog metadata, per page. But for simplicity, let's assume that catalog metadata is per table, not per page. Yeah? Would it depend if it's sorted or dense? So I guess if it's sorted, you don't exactly know where it is, but if it's dense, I think you can exactly find your... Yes, exactly. I think this is exactly the answer, right? So if I have a dense flag to set, then yes, I can just jump to the right position. No need to do any binary search. If I don't, if I just know the data is sorted, that's when I would use binary search, right? So it really depends on the metadata that you have available. "
+  },
+  {
+    "start": 2823.512,
+    "end": 2837.702,
+    "speaker": "SPEAKER_00",
+    "text": "Yeah, go. So sometimes you also would not want to fetch a specific tuple, but find your position within the range, and you'd probably have to do binary search then, right? Because let's say you wanted to find all data for which time is greater than some value. "
+  },
+  {
+    "start": 2838.082,
+    "end": 2868.345,
+    "speaker": "SPEAKER_01",
+    "text": "Yep, yep. This is actually quite common. When we talk about join algorithms, we talk about merge joins, sort merge joins. And there you have exactly this operation. It's one of the cool things you can do with sort merge joins. is find overlapping ranges. And yes, this happens all the time. Find all tuples that were inserted between September and October. And so you then have two binary searches. "
+  },
+  {
+    "start": 2870.506,
+    "end": 2916.366,
+    "speaker": "SPEAKER_01",
+    "text": "you could even do something smarter because you no longer have to search in the first half. If you've done the first binary search, that gives you a bound on where you can expect the other one to land, so you don't have to have a full binary search. Then you had a question, and I think that's actually quite interesting. Let's discuss this briefly and then we take a break, unless there are questions now. Okay, so one of the questions in that quiz were, so does it make a difference whether your data is stored in NSM or DSM format? "
+  },
+  {
+    "start": 2917.126,
+    "end": 2943.096,
+    "speaker": "SPEAKER_01",
+    "text": "Does that play a role when deciding between a linear scan and a binary search? Because even, yeah, well, I'll put it up. Let's think about it very briefly. OK, I think you had your hand up first. "
+  },
+  {
+    "start": 2944.377,
+    "end": 2977.625,
+    "speaker": "SPEAKER_02",
+    "text": "I think the binary search in NSM would still be better than linear search, but it would just be less efficient because you have to jump in bigger strides. So you would get less of the . Right. Wait, so you're saying binary search in NSM is? If the data is sorted, it's still better than linear search, I feel. But it would just be less efficient than in DSM because you would be moving in bigger strides. "
+  },
+  {
+    "start": 2977.645,
+    "end": 2993.93,
+    "speaker": "SPEAKER_01",
+    "text": "Or, OK. I think in the quiz it also says something about cache lines. Yeah. Right. OK. So maybe let's take a step back. I think first, would I ever choose a linear scan over a binary search? "
+  },
+  {
+    "start": 2998.145,
+    "end": 3022.889,
+    "speaker": "SPEAKER_06",
+    "text": "Your data access patterns are for small arrays or small tuples. Then it makes more sense to do a linear scan because your cache is warm and then it's already in the cache. Whereas if you do binary search, you might have to do branches and jumps. "
+  },
+  {
+    "start": 3022.929,
+    "end": 3054.608,
+    "speaker": "SPEAKER_01",
+    "text": "There are a lot of really good points in there. I didn't find that they were like super well connected. Okay, so binary search, right? Let's for simplicity assume that data is in DSM form, okay? And let's say it's sorted, but not dense. So what does that mean? Well, in terms of memory access pattern, I jump here, and then let's say I go here. "
+  },
+  {
+    "start": 3055.289,
+    "end": 3094.22,
+    "speaker": "SPEAKER_01",
+    "text": "Let's label this 1, 2, and then maybe here, 3, and then 4, something like this. And that is a sequential operation. Like, you know, I have to, well, before I can do two, I need to do one because that tells me whether two will go in the first half or the second half, right? So it's literally four steps here, four sequential steps. A linear search will go like this, but in principle, there's no reason why I would need to do that sequentially. "
+  },
+  {
+    "start": 3094.64,
+    "end": 3125.925,
+    "speaker": "SPEAKER_01",
+    "text": "I can look at the second tuple before I look at the first. So I can parallelize this much better than a binary search. Well, binary search can basically. I'm simplifying here. I'm now again lying to students. But let's, for simplicity, assume that these are really strictly sequential operations. So binary search cannot be paralyzed. A linear search can be paralyzed. "
+  },
+  {
+    "start": 3126.706,
+    "end": 3156.744,
+    "speaker": "SPEAKER_01",
+    "text": "And this actually happens inside your CPU by compiler and speculative execution. So if you have a for loop for i in 0 to, I don't know, 16, this can be unrolled and executed in parallel. So in that case, this could be faster. This could be done in one step. Whereas the other one would take four. "
+  },
+  {
+    "start": 3159.045,
+    "end": 3190.234,
+    "speaker": "SPEAKER_01",
+    "text": "Now you should object, well, yes, but you know, it still reads more data. Right? Doesn't it read more data, like the linear scan? Ah, it depends. What does it depend on? Yeah, go. It depends on the size of the column. The size of the column, yeah, the size of page, right? Basically, the number of pages that I need to read here. "
+  },
+  {
+    "start": 3190.574,
+    "end": 3234.229,
+    "speaker": "SPEAKER_01",
+    "text": "Now, imagine all of these are one-byte pages, or one-value pages, four bytes, okay? So this is page one. page two, page three. In that case, if I'm reading all of those from disk, well, I have four disk accesses in the binary search case. Sure, they need to be sequential, but it's only four disk accesses, four page Whereas if I do this in sequential order, I mean, this would be, presumably this is a binary search of four steps, right? "
+  },
+  {
+    "start": 3234.269,
+    "end": 3265.728,
+    "speaker": "SPEAKER_01",
+    "text": "So this should be two to the four tuples. So 16 wasn't too bad. So that would be four disk accesses for a binary search, but 16 for a linear search. if the pages were really small with respect to the tuple size. If the page, if all of this is one big page, Well, in terms of pages, it makes no difference, right? "
+  },
+  {
+    "start": 3265.748,
+    "end": 3288.241,
+    "speaker": "SPEAKER_01",
+    "text": "Because all the binary search happens within a page. So page wise, no difference, but in terms of CPU efficiency, the linear search will definitely win because you know, it can be paralyzed. Makes sense. Okay, cool. In that case, let's take a break until five minutes past. Okay. "
+  },
+  {
+    "start": 3292.885,
+    "end": 3294.167,
+    "speaker": "SPEAKER_05",
+    "text": "I know, right? Inside the CPU. "
+  },
+  {
+    "start": 3317.517,
+    "end": 3319.158,
+    "speaker": "SPEAKER_05",
+    "text": "It's what he said, it's a strategy. "
+  },
+  {
+    "start": 3347.878,
+    "end": 3352.624,
+    "speaker": "SPEAKER_03",
+    "text": "To be fair, I think I would prefer 33 instead of 50. Who hates them? "
+  },
+  {
+    "start": 3365.018,
+    "end": 3371.0,
+    "speaker": "SPEAKER_03",
+    "text": "It's not that much of nothing during the 80s. Is it a return? Are you doing three years now? Four years. "
+  },
+  {
+    "start": 3371.04,
+    "end": 3375.342,
+    "speaker": "SPEAKER_05",
+    "text": "Oh, that's in Ciencias. I couldn't get that. Have a look. He's not being asked about it. I'm at it. "
+  },
+  {
+    "start": 3391.567,
+    "end": 3433.128,
+    "speaker": "SPEAKER_05",
+    "text": "Didn't you say we're going over now? No, it's computing development. Plus, I was working in AIC. Have a look. You might already have something else. I don't grant access to that. No, no, I was working in labs. So it was just a little bit of AIC. A lot of it, like most of the team was imperial PhDs. A lot of them actually liked it. I think if all of it is one thing, I'm moving just to the BDSM place and not being good. There are cases in the middle where you then have anything else to do with BDSM. Or give us a bit of money. "
+  },
+  {
+    "start": 3433.168,
+    "end": 3444.071,
+    "speaker": "SPEAKER_01",
+    "text": "We should find someone who's willing to pay for it. But the reason why it would be better is that in terms of page I.O., it makes no difference. But in terms of computational efficiency, it can. Yeah. "
+  },
+  {
+    "start": 3446.692,
+    "end": 3450.353,
+    "speaker": "SPEAKER_05",
+    "text": "I mean, you've mentioned before that data races used to take one time. "
+  },
+  {
+    "start": 3450.373,
+    "end": 3454.854,
+    "speaker": "SPEAKER_06",
+    "text": "But now, I'm not sure if I think about it. Everything is kind of in one model where I think about it. "
+  },
+  {
+    "start": 3477.267,
+    "end": 3479.188,
+    "speaker": "SPEAKER_05",
+    "text": "Unfortunately, the answer to that is quite complicated. "
+  },
+  {
+    "start": 3505.812,
+    "end": 3538.676,
+    "speaker": "SPEAKER_01",
+    "text": "But I think from an implementation point of view, I assume everything is in memory. And we don't have to deal with this, so there should be an abstraction that does this for you. But you should still be aware that there are systems, and if you build a real database system, chances are you will have to write to this every so often. for the index structure. "
+  },
+  {
+    "start": 3538.716,
+    "end": 3545.366,
+    "speaker": "SPEAKER_01",
+    "text": "The important bit is to know there are disks, and they can be sealed, and they have large pages. "
+  },
+  {
+    "start": 3545.386,
+    "end": 3547.328,
+    "speaker": "SPEAKER_05",
+    "text": "So we don't really have to go online. "
+  },
+  {
+    "start": 3570.109,
+    "end": 3580.756,
+    "speaker": "SPEAKER_01",
+    "text": "So I recently talked to one of the other PhD students in my group, a vector database, well, an application on top of a vector database. And he was wondering why was so poor. And we were discussing this. And it ended up . "
+  },
+  {
+    "start": 3605.89,
+    "end": 3611.475,
+    "speaker": "SPEAKER_01",
+    "text": "You will go out into the real world, either on your placement or . And someone says, oh, you've had database implementation. Cool. "
+  },
+  {
+    "start": 3623.045,
+    "end": 3653.899,
+    "speaker": "SPEAKER_01",
+    "text": "How do we do some of this? And then knowing, oh, okay, this is postgres. Postgres follows the volcano. We'll talk about volcano, but it follows this architecture, this API out. Or maybe you don't need to, obviously. There are hundreds of database systems. No one will expect from you to know the page layout for every single one of them. But you can then go look up the documentation and say, oh, this is the swapping pages. "
+  },
+  {
+    "start": 3654.02,
+    "end": 3662.122,
+    "speaker": "SPEAKER_01",
+    "text": "Or maybe this is the span pages. For this operation, it actually does play a role. And then you can build it. "
+  },
+  {
+    "start": 3679.507,
+    "end": 3684.63,
+    "speaker": "SPEAKER_01",
+    "text": "Why am I dating you then? I don't get much out of these. Because I don't want you to just reproduce something. "
+  },
+  {
+    "start": 3722.253,
+    "end": 3724.676,
+    "speaker": "SPEAKER_05",
+    "text": "Oh yeah. I'll figure it out. "
+  },
+  {
+    "start": 3724.736,
+    "end": 3727.759,
+    "speaker": "SPEAKER_01",
+    "text": "Just have a think here. What's COVID a year ago? "
+  },
+  {
+    "start": 3744.856,
+    "end": 3749.059,
+    "speaker": "SPEAKER_05",
+    "text": "You don't just buy me the stuff that you want. In case Aldo buy you Japanese food. Not Japanese food. Not for me. "
+  },
+  {
+    "start": 3761.73,
+    "end": 3768.615,
+    "speaker": "SPEAKER_05",
+    "text": "I will build it for you. I am so going to care. It's because of the firmware that supports it. "
+  },
+  {
+    "start": 3768.835,
+    "end": 3770.156,
+    "speaker": "SPEAKER_07",
+    "text": "I love my board scarves. "
+  },
+  {
+    "start": 3770.216,
+    "end": 3772.678,
+    "speaker": "SPEAKER_03",
+    "text": "It's the latest firmware. That's it all. "
+  },
+  {
+    "start": 3789.51,
+    "end": 3793.013,
+    "speaker": "SPEAKER_05",
+    "text": "Wait, wait, you can react. Can you react to the question mark? No! "
+  },
+  {
+    "start": 3809.473,
+    "end": 3814.296,
+    "speaker": "SPEAKER_01",
+    "text": "Bro, for a second I panicked because Yona touched it. "
+  },
+  {
+    "start": 3814.356,
+    "end": 3856.079,
+    "speaker": "SPEAKER_05",
+    "text": "I'm so used to touchscreen, bro. I was like, no, bro, Yona. It's okay. You'll find someone who wants you bad. You'll find someone who wants you bad. The thing that Azalea said, the abstraction solves everything. Oh, yeah. I don't have the camera. I just assume it does. It does. Architects. I know. Oh, yeah. Oh, it's drone. System. That was a talk architecture. I don't know. I don't know. It's like trying to... Wait, that's fine. I can't... You're enrolled. Okay, but this works. Oh, okay. "
+  },
+  {
+    "start": 3867.596,
+    "end": 3872.343,
+    "speaker": "SPEAKER_05",
+    "text": "I have, like, boop, boop, boop, boop, boop, boop, boop, boop, boop, boop, boop. "
+  },
+  {
+    "start": 3910.767,
+    "end": 3922.783,
+    "speaker": "SPEAKER_05",
+    "text": "It's a rustic. I knew it because every single rustic book looks like that. Did you get a rustic book from like... Oh, I got a rustic book. Is it from Hellsing? Is it? "
+  },
+  {
+    "start": 3931.872,
+    "end": 4006.588,
+    "speaker": "SPEAKER_01",
+    "text": "that book is fine that book is like time is lost that book is timeless There are always a bunch of questions during the break but one that I found really interesting and I was actually almost Surprised that it didn't come up last week that I did all this C++ template magic, and to specify a relation as a class, and it's a templated class, so I can have a relation of three integers and a float and a string, and another relation with two integers and no floats or something. "
+  },
+  {
+    "start": 4007.468,
+    "end": 4038.105,
+    "speaker": "SPEAKER_01",
+    "text": "And the question now was, well, but this is information that, to instantiate the templates, has to be available at compile time of the system. But if I'm building a database system, I don't have that information at compile time. fake the schema of my database into the compiled binary that I ship to my customers. And that is generally true. "
+  },
+  {
+    "start": 4038.425,
+    "end": 4072.581,
+    "speaker": "SPEAKER_01",
+    "text": "There are systems and there are projects, I've also supervised some projects doing things like this in Rust. There are good reasons why you would want to bake the schema into your binary. For example, if you're really building a highly efficient, no overhead system that, for example, is deployed on an embedded device. No users are going to log in and create new tables. But you really want to squeeze out every little bit of performance. "
+  },
+  {
+    "start": 4073.081,
+    "end": 4120.672,
+    "speaker": "SPEAKER_01",
+    "text": "So that would be a case study. or you're teaching a database class, you just want to make a point. And that was the reason in this case. I wanted to demonstrate that these are the information that you need to know, or this is the information that you need to know of a relational operator. In practice, most of these systems, the systems that I'm going to talk about, have this kind of information well, at runtime, and then they would use less efficient, less type safe mechanisms to basically implement their own type system on top of the language and the database. "
+  },
+  {
+    "start": 4121.072,
+    "end": 4151.363,
+    "speaker": "SPEAKER_01",
+    "text": "So yes, 100% spot on. What I did last week, this is not how real systems are implemented, but I hope that if you Don't worry about the C++ template magic too much, and just try to understand what the point is I'm trying to make, that the point came across. Okay, that being said, any more questions, or do we do the worksheets? Good. "
+  },
+  {
+    "start": 4151.823,
+    "end": 4182.814,
+    "speaker": "SPEAKER_01",
+    "text": "In that case, this should be available, right, on Cientium. Yep. Okay, very good. I would say have a read. The first two we'll do, you know, after a little bit of looking at it together, and then I'll do some or have you do some calculations that will be a little bit more involved. Okay? So let's have a look at this for like one or two minutes. No need to write anything down. We'll do it on the whiteboard. "
+  },
+  {
+    "start": 4225.269,
+    "end": 4276.701,
+    "speaker": "SPEAKER_01",
+    "text": "Is the problem clear? Yeah? Cool. I don't see any vigorously shaking heads. Okay. So we're estimating the cost, and we're looking for all records with ID 70, right? And then we have this super basic cost model here. have a or if my system performs a random access to an arbitrary value here that costs me three and these this three has no unit and this is actually quite common it's also a good indication of like how real database systems work what they need is a comparable metric they need to be able to compare costs of two queries They don't need a unit. "
+  },
+  {
+    "start": 4276.721,
+    "end": 4311.945,
+    "speaker": "SPEAKER_01",
+    "text": "This is not in seconds or in cycles or in memory accesses. It's just three. Then we're saying each access immediately following a value costs one. So if I access this value in access one, accessing this value costs me only one unit. "
+  },
+  {
+    "start": 4312.125,
+    "end": 4367.842,
+    "speaker": "SPEAKER_01",
+    "text": "Why would I do that? Why is this a sensible cost model? Yeah, go. Cache lines? Yeah, cache line, okay, more than one word. Because when you read the full, it actually reads 64 bytes after. Right. So because, so this, yeah, correct. So this is meant to capture some notion of locality, but this is by no means accurate, right? Like the accurate notion of locality would be, well, we're accessing things, as you said, right, like in 64 bytes, or... in whatever our page size is but i can't be bothered with page sizes here i'm just saying look there's a certain probability if i've accessed a value that the next value is on the same page I can calculate that probability. "
+  },
+  {
+    "start": 4368.483,
+    "end": 4423.523,
+    "speaker": "SPEAKER_01",
+    "text": "Can't be bothered. I just say, okay, fine, like, you know, on average, it's cheaper. Let's make it one, right? This is probably an overestimate, but it's a cost model. And you may have heard this sentence that, or this litany that all models are wrong, but some are useful. This is exactly one of those, right? Clearly wrong, but kind of useful. And then accessing a value, again, is free. Why would that be a reasonable, what is that model? Yeah, go. Being in the cache? Yeah. So that's temporal locality, right? So this one accounts for spatial locality or captures some notion of spatial locality. And this one captures some notion of temporal locality. And those are, in general, if you're thinking about physical cost models, these are exactly the kind of notions that you want to capture. OK? Good. So what's the answer? "
+  },
+  {
+    "start": 4438.348,
+    "end": 4498.065,
+    "speaker": "SPEAKER_01",
+    "text": "Really? Okay, thank you. Is all of the data listed there, or are we meant to like... Yeah, yeah, yeah, oh yeah, sorry, the idea is, no, no, no, the three dots, my lips is here, is just continued on the next line, not there is a bunch of data here. No, no, no, the idea is that this is my first column, this is my second column, sorry, I should have been more explicit. My third column is this, and this is joining data. In that case, isn't it just five? Yes, thank you. Yes, it's just five. No trick question here, right? Very clear. This one, three, right? The next one, one. Another one, one. And that makes five in total. Yeah. So in this case, you could argue, oh, well, but don't I have to read more data here? Like, don't I have to read these? No, because I know the implicitly know the cardinality of the table, right? I know that I only need to access three. "
+  },
+  {
+    "start": 4498.365,
+    "end": 4569.649,
+    "speaker": "SPEAKER_01",
+    "text": "Is this... OK, good. Yeah. OK, good. Next one, NSM. 9. 9. Thank you. Right. 3 here, 3 here. Sorry, no, it's not 9. 9. Excuse me. Is the upper bound, or is it just a bar chart? Good question. So in this case, let's assume there are bar charts with an upper bound, so they are fixed size allocated. For 12? Yes, it's 12, right? Like, you know, it's four axes, four random axes, each one at cost three. Yeah, go. For the previous one, if we knew the denseness or the ordering, could we reduce it from five? Yeah, maybe. Let's do the next question and find out. Yeah, think this. OK, for this I'll give you a little bit more. I actually want some numbers. "
+  },
+  {
+    "start": 4648.34,
+    "end": 4655.643,
+    "speaker": "SPEAKER_05",
+    "text": "For the previous question, how did you know where the second tuple or third tuple starts? "
+  },
+  {
+    "start": 4655.843,
+    "end": 4673.93,
+    "speaker": "SPEAKER_01",
+    "text": "Oh, the assumption was that they are fixed size tuples. I thought it was varchar. Yeah, I think the question came up, right? Like, how did I implement the varchars? And I've implemented them by not implementing them, by sidestepping the problem. "
+  },
+  {
+    "start": 4679.106,
+    "end": 4692.463,
+    "speaker": "SPEAKER_03",
+    "text": "I'm assuming the ID is the primary key, like it's unique, right? Do we have that assumption or not? Well, it's not stated, so... Okay, so that could be multiple... "
+  },
+  {
+    "start": 4692.543,
+    "end": 4723.525,
+    "speaker": "SPEAKER_01",
+    "text": "Yes, it's... So... In an exam, okay, I think I'll use this to piggyback a piece of information. In an exam, you, in my exam, right, you should always state your assumptions, which you've just done, right? Oh, I am assuming that ID is a primary key, but if the assumptions make the problem significantly easier, you'd better not make them. You might lose marks. "
+  },
+  {
+    "start": 4761.15,
+    "end": 4773.177,
+    "speaker": "SPEAKER_05",
+    "text": "the first time you check all the data. If I didn't even want to. Then it doesn't change. It's human's primary. It's human's primary. "
+  },
+  {
+    "start": 4802.202,
+    "end": 4804.243,
+    "speaker": "SPEAKER_01",
+    "text": "Okay, so who's done? "
+  },
+  {
+    "start": 4804.263,
+    "end": 4806.425,
+    "speaker": "SPEAKER_05",
+    "text": "Okay, let's give it one more minute. Okay. "
+  },
+  {
+    "start": 4861.801,
+    "end": 4915.816,
+    "speaker": "SPEAKER_01",
+    "text": "So, okay. Good question. Okay, good. Let's get started. Good. Let's start with the question, right? The question is the following. I have said... the query is find the names of all employees with ID 5, right? And so the question is what If I'm reading the question correctly, what do I need to actually return? And does returning that actually cost me something? So if I'm accessing the name, I would like to return the name. But because it's a string, I could return it as just a pointer. Right? "
+  },
+  {
+    "start": 4917.135,
+    "end": 4953.125,
+    "speaker": "SPEAKER_01",
+    "text": "So in that case, accessing this one, for example, I'm looking for, wait, what is it? ID 5. Yeah, so Sam, I could, in an exam, if you're saying, oh, I need to copy the value out, State that assumption, and then calculate it like that. If you're saying, I just return a pointer, then state that assumption. "
+  },
+  {
+    "start": 4953.605,
+    "end": 4957.629,
+    "speaker": "SPEAKER_01",
+    "text": "As long as I understand what it is that you're doing, I think it's fine. "
+  },
+  {
+    "start": 4958.489,
+    "end": 4971.839,
+    "speaker": "SPEAKER_05",
+    "text": "Once we mount the ID file, even plus 1, Oh, I see. "
+  },
+  {
+    "start": 4972.68,
+    "end": 5003.765,
+    "speaker": "SPEAKER_01",
+    "text": "Yes. Yes, it would. Right. Yeah, yeah. So at this point, we're still treating names as, well, basically singular units, right? And so, like, you know, accessing the five and then accessing Sam, Sam would cost me one. Yeah. Okay, good. But let's start with the first question. So, what's the cost? "
+  },
+  {
+    "start": 5005.286,
+    "end": 5010.212,
+    "speaker": "SPEAKER_01",
+    "text": "Seven. Seven, okay. How did you come up with that? "
+  },
+  {
+    "start": 5012.92,
+    "end": 5021.566,
+    "speaker": "SPEAKER_05",
+    "text": "Okay, so you said I need to access this value because, well, denseness doesn't mean it starts at zero, right? So I need to know what is the offset, right? If I access value, position... "
+  },
+  {
+    "start": 5041.46,
+    "end": 5099.031,
+    "speaker": "SPEAKER_01",
+    "text": "something, right, like I still need to, or a couple something, I still need to know what the value is. Okay, then you're saying you're accessing this five. There should be another three. Okay, yeah, three. So, one, two, three, one, two, three. And to access Sam, it's just one because it's... Yeah, because of what we just said. Okay. It knows what this is. Any other offers? Three. okay wait just three yeah okay access to three and then just offset we know the size of each tuple so we can just calculate the offsets so i agree with half of that so i think you still want to i oh well under the assumption you're making the assumption that you're returning a pointer to sound Yeah, I've calculated, I'm generally calculating under the assumption that I need to actually copy the output, right? "
+  },
+  {
+    "start": 5099.351,
+    "end": 5131.873,
+    "speaker": "SPEAKER_01",
+    "text": "But you're in principle correct, right? So the difference between the two solutions is that there's no need to actually access the five here, right? Because, well, what... information we gain from it, zero. And so we could just, given the metadata that we have, that we are accessing the second attribute, we can just jump to that attribute straight away. And so what we are doing is actually accessing this value here for three. "
+  },
+  {
+    "start": 5132.113,
+    "end": 5164.301,
+    "speaker": "SPEAKER_01",
+    "text": "That one is still the case. And then we're accessing Sam. and sam okay in your case you're saying oh well that has cost me nothing i'm just returning a pointer i'm saying no no no no we're outputting the tuple so that costs me three you know what the max makes sense cool um good next one what's the number you can shout at me ten Any other numbers? "
+  },
+  {
+    "start": 5164.823,
+    "end": 5256.289,
+    "speaker": "SPEAKER_01",
+    "text": "Thirteen. Thirteen. Any other numbers? So, I also have 13. I'm curious about the 10. I only heard the number. Oh, is the 10 assuming again you're returning a pointer? Yeah. Okay, fine. Yeah, yeah. Okay. Good. But, so energy storage dense flag not set, right? So, what does that mean? What values do I need to access? Oh yeah, the three. Yeah. Three here, three here, five. Then Sam for one. If IDs were unique, but you would be making a simplifying assumption. Yeah. Better safe than sorry, right? So let's not assume that IDs were unique. We don't have that piece of information, right? So we still need to access that one. And that leads to 13, right? That's what I have. Okay, cool. Last one. Decomposed storage, dense flag, not set. Nine, okay. "
+  },
+  {
+    "start": 5258.858,
+    "end": 5289.671,
+    "speaker": "SPEAKER_01",
+    "text": "You have nine as well? OK, good. Walk me through it. Wait, wait. So three for three, yeah. One, two, three. Four for? One. For one, yeah. Five for one. Five for one. Sorry, something's off with mine. All right, five for one, yeah. Six for one. Okay. "
+  },
+  {
+    "start": 5291.897,
+    "end": 5329.29,
+    "speaker": "SPEAKER_01",
+    "text": "And then you remember... Cheating. OK, yeah, then a miracle, it's a miracle here. No, no, no, no, no. That's not how we're doing things. Well, caveat. This is actually how we are doing things when we talk about processing models. But for the time being, no, we're not doing that. Good. So after we've seen the five, what do we do then? 3 and here. "
+  },
+  {
+    "start": 5329.39,
+    "end": 5368.946,
+    "speaker": "SPEAKER_01",
+    "text": "So that makes 9, 11. Okay. Any, does anyone disagree? Is there a reason we're not allowed to remember? Because that would take intermediate storage, right? That depends on the processing model. This is actually how bulk processing works. When we talk about processing models, this will come back. But you basically... Let's say the long-winded answer is you would now need to materialize or write to memory to remember something. "
+  },
+  {
+    "start": 5369.026,
+    "end": 5418.921,
+    "speaker": "SPEAKER_01",
+    "text": "The fact that at position, whatever that is, a pointer, right, an offset, so and such and such, there is a tuple that qualifies. So that needs to be written. And if we now say, oh, well, reading costs us three or one or whatever, then writing should cost at least as much. So the costs are then off again. But I saw some raised hands back there. Yeah. I'm good now. Oh, OK. Same question. OK. Sorry, let me . David, we can make things worse. "
+  },
+  {
+    "start": 5422.45,
+    "end": 5434.001,
+    "speaker": "SPEAKER_04",
+    "text": "Okay, so. I was just wondering, so you read the six after. I need to read the six after. Do I need to read the six? If your ID is on, you need to. "
+  },
+  {
+    "start": 5435.957,
+    "end": 5468.659,
+    "speaker": "SPEAKER_01",
+    "text": "If my IDs aren't unique, yes, I do. Because in principle, there could be another five. No, but there's another one that I'm fishing for. And I think there is a point I'm trying to make. So what happens if instead of doing it the way you folks have proposed, after reading Sam, I read the five again? That costs me nothing, right? And then, according to the cost model, well, if I read the six again, that costs me one. "
+  },
+  {
+    "start": 5470.059,
+    "end": 5506.401,
+    "speaker": "SPEAKER_01",
+    "text": "So I can reduce my cost by two by, you know, gaining the cost model. And here is where this kicks in, right? Like all models are wrong, some are useful. This is, there are loopholes in almost all cost models. And when we talk about cost-based optimization, I also talk about this a lot in performance engineering, system performance engineering next year, but you will often find something where you have discontinuities in cost models, where you have something... "
+  },
+  {
+    "start": 5506.762,
+    "end": 5536.98,
+    "speaker": "SPEAKER_01",
+    "text": "You've already seen this when I talk about random access, right? You've seen in... the lecture, the recorded lecture, then you've seen this kind of staircase pattern. Now, if I build a cost model for this, I would probably not really model this bit. I would probably model something like this. And at that point here is where the cost model becomes inaccurate. And if you want to, you can game the system here. "
+  },
+  {
+    "start": 5537.423,
+    "end": 5568.375,
+    "speaker": "SPEAKER_01",
+    "text": "Now, that being said, usually the developers of a database system and its cost optimizer don't work against each other. So this is less of an issue than one would think. But in principle, this is something that's possible. OK, cool. Just something to look out for. Oh yeah, in an exam, you could do this kind of trick, but you would have to write it down. Good evening. Let's do some page calculation. No, we still have time. "
+  },
+  {
+    "start": 5568.555,
+    "end": 5573.317,
+    "speaker": "SPEAKER_01",
+    "text": "Lots of time. Go! "
+  },
+  {
+    "start": 5657.817,
+    "end": 5664.359,
+    "speaker": "SPEAKER_05",
+    "text": "Okay, so it's four kilobytes minus how many bytes it was, right? Where's the block? "
+  },
+  {
+    "start": 5682.727,
+    "end": 5687.91,
+    "speaker": "SPEAKER_05",
+    "text": "Why are these our pages and the other ones are blocks? "
+  },
+  {
+    "start": 5751.375,
+    "end": 5759.96,
+    "speaker": "SPEAKER_05",
+    "text": "Surely, it has to be multiple attempts. One? There's one. "
+  },
+  {
+    "start": 5781.413,
+    "end": 5834.153,
+    "speaker": "SPEAKER_01",
+    "text": "Okay. I have a feeling you guys are already moving on past what I have on the screen. Is that right? Yes. Okay, good. In that case, let's quickly go through this. What's the answer for the first one? 31? Yep. Okay, cool. That's what I have as well. Second one. Cool. OK, good. I mean, given that you've already moved on. Oh, by the way, I'm going to post the answers on edSTEM, the solution. So no need to write it down. I mean, these are also fairly simple, right? OK, for the slotted pages, do we have a number? No? Still working on it? Cool. "
+  },
+  {
+    "start": 5837.731,
+    "end": 5844.416,
+    "speaker": "SPEAKER_05",
+    "text": "Oh yeah, I use blocks, pages, cache lines. Sorry, I'm a bit sloppy. Yeah, we could use U8. "
+  },
+  {
+    "start": 5863.952,
+    "end": 5871.594,
+    "speaker": "SPEAKER_00",
+    "text": "Are we assuming that kilobyte is just 1,000 or 1,000? "
+  },
+  {
+    "start": 5871.814,
+    "end": 5879.996,
+    "speaker": "SPEAKER_01",
+    "text": "No. Thank you for raising it. No, in a sane world, kilobyte is 1,024 bytes. "
+  },
+  {
+    "start": 5885.642,
+    "end": 5891.766,
+    "speaker": "SPEAKER_05",
+    "text": "How big are the pointers? Pointer? Oh, for started pages. There are rules, right? Do you remember? "
+  },
+  {
+    "start": 5891.786,
+    "end": 5893.167,
+    "speaker": "SPEAKER_00",
+    "text": "Someone asked this, right? "
+  },
+  {
+    "start": 5893.187,
+    "end": 5899.391,
+    "speaker": "SPEAKER_01",
+    "text": "How big are the pointers, the offsets? Two bytes? Well, it depends on the size of a page, right? "
+  },
+  {
+    "start": 5914.325,
+    "end": 5933.89,
+    "speaker": "SPEAKER_01",
+    "text": "And I think I had this in the, well, I am confident, I had this in the slides, that depending on the page size, you basically make the pointers either a 1-byte, a 2-byte, or a 4-byte integer. And in this case, for a 4-kilobyte page, yes, 2 bytes would be what you need. "
+  },
+  {
+    "start": 5939.252,
+    "end": 5946.777,
+    "speaker": "SPEAKER_05",
+    "text": "It's less than 65,536. We could totally do u. So it's 17 plus 2. We could technically do u. "
+  },
+  {
+    "start": 5971.347,
+    "end": 6005.716,
+    "speaker": "SPEAKER_05",
+    "text": "17 bytes. How are you going to do it? You have to get the offset, right? Are you saying your thing with time is offset by something? Your records don't take You told me right now. We're going to do two by ten. We're not going to think about it. I'm not going to think about it. Okay. Do we have any numbers? Yeah, that's also what I have. Cool. There was one question, right? How large do I assume the header to be? "
+  },
+  {
+    "start": 6005.836,
+    "end": 6036.891,
+    "speaker": "SPEAKER_01",
+    "text": "You could argue, that the header should be the same size as the offset pointers. I don't know if that's how you calculated things. I usually, for simplicity, just say, OK, it's a 4-byte integer at the beginning. "
+  },
+  {
+    "start": 6037.431,
+    "end": 6133.725,
+    "speaker": "SPEAKER_01",
+    "text": "But usually, it doesn't make a difference for the calculations. In an exam, write it down. Like write down, I'm lazy, I do a four byte header, or I'm like super efficient, I use two bytes. Okay, good. Complex calculations are probably the more interesting ones. Let's try to get through at least one. It's fine if we don't finish them. What's the point of a slotted page when you know the record size? Yeah, good question. Why do I need a slotted page? Well, to make you guys calculate. When you implement a database system, even if you know that 98% of your customers will always have no variable size records, you still implement slotted pages for the remaining 2%. even if the pages are even if they are unnecessary it's just a feature that's there because i don't know of a single database system that implements more than one for each layout Does it matter? "
+  },
+  {
+    "start": 6133.745,
+    "end": 6154.522,
+    "speaker": "SPEAKER_01",
+    "text": "I don't know. Okay, I mean, above, like, you know, this big one, it's greater than, not greater, equal. Oh, yeah, this is a 700,000. Yeah, yeah, yeah. Oh, good point. I thought you were asking what I mean by 700,000. Yeah. Okay. "
+  },
+  {
+    "start": 6164.019,
+    "end": 6168.084,
+    "speaker": "SPEAKER_05",
+    "text": "The characters are 32-bit, but the strings are UTF-A encoded. "
+  },
+  {
+    "start": 6201.673,
+    "end": 6218.635,
+    "speaker": "SPEAKER_05",
+    "text": "It's true. Yeah, it makes sense. Oh, isn't it in the dictionary? Store it in a separate place. Oh, okay. How do you calculate this? "
+  },
+  {
+    "start": 6246.176,
+    "end": 6250.36,
+    "speaker": "SPEAKER_05",
+    "text": "Which one do you think is the last column? That's the third column. Thank you. "
+  },
+  {
+    "start": 6269.205,
+    "end": 6275.631,
+    "speaker": "SPEAKER_01",
+    "text": "I don't know, but like, yeah, it's dumb. Yeah, I think this is the failure. Yeah, it would be a very interesting query. Yeah. "
+  },
+  {
+    "start": 6289.484,
+    "end": 6297.471,
+    "speaker": "SPEAKER_05",
+    "text": "So you have to add the names. Okay, three plus three. That's like a page full of pages. You have to read each chapter. "
+  },
+  {
+    "start": 6352.643,
+    "end": 6356.888,
+    "speaker": "SPEAKER_05",
+    "text": "It's already ready. Let's change it from three to one. "
+  },
+  {
+    "start": 6387.533,
+    "end": 6410.599,
+    "speaker": "SPEAKER_05",
+    "text": "Let's just do it slowly. But how do you count that separately from? No, we can't just return the screen. No. In place and . Yes. 3 plus 3 plus 3 plus 3 plus 3 plus 5. So you're copying. It's just 3 because . Is it in place, or do you want me to fix size? 6. I'll fix size. "
+  },
+  {
+    "start": 6420.39,
+    "end": 6450.921,
+    "speaker": "SPEAKER_01",
+    "text": "Okay, do you want to, you know, throw some numbers at me? And I will nod or shake my head. That is a number. Well, I don't know. Okay, 19 for out-of-place energy storage. Okay, do we have any other numbers? 21. Okay, any other numbers? "
+  },
+  {
+    "start": 6453.081,
+    "end": 6489.616,
+    "speaker": "SPEAKER_01",
+    "text": "So I have 21 as well. So let's have a look, okay? So out of place and a restore. Okay, so what does that mean? I'm looking at the salary column, right? Salary, this one, right? Okay, so these are... This is a fixed-sized thing, so the numbers are stored straight here. So I have three for the first one. "
+  },
+  {
+    "start": 6491.858,
+    "end": 6521.973,
+    "speaker": "SPEAKER_01",
+    "text": "Here, that's three. Then I have another three here. One, two, three. And now I need to actually access SAM, right? So I access, well, there is a position here, an offset. Right? So that costs me three. One, two. And then I'm actually reading the string itself. That's an access into the dictionary. "
+  },
+  {
+    "start": 6521.993,
+    "end": 6541.452,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah? But because it's just right adjacent in a memory location, wouldn't we just count that as one? No, no, no. But this is out of place. Yeah, no, so wouldn't the pointer be kind of stored right next to the... Oh, the pointer, you're saying it would be adjacent to... Yes, the pointer would be right adjacent to that, so we could just... I see. "
+  },
+  {
+    "start": 6542.213,
+    "end": 6618.094,
+    "speaker": "SPEAKER_01",
+    "text": "Well, that's not what the cost model says. The cost model says to the following... not to one that's adjacent. Is this the discrepancy? Yeah. Okay, good. Okay, yeah. But the key bit, okay, fine, like, you know, this is semantics, right? But the key bit really is that there is, I think this is what I usually see. where I would have expected people to make a mistake, right, is that even though you don't see the offset in the table, right, it's obviously there, you need to follow the direction, right, and then you read the S for 3, then A and M, and the null terminator, each of them costs you 1, so 3 times 1 and then you jump back here to 3 and another 3 and that's how I end up with 21 is this the same did you also assume yeah cool for the next one what do we have 18 yeah I have 18 as well next one 18 I have 17 as well A one-off is kind of weird. "
+  },
+  {
+    "start": 6618.154,
+    "end": 6657.157,
+    "speaker": "SPEAKER_01",
+    "text": "Did you forget a null terminator? Surely I would have included one too many if I got 18. Oh, yeah, right. You have 17. I got 18. Oh, you have 18. Okay, not obvious to me. Yeah, I mean, as I said, I'll post it online. And last one. Okay. Okay. Do we have any other numbers? 14? Yeah, I also have 14. So you're always off by one. You know that there are three big problems in computer science. "
+  },
+  {
+    "start": 6658.497,
+    "end": 6691.048,
+    "speaker": "SPEAKER_01",
+    "text": "Yeah. Good. But now for reference, for context. Do I care? Is this really important? Do you need to do this? No. This is silly. Obviously, this is not... I don't care about the numbers. But in this case, you're basically going through an algorithm, and you need to take a lot of things into account, right? You need to take into account, okay, so what does it mean for something to be stored out of place? "
+  },
+  {
+    "start": 6691.328,
+    "end": 6724.342,
+    "speaker": "SPEAKER_01",
+    "text": "That means there's another offset here, right? What does it mean for something to be stored in slotted pages? What does it mean for something to be in decomposed or anery format? What does it mean for something to be dictionary compressed? The actual number is a checksum. So you can easily, like with all checksums, you can get false positives, but they are, if it's engineered well, and I've spent a fair amount of time engineering this well, the checksum, there should be very few conflicts. So if you get the right number, there's a good chance that you've incorporated all the right concepts. "
+  },
+  {
+    "start": 6724.722,
+    "end": 6759.66,
+    "speaker": "SPEAKER_01",
+    "text": "And this is also, trick, like how to set exam papers that aren't insanely laborious to mark, is to have a checksum at the end of the calculation. If I know that the checksum is correct, it's extremely unlikely that the student made a mistake. And so that's why I'm making you go through this, not because I care so much about going through these numbers, I just want to make sure that you demonstrate that you've understood all the concepts. "
+  },
+  {
+    "start": 6759.84,
+    "end": 6790.558,
+    "speaker": "SPEAKER_01",
+    "text": "In an exam, you also want to make sure that you write down how you got there, because if you don't get, if you get the checksum wrong, I still can go back to the ground truth and then figure out, oh, okay, they've forgotten to take, like, you know, slotted page headers into account. or this or that, right? But don't get weirded out by the fact that this seems kind of trivial calculation-wise. It's only trivial if you know what the system actually does. Good. "
+  },
+  {
+    "start": 6790.878,
+    "end": 6801.623,
+    "speaker": "SPEAKER_01",
+    "text": "With that being said, sorry I've run over a little bit. I'll see you all next week and I think we'll talk about either processing models or algorithms. Thank you so much. All right. "
+  },
+  {
+    "start": 6820.425,
+    "end": 6825.467,
+    "speaker": "SPEAKER_05",
+    "text": "I guess that was unfair, but yeah, me too. I'm really impressed. "
+  },
+  {
+    "start": 6853.118,
+    "end": 6856.301,
+    "speaker": "SPEAKER_01",
+    "text": "Now? Three, yeah. Okay, that one's missing. Thank you. "
+  },
+  {
+    "start": 6879.997,
+    "end": 6883.321,
+    "speaker": "SPEAKER_05",
+    "text": "He always shows up, I think. No, no, no, I can do this right now. Give me a mail. "
+  },
+  {
+    "start": 6900.038,
+    "end": 6906.182,
+    "speaker": "SPEAKER_05",
+    "text": "She was just being emotional and he was like, no, she's fine. Okay, so I didn't need to offer to play. "
+  },
+  {
+    "start": 6906.202,
+    "end": 6914.547,
+    "speaker": "SPEAKER_03",
+    "text": "I don't know how to start. I would be looking for that for someone. I would love to read to get something. "
+  },
+  {
+    "start": 6914.687,
+    "end": 6915.828,
+    "speaker": "SPEAKER_00",
+    "text": "So I'll make a list. Okay. "
+  },
+  {
+    "start": 6926.815,
+    "end": 6931.537,
+    "speaker": "SPEAKER_05",
+    "text": "You're not being legit right? What was wrong with that question? "
+  },
+  {
+    "start": 6931.937,
+    "end": 6940.96,
+    "speaker": "SPEAKER_06",
+    "text": "I don't want to say it through that way. Oh sorry, I just reached for whatever was most comfortable. "
+  },
+  {
+    "start": 6962.641,
+    "end": 6965.842,
+    "speaker": "SPEAKER_08",
+    "text": "Yeah, um, stay there. "
+  },
+  {
+    "start": 6966.382,
+    "end": 6991.831,
+    "speaker": "SPEAKER_07",
+    "text": "Yeah, no, that's okay. Sorry, I should hold your place. The liar also seemed deeply offended when I asked that question. On the bright side, this is actually... Actually, no, you know what? I was lying when I said something. "
+  },
+  {
+    "start": 6992.554,
+    "end": 7032.4,
+    "speaker": "SPEAKER_06",
+    "text": "Are you heaviest? I'm good. I just prefer it if everything is force fed to me. Software reliability very much is not. It's like you just have to like go in. It's like based on the stuff that you've done so far. Like the lectures are easy for you to crossword through. I think the same goes for all the other network systems. Like, it's going to be him talking for a little bit, then a lot of people. No, but that's because he assumes to record. But also, yes. Every single time we're doing this, there's still something. I don't understand why we're doing this. "
+  },
+  {
+    "start": 7058.405,
+    "end": 7067.13,
+    "speaker": "SPEAKER_05",
+    "text": "This is the first lecture. Yeah, so you don't really drink it in Spiria. Oh, next week. Next week. I don't know, it's just been interesting. Interesting. Oh, is that renewable? "
+  },
+  {
+    "start": 7094.498,
+    "end": 7146.069,
+    "speaker": "SPEAKER_05",
+    "text": "I was gonna go to a grocery shop. I might not do as much as you found me, but I'll give you the gaffer notice. I'll be like, instead of being... I was gonna go to a grocery shop. Where are you going to shop, though? Message me. You're not gonna lie. I'll say I'm going to pay myself just so I won't feel the shame. I'll spend the next two days. You want to drop off there at peak hour and drop back in peak hour again? I think it's going to close. Why am I free? I'm going to be on week six for two days straight. That's weird. I wasn't there either. At least for now it's... Follow you to Lidl. I'm going to... I haven't done it yet. I can't wait. Wow. "
+  },
+  {
+    "start": 7158.635,
+    "end": 7162.297,
+    "speaker": "SPEAKER_04",
+    "text": "You guys know we have an event going on. "
+  },
+  {
+    "start": 7162.657,
+    "end": 7163.738,
+    "speaker": "SPEAKER_05",
+    "text": "Oh, really? "
+  },
+  {
+    "start": 7163.818,
+    "end": 7176.286,
+    "speaker": "SPEAKER_01",
+    "text": "No, no, no. You're free to say, but it's just that we're just telling you we have an event. No worries. What's the event? Foodies. We eat. This one. "
+  },
+  {
+    "start": 7176.366,
+    "end": 7191.802,
+    "speaker": "SPEAKER_05",
+    "text": "Yeah, it's eat. Sweat. Yeah. We're still working on the... What's it called? It's still currently only on WeChat, but we're thinking of expanding it internationally because it's Chinese food. "
+  }
+]

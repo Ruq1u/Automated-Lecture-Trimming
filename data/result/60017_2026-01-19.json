@@ -1,0 +1,1388 @@
+[
+  {
+    "start": 34.61,
+    "end": 39.53,
+    "speaker": 7,
+    "text": "I've now done this. Is there something else to do? I've now set up a new thing. It's the same thing. It's the same thing. ",
+    "model_probability": 0.1037
+  },
+  {
+    "start": 67.43,
+    "end": 68.73,
+    "speaker": 6,
+    "text": "So why can't I just do it in touch? ",
+    "model_probability": 0.3157
+  },
+  {
+    "start": 222.88,
+    "end": 256.3,
+    "speaker": 3,
+    "text": "All right, well, this thing isn't working. It's not displaying content of my screen, nor my iPad, nor anything else. I'm calling CSG for the time being. I guess we're winging it. I'm sorry about that. So for the second bit, I hope that they will have come here and fixed it. For the first bit, I think the Q&A session, I think we'll just do it without slides. I'm sorry, I'll just draw on the whiteboard a lot. ",
+    "model_probability": 0.9917
+  },
+  {
+    "start": 257.26,
+    "end": 289.07,
+    "speaker": 3,
+    "text": "Okay, cool. Are there any questions on the content? Profiling is what I was talking about. Don't be shy. Really? Nothing? Everything's clear? If I point at someone and ask them what's the difference between a trace and a profile, I'll get an answer like this. Are we sure? Okay, everyone look up here for a second. ",
+    "model_probability": 0.9976
+  },
+  {
+    "start": 289.27,
+    "end": 314.87,
+    "speaker": 3,
+    "text": "Okay, I'm gonna point at someone now. Trace or profile? Yeah, yeah, no, no, no, sorry, I was pointing at you. No, actually the person in front of you. But I'm OK with anyone, right? OK. Whoa, whoa, whoa. If you don't mind answering, I wasn't pointing at you. No, sorry. Is the difference between the person in front of you, is the difference between the trace and the profile clear? Yeah, yeah, yeah. I don't exactly remember the trace, but the profile was like . ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 328.71,
+    "end": 359.56,
+    "speaker": 3,
+    "text": "So if I asked you to explain the difference between a trace and a profile in an exam, you'd be in trouble. No, look, okay, sorry, sorry for putting you on the spot. I hope you don't mind. Okay, cool. I just want to make clear, right, like the point of this, of the first part of this is for you to ask anything that isn't quite clear, right? If there's something that you feel like, hmm, I'm not quite sure I've understood or grasped the difference, Now is the time, right? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 359.58,
+    "end": 362.26,
+    "speaker": 3,
+    "text": "We can discuss it. Thank you. Cool. Well done. ",
+    "model_probability": 0.9947
+  },
+  {
+    "start": 363.28,
+    "end": 386.34,
+    "speaker": 4,
+    "text": "I'm afraid this will be the second half of the talk, but you said in the first question about the automatic binary instrumentation. It's a very, very big topic to talk in the interactive section. I mean, there was no example that you just give me the intuition. ",
+    "model_probability": 0.9959
+  },
+  {
+    "start": 387.57,
+    "end": 429.93,
+    "speaker": 3,
+    "text": "of binary instrumentation? Yeah. Okay, cool. Good, let's use this as an entry point. So what is instrumentation in general? Let's forget about binary and source instrumentation. What is the point of instrumentation? Now anyone can raise their hand. Hmm? Yeah, go. Accurate measurements. Accurate measurements, okay, fine. Like, you know, that's, I suppose, in general, the point, I'm gonna turn on the mics. ",
+    "model_probability": 0.9969
+  },
+  {
+    "start": 430.25,
+    "end": 476.5,
+    "speaker": 3,
+    "text": "The point of anything we do in the profiling section, what's unique about instrumentation? What are the advantages, disadvantages? What does it differentiate from other techniques? What other techniques are there? All right, go ahead. As far as I remember, it was very helpful for debugging. For debugging. So like for manual instrumentation, putting a bunch of I mean, printf, sure, but you shouldn't really be doing printf debugging, right? So... ",
+    "model_probability": 0.9922
+  },
+  {
+    "start": 476.52,
+    "end": 481.8,
+    "speaker": 4,
+    "text": "Of course not. It has a really huge overhead. Yeah. ",
+    "model_probability": 0.9505
+  },
+  {
+    "start": 483.34,
+    "end": 519.7,
+    "speaker": 3,
+    "text": "Yeah, go. I just believe you don't need hardware or OS support. You don't need hardware or OS support, at least not for plain instrumentation. Okay, that's one thing, yeah. What else? I mean, let's start with what is instrumentation. Yeah, go. Okay, cool. ",
+    "model_probability": 0.9865
+  },
+  {
+    "start": 519.76,
+    "end": 587.66,
+    "speaker": 3,
+    "text": "So we're modifying the application, right? And we can modify the application at any point in the creation step. We can do it by hand before it's compiled. We can do it during compilation. We can do it post compilation. Okay, cool. Now, binary instrumentation is the idea of doing it at the very end, right? Last, basically just before execution. Okay, cool. So what are the advantages of this? Why would we want to do this? Yeah, go. I mean, tracing is more of a meta concept, right? As long as you're generating any kind of sequence of events, I would call that tracing, right? And you can do that in a lot of different ways. So instrumentation is one way to trace an application. It's by no means the only one. Okay, cool. So why would we want to do instrumentation? Okay, we don't need OS support, any other reasons? What else? Maybe I should really not tell people to bring their laptops to class. ",
+    "model_probability": 0.9979
+  },
+  {
+    "start": 588.04,
+    "end": 589.39,
+    "speaker": 3,
+    "text": "Maybe that was a bad idea. ",
+    "model_probability": 0.9771
+  },
+  {
+    "start": 590.57,
+    "end": 615.52,
+    "speaker": 4,
+    "text": "Yeah, go. I'm being a little specific to binary, but we are... directly adding some code inside the binary file makes us possible to better predict the perturbation of the... Because we know exactly at which point what we inserted. ",
+    "model_probability": 0.9984
+  },
+  {
+    "start": 615.76,
+    "end": 647.02,
+    "speaker": 3,
+    "text": "Okay, I think the second bit is much more important than the first, right? Because the perturbation, I mean, calculating perturbation is hard in general. Because you don't know what happens. Well, you might still be able to control what software is being run when you trace an event, but you don't really know the performance of that either. Like the example we had with walking the stack trace, where the overhead is dependent on the depth of the stack. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 647.38,
+    "end": 680.41,
+    "speaker": 3,
+    "text": "It's really hard to predict that, to model that. So that's... But... In general, instrumentation gives us a lot more control over what it is that we are tracing. We can evaluate complex conditions at runtime and say, oh, only if, I don't know, the call stack is deeper or shallower than three, we will trace, we will generate an event, otherwise we won't. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 681.05,
+    "end": 712.65,
+    "speaker": 3,
+    "text": "And that might be, or that should be a very cheap check, so we can reduce perturbation that way. Or we can, I don't know, just do it at specific hours of the day or sample or blah, blah, blah, right? Lots and lots of examples. But we were talking, so that's for instrumentation in general. But we were talking specifically about the benefits of binary instrumentation. So what was one of the key things that, key reasons why we would want to do binary instrumentation? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 713.55,
+    "end": 768.82,
+    "speaker": 3,
+    "text": "something that really isn't possible otherwise, yeah. You don't need the source code, so you can just do it directly on any application binary. Yep, so you don't need the source code. And there is a very specific instance of that. When you don't have the source code available, I'm pretty certain I talked about this, is the case of just-in-time compilation, right? In which case you have bytecode available, but you don't have the actual source available. Not the, whatever, Java source code or C sharp or something, right? So this is instrumenting at a binary level, but it is not at the low level of x86 where you have to, or ARM, where you have to worry about registers and location of jumps and that kind of stuff. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 769.12,
+    "end": 829.73,
+    "speaker": 3,
+    "text": "But it is binary in the sense that you are rewriting something that's not the source code. And so JIT compilation is arguably the most important instance of not available source code where binary instrumentation really becomes important. So that's also the example I would always use to motivate binary instrumentation. Let's say you want to trace every function call in the simplest case and you just do that Yeah, by rewriting the Java bytecode, or C sharp dot net bytecode. Does that make sense? All right, what else? We still haven't quite figured out what the difference between a trace and a profile is, so. You. No. I've already heard from you. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 829.75,
+    "end": 840.68,
+    "speaker": 9,
+    "text": "I have not heard from you. Very good. A trace is the complete kind of logging of events for a particular interval, whereas profile is just an aggregation of information from events. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 841.44,
+    "end": 912.71,
+    "speaker": 3,
+    "text": "Okay, cool. So, yes, I'm down with that. What are the advantages, disadvantages of either? Why would I prefer... Let's start with the easier one. Why would I prefer a profile over a trace? Yeah, go. I guess it's easier to interpret. Interpret by who? Interpret by whom and how? Maybe me as a developer, I have, like, it gives you a, like we said, aggregated, high-level look at the system and what's going on, rather than, like, every... Okay, cool. So it is easier to interpret for a human, right? By now, we live in an age where, like, you know, that very same, right? For an AI application, it might actually be easier to, or no, not easier, but more beneficial to interpret a trace, right? Okay, cool. So it's easier to interpret. What else? Why else would I prefer a profile over a trace? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 916.22,
+    "end": 930.8,
+    "speaker": 7,
+    "text": "It's actually easier to collect. Collecting all events like it is in the trace could be a lot of overhead, while tracking a certain characteristic is probably easier in terms of profiling. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 931.02,
+    "end": 987.38,
+    "speaker": 3,
+    "text": "Okay, can we make a specific example of that? Yeah, I think you're on the right track. Let's make it more specific. How is it easier to collect? how and why. Maybe we could use like, I'm not sure, but maybe we could use hardware support, like hardware counters. Okay, yes, but let's leave that, that complicates the argument. Let's leave that aside for now. Let's say you're just calculating, counting, or you are tracing or profiling just the number of times, let's say through instrumentation, the number of times that a specific function was called. Okay, cool. So, and you have the choice. You can either trace it or you can profile it. Why would you want to profile it? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 987.72,
+    "end": 1033.18,
+    "speaker": 3,
+    "text": "So, yes, on the one hand, yes, you only get a single number. They're easier to interpret. Okay, cool. What else? Why is it easier to profile in this case than it would be to trace it? By the way, anyone else, feel free to jump in, right? Ideally, someone I haven't heard from. Do you want to be let off the hook, or do you want to give it another shot? I mean, if anyone else knows better. I've already heard from you, just literally 30 seconds ago. Well, 90 seconds ago. Anyone else? Yeah. Go. Thanks. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1033.52,
+    "end": 1044.86,
+    "speaker": 0,
+    "text": "So a propeller might just hold a counter that increments on every function call, whereas a tracer would need to dump certain stuff to memory. OK. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1045.16,
+    "end": 1083.36,
+    "speaker": 3,
+    "text": "Cool. So basically, if I have a function, right? Doesn't really matter what it does. So what a trace would do is like, you know, I would have, let's say I do this in C++, okay? So I have a vector of maybe timestamps, right? Let's not worry about what a timestamp looks like, right? Let's just say it is an integer or something. It doesn't really matter, Unix time. So what I can do here to collect a trace, I would go trace.pushback, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1083.44,
+    "end": 1114.08,
+    "speaker": 3,
+    "text": "Append current time. Cool. So that would generate a trace. Right? Whereas a profile would be, let's say, you know, let's be, okay, let's call, make this an unsigned int. And we call it count. And we should really initialize it. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 1114.1,
+    "end": 1193.14,
+    "speaker": 3,
+    "text": "And then here we go count. Trace, trace, profile. Now, you said, oh, well, this is a, you've basically described this, right? You haven't really said why this is better. If you're interpreting it, say like. Okay, we've established the interpreting bit. Why is it easier to collect? I mean, if you're pushing back into the vector, that's more cycles, more memory usage. Okay, more memory usage? Okay, fine. If you're collecting time, it requires... Yeah, that is one thing, but I'm actually, like, you know, I mean, I think that using more memory is an important factor here, right? But it's not so much the memory, I don't, it usually traces, they don't become that big, right? But pushback needs to allocate memory, right? And every so often, you run out of memory in your vector, and then you need to double, or what it does is it doubles the size of the vector, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1193.42,
+    "end": 1232.49,
+    "speaker": 3,
+    "text": "That's a memory allocation, potentially copying a lot of data, freeing the old data, right? It's a lot of work that happens occasionally in this when generating the trace. The performance impact of that is entirely unclear. In the beginning, it's relatively small. It grows bigger over time. It adds to perturbation. All in all, just generating the trace can perturb your application significantly, whereas this is a register that presumably, well, maybe the compiler won't necessarily allocate a register for it. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1233.2,
+    "end": 1271.63,
+    "speaker": 3,
+    "text": "Yeah. But it definitely has a memory location associated with it, like a single address. And that address will hopefully be hot in cache. Because this happens a lot, right? Like it'll be hot in cache. Live in level one cache. So, you know, three cycles at max. potentially one. It costs us virtually nothing to do that, and we know how much it costs. And so the immediate aggregation is actually cheaper, more predictable than collecting the trace and aggregating it later. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1272.19,
+    "end": 1321.48,
+    "speaker": 3,
+    "text": "And so when you have to make this trade-off, then immediate aggregation, immediate profiling becomes super beneficial. Okay, cool, good. So now we've discussed the advantages of profiling. What about tracing? Why would I want to occasionally do this? Yeah, go. You can see specifically in the function like something goes wrong or like when the resource is being used up a lot more than expected or something. Okay, can we be specific? Why can I see that in the trace? What's a specific thing I can see in the trace? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1322.42,
+    "end": 1345.75,
+    "speaker": 9,
+    "text": "Let's say like in a function, and like in the middle of the function, it requires like heavy CPU or GPU usage, where in profiling, it aggregates at the end of the function, so you can't really know where in the middle of the function it goes wrong. Well, with tracing, maybe since you lock throughout the function, you kind of get better stats. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1345.81,
+    "end": 1365.63,
+    "speaker": 3,
+    "text": "Well, OK, but let's say I only do this. This is my code. And then there's the actual code that, yes, you're right, might very well call into a GPU or do something funky here. Let's ignore that. Let's say that is the instrumentation code that I have. Why would I prefer the first over the second? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1376.28,
+    "end": 1406.67,
+    "speaker": 3,
+    "text": "Right. Okay, cool. So I get basically, well, I have obviously more information, right? But why would I want that? Why is that something that's beneficial? If I'm just interested in how often has this function been called, it's not, right? But the moment I want to dig deeper and I want to understand, oh, when is this function being called? Is it, well, as you've indicated, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1406.91,
+    "end": 1437.89,
+    "speaker": 3,
+    "text": "Maybe called more often in the beginning. Is it called in bursts, right, where it's called 50,000 times and then not at all for a really long time? And then maybe again 50,000 times, right? So if I want to do kind of online aggregation, if I don't quite know what I'm looking for, doing, calculating or collecting a trace and then aggregating it at runtime or at analysis time provides me with a lot more information about, like, you know, how the... ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1438.99,
+    "end": 1460.22,
+    "speaker": 3,
+    "text": "what the behavior of the program looks like. It's a lot like, in general, in data warehousing, you can look at individual transactions and online aggregate them and get a lot more information. So this is for exploration, this is if I really already know what I need. Okay, cool. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1462.78,
+    "end": 1477.43,
+    "speaker": 8,
+    "text": "Anything else, what else? Yeah, go. Could you kind of explain how the dynamic instrumentation works? I think you mentioned it a bit in the lecture, like how it can be like on and off during runtime, you don't have to have like separate binaries. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 1477.75,
+    "end": 1522.82,
+    "speaker": 3,
+    "text": "Right, so the way LLVM X-Ray does this, is this the only spot? This is disgusting, oh no, cool. So, actually, let's keep this example, okay? And let's say, you know, we do this, do a similar thing using binary instrumentation, or runtime binary instrumentation, right? So, I mentioned that when you have a just-in-time compiled program, then things like, you know, runtime instrumentation, binary instrumentation is relatively easy because the bytecode is kind of amenable to this. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1523.12,
+    "end": 1554.1,
+    "speaker": 3,
+    "text": "It is relatively easy to take the data flow graph in a Java bytecode program and just insert new nodes. If you do this with properly compiled code like x86 or ARM, that is Not that easy, right? And the reason is that if you look at the x86 instruction string, say of this function, right? Like I said, there is a bunch of stuff going on here that would all yield instructions here, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1554.12,
+    "end": 1584.6,
+    "speaker": 3,
+    "text": "Like adds, moves, whatever. Whatever your function does, right? And then there is a function header, the thing that the function jumps. Well, when you call it the... CPU jumps to, right? And then it does some things, like it puts register, sorry, it puts, yeah, registers on the stack and does, well, honestly, people like Peter Pitzhoff and Louis Zek, the OS folks know this a lot better than me. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1584.98,
+    "end": 1619.4,
+    "speaker": 3,
+    "text": "I know there is a bunch of stuff going on. Okay, cool. But, what, and if you now have, well, that stuff going on here and the instruction stream here. And let's say you have a loop somewhere here. That loop would be translated into a jump back here. And then it would evaluate a condition and run through this again. But that means that the location of those instructions is really important, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1619.42,
+    "end": 1663.45,
+    "speaker": 3,
+    "text": "You can't just move those around. I can't just say, oh, now I want to binary instrument this function, so I'll just put in some instructions here to, I don't know, calculate a trace or do what we just did or whatever, right? Because that would push all the instructions forward and, yeah. basically break the semantics of the code. But, and this is where the idea of, or this is how LLVM X-Ray works, is what they do is they put a bunch of basically no-offs here, and then during compile time, just to create slack space. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1663.87,
+    "end": 1707.06,
+    "speaker": 3,
+    "text": "They call this a trampoline. And then the rest of the code stays where it is and static, right? And so when you then activate in binary instrumentation at runtime, the compiler, well, Yeah, well, kind of runtime component of the compiler goes through, either eagerly goes through all the functions or does so when loading the libraries, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1707.62,
+    "end": 1738.04,
+    "speaker": 3,
+    "text": "And basically puts in function calls here. It replaces the no ops that it knows or just assumes that are there with calls to another function. that is the instrumentation code, that is the trace. And here you have as much space as you like, you can have even a runtime generated function that you execute and then return back here. There are obviously, oh well, no. Well, yes, there are disadvantages to this. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1738.3,
+    "end": 1775.24,
+    "speaker": 3,
+    "text": "The first one being, well, this is a function call, right? And function calls, we've already established, are expensive, especially if they're done dynamically and they can be easily speculated on, tricky. But the good thing is that those no-op instructions, the CPU can basically go through at no cost. Yeah. I mean, as long as they're... moderately many. So the key downside you get to this is an OOP is something that the CPU can go through in, well, basically less than a cycle. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1775.98,
+    "end": 1806.08,
+    "speaker": 3,
+    "text": "And it goes through them. The only thing is that obviously these take up memory. And if you have 40 kilobytes of no-op instructions, you're basically destroying instruction cache locality. This would flush a lot of the actual useful code from the instruction cache. But if you have enough to accommodate one function call, which might be I don't know, I'm going to say 16 bytes or maybe 32. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1806.22,
+    "end": 1845.2,
+    "speaker": 3,
+    "text": "You put in a couple of no-ops, they have virtually no performance impact as long as they really are no-ops and they're not doing anything. The performance impact only comes in once you actually do this rewriting and the compiler. the runtime part of the compiler has this, injects this function call, right? And so this is actually, it's a pretty smart way of doing things because you're really mitigating the performance overhead as long as you're not using it, but you still have the option to basically do any instrumentation you want. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1846.56,
+    "end": 1880.77,
+    "speaker": 3,
+    "text": "with the one caveat that inlining this function here would obviously eliminate both overhead as well as perturbation that's associated with the function call. But as long as the tracing itself is relatively expensive, it will overshadow, hide basically all function call overhead. And generally, while you can't inline this, the CPU can speculate on this jump, right? Because it always jumps. Well, the first couple of times that it sees this jump, it will be surprised by it, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1880.79,
+    "end": 1912.88,
+    "speaker": 3,
+    "text": "Like it won't be predicting the... that jump correctly, but once it's seen it, let's say 10 times, this will be speculated upon by the CPU, so you don't get pipeline flushes, all the bad effects of, well, most of the bad effects of function calls. Cool, good question, I like the question. I also, I'm a big fan of this. This is like such a cool trick. And simple. Okay, what else? ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 1916.32,
+    "end": 1928.01,
+    "speaker": 4,
+    "text": "About the instrumentation, you said a third way, which you said more smart way, meaning something on, actually that's that way. ",
+    "model_probability": 0.9963
+  },
+  {
+    "start": 1928.03,
+    "end": 1934.69,
+    "speaker": 3,
+    "text": "Yeah, I think it might be that. I might have been referring to that. Cool, yes, cool, thanks. ",
+    "model_probability": 0.9938
+  },
+  {
+    "start": 1935.43,
+    "end": 1957.96,
+    "speaker": 5,
+    "text": "I wanted to ask about indirect tracing. So since we're kind of already thinking about assembly instructions and which ones dominate the control flow ones, does it mean we only really use it for binary instrumentation? No, I don't think so. Maybe I misunderstood it. Yeah. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 1962.48,
+    "end": 1997.37,
+    "speaker": 3,
+    "text": "I'm trying to develop a mental model of what was misunderstood. So I mean, the fundamental idea behind indirect tracing is that if you have unconditional or path sequences of unconditionally executed instructions, lines of code, nodes in a, let's say, Java bytecode graph, you don't, yeah, you don't need to trace every single one of those. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1998.15,
+    "end": 2030.04,
+    "speaker": 3,
+    "text": "It's enough to trace at the control point. And that applies at binary instrumentation, well, at every level, right? At source level, as well as binary level, as well as anywhere in between. So I'm not sure what, how the impression, how you formed the impression that this was something that was specific to binary instrumentation. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2032.26,
+    "end": 2077.16,
+    "speaker": 3,
+    "text": "Yeah, I'm trying to reverse engineer. That was the question. Okay, fine, fine. Okay, cool, I mean, let's talk about indirect tracing, right? What are, why would I want to do indirect tracing and what are the problems with indirect tracing? Can I point at someone? Maybe someone in the back. Everyone's intently staring at their laptop. My face is up here. Okay, so why do we do indirect tracing? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 2079.76,
+    "end": 2109.45,
+    "speaker": 3,
+    "text": "Actually, I've heard from you. Maybe from this corner. I haven't heard from anyone over there, I think. Corner top left. All right. Okay, I don't want to force it. I don't want to encourage people. Okay, cool. Let's go. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 2109.89,
+    "end": 2131.08,
+    "speaker": 8,
+    "text": "To reduce perturbation, if I understood it correctly, I think it's when you have a bunch of events and some of them depend on the outcome of a previous one. You can just check that one and then assume the other ones are going to run so you don't have to check. log all those as well, which reduced the overhead and the perturbation. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 2131.48,
+    "end": 2163.99,
+    "speaker": 3,
+    "text": "Is that correct? Yeah, I think it's pretty much spot on. So the point is to do this with the intent of reducing perturbation. OK, if we think back to our example, where we had my vector, like my trace, dot pushback, and I have the count. Would I want to do indirect tracing here? And then presumably that'd be something else here, right? ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 2164.55,
+    "end": 2172.54,
+    "speaker": 3,
+    "text": "Whatever. Under what circumstances would I want to apply indirect tracing? ",
+    "model_probability": 0.9864
+  },
+  {
+    "start": 2173.66,
+    "end": 2193.2,
+    "speaker": 8,
+    "text": "Yeah. I guess if you have like a maybe if else statement and then the brackets inside contain like very expensive operations, like many function calls maybe and some of them are expensive. So you don't want to do all that, like log all of those one by one. You just log the statements itself and then assume those are running. ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 2193.69,
+    "end": 2227.76,
+    "speaker": 3,
+    "text": "Right. Okay, cool, true. Now let's make it a more interesting case. Let's say I make this a recursive call. I call f recursively here. Don't worry about the infinite loop. Some breakout condition doesn't really matter. Okay, what is this, how does this affect the way I do indirect tracing? Oh, in as, yeah, yeah. ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 2230.38,
+    "end": 2233.78,
+    "speaker": 3,
+    "text": "How does this interplay with indirect trace? ",
+    "model_probability": 0.9702
+  },
+  {
+    "start": 2246.0,
+    "end": 2266.09,
+    "speaker": 7,
+    "text": "Yeah, go. You don't need to record each call of a function if it's recorded. I don't need to trace every call of the function, why not? Right, but I wouldn't know how often it's been called, right? ",
+    "model_probability": 0.997
+  },
+  {
+    "start": 2278.35,
+    "end": 2306.66,
+    "speaker": 3,
+    "text": "So your suggestion is to say, well, maybe I should have some kind of condition here that makes it such that I only trace the first call into the recursive function. Okay, what would that do? It would reduce the perturbation. Okay, cool, yes. That's something we're trying to do. But what else would it do? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 2322.37,
+    "end": 2384.24,
+    "speaker": 3,
+    "text": "I mean, I would basically no longer know how much time the function actually spends in its recursive calls, right? I could only see or observe the first level calls, which may be enough for what I want, but it might also not be, right? Like I couldn't tell how deep the call stack goes. Could you call it an exit condition? call it on the exit, oh, you mean like, you know, do another, trace another event here and then see how long it takes? Right, but I still wouldn't see the depth of the call stack, right? I could imagine an application that is dominated by the cost of recursion because, you know, the compiler, I want to see if the compiler inlines the tail recursive calls here. I couldn't tell. Right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2385.44,
+    "end": 2420.1,
+    "speaker": 3,
+    "text": "Okay. So let's say I still, well, for starters, right, just counting the number of function calls would tell me virtually nothing about the depth of the call stack, right? tracing them, even that wouldn't really tell me how deep the call stack is. So I still couldn't tell is the compiler, is the function just being called a lot, or is the compiler not able to inline the tail recursive calls. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2420.42,
+    "end": 2452.59,
+    "speaker": 3,
+    "text": "So I would need to trace some kind of payload here. I somehow need to record the depth of the stack at this point. And that's kind of what I was fishing for, maybe not particularly aptly, is that if I do indirect tracing in this specific case, I would need more information in the trace to be able to, well, disentangle what exactly is happening. If I were tracing every single instruction, I would see where the... ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2457.21,
+    "end": 2489.47,
+    "speaker": 3,
+    "text": "what the previous instruction was to, well, whenever the function was called. So I could tell if the function was being called in a recursive, well, by F, or from the outside somewhere, right? And then I could reconstruct the stack trace from that. But if I do use indirect tracing here, I lose that information, and I will need to find a way to reconstitute reconstitute, well, whatever, recreate that. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2490.31,
+    "end": 2521.94,
+    "speaker": 3,
+    "text": "And so indirect tracing does come with challenges and with downsides is what I'm hinting at, right? Make sense? Cool. Okay, what else? I'm either doing an amazing job explaining everything in the lectures or a terrible job that leads to everyone basically just looking at this funny and saying, I don't know, I give up. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 2523.18,
+    "end": 2536.21,
+    "speaker": 7,
+    "text": "So at the end, you have the kind of full trajectory based on the profile you can tell. On the very right, you have micro-op retiring. ",
+    "model_probability": 0.996
+  },
+  {
+    "start": 2539.0,
+    "end": 2577.62,
+    "speaker": 3,
+    "text": "Okay, cool, thank you, good question. Oh, now I would love to bring this chart up. Okay, I will actually, because arguably, I think I even say this in the lecture, right, that if you forget everything else about the lecture, this is the thing that you should remember. Now I don't get to show it. Is it still there? Okay, cool. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 2577.68,
+    "end": 2600.52,
+    "speaker": 3,
+    "text": "So, let me draw the chart. Cool. So, what we had, right? I should probably be able to recreate this from the top of my head, but we have uops issued, right? What does that mean? ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 2614.15,
+    "end": 2617.77,
+    "speaker": 8,
+    "text": "That an instruction is given to the CPU. ",
+    "model_probability": 0.9854
+  },
+  {
+    "start": 2618.18,
+    "end": 2652.26,
+    "speaker": 3,
+    "text": "Right. Well. To execute. An instruction enters the pipeline, the execution pipeline, at the front end, right? Because instructions are given to the CPU. The CPU is a very coarse, granular thing. Like we're looking at this much more fine-grained now. At any given cycle, has there been an instruction that enters the pipeline? ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 2652.34,
+    "end": 2683.91,
+    "speaker": 3,
+    "text": "And usually there should be more than one at any given cycle. Okay, cool. If not, allocation stall, right? The question is why, right? Why could there not be an instruction entered? No, yes. Cool. What does allocation stall mean? What's allocated here? ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 2684.93,
+    "end": 2753.45,
+    "speaker": 3,
+    "text": "Sorry. Yeah, go, thanks. Schedule? Like scheduling instructions to execution. Okay, when it says allocation stall, right, like something presumably is allocated, what's that something? Is it the yield, the instruction? No. The instruction is, no, no, no, it's that. The resources. Resources, right. So ALU, potentially, you know, SIMD units, right, like basically all the things that the CPU needs to actually execute the instruction itself, right. So the CPU basically says if there is no way to execute execute the instruction, I might as well not issue it, execute it, right? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 2754.03,
+    "end": 2793.98,
+    "speaker": 3,
+    "text": "Okay, cool. So, if there's no allocation stall, it basically means the CPU had resources, it had an instruction, or no, it had resources, but it still couldn't execute an instruction. Why would that happen? Well, basically because there was no eligible instruction to be executed, right? And that's called front-end bound, right? Or Intel calls this front-end bound, right? Basically means nothing entered the pipeline even though ALU was available, everything was there, but nothing was executed. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2794.66,
+    "end": 2824.97,
+    "speaker": 3,
+    "text": "If there was an allocation solve, then we call this back-end bound. And bound... And that means somewhere here in the pipeline it wasn't executed or wasn't issued. And that can either be because data wasn't available. So basically a cache miss. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2827.76,
+    "end": 2858.76,
+    "speaker": 3,
+    "text": "at some level, if you didn't have data available, or basically other stalls. this is ALU was not available, SMD unit was not available, whatever, lots of other reasons. And Intel just aggregates these all into other stores. Cool. The alternative is, Micro Ops were issued, here, they enter the pipeline, they go through execution, but they don't retire. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2859.04,
+    "end": 2893.05,
+    "speaker": 3,
+    "text": "Well, actually, they might retire, and I think this is, the question was, right, like, what does retire mean? So, Basically what retire means is they fall out on the other end. So instructions come in here, let's say one per cycle, we're ignoring superscale execution right now, they're being executed, but they're not being retired. Why would that be? Why could that be? So that's basically the null branch. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2897.1,
+    "end": 2898.58,
+    "speaker": 4,
+    "text": "Maybe wrong branch prediction. ",
+    "model_probability": 0.9947
+  },
+  {
+    "start": 2898.84,
+    "end": 2934.11,
+    "speaker": 3,
+    "text": "Right, exactly. It's mis-speculation, right? So basically, I think, what do they call it? Bad speculation. So it's an instruction that was issued, or well, entered the pipeline. It goes through execution, but it's then abandoned. not being executed late in the pipeline because it actually turns out that it was never meant to be executed. And if the instructions do retire, that is useful work. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 2934.57,
+    "end": 3013.07,
+    "speaker": 3,
+    "text": "That is what we want, instruction goes in, one per cycle, resources are allocated, data is available, it is not abandoned, it is actually executed. These are the cycles that the CPU spends doing useful work. And that's the ideal condition. Ideally, we always wanna be here. And so then we get a steady stream of instructions coming in, falling out on the other end. Yeah, go on. This graph is for diagnosing bottlenecks. This graph is for diagnosing bottlenecks. Sorry, you need to speak up. Yes, bottleneck, well... indirectly, first the graph is for classifying stalls, right? But then usually the stalls are, and stalls are just execution slots, cycles in which nothing happens. And usually that then is because there is some kind of bottleneck, right? But it's actually a good question. What would be, I mean, the data cache, right? ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 3013.09,
+    "end": 3044.75,
+    "speaker": 3,
+    "text": "Like that one's relatively easy to understand, right? if the data is not readily available, okay, the CPU can't progress in execution, right? Other stalls also, if there are, like, you know, no ALU execution slots because they're all busy doing something else, also reasonably easy to understand. Why would code be front-end bound? What could happen here? What are the reasons? The bottleneck. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 3049.63,
+    "end": 3050.83,
+    "speaker": 8,
+    "text": "Instruction cache miss. ",
+    "model_probability": 0.8913
+  },
+  {
+    "start": 3051.49,
+    "end": 3055.5,
+    "speaker": 3,
+    "text": "Okay. That could be an instruction cache miss, right? So, can you explain that? ",
+    "model_probability": 0.753
+  },
+  {
+    "start": 3055.54,
+    "end": 3066.95,
+    "speaker": 7,
+    "text": "What does that mean? So, the instruction is not available in the instruction cache, so it has to be fetched from the memory issue. ",
+    "model_probability": 0.8352
+  },
+  {
+    "start": 3068.69,
+    "end": 3097.37,
+    "speaker": 3,
+    "text": "Right, so during the fetch phase of the instruction of the pipeline, yeah, when the CPU reads whatever the program counter is pointing at right now, that thing may or may not be in the cache, right? And if it's not in the cache, then CPU will simply have to wait until it becomes available. Okay, that's one reason. What are other reasons? ",
+    "model_probability": 0.9979
+  },
+  {
+    "start": 3111.61,
+    "end": 3115.89,
+    "speaker": 7,
+    "text": "When we encounter a branch for which the branch predictor has a prediction. ",
+    "model_probability": 0.9359
+  },
+  {
+    "start": 3117.78,
+    "end": 3147.79,
+    "speaker": 3,
+    "text": "Okay. That's a hypothesis. I'm going to say no. But very close. So what would happen if the CPU encounters a branch but can't speculate on it? Just goes to the next address. No, no, no, so let's, you're thinking very fine granular. Let's say there is a branch, right? ",
+    "model_probability": 0.9985
+  },
+  {
+    "start": 3148.09,
+    "end": 3183.62,
+    "speaker": 3,
+    "text": "Yes, no. Do you execute a jump or not? Or jump, if a condition holds jump here, otherwise jump there, okay? What would happen if the CPU had no idea, like had no history of branch prediction? Yes, yes. Random. Yeah, it does. Why would it do that? Seems like it basically flips a coin. I mean, it's not entirely true, obviously. It's not how it works, but it might as well flip a coin. Why would it do that? Yeah, go. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 3183.64,
+    "end": 3198.2,
+    "speaker": 1,
+    "text": "The speedup for a correct prediction is going to be very substantial, and if you mispredict, then... the penalty for that will be less than the benefit you get from correctly predicting it. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 3199.78,
+    "end": 3231.13,
+    "speaker": 3,
+    "text": "Well, they might be equal, right? But I think you are definitely on to something. So I think it makes a lot of sense to think about this in terms of cost and benefit, right? Potential cost and potential benefit. So if the CPU makes a correct prediction, there is some benefit, right? But we don't quite know what the, well, no, actually we know what the benefit is, right? ",
+    "model_probability": 0.9976
+  },
+  {
+    "start": 3231.53,
+    "end": 3304.06,
+    "speaker": 3,
+    "text": "But what are the cost if the CPU is wrong? And sorry, you wanted to, you had your hand up, yeah. I just wanted to say, so that we can always keep the pipeline full. So if our execution units are constantly running, meaning that that's not the point of install. That is, sorry, the last question. It's not the point of install because our execution units are still being occupied. Yeah. So it's not due to mis-speculation. Right, but why is that a good thing? Because in the other case, our execution units would just be empty. We wait for the branch to be resolved. Yes, exactly. So I think this is a key point here. We don't have, the options are not do something bad or do something good. The options are do something good or do nothing. And the CPU will basically do nothing if the CPU has, in the binary jump case, branching case, there are choices between, well, maybe I get it wrong, or maybe I get it right, in which case, great, good cost, good benefit. ",
+    "model_probability": 0.9711
+  },
+  {
+    "start": 3304.36,
+    "end": 3373.83,
+    "speaker": 3,
+    "text": "But if I get it wrong, it's fine because it's not worse than doing nothing. Because doing nothing would lead to front-end stalls, Whereas doing the wrong thing just means that you need to abandon instructions later on in the pipeline. From a pure performance point of view, it makes absolutely no difference, right? Yeah, go. Yes, yeah. Oh, sorry. Yeah, I kind of implicitly assumed that I would be clear. Yeah, it has absolutely nothing to do with software front-end and back-end. Okay, now, let's think this through. This would be a good example. Sorry, good exam question. Why would some CPUs, and those exist, decide not to speculate? Given everything I just said, that there is no downside to speculating because the alternative is leaving those pipeline slots empty. ",
+    "model_probability": 0.9851
+  },
+  {
+    "start": 3375.07,
+    "end": 3405.5,
+    "speaker": 3,
+    "text": "Why would any CPU do that? I want to hear from someone. Yes, cool, someone very... Okay, so you're saying there are security concerns with this. Those have been largely mitigated by now, right? Okay, so that's not really it. ",
+    "model_probability": 0.9368
+  },
+  {
+    "start": 3407.03,
+    "end": 3446.73,
+    "speaker": 3,
+    "text": "Even though, like, you know, for a while, there was, what, like maybe half a year or something when everyone was super scared about speculative execution. And I mean, sure, there's still problems being found, but you can build CPUs that mitigate for that. What else? What other reasons? Yeah, you went on. Right. So, because I said that there is no performance penalty to it, and that is true if you're only looking at time, which for, what, 60 years or something, I don't know, when they started developing the first CPUs in the 60s or something, was the case, right? ",
+    "model_probability": 0.9527
+  },
+  {
+    "start": 3446.75,
+    "end": 3481.62,
+    "speaker": 3,
+    "text": "Like for a server CPU, this doesn't really make much of a difference, right? Once we're talking, well, maybe not your phone. Your phone still has a fair amount of power and spends most of it on display and maybe Wi-Fi. But if you're looking at like sensors, like tiny like, well, devices that are deployed in remote setups, right, where battery life is crucial. Suddenly, spending even 3% of your energy on speculating is significant, right? ",
+    "model_probability": 0.9056
+  },
+  {
+    "start": 3481.86,
+    "end": 3519.22,
+    "speaker": 3,
+    "text": "And on the other hand, in these cases... Performance is probably not super crucial, right? If you're just logging sensory temperature events, right, it's probably fine if you write it four cycles later to memory. Temperature will still be the same, right? And you will find that the CPUs that don't speculate are your typical, the Cortex-A0s and stuff. So basically the really low power devices that ARM designs for exactly that purpose. ",
+    "model_probability": 0.9059
+  },
+  {
+    "start": 3519.24,
+    "end": 3525.99,
+    "speaker": 3,
+    "text": "Another thing is just simplicity. Cool, I think, oh wow. ",
+    "model_probability": 0.8759
+  },
+  {
+    "start": 3527.31,
+    "end": 3540.09,
+    "speaker": 8,
+    "text": "Oh, sorry. Yeah. You said, so there's no time overhead of doing the speculative execution and then mispredicting and then flushing it, resetting it back? ",
+    "model_probability": 0.8883
+  },
+  {
+    "start": 3540.62,
+    "end": 3634.3,
+    "speaker": 3,
+    "text": "No practical, no measurable. You could say, oh, well, but the flushes, they might cost you one extra cycle, right? One extra execution start in a pipeline execution. There's, like, no, not substantially. Cool, so I need to, I want to do the tutorial. Okay, more important questions. Sorry, we need to make sure that we all have this down. Yeah, go. So if you're like the retire block of the diagram, so you have to just find performance improvements at like the software stage. Yes. You can't find it in hardware anymore. Yeah, yeah, yeah. Basically, if you're here, go back to the drawing board, think about your algorithm. Yeah, this is basically micro-architecturally efficient, might not be work efficient, right? And then you need to find work efficiency. Cool, so let's take a break now. I will have to go to CSG because this thing still isn't working and for the second part I do need the screen. So let's take a break now and be back in 10 minutes, okay? Cool. And I suppose someone's staying here. Just, I would like my I'm blinded, don't do it. ",
+    "model_probability": 0.8939
+  },
+  {
+    "start": 3668.16,
+    "end": 3675.61,
+    "speaker": 7,
+    "text": "Did you manage to do this one? I did, I found like a... ",
+    "model_probability": 0.1725
+  },
+  {
+    "start": 3725.17,
+    "end": 3727.17,
+    "speaker": 7,
+    "text": "Last week was like two weeks. ",
+    "model_probability": 0.0158
+  },
+  {
+    "start": 3727.33,
+    "end": 3736.31,
+    "speaker": 6,
+    "text": "No, it was actually a thousand like that. I did his motion picture and I got it. My arm was... Nose meat by Ninja. It was like two weeks ago. I need to remove it. ",
+    "model_probability": 0.0114
+  },
+  {
+    "start": 3749.44,
+    "end": 3752.64,
+    "speaker": 7,
+    "text": "You're not coming to the... I am. ",
+    "model_probability": 0.0085
+  },
+  {
+    "start": 3752.72,
+    "end": 3758.95,
+    "speaker": 6,
+    "text": "I've dropped NLP to take that one. NLP, you're boring as fuck. You're taking it? ",
+    "model_probability": 0.0068
+  },
+  {
+    "start": 3772.44,
+    "end": 3784.23,
+    "speaker": 8,
+    "text": "Remember, me and Ramin were in the library on Friday and we were like, let's drop NLP together and let's take the other security. He messaged me yesterday, what's happening, he's like, I think I'm going to go back to NLP, I'm sorry. Okay. ",
+    "model_probability": 0.003
+  },
+  {
+    "start": 3788.07,
+    "end": 3807.88,
+    "speaker": 7,
+    "text": "You can have some procedure. He doesn't want to do the papers, though. Wow. To read a bunch of research papers. Scalable. I'll leave a letter. I mean, I'm listening, I'll do it. You can ask around, see if you've got something going on. ",
+    "model_probability": 0.0005
+  },
+  {
+    "start": 3828.7,
+    "end": 3838.42,
+    "speaker": 7,
+    "text": "You guys should volunteer for it. I was supposed to... You went to ICHack on your CV. Volunteer at ICHack and maybe hack into your JavaScript. ",
+    "model_probability": 0.0003
+  },
+  {
+    "start": 3852.28,
+    "end": 3918.27,
+    "speaker": 2,
+    "text": "I mean right now I just unplugged it right but I can you know I could plug in the HDMI as well as the USB C neither one does anything do this now. That's not an option. So this is powered by your sort connection on the back which powers this. What I used to do is pull that out, power down the whole left turn, turn it back on, and again that resets nearly everything. ",
+    "model_probability": 0.0007
+  },
+  {
+    "start": 3920.13,
+    "end": 3950.58,
+    "speaker": 2,
+    "text": "They seem to have fixed that in, so you can't do that anymore. So I'm just going to have to call ICT to get them to come over and see if they come over, but those are obviously not working. One other thing, well maybe I can use the Okay. I mean, not a... That's the keyboard for that. Okay, but what's the keyboard for this? That's just showing a copy of what's on there. That's the keyboard, and that's all I set up for that. ",
+    "model_probability": 0.0031
+  },
+  {
+    "start": 3950.74,
+    "end": 3952.38,
+    "speaker": 3,
+    "text": "I can't type, like, nothing. ",
+    "model_probability": 0.004
+  },
+  {
+    "start": 3967.43,
+    "end": 3971.31,
+    "speaker": 3,
+    "text": "Oh wait, wait, wait, at least the mouse is moving now. ",
+    "model_probability": 0.0031
+  },
+  {
+    "start": 3972.49,
+    "end": 3974.36,
+    "speaker": 2,
+    "text": "Well that's not very good is it really? ",
+    "model_probability": 0.0041
+  },
+  {
+    "start": 3989.03,
+    "end": 4000.85,
+    "speaker": 2,
+    "text": "Unless you can turn from here to get into there, but that's going to be such a fad. It might be better than nothing. Have you tried HMI? Do you have a HMI? ",
+    "model_probability": 0.0071
+  },
+  {
+    "start": 4000.95,
+    "end": 4020.17,
+    "speaker": 3,
+    "text": "It is HMI. I've tried two different adapters. But right now it seems like it can basically do nothing, right? Oh wait, right, no? Is it previewing? But if I type, like look, I mean, it's not showing up, shouldn't it? ",
+    "model_probability": 0.007
+  },
+  {
+    "start": 4020.19,
+    "end": 4021.63,
+    "speaker": 7,
+    "text": "Oh, wait, something's moving. ",
+    "model_probability": 0.0003
+  },
+  {
+    "start": 4048.69,
+    "end": 4074.98,
+    "speaker": 3,
+    "text": "Okay, if we now type in my username. That's not quite it, but close. Okay. Okay, my thing is I don't know my password by heart. It's a complicated step. Yeah. Super safe. I mean, I never use it, right? ",
+    "model_probability": 0.0015
+  },
+  {
+    "start": 4075.02,
+    "end": 4080.32,
+    "speaker": 2,
+    "text": "I was going to say, I did go that route at one point, and then I just thought it would be four days. ",
+    "model_probability": 0.0025
+  },
+  {
+    "start": 4111.2,
+    "end": 4139.08,
+    "speaker": 3,
+    "text": "Okay. It's better than nothing. I mean, 10 minutes to the hour, hopefully. I actually have PPTs. Okay. I'm sorry. It's all right. Just let them know they're all fired. Okay, cool. Wow, this is gonna be interesting. ",
+    "model_probability": 0.011
+  },
+  {
+    "start": 4147.52,
+    "end": 4149.86,
+    "speaker": 6,
+    "text": "16% of the schools know that's the reason why. ",
+    "model_probability": 0.0938
+  },
+  {
+    "start": 4207.4,
+    "end": 4238.43,
+    "speaker": 3,
+    "text": "Okay, this is gonna be different. Let's see how well I can pull this off on one of the departmental machines. Usually I do it from my laptop, but fine. You all have access to the instructions, right? Cool. And I presume you've also tried, well, the thing, you've claimed the machine. This is weird. Claimed the machine and tried logging in. All of that's working? ",
+    "model_probability": 0.7716
+  },
+  {
+    "start": 4239.93,
+    "end": 4244.15,
+    "speaker": 3,
+    "text": "No. Okay. Why not? ",
+    "model_probability": 0.2342
+  },
+  {
+    "start": 4253.56,
+    "end": 4259.09,
+    "speaker": 7,
+    "text": "Has anyone managed to log into a machine, SSH into a machine? Yes. ",
+    "model_probability": 0.3071
+  },
+  {
+    "start": 4276.89,
+    "end": 4320.6,
+    "speaker": 3,
+    "text": "Okay, oh yeah, oh look, man, lots of machines are broken, right? Yeah, yeah, look. Yeah, well, life. Okay, cool, but yeah, go. Yeah, yeah, yeah, by all means, right? I think the instructions, contain that, the only thing is you'll use VTune for the coursework as well and we don't, we can't support VTune on your local machine for like Windows and Mac OS and Linux and so that's why I'm always assuming you're working on the lab machines. ",
+    "model_probability": 0.9548
+  },
+  {
+    "start": 4320.98,
+    "end": 4353.34,
+    "speaker": 3,
+    "text": "If you're not, you're kind of on your own, but by all means, use it. Okay, but, I still wanna show you as much as I can to show you what we're doing, right? Okay, cool. So for starters, we're looking... This is gonna take forever if I try to type all... ",
+    "model_probability": 0.931
+  },
+  {
+    "start": 4388.37,
+    "end": 4418.84,
+    "speaker": 3,
+    "text": "Okay, cool, here are the instructions, profiling tutorial, good. So, oh yeah. Okay, this isn't too bad, hopefully. Good, claim the machine, write down all of that stuff. Here we go, good. Now, I'm basically, can I not paste here? Okay, cool. ",
+    "model_probability": 0.9746
+  },
+  {
+    "start": 4419.24,
+    "end": 4450.13,
+    "speaker": 3,
+    "text": "So creating a temporary directory, downloading all the files that we need. Got it. And then I'm creating a replica of that file, right? Cool. So in the meantime, I'm taking the PE grab source code. I can actually do this in the background. Okay. Oh, I think it's cool. Okay. ",
+    "model_probability": 0.9795
+  },
+  {
+    "start": 4451.55,
+    "end": 4481.77,
+    "speaker": 3,
+    "text": "And this is just the regular PE graph the way I discussed it in the first class, right? Cool. So now we can compile it and run it. It runs for a bit. And actually, yeah. And then I need to run VTune. And VTune has this, I actually like this a lot, has this web mode. Okay, cool. ",
+    "model_probability": 0.992
+  },
+  {
+    "start": 4481.81,
+    "end": 4518.62,
+    "speaker": 3,
+    "text": "So this is the result, right? Which is why you don't have to install it locally, which is particularly good if you're running on a Mac, on an ARM Mac, because there's no VTune because, well, it's not Intel, right? But I can run this thing Cool, and oh, I think I might already have one running. Oh God, this is a British keyboard. Let's, okay. ",
+    "model_probability": 0.9587
+  },
+  {
+    "start": 4520.88,
+    "end": 4556.87,
+    "speaker": 3,
+    "text": "Whoever this is, please get out of my machine. You know your logins. I mean it. And please, kill your vtune instance before, okay? Still there? Are you serious? Honestly, I can't. Oh wait, nope, it seems to be short enough. ",
+    "model_probability": 0.9371
+  },
+  {
+    "start": 4563.66,
+    "end": 4612.02,
+    "speaker": 3,
+    "text": "I did not, I think it said claim a machine, did I? Yeah. Oh, in the Edstem instructions. Okay, wow, I need to make sure I always have, oh, okay, thank you. Um, good. So I can run my own V2 now. Good. Maybe you shouldn't take my instructions too literally, okay? Good. So now I have it running, very good, good. So now I can take this URL and, oh shit. And paste this into Firefox. ",
+    "model_probability": 0.9183
+  },
+  {
+    "start": 4613.5,
+    "end": 4638.35,
+    "speaker": 3,
+    "text": "Nope. How do I copy? feeling Yeah, I feel like you know, yeah, okay. Except the risk and continue. Here we go. Dang it. Yeah. Because I also have the passphrase on my MacBook. I will have to reset it. ",
+    "model_probability": 0.9524
+  },
+  {
+    "start": 4672.17,
+    "end": 4705.1,
+    "speaker": 3,
+    "text": "Okay, cool, here we go. So this is the VTune interface. Okay, cool. And I can now run a new, I can create a new project here, right? So let's call that PEGraph, create project. And I would like, can we get this bigger? Here we go. I would like this to run here and need to enter my credentials. ",
+    "model_probability": 0.9799
+  },
+  {
+    "start": 4705.54,
+    "end": 4737.24,
+    "speaker": 3,
+    "text": "And then I need to deploy an agent. Let's see if this works. Yes, okay, it does something. So basically what VTune does is it copies a stripped down version of itself onto a remote machine that allows me to run an application through SSH. which I actually think is so cool. I can basically run vtune locally and say, here's a server, install a small version of yourself there, and then we're running code there. ",
+    "model_probability": 0.9954
+  },
+  {
+    "start": 4737.82,
+    "end": 4768.1,
+    "speaker": 3,
+    "text": "Only thing is, I would have hoped to actually run this not on the lecture machine, but on the vertex machine. Okay, let's try this. Okay, cool. Deploy agent. Take a bit. ",
+    "model_probability": 0.9974
+  },
+  {
+    "start": 4768.58,
+    "end": 4803.36,
+    "speaker": 3,
+    "text": "Okay, cool. In the meantime, we copy the path. Okay, so this will take a bit. In the meantime, I'll basically tell it what application I want to run. And right now, okay, apparently it's now copying the agent from the machine onto itself, but apparently this takes a while, which is a bit annoying. ",
+    "model_probability": 0.9973
+  },
+  {
+    "start": 4808.6,
+    "end": 4809.64,
+    "speaker": 3,
+    "text": "Man, live demos. ",
+    "model_probability": 0.9862
+  },
+  {
+    "start": 4821.42,
+    "end": 4854.25,
+    "speaker": 3,
+    "text": "okay fantastic here we go okay good now i can um here i can choose i think i have to speed up a lot but i can choose a um kind of performance profile that i want to take and vtune has a bunch of options we're going to look into some of them later but the first thing you might want to start with is this performance snapshot thing and basically just say, oh, I've forgotten, I also need to specify the name of the file, and that was faust1000.txt, right? ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 4855.33,
+    "end": 4898.18,
+    "speaker": 3,
+    "text": "Okay, and then I just click play, and I wait, starting analysis, I see the output here, and it's done finalizing results, and I get this thing, right? I think it ran. It ran for a second, which I think it means it actually ran. Sometimes you run into something where, because you entered the parameters wrong or something, it doesn't actually run for a significant amount of time, and then you wonder why are all my profiles off, and it just turns out that the output was, or that you ran the program the wrong way. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 4898.48,
+    "end": 4932.18,
+    "speaker": 3,
+    "text": "But I'm pretty sure this is the right way. Okay, cool. But basically what it does is it provides some guidance on what the next step should be. And okay, first it's saying, oh, well, yeah, I'm making extremely poor use of the CPU cores. I'm basically 0% of my application is multi-threaded. Yeah, that is true. I should really fix that. But more, that's not what I'm super interested in right now. Let's start with looking at work efficiency and let's look at the hotspots. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4932.6,
+    "end": 4966.05,
+    "speaker": 3,
+    "text": "And so I click on this and then it basically creates a new run of the same application with new parameters. It's now set the how to hotspot and it does user mode sampling. So basically it collects a stack traces every so often. and I click play again, and it runs the program again, but this time it collects, well, different metrics, right? Cool, and it enabled a bunch of new kind of analysis here, bottom-up, top-down, flame graph, platform, column, column. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4966.55,
+    "end": 5004.21,
+    "speaker": 3,
+    "text": "And the first one that I always look into is bottom-up, and what bottom-up means is it looks at the, okay, no data to show. So maybe it actually didn't run properly, it should run. Let's look at the frame graph. Yeah, okay, go away. Hmm. Okay, this is not how it's meant to go. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 5005.38,
+    "end": 5025.38,
+    "speaker": 3,
+    "text": "Maybe I actually do have the path wrong or something. Let's try this again. So let's see if I can run the application from the command line. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 5042.6,
+    "end": 5076.66,
+    "speaker": 3,
+    "text": "Oh, that explains a fair amount. So let's see, maybe I have the path wrong, probably do. Oh, it's Faust 10,000, dang it. Okay, but I'm gonna go into the hotspots analysis straight away. Okay, let's see if this works better. Oh yeah, it also seems to run for longer. Okay. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 5077.9,
+    "end": 5133.47,
+    "speaker": 3,
+    "text": "Oh yeah. Cool, here we go, now it's finalizing results. And so the interesting thing is VTune does both tracing as well as profiling, right? So when it's finalizing results, it's basically generating a profile from the trace, right? And now I see what the top hotspots are, and hotspots are basically functions that are heavy, right? And I can, well, just click at those here, and I see this is the bottom-up analysis, and basically what it means is it looks at the top stack frame, which it, for some reason, considers the bottom, and then says, okay, fine, in this function line separator, get next string, right, we remember this was the thing that splits the string into, well, individual lines, it spent 10% of, sorry, 10 seconds of CPU time. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5134.31,
+    "end": 5165.13,
+    "speaker": 3,
+    "text": "And then I can see, okay, I can open this up and I see where it was called from. So this is the rest of the stack trace. And you also see the stack trace here, right? So this is the first function, right? Like this is where it was called, this is where it was called, and this is where it was called. And so I can look into individual functions, but I can also look at the source code itself. And then here, Oh God, the scrolling is terrible. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5165.48,
+    "end": 5208.43,
+    "speaker": 3,
+    "text": "What's in there? There should be this. How do I? The moment I use the, okay, here. Right, I see where it spends its time, right? So, okay, apparently, a fair amount of time, like, you know, 60% is spent on this function call, which is the, well, entry point of this, basically. And then within it, a lot of time is spent on, well, searching for the, for the new line or the end of string terminator, and then a fair amount is spent increasing the pointer. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5209.59,
+    "end": 5245.15,
+    "speaker": 3,
+    "text": "Now, sometimes V2 misattributes these things, so it's probably not the increasing of the pointer that is the expensive bit here, it might be the speculation of the, that happens as part of speculative execution. But the key thing here is I can look at the stack trace and find which part of my code are expensive. But more importantly, and usually, yeah, this is good when you're trying to understand the code base from a performance point of view. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5245.63,
+    "end": 5290.07,
+    "speaker": 3,
+    "text": "When you are trying to actually hunt down a performance problem, you will want to use this micro architectural exploration. This is basically using this tree that we have, right? So let's click on that. run the same code. I think this is all right. And I can actually say which of these metrics I'm interested in profiling, right? But usually I would want all of them. Let's run it. And now again, it runs the same code and now it actually does performance counter tracing, performance counter based tracing and collecting micro architectural exploration data. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5297.14,
+    "end": 5331.47,
+    "speaker": 3,
+    "text": "And here, this thing is kind of cute. It provides us with a visual representation of the pipeline that's similar to the representation that I have in the slides, right? So the idea is here are instructions that are coming out of the, well, instruction stream, right? And then some of them are front, some of the cycles are front-end bound, and basically 9%, so this is like, you know, suppose or with spend time stalling here, and that's where I'm losing performance. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5331.51,
+    "end": 5365.45,
+    "speaker": 3,
+    "text": "Basically, this is performance I'm losing. Then there's bad speculation, and they have this kind of funky shape here, right? So this is also something that I should probably fix. And then, what, 50% of my pipeline slots are actually retiring. And I can now look into the bottom-up analysis and do the same thing Once this comes up, why is there, oh, wait. Here we go. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5365.95,
+    "end": 5396.63,
+    "speaker": 3,
+    "text": "I can see the same kind of analysis on a function by function basis, which basically allows me to, well, then pinpoint individual problems with individual functions. And so if you have a combination of this tool, and Perf kind of does the same thing, only not as pretty, with your understanding of what this means, you can then look into how to optimize this, and we'll do more of that. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5397.15,
+    "end": 5428.38,
+    "speaker": 3,
+    "text": "For the time being, I would like you to do the same thing. Oh, well, or, yeah, actually, let me... Yeah, we have time. Good. Let me now show you one more feature that I think is really cool, is this ITT notify API. The problem that it solves is that if you have a complex application that runs for a really long time, you might not be interested in all of it. You might not want to profile all of it. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5428.42,
+    "end": 5459.81,
+    "speaker": 3,
+    "text": "There might be times that you want to disable the collection of metrics. On the one hand for performance, but also to make things easier to analyze. And so, Intel has this API where they say, okay, there's a bit of like craft, right? You need to create a domain, and then you need to resume. Resume basically is, you may have noticed this when I started. Can I not, oh yeah, I can actually do this, yeah. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5461.55,
+    "end": 5495.54,
+    "speaker": 3,
+    "text": "that I can start the profiler either with this play or play paused button. And this basically means run the application, but don't collect metrics yet. And what resume does is it basically starts collecting metrics, right? And you can then create tasks. And unfortunately, you have to create them using the C API, which makes it a bit annoying when you need to manipulate strings for task names. But you can basically say, here's a section of code that corresponds to this or that task. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5496.16,
+    "end": 5540.69,
+    "speaker": 3,
+    "text": "And you would want to aggregate at the level of that task. And then you can say begin the task and end the task and then pause the collection. I have... created an example of this of the PE grab code. So let me show you that. Let's download that and look at it. So basically what I've done is I've taken the three implementations that we had, the object-oriented one, the hacky one, and the really hacky one, and created different tasks for this. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5540.71,
+    "end": 5582.44,
+    "speaker": 3,
+    "text": "Like one object-oriented, and then I'm running the line counter, blah, blah, blah, blah, blah, this code here, and kind of capturing all of that in one task. Then I have the clean, like slightly more hacky version, right? And again, starting a task, ending the task, and then the hacky version here. And I'm running all of that in the same program. So now if I compile this And I need to link it against this ITT notify API and it complains, but that's fine, we can ignore this. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 5583.1,
+    "end": 5613.44,
+    "speaker": 3,
+    "text": "And we rerun the analysis. We can actually run it in pause mode. Okay, collection is paused. Right now it's not collecting any metrics. Oh, did I have a resume in the code? I'm not actually confident anymore. Oh, no, I do. At least I thought I did. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 5617.1,
+    "end": 5681.44,
+    "speaker": 3,
+    "text": "Let's try this again. Sorry, maybe I made a mistake. Figure analysis. Let's just make sure it actually runs. Oh, oh, I'm in the wrong directory. Why isn't anyone saying? Tmpsc, I don't know. Cool, yeah, that makes sense. Let's download it again, compile it again. Yeah, okay, cool, and run it again. Okay, cool, now it's, you can see, ah, that was, did I run it on the right? ",
+    "model_probability": 0.9982
+  },
+  {
+    "start": 5684.68,
+    "end": 5715.81,
+    "speaker": 3,
+    "text": "Yeah, okay, I think I did. Okay, cool, but what's interesting now is it shows those tasks here, and those are the basically groupings of code that I've established. I can now click on, well, first I see, okay, how much time did it spend on those? Okay, that's kind of neat, but I can also click on those, and I get the microarchitectural exploration for this implementation, for this task that I've created. So it basically aggregates on the basis of the task. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 5715.83,
+    "end": 5752.54,
+    "speaker": 3,
+    "text": "And I can now, for example, compare, this one does bad speculation, what 39% of the time, I can look at the clean code. and this one does bad speculation 30% of the time, right? So it speculates much less, but then it is more core bound, right? It can look at the hacky version, which should basically have no speculation, right? It's all retiring instructions, right? And so by combining what you know about your application and encoding, and this is almost like instrumentation, right? ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 5752.56,
+    "end": 5784.97,
+    "speaker": 3,
+    "text": "Like saying, oh, yeah, here I now create this task. Now I stop the profile. You can generate these profiles that are extremely helpful, extremely insightful. And that's... You have about 15 minutes left. What I would like you to do for an application that you don't know at all, that I, well, if you've done my data processing systems module, you know what a B-tree is. If not, a B-tree is a trees with index with a fan out greater than two. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 5785.77,
+    "end": 5819.28,
+    "speaker": 3,
+    "text": "That's all you need to know. If you go through these instructions, here's the source code, and then focus on, well first I would like you to only focus on the actual lookups, not in the tree, because initially the tree is filled with data. Don't worry about that. Disable profiling, pause profiling for that. And then look at the impact of different parameters of the B-tree, because you can, as I said, the fanout is greater than two, but the fanout is configurable. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 5819.9,
+    "end": 5848.64,
+    "speaker": 3,
+    "text": "So see how, what the impact is of the size of the tree, the fanout and set the, a number of iterations to a number that is reasonable so you can actually run the application for a reasonable amount of time and get some results. Okay, does that make sense? Yeah? All right, go. I'll walk around if you have issues, yeah. ",
+    "model_probability": 0.9961
+  },
+  {
+    "start": 5864.79,
+    "end": 5866.58,
+    "speaker": 7,
+    "text": "Yes, I made it. Yeah, yeah. Okay. Okay. ",
+    "model_probability": 0.103
+  },
+  {
+    "start": 5887.15,
+    "end": 5931.12,
+    "speaker": 7,
+    "text": "all the Pixel ones. Is it possible to use Google or whatever? I just can't keep up with the machines. I think all of them should have each of themselves. The profile doesn't run on all machines, right? So on your MacBook, not well. I stopped trying it. There used to be a time when I used to travel. But the web interface was recent. No, because I haven't had a time test, so I'll probably have to set up. I mean, maybe, can you guys? Yes. Okay, then there's your... ",
+    "model_probability": 0.033
+  },
+  {
+    "start": 5951.16,
+    "end": 5960.96,
+    "speaker": 3,
+    "text": "Oh, by the way, yeah, so I apologize. Apparently, I accidentally claimed vertex 17. So whoever was on the machine, I'm really sorry. That was my fault. ",
+    "model_probability": 0.0203
+  },
+  {
+    "start": 5963.69,
+    "end": 5971.37,
+    "speaker": 7,
+    "text": "Oh, I thought you were stretching. ",
+    "model_probability": 0.0052
+  },
+  {
+    "start": 5971.81,
+    "end": 6032.56,
+    "speaker": 6,
+    "text": "I tried to follow up, but I'm a little lost. So I thought the browser was... Cool. So... So this, when it sends one into a server, that's where I have SSH? Yeah. Okay. So I'm not using one of them. I'm using Roland 0.1 just to go up on my SSH circuit. Sorry, these are installed on Roland 0.1. If I try SSH into the 1.0, I haven't got a firm name. ",
+    "model_probability": 0.0168
+  },
+  {
+    "start": 6032.68,
+    "end": 6042.89,
+    "speaker": 7,
+    "text": "Oh, oh, that's Robin01. It's not one of the others. It's one of the . It's a dog machine. Okay, in that case, try . ",
+    "model_probability": 0.0063
+  },
+  {
+    "start": 6059.44,
+    "end": 6080.08,
+    "speaker": 7,
+    "text": "My question is, this just gets run on, so if I run a... No, no, no. You need to go back to the extension. So, cognate install. And that is... I've run this and I want this. Yeah, I've run this and that works. ",
+    "model_probability": 0.0063
+  },
+  {
+    "start": 6091.31,
+    "end": 6092.48,
+    "speaker": 7,
+    "text": "Because then if I, oh. ",
+    "model_probability": 0.0019
+  },
+  {
+    "start": 6092.5,
+    "end": 6107.44,
+    "speaker": 6,
+    "text": "Yeah, because I've run that and then now, oh yes. Because I've run that. My question, so then I just run, I just run these on internal machine, that's what you want. ",
+    "model_probability": 0.0066
+  },
+  {
+    "start": 6107.64,
+    "end": 6114.06,
+    "speaker": 7,
+    "text": "And that should just start to be easy. No, no, no, no, wait. So you run those instructions to volume? Yes. ",
+    "model_probability": 0.0178
+  },
+  {
+    "start": 6190.53,
+    "end": 6192.29,
+    "speaker": 7,
+    "text": "Yeah, you don't... ",
+    "model_probability": 0.0941
+  },
+  {
+    "start": 6223.96,
+    "end": 6258.22,
+    "speaker": 3,
+    "text": "Just one thing for clarification. So the instructions are kind of written to be followed along, basically. If you're jumping in at the point where the B-tree example starts, there's this MK temp which creates This is where it creates a temporary directory for you. If you're doing this from your home directory, it tries to create a temporary directory next to your home directory. ",
+    "model_probability": 0.6918
+  },
+  {
+    "start": 6271.35,
+    "end": 6274.22,
+    "speaker": 3,
+    "text": "If it doesn't work, just remove them. ",
+    "model_probability": 0.3473
+  },
+  {
+    "start": 6505.8,
+    "end": 6512.29,
+    "speaker": 6,
+    "text": "So why is it telling me it's not right? ",
+    "model_probability": 0.5287
+  },
+  {
+    "start": 6575.4,
+    "end": 6622.01,
+    "speaker": 3,
+    "text": "Okay, given that, I'm really sorry about this, we're kind of running out of time, but I still want to show you what you can hope to see from the bee tree example. In principle, what I was hoping, or what I would think you should do, is look at the btree source code, hello, the main.cpp file, and you will find that the lookup face here is fairly easy to, why is there, Oh, yeah, yeah. ",
+    "model_probability": 0.9873
+  },
+  {
+    "start": 6622.39,
+    "end": 6655.08,
+    "speaker": 3,
+    "text": "It's fairly easy to identify, right? This is the bit that we are interested in profiling, not the shuffling of the import and all the other craft around it. And you can use this ICT notify API to do exactly that, right? They started So only start the collection of the traces here and stop here using this resume and pause interface. But for the time being, I won't do that. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 6655.44,
+    "end": 6686.73,
+    "speaker": 3,
+    "text": "But you can then look at, oh, it's actually pointed me at the memory access. But I can also now again do the hotspot analysis. start it here and then use the once it's done here we go Okay, cool. So it already told me where the main hotspots are, right? ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 6686.75,
+    "end": 6726.85,
+    "speaker": 3,
+    "text": "Like there's the insertion and there's the lookup, and then there's a bunch of stuff here, which I think has to do, yeah, this is the shuffling, right, of the input data. Lots of stuff that we don't care about. We really only care about this thing, the count thing. And I can now look into the source code. and find where it actually spends its time. Again here, it's going through the B-tree nodes and looking at the elements linearly going through the B-tree node and looking for the first element that it can use as a pivot in the descent phase, right? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 6727.25,
+    "end": 6759.23,
+    "speaker": 3,
+    "text": "And you can go through code of applications that you don't know well through this hotspot analysis and identify performance bottlenecks. And that's really the point of vTune. I would also encourage you to look at the last bit of the instructions, which are macro profiling of an application that we don't even have the source code for. In this case, it would be SQLite. and do some performance analysis on that as well. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 6759.65,
+    "end": 6790.54,
+    "speaker": 3,
+    "text": "So, VTune basically gives you a lot of flexibility in what you need. Obviously, the more information you have, the more information you're gonna get out of it, but even without having the access to the source code, you can still learn a lot about your applications. Okay, cool, yeah, sorry this didn't go quite as I had planned. I hope that it was still interesting and this will be useful for your course work. I will, you know, make you profile things so you get to practice this in more detail. ",
+    "model_probability": 0.9985
+  },
+  {
+    "start": 6791.41,
+    "end": 6797.19,
+    "speaker": 3,
+    "text": "All right, cool, thanks everyone. I'll see you next week, hopefully with working infrastructure. ",
+    "model_probability": 0.8876
+  },
+  {
+    "start": 6810.53,
+    "end": 6813.63,
+    "speaker": 7,
+    "text": "It's individual, yeah. No worries. ",
+    "model_probability": 0.1383
+  },
+  {
+    "start": 6839.12,
+    "end": 6872.86,
+    "speaker": 3,
+    "text": "Yeah. I'm not sure it's going to help you much, but yeah, you can... I just want to prepare it early. Sure. No worries. I think the tutor session should be at 3 p.m. Okay. Cool. Hey. This says this, this is an issue with the wrong lab machine. Yeah, click on that. And then add a remote target, and add whatever machine you're using. Yeah. ",
+    "model_probability": 0.1224
+  },
+  {
+    "start": 6873.08,
+    "end": 6899.84,
+    "speaker": 5,
+    "text": "Hey. I just wanted to clarify, because I think I was sort of getting at something, but I didn't know how to ask it properly, and then your example clarified it a bit for me. Okay. With the indirect tracing. Yeah. Essentially, I was just kind of getting at the fact that What do you do with manually, or is it more source-based? Like, byte-based, because it seems like, I mean, that's something like the example you gave, which was recursive. I'm not even sure how to do it manually and directly. ",
+    "model_probability": 0.1775
+  },
+  {
+    "start": 6900.46,
+    "end": 6905.55,
+    "speaker": 3,
+    "text": "Well, I mean, so usually you would not do it manually, right? ",
+    "model_probability": 0.0137
+  },
+  {
+    "start": 6905.57,
+    "end": 6909.13,
+    "speaker": 7,
+    "text": "But you should still be able to do it, right? Oh, okay. ",
+    "model_probability": 0.0081
+  },
+  {
+    "start": 6961.99,
+    "end": 7003.55,
+    "speaker": 6,
+    "text": "I need the background section, it's just a lot of Ideally, you don't want to do that, though. Because in the background, you can write stuff that won't be used in the background. Yeah, but that means I can change it. I'm not going to put that much effort into that. What are you doing? ",
+    "model_probability": 0.0798
+  },
+  {
+    "start": 7005.83,
+    "end": 7017.06,
+    "speaker": 7,
+    "text": "It's like multi-agent reading. That sounds pretty complicated. A little bit, yeah. I don't know. ",
+    "model_probability": 0.0036
+  },
+  {
+    "start": 7049.95,
+    "end": 7085.02,
+    "speaker": 7,
+    "text": "I don't know if that's what they say, but like, I don't know. I think that's not what it is. You think so? No. Because there was a guy in CSB's UK, he said like, they're like recruiting tiers for universities. They have like, Ecole Polytechnique, a tier one, and Cambridge University, a tier two. Oh. So they must have some, they must have something. What were your thoughts on the Intel VCU, Jim? ",
+    "model_probability": 0.0042
+  },
+  {
+    "start": 7086.44,
+    "end": 7116.47,
+    "speaker": 7,
+    "text": "I don't know, man. I haven't tried. I just got my SSH working. Yeah, I didn't get it working yet. It was strange, because it was working in my VS Code, but not on my Windows. So I don't know what was going on. And mine was quickly, guys, like, fixed up at first. But then it started working. I don't know. I don't know. The difference is only 5K. How much did it go to? ",
+    "model_probability": 0.0018
+  },
+  {
+    "start": 7116.53,
+    "end": 7119.69,
+    "speaker": 7,
+    "text": "It's 77 base, 5K bonus, then 7K. 89. Yeah, 89. ",
+    "model_probability": 0.003
+  }
+]

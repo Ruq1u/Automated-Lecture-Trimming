@@ -1,0 +1,667 @@
+[
+  {
+    "start": 31.76,
+    "end": 62.71,
+    "speaker": 0,
+    "text": "Okay, guys, can you hear me? Can people hear me? Is this working? Ah, Steve, yes, thank you. Thank you so much. Guys, can you hear me? How about now? Is this still working? Can you still hear me? ",
+    "model_probability": 0.0715
+  },
+  {
+    "start": 63.39,
+    "end": 97.98,
+    "speaker": 0,
+    "text": "I feel like I can barely hear myself. Is it somewhat? Guys, I'm just testing the mic because we're recording as well. Does this work? Yeah. A little bit? Like this? Does it work? Yes. Yes. I love it. This is annoying. Okay, I'll try to keep it up. I think we'll try to mix and match. Let's let a few more people come in and see how we get. ",
+    "model_probability": 0.1012
+  },
+  {
+    "start": 98.3,
+    "end": 113.83,
+    "speaker": 0,
+    "text": "We'll see if there's any people in the overflow, but we'll see how we go. Okay, I think if we can settle in the back, we have a lot of content still to go through, so it would be great if we start on time and not leak onto the tutorial hours. ",
+    "model_probability": 0.1116
+  },
+  {
+    "start": 127.63,
+    "end": 135.36,
+    "speaker": 0,
+    "text": "I'm just going to check the overflow room, come back, and then we'll start the lecture. One minute, guys. ",
+    "model_probability": 0.1664
+  },
+  {
+    "start": 186.43,
+    "end": 219.43,
+    "speaker": 0,
+    "text": "Can we please make a start? Everyone, can we please calm down? Right. Okay, so there is still some more spaces in the open floor if you can't find a seat here. And the stream should be fine, so I'll see how we do the rest of the section. Okay, so welcome back. I hope the start of NLP was very nice for you. I know it was 5 p.m. back then. Even I was tired at the end of the day. So today, we're going to continue from where we left off. ",
+    "model_probability": 0.4325
+  },
+  {
+    "start": 219.93,
+    "end": 253.48,
+    "speaker": 0,
+    "text": "We're going to get our hands a bit dirty. Just one thing. I just want to turn off the audience mic. It's off. I think it was just their noise. This is noisy lunch. Now they're all calm. I think everything will be better. OK, so welcome back. As I said, we're going to continue from where we left off. We're going to maybe get our hands dirty a little bit with a bit of derivations and stuff and continue on with the rest of word representations. OK, so if you have any burning questions, please do fire them away. ",
+    "model_probability": 0.8982
+  },
+  {
+    "start": 253.6,
+    "end": 286.29,
+    "speaker": 0,
+    "text": "But if you also want to keep them towards the end of the lecture, that's absolutely fine. After this, we'll have a tutorial session in the labs where you can also ask questions. And I encourage you to push the GTA's limits and see what they know and what they don't know. Okay, so welcome back. Let's crack on. So last time we were looking at this negative sampling business, if you remember. And that idea was to sort of learn representations of words. We were sort of conversing this idea of meaning into similarity. ",
+    "model_probability": 0.9716
+  },
+  {
+    "start": 286.51,
+    "end": 317.0,
+    "speaker": 0,
+    "text": "Then we had some vector representations. We would all compute all of this together and then hopefully make something out of it, right? And we would use these word representations in downstream tasks. And if you remember, this idea was based on this distributional hypothesis and this fill-in-the-blanks approach. So we devised this model, and that was specifically targeting this fill-in-the-blanks, but letting a machine do that for us. And as it was doing it over 1.6 billion, it would come up with something. So the last bit we stopped was this equation. ",
+    "model_probability": 0.9876
+  },
+  {
+    "start": 317.86,
+    "end": 351.32,
+    "speaker": 0,
+    "text": "And I said to you guys, we're going to actually have a crack at this and see exactly how this model is learning. Now, I know there's some people in the overflow, so I'm going to try to use this piece of equipment. Bear with me. Because I really want to get through some of the mathematics with you guys to see how we're doing. OK. Let's see if I can get this. I wouldn't be surprised if it doesn't work, so just hang in there. ",
+    "model_probability": 0.9885
+  },
+  {
+    "start": 359.0,
+    "end": 389.77,
+    "speaker": 0,
+    "text": "Whoa, that's cool. Okay. All we need is a pencil. And whenever you take out a pencil, you always have to sharpen it. Very satisfying, right? Okay, so last time, let me remind myself where we were. So we had this log objective, right? ",
+    "model_probability": 0.9844
+  },
+  {
+    "start": 392.01,
+    "end": 422.12,
+    "speaker": 0,
+    "text": "We had this log objective of D equals one, and then we were given sort of this target word vector, you know, T plus J, and then we had sort of this WT. Yeah, that's coming out cleanly, nice. And it kind of looks a bit like magic, especially in negative sampling. How does this thing actually update the parameters of our world? So this could be, if you remember, this could be something like riding in our slides. ",
+    "model_probability": 0.9962
+  },
+  {
+    "start": 422.2,
+    "end": 453.76,
+    "speaker": 0,
+    "text": "And this would be something like bicycle. Forgive my handwriting. It's not the best. And we want to say, OK, well, actually, these appear in the same context. We want the representations of these to be similar, right? So similar. And this is what this one means. It says, please model, predict these to be the same. And we also said that actually this distribution, this probability here is calculated by a sigmoid in the negative sampling case. It was a binary classification model. ",
+    "model_probability": 0.9971
+  },
+  {
+    "start": 454.74,
+    "end": 485.76,
+    "speaker": 0,
+    "text": "And we use the sigmoid function. So I'm going to sort of convert that now. And I'm going to say, here's the sigmoid function. So that's sigmoid. And I'm going to simplify it a little bit. And I'm going to say, actually, this word vector, I'm going to call it u. So I'm going to call u. And I'm going to say that's dotted with some vector v. Oh gosh, this is going to be difficult to differentiate. And then that's our representation here. So this sigmoid function, if you remember, is a function that goes like this. ",
+    "model_probability": 0.9975
+  },
+  {
+    "start": 486.16,
+    "end": 520.26,
+    "speaker": 0,
+    "text": "Can you see this? Yes. So it's a function between 0 and 1. And so that acts as our probability. Now, how does this spit out something that allows us to learn? If you consider, we have to take the derivative, if we have to go back to machine learning 101, to understand, despite we're working with language, the principles by which we learn is the same. So this dot product, we can say, if we look at the sigmoid of the dot product, that's just the transposed multiplied by b. ",
+    "model_probability": 0.9978
+  },
+  {
+    "start": 521.14,
+    "end": 557.98,
+    "speaker": 0,
+    "text": "Sorry, I'll try to make that as clear as possible. And then if you remember, we were actually looking at the, we were looking at the, so this would be maximizing this objective, would be the same as minimizing the negative of this objective. And this was like our sort of objective function plus the negative samples, right? So there was this sort of minus dot, dot, dot, some stuff on the right, which were the noisy samples and so on. And for that, we would try to predict zero. So we would like the model to differentiate between positive examples, which are in the context, and some random works, which are peaked. ",
+    "model_probability": 0.9984
+  },
+  {
+    "start": 560.02,
+    "end": 604.49,
+    "speaker": 0,
+    "text": "So the way machine learning and back propagation and deep learning works is that we have to take the derivative of this. And there was a wise professor in this department once taught me that if you have a certain amount of IQ, when you stand in front of people, you lose about 10 of it. And when you start talking, you lose another 20. And when you start writing equations, you lose another 30. So you're like as average as it gets. So if I make a mistake, please, please do let me know. So our objective now is to take the derivative of this beast minus log sigmoid of ut v with respect to v. ",
+    "model_probability": 0.9983
+  },
+  {
+    "start": 605.15,
+    "end": 637.19,
+    "speaker": 0,
+    "text": "I want to see how this equation changes my parameters of v if I was to make an update. So how does my vector for writing change with each iteration of my learning algorithm, which is gradient descent? So if I was to take the derivative of this, so the minus comes in the front. I have to apply the chain rule. So I have a log here, I have a sigmoid, and then I have a dot product. So I have to apply the chain rule in order. ",
+    "model_probability": 0.9982
+  },
+  {
+    "start": 637.71,
+    "end": 670.05,
+    "speaker": 0,
+    "text": "And then for the log, it will be the derivative of log x is what, anyone? 1 over x, thank you. So it would be 1 over this quantity here. So it would be 1 over sigmoid of u transpose times v. So remember, u is the vector representation of bicycle, and v is the vector representation of riding. So multiplied by the derivative of sigmoid, and I'll give you a hint for the moment being. ",
+    "model_probability": 0.9981
+  },
+  {
+    "start": 670.07,
+    "end": 704.04,
+    "speaker": 0,
+    "text": "So the derivative of sigmoid, so sigmoid prime, is equal to sigmoid of x multiplied by 1 minus sigmoid of x. So it actually has itself in its derivative, which is quite cool. So it would be exactly that. So it would be sigmoid of u transpose v, and then multiplied by 1 minus sigmoid of u transpose v. And then finally we have to take the derivative of u transpose times b, which in vector calculus will just be u. ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 704.7,
+    "end": 736.36,
+    "speaker": 0,
+    "text": "So how does v change when we multiply it with u? You can imagine u is a constant, so it will just come out as its derivative from this final expression. So good news for us, this cancels out. Let me move this up. This is how math lectures work, by the way. Have you ever been into any of the mathematics departments? This is basically what happens for two hours. Someone sort of derives equations, and then at the end, you're like, yeah, I just copy-pasted everything. I'll figure out how it works later on. So don't worry about it. ",
+    "model_probability": 0.9984
+  },
+  {
+    "start": 736.38,
+    "end": 767.03,
+    "speaker": 0,
+    "text": "So we have this expression, minus 1 minus sigmoid of u transpose v multiplied by u. We'll understand if I made this correctly at the end or not. So then let's say let's apply the minus into this expression here. So you have something like, so sigmoid of u transpose v minus 1 multiplied by u. So that's the gradient with respect to v. ",
+    "model_probability": 0.9983
+  },
+  {
+    "start": 767.23,
+    "end": 799.76,
+    "speaker": 0,
+    "text": "So what does that mean? So there's two options here. Either sigmoid, the model predicts correctly, so sigmoid is 1, then this becomes 0. So if the model is correct, we don't do any updates. v doesn't change. this whole thing becomes 0, we don't change v. So the vector for writing stays the same. If you want to think about programming, it's like plus equals 0. ",
+    "model_probability": 0.9978
+  },
+  {
+    "start": 799.8,
+    "end": 832.46,
+    "speaker": 0,
+    "text": "It doesn't change in your algorithm. But what happens if the model is horribly wrong and it predicts sigma equals 0? It's like, oh, I thought these were completely different words, but actually you're telling me now that they should be similar to each other. So if that's the case, the gradient comes out as minus u. So it's like I'm going to do something with this minus view. It's almost like giving me a direction in which way I should go. ",
+    "model_probability": 0.9971
+  },
+  {
+    "start": 832.48,
+    "end": 868.72,
+    "speaker": 0,
+    "text": "That's the gradient, right? So if I now plug this into gradient descent, if you remember gradient descent, it's something like the vector of riding now is equal to riding, which is what its value was before. And then I'm going to do minus, which is gradient descent. some learning parameter alpha, so learning rate, and then the gradient g. This will come in and plug in here. The minuses would cancel out. Riding, after doing this iteration, if the model was wrong, the representation of riding will be nudged towards bicycle. ",
+    "model_probability": 0.9962
+  },
+  {
+    "start": 870.04,
+    "end": 900.42,
+    "speaker": 0,
+    "text": "Can everyone see that? That's it. There you go, AI has happened. In effect, the mathematics behind this is saying, if the model is correct, don't touch it. If the model is wrong, nudge it in the direction it should go. In this case, if this was bicycle, you're effectively saying this whole thing becomes, if the model is wrong, riding should become more like bicycle. ",
+    "model_probability": 0.9954
+  },
+  {
+    "start": 902.41,
+    "end": 933.01,
+    "speaker": 0,
+    "text": "And so on. And imagine you have so many examples of this. A bicycle becomes a bit like riding. Riding becomes a bit like bicycle. And their vectors come close. And if you think about the negative examples, they get pushed apart. And you can do the derivation for that yourself. So let's see if we can get back into... So that's what all that magic is about. ",
+    "model_probability": 0.9919
+  },
+  {
+    "start": 933.03,
+    "end": 966.69,
+    "speaker": 0,
+    "text": "I might use this again. This is cool. So when we have this objective and when we sort of say, oh, OK, actually we're going to run and train these models, when you take the derivative and you look at, OK, how is my vector for writing or these words change, the derivative of that will tell you that. And at each time step, it's actually sort of trying to say, I'm going to merge these vectors together a little bit. They'll be closer to each other. Or I'm going to push them apart, and the system learns. That's how it actually happens. And it's an iterative process. ",
+    "model_probability": 0.9956
+  },
+  {
+    "start": 966.73,
+    "end": 998.97,
+    "speaker": 0,
+    "text": "You do a mini batch processing. You update it. All of everything we've learned in machine learning applies here. But for some reason, when it's like natural language, we start to think that more is happening behind the scenes, especially when you scale these models up, you give the internet, you sort of ask it to predict the next token, you hit the train button, and then suddenly a lot more properties come up. But the principle is the same. So this is kind of exactly what we did. Look, imagine this was riding and this was bicycle or whatever. ",
+    "model_probability": 0.9959
+  },
+  {
+    "start": 999.15,
+    "end": 1033.26,
+    "speaker": 0,
+    "text": "We asked the model to predict one, and then we have a way of updating its parameters to correct itself during training. And then you would potentially do the same for negative examples and say, OK, well, update the parameters so that you predict better. And then you keep doing this for billions of words with minibatch processing. You hit the train button, and something happens. And this was the sigmoid function. So what I did here was something similar. I actually took the example from here. So this is the sigmoid function. And then that would be equal to the dot product of these guys, which would be the transpose. ",
+    "model_probability": 0.9952
+  },
+  {
+    "start": 1034.6,
+    "end": 1072.99,
+    "speaker": 0,
+    "text": "Ow. It would be the transpose of that multiplied by the vector representation of your target form. Okay? So hopefully that all connects. If you have any questions, please, please do ask either offline. If it's something small or if I've missed something, please do let me know. But this is also in the lecture notes, and it's explained in more detail there. So again, so before we had softmax, now we have a sigmoid function, but the principle is the same. So you have to take the derivative, you have to update the parameters, and the magic kind of disappears when you realize how this model works, at least for something this simple. ",
+    "model_probability": 0.9953
+  },
+  {
+    "start": 1073.41,
+    "end": 1105.91,
+    "speaker": 0,
+    "text": "But if you imagine a transformer model with billions of parameters and you do it, even if you understand the mathematics, you don't really get a sense of how it's working. So just to let you know, when you scale these things up to transformers, what we did is not as obvious anymore, right? And we also talked about how many negative examples that you would have to pick. And again, this is empirical. If you look at the paper, you have 5 to 20 negative words if it's smaller data sets and 2 to 5 negative words if it's a larger data set. ",
+    "model_probability": 0.9973
+  },
+  {
+    "start": 1106.25,
+    "end": 1141.27,
+    "speaker": 0,
+    "text": "Again, a hyperparameter that you can tune later. So in this one final issue of how do we sample the noisy words, right? If you took a random sampling, so a uniform distribution where the probability of each word is one over the size of the vocabulary, so they're equally likely, then you're probably going to end up sampling sort of useless words like duh and propositions a lot more because they occur a lot. So what we do instead is we look at their frequency, but then we sort of apply this smoothing factor, which is by default 0.75. ",
+    "model_probability": 0.9969
+  },
+  {
+    "start": 1142.57,
+    "end": 1177.31,
+    "speaker": 0,
+    "text": "which allows you to smooth the distribution a little bit so you can sample different words as well. So you're looking at the frequency, and if it's too frequent, then you sort of smooth it out, so it sort of levels it out. It's like an in-between frequency and uniform sampling. So it allows you to sample different words so that the model trains a bit better. So when you do all of this, you hit the train button. And then when you hit the train button, you go... If you're a researcher, you go and have your microwave food, and then you're hoping something's happening. ",
+    "model_probability": 0.9973
+  },
+  {
+    "start": 1178.23,
+    "end": 1209.69,
+    "speaker": 0,
+    "text": "I think we had someone in our office this year who microwaved Huel. Do you know what Huel is? He mixed Huel with fruit and a bit of milk, baked it at home, and then microwaved it here. He got into a consistency where he could scoop it out and ate it. You know you're doing proper research when you're microwaving Huel. I told him I'll explain your recipe in the lectures and he didn't believe me. But anyway. You do your training, and then something comes back. ",
+    "model_probability": 0.997
+  },
+  {
+    "start": 1209.75,
+    "end": 1240.41,
+    "speaker": 0,
+    "text": "And this is the exciting part. What are these vectors able to do? What did we learn? And this is one of the wow results that came out of that paper. So they looked at what are the similar words that were used given a word France. And the closest words that were to it was Austria, Belgium, Italy, and Greece. We're like, wow, gosh, it's grouped all the countries together. That's really nice, right? And, you know, you have religious sort of context there. ",
+    "model_probability": 0.9959
+  },
+  {
+    "start": 1240.51,
+    "end": 1274.18,
+    "speaker": 0,
+    "text": "You have gaming, the colors, you know, and megabits, you know, gets grouped up with different sort of size, binary sizes. And this was wonderful. Like, this was actually quite interesting that out of all this, you're asking the model to fill in the blanks and then suddenly it starts to group all of these together. But the power of this is, imagine you were trying to do a classifier and you wanted to classify countries or something. You can now use these words interchangeably because their vectors are similar, right? ",
+    "model_probability": 0.9967
+  },
+  {
+    "start": 1274.6,
+    "end": 1311.11,
+    "speaker": 0,
+    "text": "What this effectively says is that these words have similar representations. So your classification model, your whatever model downstream doesn't have to worry about Belgium, so long as it knows it's similar to France, it can continue on with its job. And that was sort of the big revolution in converting from what does it mean to what is it similar to, and well, what is France similar to? It's similar to all of these things. And this was wonderful. It worked really well and worked at scale. But if you want to get philosophical again a little bit, has the model learned what a country means? ",
+    "model_probability": 0.9975
+  },
+  {
+    "start": 1312.51,
+    "end": 1345.95,
+    "speaker": 0,
+    "text": "Again, meaning of what a country is. I think that's questionable, isn't it, in some sense, at least for this model, because all it has learned is that France is similar to Austria and Belgium and so on. It doesn't really know if it's actually representing countries because you have sort of Europe, which is a continent. It's not a country, right? But it turns out it's used in similar contexts, so the model is like, oh, it's actually similar, right? But there's a subtlety there. So if you scale this up to MLMs and transformer levels, it suddenly becomes, oh, actually, maybe there's some sort of emergent intelligence in there. ",
+    "model_probability": 0.9975
+  },
+  {
+    "start": 1346.18,
+    "end": 1379.37,
+    "speaker": 0,
+    "text": "And there could be. I'm not ruling that out necessarily. So if you look at the representations it captures, let's say you project it down. So these are higher dimensionals. We do things like PCA and TSA need to do projection. And we sort of reduce the high dimension size. So we look at the components, the principal components of this high dimensional space. And that allows us to sort of project it into something we can visualize. Also today, it's that projector that fails. That's brilliant. So, you have kitchen, vanity sink, oh, that's all grouped together, that's nice. ",
+    "model_probability": 0.9979
+  },
+  {
+    "start": 1379.95,
+    "end": 1410.33,
+    "speaker": 0,
+    "text": "You know, you have things like battery and charger on the other side, that's all grouped up. So, you know, you can get a sense of what these words are used in in which context together. So this thing actually works. What does it actually look like? So this is from projector.tensorflow.org. It's usually a fuzzy ball of words and stuff. Here, when I was taking a screenshot of this, I highlighted the word suggesting by random. You know, it's usually quite fuzzy and noisier than you think. It's not a clear cut. ",
+    "model_probability": 0.998
+  },
+  {
+    "start": 1410.51,
+    "end": 1441.91,
+    "speaker": 0,
+    "text": "So a lot of words will be similar to each other and you will find the similarities because you're training it from real world data and there's a lot of noise in there. So you have to appreciate that it's a clean cut. So these representations will have noise in them and that comes from your data set. But that's fine. You're sort of looking at the general trends. And one of the fascinating things about this paper was this idea of using the vectors as algebra. So if you took the vector of king, you subtracted man. ",
+    "model_probability": 0.9978
+  },
+  {
+    "start": 1441.97,
+    "end": 1472.29,
+    "speaker": 0,
+    "text": "So this is vector algebra, right? So it would literally be just the vector. You subtract that vector of man. You added woman. And then it would be similar to queen. which is incredible. So you could do this sort of morphological operations and semantic operations on vectors, and they seem to have captured that. Another thing they did, this is from the same model, by the way, right? So you do this once, and then you're like, oh, my God, let's see what it can do. So you could do relationships. ",
+    "model_probability": 0.9982
+  },
+  {
+    "start": 1472.43,
+    "end": 1505.38,
+    "speaker": 0,
+    "text": "So, for example, you say, I will subtract Paris from France, and then I will add Italy. You suddenly get Rome. You subtract Paris from France, you add Japan, and you get Tokyo. Like, oh, that seems to be interesting. It seems to have associated capitals in that sense. But what does it mean to subtract Paris from France? I don't know. There's no inherent meaning to it. It just seems that in this high-dimensional vector space, this seems to work. ",
+    "model_probability": 0.9984
+  },
+  {
+    "start": 1505.66,
+    "end": 1537.55,
+    "speaker": 0,
+    "text": "And there's many, many relationships that this system starts to capture. This also extends to multilingual word embeddings. You can just run this algorithm on any language. If you run it on multilingual settings, you suddenly realize that words that are used in different languages but in a similar context start to get grouped up. If there is any data that has translation in there, it will also start to pick that up. ",
+    "model_probability": 0.9975
+  },
+  {
+    "start": 1538.15,
+    "end": 1575.32,
+    "speaker": 0,
+    "text": "Suddenly, you're seeing that this model is picking up a lot of things. Fundamentally, as we learned, it's doing that. I didn't do it on the whiteboard. It's doing this operation that we just did here. Just from this, you can extract so much information out of it. I think that's quite fascinating. Once this was unlocked and you can scale it up it was you can imagine you know 10 15 years ago this was only a matter of time people sort of investigated this further and what else can we do with this idea And one of the things people did was, why can't we do it in a multimodal setting? ",
+    "model_probability": 0.9978
+  },
+  {
+    "start": 1575.38,
+    "end": 1606.03,
+    "speaker": 0,
+    "text": "And that was, you know, 2014, unifying visual semantic embeddings with multi-modal neural language models. 2014, they were able to sort of come up with models like this, where you would give it the Taj Mahal, you would subtract day, and that this is like an actual linear operation. You subtract, add night, and it will give you pictures of palaces and streets in night that resembled the Taj Mahal. So again, there's now suddenly seems to be semantics involved. It seems like the model is understanding what day and night is and what these palaces are. ",
+    "model_probability": 0.9982
+  },
+  {
+    "start": 1606.93,
+    "end": 1642.97,
+    "speaker": 0,
+    "text": "But you know, it's very subtle whether that is actual meaning or is it similarity? Is it understanding these images are similar to what you're trying to say versus what you're sort of meaning with the words day and night, okay? And there are some other examples. So if you subtract flying from the ship and add sailing, it suddenly gives you boats and stuff. So it's quite cool. So word embeddings, as far as we've done it so far, not the multimodal stuff I showed you, word embeddings require only plain text, which we have a lot. ",
+    "model_probability": 0.9978
+  },
+  {
+    "start": 1643.05,
+    "end": 1680.62,
+    "speaker": 0,
+    "text": "The internet is filled with it. So they are very easy to use. And at the time, this idea of big data sets were starting to get collected so much so. I think I have some. Do I still have the paper here with me? Yes. So this idea of 1.6 billion words data set was an important thing. It was a big feature of this paper at the time. And now that I've obviously already pre-chained vectors also available. So good news for you is that when a piece of research like is done, usually someone sort of releases a pre-chained version for you to play around with. ",
+    "model_probability": 0.9978
+  },
+  {
+    "start": 1681.06,
+    "end": 1716.3,
+    "speaker": 0,
+    "text": "But again, I'd say word embeddings in some sense are a bit outdated in the LLM era. You definitely use bigger models and so on. But I think what was very interesting is someone come and asked is that, can you use this method for DNA sequences to identify genes that express similar things? And I said, if you have the data, a methodology like this could potentially be used. And that's fascinating because you're not oh, this is outdated, I'm just going to throw out this method, I'm going to focus on LLMs. It's more like, well, people have come up with this for certain reasons, and they could have still be uses in different areas. ",
+    "model_probability": 0.9975
+  },
+  {
+    "start": 1716.68,
+    "end": 1747.35,
+    "speaker": 0,
+    "text": "And that's brilliant. I think as a computing engineer or a scientist, you have the option of expanding your scope than just technology. You can go to different domains, and healthcare is one of them. And the idea of this is they will help your model start from an informed position. That's quite key. So you don't have to let your models figure out what sentiment is from scratch. You can just say, well, here's all these word representations. You just have to figure out how to classify in that high-dimension vector space, and the rest is done by these pre-trained models. ",
+    "model_probability": 0.9976
+  },
+  {
+    "start": 1749.57,
+    "end": 1782.28,
+    "speaker": 0,
+    "text": "Now, it requires large amounts of data to train. I feel like that's... That's inevitable with most of the stuff in the space that we're trying to do. And you can say that's a bit of a criticism of deep learning in general, right? We require a lot of data. And I personally find it a bit fascinating and a bit dumb that my six-month-old nephew can learn something so quickly with two examples and it's done, whereas I would have to train that model for days to be able to do something. And then it can laugh, it can make jokes, and so on, and it can cook. ",
+    "model_probability": 0.9978
+  },
+  {
+    "start": 1783.36,
+    "end": 1816.79,
+    "speaker": 0,
+    "text": "And then you're still trying to get this huge machine learning model to do something for you. Again, that's quite a general, maybe a bit more philosophical question. So there is this issue of rare words. So what happens in this equation? If I only see the word twice in my data set, I will only update its representation twice. Now, that is not a good indication, is it? I don't have a good representation for that word. And that means that you get what we call low quality, meaning that the similarity of that word is not clear to other words that are there. ",
+    "model_probability": 0.9972
+  },
+  {
+    "start": 1818.45,
+    "end": 1848.59,
+    "speaker": 0,
+    "text": "And there's no coverage for unseen words. So if I never see a word, so let's say in my training set, and there's a new word that comes up, I have no clue what that means, right? It's, again, unknown to me. So that's, again, a difficulty with any of these word-based models. And there's this really interesting thing about antonyms tend to have similar distributions. So good and bad turned out to have similar representations, right? And you would think, oh, gosh, that's a bit of a problem because they mean very different things. ",
+    "model_probability": 0.9976
+  },
+  {
+    "start": 1849.29,
+    "end": 1880.71,
+    "speaker": 0,
+    "text": "But they appear in the same context. This was a good movie. This was a bad movie. So what does your intelligent machine learning model do? It just updates the vector exactly the same way. So suddenly, good and bad start to have similar representations that goes along. And that's, for me, that's one of the main problems between doing this mathematically and looking at the similarity versus looking at the semantics of these words. So this was one of the main limitations at the time. And at this one level, we don't consider the morphological similarities. ",
+    "model_probability": 0.9977
+  },
+  {
+    "start": 1880.75,
+    "end": 1911.07,
+    "speaker": 0,
+    "text": "I think newer models do that a bit better and people have attempted to fix them as they go along. But in the original version, car and cars was two different words and had two different vectors. So you have to train them independently. And it doesn't differentiate between different meanings of a word. So word disambiguation is not correct in the sense that it doesn't look at the context. So a river bank and a financial bank would have the similar representations merged together. You wouldn't have two different ones. But you can potentially come up with some solutions. ",
+    "model_probability": 0.9975
+  },
+  {
+    "start": 1911.17,
+    "end": 1942.57,
+    "speaker": 0,
+    "text": "If you have river bank and money bank, which are two different words, you can potentially identify that in pre-training and maybe use it as two different tokens. But there are some other methods that you can come up with this one. What have people have done before? So there's the glove embeddings, which were really popular. I used them at the time. It was definitely any NLP paper that was trying to do any downstream tax would use glove. And then I think, was it Meta? ",
+    "model_probability": 0.9965
+  },
+  {
+    "start": 1942.61,
+    "end": 1972.73,
+    "speaker": 0,
+    "text": "Yeah, Facebook Research released fast text, and then that became sort of the standard to go for. And they had different sort of pre-processing techniques and training techniques slightly changed, but the core principle is the same. OK? So it all came out from this original idea. And it was put together. It doesn't happen in a day. The distributional hypothesis was in 1954. And then once you had the right time and the ingredients, you can start building these models as you went up. OK? ",
+    "model_probability": 0.9969
+  },
+  {
+    "start": 1974.57,
+    "end": 2004.88,
+    "speaker": 0,
+    "text": "So any questions before I wrap this section up? Any burning questions that we might have missed anything in terms of updates and so on? OK. I'm just going to show you the paper because I know some of you might have looked at it, but some of you would have ignored it, which is absolutely fine. That's what a student does. There we go. So this was the original paper. ",
+    "model_probability": 0.9949
+  },
+  {
+    "start": 2005.24,
+    "end": 2036.11,
+    "speaker": 0,
+    "text": "The reason I'm showing you is because I don't want you to be discouraged from reading these papers. They're relatively easy to understand, and they'll go through. Usually the abstract, this is, I highlighted, I read this to you in the last lecture. And then if you go further down, it usually has a nice introduction. And then this one has the goals of the paper. What are we trying to do? Or the main goal of this paper is to introduce techniques that can be used learning high-quality verb vectors from huge data sets with billions of words. Oh, brilliant. That was easy, right? ",
+    "model_probability": 0.995
+  },
+  {
+    "start": 2037.69,
+    "end": 2069.47,
+    "speaker": 0,
+    "text": "Sometimes you don't get that. You're like, what are you trying to tell me? Okay. It will always tell you what the context is. So there's this famous saying in Google Scholar, we stand on the shoulders of giants. There's always previous work. What has people have done? So you can also get some ideas and context from this setting. And then we will come to the model architectures that they decide to use. Sometimes the equations are more complex. Usually it's more linear algebra. But you'll get used to it as we go along. ",
+    "model_probability": 0.9955
+  },
+  {
+    "start": 2069.89,
+    "end": 2104.25,
+    "speaker": 0,
+    "text": "So you can see that this is the actual paper, and I don't say it's that intimidating. And then here's a famous diagram of a continuous bag of words in SkipGram. Right? So this is, say, this is what we do. You know, here's the context world, and then here's the missing blank, which is what we did in the slides. You sum them up, and then you try to predict WT. And then in SkipGram, you're given WT, and then you're trying to predict sort of all of these context words. Right? So this literally comes from the paper. So if you looked at this, you almost will be looking at the lecture slides and the lecture notes. ",
+    "model_probability": 0.9956
+  },
+  {
+    "start": 2104.59,
+    "end": 2138.41,
+    "speaker": 0,
+    "text": "Okay? And then, you know, there's some results. You know, how did they analyze it? You know, as we said, you know, the word big is similar to bigger in the same sense small is similar to smaller. An example of another type of relationship can be big, you know, minus big, sorry, big and biggest and small and smallest. And we further denote two pairs of words in the same relationship and ask, what is the word that is similar to small in the same sense as the biggest of the similar word? And then look, this algebra is here. So they say, imagine the vector of biggest minus vector of big plus vector of small gives us what? ",
+    "model_probability": 0.9956
+  },
+  {
+    "start": 2139.19,
+    "end": 2172.46,
+    "speaker": 0,
+    "text": "This is research, right? At the time, they didn't know the answer. So you have to appreciate that some of this was completely brand new. And then they have all the tables here, the relationships and stuff that they've shown. This wasn't written by an LLM because it didn't exist back then. It's a good read. I recommend it. This goes on. They have their results and so on and comparison of architectures and some follow-up work. I'll finish this segment with... So they said, oh, well, we have the initial version. ",
+    "model_probability": 0.9948
+  },
+  {
+    "start": 2172.48,
+    "end": 2204.05,
+    "speaker": 0,
+    "text": "Sorry, let me just fix that. The training speed is significantly better, which is great. We also publish more than 1.3 billion workers. Some of our follow-up work will be published in an upcoming 2013 paper. Stay tuned. We'll be back in the future. So there you go. So that's the paper that we've covered so far. And if you want to have a read through it, please do. But as we get to other papers, like transformers, I think, again, don't be afraid. Please, please dive into them. So this is all good and well. ",
+    "model_probability": 0.994
+  },
+  {
+    "start": 2205.23,
+    "end": 2237.62,
+    "speaker": 0,
+    "text": "Let's go back to the slides. Let's go back to the slides. So we have a few things left. So there are other types of word embeddings. So quickly, people realized, oh, actually, the context matters, right? If I use riverbank versus a financial bank, this means two different things. We can't just have the same word embeddings. And then we sort of start to come up with these architectures that look at the context of the world to come up with its vector representations to disambiguate different meanings. ",
+    "model_probability": 0.994
+  },
+  {
+    "start": 2237.64,
+    "end": 2269.43,
+    "speaker": 0,
+    "text": "So you're not just looking at the world. The model is now looking at the context and then making a prediction. So this started off this and and transformers and so on to go up in that direction. So much so that it's like this running joke of all the models that came after it. That was the paper we covered. This is where we're going to go. We're not going to cover Graven fast text in particular, but we're going to cover the Transformers architecture and everything that spewed after it. ",
+    "model_probability": 0.9929
+  },
+  {
+    "start": 2269.91,
+    "end": 2303.24,
+    "speaker": 0,
+    "text": "We're going to actually look into those and how those architectures work. We'll come back to those. So there's two little things left that we need to do. And this is, again, in the lecture notes. So I'm going to give you an overview. Gosh, this is bright. There's one thing called byte pairing coding. So far, we looked at words as individual tokens. We said riding is a single word and bicycle is a single word. ",
+    "model_probability": 0.9925
+  },
+  {
+    "start": 2303.32,
+    "end": 2339.68,
+    "speaker": 0,
+    "text": "In reality, if you ask modern day LLMs, usually riding will be split into different things. It will be maybe RID and then ING will be maybe two different tokens. The way they do that is something called byte pairing coding. So, so far, we looked at white space tokenization. It leads to unique words and large vocabularies and cannot deal with out of all, you know, out of vocabulary tokens. And the compositionality doesn't come cleanly, meaning that, you know, run, running, you know, ran, you know, these sort of similarities or different tokenizations will not come through. ",
+    "model_probability": 0.9949
+  },
+  {
+    "start": 2339.7,
+    "end": 2373.32,
+    "speaker": 0,
+    "text": "Well, actually, run and ran will be two different tokens, but run and running should be potentially similar to each other. So this is where byte pair encoding comes in, and it's in between word level and character level. So that's the whole point. This final sentence kind of summarizes it. And the idea behind it is very simple. And I think in the lecture notes, there's an interactive version of it. So I'll give you an overview here, and then I'll leave you to explore it in the lecture notes, how it works step by step. But the core idea is relatively simple, and it comes from a compression technique. ",
+    "model_probability": 0.9951
+  },
+  {
+    "start": 2373.72,
+    "end": 2409.59,
+    "speaker": 0,
+    "text": "So imagine we have our entire data set, and we look at all the characters in that data set. It's a massive sequence. And then we look at which byte pairs occur most often. How many times do I see ST together? How many times do I see ING together, and so on? Well, NG together, and then ING together. And I find the most common one, say AA, and then I will replace that with a new symbol, Z. And now it's like one new symbol, one new token. And then I will replace all instances of AA in my data set with Z. ",
+    "model_probability": 0.9962
+  },
+  {
+    "start": 2410.4,
+    "end": 2440.55,
+    "speaker": 0,
+    "text": "And then I will go ahead and repeat this process until the number of unique tokens starts to fit a certain size that I'm interested in. So this allows us to compress the data. So here's an example how we do this. So we start with all the individual characters. So there's no loss of information. So I can still tokenize everything that I see. So it's not a case of, oh, I've never seen flabbergasted before. That's a weird word. ",
+    "model_probability": 0.9958
+  },
+  {
+    "start": 2440.61,
+    "end": 2473.0,
+    "speaker": 0,
+    "text": "But I can still use all the characters of that word. So we start with all the individual characters and then we split the words in our training corpus to individual characters. And then we have to also keep track of white spaces. It's almost like a unique character, right? So in this case we'll just use underscore. And then we'll find the pair that occurs the most often and then we will add it as a new vocabulary item and then sort of merge all the occurrences in that corpus and then repeat this process. So you're sort of merging these to create new tokens as you go along, okay? ",
+    "model_probability": 0.996
+  },
+  {
+    "start": 2478.02,
+    "end": 2508.95,
+    "speaker": 0,
+    "text": "I think this is where it really comes into its element. If you look at low, lower, newest, and widest, you can see that there is underscore T has occurred too many times. And then the idea is that we merge them into a new candidate. Again, I think this is quite mechanical. There's an interactive version of this in the lecture notes. So I recommend you go through that step by step. The idea is when we start cranking this wheel, something really nice is going to happen. ",
+    "model_probability": 0.9959
+  },
+  {
+    "start": 2511.83,
+    "end": 2548.66,
+    "speaker": 0,
+    "text": "And what happens is that we start finding these pairs, and we keep merging them, and then suddenly we start off with, oh, okay, actually, I'm going to merge T and underscore together, and then in this particular case, and I'm going to get a new token that represents T underscore. And then I'm going to find, okay, the most common new pair is this new symbol T underscore and S, and I'm going to combine them together, and I have ST underscore. And then I find the next most common one is EST underscore, so those two nocumes, and then I'll combine them. And then what you start seeing is that the most common characters that occur start to become the prefixes and the suffixes and the structure of your language. ",
+    "model_probability": 0.9953
+  },
+  {
+    "start": 2548.68,
+    "end": 2579.66,
+    "speaker": 0,
+    "text": "And you kind of get that for free. And that seems to be very helpful for modeling language and other things. Because sort of newest becomes sort of N, erist, and then sort of EST. So you start breaking that up down quite nicely. OK. I think at the very beginning of this lecture, there was an example. And I can show you the tokenization if you go to tip token. Let me see if I have that, actually. ",
+    "model_probability": 0.9941
+  },
+  {
+    "start": 2584.52,
+    "end": 2615.79,
+    "speaker": 0,
+    "text": "There we go. So what did we say? OK, so this is very interesting. Let me zoom in, actually. So there we go. So the words, this is a great lecture, is actually individual tokens in what model is this? This is GPT-4.0, OK? ",
+    "model_probability": 0.9865
+  },
+  {
+    "start": 2616.51,
+    "end": 2648.18,
+    "speaker": 0,
+    "text": "So let's try to think of a word that's maybe, and I'm very, very excited. OK, still single. Let's try to think of a word that's maybe more composite. This is where your brain runs blank. Let's see. Blank brain. What does this give? Oh, it's still two tokens. Okay. So this is how you start to do different tokenizations. ",
+    "model_probability": 0.9884
+  },
+  {
+    "start": 2648.22,
+    "end": 2680.57,
+    "speaker": 0,
+    "text": "But I think if we just come up with an assistant, is that a single one? Yeah, that is still a single token. Let's think of a word that will be seashells. I think that'll still work. Yes, see, now that's broken down into three tokens, right? And S is a token on its own and so on. So when it doesn't recognize common words, so very common words become their own tokens, and then anything that's sort of in between starts to get broken down. ",
+    "model_probability": 0.9886
+  },
+  {
+    "start": 2682.49,
+    "end": 2685.9,
+    "speaker": 0,
+    "text": "So that's the idea. So goodbye. ",
+    "model_probability": 0.9227
+  },
+  {
+    "start": 2697.54,
+    "end": 2727.63,
+    "speaker": 0,
+    "text": "Well, that's the other way around. That didn't help. There we go. And I suddenly ended up in the wrong slideshow. That's excellent. We fast-forwarded to transformers. That was excellent. You got a sneak peek. I was like, why is this talking about transformers for a second? Okay. Right. So when you do this process, you start to break this thing down. Okay? That's the idea. ",
+    "model_probability": 0.9748
+  },
+  {
+    "start": 2728.39,
+    "end": 2759.31,
+    "speaker": 0,
+    "text": "And we have it to address this problem of finding something that's manageable in between characters and words. We did all of this. So the fascinating thing is the individual characters are always in the vocabulary. So we never lose. So if you give it a random gibberish, it will be able to parse it. Actually, that's what we should have tested. And it will be able to sort of parse that and tokenize it for you. But if you have common words, then they will become their own tokens. ",
+    "model_probability": 0.9869
+  },
+  {
+    "start": 2760.48,
+    "end": 2791.08,
+    "speaker": 0,
+    "text": "You have to appreciate that Unicode characters, it might be a bit more tricky. So there is this variant code of byte pair encoding that works on sequence of bytes instead. So instead of characters, we just look at bytes. And then so we do the same technique to compress the bytes, and your bytes become the tokenized. And this is successfully used in a lot of models. So going into the future, In the course, we'll usually refer to tokens as words. It's easier to understand. But I want you to appreciate that most likely it will be sort of different tokenizations from different models. ",
+    "model_probability": 0.9912
+  },
+  {
+    "start": 2791.38,
+    "end": 2823.63,
+    "speaker": 0,
+    "text": "And each model usually uses a different tokenization. They will run this algorithm or a similar version or a variant of this on their own data set. And then they will often, if you ever sort of use these models yourself, it often comes with its own tokenizer and the model. And you sort of have to use them together. And this is roughly why that's the case. And one final, final thing, because we have time, is this idea of TF-IDF. I've mentioned, I've alluded this to you briefly when we're doing bag of words. ",
+    "model_probability": 0.9915
+  },
+  {
+    "start": 2824.27,
+    "end": 2858.8,
+    "speaker": 0,
+    "text": "And there is this problem that if you do this word representations and so you looked at common words like a, the, this, they appear so many times. So what happens is that they get updated a lot and they sort of collude and become similar to a lot of different words. So they are not as useful because they are everywhere. And this was a problem in information retrieval. So when you search something on Wikipedia and you had the Facebook, you don't want to weigh the results as much because you're more interested in the more unique one. So TF-IDF allows us to do this weighting for us. ",
+    "model_probability": 0.9931
+  },
+  {
+    "start": 2858.94,
+    "end": 2889.62,
+    "speaker": 0,
+    "text": "So we can weigh the vectors using TF-IDF. And the idea is that TF is the term frequency. So how often does this term occur? So if it's quite high? then it's going to be a common word that we use. And then the important part is the inverse document frequency, the IDF part. So if I have a word that is occurring in every document, then it's not important to me because it's not differentiating enough, right? So this occurs in every document. ",
+    "model_probability": 0.9914
+  },
+  {
+    "start": 2890.55,
+    "end": 2929.66,
+    "speaker": 0,
+    "text": "But if it occurs in very few documents, then, well, this seems like an important word. So it allows me to differentiate different documents because it's rare. And if you put them together, it gives you kind of a score, right? And so in this case, we use that as a weighting. So here we have the vector that we're trying to create a vector for, so magazine or newspaper. This is what we started off with. And then the context word we want to weigh. So is this context word important or less important? And then we have a collection of documents. And so if you plug it into this. I will, I strongly recommend to sort of look at the origins of TF-IDF if you're sort of not able to get up to date directly. ",
+    "model_probability": 0.9922
+  },
+  {
+    "start": 2930.22,
+    "end": 2961.7,
+    "speaker": 0,
+    "text": "So, term frequency upweights words that W that are more important to D. So, if it occurs a lot more in the document, your score goes up. So, that's what we want. And then the inverse document frequency downweighs the words that appear everywhere. So, you're playing with scales, right? So that if something occurs a lot and it's everywhere, well, we're not necessarily interested in it. But if a word occurs a lot in a document but more than else, well, that's an important one. So we want to use that more. We want to update its weight or we want to use it in a downstream model. ",
+    "model_probability": 0.9914
+  },
+  {
+    "start": 2962.36,
+    "end": 2992.7,
+    "speaker": 0,
+    "text": "And that's where TF-IDF comes in. And the way you calculate it is basically counting. It's a frequency-based calculation. So how many times does it occur in this document across all the words? And how many times does it occur in different documents based on the number of documents that we have? And that's your idea. So some questions for you to think about for the rest of the course. So next week, Joe will be taking over, and we'll be talking about language models. So you'll miss me and Big Steve. ",
+    "model_probability": 0.9922
+  },
+  {
+    "start": 2994.01,
+    "end": 3026.33,
+    "speaker": 0,
+    "text": "I was gonna actually tell a little story about Bixby, but we're slowly running out of time. But I want you to think about what is, if we get a sense of intelligence as we train these models, so these things will get bigger and more complex, okay? Versus is there emergent intelligence? At the moment, you might think, oh, riding bicycle, this is all stupid. There's not much there. So what if it can group France and Belgium and Germany together? But obviously, when you scale these things up and you look at transformers, things get more complex. ",
+    "model_probability": 0.9913
+  },
+  {
+    "start": 3027.16,
+    "end": 3058.32,
+    "speaker": 0,
+    "text": "I want you to think about the alibi of the cave. If you did a bit of philosophy before this, if you have any conversion students, you would definitely, but please Google it and think about why I've put that in the slide. Why did Plato, 2,300 years ago, his way of thinking about ideas and forms and this idealism of forms and us stuck in a cave with only seeing the shadows, how does that relate to the models that we train? How much data is enough data? No one knows the answer. ",
+    "model_probability": 0.9916
+  },
+  {
+    "start": 3058.36,
+    "end": 3089.64,
+    "speaker": 0,
+    "text": "It seems to be more is always the case. And language and people, the world over time evolve. What about the models? What do we do with these? These are open questions that you can potentially think about as you go along. Don't just take the content as is and then be like, OK, I know everything. But there are open questions that you guys can really help us in the future. What do you need to do to make a single change to the model, like adding a new word to the vocabulary? Do I have to train everything from scratch? Do I have to update all the weights separately? There are different ways of approaching it. ",
+    "model_probability": 0.9877
+  },
+  {
+    "start": 3090.57,
+    "end": 3124.97,
+    "speaker": 0,
+    "text": "And finally, these are the two questions that I added this year. Can we achieve AGI with frozen weights after training? So we train these models, and then we freeze their weights, and then that's the end of the story. And that's still the case. You have GPT-2, 3, 4. They're all static models, whereas we would like to think there's maybe learning involved in that. And then finally, my favorite question is, is AGI possible with gradient descent optimization? So we did gradient descent. We saw how it works. And when you look at it mathematically, it seems a bit, but when you scale things up, maybe there's some possibility there. ",
+    "model_probability": 0.9831
+  },
+  {
+    "start": 3125.19,
+    "end": 3161.08,
+    "speaker": 0,
+    "text": "So I want you to think about it. So do you want a little back story on Big Steve, or should we call it? Raise your hand if you want a quick back story. Let's see the majority. Oh, wow. OK. All right. So Big Steve. used to actually live in the theoretical physics department, and his name was Big Steph. He was so good at solving the problems for Professor Toby Wiseman's theoretical physics group, turns out they were sitting on the other side of Huxley Building, actually on this side, to where my office was when I was a PhD student. ",
+    "model_probability": 0.9743
+  },
+  {
+    "start": 3161.91,
+    "end": 3192.31,
+    "speaker": 0,
+    "text": "So one day we decided to mount a kidnapping operation. So late at night when we were working late, we decided to sneak in and take it. And we did, we succeeded. And we renamed them to Big Steve, and I will continue the story later. So we'll have to catch up next time. But you know, he has some physics background. But I'll tell you the rest of the story as it unfolds, OK? So I'll see you in the tutorials. If you have offline questions, please let me know. But thank you very much. ",
+    "model_probability": 0.9568
+  },
+  {
+    "start": 3192.37,
+    "end": 3194.87,
+    "speaker": 0,
+    "text": "Joe will be here next week for you. And then I'll take over. ",
+    "model_probability": 0.7463
+  }
+]

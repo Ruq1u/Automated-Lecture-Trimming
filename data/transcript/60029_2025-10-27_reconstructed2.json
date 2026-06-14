@@ -1,0 +1,1142 @@
+[
+  {
+    "start": 12.055,
+    "end": 34.059,
+    "speaker": "SPEAKER_02",
+    "text": "All right, I'm going to turn on the audience microphones, so no more talking shit about people. Is this just me, or is it darker in here as well? Okay, I've pressed all the buttons. None of them seem to do anything. Or maybe it's the timing? "
+  },
+  {
+    "start": 35.019,
+    "end": 37.72,
+    "speaker": "SPEAKER_04",
+    "text": "Like setting a clock backwards? "
+  },
+  {
+    "start": 54.755,
+    "end": 79.372,
+    "speaker": "SPEAKER_02",
+    "text": "After the lecture, a couple of people approached me with, again, I thought amazing questions that we didn't discuss. Let's discuss them, okay? Let's wrap up things that still need a discussion of last week's lecture, or last week's interactive session. I cannot recall what they were, sorry. Thank you. "
+  },
+  {
+    "start": 80.453,
+    "end": 105.89,
+    "speaker": "SPEAKER_07",
+    "text": "I was asking, so for Flash Joins, We said that we could partition the build side. Yes. And this was good because one of the things that we could do would be to parallelize it. But if you are parallelizing it and you switch to a new process, you'd have to swap out all the pages. "
+  },
+  {
+    "start": 106.091,
+    "end": 156.503,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah. I remember. I thought, man, this was good. Okay, good. I found myself. Okay, so the question is, or the way I understand it, right, is, well, if we are parallelized, if we're partitioning a build site, right, to create And so this is all built, right? And we're partitioning it, and let's say this is our memory capacity, okay? "
+  },
+  {
+    "start": 157.424,
+    "end": 188.112,
+    "speaker": "SPEAKER_02",
+    "text": "And we're partitioning the relation four ways, and let's say, you know, I ignore over-allocation now, okay? So just for simplicity. So each of those partitions now fits into my memory. If I now parallelize the probe, oh, yeah, now the probe side is this, right? And let's say I've also partitioned the probe side, right? "
+  },
+  {
+    "start": 188.372,
+    "end": 227.465,
+    "speaker": "SPEAKER_02",
+    "text": "And I have done a good job, so the partitions all are nicely aligned, right? So let's say this is, you know, everything with partition zero, or modulo 0, 1, 2. accessed by a separate thread that accesses each of those . Doesn't that mean that now the partitions all need to be in a memory at the same time because they're continuously being randomly accessed? "
+  },
+  {
+    "start": 228.886,
+    "end": 236.593,
+    "speaker": "SPEAKER_02",
+    "text": "And doesn't that create contention? Isn't that exactly what we were trying to avoid? That's how I understood your question. Is that the question? "
+  },
+  {
+    "start": 236.773,
+    "end": 255.372,
+    "speaker": "SPEAKER_07",
+    "text": "Yes. So specifically, I understand why partitioning is good, because we can fit, for example, if we sequentially went through the partitions, we could have the probe and build type for modulo 0 all fitting in memory, right? Exactly. "
+  },
+  {
+    "start": 255.432,
+    "end": 300.475,
+    "speaker": "SPEAKER_02",
+    "text": "But if we weren't for the multi-thread, if we only had one, would live in memory, happy, no, no thrashing, right? But then, if we're parallel processing, then we have the issue of... Of contention, right? Of thrashing, yes. So, yes, that is very much the case. So, first, yeah, really good insight. Is this clear to everyone? Yeah. Okay, cool. Also, sounds like the kind of thing where I... could be tempted to ask exam questions like this. What happens in this or that case, right? And then this is exactly what I would want to hear. "
+  },
+  {
+    "start": 322.276,
+    "end": 333.525,
+    "speaker": "SPEAKER_07",
+    "text": "I actually don't know about the cache layout, but if we have cache layout per core, if things can fit in there, then that would be okay. But I don't know if that would happen a lot. Yeah, yeah. "
+  },
+  {
+    "start": 333.685,
+    "end": 375.052,
+    "speaker": "SPEAKER_02",
+    "text": "So that is very much the case. Very good. So these in-memory or Radix joints were very much developed for in-memory. I think I've shown a CPU architecture diagram in one of the lectures already, right? To the level of granularity that we care about. But the idea really is, let's say you have a four-core machine. They have a shared cache, and then they have each a per core dedicated cache, right? "
+  },
+  {
+    "start": 375.252,
+    "end": 406.582,
+    "speaker": "SPEAKER_02",
+    "text": "L1, L1, L1, and L1. And depending on architecture, there may be a third layer in here, right? So this could be on Intel, right? Like there's three layers, and L1 and L2 are actually per core, but that changes depending on generation, right? Some Intel CPUs look like this. Some Intel CPUs have one shared level 2 cache. "
+  },
+  {
+    "start": 406.922,
+    "end": 437.694,
+    "speaker": "SPEAKER_02",
+    "text": "But they all always have a level 1 cache that is per core. And these are 32 kilobytes. And the level 2 cache is usually 256 kilobytes. So if you can make each of the hash tables fit into 32k, Cool, you're working in level one cache, no problem, right? The problem that you're describing no longer exists. "
+  },
+  {
+    "start": 438.534,
+    "end": 474.354,
+    "speaker": "SPEAKER_02",
+    "text": "Okay, cool. Now I get confused. I think the more modern, the newer Intel CPUs have per core level two caches, in which case you can even have hash tables that are size 256K, but it doesn't actually change anything in principle, right? The principles are exactly the same, just have smaller hash tables. And then the level three cache is, I mean, this is where, like, you know, server and desktop CPUs diverge. "
+  },
+  {
+    "start": 474.715,
+    "end": 523.594,
+    "speaker": "SPEAKER_02",
+    "text": "It's somewhere between eight megabytes. And I think the largest ones are probably in the order of 120, something like this, I think. I'm sure someone like Paul Kelly would know these numbers by heart. I don't, but it's somewhere in that order. So at that point, you would find that there is contention. Good, but now let's think a step further. Let's say, you know, we're either on a, well, we either have really large hash tables that don't fit into level one cache, or we are on a weird CPU that only has a single shared cache for all the cores, or we're in a display system and we're actually optimizing for memory access rather than cache. "
+  },
+  {
+    "start": 528.65,
+    "end": 533.954,
+    "speaker": "SPEAKER_04",
+    "text": "Yeah? You could send the compositions to separate machines. "
+  },
+  {
+    "start": 538.017,
+    "end": 588.269,
+    "speaker": "SPEAKER_02",
+    "text": "OK, so you're basically solving the problem with hardware, throwing hardware at the problem. And you would say, well, I want to create a situation in which each core has a dedicated memory, and there can't be any contention. So you're kind of sidestepping the problem. Okay, let's suppose that's not an option, right? We still want to use all the cores. What can we do? Yeah, go. I mean, maybe we can fit just like a couple of the hash tables in main memory, and we know then we only fit make two threads, and the two threads will get through. Okay, but then we'd only be using half of the cores, right? So somehow there is this connection... Okay, how would you do that? "
+  },
+  {
+    "start": 589.149,
+    "end": 617.976,
+    "speaker": "SPEAKER_03",
+    "text": "We'd make smaller predictions on the both sides. Okay, this way now all of that code can be utilized. You can check the size of the hash tables in memory. Okay, so describe the process to me. So in this case, what would you do differently? You need to know the specifics, but maybe you would... but you would have, you know, eight hash tables or whatever, eight partitions instead, and then four of them also. "
+  },
+  {
+    "start": 618.036,
+    "end": 651.617,
+    "speaker": "SPEAKER_02",
+    "text": "Okay, I mean, let's, okay, let's be very specific, okay? Let's say the relation is, let's say it's uniform, random, blah, blah, blah, you forget about Q, okay? And I'm going to say the build side is 256 kilobytes, and we're forgetting about, like, all of this doesn't exist, right? We have a, well, actually, no, the opposite is true. We have a single... Cache shared among four cores that is 32K. "
+  },
+  {
+    "start": 651.897,
+    "end": 659.582,
+    "speaker": "SPEAKER_02",
+    "text": "And yeah, so that's the same thing as this thing here, right? 32K. Yeah. "
+  },
+  {
+    "start": 659.822,
+    "end": 684.317,
+    "speaker": "SPEAKER_03",
+    "text": "So, what now? Oh, and we have four cores. Yeah, we want to make eight kilobyte hash tables in that case. And then just work between them. It's not just how we partition things normally mean the size of the partitions? I guess not, because you have to pick a function, right? "
+  },
+  {
+    "start": 687.541,
+    "end": 699.334,
+    "speaker": "SPEAKER_02",
+    "text": "Well, I mean, in this specific case, we use the two radix bits to create the partition. Oh, sure. So you just use more radix bits. So twice as many, right? "
+  },
+  {
+    "start": 716.416,
+    "end": 727.49,
+    "speaker": "SPEAKER_02",
+    "text": "So no more four-way, but 64-way partitioning. And each of the partitions would now be eight kilobytes. "
+  },
+  {
+    "start": 738.061,
+    "end": 774.085,
+    "speaker": "SPEAKER_02",
+    "text": "of the threads oh you would also have to do the same partitioning here obviously right and then each of the threads would let's say process the first eight and then the next eight or you could do something smarter where you have some kind of work queuing thing where you have a big buffer with all the partitions and then the cores and like dequeue partitions as they become available, you can do something fancy, right? But yes, the idea is very much to create more partitions and make them, or more hash tables, but make them smaller. "
+  },
+  {
+    "start": 774.765,
+    "end": 804.769,
+    "speaker": "SPEAKER_02",
+    "text": "What's the downside? Can we just arbitrarily do that? Why don't I just create like, you know, tiny, tiny partitions, and, well, I mean, I would want to, like, if I had some fancy queuing system that adds overhead, I would probably want some partitions that are at least a couple thousand elements so they amortize the overhead of the queuing and dequeuing. "
+  },
+  {
+    "start": 805.49,
+    "end": 837.126,
+    "speaker": "SPEAKER_02",
+    "text": "But what else? Is there any kind of issue with that? What was the problem with creating loads of hash tables or partitioning? I distinctly recall talking about this last week. I may be hallucinating. That is fine. But I think I've talked about it. I think I just saw your hand. "
+  },
+  {
+    "start": 837.206,
+    "end": 885.569,
+    "speaker": "SPEAKER_02",
+    "text": "I don't think so. What's the problem with creating, yeah? You have to go through the, like, again and again. Well, not if you partition both sides, right? We have this case, this pathological case, right, where we only create two partitions, but let's say I create eight partitions. The single scan here, single scan here, right? What happens if I increase the fan out of the partitions? the number of partitions I create. Is it worth locality? So yes, locality plays a role, but what happens? How far can I go before bad things happen? "
+  },
+  {
+    "start": 890.833,
+    "end": 893.476,
+    "speaker": "SPEAKER_02",
+    "text": "What's a good number of partitions to create? "
+  },
+  {
+    "start": 900.202,
+    "end": 910.31,
+    "speaker": "SPEAKER_01",
+    "text": "You could be utilizing the cache lines, basically. If you go really small, then each hash table won't even occupy a full cache line. "
+  },
+  {
+    "start": 910.37,
+    "end": 987.191,
+    "speaker": "SPEAKER_02",
+    "text": "Sure, but let's say I have a lot of input data. In principle, you are right. That could happen, but we're talking terabytes of data. OK. Yeah, okay, cool. Yeah, I guess, so, hash tables themselves, you know, we have a little bit overhead. No, but this is before I even, the partitioning happens before you build the hash tables, right? Oh, sure. Right, there is this partitioning stuff. I mean, in principle, I guess I could build some hash tables while partitioning, but let's not complicate things, right? Like, you know, this is just... maybe because maybe I've over complicated things that you guys are I've confused you right so I'm like the partitioning we have was a single scan through this and then we're creating four partitions right forget about the thing with the hashtags for now this is the partitioning step right what happens if I create 10,000 partitions. "
+  },
+  {
+    "start": 994.394,
+    "end": 1074.079,
+    "speaker": "SPEAKER_02",
+    "text": "Is that, what's the cost of creating 10,000, what's the cost of creating four partitions? If you had to estimate this in terms of IO. Don't be shy, you know, no wrong answers, just some answers that can be improved upon. I don't want this to be just the two of us. Yeah, go, thank you. I thought when you create partitions, you have to scan everything to create one. What's that? So yes, I mean, yes, you do have to scan through everything. But someone asked me for a very specific, like, I don't know, I thought, someone asked me, like, you know, what specifically happens, right? So what did the loop look like that we had? There's a loop that does the partition, right? Presumably it starts four and then something. What goes into this loop? Are you raising your hand or are you scratching your head? "
+  },
+  {
+    "start": 1075.42,
+    "end": 1093.926,
+    "speaker": "SPEAKER_02",
+    "text": "Okay. I did... Did I dream last week? Did that not happen? Did I have... I wrote a loop, right? Okay, good. "
+  },
+  {
+    "start": 1093.966,
+    "end": 1110.035,
+    "speaker": "SPEAKER_07",
+    "text": "I remember you writing the loop, but if I remember correctly, all you wrote inside was that you calculate the hash somehow, and that seems like you're going to be calculating the hash of each of them every time anyway. So I'm not really sure that, I don't know, maybe everyone else is. No, no, no. "
+  },
+  {
+    "start": 1110.055,
+    "end": 1165.703,
+    "speaker": "SPEAKER_02",
+    "text": "So yes, the loop is super simple. I think you're correctly remembering. I think we just did like a mask or a bit shit. Yes. OK, good. So I did not hallucinate last week. Very good. So we had something more tuple in relation, whatever. I think if we just take more radix, like if we took a large number of radix, then we would have to do big shifts instead of being able to... That's if you use the most significant. But let's forget about that. Yes, but yes. So that happened, right? So I had the output, whatever, like, you know, and I picked a partition, partitioned by... using the tuple. Let's say, you know, for simplicity, these are just integers, okay? I'm forgetting that these are actually tuples, ignoring the fact. And I'm just bit masking this with a 3. Why a 3? "
+  },
+  {
+    "start": 1168.202,
+    "end": 1202.351,
+    "speaker": "SPEAKER_02",
+    "text": "To your least significant bits. To what? To your least significant bits. Right. This masks out everything except for the two least significant bits, right? The bit pattern of a 3 is 1, 1. And whatever the value that comes in here, I'm masking by doing this bitwise add, I'm masking away everything except for the last two bits, right? So this is kind of, in a way, it is a hash, but it's kind of the shittiest hash in the world. I'm just basically taking two of the bits. "
+  },
+  {
+    "start": 1202.391,
+    "end": 1234.2,
+    "speaker": "SPEAKER_02",
+    "text": "That's how I decide the partition. Good. So this is super important. Oh, well, and then I do, what do I do? Push back. I'm kind of doing this weird... hybrid between Python syntax and C++ functions, but whatever. I'm pushing the tuple here, but this is supposed to be okay. Okay, so I'm pushing the tuple in here, right? This is what creates the partitions. Okay, so what's the cost of this? "
+  },
+  {
+    "start": 1235.04,
+    "end": 1329.553,
+    "speaker": "SPEAKER_02",
+    "text": "What's the IO? You can either just tell me a number or you describe it. It's sequential, right? So it's going to be the size of the whole thing divided by the cache. Yeah. So which part's sequential? The reading. This part here, right? Yes. OK, good. So this one is roughly a number of couples divided by Yeah, go. That's not sequential, right? Because it depends on what the bit mask is in regards to which partition we have. Yeah. Okay, cool. It's not sequential, right? So basically I'm reading the first value and it might go here, right? And I'm reading the second value and it might go here. And I'm reading the third one, it might go here. And this one might go here. Okay. But is it fully random? Not necessarily, right? Because 0, 1, like the last two bits can be, it still kind of is in order, I think, right? It kind of is in order. Because I guess it depends on the data. Okay, let's say it's random data. Yeah, go. These are not hash tables. "
+  },
+  {
+    "start": 1330.473,
+    "end": 1387.484,
+    "speaker": "SPEAKER_04",
+    "text": "This is like a super Yes, it would but that's not what I'm fishing for. Sorry, I'm doing the thing that I also hated when I was in high school. Ignoring you. Yeah, go. So I guess there's like four options. There's like a one in four chance of going into each one. If you have less partitions, it's more likely to be temporal. "
+  },
+  {
+    "start": 1387.584,
+    "end": 1392.266,
+    "speaker": "SPEAKER_02",
+    "text": "Yes, that is true. I think that's roughly in line. Yeah, go. "
+  },
+  {
+    "start": 1393.207,
+    "end": 1407.552,
+    "speaker": "SPEAKER_07",
+    "text": "I was initially thinking the same thing. But if you have the partitions being smaller, then you're going to have more of them in memory. So therefore, I would think that that might offset the decreased probability. OK. "
+  },
+  {
+    "start": 1409.393,
+    "end": 1441.181,
+    "speaker": "SPEAKER_02",
+    "text": "So what I'm actually trying to say, what I'm fishing for, is that this is, and I think maybe write this down because, I mean, Obviously, I haven't written the exam yet. But I think I have to do that soon. But there is a good chance. This is really important. This is not random axis. We can call this semi-sequential. It's sometimes the word that people use. "
+  },
+  {
+    "start": 1441.442,
+    "end": 1479.229,
+    "speaker": "SPEAKER_02",
+    "text": "But the point is the following. That full random axis would mean that this value could go here. or here, or here, or here, or here, or here, or anywhere. But it cannot go anywhere. It can only go right after one of the tuples in one of the partitions, the last tuple in the partition. So it can never go is full up to here, and the next slot is this, there's only one memory address that this tuple can go to. "
+  },
+  {
+    "start": 1479.789,
+    "end": 1517.641,
+    "speaker": "SPEAKER_02",
+    "text": "And that is the next one in the partition. So while this part here is random, It's quasi-random, right? So it picks practically randomly a partition, but each partition is filled sequentially from the top to the bottom. And so that means that as long as I have fewer partitions than I can have open pages, all of them will be open at the same time. "
+  },
+  {
+    "start": 1518.312,
+    "end": 1563.34,
+    "speaker": "SPEAKER_02",
+    "text": "They will not be flushed to disk, which is the big problem with random access. So what will happen is, let's say these are my pages in main memory. The cache line's pages doesn't matter. let's say these are the pages, one page will be filled with tuples, like maybe this one, this one, this one, this one, this one. They will all go into this partition, but once the partition is full and the algorithm goes to the next partition, This one may be evicted, may still linger around, but it will never be written again until it is flushed to disk or to main memory to slow a storage medium. "
+  },
+  {
+    "start": 1564.401,
+    "end": 1594.646,
+    "speaker": "SPEAKER_02",
+    "text": "So I do not get random IO on this partition. It is quasi-sequential. It is basically four concurrent scans of sequential memory regions. And as long as that number, four, less or equal to the number of open pages, it is fine. There will not be random access. Does that make sense? "
+  },
+  {
+    "start": 1596.567,
+    "end": 1629.335,
+    "speaker": "SPEAKER_02",
+    "text": "So this idea of quasi-sequential or semi-sequential access is arguably the most important bit to take away from last week's reporting. I mean, I'm not sure if that's actually true. I'm just talking out of my head. But it is certainly one that's very important. So this idea that there's something between fully random and fully sequentialism. Does this make sense to everyone? "
+  },
+  {
+    "start": 1629.735,
+    "end": 1643.724,
+    "speaker": "SPEAKER_01",
+    "text": "Yeah? So if we were to have, as you were saying, right, like, if we were to have more partitions, then you can have... Okay, I was going to get there. You're already, yeah. So would it just be then you would have the evictions happening, so you would have more page falls? Exactly. "
+  },
+  {
+    "start": 1643.844,
+    "end": 1705.547,
+    "speaker": "SPEAKER_02",
+    "text": "So if you're thinking, if you plot it in a diagram, right, like you plotted the number of output partitions, right, um and this is um i o right um most of the time well okay so you let's say this is you know um n and i'm defining n as number of tuples over page size okay so basically the input well i will always need to read the input and i will need to write well something in the order of the uh of the input again like i'm reading this and if i'm sequentially writing it i'm writing just as much data as i'm reading so um so this is 2m And if I have a low number of partitions, let's say one partition is just a mem copy, right? "
+  },
+  {
+    "start": 1705.907,
+    "end": 1740.365,
+    "speaker": "SPEAKER_02",
+    "text": "Two partitions, well, I'm still likely to not get any fresh, right? It's all fine until I hit the point where the number of partitions is greater than the memory, the buffer pool, and at that point, cost just explodes. Because at that point, it becomes, well, it's not entirely true. It actually amplifies by the page size, the number of tuples I have on a page. "
+  },
+  {
+    "start": 1741.325,
+    "end": 1771.591,
+    "speaker": "SPEAKER_02",
+    "text": "Because here, I get one IO for, well, to fill the entire page and write it, whereas once I get random IO, I get one IO per tuple that is on the page. So let's say, you know, these are 4 byte integers, and I have 64 byte cache lines. I would have 16 of those integers on a cache line, so it would go up by a factor of 16. "
+  },
+  {
+    "start": 1774.751,
+    "end": 1820.103,
+    "speaker": "SPEAKER_02",
+    "text": "Does that make sense, or was that too quick? Sorry. I still don't really understand why the smaller partition is intelligent words. Oh, okay, good. Okay, so this is the end, right? So if we have really small partitions, right? So this 64-way partitioning, that was our starting point, right? Wow. If that number, 64, is greater than the number of buffer pool pages I have. That's the case we're describing. Let's say I have 32 open pages. "
+  },
+  {
+    "start": 1822.844,
+    "end": 1868.575,
+    "speaker": "SPEAKER_02",
+    "text": "In that case, because I am writing to have more pages open than I can keep in memory at the same time, this thing picking the the right page this causes with high probability a random i o yeah because i can no longer rely on the page being in memory because of the last time i wrote to it which may be a while exactly yes I mean, we do care about them. "
+  },
+  {
+    "start": 1868.595,
+    "end": 1916.671,
+    "speaker": "SPEAKER_02",
+    "text": "We want to keep them around for the probe phase, right? Or actually for the build phase. Because at this point, remember, right? This is just the partitioning. We are not building the hash tables at this point. We are just doing this super simple loop here, right? Okay. What would happen if I now said, oh no, I'm building the hash tables straight away. I'm not, because like, you know, I have this, I'm reading the input, and then I'm writing the input, or writing this intermediate thing, and then I'm building the hash tables, and for that I need to read the intermediate input, the thing that I've just written to memory, again, just to build the hash table. "
+  },
+  {
+    "start": 1917.211,
+    "end": 1984.184,
+    "speaker": "SPEAKER_02",
+    "text": "That seems dumb, right? Like taking something, writing it to disk, or writing it to main memory, just to read it again half a second later. How dumb am I? Why am I doing this? Why don't I just build the hash table straight away? Seems like a reasonable thing to ask, right? I'll go in. I'll get back to you a bit. because we don't know how much memory we'll need to allocate for each match table? Yeah. I mean, that is a complicating factor in practice. You can usually get around this. The usual way, if you don't quite know how to allocate things, is you sample. You sample, let's say, 1,000 values. You see how they distribute over the partitions. And then you multiply each by 20% more. And you say, this is the size of it. So allocation, yes, is a practical. It's a headache, but it's not a huge problem. "
+  },
+  {
+    "start": 1987.033,
+    "end": 2010.67,
+    "speaker": "SPEAKER_05",
+    "text": "Is it because all the partitions are in memory? No. I want to say no, but I'm not entirely sure what you're implying. Maybe you're implying something that's- As in, because all the partitions, like we said, aren't flushed back to disk, that means we can just access them without having to pull them out from the disk. "
+  },
+  {
+    "start": 2012.914,
+    "end": 2026.498,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah, but that is true. I mean, if I built, like, you know, four hash tables instead of just writing four partitions, that would still be true, wouldn't it? Yeah. "
+  },
+  {
+    "start": 2026.598,
+    "end": 2038.861,
+    "speaker": "SPEAKER_03",
+    "text": "Okay, yeah, go. Yeah, isn't it just the idea we were just discussing with the semi-sequential? So the point is, writing to a hash table is random access. Yeah, exactly that. If you were signing straight to the hash tables, you would... Exactly. "
+  },
+  {
+    "start": 2039.001,
+    "end": 2073.617,
+    "speaker": "SPEAKER_02",
+    "text": "So because what we are relying on, right, sequentially writing to the partition because we're filling it up from the top to the bottom. If we now said, oh no, this partition is actually a hash table that we're building, well, we've lost that, right? Like we're now like jumping around this thing and we're basically creating a fully random access pattern, right? Like this quasi or semi-sequential access pattern, we've turned it back into a fully random access pattern. "
+  },
+  {
+    "start": 2077.248,
+    "end": 2087.034,
+    "speaker": "SPEAKER_02",
+    "text": "OK, I have more things to say about this. But I also want to see if there are more questions, because I feel really bad. We haven't even discussed that. "
+  },
+  {
+    "start": 2087.374,
+    "end": 2099.222,
+    "speaker": "SPEAKER_01",
+    "text": "I'm going to try to follow up on this. But don't we still have random access, even if we take a partition from disk and we load it in, or build a hash table using that? "
+  },
+  {
+    "start": 2100.143,
+    "end": 2143.633,
+    "speaker": "SPEAKER_02",
+    "text": "Once we, wait, wait, during the partition phase? No, afterwards, in the hash table. yes um in the hash table build phase right like that's the second step i think um this is somewhere in the slides as well right there's this fairly convoluted figure that i think is maybe more confusing than it really needs to be i apologize for that um but yes during the hash building phase you get random i o but because you are building on one partition at a time the building happens on a much smaller relation, and you then assume that that hash table fit, or you've engineered it, not you assume. "
+  },
+  {
+    "start": 2143.873,
+    "end": 2223.268,
+    "speaker": "SPEAKER_02",
+    "text": "You've engineered it such that because the input is smaller, because you're only looking at one partition at a time, the hash tables then fit in memory. So random access is not actually a problem unless what it is that you're randomly accessing is larger than your memory. What if we try to parallelize the half-table building process then? Yes, if you parallelize this again, you would end up back at the problem that we started with, that you would be creating contention among those things. So in that, you've assumed sort of like this big shared memory. In reality, where are we actually aiming to fit? That's a good question I want to say opinions diverge on this so Okay, this changes from CPU generation to CPU generation because it also depends on a lot of different things. It's a really complicated question. So, the reason is the following. "
+  },
+  {
+    "start": 2223.388,
+    "end": 2254.881,
+    "speaker": "SPEAKER_02",
+    "text": "Accessing a value in level one cache costs Three cycles, give or take. Somewhere in that order, single digit cycle. I think it actually used to be one cycle, but by now it's somewhere in that order. Level two is maybe 10, 15, something in that order, the double digit. And level three is like, I think, 70, 80. Again, Paul knows it better than me. But somewhere in that ballpark. "
+  },
+  {
+    "start": 2255.141,
+    "end": 2285.735,
+    "speaker": "SPEAKER_02",
+    "text": "So the question is, when I'm partitioning and when I'm building the hash table, how much locality do I want? And how much locality do I need? How does this relate? How does it do savings? If I create smaller partitions, I get more locality. So I might get something, a memory access that in level two costs me, let's say, 15 cycles. I could get this for three. "
+  },
+  {
+    "start": 2286.336,
+    "end": 2318.901,
+    "speaker": "SPEAKER_02",
+    "text": "But I'm not even sure I actually need memory access to be that fast because I still need to do some actual computation. I need to do this bit mask. Okay, the bit mask is cheap. That costs me basically nothing. But calculating a hash function during hash build can easily cost me 10 cycles. I think last week I also talked about the CRC32 hash function that is a built-in primitive in Intel CPUs and I think ARM as well. And that costs about 10 cycles. "
+  },
+  {
+    "start": 2319.682,
+    "end": 2351.057,
+    "speaker": "SPEAKER_02",
+    "text": "So it's somewhere cost-wise between a level one access and a level two access on Intel. But then given that I also have to do some other work, like writing to memory and stuff, there's a good chance that I actually have to spend at least 20, 30 CPU cycles per value just doing stuff. And so optimizing for level one cache might not pay off. It might be better to optimize for level two cache. "
+  },
+  {
+    "start": 2351.077,
+    "end": 2386.708,
+    "speaker": "SPEAKER_02",
+    "text": "So I think that's kind of where things are right now. But in practice, you would actually have to Well, implement this and then run it on your hardware and see what performs best. And every so often there are academic papers published that say, oh, the numbers have changed now. The numbers are now, you need, you know, 10 bits for radix and, you know, da, da, da. And I find these are the least interesting papers because there are no new ideas here. They've just measured things and said, oh, things have sufficiently changed in the last five years, so, you know, we need to adapt these concepts. "
+  },
+  {
+    "start": 2388.19,
+    "end": 2398.802,
+    "speaker": "SPEAKER_02",
+    "text": "I'm not going to ask you that in an exam because the half-life of these numbers are so short. Okay. Yeah? "
+  },
+  {
+    "start": 2399.122,
+    "end": 2425.434,
+    "speaker": "SPEAKER_03",
+    "text": "Okay. Oh, good. If we have... If we were specifically building hash maps, such that they'll be in a page or fit in main memory to avoid crashing when we parallelize it, why not just, in that case, build the hash map straight away? Because although the memory access would be random, it would be within a page. That's the design we wanted to do that size. "
+  },
+  {
+    "start": 2425.674,
+    "end": 2460.123,
+    "speaker": "SPEAKER_02",
+    "text": "Oh, yeah, right, right. Wait. No, no, but you'd be building multiple hash tables in a single scan over the input relation but okay this is where i was going to go what you could do is make a hybrid in which you're saying okay let's say i can fit let's say 32 pages in main memory and i'm partitioning into let's say 16 partitions, I'm just making these numbers up, right? "
+  },
+  {
+    "start": 2460.563,
+    "end": 2491.384,
+    "speaker": "SPEAKER_02",
+    "text": "Oh, that means I still have 16 open pages left in, like, scratch memory. I can use these. Well, maybe I want to build a hash table on one of the partitions immediately, and for the others, I just partition. And that one hash table might occupy exactly those other 16 memory pages, while the others I will fill sequentially. I haven't seen papers on that. I'm not sure anyone's doing that. I'm not even sure it's a good idea. "
+  },
+  {
+    "start": 2492.284,
+    "end": 2525.232,
+    "speaker": "SPEAKER_02",
+    "text": "But it's something you could, in principle, do. OK, good. So I've flushed everything I had to say about this. and admittedly spent 45 minutes talking about it. Well, it's all right. Anything else? I thought there was one other question that someone had, yeah? Yeah, so, I mean, I asked the question last time about the B plus tree and using that to conduct an inequality join. Yes, what was the question? I just wanted to... "
+  },
+  {
+    "start": 2528.666,
+    "end": 2558.66,
+    "speaker": "SPEAKER_01",
+    "text": "I asked you was right when, like, whether, like, the question in the self-assessment being asked, do we join, like, the attribute, like, time on relation R between... s.time and s.time plus 60. So, we're going to be doing that. I suppose, whether we could use a B plus tree, which was built on the time attribute of r as index, and then just looking at the start range as s.time. "
+  },
+  {
+    "start": 2558.801,
+    "end": 2594.699,
+    "speaker": "SPEAKER_02",
+    "text": "Right. Now, I remember your question. Oh, yeah. Okay. Very good. Let's spend at least some minutes on that. What I would suggest, okay, is we still take a regular break in, what, eight minutes, and then we see, because we haven't actually talked about query processing models, I want to make sure that we have enough time to talk about that. I would much rather spend enough time talking about the content than doing the worksheet, because the worksheet I can just give you the solutions and you can check them on your own. "
+  },
+  {
+    "start": 2596.968,
+    "end": 2627.259,
+    "speaker": "SPEAKER_02",
+    "text": "If that's okay, but if there are no questions on query processing, cool, we'll do the worksheet. If that's okay with everyone? Yeah? Good. But I think the question is good. So let's say you have two relations. And let's say R and S. And each of them have a B plus tree build up. "
+  },
+  {
+    "start": 2627.419,
+    "end": 2666.966,
+    "speaker": "SPEAKER_02",
+    "text": "And I'm going to kind of draw something here. Actually, no. I want to make sure this doesn't look like a binary tree. So let's say like this. OK. Something. OK. And now I'm I have a join, an inequality join. So I'm basically saying where r between s and s plus 5. "
+  },
+  {
+    "start": 2667.826,
+    "end": 2699.141,
+    "speaker": "SPEAKER_02",
+    "text": "Something like this, right? So how would I go about doing this? How would you implement this given that you have b plus trees as relations and built on the two relations? Okay? Is the problem kind of clear? Okay. S and S plus 5. Oh, well, it's the value, like S dot V maybe, and S dot V plus 5, and here it is R dot V. "
+  },
+  {
+    "start": 2699.561,
+    "end": 2708.263,
+    "speaker": "SPEAKER_02",
+    "text": "Does this make sense? So how would you do it? It's fine. You could describe it high level, right? "
+  },
+  {
+    "start": 2720.604,
+    "end": 2737.616,
+    "speaker": "SPEAKER_01",
+    "text": "The idea that I had was that we would iterate over all the values of s.b that we had. And for each one, we would just kind of go traverse the b plus 3 of r and find s.b and s.b plus 5, and then use the linked list to find all the joint parameters. "
+  },
+  {
+    "start": 2738.317,
+    "end": 2774.911,
+    "speaker": "SPEAKER_02",
+    "text": "Right. OK. I see. I see. OK. So let me think. Can I write this in pseudocode? So you would basically go for... R in capital R. So you would basically scan over these, right? Sequentially, you would do whatever, S start. You would do equals B plus three dot lookup. "
+  },
+  {
+    "start": 2777.057,
+    "end": 2819.421,
+    "speaker": "SPEAKER_02",
+    "text": "um of well r right and then uh that would give you a starting pointer right and then you would say while um let's say this would be let's say this is a pointer right like so this is a pointer to an integer i'm like glossing over lots of things here node layout being one of while the value that s star is pointing at is less than r plus five, this is this predicate here, right? "
+  },
+  {
+    "start": 2820.341,
+    "end": 2851.914,
+    "speaker": "SPEAKER_02",
+    "text": "Output well, the join partner, so basically R and dereferencing S sine. Like this, right? Does this make sense? So everyone is clear what I've written here. Yeah? So basically, you read a value, you use it to perform a B-tree traversal here, B plus tree traversal, find this starting pointer. "
+  },
+  {
+    "start": 2852.855,
+    "end": 2911.781,
+    "speaker": "SPEAKER_02",
+    "text": "And then you basically say, oh, that's my first joint partner. That's the value. I'm assuming that the value actually shows up. OK, fine. But then you go sequentially until you find the last joint partner, which is Wait. Yeah, it's actually the other way around. Sorry, I've confused myself here. But the idea is hopefully still clear, right? Like, you basically traverse until you find the first tuple for which the condition no longer holds, and then you alter that, right? Does that make sense? Yeah. OK. So that is something you could do. That would be called an index nested loop join. Because there is, well, actually, it kind of works, right? Like, here's one loop, and here is the other. But you're using this index to speed things up. "
+  },
+  {
+    "start": 2911.821,
+    "end": 2975.116,
+    "speaker": "SPEAKER_02",
+    "text": "What would be the computational complexity? It would be the depth of the tree times the size of the . Exactly. OK. So it's size of R times log of, well, no, actually not necessarily phase two, right? It's log page size or fan out, some kind of logarithmic factor on S, right? Do we think Isn't it also times the size of S? Or would it be times the size of, like... You'd have to scan for your... Oh, here, it's... Okay, okay, fine. Yeah, you're right. Times, like, average length of... Average number of join partners, basically. Yeah, okay, fine. I've ignored this as a constant. But yes, you're in principle right. But the question is, can we do better? "
+  },
+  {
+    "start": 2975.997,
+    "end": 3008.332,
+    "speaker": "SPEAKER_04",
+    "text": "Yeah, go. Once you've gone through R. Once you've got the first value of R that you've found in S, where that value is, you go to the next value of R. It might be easier to just iterate through S, because it might be close by in S. And you might sort of . But equally, it might not be . The next value in S is close to the last one we went to. "
+  },
+  {
+    "start": 3010.21,
+    "end": 3046.277,
+    "speaker": "SPEAKER_02",
+    "text": "So, okay, let's say this is our first value or number, right? And let's say these are the join partners for number one, right? This is the second one, and this is, let's say, the join partners for the second one, right? And then there's a third one and the join partners for the third one, right? And so your point was, well, why do I do a full, like, you know, traversal of the tree every time, given that I have some information here, right? "
+  },
+  {
+    "start": 3047.939,
+    "end": 3049.3,
+    "speaker": "SPEAKER_02",
+    "text": "Can I do something better? "
+  },
+  {
+    "start": 3051.482,
+    "end": 3073.382,
+    "speaker": "SPEAKER_03",
+    "text": "Yeah, go. Yeah, I forget what the name of it was. It's very similar to an algorithm we already did. You just have two pointers in S. You can move them along. I'm not sure that's better than R log S, but I'm not convinced that R log S is like, because you have to multiply by the sequential right here. "
+  },
+  {
+    "start": 3075.183,
+    "end": 3106.765,
+    "speaker": "SPEAKER_02",
+    "text": "Well, okay. So yes, you can apply a sort merge join here, right? Or in this case, because the relations already are sorted, or at least they give you sorted access, you can just, well, basically exploit that fact And what's the cost of a sort merge join? Or what's the cost of the merge phase? It's basically two sequential scans, right? "
+  },
+  {
+    "start": 3106.825,
+    "end": 3140.225,
+    "speaker": "SPEAKER_02",
+    "text": "Here and here. And basically, this would be fully sequential. The case that we've described, or that I've described in the lecture, was a sort merge join for equality, right? And not just that, I made the other simplifying assumption that there are no duplicates, which is the easiest to explain, but it's not actually the common case. But you can apply a sort merge join for inequality predicates. "
+  },
+  {
+    "start": 3140.305,
+    "end": 3178.424,
+    "speaker": "SPEAKER_02",
+    "text": "I think I also say that in the lecture. You could apply the very same thing here. I actually used to, like three, four years ago, I used to do inequality sort merge joins. and explained them in the lecture, and I just confused the hell out of everyone and decided, okay, we're no longer doing that. You can do this basically for fun in your own time, but for the time being, basically the idea that you've described, right, that you can, well, kind of exploit locality here is exactly that. "
+  },
+  {
+    "start": 3178.744,
+    "end": 3211.012,
+    "speaker": "SPEAKER_02",
+    "text": "There's also something we... This is called a triscan. I have to look this up. There's a skip scan. There is an actual algorithm there that proves, I think it's called the triscan, that merging two tris is also linear cost. And there's a proof, and the proof is quite complicated. I think the theory people, like the actual data structure people, like Abbas, I think he would probably know it all. "
+  },
+  {
+    "start": 3212.259,
+    "end": 3243.82,
+    "speaker": "SPEAKER_02",
+    "text": "And so there is a more general instance of this problem, what I'm saying. But for our purposes, what I'm saying is you can use a sort merge join instead of a regular scan plus B3 traversals if you have indices defined on both sides. This is always contingent on that. And because this is actually a fairly niche case. "
+  },
+  {
+    "start": 3244.6,
+    "end": 3276.541,
+    "speaker": "SPEAKER_02",
+    "text": "I don't think a lot of systems, and the algorithm is not complicated, just like, you know, there are lots of things you can get this wrong. I don't think a lot of systems implement this. I think SQL Server does. I imagine IBM DB2 and Oracle do. I'm not sure a lot of other systems do. So it's not a super commonly used join algorithm, but it's definitely possible. Good, that being said, let's take a break now and then get back five minutes past the hour, okay? "
+  },
+  {
+    "start": 3294.579,
+    "end": 3296.36,
+    "speaker": "SPEAKER_04",
+    "text": "I don't know why he's like that. Change. "
+  },
+  {
+    "start": 3325.738,
+    "end": 3328.199,
+    "speaker": "SPEAKER_04",
+    "text": "Either it's on this or it's in my memory. "
+  },
+  {
+    "start": 3328.28,
+    "end": 3355.044,
+    "speaker": "SPEAKER_03",
+    "text": "If we're worrying about the cache, It seems like there will be competition between, like if you're partitioning, presumably it didn't move to the sequential access, you also have to store a sign. "
+  },
+  {
+    "start": 3375.043,
+    "end": 3402.716,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah, yeah, yeah, but because you are... Exactly. Yeah, actually, I had a question. When we're saying sequential access of the relation for anything, are we just assuming that it's just one piece at a time so we can improve that? Yeah, I mean, in principle, you could say if you had a really small buffer pool, Even that one page may be significant. "
+  },
+  {
+    "start": 3402.756,
+    "end": 3413.603,
+    "speaker": "SPEAKER_01",
+    "text": "Yeah. In this case, we can do it this way because we have indexes on both, right? Like for instance, we just had the index on . Then the binary search . For petitioning the person . "
+  },
+  {
+    "start": 3447.93,
+    "end": 3467.525,
+    "speaker": "SPEAKER_04",
+    "text": "Oh yeah, yes, yes, someone asked that and I said let's discuss it in the literature. Did you ask this? No. Oh right, that was the thing, I still, yeah. "
+  },
+  {
+    "start": 3474.585,
+    "end": 3475.666,
+    "speaker": "SPEAKER_02",
+    "text": "Okay. "
+  },
+  {
+    "start": 3475.866,
+    "end": 3514.232,
+    "speaker": "SPEAKER_03",
+    "text": "Let's talk about it for a bit. Ask also about in the situation we were talking about where we're trying to parallelize the join and in a situation where you have a shared L1 cache, which is the one we made. It doesn't matter if our hash maps are slightly the wrong size, because they're all in the cache, currently. Four of them are, otherwise, as this works. But if you have separate caches for each core, the problem of that being slightly the wrong size would be a bigger issue, right? "
+  },
+  {
+    "start": 3514.272,
+    "end": 3525.738,
+    "speaker": "SPEAKER_03",
+    "text": "Especially in a pathological case where you've picked only even numbers or something, right? You might have two cores that can't do any work. So in principle, generally your caches have at least 512 caches. "
+  },
+  {
+    "start": 3525.758,
+    "end": 3558.112,
+    "speaker": "SPEAKER_02",
+    "text": "So the fanout should be at least 256, maybe 500. Very few machines actually have CPU machines have 256 plus. They exist, but it's a fairly rare difference. "
+  },
+  {
+    "start": 3558.192,
+    "end": 3562.174,
+    "speaker": "SPEAKER_02",
+    "text": "We're looking at 64, maybe 120, I don't know. . "
+  },
+  {
+    "start": 3568.437,
+    "end": 3580.36,
+    "speaker": "SPEAKER_03",
+    "text": "One thing you could do, and this is actually something that one of my PhD students did, you could then hierarchically partition. You find that after the partition 256 ways, you can actually partition again, but only partition the partitions that are large. "
+  },
+  {
+    "start": 3642.009,
+    "end": 3683.402,
+    "speaker": "SPEAKER_04",
+    "text": "I don't know how that just went. Oh. I know you saw it. It was like, oh, that's my black tie. I mean, that's what's interesting. This is, I mean, this is, like, the tie that was put on. This is cord. And you can just go like this. And then you can just go like this. And then you can just go like this. And then you can do something where you say, for example, I think it's like a drop. And then both drops are used for the top. Listen, man, I got it for two pounds from Primark. I don't think you can complain. But this is all difficult. I can't believe I was thinking. Limitation detail. Yeah, yeah, yeah. "
+  },
+  {
+    "start": 3683.562,
+    "end": 3685.783,
+    "speaker": "SPEAKER_07",
+    "text": "It's all set. "
+  },
+  {
+    "start": 3686.043,
+    "end": 3689.585,
+    "speaker": "SPEAKER_02",
+    "text": "You work for Microsoft. We want you to do magic. "
+  },
+  {
+    "start": 3790.365,
+    "end": 3801.751,
+    "speaker": "SPEAKER_04",
+    "text": "No, it was 10 years ago. 10 years ago. I know it's Python. Yeah, yeah, yeah. Oh, please. It's Python. Oh, I know. I know. Yeah, I think so. Yeah, they don't use that much. Yeah, they don't use that much. That's cheap, isn't it? Yeah. "
+  },
+  {
+    "start": 3845.263,
+    "end": 3854.265,
+    "speaker": "SPEAKER_02",
+    "text": "So let me talk about two things that came up during the break. So the last thing was someone asked me, oh, but isn't there a trade-off order? "
+  },
+  {
+    "start": 3869.025,
+    "end": 3904.676,
+    "speaker": "SPEAKER_02",
+    "text": "inherent conflict between having small hash tables but a low fan out in the partition table. Yes, there is. You want ideally small hash tables because those make the building and the probing cheap, but you don't want small hash tables because that means the high fan out and that makes the partitioning easier. And so if you plot, and this is like a cartoonish figure, right, but you can implement this experiment, you will get numbers roughly like this. "
+  },
+  {
+    "start": 3905.076,
+    "end": 3941.834,
+    "speaker": "SPEAKER_02",
+    "text": "If you plot the number of partitions and then end-to-end execution time for a, let's say, Radix partition hashtag with building on, with partitioning on probe and build side, you will find that the cost goes something like this, right? Here, you have really large hash table. Well, I mean, it might not look as smooth as this, right? But I don't have time to do the calculations. But here, you get crashing during... "
+  },
+  {
+    "start": 3947.829,
+    "end": 3987.635,
+    "speaker": "SPEAKER_02",
+    "text": "Because the hash tables are too large, too few partitions, here you get crashing during partitioning. Because you're not accessing, you have too many open pages in the partitioning phase. And here is kind of where the two where you find the sweet spot. Does that make sense? Yeah? Yeah. Cool. The other question was on this thing and there being a lot of numbers and calculations and... "
+  },
+  {
+    "start": 3987.655,
+    "end": 3994.54,
+    "speaker": "SPEAKER_02",
+    "text": "Let's see. So... "
+  },
+  {
+    "start": 4004.895,
+    "end": 4035.606,
+    "speaker": "SPEAKER_02",
+    "text": "So in this query processing thing, there are a bunch of things like this, right? Do I expect you to know all of this? No. But, well, okay, this I obviously need you to know. Okay, fine. Pipelining, da-da-da-da-da. Um... But there is one slide. Oh, yeah. "
+  },
+  {
+    "start": 4035.626,
+    "end": 4074.289,
+    "speaker": "SPEAKER_02",
+    "text": "Here are the calculations. Would a question be doing that calculation? This one? Yeah, I think something like that. Yeah. I want to say calculations like this are actually quite like me. But in this case, so where is the... I'm looking for the slide with all the factors. Okay, somewhere I have a slide with, oh yeah, I think I found it. "
+  },
+  {
+    "start": 4089.052,
+    "end": 4128.057,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah, exactly. With, for example, the number of function calls, right? These, you... Okay, I am not a big fan of you folks just learning stuff by heart. I think that's a waste of human life and sad to see it. But I do understand that sometimes, or in my opinion, it is much better to understand not... oh, you know, a selection has one function call to read the input and one to apply the predicate, but it is thinking, okay, so what does a selection do? "
+  },
+  {
+    "start": 4128.517,
+    "end": 4171.586,
+    "speaker": "SPEAKER_02",
+    "text": "Which parts of the operator need to be performed at runtime dynamically, because those are the ones that cause function calls, and which ones can be inlined, right? And you all know bit about compilers, so you know that inlining removes the function faults. And so if you think about it, you can actually derive all of these numbers. But I do understand that in the rush of an exam, it is hard to take time, breathe, and then say, OK, so what is the selection actually doing? "
+  },
+  {
+    "start": 4172.362,
+    "end": 4204.305,
+    "speaker": "SPEAKER_02",
+    "text": "And then derive this from perspective. So I understand that you will Every time every year after the exam I look at the cheat sheets that Students bring and this slide is almost universally on there. I do understand why it is there but My objective is to make sure that you don't just learn this stuff by heart But that you actually given enough time you can derive this from first principles and that you want this handy. "
+  },
+  {
+    "start": 4205.625,
+    "end": 4236.692,
+    "speaker": "SPEAKER_02",
+    "text": "But there's also a chance that I might come up with something that then actually forces you to spend time not on the calculations, but on the understanding and being able to derive this from first principle. Does this make sense? Yeah. So I'm basically trying to make sure that you learn deep rather than just shallow and memorized. Yeah? Okay, cool. That's on a meta level. "
+  },
+  {
+    "start": 4237.972,
+    "end": 4275.571,
+    "speaker": "SPEAKER_02",
+    "text": "What should we talk about on the query processing? Yeah? I didn't understand the implementation of the group aggregation. Fantastic. I mean, sorry. That came out wrong. So where, can you give me a slide number? 40, 40. 40? Okay, cool. Yeah, I mean, as long as I have kind of a pointer in a rough direction. Here. This thing? Cool. OK. "
+  },
+  {
+    "start": 4276.992,
+    "end": 4285.335,
+    "speaker": "SPEAKER_02",
+    "text": "Well, it's been a while since I've written this. Which part is unclear? The last for loop. "
+  },
+  {
+    "start": 4286.135,
+    "end": 4303.681,
+    "speaker": "SPEAKER_06",
+    "text": "The last for loop. OK. First of all, why do you have multiple aggregation functions? So inside the loop, you are accessing and modifying hash table slot j plus 1. But nowhere before that was ever initialized with a value. "
+  },
+  {
+    "start": 4305.305,
+    "end": 4339.85,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah, OK, so don't necessarily take this as correct and running code. I'm trying to illustrate. Oh, sorry. OK, now it's not a good time. Put that to mute. Okay, but let's start with the second one, and then we see if there's an actual problem with the first one. "
+  },
+  {
+    "start": 4340.21,
+    "end": 4386.758,
+    "speaker": "SPEAKER_02",
+    "text": "So the number of aggregation functions. Okay, why do I have multiple aggregation functions? That's kind of the meta question. Okay, let me bounce this back. Why would I only have one aggregation function? I mean, why one? You will actually find that a lot of queries often look like this, right? Now I'm actually writing something in SQL. Select sum of whatever, like profit or something, or maybe sales. "
+  },
+  {
+    "start": 4389.299,
+    "end": 4428.459,
+    "speaker": "SPEAKER_02",
+    "text": "Sales. And then, for example, sum of sales. So this is before taxes and this is, you know, or just taxes, right? Times tax rate. Maybe tax rate, depending on product, might be different, right? Like VAT is different on different things. And then you might have something like average of something else. And then all of that, let's say, group by country or store or something, right? "
+  },
+  {
+    "start": 4428.939,
+    "end": 4469.758,
+    "speaker": "SPEAKER_02",
+    "text": "And so these different aggregation functions basically all can work in a single scan of the relations. I mean, in this case, well, okay, you have to scan multiple attributes, but because we are talking in an NRE system, right, we get, Volcano is usually implemented on NRE systems, right, or NSM. This is basically a single scan of the relation, and you're doing the work for multiple aggregations at the same time in one single scan, and even more importantly, you only have to calculate the hashes on country, right, county once. "
+  },
+  {
+    "start": 4470.559,
+    "end": 4506.91,
+    "speaker": "SPEAKER_02",
+    "text": "And so that's basically what this last thing here does. It calculates multiple aggregation functions. And this is really the common case. What's interesting, and I thought you were maybe going into that direction, is that in a bulk processing system, that would not be the case because we're processing things column at a time. There we would only calculate a single aggregation function, which is why we wouldn't have this loop. And that would also mean that we can inline the aggregation functions because we're only doing one at a time. "
+  },
+  {
+    "start": 4506.93,
+    "end": 4533.995,
+    "speaker": "SPEAKER_02",
+    "text": "And in SQL, well, ANSI SQL only defines five aggregation functions, min, max, sum, average, and count. So you can actually hard code out operators for each one of them. So, yeah. Good. Then you have a second question in which you said that you were, wait, are we using something that was uninitialized or something? "
+  },
+  {
+    "start": 4534.075,
+    "end": 4548.377,
+    "speaker": "SPEAKER_06",
+    "text": "Is it like, before the for loop, you have hash table slot zero equals something. And then where do you set J plus one? J plus one. "
+  },
+  {
+    "start": 4549.978,
+    "end": 4581.93,
+    "speaker": "SPEAKER_02",
+    "text": "Oh, here. Yeah. I don't. No, no, sorry. OK, maybe it's a bit unclear what it is that I'm actually doing here. So what the output should look like is tuples that have, in the first attribute, have the grouping key. So I actually meant country. "
+  },
+  {
+    "start": 4583.229,
+    "end": 4614.057,
+    "speaker": "SPEAKER_02",
+    "text": "and then in the second slot they have what did i have some of sales right some of sales and then some of say well all the other stuff right and um and so what i'm doing here is i basically just say okay i create a um I had a reason for this. No, actually this kind of makes sense. "
+  },
+  {
+    "start": 4614.437,
+    "end": 4648.057,
+    "speaker": "SPEAKER_02",
+    "text": "So basically I am allocating a new vector here in this slot, right? And then I'm resizing. So, and I always put the grouping key there because that's always the output of my, of this operator, right? And then I need to resize, create enough space for all the aggregation results. That's what the resize does. And I do plus one because, well, I need to resize it. "
+  },
+  {
+    "start": 4648.117,
+    "end": 4679.457,
+    "speaker": "SPEAKER_02",
+    "text": "The new size should basically be number of aggregation functions plus one for the grouping key. And after that, I just set the values to, well, I calculate the aggregation. Oh, is it because of this thing here? Oh, and you're saying this could be an uninitialized value. I don't think that's actually true. I think, okay, so first, I'm going to, just brush this away and say, oh, that's an implementation detail. "
+  },
+  {
+    "start": 4679.657,
+    "end": 4739.059,
+    "speaker": "SPEAKER_02",
+    "text": "But I think this is actually fine in C++ semantics, because I think resize initializes the values to their defaults. So an integer would be 0. You could now make another case, which is, well, the initial All right, thank you. Are you happy with the answer? Yeah, yeah, I think I get it. Okay, because you could niggle about this, because you could say, oh, if I'm calculating the minimum, then initializing to zero, let's say it's an unsigned integer, then I wouldn't, initializing to zero doesn't do the right thing, right? It should be initialized to max it. And yes, I'm kind of glossing over that. Was that the thing that you meant to say? "
+  },
+  {
+    "start": 4739.079,
+    "end": 4763.662,
+    "speaker": "SPEAKER_02",
+    "text": "I saw your hand go up. That's what I was going to say. Yeah, OK. I mean, I will admit I'm trying to be illustrative, not bug free. Sometimes I'm both, but I will take care. Understandability over bugs. But yeah, you're right. This isn't actually properly correct code. "
+  },
+  {
+    "start": 4765.366,
+    "end": 4785.343,
+    "speaker": "SPEAKER_01",
+    "text": "OK, yeah? I had a question. In the final calculation, we had the with DSM. I was a bit unsure. So in the grouping that we do, the number of page accesses we calculate is just based on, like, we just multiply it by number of pages. You want to give me a slide number? Yeah, it's 91 out of 94. 94? 91, 91. "
+  },
+  {
+    "start": 4799.372,
+    "end": 4802.413,
+    "speaker": "SPEAKER_01",
+    "text": "I think it's just before this one. "
+  },
+  {
+    "start": 4802.854,
+    "end": 4804.514,
+    "speaker": "SPEAKER_02",
+    "text": "Just before this one. "
+  },
+  {
+    "start": 4804.734,
+    "end": 4836.726,
+    "speaker": "SPEAKER_01",
+    "text": "Okay, cool. Yeah. So here in the grouping IO, second last. Grouping IO, this thing. No, just the grouping IO. Yeah. So here we calculate the number of page accesses. We just multiply the probability of accessing a page times the number of pages for the column. But won't we have two separate accesses, because we'll be accessing the column for the grouping attribute and then also the aggregation attribute. So wouldn't it be double? "
+  },
+  {
+    "start": 4837.626,
+    "end": 4868.07,
+    "speaker": "SPEAKER_02",
+    "text": "Oh, you're saying there is a factor two that I'm missing? Let me get that back. So grouping, I'm over. So this is TSM. Wait, but... "
+  },
+  {
+    "start": 4873.575,
+    "end": 4888.469,
+    "speaker": "SPEAKER_02",
+    "text": "Oh, am I doing... What's my aggregation function here? I think it is just count, so... Okay, good, yeah. So for count, I don't need to read enough. "
+  },
+  {
+    "start": 4890.78,
+    "end": 4909.088,
+    "speaker": "SPEAKER_04",
+    "text": "Another question that I had is I kind of didn't get, so I understand this probability of accessing data and how we drive it, but I don't get, like, why can't we use, so we're calculating, yes, we calculate the selection output in tuples. "
+  },
+  {
+    "start": 4910.769,
+    "end": 4940.941,
+    "speaker": "SPEAKER_01",
+    "text": "Essentially, like, we have the, specific number of tuples that we're going to access by multiplying it with the selectivity ratio. So I don't quite get, if we're assuming uniform distribution of tuples, can't we just assume that we're going to access that many tuples when they're uniformly distributed over the pages and then use that to calculate it? Or the number of pages we're going to access? "
+  },
+  {
+    "start": 4942.404,
+    "end": 4993.05,
+    "speaker": "SPEAKER_02",
+    "text": "We assume the tuples are random that we actually have selected. Yes. Rather than uniform. Well, randomly uniform, right? Or uniform random. Well, uniform could be basically It's terrible, but it could be this, this, this, this, and so forth, right? But we're assuming that globally, over the entire relation, the tuples are randomly distributed. Because if it were that, well, it would just be, if my h size is 4, right, I would have to scan it. "
+  },
+  {
+    "start": 4996.431,
+    "end": 5001.896,
+    "speaker": "SPEAKER_03",
+    "text": "I think that was the point. I see. If it's uniform, then we can assume that. "
+  },
+  {
+    "start": 5002.737,
+    "end": 5047.482,
+    "speaker": "SPEAKER_02",
+    "text": "Oh, I see. It's the uniform randomness. Why do we need the other way, then? Are we assuming that? it is like completely randomly assumed. Yes. So, sorry, when I say uniform random, what I mean is not skewed. Okay. Right? So, because it could be random, but all the, there could be, most of the tuples could be skewed towards the beginning or the end or something, right? The idea being each value, in the relation has the same random probability, no, has the same probability of being, of qualifying, passing the predicate. Right, okay, makes sense. "
+  },
+  {
+    "start": 5047.502,
+    "end": 5058.31,
+    "speaker": "SPEAKER_02",
+    "text": "Okay, good. Good. Anything else? Really, everything else is clear? "
+  },
+  {
+    "start": 5058.39,
+    "end": 5077.499,
+    "speaker": "SPEAKER_04",
+    "text": "Okay, cool. For the non-volcano, so like, non-processing, It seems you do a lot of in-mining, because for hard coding, you do function calls. So how do you do custom, for example, user-defined stuff? "
+  },
+  {
+    "start": 5077.779,
+    "end": 5110.179,
+    "speaker": "SPEAKER_02",
+    "text": "Oh, that's an excellent question. So what do you have in mind? OK, so the question is, here's my interpretation of your question. Let's see if it fits. I have a query that goes select sum of a from whatever relation group by whatever, b. "
+  },
+  {
+    "start": 5111.377,
+    "end": 5144.621,
+    "speaker": "SPEAKER_02",
+    "text": "Okay, that's like, you know, if I look at the relational algebra plan, right, like it's a scan of R, it's the aggregation of B, and I'm calculating sum of A, and that can all be done in bar processing using, well, inline functions, right? And I said that SQL only allows five different aggregation functions, so I can code this out and I can, well, through some clever C++ template magic or some other kind of preprocessor. "
+  },
+  {
+    "start": 5144.901,
+    "end": 5175.27,
+    "speaker": "SPEAKER_02",
+    "text": "I just create instances for every combination of aggregation function of data type of A and of data type of B. Easy. Well, I mean, okay, let's say, you know, this is five. Here, this could be an int, a float, a long, a double. Maybe it's also five, you know. And here, maybe it's a little more because it could also include strings, maybe it's six or seven. "
+  },
+  {
+    "start": 5175.511,
+    "end": 5206.436,
+    "speaker": "SPEAKER_02",
+    "text": "But still, if I multiply this out, it's not that many. It's a lot, but it's not that many. But the question now is, well, what if I allow user-defined aggregation? And there are two ways to do this. Well, three really. One is those UDFs are, if you look at systems like SQL Server, they need to be implemented in TSQL, which is Microsoft's weird database programming language. "
+  },
+  {
+    "start": 5207.095,
+    "end": 5238.181,
+    "speaker": "SPEAKER_02",
+    "text": "In Oracle, they need to be implemented in PLSQL, which is also a weird database programming language. But within those, and they look an awful lot like what you can write into an SQL. So you can actually take these UDFs apart and break them down into the actual aggregation, into these primitives. Because you can no longer use, or you can only use any of those five, and then they basically get inlined into the curriculum. "
+  },
+  {
+    "start": 5238.842,
+    "end": 5274.015,
+    "speaker": "SPEAKER_02",
+    "text": "That used to be the state until I want to say 10 years ago, maybe five years ago, and then people started doing crazy stuff. And lately, there could be linear regression here. There could be, I don't know, some kind of chords to LLMs, right? Like, you know, anything goes. And at that point, it becomes a real challenge. These things become black boxes. And black box UDFs is, even in bug processing systems, need to be implemented using function pointers. "
+  },
+  {
+    "start": 5274.415,
+    "end": 5318.063,
+    "speaker": "SPEAKER_02",
+    "text": "At that point, you kind of get a weird hybrid between a bug processing system and a volcano system because you get the overhead, the function call overhead of the volcano system and the i o overhead of the bulk processing system that's pretty terrible any ideas what we can do about that i mean if they're not custom sure yeah but let's say they are You know, we're looking at that. "
+  },
+  {
+    "start": 5318.603,
+    "end": 5350.089,
+    "speaker": "SPEAKER_02",
+    "text": "Okay, so what some systems do is they just-in-time compile entire queries. This is actually quite common. I'm going to talk about this a little bit later in the year. But there are pretty clever, nifty algorithms to compile relational algebraic queries into very efficient, executable code. inline the UDFs at runtime. "
+  },
+  {
+    "start": 5350.409,
+    "end": 5383.197,
+    "speaker": "SPEAKER_02",
+    "text": "Usually this is done by compiling into higher level virtual machines, things like the Java virtual machine, the .NET CLR, or most importantly, LLVM. And then you can basically inline this and you can play all kinds of tricks. This is actually the fastest, no, no, no, it's not entirely. Some of the fastest data management systems are actually just . The problem you get then is compile types become a big issue. "
+  },
+  {
+    "start": 5383.777,
+    "end": 5417.307,
+    "speaker": "SPEAKER_02",
+    "text": "I was talking to people from one company, from ,, which they have a different name now. I forgot. But they told me that it's kind of terrible from a user's point of view because your first query, first time you run a query, it takes forever because it needs to spin up the compiler, initialize all the data structures, do the compilation. you run the same query again, it's cached the code for the query, and then it will be blazingly fast. But the first query will be super slow, and apparently that's a big problem for that frustrating . "
+  },
+  {
+    "start": 5419.329,
+    "end": 5441.889,
+    "speaker": "SPEAKER_02",
+    "text": "Okay, good. Anything else on query processing? Okay, I mean, look, I'm happy to spend some time on calculations. Please, you know, I don't want anyone approaching me in 20 minutes saying, oh, you know, could we have discussed? Thank you. "
+  },
+  {
+    "start": 5444.411,
+    "end": 5459.625,
+    "speaker": "SPEAKER_00",
+    "text": "On slide 40, the one we were just on about the hash table thing. Yeah, the aggregation. I'm a bit confused about like the same line. Okay. I just don't understand why there's like the dot data. "
+  },
+  {
+    "start": 5461.664,
+    "end": 5464.125,
+    "speaker": "SPEAKER_04",
+    "text": "It's like 40. "
+  },
+  {
+    "start": 5464.725,
+    "end": 5480.27,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah, I'm doing binary search. Yeah, why is it like hash table dot data? Oh, that might just be a typo. Wait, let me have a look. "
+  },
+  {
+    "start": 5495.057,
+    "end": 5526.694,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah, I think that's a typo. Let me just, before I, yeah, I don't know. I mean, I'm not sure why that's there. Can you send me a mail about this so I can fix the slides? Looks like a typo. If it's not, if I look at it again at home, then maybe I'll change my mind. But right now, it looks like a typo. OK. Calculations or more questions? "
+  },
+  {
+    "start": 5528.135,
+    "end": 5551.243,
+    "speaker": "SPEAKER_02",
+    "text": "This sounds like a threat. Okay, let's look at some. The worksheet should be available, right? There's also a very short one. There you go. That's the entire thing. It's on CNN. "
+  },
+  {
+    "start": 5754.025,
+    "end": 5765.513,
+    "speaker": "SPEAKER_04",
+    "text": "What's the size of this? There's a tent. Number 2, so there's maybe... Why is this 9? Why is it 9? Why is there a carrier for this? "
+  },
+  {
+    "start": 5992.611,
+    "end": 5995.853,
+    "speaker": "SPEAKER_04",
+    "text": "It's always 64 bytes if I don't say anything else. "
+  },
+  {
+    "start": 5996.813,
+    "end": 6000.715,
+    "speaker": "SPEAKER_02",
+    "text": "We're going to have to decide that later. I'll be in a D14 weekend. "
+  },
+  {
+    "start": 6119.132,
+    "end": 6158.095,
+    "speaker": "SPEAKER_02",
+    "text": "but I want to do at least one of the calculations. We're going to do one of the calculations, not at least one. So let's say three minutes, and then, you know, Yes, what are you reading? "
+  },
+  {
+    "start": 6234.232,
+    "end": 6236.675,
+    "speaker": "SPEAKER_04",
+    "text": "Yeah, yeah, yeah. You don't need the . Like a function. "
+  },
+  {
+    "start": 6265.739,
+    "end": 6270.72,
+    "speaker": "SPEAKER_05",
+    "text": "Did you get, like, really small? Yeah, it should be, like, . "
+  },
+  {
+    "start": 6270.74,
+    "end": 6283.504,
+    "speaker": "SPEAKER_04",
+    "text": "Batching doesn't have anything to do with . "
+  },
+  {
+    "start": 6300.32,
+    "end": 6352.798,
+    "speaker": "SPEAKER_02",
+    "text": "Today I need to run on time. So, you know, good for you. I can't go over by that much. So, nothing. Which one should we do? I think the second one. Okay, what do I say? Second one. This is a trick question. There are practically no function calls. number of function calls in bioreference bulk processing is, in this case, three, I think. Good. Well done. Let's go. No, it doesn't matter for bulk processing. You can expect Last one? I think the last one is actually by far the most complicated calculation. "
+  },
+  {
+    "start": 6354.179,
+    "end": 6386.252,
+    "speaker": "SPEAKER_02",
+    "text": "OK, let's see. Does anyone have a number for the last one? No? OK, good. Was it simply based on time, or is there something that you folks had stuck? It's just time. OK. I mean, in that case, I would probably just send the calculations or add stem. It's not really much of a point. Is there any, is there a sticking point? "
+  },
+  {
+    "start": 6387.112,
+    "end": 6451.11,
+    "speaker": "SPEAKER_02",
+    "text": "Yes. Yes. But what? When? OK. I actually think this is much more important. When do the candidate vectors cause? I don't need the second . Do they always cause IOs? Only if they don't fit in memory. Everything is competing for memory. Everything is? No, no, no, no, no. Okay, very much not. So if this is your relation, this is your memory, and you have one, two, three candidates, you're going to put them on a page on a single page that is email, oh, cache, sorry. Let's say this is your cache. If they fit into the buffer pool or the cache or whatever memory you're using for intermediate results, you do not get random, you do not get I.O. "
+  },
+  {
+    "start": 6451.13,
+    "end": 6496.974,
+    "speaker": "SPEAKER_02",
+    "text": "behavior. Even in bulk cache. I use these terms interchangeably. If they fit in my memory, and I think in this case they do, Oh, no, actually, in this case, larger than buffer pool is in red again. "
+  },
+  {
+    "start": 6497.414,
+    "end": 6559.09,
+    "speaker": "SPEAKER_02",
+    "text": "So in this case, you don't get to ignore that. But you basically need to calculate the size of the candidate vector. And if that size exceeds the buffer pool, you need to include it in your I-O calculations, a sequential I-O. If they don't, You don't. Does that make sense? I mean, by now. But sure. So number one. So I mean, in the end, OK, wait, this adding, I can do further. Number of functions. OK, so let's start with what our operator graph actually looks like, right? So we have two selections and an aggregation on top. So we have our relation R, then we have a selection, we have another selection, and then we have an aggregate. "
+  },
+  {
+    "start": 6559.17,
+    "end": 6591.708,
+    "speaker": "SPEAKER_02",
+    "text": "And this selection is on A, this selection is on B, and this group I is on C with a sum and no actual grouping. Good. So, what's the probability of A being 14? 1 over 16. 1 over 16. So, probability of A being 1 over 16. So, what's the number of pages that we have to expect to access? "
+  },
+  {
+    "start": 6593.209,
+    "end": 6689.339,
+    "speaker": "SPEAKER_02",
+    "text": "Oh, it's function quotes. Sorry. Yes. Yes. Function quotes. Good point. Good. So, what is the number of function quotes? Yeah. Well, actually, no. No, no, no, no, no. So this is a selection, right? We are always counting the function calls to get the input. Exactly. So in this cheat sheet slide, right, it was one to read the input, one to apply the predicate, right? And we have 10 million on the end. So it's 10 million times 2, 1, 4, e to the 1, 4. Yes. This one, would it be OK to just have one selection? Because we can define whatever predicate we want. So in Volcano, you arguably could if you had a function that implemented a selection algorithm. But in this case, we don't. Second selection, now this one here, you only have, well, 10 million divided by 16, again, times two, right? And for the aggregation, Well, it's basically 10 million divided by 16 squared, right? "
+  },
+  {
+    "start": 6689.379,
+    "end": 6716.264,
+    "speaker": "SPEAKER_02",
+    "text": "Because the first and the second function. And then you always get one at the end to actually get the other. Oh, and here you are calculating, you would not be calculating a grouping key, right? But you have to calculate the aggregation. So that's, again, I think, I'm not sure if I forgot something in the dash, but yeah. "
+  },
+  {
+    "start": 6718.145,
+    "end": 6728.931,
+    "speaker": "SPEAKER_03",
+    "text": "Do you not need to have, like, plus ones on the end of each of your selection, through your selections? Because you need to have an extra function call to see that you're at the end of the input. "
+  },
+  {
+    "start": 6729.961,
+    "end": 6761.236,
+    "speaker": "SPEAKER_02",
+    "text": "Oh, for the, yeah, I suppose, yeah. So basically, the last tuple, we could, okay, this is the first time someone's raising that point. I think you are technically correct. The point being that I call next until a no more tuples marker is being returned, and that is still technically a function call. But I wouldn't need to evaluate a predicate on it. It just makes the whole thing a lot more complicated. "
+  },
+  {
+    "start": 6762.057,
+    "end": 6773.319,
+    "speaker": "SPEAKER_01",
+    "text": "What is that, your question as well? No, I have a question. So we can just, as I said in the slides, we can just kind of assume that the next slot and hash functions have been in line, right, when we're doing the... "
+  },
+  {
+    "start": 6774.48,
+    "end": 6785.471,
+    "speaker": "SPEAKER_02",
+    "text": "For the... Okay, cool. Sorry, folks, I've got to run. "
+  },
+  {
+    "start": 6785.912,
+    "end": 6790.194,
+    "speaker": "SPEAKER_04",
+    "text": "So, yeah, we can pick this up next week, but our poster solutions are next. "
+  },
+  {
+    "start": 6803.006,
+    "end": 6810.691,
+    "speaker": "SPEAKER_04",
+    "text": "What were we doing that week? I was like, I was just like, texting. I was like, okay, can we actually like start thinking? "
+  },
+  {
+    "start": 6820.899,
+    "end": 6824.301,
+    "speaker": "SPEAKER_00",
+    "text": "Right now, I need to think, like, oh, should I be able to... What are you doing? "
+  },
+  {
+    "start": 6869.447,
+    "end": 6872.488,
+    "speaker": "SPEAKER_04",
+    "text": "At least in terms of what you and I like. "
+  }
+]

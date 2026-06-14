@@ -1,0 +1,1130 @@
+[
+  {
+    "start": 1.893,
+    "end": 19.009,
+    "speaker": "SPEAKER_00",
+    "text": "No, I don't want to go to class. I want to go to class to play video games. Because he's better at it. No, I'll still be there when I play video games. No. I'll still be there when I play video games. "
+  },
+  {
+    "start": 19.049,
+    "end": 22.132,
+    "speaker": "SPEAKER_02",
+    "text": "No. I'll still be there when I play video games. "
+  },
+  {
+    "start": 94.7,
+    "end": 125.235,
+    "speaker": "SPEAKER_03",
+    "text": "Good afternoon, everyone. Good to see you all. Let's make a start. What we did last time was got started on the material on Haskell for this course. And what I want to do in the time today is hopefully get through all of the Haskell-related material in the two hours available to us and potentially get started on material about dynamic data race detection. So I just want to remind you of the very basics of concurrency in Haskell that we touched on last time. What we did is we wrote a very simple example that would launch two threads. "
+  },
+  {
+    "start": 126.015,
+    "end": 165.473,
+    "speaker": "SPEAKER_03",
+    "text": "One thread would print a load of A characters, and the other thread would print a load of B characters. And the way we did that is for one of these threads is just the main thread. So the Haskell program has a main, and that is one of our threads. And what that thread does is it calls put chars with the character A and the argument 1,000 to say, put the character A 1,000 times. And putChar is implemented via this function here. So it takes a character and an integer, and it returns units in the IO monad, so indicating that no specific result is returned, but that this function is going to have side effects. "
+  },
+  {
+    "start": 165.773,
+    "end": 198.448,
+    "speaker": "SPEAKER_03",
+    "text": "We're going to run it in the IO monad. And it's a typical Haskell recursive function. Putting no characters does nothing. And putting n characters involves putting a character and then putting the remaining n minus 1 characters. In terms of concurrency, what we did just so that we could see interesting interleavings between threads is we set buffering to be off so that every character would immediately get written to standard output rather than characters being buffered up and then actually pushed in a batch to standard output. "
+  },
+  {
+    "start": 199.029,
+    "end": 231.173,
+    "speaker": "SPEAKER_03",
+    "text": "And then we used fork IO, which is the function you use in Haskell to launch a thread. So ForkIO takes the function that the thread should run and the arguments to that function. So we're saying here, launch a thread that's going to print the character B 1,000 times by calling the putChars function. And then if I go to the command line, to remind you how we compiled this, we use the Glasgow Haskell compiler with optimizations. We give it the Haskell file we want to compile. And we say thread it to indicate that we want multi-threading support to be enabled. "
+  },
+  {
+    "start": 231.854,
+    "end": 271.42,
+    "speaker": "SPEAKER_03",
+    "text": "And then when we run the program, We say plus RTS, meaning add a runtime system. That's what RTS stands for, option. And we can say the number of cores we'd like available to our application. So eight cores means there's going to be plenty of scope for the runtime system to pin threads to particular cores, trying where possible to avoid having multiple threads pinned to a core if there is a core available with no threads running on it. And when we run this program, we get a whole lot of A's and B's printed. We largely see them interleaved because once the threads have got going and these A's and B's are immediately being pushed to standard output, we're going to see roughly even behavior. "
+  },
+  {
+    "start": 271.7,
+    "end": 301.829,
+    "speaker": "SPEAKER_03",
+    "text": "But you can see by these trailing B's at the end that it's not strict interleaving between the threads. So that was our very first Haskell program. And what I want to do now, if I go to the slides, is just to show you that unlike in C++, where you get an error if you don't join threads on program termination, in Haskell, then the program could just be terminated with threads running, and the effects of those threads will just be chopped off. "
+  },
+  {
+    "start": 302.409,
+    "end": 315.78,
+    "speaker": "SPEAKER_03",
+    "text": "So we'll see that in a moment. Question in the meantime? The slides for the Haskell material? Oh, really? Oh, hang on a minute. I thought I'd made them available. Just give me a moment. "
+  },
+  {
+    "start": 331.764,
+    "end": 341.307,
+    "speaker": "SPEAKER_03",
+    "text": "Aha, you're right. Apologies for that. I thought I'd made them available before last lecture, but they're available now. "
+  },
+  {
+    "start": 355.347,
+    "end": 385.447,
+    "speaker": "SPEAKER_03",
+    "text": "So what we're gonna see now is a program that's gonna launch a couple of threads, and these threads we're gonna see that if main terminates before the threads, then the effects of those threads just ceases, right? We don't, unlike in C++, get an error. So what I'm going to do in program number two for this deck of slides is I've got this function main again, where, again, I turn off buffering. And I'm going to launch two threads that are each going to say their name. "
+  },
+  {
+    "start": 385.827,
+    "end": 417.465,
+    "speaker": "SPEAKER_03",
+    "text": "So what I'll do is a fork IO for one thread and a fork IO for another thread. And I'll just have the threads each call the print function and say, hello, I am James. And hello, I am Tianyi. And then I don't need to return unit, because ForkIO actually returns unit in the IOMonad anyway. "
+  },
+  {
+    "start": 418.045,
+    "end": 449.251,
+    "speaker": "SPEAKER_03",
+    "text": "In fact, no, it doesn't. Sorry, ForkIO returns a thread ID in the IOMonad. So now I'm going to compile this program number two, so to nojointhreads.hs. And let's run this program and see what output we get. Well, what we got was just the very beginnings of the output from the threads. So the first thread string hull, then the second thread string hull, and then we don't really know which thread this came from. "
+  },
+  {
+    "start": 449.911,
+    "end": 480.233,
+    "speaker": "SPEAKER_03",
+    "text": "And then the program was terminated, and the threads didn't get to complete their output. So if we run this a few times in a row, we're sort of seeing little attempts by the threads to get their names out, where they're being cut off pretty early. Because if we go to the main thread, it's calling for chio, it's calling for chio, and then it's terminating. So in the very, very small amount of time between calling for chio and terminating, the threads may manage to do a little bit of work, but they're not going to complete their thread bodies. "
+  },
+  {
+    "start": 483.276,
+    "end": 513.651,
+    "speaker": "SPEAKER_03",
+    "text": "So what we would like to have is a way for waiting for a thread to finish. If we've launched a thread, we want to be able to join it, wait till it's terminated, and we might want to get the result that thread has computed. So might not just want to wait until the thread is terminated, but if we were expecting the thread to compute a value, we might want to get that value back from the thread. And to make this work, and also for lots of other concepts I'm gonna teach you about during this lecture, we're gonna use Haskell's mvar type. "
+  },
+  {
+    "start": 514.311,
+    "end": 549.698,
+    "speaker": "SPEAKER_03",
+    "text": "mvar stands for mutable variable, and it's from the control concurrent library. And it is just that, it's a mutable variable that can store a value of a given type. And an mvar is either empty, meaning it doesn't hold a value, or it's full, meaning it holds a value of the given type. And I just think it's worth noting that this is fundamentally different from Haskell's maybe type, which is a little bit like optional in some languages, which allows you to explain that a computation may not yield a value at all. "
+  },
+  {
+    "start": 550.338,
+    "end": 582.118,
+    "speaker": "SPEAKER_03",
+    "text": "Here, we're really talking about a one-place buffer, an m-virus, like a one-place buffer that can either be empty or can be full, holding one item. So although the idea of there being nothing there or something there may put maybe in your mind, these are fundamentally different concepts. operations we can do on an mvar are as follows. We can create a new mvar. So there's a function called new mvar that will give you back an mvar of some desired type in the IO monad. "
+  },
+  {
+    "start": 582.138,
+    "end": 620.169,
+    "speaker": "SPEAKER_03",
+    "text": "So it will give you something that is capable of storing a value of a given type. With new mVar, you pass in an initial value for this mVar. So, if you said new mVar 12, you would get an mVar int that would contain the value 12. So, it will be full and it would contain the value 12. We can see this here with our counter. So, counter is a new mVar zero and that has got type mVar integer. We can also make an mvar that doesn't contain anything, an empty mvar, just by using the new empty mvar function. "
+  },
+  {
+    "start": 620.509,
+    "end": 663.011,
+    "speaker": "SPEAKER_03",
+    "text": "This will return us a new empty mvar of type io mvar a, and then either we can say, using a type annotation, what we want a to be, or we can just go ahead and use our mvar in some context, and the required type will be inferred by the Haskell compiler. So for example, if we ask for a new empty mvar and use the name handle to reference it and do nothing else, then the Haskell compiler will tell us that handle has got type mvar any, meaning this is an mvar that is able to store any sort of value because we've not used it in context, right? "
+  },
+  {
+    "start": 663.031,
+    "end": 697.013,
+    "speaker": "SPEAKER_03",
+    "text": "We've just asked for an empty mvar. We're not using it for any purpose and therefore it could store anything. Then we've got a few operations we can do once we have an mvar. The first one I want to tell you about is take. The take mvar function takes a mutable variable, an mvar, that stores something of type a, and it gives back an a. However, it gives back A in the IO monad. So the return type is IOA. And this is because this take mvar function is a blocking function. "
+  },
+  {
+    "start": 697.673,
+    "end": 729.112,
+    "speaker": "SPEAKER_03",
+    "text": "What it does is it blocks until the mvar contains something. And then it will return that thing that it contains and in the process empty the mVar. So like when I say an mVar is a one-place buffer, it will block until the buffer becomes full, and then it will pull out whatever's on the buffer and make the buffer empty. So this is a side-effecting operation that can be used to facilitate communication between threads, hence why it's operating in the IOMONAD. This is not a pure computation. It really is changing the world. "
+  },
+  {
+    "start": 730.677,
+    "end": 762.289,
+    "speaker": "SPEAKER_03",
+    "text": "So if we have a line of code that says take mvar on counter, then this will block until it manages to pull a value out of the counter that will be bound to this name val here. And val is gonna have to have integer because counter was an mvar integer. So take mvar allows us to block until the mvar's full and then pull something out of the mvar. The counterpart to take is put, so this has exactly the dual behavior. "
+  },
+  {
+    "start": 762.809,
+    "end": 799.832,
+    "speaker": "SPEAKER_03",
+    "text": "With put, it takes two arguments, the mvar into which you want to put something, and the thing you want to put into the mvar. And put mvar blocks until the mvar is empty. So if the mvar's got something in it, you can't put another thing into it. You can't overwrite the thing that's in there. Put will block until that mvar becomes empty, and then put will put the desired value into the mvar. So for example, put mvar on counter with the value 42 will block until the counter mvar becomes empty, and then will put the value 42 into the counter. "
+  },
+  {
+    "start": 800.532,
+    "end": 832.184,
+    "speaker": "SPEAKER_03",
+    "text": "Yes? Is this atomic? Great question. Yes, this is atomic. So if you've got multiple threads that are all trying to put into an mvar, then exactly one of them will notice the mvar to be empty, will put its value into the mvar, and the others will be blocked. Okay? Good. OK, and then we don't need to remove a value from an m bar to find out what it is. It's possible just to read the current value of an m bar. "
+  },
+  {
+    "start": 832.564,
+    "end": 874.444,
+    "speaker": "SPEAKER_03",
+    "text": "So there's a read m bar function for that. It takes an m bar a and gives you back an a in the IOMONAD. And what this does is it blocks until the m bar is full. So if the n-bar is empty and you read from it, you don't find out it's empty. Your read just blocks. And when something gets put in the n-bar, or if there is something in the n-bar already, then this function is going to return that value. But it's going to leave the n-bar unchanged. It's not going to pull the value out of the n-bar. So if we call read mvar on counter, which is an mvar integer, then that's going to give us back the value in the counter, potentially blocking until there is some value put in the counter by another thread. "
+  },
+  {
+    "start": 875.224,
+    "end": 907.056,
+    "speaker": "SPEAKER_03",
+    "text": "It's going to give back an integer, but it's going to leave the counter unchanged. So if the counter held the value 42, we'd get back the value 42, and the counter would still hold the value 42. So these are the basic operations we're going to use for various purposes on mVis. Any questions at this point about those operations? Yeah, please. The question is, can we change the memory ordering in these mvar operations? "
+  },
+  {
+    "start": 907.296,
+    "end": 975.147,
+    "speaker": "SPEAKER_03",
+    "text": "The answer is no. So mvar is used for essentially the kind of things you would use mutexes for in C or C++, where you're protecting something very strongly with a mutex. Now, there is something which I'm not going to teach you about, but I have a go look for yourself slide about where you can actually do fine-grained concurrent operations with memory orderings. We're not going to go into that here. But yes, you can do all the kinds of relaxed loads and relaxed stores. on particular Haskell data types, but not mVars. Yeah? So mVars is pretty similar to Atomics and C++. And mVars is pretty similar to what, sir? Atomics. Atomics and C++. I would actually say, no, it's not really similar to Atomics and C++, because in Atomics, you don't say, give me the value of this atomic variable only if another thread has put something into it in the first place. Do you see what I mean? So with an atomic int in C++, it's an int. It has to have a value. It can't not have a value. So I would say an mvar is more like, you know the FIFO queue we studied at the beginning of the course? It's like a FIFO queue of length one. It can be empty. It can be full. "
+  },
+  {
+    "start": 975.227,
+    "end": 992.901,
+    "speaker": "SPEAKER_03",
+    "text": "And if you try to put something into it, you'll block if it's full. If you try and get something out of it, you'll block if it's full. What we didn't implement but could have implemented for our FIFO queue was a poll function that would have blocked until the queue contained something and returned the value on the queue without removing it. So that's really a good mental model for an Envar. "
+  },
+  {
+    "start": 1006.666,
+    "end": 1038.248,
+    "speaker": "SPEAKER_03",
+    "text": "There's not a non-blocking right to an m bar. Yeah, but there is another data type in Haskell, the one I can't remember the name of it off the top of my head, but the one that I mentioned in response to the question about atomics that does a non-blocking accesses. And that is very, in answer to the question here, that is very much like an atomic in C++. OK, so what we're going to do is, first of all, look at how we can use an MVAR of any type we like. And we're going to use units, just because it's the simplest type, as a thread handle to allow us to join threads. "
+  },
+  {
+    "start": 1039.789,
+    "end": 1076.342,
+    "speaker": "SPEAKER_03",
+    "text": "So MVAR units is a buffer that could either be empty Or it can contain the unit value, the unit value being this typically not very useful value that just means a thing. So if we can distinguish between nothing and a thing, that gives us a way to join a thread. And we'll see that in action. So I'm going to go into example number three. And what I'm going to write here is a function called protected print. "
+  },
+  {
+    "start": 1077.403,
+    "end": 1119.938,
+    "speaker": "SPEAKER_03",
+    "text": "And that function is going to take a string, which is the string to be printed. And it's also going to take an mvar unit. So an mvar that can either be empty or can contain the singleton unit value. And it's going to return unit in the IO monad. which if you're not big into Haskell, you can sort of think of as being a bit like returning void in C. And what protective print is gonna do, given a string S and a handle, which is our MVAR unit, it's gonna do the following. "
+  },
+  {
+    "start": 1120.658,
+    "end": 1157.921,
+    "speaker": "SPEAKER_03",
+    "text": "It's first of all gonna print S And then what it's going to do is say put mvar handle unit. This is the way the thread can say I am done. So the thread is gonna print s and then put unit to this handle. Maybe I will call this print then join rather than protected print because I might give you the impression achieve a mutual exclusion between these prints, and we're not. "
+  },
+  {
+    "start": 1158.001,
+    "end": 1191.045,
+    "speaker": "SPEAKER_03",
+    "text": "So I'll call it print then join. So what I'm going to do is now launch a couple of threads. I'm going to say fork io, and a thread is going to run print then join, and saying, hello, I am James. And then we need to give it something for this handle argument. Another is going to run and say, hello, I am And it's going to need something for this handle argument. And what we can do is just make a couple of empty mvars. "
+  },
+  {
+    "start": 1191.065,
+    "end": 1230.189,
+    "speaker": "SPEAKER_03",
+    "text": "So I can say handle1 is a new empty mvar. And handle2 is also a new empty mvar. And then I can give the first thread handle1. And I can give the second thread handle2. So what will happen then is that these handle mvars are empty. When I launch this thread with handle one, it is going to run print then join, which will print the message, hello, I am James. "
+  },
+  {
+    "start": 1230.93,
+    "end": 1261.32,
+    "speaker": "SPEAKER_03",
+    "text": "And then it will attempt to put the unit value into its handle, which is an empty mvar. That will immediately succeed and the thread will exit. So how can I join the first thread down here? Can anyone think? How can I make sure that the main thread will not quit until the first thread has finished? Yeah. Take from handle one. Take from handle one, exactly. So if I do take ember. "
+  },
+  {
+    "start": 1263.583,
+    "end": 1302.093,
+    "speaker": "SPEAKER_03",
+    "text": "handle one. This is going to block until handle one becomes full. Well, handle one can only become full when the first thread puts unit to handle one. And the same for handle two. And the reason I've used unit here is just because it's the simplest thing I can use. I could say mvar integer here and say 16 means I'm done. That will work, too, meaning that there's nothing in the end bar, and I put something in to indicate I'm done, and something has got to be pulled out here to block. "
+  },
+  {
+    "start": 1302.433,
+    "end": 1344.717,
+    "speaker": "SPEAKER_03",
+    "text": "But it's more elegant to use unit rather than some meaningless integer. Yeah? Is there any physical benefit to unit, or does it maybe take no size or a very small size, or is it just element? There's only physical benefit to unit. It seems like, well, a couple of things here. So first of all, there's probably a marginal benefit. I'm not a Haskell expert, but my understanding is the integer in Haskell is a mathematical integer. It's not a machine integer. So I would assume a Haskell integer, because it can store things of arbitrary size, it can't be as simple as a word of data. There must be something to it that allows it to grow and grow and grow and grow. "
+  },
+  {
+    "start": 1345.058,
+    "end": 1381.342,
+    "speaker": "SPEAKER_03",
+    "text": "So probably a Haskell integer requires something more in memory. But yeah, realistically, in this context where you're using it as a threat handle, the difference would be insignificant. OK, so let us just run this program then. Three join threads. And let's run it. And now, what we see is we are getting all kinds of character-level interleavings between threads, which I have to some extent induced by turning off buffering. "
+  },
+  {
+    "start": 1381.962,
+    "end": 1412.803,
+    "speaker": "SPEAKER_03",
+    "text": "But we are definitely seeing all of the output from the threads. So hello, I am James, right? And the same for the other threads. So we're getting all the output there. So we've managed to successfully join our threads, but they're interfering with each other. Their output is being scrambled with each other's output. But this doesn't really show how we can use an mvar to serve as a handle for allowing threads to be joined. Note that you could also get a value from a thread join. "
+  },
+  {
+    "start": 1413.124,
+    "end": 1451.498,
+    "speaker": "SPEAKER_03",
+    "text": "So for example, say we had used an mvar int for a thread handle, then what we could do ultimately is do a put mvar to put a result into that handle. So if the thread had done some computation that led to an integer-valued result, it could do a put mvar to put that integer into its handle. And that way, the main thread, as well as waiting for the thread to complete by taking from its mvar, it could get the results computed by that thread. So we can use an mvar not just as a means of blocking until a thread is complete, but we could use it to also get what that thread has computed. "
+  },
+  {
+    "start": 1452.559,
+    "end": 1501.816,
+    "speaker": "SPEAKER_03",
+    "text": "In which case, we wouldn't use unit. We'd use some appropriate type. Okay, so we've done this coding demo already for showing how a thread can be joined. And I wanna show you that we can also use MVARs to achieve mutual exclusion between threads. And this is really quite similar to how we use them for thread joining. If we've got threads that we would like to protect against each other via critical section, then what we can do is give all those threads a common MVAR, which I've called mutex here, tellingly, and we can make sure that before the critical section, a thread needs to put units to its mutex envir, and when leaving a critical section, a thread takes from the mutex envir. "
+  },
+  {
+    "start": 1502.793,
+    "end": 1532.99,
+    "speaker": "SPEAKER_03",
+    "text": "And now if we launch a couple of threads with the same mvar as their mutex, it's not going to be possible for them both to put unit to that mvar. Because remember, mvars are either empty or full. They can't contain multiple values. So an mvar is either empty, in which case we can put a value, unit in this case, to the mvar, or it's full, in which case we're blocked. So this is a way we can use an mvar to achieve mutual exclusion between threads. Yes? "
+  },
+  {
+    "start": 1533.01,
+    "end": 1564.756,
+    "speaker": "SPEAKER_03",
+    "text": "Is mvite implementable at mutexes? Is mvite implementable at mutexes? That's a very good question, which maybe I will give you a not tried in advance answer to. So why don't we run this, and let's run it through strace. What can you see a lot of here? good old friend from last week, from earlier in the week, Futex, right? "
+  },
+  {
+    "start": 1565.376,
+    "end": 1599.933,
+    "speaker": "SPEAKER_03",
+    "text": "So behind the scenes, if we look at the system calls that are being issued, we're just seeing Futex is all over the place. So why is that? Well, it's because the Haskell runtime system isn't implemented in Haskell, it's implemented in C or C++, I don't know which, but you know, typically runtime systems are always implemented in a closer to the metal language like C or C++. The Java virtual machine, not implemented in Java, right? the Haskell runtime system not implemented completely in Haskell. I'm sure a lot of it's implemented in Haskell, but there will be core routines that are implemented in a low-level language. "
+  },
+  {
+    "start": 1599.973,
+    "end": 1652.059,
+    "speaker": "SPEAKER_03",
+    "text": "So actually, behind the scenes, an mVar is implemented using mutexes and conditions. Good question. Yeah? Do all those calls to mutex, does that mean they're not using the fast path? I mean, like I said, I did this off the cuff there in response to the question, so I can't give you a definitive answer to that. But what this would indicate is that there is contention between the threads. The threads wouldn't need to wake each other up. I mean, as an experiment, why don't we just try, I don't want to spend too much time on this because I don't have too much time, but why don't we try not launching the other thread. I'm sorry, get my comments right. So if we only launch one thread. Let me compile this and run it again. "
+  },
+  {
+    "start": 1652.08,
+    "end": 1700.767,
+    "speaker": "SPEAKER_03",
+    "text": "Let me just leave some space. Yeah, so we are seeing some Vutex wake going on. Yeah, but honestly, I'm not sure what's happening underneath print, for example. So print could well be doing some sort of mutual exclusion. But anyway, behind the scenes, it's all implemented using mutexes and conditions. OK, so here I'm showing how if you want to use an MVAR for mutual exclusion in your Haskell program, one way to do it is to have the convention that empty means available, full means unavailable, in which case to enter the critical section you put to the mutex MVAR and to leave you take. "
+  },
+  {
+    "start": 1701.347,
+    "end": 1736.04,
+    "speaker": "SPEAKER_03",
+    "text": "But equivalently, we could make the mutex be full initially. So here I've made it be a new MVAR already populated with the unit value. And then inside the thread body, I'm taking to go into the critical section and putting to leave the critical section. And these are equivalent to each other as long as you use this consistently among threads. It doesn't matter which way around it works. So now let's go ahead and write an example that uses MVARs for mutual exclusion. So this is mvar as mutex.hs. "
+  },
+  {
+    "start": 1737.04,
+    "end": 1774.678,
+    "speaker": "SPEAKER_03",
+    "text": "And now I will take this print then join function, and I am gonna call it protected print. So in this protected print, a thread is gonna take the string to be printed, it's gonna take a mutex for mutual exclusion, and it's gonna take a handle. which is also an mvar unit. So print then join is going to take the string to be printed, the mutex to avoid interference from other threads, and the handle to indicate when done. "
+  },
+  {
+    "start": 1775.418,
+    "end": 1808.029,
+    "speaker": "SPEAKER_03",
+    "text": "And what a thread is going to do is it's going to say, put mvar mutex unit. So acquire the mutex, enter critical section. It's going to print its string, and then it's going to take mvar on the mutex, so release the mutex, leave critical section. And then it's gonna put mvar to say I am done. And I'm getting an error because I've not used the name consistently there. "
+  },
+  {
+    "start": 1809.769,
+    "end": 1842.91,
+    "speaker": "SPEAKER_03",
+    "text": "And now to make this work, what we're gonna do is we're gonna make three mvars. We're gonna say that handle one, which is thread one's handle, is a new empty mvar. Handle two is also a new empty ember. And then mutex is a new empty ember. And this is gonna be shared between our two threads. And then we'll call fork io twice. "
+  },
+  {
+    "start": 1845.271,
+    "end": 1876.141,
+    "speaker": "SPEAKER_03",
+    "text": "Once per thread. And we're gonna say protected print. Hello, I am James for the first thread. It's going to take the mutex and handle. And then the other thread is going to say, hello, I am Tianyi taking mutex and handle. Now, what is going wrong here? Oh, yeah, of course. "
+  },
+  {
+    "start": 1876.501,
+    "end": 1910.795,
+    "speaker": "SPEAKER_03",
+    "text": "Handle one and handle two. Right. So we've given them a common mutex. They're both taking the same mutex, which is essential. If they took different mutexes, then they wouldn't achieve mutual exclusion. And then they take distinct handles to say when they're done. And then we need to join them. So take mvar handle one and take mvar handle two. Did someone have a question? I thought I saw a hand. No? OK. So let us run this and check that we now see some nice non-interference between the threads. "
+  },
+  {
+    "start": 1913.396,
+    "end": 1949.12,
+    "speaker": "SPEAKER_03",
+    "text": "So compiling, running, and now we see the threads. saying their names, James seems to be getting there first, but not always. So we can have non-determinism between the threads because they're interleaving arbitrarily according to the scheduler, but it's impossible for both of them to manage to put to this mvar at the same time. So one of them puts to this mvar, prints, the other one is blocked trying to put to the mvar, and so the first one takes from the mvar, and then the other one can go through its critical section. "
+  },
+  {
+    "start": 1949.943,
+    "end": 1983.695,
+    "speaker": "SPEAKER_03",
+    "text": "Okay, so hopefully this is kind of straightforward, and you might recall on Tuesday I said that studying concurrency in Haskell hopefully is interesting to see what it's like in another language, and some things are rather different, but actually the fundamental concepts are the same. We've got the need to avoid interference between threads, and we need to have some sort of mutual exclusion mechanism for doing that. I want to just point out to you that when we've got mutual exclusion between threads, we've always got the possibility of deadlock. So what I want to do just to... "
+  },
+  {
+    "start": 1985.056,
+    "end": 2016.686,
+    "speaker": "SPEAKER_03",
+    "text": "This is going to be contrived, but it's to make a point. I'm going to make there be two mutexes. I'm going to make the threads both take both of them. And... What I'm going to do up here is make this function also take a pair of mutexes. And a thread is going to acquire both of these. "
+  },
+  {
+    "start": 2020.25,
+    "end": 2023.453,
+    "speaker": "SPEAKER_03",
+    "text": "And then it's going to release them. Doesn't matter what order they're released in. "
+  },
+  {
+    "start": 2034.32,
+    "end": 2068.946,
+    "speaker": "SPEAKER_03",
+    "text": "OK, so let's run this program again. And it works just fine. So needlessly acquiring two mutexes to do our print, but there's no problem in doing that. But now, let's suppose we make an error. And what we do is we get these the wrong way around for one of the threads. So now we can have a classic deadlock situation where one thread acquires mutex one from main while the other requires mutex two from main, and then they're both blocked waiting for the other mutex. "
+  },
+  {
+    "start": 2069.287,
+    "end": 2086.595,
+    "speaker": "SPEAKER_03",
+    "text": "So we can have circular waiting here, which is the cause of deadlock in a concurrent program. Let's see this in action. So I compiled, and things seem to be working fine. But let's run this a load of times. "
+  },
+  {
+    "start": 2100.3,
+    "end": 2130.348,
+    "speaker": "SPEAKER_03",
+    "text": "So what you might see coming up are some messages. And maybe I won't wait for it to go 1,000 times. We can see that the program actually got terminated with a message saying, thread blocked indefinitely in an mbar operation. Haskell has got some built-in support for automatically detecting deadlock states where a thread, somehow it can work out that a thread is blocked in a way that's never gonna resolve by becoming unblocked. I've not studied how this algorithm works behind the scenes. "
+  },
+  {
+    "start": 2131.149,
+    "end": 2163.95,
+    "speaker": "SPEAKER_03",
+    "text": "In general, this isn't something that you can efficiently detect at runtime. But the key thing really is that A Haskell program can be just as prone to deadlock as a program in any other kind of language that has blocking synchronization. If your language offers blocking synchronization, then deadlock is a possibility, right? There's no way around that. Okay, so just showing you how with multiple MVARs, you need to be careful, as you do with multiple mutexes in a C++ program, on using them in a consistent way across threads. "
+  },
+  {
+    "start": 2164.39,
+    "end": 2201.544,
+    "speaker": "SPEAKER_03",
+    "text": "Otherwise, you can have one thread trying to get that MVAR, while another thread's trying to get this MVAR, and the other one holds the other MVAR. When I say hold MVAR, I mean they've filled it up. Okay, so any questions about using MVARs as a way to achieve mutual exclusion? Any questions about why we can get deadlock from envis? Hopefully this is fairly straightforward stuff given how much concurrency we've studied. Yes? Haskell is truly concurrent because of these arguments we're passing. "
+  },
+  {
+    "start": 2201.584,
+    "end": 2234.256,
+    "speaker": "SPEAKER_03",
+    "text": "So by passing in threaded here, we're saying really run this in multi-threaded mode. Don't just run this with one thread and have it be interleaving among the various functions that are running. Now I wanna talk about using mVars to actually communicate data between threads. We sort of done that in the sense that saying I'm finished is a way of communicating some information or passing a result that you computed back to the thread that spawned you is a way of communicating information. "
+  },
+  {
+    "start": 2234.676,
+    "end": 2277.884,
+    "speaker": "SPEAKER_03",
+    "text": "But now what we're gonna do is look at the use of mVars for simple message passing based concurrency without the need for using condition variables. And we're going to do this by implementing a producer-consumer example, really similar to the one that we implemented earlier in the term in C++ with our FIFO queue. But we're going to implement this using MVAR to communicate data between threads. So what I'm going to do is open up number five here. And I've already pre-prepared a bunch of code here, just to save us a bit of time and to keep me right, because I only code in Haskell when I teach this course. "
+  },
+  {
+    "start": 2278.164,
+    "end": 2315.997,
+    "speaker": "SPEAKER_03",
+    "text": "Not that I try and stay away from it the rest of the time. It's a very nice language. I just don't have any particular reason to program in it. I find that Kotlin and C++ and Python are perfect for my needs. So what we're going to do is have a producer thread that is going to produce 200 integers. and it's gonna collect a result from each consumer and sum those results. And then consumers, each of which is gonna consume 100 integers and send their results back to the producers, to the producer. "
+  },
+  {
+    "start": 2317.879,
+    "end": 2354.288,
+    "speaker": "SPEAKER_03",
+    "text": "Okay, so let us start by, we're gonna build this up gradually, start by kind of saying what we'd like in main. So we want a producer, so we're gonna do a fork IO that's gonna run a function called producer that will take some arguments. And then we're gonna launch two consumers. So we'll do a fork IO consumer and another fork IO consumer. And then what we're gonna do is join the producer to get the ultimate result that it computed. "
+  },
+  {
+    "start": 2354.328,
+    "end": 2391.031,
+    "speaker": "SPEAKER_03",
+    "text": "So the producer's gonna send some data to the consumers. The consumers are gonna add that data up and send it back to the producer, but the producer's gonna add up all the results it gets, and that is gonna be the final result that the program computes. So we're going to get a result from the consumer. And then we're going to print that result. That's going to be what our program does. So to get a result from a producer, we're going to need a producer handle. "
+  },
+  {
+    "start": 2395.314,
+    "end": 2427.361,
+    "speaker": "SPEAKER_03",
+    "text": "And that's going to be an envar that we're going to take from. All right? Yep. No, no, it's going to be producer handle. So what we're going to do is the producer is going to produce a whole load of integers and send them to consumers. The consumer is going to catch a load of these integers and add them up and chuck the result back to the producer. The producer is going to catch all the results it receives and add them up, and it's going to hand that final sum back to main. Sorry, I didn't explain that very well before we started. That's kind of what we did in the C++ example before. "
+  },
+  {
+    "start": 2428.722,
+    "end": 2465.787,
+    "speaker": "SPEAKER_03",
+    "text": "So this is going to be a producer handle that we're going to take from an ultimately print. So let's declare that producer handle. I'm going to say that producer handle is going to be a new empty mvar. And I can say here that it's io mvar int, meaning that this empty mvar is going to have type mvar int, but it's in the IO monad. I will ultimately, if I want, be able to delete that type declaration, but I put it in right now just to kind of keep us right before we've written more of our code. "
+  },
+  {
+    "start": 2467.668,
+    "end": 2497.814,
+    "speaker": "SPEAKER_03",
+    "text": "Okay, then I'm also gonna need some channels, a channel to communicate from the producer to the consumers. So I'm gonna say producer to consumer is gonna be a new empty mvar. also of type io mvar int. So this is gonna be a way of sending integers to the consumers. This is gonna be very inefficient. It's gonna be a channel of length one, so I'm gonna have to put an integer, I have to wait for a consumer to take it off before I can put another one. "
+  },
+  {
+    "start": 2498.114,
+    "end": 2541.302,
+    "speaker": "SPEAKER_03",
+    "text": "And that's okay for now. We'll see later how we can implement unbounded channels in Haskell. But for now, we're just gonna have this one place buffer between the producer and consumers. And I'm also gonna have a one place buffer between the consumers and the producers. I'll call these P to C, producer to consumer, and C to P, consumers to a producer. Okay. And now I want to show you the kind of code I pre-populated for the producer. The idea of the producer is it will take an m by int, which is the producer to consumer channel, an m by int, which is the consumers to producer channel, An int, which is the number of elements it should produce. "
+  },
+  {
+    "start": 2542.222,
+    "end": 2579.926,
+    "speaker": "SPEAKER_03",
+    "text": "An int, which is the number of consumers. And an envi int, which is going to be the final result. So let's populate this call. The producer is going to take the producer to consumer's channel, the consumer to producer's channel. And the next argument was the number of elements to produce. So we've said here it's going to be 200. the number of consumers, which is two, and then also a channel on which back to write its final results, which is gonna be this producer handle that we created. "
+  },
+  {
+    "start": 2582.487,
+    "end": 2617.699,
+    "speaker": "SPEAKER_03",
+    "text": "Okay, so the compiler is happy here, which is good. And then let's also implement these consumer calls. So a consumer is also going to take the producer to consumer channel, the consumer to producer's channel. Let's see what else a consumer is going to take. So those channels. And it's also going to take the number of elements per consumer, which is going to be 100. We're going to produce 200 elements. And we want each consumer to process 100 of those. And this is going to occur twice. "
+  },
+  {
+    "start": 2619.019,
+    "end": 2659.473,
+    "speaker": "SPEAKER_03",
+    "text": "You might notice I'm not passing in any handle for joining a consumer. We'll come back to why that's not necessary shortly. But any questions so far? I'm not showing you how to actually implement the producer and consumer logic. But just to recap, I set up these channels between them. I set up a handle for which the producer can indicate it's finished and write its final results. I launch the producer, I launch the consumers, I join the producer, grabbing its final results, and trust me, we don't need to join the consumers, but trust me on that for now, and then we print the final results. "
+  },
+  {
+    "start": 2661.334,
+    "end": 2673.899,
+    "speaker": "SPEAKER_01",
+    "text": "Would it be better to have the consumers know how many items they're going to consume, or to have another environment say, So the consumers do know how many items they're going to consume. "
+  },
+  {
+    "start": 2673.919,
+    "end": 2730.136,
+    "speaker": "SPEAKER_03",
+    "text": "That's what this 100 is. Well, yeah, we could alternatively have some way of, on the channel, we could have a way of saying this is the end, right? So we can make the channel be an mVar of some data type that's going to either have an integer or a special sentinel message saying end of input. That would be fine as well. And by all means, go and... If I had set my exam already, that would be a cool question. Yeah. Would either be faster? Well, I mean, it's less efficient to have, whenever you're sending data on a channel, if you've got to encode what kind of message is this plus the message, then every message is going to be slightly bigger because you've got to say, like, this is this kind of message, and now here's the payload. So if you can magically know in advance how many messages you've got to process, like in this toy example, then it's more efficient just to have integers being passed on the channel and not have that extra information. "
+  },
+  {
+    "start": 2730.517,
+    "end": 2767.507,
+    "speaker": "SPEAKER_03",
+    "text": "However, in many real-world scenarios, you have to have metadata about the session, the communication session. Otherwise, there's no way some... or node in a distributed system could know when the protocol is over. I mean, you might do some special tricks like, I'm going to be communicating integer data, but I know that it's never going to be larger than some huge value. So I might then use some bits high up in the binary representation as a flag, or maybe a bunch of bits in a flag. And that's when low-level operating system-type work gets really fascinating, because you have very clever ways of packing things into bit patterns. "
+  },
+  {
+    "start": 2769.495,
+    "end": 2806.802,
+    "speaker": "SPEAKER_03",
+    "text": "Okay, so that's our kind of skeleton here. So now let's go ahead and think about implementing, let's do the producer. So the producer, then, is gonna work on a producer to consumer's channel, a consumer to producer's channel. It's gonna produce a certain number of elements. It knows it's dealing with this many consumers, and then it's gotta find a result. And what it's gonna do, is first send to consumers, which I've got a helper for, which we'll implement in a moment. "
+  },
+  {
+    "start": 2807.342,
+    "end": 2840.449,
+    "speaker": "SPEAKER_03",
+    "text": "So send to consumers is going to take the producer to consumer channel and the number of elements to produce. And then it is going to get from consumers, which is going to take the consumers to producer channel and the number of consumers. And that is going to give back an integer. and then we're gonna write that integer on our channel. So put mvar final result, result. "
+  },
+  {
+    "start": 2841.629,
+    "end": 2874.954,
+    "speaker": "SPEAKER_03",
+    "text": "Okay, so we're gonna send some things to the consumers, then we're gonna wait for their results to come back, and we're gonna put the amalgamation of their results onto our final result channel. So this is just basically calling a bunch of helpers I made earlier. So let's go and have a look at the send to consumers function. So send to consumers takes the channel from producer to consumers and the number of items to send on that channel. So how do you think we send no items on a channel? "
+  },
+  {
+    "start": 2880.718,
+    "end": 2911.313,
+    "speaker": "SPEAKER_03",
+    "text": "How would you send nothing? unit, right? So if we want to send on p to c no elements, that doesn't involve doing anything. We have to return unit in the IOMonad from this function because that's its return type. So we just say return unit, and that gives us unit in the IOMonad. Otherwise, if we want to send numLMs, which will not be zero because pattern matching will hit this case first, so this is going to be non-zero, then we've got to do some stuff. "
+  },
+  {
+    "start": 2913.03,
+    "end": 2945.085,
+    "speaker": "SPEAKER_03",
+    "text": "What are we going to do? Well, we should probably send an element to the consumers. So we should say p to c, put m bar. That's how we send on this channel. We're going to put a value. And in this example, just like before, we're just going to send a bunch of ones. They're going to be summed up, and we're going to then sum up the results. So the whole point here is just to illustrate the concurrency primitives and the interaction between threads. We could, of course, actually farm out some useful workload, get it to be done in parallel, and get the result back. "
+  },
+  {
+    "start": 2946.945,
+    "end": 2978.039,
+    "speaker": "SPEAKER_03",
+    "text": "So we're going to put one, and then we should probably send the rest of the elements to our consumers. on the same channel, but there's one less element to send. So this is a very simple recursive function. Send a one, and then send none lns minus one for other ones. And ultimately, when we're done, there'll be nothing left to send. So that's send to consumers. "
+  },
+  {
+    "start": 2979.349,
+    "end": 3011.327,
+    "speaker": "SPEAKER_03",
+    "text": "What about get from consumers? So, we've got our consumers to produce a channel, we know how many consumers we're gonna receive from, and we're gonna ultimately return a value in the IOMO node. So, if there are no consumers left, what value should we return? If we've got no integers from our consumers and we add them all up, what would the result be? Someone? Zero. OK. So if there are no consumers, we're going to return zero. Otherwise, we've got to do some stuff. "
+  },
+  {
+    "start": 3012.148,
+    "end": 3029.373,
+    "speaker": "SPEAKER_03",
+    "text": "What do we do? Well, what we could do is say something like remaining values is going to be get from consumers. "
+  },
+  {
+    "start": 3042.124,
+    "end": 3077.158,
+    "speaker": "SPEAKER_03",
+    "text": "And then latest value is going to be take m bar c to p. So maybe I'll do it the other way around. I mean, it doesn't matter. But I can say latest value, or maybe I'll call it current value. Current value is going to be the result of taking from the consumers to producer q. And then the remaining values is going to be the result of getting anything that remains from our consumers. And then ultimately, we want to return the sum of those things. So I can say return current value plus remaining values. "
+  },
+  {
+    "start": 3079.4,
+    "end": 3116.918,
+    "speaker": "SPEAKER_03",
+    "text": "Okay, so that's get from consumers. And what I'd like to do is just finish this example, and then we'll take a break. So we'll finish a bit later than 10 to you, but I'll give you a 10 minute break. So that's send to consumers and get from consumers. Now let's look at our consumer code. So remember each consumer had a body, taking the two channels, producer to consumers, consumers to producer. And what a consumer's gonna do is first of all consume some data. "
+  },
+  {
+    "start": 3117.278,
+    "end": 3154.84,
+    "speaker": "SPEAKER_03",
+    "text": "So it's gonna say my result is going to be the result of consuming some data on producer to consumers. How much data am I going to consume? Well, the number of elements being given to each consumer. And then I need to send that result back to the producer. So I'm going to say, put mvar p to c, my result. Okay, so this is going to involve summing up a bunch of elements received from the producer, and then that sum is going to be written back to the producer. "
+  },
+  {
+    "start": 3156.261,
+    "end": 3186.763,
+    "speaker": "SPEAKER_03",
+    "text": "And now let's write the consume data function. So we're consuming on the producer to consumer's queue. We've got some number of elements to consume, and if there are none of them, we're just going to return zero. Otherwise, if there are lms of them, then we're going to have to do some stuff. And what we'll do is say something like latest value is take mvar p to c, not equals, sorry, becomes. "
+  },
+  {
+    "start": 3189.564,
+    "end": 3220.398,
+    "speaker": "SPEAKER_03",
+    "text": "And then remaining values is a result of consuming data on p to c, but we've got a little bit less to consume. And then what we can return is latest value plus remaining values. OK. Did any of you notice something here about the code, a simplification we could make? Yeah. "
+  },
+  {
+    "start": 3220.418,
+    "end": 3253.56,
+    "speaker": "SPEAKER_03",
+    "text": "Basically the same. Basically the same, yeah. So consume data is essentially doing the same thing really as get from consumers. So what we might do instead, if I move this up to the top, why don't we write a function called sum channel, meaning sum everything we would read from a channel, and sum channel of a channel C. If there's nothing to sum up, it's gonna be zero. "
+  },
+  {
+    "start": 3256.661,
+    "end": 3287.443,
+    "speaker": "SPEAKER_03",
+    "text": "Otherwise, sum channel on a channel C where we need to sum n elements is gonna be the result of taking something from that channel and then summing everything remaining on that channel and returning the sum of those two things. So having done that, now we can replace this with some channel. We can get rid of consume data. "
+  },
+  {
+    "start": 3290.063,
+    "end": 3302.529,
+    "speaker": "SPEAKER_03",
+    "text": "And we can write some channel here. OK. So this is our complete producer-consumer example. And let's run it. "
+  },
+  {
+    "start": 3317.577,
+    "end": 3329.044,
+    "speaker": "SPEAKER_03",
+    "text": "Mm. Thanks. OK, thread blocked indefinitely in an mbar operation. Let's take a break, and then we'll come back and debug our code. So see you in 10 minutes. "
+  },
+  {
+    "start": 3900.9,
+    "end": 3933.696,
+    "speaker": "SPEAKER_03",
+    "text": "Okay, everyone, let's get cracking again with the Haskell material. We've seen here that we've got a deadlock. So we've got thread brought indefinitely in an mvar operation. And someone kindly told me in the break this is because there's a C to P or P to C that's the wrong way around. So where is this? Does someone want to tell me? And then we can... go through why this is leading to a deadlock, just to reinforce the possibility for a deadlock here. So where is it wrong? 935. "
+  },
+  {
+    "start": 3936.013,
+    "end": 3966.823,
+    "speaker": "SPEAKER_03",
+    "text": "931. Okay, so yes, the consumer is receiving on producer to consumers, and then I've indicated here it's going to put on producer to consumers. So this is going to cause all kinds of chaos, right? So first of all, it means that one consumer may finish its work and then put some data which other consumers would then read if the producer's not finished producing yet. But ultimately, it's going to lead to When the consumers have finished, one of them is going to write something to the producer, the consumer channel. "
+  },
+  {
+    "start": 3966.843,
+    "end": 3999.447,
+    "speaker": "SPEAKER_03",
+    "text": "No one's listening. And then the others are all going to be blocked. So indeed, this should be a read from the consumers to a producer. OK, so let's recompile this. And run it. And good, we're getting the result 200 as expected. So we've sent 200 ones, 100 to that consumer, 100 to that consumer. They've each summed them up, sending the result 100 back to the producer twice. The producer has summed this up and then printed it. "
+  },
+  {
+    "start": 4000.695,
+    "end": 4039.058,
+    "speaker": "SPEAKER_03",
+    "text": "Now, you'll recall I said that we don't need to wait for the consumers to join. So Maine launched the consumers, but Maine doesn't need to wait for them to join. The reason for this is that if you think about it, there's no way the producer can terminate until both of the consumers have terminated because the producer is calling this sum channel function on consumers to producer saying add up values from that channel, numConsumer a number of times. "
+  },
+  {
+    "start": 4039.878,
+    "end": 4073.221,
+    "speaker": "SPEAKER_03",
+    "text": "And the consumers are just sending one value each. So this will block until both of those consumers have written their value to that channel. But that's the last thing the consumers do. If we go to what a consumer does, then the last thing it does is puts a value onto that channel. So the producer is going to block until all of the consumers have finished. And that way, if main blocks until the producer has finished by taking on the producer handle mvar, then there's no way any consumers can still be needing to do useful work before main terminates. "
+  },
+  {
+    "start": 4074.002,
+    "end": 4100.306,
+    "speaker": "SPEAKER_01",
+    "text": "Is it possible to make the producer just return an int to put that directly in the thread? Or is that not possible because the thread has to return an IO? Is it possible for the, do you mean like for fork IO to return that int? Is that kind of what you're imagining? Or for producer handle to put into the mvar, then print just take from the mvar. Sorry, can you repeat the last thing? Take from the mvar itself, rather than assign result and then print result. "
+  },
+  {
+    "start": 4100.326,
+    "end": 4169.619,
+    "speaker": "SPEAKER_03",
+    "text": "Oh, I see. So let's go to the code for producer. So you're kind of almost wanting to do put mvar. You kind of want to do that, sort of. Something like that. That as well, I guess, is the same. But I mean, in the main function. In the main function. Dictate to me. What would you like? Take m bar, use a handle in defense. PAUL LEWIS O' OK. So could we put that here? So the answer is no, and it's because print doesn't take a value that's in the IOMonad, okay? So print is not equipped to do this. It's because this, take mvar, it's a blocking operation, yep, so it has to occur in the IOMonad, and you can't pass something in the IOMonad as an argument Not as far as I know, so I know you're sort of stretching the boundaries of my Haskell knowledge, but the idea really is that when you're working in the ILM monad, every side effecting operation has to occur in sequence, right? "
+  },
+  {
+    "start": 4169.899,
+    "end": 4197.525,
+    "speaker": "SPEAKER_03",
+    "text": "It's like, you know, do this side effecting operation, the input to the operation can be some pure computation, And then do the next side effecting operation, the input to which can be some pure computation. But you divide things up into a sequence of side effecting computations. So print is a side effecting computation. It occurs in the IOMONAD. But the argument print takes needs to be some computed value, whereas we're kind of asking for a side effect to happen by calling that function. Yeah. "
+  },
+  {
+    "start": 4209.796,
+    "end": 4242.296,
+    "speaker": "SPEAKER_03",
+    "text": "Yeah, would you like to use Haskell over C++ to do concurrent work? So let me answer that question in two parts. Part one is that suppose that for whatever reason you've decided to implement a sophisticated piece of software in Haskell. I don't say for whatever reason in any kind of derogatory sense there. It's a very good language. So suppose you've decided to implement, say, an IDE in Haskell. Then you're going to need to have side effects, and you're going to want to have concurrency. You're going to want to be launching threads to do compilation while squiggly underlines are being written up. So you've just got to want to do concurrent programming in Haskell because concurrency is demanded by our application. "
+  },
+  {
+    "start": 4242.736,
+    "end": 4280.296,
+    "speaker": "SPEAKER_03",
+    "text": "So then you'd be using this kind of stuff that I'm showing you here. Alternatively, you might be doing some sort of parallel computation for scientific purposes, where you're going to be doing things like reduction operations on huge data sets, divide and conquer type operations. And then whether Haskell is a good choice or not is a mixed bag. So as I mentioned last time, in the parallel and concurrent programming in Haskell book, the first part is about parallel programming in Haskell, where you've got computations that are totally deterministic, they're pure, and you use Haskell's parallel libraries to do them in parallel. "
+  },
+  {
+    "start": 4280.736,
+    "end": 4316.385,
+    "speaker": "SPEAKER_03",
+    "text": "And that's great because you can write these computations down very elegantly. And because they're pure, the compiler is able to do quite sophisticated optimizations on them and parallelize them. On the other hand, exploiting low-level features of a vector architecture or issuing things to GPUs, etc., is probably easier to do in a closer-to-the-metal language like C++. So when your algorithm is the right fit for Haskell's parallel programming features, then the parallel Haskell, which I'm not teaching you, would be a great fit. Concurrent Haskell is sort of not something you'd use for its own sake. It's rather, as with any language, if you need to use concurrency, you'll need to use the concurrency features of that language. "
+  },
+  {
+    "start": 4319.342,
+    "end": 4351.436,
+    "speaker": "SPEAKER_03",
+    "text": "Okay, what I want to do now is show you how we can generalize this example to use multiple consumers. So one producer and some given number of consumers. And then I want to show you how we can work with unbounded channels in Haskell because this example is very inefficient. We've got one place buffer between the producer and the consumers and vice versa. So in order to show you this next example, I just want to show you a couple of helpful things. So you might recall that Haskell's got a replicate function that you can use to replicate an expression a number of times. "
+  },
+  {
+    "start": 4352.156,
+    "end": 4385.86,
+    "speaker": "SPEAKER_03",
+    "text": "If you're working in a monad and you want to replicate some operation in that monad, so in our case it will be the IR monad, so you've got some side effect in computation and you'd like to do it a number of times, then you can use the replicateM function. So the idea of replicate m is you pass as a first argument an integer saying how many times you want the monadic operation to be performed. Then you pass in the monadic operation a that should give you something of type a. And it will give you then back a list of a's in that monad. "
+  },
+  {
+    "start": 4386.381,
+    "end": 4417.034,
+    "speaker": "SPEAKER_03",
+    "text": "And the size of that list is going to be the first argument. So for example, if you want to take from an mvar 10 times, then you could do replicate m 10 and then take mvar v, where v is the mvar. And this will give you back a list of 10 values. But it will block in the process because you can only get one thing from an mvar at once. So this will cause take mvar to be called 10 times and eventually build you up a list of 10 results. OK? "
+  },
+  {
+    "start": 4417.615,
+    "end": 4450.858,
+    "speaker": "SPEAKER_03",
+    "text": "And sometimes you want to replicate merely for side effects. So, for example, we might want to launch 10 threads, but we're not interested in capturing their thread IDs, in which case we can use replicateM underscore. And the underscore is a convention in the name of the function, but what it means is don't actually return the list of results. And we could say replicateM underscore 10 for KO. And what that would do would be... cause fork IO to be called 10 times, but reduce the admittedly very modest overhead of constructing the result list of the thread IDs if they're not going to be used. "
+  },
+  {
+    "start": 4452.559,
+    "end": 4490.353,
+    "speaker": "SPEAKER_03",
+    "text": "So I'm going to use these by making the producer consumer example parametric in the number of threads we're going to use. Command line parametric, not parametric in any fancy sense. So let me open number six. producer-consumer parameterized. And I'm going to take the producer-consumer code we wrote, all of it apart from the main, and I'm going to paste it into example number six. "
+  },
+  {
+    "start": 4493.563,
+    "end": 4525.511,
+    "speaker": "SPEAKER_03",
+    "text": "OK, and what I've got here then is some Haskell code for getting command line arguments. What it's going to do is it's going to read the number of consumers by the first command line argument and then the number of elements per consumer by the second command line argument. And I'm getting a squiggly underline here because I could say head args instead of args, bang, bang, 0. But given that I'm doing 0 and 1, I would rather just keep with 0 and 1. So what we're going to do here is we're going to fork a producer. Well, that's quite easy. "
+  },
+  {
+    "start": 4525.571,
+    "end": 4557.045,
+    "speaker": "SPEAKER_03",
+    "text": "We can say fork io producer p to c, c to p. And then what did we do? need for a producer. Let's just remind ourselves, number of elements to produce and number of consumers. So the number of elements to produce is going to be the number of consumers times lms per consumer. And the number of consumers is num consumers. And just like before, we're going to need mvars for p to c and c to p. "
+  },
+  {
+    "start": 4557.965,
+    "end": 4603.638,
+    "speaker": "SPEAKER_03",
+    "text": "So p to c is going to be a new empty mvar, as is c to p. And then a producer also needs its final result, which we called producer handle before. And we'll pass that in at the end here. And now you might observe that because we've passed producer handle in as an argument to this function, and this function requires an m bar int, then we have not had to say in new empty mvar what the type of the mvar being returned is. "
+  },
+  {
+    "start": 4603.978,
+    "end": 4638.335,
+    "speaker": "SPEAKER_03",
+    "text": "The compiler has inferred this for us. Up to you whether you like that or whether you prefer to write explicit types. I used to come from a real position, regardless of programming language, of really, really thinking it was very important to write explicit types, and in my heart that's still where I am, but I have to admit that over the years I've got a bit more into type inference. Maybe just because type inference can lead to quite confusing error messages sometimes. And sometimes when you return to code in which you heavily relied on type inference, it can be very hard to understand what that code is doing. Sometimes the types can be super helpful in just reminding you of what the types of things are. "
+  },
+  {
+    "start": 4638.475,
+    "end": 4705.419,
+    "speaker": "SPEAKER_03",
+    "text": "Types provide useful documentation. Okay, so we've forked a producer. And at the end, we're going to do what we did before of saying that the result is a takeaway. mvar on the producer handle. And we're going to print that result. So that's kind of what we did there. And print the final result. And now we're going to fork number of consumers. So what we're going to do is we're going to call fork io to make a consumer. And it's going to take p to c and c to p and lms to lms per consumer. That's how we fork a consumer. But then what we're gonna do is say replicate in the monad, chucking away results, and we're gonna replicate a computation, num consumers times and the computation we're gonna replicate is this 4k0 computation. "
+  },
+  {
+    "start": 4705.959,
+    "end": 4736.749,
+    "speaker": "SPEAKER_03",
+    "text": "So this is saying, launch this many threads via 4k0, and because I said replicate m underscore, I'm not expecting a list of thread IDs to come back, because I don't need a list of thread IDs. Okay, so let me now compile this number six. And let me run it. And on the command line, we are going to say how many consumers there are. "
+  },
+  {
+    "start": 4737.27,
+    "end": 4767.738,
+    "speaker": "SPEAKER_03",
+    "text": "So let me say there's eight consumers. And then maybe let me say there's going to be 1,024 elements per consumer. OK. 8192 looks like a good answer to me. And maybe let's make it be 8192. a few more elements per consumer. And now this is gonna take a while, right? Because we were sending 16 million elements per consumer, so eight times that number over this one place buffer. "
+  },
+  {
+    "start": 4768.178,
+    "end": 4799.705,
+    "speaker": "SPEAKER_03",
+    "text": "A consumer's receiving them one by one by one by one, and the consumer will eventually get them all, add them up, and send them back. But it's gonna take quite some time to send all these values because this program, although it's concurrent, There is a great degree of sequentialization going on because there's only one channel from the producer to consumers. And that channel has only got size one. And behind the scenes, it's going to be mutex protected with a condition variable guarding it, the way that's going to be implemented at a low level of abstraction. Hence, this taking a long time to run. "
+  },
+  {
+    "start": 4800.565,
+    "end": 4833.391,
+    "speaker": "SPEAKER_03",
+    "text": "Yeah? Can you put lists, like Haskell lists, in mBars? Can you put Haskell lists in mBars? You can think of an mVar as just being a pointer. It is a memory location containing a pointer, and that pointer can point to anything you like. So when we've used mVar ints, it's not really an mVar directly containing an int. It's really an mVar containing a pointer to an object that's got an integer inside it. So yes, you can have mVars of any data type you like. And while we wait for this to complete, because it might take a while, I propose we move on and do just that. "
+  },
+  {
+    "start": 4833.411,
+    "end": 4868.453,
+    "speaker": "SPEAKER_03",
+    "text": "We'll have mVars containing interesting other data types. So what I want to show you now is how we can use mVars to build unbounded channels. And this comes from Simon Marlowe's book, Parallel and Concurrent Programming in Haskell, which you can have a look at if you want. There's a free trial available online. And let me explain how this is going to work. A channel shared among threads, an unbounded channel, meaning it can contain as many elements as we want it to contain, is going to comprise a read end and a write end. "
+  },
+  {
+    "start": 4868.854,
+    "end": 4900.642,
+    "speaker": "SPEAKER_03",
+    "text": "So the read end is going to be this mvar shown on the left here in a bolded square. And the write end is the mvar shown on the right here, also in a bolded square. And the read end of the channel is going to contain a reference to an m-var that points to a value with a reference to an m-var that points to a value with a reference to an m-var that points to a value, et cetera, until eventually one of these m-vars is empty. "
+  },
+  {
+    "start": 4901.363,
+    "end": 4936.177,
+    "speaker": "SPEAKER_03",
+    "text": "That's going to be the right end of the channel. So this diagram here illustrates a channel that's got three values on it because there are three of these nodes containing a value. And if we want to read from this channel, then what a thread does is it looks at the read end of the channel. That lets it get access to this stream of values here. And it can find the first value, which I've highlighted in yellow here, which is going to be the value returned from reading from the channel. "
+  },
+  {
+    "start": 4937.175,
+    "end": 4975.279,
+    "speaker": "SPEAKER_03",
+    "text": "But because it's pulling that value off the channel, the thread has to update the read end of the channel. So it now points to this MVAR here. So we've moved on one element. That's how we're going to read from a channel. And then to write to a channel, a thread would traverse the right end of the channel to get to the end. And then what the thread needs to do is make a new MVAR. that is going to correspond to the new right end of the channel, and then write into the old mbar a pair comprising a value and a reference to that new right end. "
+  },
+  {
+    "start": 4976.28,
+    "end": 5015.265,
+    "speaker": "SPEAKER_03",
+    "text": "And what we're gonna do is we're gonna take some time to go through this in code. So what I wanna do is just go back and show you this diagram, and I'm gonna copy out onto the board here, partly so we can go through it again, and partly so that then when I write code, you've still got it for reference. So, our channel comprises two components that are both references to mvars. And one of these mvars, and for mvars, I'm going to do them with a black square with a red square inside it to distinguish them from non-mvars. "
+  },
+  {
+    "start": 5022.337,
+    "end": 5057.117,
+    "speaker": "SPEAKER_03",
+    "text": "One of these MVARs gives us access to the left-hand side of the channel from which we're going to read. And the other gives us access to the right-hand side of the channel to which we're going to write. And then the contents of the channel is essentially a linked list. We've got an MVAR that's going to point to a pair. comprising a value, v. I'm just going to be lazy on the board and just write v for value rather than a pointer to some value in memory. "
+  },
+  {
+    "start": 5059.538,
+    "end": 5101.765,
+    "speaker": "SPEAKER_03",
+    "text": "And then the next m bar in the chain. I think I have another black pen in my pocket. Getting prepared. That's better. Okay, and then this, oh no, now I've got two black patterns, put my red one away. So this mvart is going to potentially have a reference to another pair that may have a reference to another mvart. "
+  },
+  {
+    "start": 5103.906,
+    "end": 5135.397,
+    "speaker": "SPEAKER_03",
+    "text": "So v, v, V and let's say that's the end. Okay. And the read end of the channel is gonna give us access to this ember. And the write end is gonna tell us where we would have to continue the chain if we were gonna add more things to the channel. "
+  },
+  {
+    "start": 5136.758,
+    "end": 5169.025,
+    "speaker": "SPEAKER_03",
+    "text": "And I'm gonna call each one of these entries on the channel, an item. And I'm going to call the envars that hold references to items, streams. So we've got a stream of items. This stream has got this item, this item, and this item in it. However, this is also a stream. It's a stream that's got this item and this item in it. "
+  },
+  {
+    "start": 5170.186,
+    "end": 5212.13,
+    "speaker": "SPEAKER_03",
+    "text": "This is a stream. And finally, this is an empty stream. And I've written item stream, item stream here because this is how we're going to structure the Haskell data types we're going to use to realize this unbounded channel. So to read an item from the channel, a thread obtains exclusive access to the read end by taking this mbar. No other thread can take this mbar once a thread currently reading has taken this mbar. That thread can then peacefully look and see whether there's something to be read, get this value, get it ready to return, and then make the read end points to the next item in the channel. "
+  },
+  {
+    "start": 5213.96,
+    "end": 5247.414,
+    "speaker": "SPEAKER_03",
+    "text": "Likewise, if a thread wants to write to the end of a channel, it can get the right end by taking this end bar, which gives mutual exclusion to this part of the channel. And then it can go and peacefully create the next node in the chain and update the right end to point to a new empty stream. And by having these... points of entry to the channel, it means that we can have simultaneous reads going on from here, while writes going on here. "
+  },
+  {
+    "start": 5247.975,
+    "end": 5281.463,
+    "speaker": "SPEAKER_03",
+    "text": "And if you also look at the book, Simon shows how you can extend this to create multicast channels, which is pretty interesting too. Yes? This is just so you can think of any box that doesn't have a red angle in it, it's just a reference. So we've got a reference to an mvar and a reference to an mvar. And that mvar contains a reference to another mvar, which contains a reference to a pair that is a reference to some data item and a reference to the next mvar. "
+  },
+  {
+    "start": 5284.505,
+    "end": 5289.89,
+    "speaker": "SPEAKER_03",
+    "text": "So what I want to do now is go ahead and start writing this up in Haskell with reference to the diagram on the board. "
+  },
+  {
+    "start": 5302.331,
+    "end": 5334.16,
+    "speaker": "SPEAKER_03",
+    "text": "OK. I don't know why I'm getting a red squiggly here. Hopefully that will go away in due course. So first of all, let's write a data type for our Haskell channel. So I'm going to write data channel. So that's how we introduce a data type in Haskell. And you recall that a data type in Haskell can have multiple constructors. If you've got, say, a tree, you might have nil, meaning an empty tree, and you might have node, meaning a node inside a tree. "
+  },
+  {
+    "start": 5334.76,
+    "end": 5366.762,
+    "speaker": "SPEAKER_03",
+    "text": "So for channel, we're just going to have one constructor, which is channel. So you make a channel by providing two mvars. And what are the type of those mvars? So your channel is going to be these mvars. And the type of each of those mvars is stream. So each mvar is going to correspond to a stream. The first one is going to be the stream of values in the channel. "
+  },
+  {
+    "start": 5367.382,
+    "end": 5397.47,
+    "speaker": "SPEAKER_03",
+    "text": "And the second one is going to be the empty stream, meaning this is the end of the channel. You could add things on here to make the channel contain more. So these are going to be mvars of streams. We'd like our channel to be generic. So we're going to say it's a channel of A's. And then we're going to say that actually each of these embryos is going to be a stream of A's. OK. So that's our channel. "
+  },
+  {
+    "start": 5398.01,
+    "end": 5433.79,
+    "speaker": "SPEAKER_03",
+    "text": "Then we can define stream. A by a simple type declaration. A stream A comprises a pair of what? So that's our mvar containing a stream, which is going to be a value and an mvar containing a stream. So we're gonna say that a stream is an mvar. "
+  },
+  {
+    "start": 5436.631,
+    "end": 5468.953,
+    "speaker": "SPEAKER_03",
+    "text": "Sorry, I misspoke, let me say that again. So, our channel comprises a pair of mvars, each containing a stream. What is a stream? It's an mvar. And what's in that mvar? It's an item. Okay? So, our stream, is simply an mvar containing an item A. And then what is an item A? Well, an item is an algebraic data type, again, with just one constructor item. "
+  },
+  {
+    "start": 5469.914,
+    "end": 5500.633,
+    "speaker": "SPEAKER_03",
+    "text": "And what does an item comprise? Well, it comprises an A, that's the value stored in the item, and then a stream A. So if we just look at item that I've highlighted here, This is an example of an item. What does it contain? A value, v here, which is of the given type a, the type of the channel. And then it contains a stream, which is an m bar containing an item with a value and a stream, and so on. "
+  },
+  {
+    "start": 5502.254,
+    "end": 5527.11,
+    "speaker": "SPEAKER_03",
+    "text": "So I find this, as you can probably see from me trying to explain it, I find it a bit confusing to get my head around. Yeah. Any questions about it before I go on? Yes. Very good. Any questions about this design? Yeah. "
+  },
+  {
+    "start": 5527.71,
+    "end": 5542.453,
+    "speaker": "SPEAKER_01",
+    "text": "So obviously if our stream's empty, we want the right head to be an empty M bar because we want something to wait for it to go in. And then we want our read head to be an empty M bar. We want our right head to be an empty screen. "
+  },
+  {
+    "start": 5543.849,
+    "end": 5559.877,
+    "speaker": "SPEAKER_03",
+    "text": "So what would an empty channel look like, essentially? Yeah, why don't we go through that? That's a good idea. I don't know what people will be doing this board. Maybe I will do the Department of Service by quickly cleaning the whole thing. "
+  },
+  {
+    "start": 5585.386,
+    "end": 5615.464,
+    "speaker": "SPEAKER_03",
+    "text": "Okay, so what would an empty channel look like? A channel is always going to have this pair of envirs. the read and write end, and if the channel is empty, then these are both going to refer to an empty stream. Okay? "
+  },
+  {
+    "start": 5617.145,
+    "end": 5625.152,
+    "speaker": "SPEAKER_01",
+    "text": "One of the qualities of mbar is that you can block until it's full, but if you were looking at the readhead, it's not empty, so you can't block. "
+  },
+  {
+    "start": 5627.172,
+    "end": 5657.626,
+    "speaker": "SPEAKER_03",
+    "text": "So why don't we go ahead and try and actually implement these functions, and I think it should become clear. Good questions. OK, so now let's look at making a new channel. So a new channel is going to have type io channel a. It's going to give us back a channel a in the io monad. And how are we going to create a new channel? or we're gonna do some stuff. "
+  },
+  {
+    "start": 5658.727,
+    "end": 5690.712,
+    "speaker": "SPEAKER_03",
+    "text": "So to make a new channel, what we need to have is this empty stream, this read end, and this write end. So we have to make all of those. So let's do it. Let's say that empty stream is a new empty mvar. And let's say that read end is a new mvar. containing the empty stream. "
+  },
+  {
+    "start": 5692.273,
+    "end": 5725.053,
+    "speaker": "SPEAKER_03",
+    "text": "And right end is a new mvar containing the empty stream. So we've made this empty stream an empty mvar. And then we made two other mvars, both of which store a pointer to that empty stream. And then we can return a channel. I think I have to put this in parentheses, a channel read end, right end. So does this make sense in terms of how we make the diagram shown on the left there? "
+  },
+  {
+    "start": 5726.574,
+    "end": 5770.223,
+    "speaker": "SPEAKER_03",
+    "text": "Yeah? OK. So now let's write a function called read channel, which is going to take a channel of A's, and it's going to give back an A in the IOMONAD. So reading from a channel, parsing the channel, and get back an A. But it's in the IOMO now because this is not a pure operation. This is gonna block until something's available on the channel. So how are we gonna read from a channel? Well, to read from a channel comprising a read end, and it doesn't matter what the write end is, so underscore, we're gonna do some stuff. "
+  },
+  {
+    "start": 5771.935,
+    "end": 5803.974,
+    "speaker": "SPEAKER_03",
+    "text": "So first of all, let's get the read end stream by taking from the read end. So in the case of an empty mvar, what we're going to do if we're a thread, we're going to take on that mvar, which is going to kind of give us access to this stream. "
+  },
+  {
+    "start": 5804.854,
+    "end": 5840.744,
+    "speaker": "SPEAKER_03",
+    "text": "And this is now going to be empty. The fact that it doesn't have an arrow emanating from it means it's empty. So if another thread would try and take on this environment, it would block. So we have now got exclusive access from this side to the channel. And then what we need to do, if we're going to try and pull something out of that channel, is read from the stream we just got access to. So we're going to have to try and get an item. of the form value remainder by taking from the read end stream. "
+  },
+  {
+    "start": 5845.135,
+    "end": 5883.256,
+    "speaker": "SPEAKER_03",
+    "text": "So we've got access to this stream, and now we need to block on this stream until someone puts a value into it that we can pop off. And just to make this a bit easier for us to follow at the moment, why don't we just assume that this stream actually does refer to some value, and then an empty stream. and that the right end actually refers to that empty stream. "
+  },
+  {
+    "start": 5885.958,
+    "end": 5917.2,
+    "speaker": "SPEAKER_03",
+    "text": "So now, what this thread is doing is taking from this end bar. So now the thread is gonna have access to both the read end stream and it's gonna have access to this item. This is an item. And this is what we wanna return from our read function. So ultimately, we're going to return that value. But what we need to do is update the read end stream. "
+  },
+  {
+    "start": 5917.58,
+    "end": 5952.882,
+    "speaker": "SPEAKER_03",
+    "text": "So we need to say put mbar read end stream remainder. So if I go back to the diagram, that's the value I'm going to return. And this is remainder. So by putting remainder in there, effectively we're redirecting the read end to be here. And now the thread finishes, and eventually all this stuff, you know, it's got access to the value, but all this stuff will get garbage collected. "
+  },
+  {
+    "start": 5953.743,
+    "end": 5985.798,
+    "speaker": "SPEAKER_03",
+    "text": "So that's how we read from the channel. Yeah? Excuse me. Yes, I should have put it in read end, sorry. Read end. You're right. Yeah. So read end being, so what I've written was nonsense. What I'm doing is, here, this is the read end. Yeah, good. Okay, does that make sense for reading from the channel? Any questions on reading from the channel? Okay, now let's think through what we've got to do to write to the channel. "
+  },
+  {
+    "start": 5985.858,
+    "end": 6016.755,
+    "speaker": "SPEAKER_03",
+    "text": "So we'll write the type signature for this first. So we can say write channel. takes a channel A, that's the channel to be written to, and an A, which is the value to be written, and it returns IO unit. So we don't get back a value from writing a channel, you just are done writing to the channel. So write channel of a channel where we don't care about the read end, but we do care about the write end, and a value involves doing some stuff. "
+  },
+  {
+    "start": 6017.854,
+    "end": 6034.048,
+    "speaker": "SPEAKER_03",
+    "text": "So what are we gonna do? Well, why don't we work through this example here. So suppose we want to write something to this channel. So what we're gonna be trying to construct, I'll put it in dotted lines, we're gonna want to have this pointing to a new item. "
+  },
+  {
+    "start": 6045.742,
+    "end": 6077.684,
+    "speaker": "SPEAKER_03",
+    "text": "So this is like what we're gonna wanna create, and we're gonna want the right end of the channel to end up pointing here instead. So in deliberately hard to see ink, I've for now sketched where we wanna try and get to. So first of all, let's bring this thing into being. So we can say that a new empty stream is a new empty mvar. "
+  },
+  {
+    "start": 6079.585,
+    "end": 6115.973,
+    "speaker": "SPEAKER_03",
+    "text": "So that will emerge, wrong pen, that will emerge this empty stream. Brought it into being. Okay. And then what we can do is, So on the right end, find the previous right stream. "
+  },
+  {
+    "start": 6119.575,
+    "end": 6151.888,
+    "speaker": "SPEAKER_03",
+    "text": "So I'll say here, right end stream involves taking, excuse me, this should be read end here. involves taking from the right end. So now, if we are a thread who's doing this write operation, by taking from this mvar, we now have access to this right end. "
+  },
+  {
+    "start": 6153.349,
+    "end": 6195.876,
+    "speaker": "SPEAKER_03",
+    "text": "Okay? And now what we want to do is put into that mvar a new item with the value and a reference to the empty stream. So we can do that by saying put mvar write end stream item value, the value we're writing, and new empty stream. And then the final thing to do is we now need to tell this mvar about the new write stream. "
+  },
+  {
+    "start": 6199.976,
+    "end": 6234.356,
+    "speaker": "SPEAKER_03",
+    "text": "And then we are done. So to finish things off, we are going to say put mvar write end new empty stream. And that's the implementation of write channel. Yes? Does it matter which put we do first? Does it matter which put we do first? Yes, it does, because when we take mvar, that's how we get the exclusive access to the right end. "
+  },
+  {
+    "start": 6235.076,
+    "end": 6248.643,
+    "speaker": "SPEAKER_03",
+    "text": "As soon as we put mvar, another thread might come in here and take mvar. Would they though, because we haven't put that into the right end yet. "
+  },
+  {
+    "start": 6259.71,
+    "end": 6293.783,
+    "speaker": "SPEAKER_03",
+    "text": "Let me just think this through. So if we do it this way round, so yeah, let's go through this then. So let's suppose that, so suppose we're in this situation, and we've got threads T1, And T2. They both want to put things onto this channel. Let's say this thread wants to put on the value 5. And that thread wants to put on the value 6 to the channel. So let's say that T1 does take. So T1 has got access to the right end. "
+  },
+  {
+    "start": 6294.643,
+    "end": 6324.723,
+    "speaker": "SPEAKER_03",
+    "text": "And T2 is now trying to do a take mvar. T1 has made a new empty mvar. So let's say T1 has made this new empty ember. And let's say T2 has also made a new empty ember. So T1 owns this ember. "
+  },
+  {
+    "start": 6325.604,
+    "end": 6355.905,
+    "speaker": "SPEAKER_03",
+    "text": "And T2 owns this ember. T1 has managed to get the right end of the channel. And T2 is blocked, trying to take the right end. So now let's say T1 executes putMvar right end new empty stream. So T1 is connecting the right end to be this new empty stream. "
+  },
+  {
+    "start": 6357.241,
+    "end": 6389.472,
+    "speaker": "SPEAKER_03",
+    "text": "Okay, now what can happen is T2, who's blocked reading for that m bar, can immediately get access to that empty stream. Right, so now T2 can immediately put its empty stream, which was this one, into the right end of the channel. So it's getting hard to read because we've got so many arrows, but hopefully it's making sense. "
+  },
+  {
+    "start": 6389.772,
+    "end": 6421.354,
+    "speaker": "SPEAKER_03",
+    "text": "I'm getting quite a lot of exercise in the process. And now T2 can put its value into its new empty stream. So it will put into this empty stream six. Oh, sorry. T2 Yes. And did I mean to put an arrow to there? "
+  },
+  {
+    "start": 6425.594,
+    "end": 6498.25,
+    "speaker": "SPEAKER_03",
+    "text": "We haven't got much time left. I want to show you the end of this example. So I'm going to go and try to write this out properly. We'll start with that next time. So let me just revert these for now. So first of all, our previous example did eventually finish. And let's run number seven. What's it called? Unbounded channels. Yeah, what's happened here? Parse error. Have I just, oh, I think it's underscore got added at the beginning of the file. Okay, fine. And now let's do, so seven unbounded channels, eight threads, one, two, four. Oh, sorry, what I forgot to do was take all of the code from our producer-consumer example. So I'm gonna take all of this code that we wrote before, and I'm gonna dump it into unbounded channels. "
+  },
+  {
+    "start": 6500.611,
+    "end": 6532.748,
+    "speaker": "SPEAKER_03",
+    "text": "But now, wherever we previously had a new empty mvar, I'm gonna say new channel. So we're gonna use our unbounded channels. Wherever we had an mvar int here, I'm going to have a channel int. So producer to consumer, consumer to producers. On the send commands, we're going to have these use channels. "
+  },
+  {
+    "start": 6537.041,
+    "end": 6547.834,
+    "speaker": "SPEAKER_03",
+    "text": "OK, when we did a take mvar, I'm going to use read channel. When we did a put mvar, I'm going to use write channel. "
+  },
+  {
+    "start": 6558.403,
+    "end": 6588.822,
+    "speaker": "SPEAKER_03",
+    "text": "And then what else do we need to do? I'm sure there'll be some more changes, but I'll use the compiler to help guide me through them. No, OK, that looks like all it was. So yeah, we get this result working. And then let me try this instead. So it's not going to be immediate. And we didn't time the last one, so I can't show you the difference. But this is going to be a lot more efficient, because now we've got this unbiased channel between the producer and the consumers. The producer can keep pushing things onto the beginning of this channel. "
+  },
+  {
+    "start": 6589.123,
+    "end": 6622.795,
+    "speaker": "SPEAKER_03",
+    "text": "It's okay if it gets ahead of the consumers. The consumers are taking things off the end. So there's a lot more potential for concurrency. We're not going to expect to see a dramatic performance improvement here because we are still going to be producer-bound at the beginning. So the consumers are way more consumers than there are producers. So the producer is going to be the one putting all the work in, which is going to lead to a lot of contention. But still, we're not bounded by this one-place buffer. Okay, that will do for today. So what I'm going to do is I'll go through that example of the implications of turning those statements around. "
+  },
+  {
+    "start": 6623.516,
+    "end": 6714.954,
+    "speaker": "SPEAKER_03",
+    "text": "We'll briefly look at that on Tuesday. There's a little bit more Haskell material left, but only a few more slides. And then we're going to move on to dynamic data race detection on Tuesday. And then on Friday, we're going to look briefly at the essence of concurrency and Rust. And that will be the end of the practice part of the course. And Azalea will take over the next week to finish off on theory. So have a great weekend. See you all next week. Thank you. On a flag that's used plus RTS and dash and eight. Yeah. So sometimes you didn't use it. Oh, that's just a mistake. I intended to always use it. But I realize it doesn't really perform better. It's just making a bunch of cores available to the OS. So if you had... The thing is that the example I'm showing you here, it's... the performance is going to be miserable because of all this contention. So really running with loads of cores or even one core is going to make a difference. Yeah. And how about the RTS? Yeah. What does that mean? So the runtime system is what underlies a programming language when at execution time. The Java virtual machine, for example, is a runtime system. So Haskell's got a runtime system that actually does thread management behind the scenes. So plus RTS is saying, I want to add an argument for the runtime system, and then that argument is the dash So, it's like a way of saying pass the next argument onto the runtime system. Yeah, that's right. Good. All right. Hey. Yeah. On Linux, yeah. Yeah. "
+  },
+  {
+    "start": 6730.82,
+    "end": 6747.901,
+    "speaker": "SPEAKER_03",
+    "text": "Vutex is a Linux system called. And as someone asked the other day, you know, what about Windows? So if you look at the way, say, Microsoft Visual Studio implements Vutex in its library, I don't know what that uses behind these things. There won't be Vutex because Vutex is a Linux-specific thing. There'll be something similar. "
+  },
+  {
+    "start": 6748.261,
+    "end": 6768.253,
+    "speaker": "SPEAKER_02",
+    "text": "But it's like the same idea of having a capacity to use the space. Yeah. Yeah. So like, normally, would I even expect to use it? I mean, to like make system calls that I wouldn't want to do. Or is it like a better option just to use the Slack? Oh yeah, they're better, yeah. "
+  },
+  {
+    "start": 6768.373,
+    "end": 6778.5,
+    "speaker": "SPEAKER_03",
+    "text": "The reason I showed you that is because I want to show you as I'm designing to some of the underlying technology and the business stuff, it's an interesting algorithm for trying to achieve this. "
+  },
+  {
+    "start": 6778.54,
+    "end": 6800.738,
+    "speaker": "SPEAKER_00",
+    "text": "But yeah, you, as a normal programmer, certainly would not be using a few tests. It's more so when you're trying to implement the natural concurrency-like low-level primitives. I think there's some similar problem with the developers facing their solution was leaking the whole table. "
+  },
+  {
+    "start": 6813.324,
+    "end": 6840.12,
+    "speaker": "SPEAKER_02",
+    "text": "I think the issue that happened was that during the staging, basically you have to lock the table and then you have to gobble it and then unlock it. But then, if I understand it correctly, the problem that they faced was that in the process of gobbling the table and having to lock it first, you can't dispose of the table without the lock still on. "
+  },
+  {
+    "start": 6841.216,
+    "end": 6871.972,
+    "speaker": "SPEAKER_03",
+    "text": "Yeah, the thing is that as you're doubling the number of locks, until you're done with that process, other players might be getting the old locks. So you don't have a clean point of time in which you know everyone is done with the old locks they can be disposed of. But you have a nice property that when you're doubling the number of locks, the number of locks that ever existed before all summed up together, is going to be essentially the number of blocks you now have. If you think about 1, 2, 4, 8, 16, if you add up 1, 2, 4, and 8, you get 50. If you add up 1, 2, 4, 8, 16, you get 31. "
+  },
+  {
+    "start": 6872.312,
+    "end": 6905.168,
+    "speaker": "SPEAKER_03",
+    "text": "If you add up the numbers up to 32, you get 63. If you add them up to 64, you get 127. So actually, that wasted space is less than the space you're now using. And furthermore, you don't have to leak them forever, you just leak them until the end of the lifetime of the hash set. So once the hash set actually finally gets finished being used, everyone's done with it, it's destructible, they're called, and all that memory can get freed up. So you're not leaking this memory actually forever, You're just leaking it for the entire lifetime of a person. "
+  },
+  {
+    "start": 6905.328,
+    "end": 6911.291,
+    "speaker": "SPEAKER_03",
+    "text": "Which might be your whole program, but the amount of memory you're leaking is really proportionate to the amount of memory you're using. "
+  },
+  {
+    "start": 6911.311,
+    "end": 6912.932,
+    "speaker": "SPEAKER_02",
+    "text": "I don't see there's a way you can. "
+  },
+  {
+    "start": 6929.553,
+    "end": 6940.181,
+    "speaker": "SPEAKER_03",
+    "text": "I don't see that there's a way you can. You mean having some guarantee on threads being done with certain things, you mean? "
+  },
+  {
+    "start": 6940.862,
+    "end": 6959.991,
+    "speaker": "SPEAKER_02",
+    "text": "As in like, I spent quite a lot of time trying to figure out how people do it, and it seems to be crazy to me that their choice was to have either a UOP which is low, or have an acceptable memory Why is an acceptable temporary memory crazy? "
+  },
+  {
+    "start": 6960.011,
+    "end": 6962.712,
+    "speaker": "SPEAKER_03",
+    "text": "What's crazy about it being temporary and acceptable? "
+  },
+  {
+    "start": 6978.143,
+    "end": 7009.972,
+    "speaker": "SPEAKER_03",
+    "text": "But only for the lifetime of the weapon. But again, it's kind of like, yeah, why does it matter? The thing can't keep growing exponentially. Every time you double them, you're only going to do that a certain amount of times, and then you never ever have to make any more of them. So you're going to quite quickly get to the end. So I know what you mean. It seems somehow inelegant. It feels like there should be some solution that would avoid it. But the trouble is that, and of course, after a certain amount of time, what's frustrating is that after a certain amount of time, no one will be using it. "
+  },
+  {
+    "start": 7010.552,
+    "end": 7036.801,
+    "speaker": "SPEAKER_03",
+    "text": "It will all agree with me. But the issue is, how do you know when that could come up with things like threads could decrement a counter when they're done or something. But then that's going to be expensive. That's going to kill the performance. That's why I said it's pretty fascinating that there's not really any way of knowing when everyone's done with the old structures. even though you know that they will be very soon, but know when they are. It's just very hard to reason about. "
+  },
+  {
+    "start": 7036.861,
+    "end": 7040.762,
+    "speaker": "SPEAKER_02",
+    "text": "Yes. Thinking about . I'm sorry, I'll give you a few minutes because it's quick. "
+  },
+  {
+    "start": 7091.036,
+    "end": 7100.562,
+    "speaker": "SPEAKER_00",
+    "text": "It doesn't matter. It doesn't matter. It doesn't matter. "
+  },
+  {
+    "start": 7159.225,
+    "end": 7187.338,
+    "speaker": "SPEAKER_00",
+    "text": "Theoretically. I just think it's a machine. I think it's a different machine than the light. I think we'll stop it right now. Wait, what are you running this on? I'm running it on the left. I'm running it on the right. Are you running it on your Mac? No. I need to change it. I need to change it. I need to change it. I need to change it. "
+  }
+]

@@ -1,0 +1,1262 @@
+[
+  {
+    "start": 246.48,
+    "end": 273.79,
+    "speaker": 0,
+    "text": "How's whack? Going. You've got another deadline like tomorrow. Next week. Is that the extension? So what have you chosen for your extension? Multiple extensions. Bravely. ",
+    "model_probability": 0.3011
+  },
+  {
+    "start": 275.85,
+    "end": 278.81,
+    "speaker": 2,
+    "text": "I should stop because we're recorded, aren't we? Good, let's get going. ",
+    "model_probability": 0.1961
+  },
+  {
+    "start": 296.25,
+    "end": 330.8,
+    "speaker": 0,
+    "text": "So welcome to the next to last Compilers course. It's a Compilers lecture this term. There's another one next week, and that will be the end of it. My plan for today is to try and deal with likely or actual student questions around the lecture video, which I hope you watched, on SSA and loop invariant code motion. Remember this? Badly, some of you. ",
+    "model_probability": 0.9941
+  },
+  {
+    "start": 331.04,
+    "end": 367.04,
+    "speaker": 0,
+    "text": "I hope we will have time today to start on the final section, which is actually a new section, so there are no pre-recorded videos, so you can get to compare Paul Kelly as a pre-recorded voice versus Paul Kelly as a live experience. The topic is this. This is where we're going next. It's to do with, can we execute programs like these functions or loops like these in parallel? Either in parallel because you have a multi-core CPU, and so we could have a thread for each chunk of a loop, for example. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 367.96,
+    "end": 407.19,
+    "speaker": 0,
+    "text": "But if you did that, you need to be sure that the iterations of the loops are independent of one another, and that's what you need your compiler to verify. Actually, I'm mostly going to talk about vectorization, where we also execute in parallel, but we do so using vector instructions. You might remember that from the very beginning of the course. I'll say much more about that when we get on to this material, but what I'd like to do for the first part of our session today is actually talk about the part three of chapter seven that you watched. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 408.77,
+    "end": 434.41,
+    "speaker": 0,
+    "text": "Let me just flip to that material. And as usual, we have the Google Doc, in which I've invited you to put an X next to something that you thought was confusing. So of all 200-and-something students, not one of you thought that any of my examples A to B. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 435.17,
+    "end": 454.58,
+    "speaker": 2,
+    "text": "LAUGHTER Uh-huh. LAUGHTER Now I want to know what they wrote. What happened there? ",
+    "model_probability": 0.9976
+  },
+  {
+    "start": 455.26,
+    "end": 495.03,
+    "speaker": 0,
+    "text": "I mean, that is why I put this up on the screen every time is because you could actually edit this live, hopefully politely. So nobody thought that there was a problem with examples A, B, C, and D. Conditions for hoisting a node, which is what examples A, B, and C, and D were about, if you remember. Because A works, but B, C, and D, the expression was loop invariant, but moving the node it's in, the instruction it's in, out of the loop, turned out not to be valid. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 496.15,
+    "end": 529.51,
+    "speaker": 0,
+    "text": "And so we talked about the conditions under which that's true. The next thing that I did in the lecture, I showed you We identified a condition for determining that an expression or a line of code or an operation is a candidate for loop invariant code motion. We then identified an example where that just works, and we can take a line of code that's relevant reaching definitions, only reach it from outside the loop, remember that? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 531.03,
+    "end": 566.88,
+    "speaker": 0,
+    "text": "We can take a line of code that satisfies that condition, move it out into the pre-header of the loop. Remember pre-headers? Just before the header of the loop, just before the entry to the loop, and everything's just fine. That was example A. Then I showed you examples B, C, and D where that doesn't actually work. I showed you some conditions to check. whether such a code motion would be valid or not. We can revisit those conditions if you like. The next section though was where I showed you this SSA idea. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 568.18,
+    "end": 570.12,
+    "speaker": 0,
+    "text": "I wonder what you thought of SSA actually. ",
+    "model_probability": 0.9868
+  },
+  {
+    "start": 580.87,
+    "end": 617.24,
+    "speaker": 0,
+    "text": "I mean, it's a compiler architecture choice whether to use the SSA representation or not. You might wonder whether you even like it, whether it solves a problem that you care about. Has anybody tried to implement SSA in your compiler? I think Jamie advises you not to, right? Because I showed you SSA, and I showed you how it solves some problems, but I didn't teach the algorithms for transforming your code into SSA, or the algorithm for transforming it out again. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 617.48,
+    "end": 654.26,
+    "speaker": 0,
+    "text": "Though I gave you a pretty good sketch of how it could be done. It turns out, if you go look in the textbooks, algorithms for doing that... are a little bit complicated because there are quality issues. You want to do it in an optimal way and that gets a little bit beyond the scope of what we could reasonably do in the time that we have for this course. SSA, as you, I think, have seen, Because I think I showed you some of the intermediate representation architecture of different compilers of LLM and GCC. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 655.04,
+    "end": 693.33,
+    "speaker": 0,
+    "text": "And basically, they all use SSA. So if you're interested in MLBM, MLIR, this kind of compiler technology, overwhelmingly successful in the market, widely used for compilers for multiple general-purpose programming languages, but also widely used in domain-specific compilers like deep learning compilers, for example, and they all use SSA. So it's a key technology and it's just at the frontier of what we don't quite have time to do properly in this course. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 694.73,
+    "end": 730.51,
+    "speaker": 0,
+    "text": "What else are the other questions we have here? Yeah, these are interesting questions and we should perhaps try and remember them as we go forward. Did anybody try the tutorial exercise on points to analysis? Cool. You were looking around to see if you'd be alone. Congratulations. One of the reasons I like points to analysis is that I had a PhD student who did a PhD on it. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 730.73,
+    "end": 784.19,
+    "speaker": 0,
+    "text": "His algorithm was actually implemented in GCC and essentially adopted also in LLVM and a bunch of other compilers like the Go compiler and so on. It's a fascinating business. Incidentally, my conclusion on points to analysis is that you can do what I described in the coursework, in the tutorial. You can do a bit more than that, but fundamentally, it doesn't work very well. So programs that give you pointers into heap-based objects that invite the programmer to build complex data structures in the heap, it's really, really hard for your compiler to determine statically at compile time whether two pointers might point to the same object. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 785.7,
+    "end": 826.25,
+    "speaker": 0,
+    "text": "If the pointers have different types, then you probably know that they don't. If they were allocated from different mallocs or different new operations, then you know that they don't. But they could easily be allocated from the same malloc line of code and they might be the same or different because they may have arisen from different executions of that line of code. So it's pretty complicated and fundamentally doesn't work very well, which leads you to draw conclusions about things like the effectiveness of automatic parallelization that I'm going to talk to you about shortly. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 827.71,
+    "end": 862.84,
+    "speaker": 0,
+    "text": "But let's get back to this lecture for a minute. All right. So these are the four examples that I taught you about in the lecture. I hope you agree with me on all of this. The more intro, well, right, this was the summary, right? So in this case, everything went swimmingly. This one, moving that blue line of code, breaks this program for the case where the loop is executed zero times, right? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 865.58,
+    "end": 908.64,
+    "speaker": 0,
+    "text": "and you might think about what your compiler could do to verify that you have a good case, not a bad case like this one. In this case, the condition that I've framed here, the loop invariant node doesn't dominate all of the loop exits. So the line of code there, the line of code that's currently crossed out, The question is, is there a pathway from the start L0 through that blue loop invariant line to the loop exit, which is L2 basically. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 908.66,
+    "end": 949.87,
+    "speaker": 0,
+    "text": "There is a path. The question is, is it the only path? That's the dominator question. Is it the only path or is there a way around it? There totally is. That's what the if does. So I think that condition properly characterizes the problem that we've identified here. Happy? What's going on with this one then? That one is easier, I think. So in this case, the problem here is that t is reassigned and then that new value of t is used. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 951.16,
+    "end": 981.17,
+    "speaker": 0,
+    "text": "The T that we're supposed to get when we go around the loop is the one from the second assignment. But this example throws some light on the heart of the problem, I think, which is that A plus B is a loop invariant expression. T equals A plus B. is not a movable instruction unconditionally. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 982.5,
+    "end": 1007.47,
+    "speaker": 0,
+    "text": "It's the fact that this assigns to T that's the problem. Indeed, you might think what we could have done is assigned A plus B into some new variable T prime or something that might have provided a way out. That thinking takes you to SSA basically. All right, and what about this one? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 1017.8,
+    "end": 1041.19,
+    "speaker": 0,
+    "text": "So the problem here was that that first use of T after L1, the MJ equals T, was supposed to be, on the first iteration of the loop, that was supposed to be T equals zero. But this blue loop invariant code motion changes that. So the condition, do you think this condition handles it? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 1056.16,
+    "end": 1087.23,
+    "speaker": 0,
+    "text": "What does it even mean? So, T is the target of the loop invariant code motion candidate instruction T equals A plus B. And if we go look at the preheader, the node immediately preceding the loop header, the question is, is T live out from that point? Now, T is defined before that point. So, the question is, is it used after that point and it totally is? Is it used before it's overwritten? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 1087.43,
+    "end": 1120.49,
+    "speaker": 0,
+    "text": "It totally is. All right. So what I've done is a bit hand-wavy actually. I've given you three examples where loop invariant code motion is invalid, and from each example, I've derived a different condition that you should test in your compiler to validate that this code motion is valid. What I haven't, I haven't proven anything, but I certainly haven't proven that these are sufficient conditions. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 1121.95,
+    "end": 1153.07,
+    "speaker": 0,
+    "text": "There might be other conditions. I think there aren't, but there might be others. Another way to think about this question is to ask whether the transformation that you're applying, like this looping around code motion, does it change the reaching definitions or the relevant reaching definitions? I think in each of these cases, it does, and that's why the code is broken. Happy? ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 1154.41,
+    "end": 1190.08,
+    "speaker": 0,
+    "text": "There are some happy people over there. Good. We'll move on. So the comment from this here is that this is all a little bit messy and that's motivating this SSA idea. So you remember this slide. So actually just before this slide, there was a slide that talked about this in straight line code terms. So if we have a straight line code sequence with our variables A, B, and C, it's possible that some variable, perhaps B, is overwritten or reused in this sequence for different values. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 1191.1,
+    "end": 1225.11,
+    "speaker": 0,
+    "text": "So wouldn't it be smart to just give them different names when they're reused? And that's the starting point for the SSA idea. But it becomes a bit of a mess with control flow. And that's what the spy thing is for. So in this example, A is reassigned in two different branches of this condition. So when we get to here, we don't really know which A. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 1226.35,
+    "end": 1260.85,
+    "speaker": 0,
+    "text": "We could say the relevant reaching definitions for that A, that line, are both of those assignments to A. What SSA does is it says every use has exactly one relevant reaching definition. And there it is, A3. But we solve the problem that in fact there are two using this phi trick. What do you think of that trick? ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 1271.39,
+    "end": 1274.61,
+    "speaker": 0,
+    "text": "How does it really help though? ",
+    "model_probability": 0.9759
+  },
+  {
+    "start": 1286.69,
+    "end": 1318.39,
+    "speaker": 0,
+    "text": "What does it let you do? So what I've tried to show in the examples is that it actually makes problems go away. Which was my attempt to answer your question. Should we look at an example? Well, I showed you examples in the lecture. My intent in showing the examples was to illustrate the answer to your question. ",
+    "model_probability": 0.9974
+  },
+  {
+    "start": 1319.19,
+    "end": 1351.65,
+    "speaker": 0,
+    "text": "Let me try and show what happens. So this is the first example where loop invariant code motion was already valid. What we've got here is a reassignment of T, though actually in this example, it's a little bit weird because the first assignment of T is dead. It's never used. So this one's trivial. So we need a better example. Let's look at C, for example. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 1354.31,
+    "end": 1384.34,
+    "speaker": 0,
+    "text": "So in this case, the problem was that there were there was a reuse of T for something else, right? T was reassigned. So in this case, the answer to your question is that just giving them different names makes this problem completely go away in a pretty straightforward way, I think. Yeah? ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 1384.36,
+    "end": 1416.55,
+    "speaker": 0,
+    "text": "Yeah? So, in this case, we didn't even need a phi. It was just the renaming that makes the problem just go away. Say that again. Yes. So, the problem with moving up T1 before was that it gave us the wrong value for... ",
+    "model_probability": 0.9985
+  },
+  {
+    "start": 1472.49,
+    "end": 1503.79,
+    "speaker": 0,
+    "text": "Let's look at the next one. So B is more fun because in this case, we need a phi. So what happens here? So we have two names, T1, T2, one for the T that arrives along the control flow arc going into the loop, and another for the T that reaches round the loop. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 1505.07,
+    "end": 1536.93,
+    "speaker": 0,
+    "text": "But no, it doesn't reach around the loop. Right, so the issue at stake here is what do we get in the zero trip case here? And the answer is that we get whatever T3 was. So in SSA terms, we... ",
+    "model_probability": 0.9981
+  },
+  {
+    "start": 1542.66,
+    "end": 1554.26,
+    "speaker": 0,
+    "text": "So we should... What am I doing here? What have I done? ",
+    "model_probability": 0.9883
+  },
+  {
+    "start": 1565.95,
+    "end": 1603.76,
+    "speaker": 0,
+    "text": "Yep, that's what I wanted to show you. In SSA terms, this is fixed. So the question now is how do we get back to executable code from the SSA? The answer was this. So what we're showing here in red is how PHY is implemented. The thing to notice The thing to think about when you look at this is to think about what the control flow graph looks like. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 1604.3,
+    "end": 1639.53,
+    "speaker": 0,
+    "text": "Because this is all about where the control flow joins are. So the phi is at the control flow join. Read my lips, that's what phi's are for. They're for dealing with different values of T that arrive along different control flow arcs that meet at a join. When we try to go from a PHY to here, what we have to do is to propagate the assignment to T3 along the two preceding edges that meet at this join. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 1641.33,
+    "end": 1791.21,
+    "speaker": 0,
+    "text": "So the PHY sits at a control flow join, and to implement it, what we do is we copy T3 equals one, T1 along the incoming edge, and T3 equals T2 along the back edge, the one that's joining. Yes. So, what happens if the operation to calculate T2 emits an error? What happens if the operation to calculate T2 emits an error? So what we've done here is we've modified this code so that the instruction is unconditionally executed, whereas previously it was conditionally executed. So we might notice that in the zero trip case, we might have actually slowed our program down by putting stuff into the hot path, and if that operation were divided by zero, or it was a load instruction that caused the page faults, then this wouldn't be valid. So maybe I should have added that to my list of conditions. We need to precondition the operation is safe. I think we do. Yeah. Say that again. Yeah. You can't control if the code page faults. I mean, if that operation A plus B were something like an array subscript operation that loads from memory, if it was a load operation from an array, right? Now, the if-then-else might have been to check whether the subscript was calculated correctly and was in bounds. Maybe. We don't have bounds checking, but you could have programmed bounds checking, right? You could have a loop that says, is i less than n? And if it's less than n, then you might presume that it's therefore a safe and valid index into my array. But if we move the load instruction out of the loop, then we're moving it past that safety condition that you wrote as a programmer, and we're executing this code unconditionally, regardless of whether the index was safe or not. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 1793.57,
+    "end": 1845.77,
+    "speaker": 0,
+    "text": "And what happens if you do that is you get a page fault due to the code motion, so your program will fail instead of running faster. So it's a really, really good point. But how do you determine if the if statement is something new? You mean... So, I think you might say, if this is a load instruction from a calculated address, then it's not safe to move it upwards through a conditional, right? Because you're making it unconditionally executed and you don't really know what the condition means. it may well be that it's a consequence of the condition that the access is safe. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 1852.64,
+    "end": 1890.05,
+    "speaker": 0,
+    "text": "There is an escape from this in some instruction sets. So, for example, if you come to my advanced computer architecture course, I cover a fantastic... Yeah, I know, I said it before. We cover a fantastic architecture that I really love, but it's completely dead. But what do you do? It's called Itanium. Some people call it Itanic because it sank without trace. Itanium is an instruction set designed to enable the compiler to do things which often in more modern architectures, the architecture will do in hardware automatically. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 1891.17,
+    "end": 1922.65,
+    "speaker": 0,
+    "text": "One of the things that you can do in Itanium is you can have a load instruction and you might want to move the load earlier for various reasons. It might be loop invariant or it might just be that you want the hardware to start fetching this data sooner so that when you finally need it, it's already ready. The trouble is that if you move it past the condition that tests whether this address is safe, then this load instruction might cause an unwanted page fault. Does this make sense? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 1925.22,
+    "end": 1962.66,
+    "speaker": 0,
+    "text": "So in Itanium, there's a special version of the load instruction that says, load this value into a register from this address. And if it turns out to be invalid, just mark the register to say, whatever this register contains, it's not a thing. And if anybody uses it, throw an exception. All right? Now, when you come to actually use that value, you check whether it's marked as not a thing. If it was marked as not a thing, you redo the load instruction so that if it fails, if it faults, you fault in the right place. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 1963.96,
+    "end": 2007.56,
+    "speaker": 0,
+    "text": "But if it's marked to say it's a perfectly good thing, then you know that in fact it was a safe access and you've successfully moved it out of your loop. What do you think? Did this work well at all? Yeah, I think it did. almost all processes have prefetch instructions, where you don't say prefetch this value into a register, but you do say prefetch it into the cache, so that when I do load it, it will be a cache hit. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 2007.64,
+    "end": 2039.19,
+    "speaker": 0,
+    "text": "Prefetch instructions do indeed cause data to be accessed, even though, or at least an attempt to access the data is made, even though the address might not be valid. If the address is not valid, then the prefetch silently fails. Then when you come to access the data, the data is not in the cache. Instead, you get a page fault in the right place. So, Itanium is kind of just giving you a prefetch instruction that loads data into a register. So, it's not so crazy. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 2046.45,
+    "end": 2049.69,
+    "speaker": 0,
+    "text": "So, thank you. I should add that to my list of side conditions. You're right. ",
+    "model_probability": 0.9743
+  },
+  {
+    "start": 2094.56,
+    "end": 2104.71,
+    "speaker": 2,
+    "text": "Is there a way for us to go through the loop conditions and evaluate those constants once, like when we first enter the loop? ",
+    "model_probability": 0.9923
+  },
+  {
+    "start": 2108.74,
+    "end": 2156.42,
+    "speaker": 0,
+    "text": "You're asking whether, suppose this were a load instruction, and suppose the condition checks the index of the load instruction, whether we could lift the condition with the load. I think that's what you're asking, is that right? I guess you probably could. Possibly, I don't know. It'd be fun to try with Compiler Explorer and see if you can get a compiler to do it. A very common trick which often gives you some of that effect, I think, is what people call loop peeling. where what you do is you make two copies of the loop body. ",
+    "model_probability": 0.9957
+  },
+  {
+    "start": 2156.89,
+    "end": 2221.34,
+    "speaker": 0,
+    "text": "One of them is, for example, for the very first iteration, and then the second copy is for the subsequent iterations. And so you may be able to move things out of the second copy, but not out of the first, for example. That sometimes works. Is it idiomatic? Is it idiomatic? What do you mean? Is it something that more than compilers usually do? So loop peeling is definitely something you see compilers do for different purposes, for various different purposes. Yeah. In general, there's a thing called loop index splitting, where you don't just peel off one iteration. You might say, well, if you have a loop and there are some indices of that loop where a nice condition holds, and there are other indices where that nice condition doesn't hold, then you could split the loop into two and execute the first plot with this version of the code where you've exploited the nice condition, and then execute the remaining iterations where the nice condition isn't true. ",
+    "model_probability": 0.9957
+  },
+  {
+    "start": 2251.55,
+    "end": 2258.27,
+    "speaker": 0,
+    "text": "So we've talked about SSA. Are there any more questions about SSA? Are there any questions that came up here? ",
+    "model_probability": 0.953
+  },
+  {
+    "start": 2275.78,
+    "end": 2282.77,
+    "speaker": 0,
+    "text": "So let me just comment on... I thought you were watching the screen. ",
+    "model_probability": 0.9135
+  },
+  {
+    "start": 2296.51,
+    "end": 2326.8,
+    "speaker": 0,
+    "text": "Right. So, it's called single assignment form, but at runtime, we might assign to an SSA variable many times once per iteration. That's absolutely true. So, it's static single assignment in the sense that statically, when you look at the code, each variable is only assigned to once. statically, each use has one static relevant reaching definition. ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 2328.2,
+    "end": 2374.41,
+    "speaker": 0,
+    "text": "At runtime, there may be many runtime instances of these instructions. So SSA makes promises about static, but it doesn't quite translate into a guarantee about the dynamic single use property. You might compare this with a purely functional programming language. I think the way to think about it is to understand that phi is, I'm not sure I'm prepared to make this argument quite stand up, but phi is like some lambda-like thing. ",
+    "model_probability": 0.9985
+  },
+  {
+    "start": 2375.51,
+    "end": 2407.58,
+    "speaker": 0,
+    "text": "What it's doing is it's creating a fresh, name in a fresh scope for T3. So for each instance of that scope, we have a single assignment property, but that name obviously gets reused for different values on different iterations of the loop. You see this when you write a recursive function. Recursive function has a parameter x, Different instances have different values of x. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 2407.76,
+    "end": 2439.97,
+    "speaker": 0,
+    "text": "It's not like x only ever stands for the same thing. Because it's a Lambda bound variable, it gets bound to different things. I think that's the same thing that's going on here. There are research papers that make this connection between functional programming and SSA much more concrete. Converting to SSA introduces lots of new variables. Does that mean we need more registers? Somebody asked this question. Would anybody like to have a go at answering it? ",
+    "model_probability": 0.9983
+  },
+  {
+    "start": 2448.7,
+    "end": 2450.82,
+    "speaker": 0,
+    "text": "Yeah, go on. ",
+    "model_probability": 0.9463
+  },
+  {
+    "start": 2451.36,
+    "end": 2469.28,
+    "speaker": 2,
+    "text": "No, right, because if we do reassignment, then anyway, like for instance, if we did lightness analysis, the reassignments were also treated as a new light ranges for the variable, so we would Yeah, I think that's where I'm coming from. ",
+    "model_probability": 0.9859
+  },
+  {
+    "start": 2469.32,
+    "end": 2499.58,
+    "speaker": 0,
+    "text": "So if we imagine some code and before SSA, we've got a block here that uses some variable T and we've got a block here that uses the same variable T. After SSA, this is using T1 and this is using T2. Now, by construction, it must be safe to assign T1 and T2 to the same register because they came from the same variable. Your graph coloring register allocator probably does that for you. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 2500.48,
+    "end": 2523.09,
+    "speaker": 0,
+    "text": "In fact, it probably does something even better because it might be that the best register to use or the spilling decisions that you should make may be different for this use of T from this use of T. It might be helpful that the live range has been split by T1 up here and T2 down here, having a section in between where T isn't used at all. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 2526.39,
+    "end": 2533.47,
+    "speaker": 2,
+    "text": "Yeah. Let me try and get, what is the matter with this thing today? ",
+    "model_probability": 0.9596
+  },
+  {
+    "start": 2557.58,
+    "end": 2613.05,
+    "speaker": 0,
+    "text": "Example B, you were asking about, right? So, say that again. Yeah, so in B, it's not very complicated. The actual code is on the code, right? Yeah, this one. We have to know what D3 and D2 are for this. In fact, all the way to the end. All right. All right. So your point is that the optimization caused us to need an additional register. So the question was whether SSA caused us to use an additional register. But actually, I think what's happened here is that it's the loop invariant code motion that caused the use of the extra register. And that's not so surprising, right? If you move something out of a loop, you should expect its live range to span the entire loop. ",
+    "model_probability": 0.996
+  },
+  {
+    "start": 2613.94,
+    "end": 2629.92,
+    "speaker": 0,
+    "text": "But before you moved it out, its live range might not have spanned very many constructions at all. Does that make sense? Cool. Good. Why is this so broken today? It normally works just fine. ",
+    "model_probability": 0.9977
+  },
+  {
+    "start": 2650.07,
+    "end": 2684.03,
+    "speaker": 0,
+    "text": "That's what I wanted. Converting out of SSA creates copy instructions, which could cost as much as or more than the operations we're trying to move out. That's true, but we should bear in mind that when we do register allocation, we might be able to fix it so that the... ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 2684.93,
+    "end": 2735.13,
+    "speaker": 0,
+    "text": "Well, it's not true in this case, is it? I was going to say, you might be able to assign T3 and T2 to the same register, so this instruction doesn't really have to be executed at all. Doesn't quite work here, does it? Yeah, so that's a pretty fair comment. I think we should certainly keep count of that. What else have we got? Okay, are there any more questions about SSA or anything from part three? Oh, there are more questions down here, aren't there? ",
+    "model_probability": 0.9977
+  },
+  {
+    "start": 2758.77,
+    "end": 2800.32,
+    "speaker": 0,
+    "text": "This one looks like, oh, that's an old one. Let's talk briefly about some of these. How about this bounds check elimination one? Suppose that we have an example of a for loop for i equals one to n, and then inside the loop we have an expression that uses a square brackets i. ",
+    "model_probability": 0.9947
+  },
+  {
+    "start": 2803.95,
+    "end": 2838.26,
+    "speaker": 0,
+    "text": "Now, in a civilized programming language, we would like to check that every time we access i with a subscript, that the access is within the bounds of the array a. But it would be really nice if we didn't have to do that check on every iteration of the loop. So, what do you think? Let me try and fix this stupid thing. ",
+    "model_probability": 0.9979
+  },
+  {
+    "start": 2857.23,
+    "end": 2887.33,
+    "speaker": 0,
+    "text": "Ah, it's not here after all. So actually, at the beginning of the lecture, I showed you these three examples, but let's just look at that very top one for a moment. So for i equals 0 to 123, the 1,023, we do some accesses to an array, to three arrays, a, b, and c, with index i. ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 2889.46,
+    "end": 2933.48,
+    "speaker": 0,
+    "text": "If you did this in Java, you would expect your compiler to check every time you access array A, B, or C, that there's a runtime check that the index I is within bounds. The question is, what could we do to make that more efficient by not having to check on every iteration? I'm asking you, what could you do? So if we knew the size of A, B, and C at compile time, then we could determine the outcome of that bounds checking condition at compile time. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 2934.48,
+    "end": 2969.1,
+    "speaker": 0,
+    "text": "We could determine, well, what you're really reasoning is, what's the range of values that I could take? Is that right? So you look at the bounds of array A, and you ask, well, what are the bounds of array A? Maybe it's 0 to 10,000. and you look at the range of values that I could take, 0 to 1024, you say, oh, that's safely within the range, so we're okay. Yep. So you suggested that if we knew the array bound size, that the array size at compile time, we could fix it. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 2970.21,
+    "end": 3000.71,
+    "speaker": 0,
+    "text": "And furthermore, I mean, I've given you the constant here, right? So we're knowing the range of I also at compile time. Right, now we're talking. So if you didn't know, so we don't really know where A, B, and C came from, perhaps there were function parameters or something, but we could put some code just before this loop that queries array A and says, what's your lower bound, what's your upper bound? ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 3002.57,
+    "end": 3033.69,
+    "speaker": 0,
+    "text": "And now before the loop, we could ask, is I below the lower bound? I've got this lower bound. Yeah, and is 1024 above the upper bound, right? But we might even have a loop for i equals 0, i less than n, right? Or some other expression that we don't know at compile time, but we do know just before we enter the loop. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 3034.41,
+    "end": 3076.43,
+    "speaker": 0,
+    "text": "So we could do that test. We could insert code that queries the sizes of the arrays. How is it that we do know the range of values I could possibly take? Well, in this case, it's easy because it's a for loop, right? If this was C, it's just possible that somewhere in the loop, somebody changes the value of i. but not in a civilized programming language. . Yeah, you can probably do it in Python. I think that supports my argument. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 3087.6,
+    "end": 3131.83,
+    "speaker": 0,
+    "text": "Right. Basically, what you want to know is the array is indexed with an induction variable. If the array is indexed with an induction variable, then we should be able to reason about the range of induction variables. Well, we might not. So a while loop could still have an induction variable. We might not know how many iterations it would execute, but we do know that i is incremented by one on every iteration. But it's very common that there's some kind of condition that limits the number of iterations your loop can execute, and that will couple all the induction variables in the loop, and hopefully will tell you about the value ranges for the subscript expressions. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 3135.99,
+    "end": 3168.93,
+    "speaker": 0,
+    "text": "What do you think? So this should work, but it doesn't work all the time, does it? For example, Suppose that we have an array of integers, and we use that array as pointers into another array. So we have an access that is a square brackets, b square brackets, i. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 3168.95,
+    "end": 3189.3,
+    "speaker": 0,
+    "text": "So b is the index array of integers, and a is an array that's being pointed to by the integers in array b. In that case, to do bounds checking, we'd have to be able to reason about all the distinct integer values that could be in that index array. Maybe you can, but it's a harder problem. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 3201.59,
+    "end": 3208.39,
+    "speaker": 0,
+    "text": "What else have we got? Should we do the transpose? ",
+    "model_probability": 0.9757
+  },
+  {
+    "start": 3220.22,
+    "end": 3253.62,
+    "speaker": 0,
+    "text": "So there was a question about this code, this example that I showed you in the lecture. Do you remember? Has anybody tried it, by the way? I tried it last night on a couple of different machines. And you get very different numbers. And actually, on the machines that I tried it, this number was maybe five to seven seconds. And this number was usually 0.5 to one seconds. ",
+    "model_probability": 0.9985
+  },
+  {
+    "start": 3254.06,
+    "end": 3300.9,
+    "speaker": 0,
+    "text": "So the speed up on modern hardware is not quite as dramatic as the speed up that you see here. That's what I found anyway. But it's a big speed up, right? It's a big dramatic change. What's going on? Locality. That's what it's all about. So the first thing to observe is that this code executes this line of code exactly the same number of times as the original code. So there's no change to the total amount of work that's being done. It's all to do with how efficiently your computer hardware can actually execute those particular instructions. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 3304.21,
+    "end": 3344.32,
+    "speaker": 0,
+    "text": "So what does this code do? Well, have a look for a moment at this pair of loops for i for j. So for i for j, this starts at whatever ii was, initially zero. This one starts at whatever JJ was, initially 0, and it goes up to, well, 0 plus some block size, in this case 16. So you might think that this code is basically a copy of the original loop on a chunk of the array of size 16 by 16. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 3350.02,
+    "end": 3367.01,
+    "speaker": 0,
+    "text": "or a chunk of the iteration space of size 16 by 16 because there are two arrays, right? So what's going on? There was a comment over there that it was something to do with locality. ",
+    "model_probability": 0.9972
+  },
+  {
+    "start": 3384.65,
+    "end": 3423.02,
+    "speaker": 0,
+    "text": "The computer loads in the neighboring elements in the cache. Right. So this brings us to the question of what do you know about caches? What do you know about caches? I know you know something about caches. What are you supposed to know about caches? You know something about caches, right? We know that they're of limited size. So the big cache idea is that we've got an enormous memory, but it's a bit slow. So what we do is every time we access something from the memory, we keep a copy of it in the local fast memory, just in case we actually access that data again. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 3424.6,
+    "end": 3455.12,
+    "speaker": 0,
+    "text": "So this is a familiar idea from pretty much any practical situation. But that local fast store is of limited size, because if it weren't, it would be as big as the original memory, and then we'd be back to square one. Did I talk to you about wire length in the previous lecture? About how in a big memory, data has to travel a long way? I did talk about that, didn't I? Did I? I can't remember. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 3458.88,
+    "end": 3518.64,
+    "speaker": 0,
+    "text": "So there's another comment over here. Has it gone? If two transposes are so different, why didn't we learn about this when studying? I typed that question. Somebody just put an X on it. Yeah. So you know how when you reason about an algorithm and you do an asymptotic analysis, you do a big O analysis. So you're trying to reason about the... the function on the input size and that yields some measure of the execution time of the algorithm. As the input size gets bigger, you expect the execution time to get bigger. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 3518.9,
+    "end": 3551.94,
+    "speaker": 0,
+    "text": "Usually, the complexity theory people will count something. when they do that. So for often when you're looking at sort algorithms, for example, you count comparisons. You might in general count instructions. You could even count memory access instructions. I'm here to tell you that not all memory access instructions are equal. In this example, this code does exactly the same number of loads and stores as that code does. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 3554.91,
+    "end": 3597.66,
+    "speaker": 0,
+    "text": "but they are taking much, much less time. Why? Well, if you imagine a computer on one side and an enormous RAM on the other side, then when the processor accesses some data, it has to send a message to wherever the data that it wants is in the enormous RAM. Then a message has to go all the way back So there's this electrical signal that leads to travel the distance from the processor where the address was computed to the physical location where the data lives and back again. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 3597.7,
+    "end": 3629.54,
+    "speaker": 0,
+    "text": "Then the processor receives that data, makes some decision, and then accesses some other memory location. If we make the memory bigger, that wire length, that distance has to get longer. So simple algorithms that operate on all of the memory, like loops over arrays that access all of the elements of the array, those algorithms have worse than linear complexity. Guaranteed. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 3631.56,
+    "end": 3670.61,
+    "speaker": 0,
+    "text": "Because the wire length is increasing at a worse than linear rate. Do you believe me? The correct answer is kinda. So everything I've said to you is kind of true, but you could do some pipelining for example. So if your program accesses all of the elements of a huge array, then you might think, do I have to wait for the message to come back before I send the next message out? ",
+    "model_probability": 0.9974
+  },
+  {
+    "start": 3670.89,
+    "end": 3703.75,
+    "speaker": 0,
+    "text": "No, I can send a stream of messages out to the memory to access different locations back to back along the wire. Then I can receive a stream Now, the rate at which the data is being delivered could be very, very high, even though the time it takes for an individual access to take place might be quite large, the throughput will be very big. So, it's a complicated business. Caches are the strongest magic we have for fixing it. They fix it for both performance and energy, by the way. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 3706.87,
+    "end": 3747.01,
+    "speaker": 0,
+    "text": "Right. So, how do caches work? Damn, I thought I'd fixed this slide. What did I do with it? Which slides are we in? Whoops, I messed up. I did mess up and we're running out of time. ",
+    "model_probability": 0.9548
+  },
+  {
+    "start": 3760.84,
+    "end": 3763.51,
+    "speaker": 2,
+    "text": "This is the slide that I had for you here. ",
+    "model_probability": 0.8979
+  },
+  {
+    "start": 3765.53,
+    "end": 3796.0,
+    "speaker": 0,
+    "text": "I'm not sure if it tells the whole story, but it's at least the beginnings of an attempt. So, first, there are two key things to understand, possibly three. The first one is how is a two-dimensional array laid out in memory? And what do you know? It's probably laid out row by row like this, right? It could be that it's laid out column by column. Some people do it that way around. Doesn't matter. Same principle applies. ",
+    "model_probability": 0.9983
+  },
+  {
+    "start": 3796.78,
+    "end": 3835.45,
+    "speaker": 0,
+    "text": "And in fact, this code will have the same problem. So that's the first thing to realize. Now have a look at the code at the top, the original code. It's an IJ loop. So the fast varying index of that loop is J. And let's look at the way the arrays are subscripted. So array B is indexed by J. So the assignments are walking through the array, walking through each row one step at a time, which is a good way to work. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 3836.88,
+    "end": 3868.05,
+    "speaker": 0,
+    "text": "But the reads, the loads from A are working in a worse way, right? Because what we do is we access element A00, and then the next thing this code does, because J is varying, is we access element A10. And because it's laid out in row major order, these elements are distributed through memory. They're at the beginning of each of the rows in our storage layout. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 3871.77,
+    "end": 3909.96,
+    "speaker": 0,
+    "text": "The next thing to know to understand what's going on here is the way the cache works. The cache probably stores data in blocks of 64 bytes or some such number. 64 bytes is 16 32-bit words. So when we access, when we load an element from A, we get the access element 00 that we were looking for and we get 15 more words allocated into the cache in case we access them again soon and transferred from the memory. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 3913.08,
+    "end": 3949.3,
+    "speaker": 0,
+    "text": "Then the very next thing we do is we do it again over here. The cache is designed for the case where the very next thing you do is probably access the very next element of this row. But in fact, what you're going to do is to access the first element of the next row. You're going to access 16 more words, and you're going to fill 16 elements of your cache, but only use one element of it. The third thing you should know, of course, is that the cache is of limited capacity. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 3950.64,
+    "end": 3985.0,
+    "speaker": 0,
+    "text": "Because if the cache was big enough, this wouldn't be a problem. Because eventually, we'd get to the end, we'd access all of the elements in column zero, we'd start accessing the elements in column one, we'd start accessing elements in column one. We'd go around and we'd start accessing the next elements here. If the cache was big enough, these cache lines would still be in the cache and we'd be fine. But the whole point of a cache is to be small and fast, so it probably isn't. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 3985.02,
+    "end": 3995.41,
+    "speaker": 0,
+    "text": "In which case, we get a cache miss and we load 16 words again. Got it? Yeah. ",
+    "model_probability": 0.9985
+  },
+  {
+    "start": 3995.63,
+    "end": 4005.93,
+    "speaker": 2,
+    "text": "For write, I understand that you have to wait for it to be loaded in the cache because you actually need its value. But for the read, can't you just tell it to change it in the memory? ",
+    "model_probability": 0.9964
+  },
+  {
+    "start": 4007.32,
+    "end": 4041.83,
+    "speaker": 0,
+    "text": "You mean the other way around. The load instructions, we have to wait for the data to arrive. But for the stores, we can kind of fire them off into memory and not have to wait. So you could try, I actually haven't tried it, you could imagine flipping the left-hand side and the right-hand side of that assignment. So now the loads would be good, right? Because they'd be contiguous, and the stores would not. Um... And it's worth trying. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 4041.85,
+    "end": 4082.0,
+    "speaker": 0,
+    "text": "I have a bad feeling it's going to go very, very badly for various reasons. One of them is that what happens when you store to a cache line is the first thing the machine does is it loads the whole cache line into your cache so that when you do a store to part of it, the other elements are valid. Now, it's not the only way to build a cache, but it's a very good bet that if you've loaded something into the cache, if you've stored two memory, it's likely you'll load from that memory location soon. ",
+    "model_probability": 0.9976
+  },
+  {
+    "start": 4082.1,
+    "end": 4112.22,
+    "speaker": 0,
+    "text": "So, cache is often optimized for that case. Hey, this is a good topic. We spent some time on it. If you've got more questions, have a play and ask me in EdStem. Okay? We should take a very quick break because I want to get started on the next topic as soon as possible. Here. Whoops, that's the wrong one. So let's take a four-minute break. ",
+    "model_probability": 0.9923
+  },
+  {
+    "start": 4158.92,
+    "end": 4170.81,
+    "speaker": 1,
+    "text": "Since the memory is far away, can we improve performance by just putting it near to the CPU? Since the memory is far away, can we not improve performance? Can we have a motherboard where the memory is near to the CPU? ",
+    "model_probability": 0.8613
+  },
+  {
+    "start": 4171.37,
+    "end": 4191.88,
+    "speaker": 0,
+    "text": "My thinking from an asymptotic point of view is that if the memory is very big, then part of it is near to you and part of it is far. Maybe the OS could... Let me take this off. Remind me to put it back on. Maybe the OS could do something about it. ",
+    "model_probability": 0.5314
+  },
+  {
+    "start": 4200.24,
+    "end": 4201.34,
+    "speaker": 2,
+    "text": "This is kind of what a cache does. ",
+    "model_probability": 0.116
+  },
+  {
+    "start": 4219.13,
+    "end": 4223.93,
+    "speaker": 0,
+    "text": "So how about the physical idea, like you put the memory chip near to the CPU, would that actually make the impact? ",
+    "model_probability": 0.0552
+  },
+  {
+    "start": 4223.95,
+    "end": 4245.52,
+    "speaker": 1,
+    "text": "My thinking from an asymptotic point of view is that the point of asymptotics is the reason about what happens as the curve heads off into the infinity. ",
+    "model_probability": 0.0309
+  },
+  {
+    "start": 4246.18,
+    "end": 4259.96,
+    "speaker": 0,
+    "text": "As the problem size becomes bigger and bigger and bigger and bigger, what's the shape of this curve? So eventually we're in a situation where the memory is as big as a room, as big as a car. ",
+    "model_probability": 0.0111
+  },
+  {
+    "start": 4270.81,
+    "end": 4292.59,
+    "speaker": 2,
+    "text": "I guess a CPU at some point. Well, if a CPU could be on the path, but it's only close to some of the memory, it might find its way to find its side of the adjacent. Okay. There's actually science fiction about that. ",
+    "model_probability": 0.0118
+  },
+  {
+    "start": 4292.61,
+    "end": 4318.35,
+    "speaker": 0,
+    "text": "Something called the Dyson sphere, which is where you don't just put a space station orbit around a star, you make it big so it can capture lots of light from the star. In fact, you make it really big so that it joins up around the orbit. You make it really big so it joins up around the entire sphere. So it captures all of the energy radiated by the state. ",
+    "model_probability": 0.013
+  },
+  {
+    "start": 4318.37,
+    "end": 4340.42,
+    "speaker": 2,
+    "text": "That's the Dyson speed. which is a computer powered by the total capture of the images in the star. But anyway, if you think about it on a grand scale, asymptotics matter. By the way, I kind of saw that a lot of the problems we've met was because we didn't have enough information. ",
+    "model_probability": 0.0115
+  },
+  {
+    "start": 4352.34,
+    "end": 4365.17,
+    "speaker": 1,
+    "text": "And then I thought like stuff like Twitter does give you. Is that somewhere in the video? So for example, if you're using a cache and you generate a load instruction, you know you're not gonna use that manual ever again. ",
+    "model_probability": 0.001
+  },
+  {
+    "start": 4381.36,
+    "end": 4396.61,
+    "speaker": 1,
+    "text": "Maybe then the same idea might apply to learn code motion as well. But then again, it comes from Haskell, and Haskell, it will be inferred by compiler, so it still requires a compiler in this one. ",
+    "model_probability": 0.0014
+  },
+  {
+    "start": 4401.12,
+    "end": 4437.16,
+    "speaker": 2,
+    "text": "Most processes have what they call a non-temporal load instruction. This is a load instruction that delivers the data to the process that the process is allocating. So the most common use for such instructions to let's see if the patients actually use the mic. ",
+    "model_probability": 0.0003
+  },
+  {
+    "start": 4437.42,
+    "end": 4446.21,
+    "speaker": 1,
+    "text": "Sometimes. Or maybe just make better compilers. If you've got an MPOPI, the compiler might just recognize that this looks like a copy. ",
+    "model_probability": 0.0002
+  },
+  {
+    "start": 4465.17,
+    "end": 4507.44,
+    "speaker": 2,
+    "text": "It might make compile time a bit longer. It's potentially large. Friends of mine runs programs on and he runs for 36 hours. So he's okay with a long compile-to-write. Yes, yeah. So we don't catch the bugs much slower. ",
+    "model_probability": 0.0004
+  },
+  {
+    "start": 4528.85,
+    "end": 4533.19,
+    "speaker": 1,
+    "text": "So we actually had a project on what would be airflow in jet engines. ",
+    "model_probability": 0.0011
+  },
+  {
+    "start": 4533.23,
+    "end": 4538.53,
+    "speaker": 2,
+    "text": "And we thought we could test this code perfectly. And where the code works is through the device. ",
+    "model_probability": 0.0024
+  },
+  {
+    "start": 4553.16,
+    "end": 4652.69,
+    "speaker": 0,
+    "text": "triangles and make some mesh between the shapes of the fan blades. Fan blades have rather complicated shapes and you matrix these triangles around and then you model the way the air moves through the triangles. But then to do it in parallel, you take this mesh of triangles and divide them up into little chunks and give each chunk to a different until we ran on a really big circuit and then it failed on a really bad circuit address violation and what had happened was that the patches had become so small and so badly shaped that the outer edges started meeting in the middle and now we had a violation between the boundary of this patch and the boundary of that patch So for this new final segment of the course, I want to talk about how to reason that a loop program can be executed in parallel, or more generally, how a loop program could be executed in some other order than the order in which the programmer wrote the code. ",
+    "model_probability": 0.1829
+  },
+  {
+    "start": 4653.88,
+    "end": 4687.85,
+    "speaker": 0,
+    "text": "So actually that transpose is an example of this. The original loop program correctly specifies what you want it to happen, but we know that there's a different order in which to execute the loop body that runs more quickly. But in order to allow us to change the order of instructions, we need to reason about the dependencies between those instructions. It might be that this instruction needs something that this one computes, in which case we can't reorder those instructions. ",
+    "model_probability": 0.9929
+  },
+  {
+    "start": 4687.9,
+    "end": 4718.89,
+    "speaker": 0,
+    "text": "The same thing happens with parallelization. If we want these two things to be done in parallel, they shouldn't depend on each other. We're in the business of what you might call restructuring compilers, and the distinction is there's a lot of compiler technology which is about things like loop invariant code motion, where we're trying to optimize the program, so the program does less work. In this case, we've done as much as we can of that, and now we're asking, can we do it in parallel? ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 4720.15,
+    "end": 4752.38,
+    "speaker": 0,
+    "text": "Or can we do it in some other schedule? So it's all about scheduling really. So one of the reasons to do this is to think about using vector instructions. I'll show you a bit more of that in a second. Or multiple cores, and I have a slide on that too. Or we might be able to improve how the cache is used. And I promised that we'd do this later, but we've actually just talked about that, right? ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 4755.07,
+    "end": 4794.4,
+    "speaker": 0,
+    "text": "So, let's look for a second at vector instruction sets. This is something I showed you right at the very beginning of the course, but you could be forgiven for not studying it or remembering it then. And almost all modern processors have some kind of vector instruction set capability. ARM, RISC-V, x86, they all have something. I'm going to talk to you about one of the biggest, ABX-512, It's also in a way one of the most powerful instruction sets, which actually makes it sometimes easier to understand what's going on. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 4794.86,
+    "end": 4827.95,
+    "speaker": 0,
+    "text": "So in this instruction set, the first thing is that we have registers. Ordinarily, we've talked about registers and register allocation on the basis that each number is stored in one register and each register holds one number. You might ask, how many bits was that register? It might be a 64-bit register. In this case, we have 512-bit registers, and that means that each register can hold many values. It might be that it's eight 64-bit doubles. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4828.19,
+    "end": 4861.27,
+    "speaker": 0,
+    "text": "It might be that it's 16 32-bit floats, or even 32 16-bit values, 64 bytes, or even some machine learning people like to use four-bit arithmetic, you have 128 of them. To go with these registers, we have instructions that operate on these registers. Let me just show you a picture of this. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 4865.67,
+    "end": 4897.52,
+    "speaker": 0,
+    "text": "If we've got ZNM1, ZNM2, two different 512-bit registers, and the third one, which is the target of this instruction. So, this VADPS is adding ZNM1 and 2, these two registers to produce this result. We've got 16 floats in each register, and each result is the sum of the values from the corresponding Well, what is it? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4897.68,
+    "end": 4929.82,
+    "speaker": 0,
+    "text": "I call it a lane. So, I think of each of these as being a lane, and the vector instruction does a lane-wise summation, an element-wise summation, you might say. Does that make sense? So, in one instruction, we can do 16 floating point single precision adding operations. So, these are the lanes. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 4931.66,
+    "end": 4964.63,
+    "speaker": 0,
+    "text": "You knew what lanes were, right, already. This one's from somewhere in India. This one's Dubai. This one, I think, is the Netherlands. They're still lanes, right? I argue these are more pleasant than these, but what do you do? Okay. So, the question is, how do we get Okampira... to use these instructions. You might step back and you think, well, how do I get my compiler to use these instructions? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 4964.65,
+    "end": 5002.26,
+    "speaker": 0,
+    "text": "You could imagine doing it with pattern matching. You could imagine looking at the code and saying, well, hang on a minute. There are 16 floating-point ads here, one after the other. I could pattern match on that pattern and rewrite that into a single instruction. That would work. There are people who really do that. It usually works better for machines with two-element vector instructions. If you think about code that's operating on RGB values, for example, you might have threes or something, RGBA or something, you could have four, and pack them all into a single vector instruction. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 5002.66,
+    "end": 5034.62,
+    "speaker": 0,
+    "text": "Because you have code that does something with R, does something with G, does something with B, actually the same thing, you could pattern match and recognize that. You could do that. I'm actually going to talk about the different thing, which is how do we turn loop programs into vector institutions. So, let's try it in Compiler Explorer. So, in this code, we actually brought a laser pointer, especially. Let's see if it works. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 5042.6,
+    "end": 5097.17,
+    "speaker": 0,
+    "text": "But I lost it. Let's not worry. So what do you think of this little example? I hope you can see it. I can make it bigger for you. Can I make it bigger for you? That works, doesn't it? So we have some code that adds arrays A, B, and C. I think you'll agree with me that we could do those iterations in any order we like, including in parallel, right? So over here, we have the code that this compiler has produced. So in Compiler Explorer, what I did was I used, in this particular case, I used the Gnissi compiler and I gave it these flags. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 5097.37,
+    "end": 5129.95,
+    "speaker": 0,
+    "text": "This one is to produce diagnostic output. This one is to generate code to go as fast as it possibly can. So for example, it's allowed to assume that floating point add is associative in order to make your code go fast. And this says generate code that works on a AMD Zen 4 architecture, which is a microprocessor that supports AVX 512. So the machines in the labs that do that are the Maple machines. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 5131.17,
+    "end": 5161.69,
+    "speaker": 0,
+    "text": "So you can actually run this code on the Maple machines. and you can get this. So what do we see? We load a whole vector register from memory. So we're loading 64 bytes from that address. In fact, it's a whole cache line. into this register, then we do an add, and the second operand is another memory operand. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 5161.75,
+    "end": 5196.68,
+    "speaker": 0,
+    "text": "It's going to fetch another 64 bytes, another 16 floats from here, and add it into ZNM0 to produce the result in ZNM0. Then we bump the pointer, it's actually not the loop index, it's the pointer, right? So, It's multiplied by 4, I think, times... No, what's it doing? 64 bytes, right? It's incrementing the pointer by 64 bytes because that's the size of the data that we've just loaded. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 5198.08,
+    "end": 5256.14,
+    "speaker": 0,
+    "text": "Then this is the store. Then we go around the loop again. Fair enough? Any questions about this? There kind of should be. Yeah. How do you handle? Like in the original code, one of A or B is pointing to the same memory address as C. You mean how do we handle aliasing? So in this source code, I think you're asking the question, what would happen if, due to some accident, C and A or C and B were actually pointers to the same memory location? Is that your question? Or even worse, they could be pointers to overlapping memory areas that are not actually the same. You can do that in C. It would be really horrible. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 5260.7,
+    "end": 5292.05,
+    "speaker": 0,
+    "text": "What would happen if you did that? All kinds of bad things would happen. But in this particular piece of code, I have crafted this piece of code. It's not very subtle. A, B, and C are right there. The compiler can see it. You can see it. Also, they're a fixed size, so the compiler can see that they're big enough. They're all equal size. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 5292.13,
+    "end": 5351.94,
+    "speaker": 0,
+    "text": "They're all within bounds. and that they are cache line aligned. Because these are powers of two, everything's going to be nicely lined up on cache lines. I'll show you in a minute what happens when those assumptions are not true. So you ask exactly the right question. Right. Yeah, you can do that another time. So the question which is really where we're going with this is looking at a piece of code, how do we know that the iterations are parallel? How do we know that it's valid to execute them in parallel? So if we look at this particular piece of code, the code that we started with in the previous slide, you can probably just look at it and say, yeah, of course it's parallel. We could reason that it's parallel by thinking about the data flow graph of this computation. which consists of a bunch of distinct data flow graph fragments. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 5353.1,
+    "end": 5383.35,
+    "speaker": 0,
+    "text": "Each result is produced by a completely independent segment of graph. So we can implement it with a vector operation as I've shown here. That part should be clear. The fun starts with when those conditions aren't quite true. But before we do that, I thought I'd just look at does it make a difference? So I did this on one of the Maple machines that we mentioned earlier. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 5384.0,
+    "end": 5416.89,
+    "speaker": 0,
+    "text": "So you can read through this experiment yourself. I tried it with this example we've been looking at, and I looked at the assembly code that the compiler gives me for this. This is without enabling vectorization. So this is optimized code without vector instructions. These are SS instructions, meaning they're scalar instructions. This loads just one float into this register, and then does the arithmetic and stores it back. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 5416.95,
+    "end": 5489.63,
+    "speaker": 0,
+    "text": "How fast does it go? 4.8 billion operations per second. If you think about that in terms of execution time, it's 0.21 nanoseconds per iteration of the loop. You might also ask, so how many clock cycles does it take to execute this loop? Well, what we know is it completes an iteration of this in 0.21 nanoseconds. i.e. at that rate. That's the clock rate. That's the advertised clock rate of this processor. It's completing an iteration of this loop every single clock cycle. So it's doing six instructions per cycle. And that's before vectorization. You know what I'm going to say, don't you? If you want to know how it does that, Yeah, you should come to my course. Here's what happens when you turn vectorization on. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 5490.93,
+    "end": 5522.61,
+    "speaker": 0,
+    "text": "So, the code we get is pretty similar except that these are now packed instructions. That's what the P is for. We're doing it with ZNM registers which are 512 bits long. So, we're completing 16 operations per iteration of the loop. What happens to the execution time? Well, firstly, the time per iteration has actually doubled. There's something in the process of microarchitecture, which means that it can't actually do this every single clock cycle. It takes two cycles to complete it. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 5523.19,
+    "end": 5580.94,
+    "speaker": 0,
+    "text": "But remember that it's doing quite a lot of operations per iteration. So the actual number of floating point operations it completes is a pretty big number. Yep. Yep. Well, it's approximately two cycles. I mean, it's actually... I think this one is a little more approximate. This one is pretty close. It's very close, I think. Speed of light. It's 30 nanoseconds per... It's 30 centimeters per nanosecond, right? This loop is completing an iteration. This processor is computing an iteration every 0.45 nanoseconds. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 5581.8,
+    "end": 5649.89,
+    "speaker": 0,
+    "text": "It's doing eight floating point operations every time it does so. The loop is completing an iteration of the time it takes light to go about that far, about half of 30 centimeters. So I've said it's computing a couple of iterations, maybe three, in the time it would take for the light to get from your laptop screen to you. Today, you're a bit further away. You get more iterations. Okay. Okay. Right, so next question, how do we determine when a loop is parallel? So that example was kind of obviously parallel. What about this one? What does this even do? It's a kind of accumulation, isn't it? It's kind of running total, actually. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 5652.19,
+    "end": 5696.1,
+    "speaker": 0,
+    "text": "It's a Haskell scan function. You're right. Yeah? So is it parallel? It's really not very parallel. What about this one? Super similar, right? The difference is just the two. What's the answer? This one is parallel because these i minus one accesses actually refer to values that are never touched during the loop. ",
+    "model_probability": 0.9978
+  },
+  {
+    "start": 5697.84,
+    "end": 5734.07,
+    "speaker": 0,
+    "text": "Let's go back to that one that's not parallel. What does it actually do? Well, we could try and think about what it does by unrolling this loop. And what we see is that there's a dependence from each successive iteration to the next one. How do we see that? Well, we see that C1 appears on the left-hand side in this first iteration and on the right-hand side in the very next iteration. So we could say that... The dependence arrows go from one iteration to the next. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 5734.11,
+    "end": 5772.75,
+    "speaker": 0,
+    "text": "They go around the back of the loop. That's what I'm showing with this big red arrow here. That idea that a dependence arrow crosses the iterations of a loop has a name. It's called the loop-carried dependence. So if there are no loop-carried dependencies, then all of the dependence arrows are within the statements of a single loop body. And if all the arrows are within the statements of a single loop body, then each iteration of the loop is independent. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 5772.77,
+    "end": 5814.34,
+    "speaker": 0,
+    "text": "There are no arrows that connect them. It's the loop-carried arrows that connect different iterations together. Right. So... Another thing to notice, which is fundamental to the game we're playing here, is if you unroll the loop, then you get this pattern of purple arrows. But the compiler doesn't get to see the unrolled loop. The compiler is reasoning about the dynamic behavior of the program, but the compiler operates on the static code. So, this is a dependence from that line of code CI to itself. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 5815.5,
+    "end": 5848.88,
+    "speaker": 0,
+    "text": "on the next iteration right happy with that it's kind of obvious and it's a fundamental foundation for what we're going to do next um so again what so previously i said that over here that um In the simple case, this case, the iterations were each a distinct, separate, disjoint little control photograph for each loop body. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 5850.2,
+    "end": 5882.93,
+    "speaker": 0,
+    "text": "In this one, that's not true, right? These arrows are the loop-carried dependence arrows. And that chains everything up and... that's telling us what we already knew, which is that this code is completely sequential. Yes? Therefore, vectorization won't work and your compiler should say, no, I'll just do the simple thing. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 5886.75,
+    "end": 5918.86,
+    "speaker": 0,
+    "text": "So we need a compiler that does that. Let's look at some more. So I showed you these examples, right? So the first one was vectorizable. The second one was not vectorizable for the reason we've just seen. The third one has no dependence, though you might need to think a little bit about how to generate efficient vector code for this because you're actually operating on interleaved elements of the array. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 5919.3,
+    "end": 5960.96,
+    "speaker": 0,
+    "text": "There are every second iteration of the array. So I just want to show a little bit of the next level of this, which is we've identified that vectorization is potentially valid because of the dependent structure of the loop. The next question is, so what code should we generate? I've shown you examples of the code you should generate, but I told you that I had carefully crafted it to be simple and there was a good question about possible aliasing. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 5961.94,
+    "end": 5994.9,
+    "speaker": 0,
+    "text": "Let's look at some things that make code generation complicated. Here's our trivial example again. This is the code we started with and except for one little difference, which is that the loop trip count is n. So if the loop trip count is n, then we don't know that it's divisible by the vector length, whatever it is. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 5994.96,
+    "end": 6033.35,
+    "speaker": 0,
+    "text": "I've written 4 here, but it might be 16 or something. So I think, in fact, for this code, it was 4. So what you see is the code that the compiler generated just suddenly got much more complicated. The only change in the input was the n instead of 1,024, and suddenly the output code got more complicated. You might wonder what's happened. What it's done is, so here, my mouse is not working. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 6036.27,
+    "end": 6068.75,
+    "speaker": 0,
+    "text": "Here is the code we had before. It's too small for you to read, but trust me, it's the same as the code we had before. What comes after it is three copies of the loop body of the scalar non-vector loop body. And what it's doing is it's conditionally executing the leftover iterations after it's done all the iterations that can be done in bunches of four. So if it's 12 iterations, then you've got three bunches of four. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 6069.15,
+    "end": 6104.79,
+    "speaker": 0,
+    "text": "If it's 14, then you've got three bunches of four and two more, and so you would execute two more of these. That's the first little subtlety. Here's another little subtlety. Vector code goes often a bit faster if the vector load instruction is aligned to a cache line boundary. So when you're loading a block of 64 bytes, it's nice if it fits perfectly into a single cache line. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 6106.17,
+    "end": 6138.13,
+    "speaker": 0,
+    "text": "So you'd like the low order bits to be zero. So we see the compiler's done basically the same thing. We have three copies of the non-vectorized loop to work up to the start of the aligned elements of the vector, of the storage layout. Happy with that one? Let's do another one. In this case, the pointers to the arrays are function parameters. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 6141.96,
+    "end": 6181.25,
+    "speaker": 0,
+    "text": "And in this case, a really, really horrible thing can happen. We touched upon it a few moments ago with your question. What could go wrong? Well, somebody could call this function, add, and give it pointers to three vectors. They could call this function and give it pointers to three distinct vectors. or you could call this function and give it pointers to A, A, and B. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 6182.71,
+    "end": 6220.93,
+    "speaker": 0,
+    "text": "You could have one of the inputs to also be the output. Is that a problem? You're nodding vigorously, but actually in this particular example, it's kind of okay. Yeah, so if this code had read AI equals AI plus BI, then the vector implementation would actually still work just fine. The horrifying thing is in C, they could just be overlapping a little bit, right? ",
+    "model_probability": 0.9985
+  },
+  {
+    "start": 6222.23,
+    "end": 6255.56,
+    "speaker": 0,
+    "text": "So you could have passed in as parameters pointers to memory regions that have some overlapping behavior, right? What does the compiler do? It inserts yet more stuff to check the value of the ranges over which these arrays will be accessed to check whether they overlap. If they overlap, then it goes to a non-vector version of the code. If they don't overlap when we get everything we saw before. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 6258.14,
+    "end": 6295.73,
+    "speaker": 0,
+    "text": "So if you were going to do this in WAC, you'd have some work to do, right? Determining that something is vectorizable and then actually making it work is a little bit trickier. And if you want to write code which your compiler will automatically vectorize, you might think about making it easy. If we just go back a slide, in this example, I didn't point it out before, but A, B, and C are parameters of this function, but I've added this special declaration here called restrict. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 6295.77,
+    "end": 6328.79,
+    "speaker": 0,
+    "text": "Restrict is a way of telling the compiler that you promise that whatever A and B and C point to, they're disjoint. The compiler can't prove that you're right. It just assumes that your promise is good and generates code that will work incorrectly if your promise is broken. So what do we see? We see that actually exploiting vectorization is a bit tricky, even if the dependence analysis might be easy. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 6331.27,
+    "end": 6382.21,
+    "speaker": 0,
+    "text": "Actually, I'm going to show you more examples just for fun. Here's the example we had before, right? Back to the simple one. Let's make this example just a tiny bit more complicated. So the only difference is... there happy so this is an indirection array it's an array of integers and we're using the array of integers as subscripts to the array to the array b okay so the first question you might ask is is this a vectorization candidate are the iterations of a loop independent I think they are actually. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 6382.29,
+    "end": 6421.35,
+    "speaker": 0,
+    "text": "It's still okay. The question now is, what do we have to generate as code? What we see over here is this vector gather instruction. The vector gather is the vector version of an indirect load instruction. So load instruction and indirect load instruction takes a pointer and a register and fetches the data that the register points at. A vector gather instruction does the same thing, but it has a vector of pointers. And for each lane in the vector, it has a pointer, and it accesses the data for that lane that that lane's pointer points at. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 6425.25,
+    "end": 6473.55,
+    "speaker": 0,
+    "text": "Okay? I had such fun with this one, and it's mad to try and tell you about it. Let me show you anyway, because it's kind of fun. What I've done, can you see what I've done? Previously, we just had the indirection on the right-hand side. Now we've got the indirection on the left-hand side as well. What? Is there a problem? Perhaps you're okay with this. Perhaps you're confident that the data flow graph for each distinct iteration of the loop is disjoint. ",
+    "model_probability": 0.997
+  },
+  {
+    "start": 6477.14,
+    "end": 6479.44,
+    "speaker": 0,
+    "text": "Can you be sure there are no loop carry dependencies? ",
+    "model_probability": 0.9723
+  },
+  {
+    "start": 6494.22,
+    "end": 6525.6,
+    "speaker": 0,
+    "text": "Let's come to that in a second. So I think the data flow graph for this looks a bit like this. So we have the indirection array containing different offsets, different indices indexed by successive elements of i. So we've got some elements of a that are being indexed by this, and they could be spread across the whole array a. It could be anywhere. We have some elements of D which are accessed by I, so they're just a nice vector of Ds. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 6526.08,
+    "end": 6574.53,
+    "speaker": 0,
+    "text": "We do the subtract over here, so we get the right-hand side of this whole expression. Now, what happens here? It's a plus equals. To do a plus equals on a vector operation of operand, we need to load the original contents of C into a vector register, then add the right-hand side to it, and then write them out again. So what we're going to do is use our indices to access the C elements in the same pattern as we access the A elements, load them into the left-hand side, add in the right-hand side that we got, and then write them out with a store instruction using the same index pattern. ",
+    "model_probability": 0.9986
+  },
+  {
+    "start": 6576.11,
+    "end": 6585.53,
+    "speaker": 0,
+    "text": "Happy? So I ask you again, and somebody mumbled about it over here, what could possibly go wrong? ",
+    "model_probability": 0.9722
+  },
+  {
+    "start": 6619.97,
+    "end": 6651.29,
+    "speaker": 0,
+    "text": "So this is my attempt to illustrate what was just said here. The possibility is that instead of having this picture, we actually have this picture where there are elements of this indirection vector which point to the same element of the C-array. So because class plus is commutative, the order doesn't matter, but we do have to actually do both additions. ",
+    "model_probability": 0.9979
+  },
+  {
+    "start": 6651.42,
+    "end": 6682.1,
+    "speaker": 0,
+    "text": "Also, these are, oh, they are all integers, so they are associative. I'd forgotten, I thought I might have done this with floats where that wouldn't be true. Is there a race condition? So I think this comes down to what is the semantics of the scatter instruction. ",
+    "model_probability": 0.9958
+  },
+  {
+    "start": 6683.62,
+    "end": 6715.25,
+    "speaker": 0,
+    "text": "So the gather is the vector load instruction. The scatter is the vector store instruction. It takes a vector of pointers and stores a vector registers values lane by lane into the memory locations indexed by the corresponding addresses. Now, if there are duplicates in that vector of pointers, what does the scatter do? Now, you don't know the answer because you haven't read the manual. My PhD student read the manual and told me the answer. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 6716.99,
+    "end": 6747.15,
+    "speaker": 0,
+    "text": "The scatter instruction only stores one of them. The first one, actually. Because the alternative would be to somehow do something. Well, it's not clear what you would do. So, to fix that, those nice Intel people have a solution, which we... Oh, I haven't corrected this. Whoops. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 6748.53,
+    "end": 6785.67,
+    "speaker": 0,
+    "text": "Ah, yeah, I was going to correct this for you. Yeah, most of the comments on this are not quite right. Um... So forget about the comments and just look at the code, and you don't really need to go into the code here, and it's definitely not examinable. But the key instruction, which you can't quite see from where you're sitting, but I can make it bigger, is this VP conflict instruction. What the VP conflict instruction does is it takes a vector of pointers and it tests which ones point to the same thing. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 6787.33,
+    "end": 6823.03,
+    "speaker": 0,
+    "text": "What this code does, to cut a long story short, is it checks whether any of them point to the same thing, and if not, it goes to simple handler code. If any of them do point to the same thing, then it goes to code which processes each of those matches, one after the other, adds up the corresponding values, and then stores the data. Now, I'm not here to tell you that you should learn how this works. The reason I'm showing it to you is to help you understand the landscape of parallelization problems. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 6827.35,
+    "end": 6859.43,
+    "speaker": 0,
+    "text": "So roughly, to a first approximation, there are three things I think. Have I got this right? There's do these array parameter variables actually point to the same or overlapping memory? That's a points to question, actually. If you've done the points to tutorial exercise, which only one of you have done, then that should help answer that question. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 6860.23,
+    "end": 6896.87,
+    "speaker": 0,
+    "text": "Could these two pointers point to the same memory location? Or are you sure that they don't? The next one is the one we were looking at with the i and the i plus 1 and the step count of 2 and things like this. This is to do with whether... two different iterations might refer to the same memory location by analyzing the subscript expressions. The point of calling them subscript expressions is to restrict our attention to expressions we can handle in the compiler. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 6898.37,
+    "end": 6930.97,
+    "speaker": 0,
+    "text": "The case that we're looking at here, is the third problem class in parallelization, which is that we have a program with a dynamic runtime data structure that tells you where the data is that might have aliasing properties or might not. Basically, it's quite hard not to just give up at this point. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 6934.4,
+    "end": 6975.89,
+    "speaker": 0,
+    "text": "What do you do? I mean, in this particular case, we're able to use this vConflictG thing to dynamically serialize the code. The thing to observe is that the data dependence pattern here is data dependent itself. Whether there's a data dependence depends upon the context of the int array, the contents of the int array. You might be able to analyze the piece of code that computed the int array and prove in your compiler that it never produces duplicate values. ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 6976.83,
+    "end": 7011.81,
+    "speaker": 0,
+    "text": "Good luck to you on that. I'm not going to try and teach you a compiler algorithm that does that because I don't know how. What you can do, well, you can do what they've done here, or you could imagine having some code at the beginning that iterates through the indirection array and looks to see where the duplicates are, and perhaps produces a list of non-conflicting elements. And that's a really good idea if the indirection rate doesn't change very often, which actually happens quite a lot. ",
+    "model_probability": 0.9978
+  },
+  {
+    "start": 7011.98,
+    "end": 7033.05,
+    "speaker": 0,
+    "text": "So that's been a really, really good trick in my research group. That's been a really valuable idea. All right, it's 6 o'clock. We should wrap up there. And next time, we'll continue with how to actually prove that loops are parallelizable by analyzing the subscript expressions. Thank you very much indeed. Until next time. ",
+    "model_probability": 0.9949
+  }
+]

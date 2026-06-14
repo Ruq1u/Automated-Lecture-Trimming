@@ -1,0 +1,1310 @@
+[
+  {
+    "start": 79.267,
+    "end": 84.789,
+    "speaker": "SPEAKER_02",
+    "text": "Okay. Can you guys hear me? Yes? That sounds good. "
+  },
+  {
+    "start": 127.333,
+    "end": 162.591,
+    "speaker": "SPEAKER_02",
+    "text": "All right, everybody. Let's go ahead and get started. All right, so today we'll be going over generalized linear models, gradient descent, things like that. Glad to see that we're all a bit more alive and awake than at 9 AM. "
+  },
+  {
+    "start": 162.651,
+    "end": 198.026,
+    "speaker": "SPEAKER_02",
+    "text": "It's a much more appropriate time to be doing math and lectures. And it's also a nice lecture to pay some close attention to, because we're going to be, of course, generalizing the linear models that we saw before. So we'll be looking at a more powerful class of models. But also, we'll be diving into and seeing for the first time one of the most fundamental and most widely used learning algorithms of all time, which is gradient descent, which is going to be important. "
+  },
+  {
+    "start": 198.046,
+    "end": 228.402,
+    "speaker": "SPEAKER_02",
+    "text": "And we'll analyze it from lots of different directions in the class. Before that, of course, just some stuff up top. Thanks to everyone who gave feedback on last lecture. It's useful to know what concepts aren't sticking. And that's sort of what we'll start each lecture with, is what content didn't quite click for you guys after the last lecture. So today we're going to be going over index notation in a little bit more detail. "
+  },
+  {
+    "start": 228.782,
+    "end": 262.931,
+    "speaker": "SPEAKER_02",
+    "text": "So I gave some general things. We'll be looking at that. that very quickly again today. And then I'm going to try a new approach to explaining basis expansion, since that was the other thing that people said, like, I kind of got it, but not all of it clicked. So hopefully, explaining it from a geometric point of view at the start of this lecture will help. I did only receive 20 responses, so these are based on those. I have a small sample size to go off of. If you are somebody who things didn't exactly click for and you wanted something else covered, the post-lecture form is for you. "
+  },
+  {
+    "start": 262.991,
+    "end": 299.86,
+    "speaker": "SPEAKER_02",
+    "text": "That's where I get this information from. But also, just so I understand if things are moving too fast generally so I have a better sample size, I may ask a couple of times during this lecture for a show of hands how many people understand and is that clear for. That way, I don't have to rely on somebody being very brave and raising their hand and saying, I don't understand what you just said. Great. So let's go ahead and dive in. So last time, I gave you the summation notation for, I think, matrix product and tensor contraction. "
+  },
+  {
+    "start": 299.98,
+    "end": 334.661,
+    "speaker": "SPEAKER_02",
+    "text": "Those are the two things I looked at. The reason that I gave you those is they're sort of the most general things. So here, just quickly, I'll talk about the summation notation for matrix vector product. Of course, if you know the summation notation for matrix matrix product, matrix multiplication, then setting one of those matrices to just have all row, just a row vector or column vector would get you this notation. But of course, we can still cover it just to make sure we're clear. So we have a matrix which is in m by n. "
+  },
+  {
+    "start": 336.698,
+    "end": 367.792,
+    "speaker": "SPEAKER_02",
+    "text": "and A in its shape, and then B is just an RN. But we talked before about how when we see something in RN, in this class, the default is a column vector, so this kind of phantom one here. Right, the kind of type checking side of things is like, can we actually multiply these things? And hopefully from linear algebra, it's like, oh, well, if the inside things match, then yes, I can multiply them. And that's because the sum that we're about to see is well defined. And then the output shape, the thing that I get at the end is sort of these outside terms. "
+  },
+  {
+    "start": 367.892,
+    "end": 398.313,
+    "speaker": "SPEAKER_02",
+    "text": "So I'm looking for the result of this to be m by 1. Right? And how I get each element of that m by 1 matrix is for each output. So for each thing in this space, m by 1, I'm going to take the summation over this, which we write down like this. So you would have cj. So the j-th element of c, which is an m-dimensional column vector, is just the sum of aji bi. "
+  },
+  {
+    "start": 401.747,
+    "end": 432.285,
+    "speaker": "SPEAKER_02",
+    "text": "And if you had a matrix, you would just have an extra, maybe this i I would write as k. Feel free to write whatever indices you want. So there's no hardened convention on that. And of course, you have another index here. Is all of that all right? So we really dealt with this a lot last lecture in terms of index notation with the convention that we introduced, which was our design matrix, and collecting our outputs into a column vector. "
+  },
+  {
+    "start": 432.306,
+    "end": 474.622,
+    "speaker": "SPEAKER_02",
+    "text": "So just like we've seen in both of our previous lectures, each of our inputs will be in Rn, meaning it has this kind of phantom 1. This is n by 1. And we want to collect this into a matrix. And that matrix is going to have sort of M rows and N columns. So it's an M by N matrix. And the way that we do that is we take the transpose of each one of our N dimensional inputs. That's our column vector. We turn it into a row vector. Each of those rows become the row of the design matrix. And so when we take the product of our design matrix, let's say A would be x here, and then B our parameter, we're getting a column vector out. "
+  },
+  {
+    "start": 474.982,
+    "end": 507.304,
+    "speaker": "SPEAKER_02",
+    "text": "And that column vector that we get out, we can directly compare to y. m entries in y. And the output of this was 1 by m. Again, show of hands, that's clear. To whom is that clear? Great. Now, the second step we made was we took this linear model and we derived the ordinary least squares. We talked a bit about the argmax and loss landscapes. "
+  },
+  {
+    "start": 507.324,
+    "end": 538.155,
+    "speaker": "SPEAKER_02",
+    "text": "And we'll, again, touch on that from a different angle today. But this was the general sketch of that. We started with our loss that we'd expanded out just using linear algebra, so nothing fancy there. We took the derivative of that loss, we set it equal to 0, and we solved. And then, so this was, again, a very powerful result. Basically, what this shows us, this is the ordinary least squares estimator, or the OLS. And for any sort of model that we can write down in this form, right? "
+  },
+  {
+    "start": 538.195,
+    "end": 568.922,
+    "speaker": "SPEAKER_02",
+    "text": "So here's our design matrix. Here's our parameter. Again, this is going to be an Rn or Rn by 1. So for any model that I can write down like this, this is the solution. This is the ordinary least square solution. This will work. It will give you the best line according to that argmax formulation. Now, I then pointed out that there are other models that are much more complex than this. "
+  },
+  {
+    "start": 569.542,
+    "end": 607.285,
+    "speaker": "SPEAKER_02",
+    "text": "And this is maybe a nice result, but even if I want to do, for example, the y equals mx plus b thing that we saw in secondary school, this doesn't quite get us there. And the thing that I then motivated was basis expansion, which was me saying, well, if I can find another way to write down x, so let's say I have some transform that takes me from x to a new kind of space, and we'll call it x prime. Then I can write my linear model as x prime theta, and that gives me my predictions. "
+  },
+  {
+    "start": 608.987,
+    "end": 646.587,
+    "speaker": "SPEAKER_02",
+    "text": "And then we called this function, the basis expansion function, phi. So just quickly to remind you what that looked like in math, and then again, I'm going to do a different angle to this. So here is an example of phi that allow us to fit the parameters of a polynomial. So the actual form of phi, so phi here is a function from r to R4. And essentially, I've defined it here as being, well, whatever x you have, give me back the vector that is x cubed x squared x1. "
+  },
+  {
+    "start": 646.607,
+    "end": 680.437,
+    "speaker": "SPEAKER_02",
+    "text": "I've written it as a row here, so I'll transpose it to make it a column by convention. And of course, if I had a concrete value of x, I can plug these in. And then this vector is no longer some symbolic basis expansion function. It actually takes value. So it goes from 2 to these things. And now I think this is where that, I think, made sense to most. It was where this actually translates into behavior that isn't sort of a linear transform that I talked about where I might have lost some people last time. "
+  },
+  {
+    "start": 680.517,
+    "end": 715.515,
+    "speaker": "SPEAKER_02",
+    "text": "So just also, do I have a? Here's the, if I were to take that two, and rather than just having a single point, I instead do this thing, going from design matrix to design matrix, I'm applying that phi, my basis expansion, row-wise. So you can see here, I have rows of real values. I apply my phi function row-wise to get my new design matrix. This design matrix I then use in the OLS. And then for some, it was like, OK, but well, one, I don't see how this makes things not linear. "
+  },
+  {
+    "start": 715.535,
+    "end": 746.377,
+    "speaker": "SPEAKER_02",
+    "text": "And then also, I pointed out that mathematically, if we want to be very rigorous, this, OLS, only works when I have a linear transform. It's not true that every linear function is a linear transform. There's a difference between it. The linear transform has to preserve the origin. That was that second condition we saw that's violated by y equals mx plus b. You can have linear functions that are not linear transforms, but you can't have a linear transform that's not a linear function. Great, so here's an example. "
+  },
+  {
+    "start": 747.058,
+    "end": 782.068,
+    "speaker": "SPEAKER_02",
+    "text": "So I'll try and motivate why this works from a geometric perspective. So I have this data, and I've just simulated this data. So all I did was I've plotted the true function that we want to get is y equals x plus 2. This is that y equals mx plus b. m is 1, b is 2. And then I've added some noise just to make it look like a more realistic problem. Now, what our algorithm would see when it goes to make predictions is this thing, this second plot, where I just have numbers along the real number line. "
+  },
+  {
+    "start": 782.208,
+    "end": 812.81,
+    "speaker": "SPEAKER_02",
+    "text": "And I just want to predict their height, their y value. That's all I would see. And I would need to do that. And of course, where I'm constrained to the fact that my line must pass through the origin, because here is my x representation, I can't multiply by this by some value in order to get it to shift up by one. The ordinary least squares estimate for this is the following line. So you see this dashed line. And it actually captures the slope. 0.94 is very close to the m that we wanted, the slope of 1. "
+  },
+  {
+    "start": 812.85,
+    "end": 844.852,
+    "speaker": "SPEAKER_02",
+    "text": "That's just kind of a nice coincidence here. But you can see that going through the origin is the wrong function. We want to shift this up by 2 to capture our data. And we motivated that with basis expansion before. And to visualize basis expansion, what we can do is we can now take our data, and rather than plotting it on a number line, we plot it in the plane, in R2. So now I have along the x-axis, that's the value that I observed. And along the y-axis is the basis expansion that I introduced. "
+  },
+  {
+    "start": 845.896,
+    "end": 877.055,
+    "speaker": "SPEAKER_02",
+    "text": "So here, for that affine basis expansion, we'll see the closed form in a second, I've just said, okay, well that second dimension, that x2, is always going to be one. And if I visualize the actual function that I want to learn now, it's no longer this nice kind of two-dimensional plot, because my data points are in R2, and then I'm trying to predict other things, so we have a 3D plot. So here, I've just given the 3D representation. I've put a star at the origin so that you can see where that is. "
+  },
+  {
+    "start": 877.135,
+    "end": 910.105,
+    "speaker": "SPEAKER_02",
+    "text": "Basically, I have all of the same data as before. But rather than cutting through the plane where c is equal to 0, it shifted over to the plane where c is equal to 1. I probably should have slowed down the rotation. Hopefully, that's not making everybody dizzy. There's a second one in the next slide. Great. This is what it looks like when we perform the ordinary least squares in that space. So you can see this green plane goes through the origin. "
+  },
+  {
+    "start": 910.145,
+    "end": 942.428,
+    "speaker": "SPEAKER_02",
+    "text": "It satisfies that kind of definition of a linear transform. But even though it goes to the origin, when I get to the plane where c is equal to 1, it's not going through the origin at x1 equals to 0. It's only going through the origin where x1 and x2 are equal to 0. So that x1 not being 0 allows me to shift. And then when we plot the ordinary least squares, we get the, so basically all I'm doing here is I'm plotting, but just ignoring x2. "
+  },
+  {
+    "start": 942.908,
+    "end": 976.725,
+    "speaker": "SPEAKER_02",
+    "text": "So I've just not plotted x2, only plotted what happens at x, and this is what I get, which is the function we want to recover. Here we've gotten very close to that sort of x plus 2. We're at 0.97x plus 2 point and a bit. OK, and then mathematically, if the geometric thing, again, doesn't make sense, you can see this analytically by writing this out. This is a slide we had from last lecture, where essentially, if every vector is x comma 1, so that's my basis expanded codomain. "
+  },
+  {
+    "start": 977.385,
+    "end": 1011.316,
+    "speaker": "SPEAKER_02",
+    "text": "then when I look at the dot product between two vectors, I get that this is just x. So x1 theta 1, x2 theta 2. By definition, x2 is 1, because that's the definition of phi. And so I have this y equals mx plus p4. Show of hands, how many people think they understand basis expansion and are relatively confident with the concepts, if maybe still a little bit shaky on the math? Is this relatively clear? Great, so it's 60%, 70%. "
+  },
+  {
+    "start": 1011.436,
+    "end": 1043.682,
+    "speaker": "SPEAKER_02",
+    "text": "So I won't go over this again. This is basically the stuff that we'll cover at the beginning of next lecture is all of the new material. If this is still very unclear to you, again, I'm here for the hour after lecture. I'll have office hours on Tuesday. Feel free to come to me, and we can basically work all of this out from first principles and see where you're getting stuck. Oh, maybe a really quick thing, because this is a matrix vector product. We can just finish out the family. If I have two vectors, so I have a in Rn, b and rn. "
+  },
+  {
+    "start": 1044.222,
+    "end": 1075.796,
+    "speaker": "SPEAKER_02",
+    "text": "This is n by 1. This is n by 1 by convention. You can't multiply a and b. Another thing you can do, that sum's not well-defined. And so when we write the dot product, we have a transpose b. This takes this from being n by 1 to 1 by n, 1 by n, n by 1, which means I'm getting out of this a real value. So we'll say c. which is in the reals. And then if you were to write this out in summation notation, you can write out a transpose i bi. "
+  },
+  {
+    "start": 1076.177,
+    "end": 1106.531,
+    "speaker": "SPEAKER_02",
+    "text": "Or if you want to get rid of the transpose, it could just be a i bi, which is the sum of element-wise products. OK, so hopefully that covers some of the confusion from last time around summation notation and basis expansion. Again, let me know afterwards if anything is unclear for you. Now, the one thing that we showed when we did this polynomial basis expansion was that we could take this polynomial to whatever degree we want. "
+  },
+  {
+    "start": 1106.871,
+    "end": 1155.665,
+    "speaker": "SPEAKER_02",
+    "text": "And I made the statement that we'll make precise later in the course that this model is infinitely powerful. There's actually no function. Well, modulus in very minor conditions. There's no function you can write down that I can't learn with a very high degree polynomial for some sufficiently large polynomial degree. But just because it's infinitely powerful doesn't mean it's infinitely appropriate. It doesn't mean you should use it in every scenario. There's a reason why chat GPT isn't polynomial regression. And so to think about when it might not be appropriate, here's some real-world data where some, basically, statisticians are trying to estimate, given some parameters about a ship or a description of a ship, How many times over the course of a given period will it incur damage on the open seas? "
+  },
+  {
+    "start": 1156.506,
+    "end": 1190.455,
+    "speaker": "SPEAKER_02",
+    "text": "And this allows you to plan for lots of logistics things. It's a very nice thing to think about and know before you send a ship out for a given amount of time. So the first thing is to sort of think about what kind of problem this is by going back to our machine learning problem setting. It's clearly a supervised learning problem. And you can sort of tell because there's some y value. There's a label or a response variable y that we're trying to predict. And also, not only is it supervised, but it's regression. "
+  },
+  {
+    "start": 1190.475,
+    "end": 1220.655,
+    "speaker": "SPEAKER_02",
+    "text": "We're not trying to classify all of the possible times you could have your ship damaged. We are doing a nice regression problem. albeit on the integers, which isn't a huge issue. But then we ask ourselves, well, is my linear regression suitable for this situation? Should I use linear regression just as it is here? And well, spoiler, the answer is no. Does anybody have a good intuition as to why the answer is no? "
+  },
+  {
+    "start": 1220.715,
+    "end": 1262.078,
+    "speaker": "SPEAKER_02",
+    "text": "Why linear regression, not an appropriate model here? Yeah. Exactly. So the answer is that you're never going to have a negative y. You're never going to have a negative number of damage incidents unless, well, a lot of seagulls become very skilled engineers and repair your ship while you're on the seas, in which case maybe we can use linear regression. But until that happens, we can't. You're only going to see non-negative number of damage incidents, so positive things. So all right, could I use basis expansion to cover this? "
+  },
+  {
+    "start": 1263.059,
+    "end": 1295.207,
+    "speaker": "SPEAKER_02",
+    "text": "And the answer is kind of. But philosophically, you wouldn't want to. It's not a principled way to cover this. So if you wanted to just use linear regression and make sure it's always positive, or polynomial regression, I should say, and make sure it's always positive, I could say, well, I'm only going to restrict my inputs to strictly positive values. And I'm only going to restrict myself to positive coefficients. And then, all right, everything should be positive. But of course, with our ordinary least squares estimate, we don't control what the optimal parameter is. And so you're not solving the same problem. "
+  },
+  {
+    "start": 1295.247,
+    "end": 1331.487,
+    "speaker": "SPEAKER_02",
+    "text": "You've introduced more problems than you've created. And also, again, going back to the principle of it, you wouldn't change your input space in the way that you think your inputs are related in order to encapsulate or capture some knowledge you have about the outputs you want. So you need to do something on the output space rather than the input space. And the simplest thing you could do is just apply some function that's non-negative to the output of your linear model. "
+  },
+  {
+    "start": 1335.79,
+    "end": 1369.758,
+    "speaker": "SPEAKER_02",
+    "text": "So here, I've exponentiated. And then I've plotted it so you can see that it satisfies that condition. It's not negative. And great. Well, I have my y hat is now going to be a strictly positive value. And so I'm done. But remember that before we needed to have the OLS, we needed a linear transformation. And this is no longer a linear transformation. So we need to find a new best parameter because the fact that this doesn't hold means that the OLS doesn't hold. "
+  },
+  {
+    "start": 1370.379,
+    "end": 1400.952,
+    "speaker": "SPEAKER_02",
+    "text": "So all right, let's do something different. But before we do, let's maybe just try the same thing that we did last week. If it worked once and it was super powerful, why not try it again? And so before I show you that, I'll caveat by saying that this is Poisson regression, that we will motivate from a probabilistic perspective in lecture 6. And actually, there's a very complicated looking loss function that you should use. If you're interested, it's in your notes for now. But again, it's not. "
+  },
+  {
+    "start": 1401.432,
+    "end": 1431.884,
+    "speaker": "SPEAKER_02",
+    "text": "pertinent right now. So rather than using that loss function, I'm going to use the mean squared error because, again, it worked last time. So let's see what happens. So if I use my mean squared error, here's our form. I feel like I'm missing something here because that's going to be a vector squared. So OK, I should have a transpose rather than a square here, because this would be an element-wise square. "
+  },
+  {
+    "start": 1432.404,
+    "end": 1469.826,
+    "speaker": "SPEAKER_02",
+    "text": "But I can make that clear. It's a variable. Let me just do it now on the board. So rather than writing this, so any time we apply an operation to a vector, by default, it's element-wise. So if I have a standard operation like squaring something, and I write a is in Rn, and then I write a squared, what I will mean throughout this course is the vector that is ai squared. So every entry i is ai squared. What I should write here instead of square is what we saw last time, y hat minus y transpose y hat minus y. "
+  },
+  {
+    "start": 1471.514,
+    "end": 1504.559,
+    "speaker": "SPEAKER_02",
+    "text": "Very minor thing, but it's the kind of thing that we ought to be precise about. In any event, we get down to that here. I've sort of corrected my mistake. And the thing that we did last time, once we got to our loss function, is we expanded it. We know what y hat is. We have the closed form. And so we can plug that in, which is just the exponentiated linear model. And we get down to a form that's very similar to that matrix loss form that we had before. Great. "
+  },
+  {
+    "start": 1505.299,
+    "end": 1536.819,
+    "speaker": "SPEAKER_02",
+    "text": "Now, once we've expanded our loss, and I've written it in summation notation for a variety here, along with a little bit of Pythonic indexing, just so we're seeing all of the kinds of things. Does anybody remember what the next steps of this learning algorithm were? There's two other steps. Yeah? You derive it and then set it to zero. Yeah, take the derivative, set it equal to zero. You'll get your extremum. Great, we want to do that. "
+  },
+  {
+    "start": 1536.919,
+    "end": 1569.316,
+    "speaker": "SPEAKER_02",
+    "text": "And then after we set it equal to 0, we solve for theta. That's where the derivative is equal to 0 when we change theta. Now, it's a little bit, it's a trickier function to actually take the derivative of than the last one that we saw. But again, this is just kind of recap for those of you who haven't seen calculus in a while. Here, we have essentially a composition of functions. And when we have a composition of functions, we need to invoke the chain rule. So this is something that's going to be very important when we see automatic differentiation next lecture. "
+  },
+  {
+    "start": 1570.636,
+    "end": 1625.024,
+    "speaker": "SPEAKER_02",
+    "text": "And the chain rule, which works for both real numbers and for when you get to multivariate calculus, so hopefully you've all seen this, is just that the derivative of a function that's a composition of functions capital F is going to be, well, and the composition is between small f and g, is the derivative of f at g times the derivative of g. Yeah? Basic rule, hopefully, again, we've all covered that. And so here, our f is the sort of squaring. And our g is going to be basically our model, our prediction. And so we will take the derivative of f. So this is the derivative of f of x at g of x. So I've just plugged g of x into the derivative of f. And then I need to differentiate g. So then I have g prime of x, and that's very straightforward when we've exponentiated. "
+  },
+  {
+    "start": 1625.244,
+    "end": 1667.996,
+    "speaker": "SPEAKER_02",
+    "text": "And that's the reason that I said the simplest thing we can do. Don't have to worry about any complicated derivatives. There's lots of functions that are non-negative, but this is quite a nice one. Great, so we can assemble this back into matrix form, and we have the following derivative of our loss. And then we have the latter two steps, which were to set this equal to 0 and solve for theta. And I'll sort of jump to the punchline there, which is like, go ahead and try it all you want. There is no closed form solution for theta here. You're going to have to take the log of 0 at some point, and now you're in big trouble. And so it doesn't exist. "
+  },
+  {
+    "start": 1668.016,
+    "end": 1700.043,
+    "speaker": "SPEAKER_02",
+    "text": "That third step where I solve for theta, just like I can't do it algebraically. So what do I do? Well, we'll see that in a second. Before we get there, I want to show you yet another model that's very important and quite similar that builds on this. So here, we were talking about regression, and we were talking about regression for values that are strictly positive. But what if I wanted to use linear regression for classification? What if I want to do that, so I'm completely abandoning the idea of regression? "
+  },
+  {
+    "start": 1700.383,
+    "end": 1735.807,
+    "speaker": "SPEAKER_02",
+    "text": "Here, for example, let's imagine we're doing binary classification. It's always easiest to start with binary classification, and then we'll generalize. So if I'm trying to predict if an image is a cat or a dog or just generally any binary prediction, what we typically do, what you'll have seen in intro to ML classes if you've taken them, is you say, all right, well, I'm going to give every cat the label 0. So that's how I'm going to represent it numerically. And every dog the label of 1. Again, that's just how I represent it numerically, which allows me to write down or encode a vector. "
+  },
+  {
+    "start": 1737.207,
+    "end": 1770.416,
+    "speaker": "SPEAKER_02",
+    "text": "It's like, so if I have a bunch of images, and then my vector is that the first one is a dog, the second one is a cat, and the third one is a dog, again, just transposing for convention, then if my dogs are 0 and my cats are 1, then the y vector for our input becomes 1, 0, 1. Again, sorry that I've forgotten whether dog or cat was 1, I think, a couple of times while I'm speaking, but it's sort of arbitrary, so I'm allowed. Just pausing. "
+  },
+  {
+    "start": 1770.757,
+    "end": 1800.825,
+    "speaker": "SPEAKER_02",
+    "text": "Is this relatively clear? Does everybody understand what I'm doing here by show of hands? Yes? Yeah, 100%. Cool. OK, so now I have my inputs. And before, we saw this constraint that my output needs to be non-negative. It always needs to be greater than or equal to 0. And now I have an additional constraint, which is that, well, it should be greater than 0. It should also be less than or equal to 1. And essentially, I'm going to do the same thing as before. "
+  },
+  {
+    "start": 1801.185,
+    "end": 1833.271,
+    "speaker": "SPEAKER_02",
+    "text": "I'm going to just pick a function that satisfies that. And there's multiple functions you can pick here. The one that, by convention, most people pick, and we'll talk about times you might not pick this, is the logit function or the sigmoid function here. And you can quickly check, just like eyeball, that this has the properties that we want. As the value of the term in the exponent, as that gets really, really big, I have 1 over 1 plus something huge, which tends to 0. "
+  },
+  {
+    "start": 1833.911,
+    "end": 1867.566,
+    "speaker": "SPEAKER_02",
+    "text": "And as that exponentiated term gets very, very small, this function becomes 1 over 1 plus something very, very small, so tends to 1. So this is, again, the plot of the function in case you don't believe me. And you can see it captures that output property that we want. Now, like the Poisson regression case, you've likely seen this kind of model before. This is called logistic regression. And when you do logistic regression or classification in general, you'll use the cross-entropy loss. "
+  },
+  {
+    "start": 1868.567,
+    "end": 1899.18,
+    "speaker": "SPEAKER_02",
+    "text": "And we'll derive this cross-entropy loss exactly later. I'm giving it to you now. And I think as an exercise, you have to do steps one and steps two. But again, jumping to the punch line for, to speed up our discussion. What you'll observe is that when you get there, when you get to this final step where you want to set your gradient equal to zero and solve for theta, you can't. Again, this exponent, you're going to have to take the log of zero somewhere, and everything kind of blows up in your face. "
+  },
+  {
+    "start": 1903.163,
+    "end": 1934.17,
+    "speaker": "SPEAKER_02",
+    "text": "Great. So you could try the MSE here again. You'll get the same thing, because your model, again, has that exponent term. So this is where I unite these two things and also sort of bring in a generalization of both of these concepts, which is the idea of a generalized linear model, which is essentially where I'm just taking some nonlinear function whose codomain captures the kind of structure and constraints of my output space that I want, and I apply it on top of my linear model. "
+  },
+  {
+    "start": 1935.316,
+    "end": 1966.345,
+    "speaker": "SPEAKER_02",
+    "text": "Here, I've written that function as g inverse. The reason I've written it as g inverse and not g is because this is the canonical form of generalized linear models that will motivate from a statistics perspective and probability perspective later. But because it's everywhere in literature and in textbooks written, this is called the link function, this g inverse. Because it's always written as g inverse, I don't want to break that convention here needlessly. That way, you don't get confused when you see something. that looks like this. "
+  },
+  {
+    "start": 1967.226,
+    "end": 2000.205,
+    "speaker": "SPEAKER_02",
+    "text": "Now, we can, of course, do this sort of nonlinear transform of our predictions of our outputs on top of doing basis expansion. And so the most powerful thing we've seen in this course till now is that basis expanded generalized linear model, which up there is just y hat is equal to g inverse. 5x transpose theta. So there's our generalized linear model. "
+  },
+  {
+    "start": 2000.725,
+    "end": 2032.612,
+    "speaker": "SPEAKER_02",
+    "text": "And one thing that these all have in common is that this g inverse, this link function, is going to break that linear transform assumption that we had for our ordinary least squares. And so we need to do something else. We need to introduce a new learning algorithm since we can't solve anymore. And that algorithm is gradient descent. OK, so gradient descent, again, is probably one of the most widely used learning algorithms, like processes for solving an optimization problem in machine learning that you'll see. It's been around for quite a long time. "
+  },
+  {
+    "start": 2035.172,
+    "end": 2066.28,
+    "speaker": "SPEAKER_02",
+    "text": "And I mean, it's very well investigated. It's also something that we'll analyze from lots of different perspectives, starting with a more computer science-y thought at the end of this lecture. But the way that it works, so four steps. We've expanded from three to four steps. But the first and the last step are kind of a little bit trivial. So the first step of this algorithm is to take your parameter to be randomly initialized. Now, the word random implies some sampling distribution or something like that. "
+  },
+  {
+    "start": 2066.361,
+    "end": 2098.873,
+    "speaker": "SPEAKER_02",
+    "text": "And we aren't going to touch statistics or probability for two more lectures. So for now, just take that to be uniformly at random. Just pick whatever starting place you want. Now, when you pick that starting place, you know that that model for that parameter that you pick or that parameter you pick rather induces a model. So that parameter then gives you some function that's making predictions. And I could measure the loss of this. And so one way to think about this is to, again, take that loss landscape perspective. "
+  },
+  {
+    "start": 2102.207,
+    "end": 2135.166,
+    "speaker": "SPEAKER_02",
+    "text": "So remember, the loss landscape is just a way of thinking about. So the loss landscape is just that function where I'll put on my x-axis my parameter values and on my y-axis the loss at the parameter value. And this has some form, what's allowed to be. something like this. And when we start somewhere random, we're picking somewhere random along the x-axis. "
+  },
+  {
+    "start": 2136.067,
+    "end": 2167.795,
+    "speaker": "SPEAKER_02",
+    "text": "So let's say I start here. And then if I take the gradient at this point, what I'm doing in terms of this lost landscape perspective is I'm looking down at my feet and I'm saying, well, which direction is the direction of steepest descent? So again, a kind of physical analogy for this is you're standing. on some landscape, a mountain or somewhere. And all you want to do is find the lowest point in that landscape. And so you're just going to look down at your feet and start walking down the direction of steepest descent. "
+  },
+  {
+    "start": 2168.655,
+    "end": 2200.29,
+    "speaker": "SPEAKER_02",
+    "text": "And again, another nice physical analogy is to think about a marble that's just rolling down a hill. So you're going to take the gradient. That's going to tell you what direction to move in. In this case, this direction. And then I'm going to take a step in that direction. And the size of the step that I'm going to take we'll talk about, we'll parameterize as alpha. So I'm just going to take a step in that direction. And then I'm just going to do this k many times. So I'm just going to walk for a certain amount of time. And we can visualize this, again, really nicely. "
+  },
+  {
+    "start": 2200.671,
+    "end": 2240.167,
+    "speaker": "SPEAKER_02",
+    "text": "Well, actually, before we get there, sorry, let's write this down mathematically. So I've expanded the loss function just to include all of the things that the loss function is dependent on. We will often see the loss function written like this. You're just taking a parameter with all of the other things being implicit. And you can see that I'm giving you what is a recurrence relation up top, that to get to your new place, your new parameter at time t plus 1, what you want to do is you want to start Well, wherever you are now, so the first parameter you pick is going to be t equal to zero or t equal to one, depending on how you want to index. "
+  },
+  {
+    "start": 2240.808,
+    "end": 2274.886,
+    "speaker": "SPEAKER_02",
+    "text": "And then we're just going to add alpha times, and then this is the gradient of the loss function. So here's the direction you're stepping in. That's the gradient. We actually solved for the gradient before. So all of the things, we solved for the gradient, and then we couldn't solve. And so instead of solving, we're going to do this. Here's your direction. Here is what's called the learning rate. This is the size of the step that you're taking. And then this is how long. So where the limit of this is your training duration or number of steps. "
+  },
+  {
+    "start": 2279.052,
+    "end": 2311.089,
+    "speaker": "SPEAKER_02",
+    "text": "I saw some hands. Yeah. Yeah, should be negative. Should be negative. Yeah. So let's let alpha be defined as a negative number here rather than a positive one. Solves that issue. But again, it's plastering over the, yeah. That should be a negative. We're doing gradient descent, so the negative direction. Yeah. The basis expansion. Let's do basis expansion afterwards. If you have questions about gradient descent. Do you have questions about how basis expansion works here? "
+  },
+  {
+    "start": 2311.109,
+    "end": 2344.05,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah. Sure, OK. Yeah, if it's about this and how basis expansion link up, then sure. Yeah, yeah. How is it linked? So when you have basis expansion, Right? You're actually never, for example, going backwards. You're never taking the derivative of this thing because you're picking this thing. This is a choice. The basis expansion is a choice you make. And once you make that choice, you have your new data set. And so it factors in numerically in terms of the actual values of your gradient and the shapes of your gradients. "
+  },
+  {
+    "start": 2344.09,
+    "end": 2385.222,
+    "speaker": "SPEAKER_02",
+    "text": "But it has mathematically no effect on this function because you can pick whatever basis you want. Yeah? F superscript theta? Yeah, so the F superscript theta I talked about before, usually I'll write functions just as either F or G or H kind of following standard conventions. A parameterized function, I'll write the parameter in the sort of superscript. And so there I'm just saying, well, we have some machine learning model F that takes parameters theta. So this is just like, again, an arbitrary model. Yeah, exactly. F can be anything. Now, it ought to be differentiable. "
+  },
+  {
+    "start": 2385.242,
+    "end": 2415.528,
+    "speaker": "SPEAKER_02",
+    "text": "Otherwise, you're going to run into some issues with the leading operator. But yeah, it can be anything. Any other questions about this? So let's see how it looks in practice. So here's me just plotting the loss landscape and what happens when I learn in logistic regression. So I've just taken a bunch of random starting points, and then I've changed the parameters, my learning rate, and the number of steps that I learn. "
+  },
+  {
+    "start": 2416.372,
+    "end": 2454.385,
+    "speaker": "SPEAKER_02",
+    "text": "So you can see that. And here, really what I'm showing you is what happens when I increase my learning rate. Just to be very clear about what's being plotted here, we have two parameters in this logistic regression. And I've labeled them as w0 and w1, equivalently theta 0, theta 1. And then the loss at each of these has been plotted as a color with blue values being low and red values being high. So we want to find the most blue parameter. I've started at some random point. And then you can see that what alpha is doing, or my learning rate, LR, is as I increase my learning rate, I'm sort of moving faster. "
+  },
+  {
+    "start": 2454.626,
+    "end": 2484.749,
+    "speaker": "SPEAKER_02",
+    "text": "I'm taking bigger steps through my loss landscape there. And you can see that for some parameters, we take big steps. We get to our optimum very fast. And for some, we have a very, very small learning rate. And so we essentially never move. As alpha tends to 0, you're not going anywhere. It's also said that you're not learning anything. Great. So the other parameter is, of course, the number of steps. So I can fix a very small step size. So here's that blue line from before. "
+  },
+  {
+    "start": 2485.089,
+    "end": 2520.476,
+    "speaker": "SPEAKER_02",
+    "text": "And I can actually solve for this by just taking many, many steps. Right, and so here you can see I'm sort of increasing by an order of magnitude the number of steps that I take and even with a small learning rate I do kind of get to a very nice blue point. So we'll investigate and we'll study different properties of this algorithm. When do you reach a really nice point? Under what conditions? What should you set these values to be? For now, your learning rate, alpha, and the number of steps you take, I'm going to put them in that bin of hyperparameters that we'll unbox later. "
+  },
+  {
+    "start": 2521.057,
+    "end": 2555.495,
+    "speaker": "SPEAKER_02",
+    "text": "So that kind of basis expansion, well, what should you pick? The parameters here, what should you pick? Those are all things that we'll investigate how to think about systematically later. Yeah? Yeah, so the question was, why do the losses start at different values? Here, I'm just picking different initializations for visualization's sake. So each of the starting points, each of the initial points of these trajectories are just me resampling my starting, so you can see the effect of these different trajectories. "
+  },
+  {
+    "start": 2556.355,
+    "end": 2589.626,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah? Yeah, so the question was, well, what happens if my loss landscape isn't so nice? Like, what if it has some kind of different minima, so I have a very strange landscape? That's something that we'll reckon with in lecture five when we talk a bit more about optimization. But to give you the intuition for this question, it's sort of like, well, Here, I'm talking about finding the lowest point in a landscape. "
+  },
+  {
+    "start": 2589.686,
+    "end": 2648.415,
+    "speaker": "SPEAKER_02",
+    "text": "And so if you said, like, Matthew, I'm going to find the lowest point in London by elevation, and I'm going to start just outside the Huxley building, even if you follow the direction of steepest descent, the chances that you've actually found the lowest point in London that way are very, very small. Right? And we'll talk about and quantify all of that. For now, for almost all of your choices of a generalized linear model, it'll look something like this. Yeah? So for grading the scenario, we've seen two random Sure. The question was, in gradient descent, do we assume two sources of randomness where we initialize the model and the starting point? But where we initialize the model and our starting point are the same thing. So here, the starting point of this trajectory is a value for w1 and w2. So the only thing I've done is just picked some starting point and then learned from there. "
+  },
+  {
+    "start": 2661.307,
+    "end": 2687.917,
+    "speaker": "SPEAKER_02",
+    "text": "So the question was, does this hold because of the first order Taylor approximation? And the answer is not really. We can link it to that, and we can think about higher order Taylor expansions to understand what kind of ground we're standing on more. In fact, I think there's maybe an exercise question later about this. But for now, no. You can use that kind of information, but that's not why this works in particular. Yeah. "
+  },
+  {
+    "start": 2690.969,
+    "end": 2706.242,
+    "speaker": "SPEAKER_01",
+    "text": "Yeah, so the question was, if learning rate is really small, I don't go anywhere. "
+  },
+  {
+    "start": 2706.262,
+    "end": 2740.379,
+    "speaker": "SPEAKER_02",
+    "text": "If the learning rate's really large, I'll run all over the place. Maybe I'll show a nice visualization of this afterwards. And again, the answer is that we'll do an actual analysis of this recurrence relation and condition. We'll think about like, mathematical conditions under which things converge and how I should pick things. For now, let's let the alpha value and the amount of time that you run this algorithm for be hyperparameters and just deal with the algorithm in its simplest form for now. Yeah, for now, we aren't systematically exploring hyperparameters. "
+  },
+  {
+    "start": 2740.679,
+    "end": 2773.338,
+    "speaker": "SPEAKER_02",
+    "text": "Just imagine I'll always give them to you at this point, and then we'll talk about systematically how to think about them and select them. Any other questions? How do we feel about gradient descent? Show of hands if you feel like, OK, I know what's going on here. This is clear to me. Good. Cool. OK. So quickly before I move on, I want to make a point, which is that when I was motivating the loss function for Poisson regression, one of the things that I said was like, well, this isn't the loss function. "
+  },
+  {
+    "start": 2773.358,
+    "end": 2806.642,
+    "speaker": "SPEAKER_02",
+    "text": "We should pick. we should pick a different thing. But then I gave you a very, very general learning algorithm. And so, in fact, even though I say you shouldn't pick that loss function, in principle, you could. There's nothing mathematically stopping you from picking that function. I showed you that you can't solve for it analytically. But again, you can't solve for any of them analytically. And so why shouldn't I do this? And again, this is something that we'll dive a little bit deeper into. For now, I kind of just want to show you visually why that doesn't work so great. "
+  },
+  {
+    "start": 2806.662,
+    "end": 2837.476,
+    "speaker": "SPEAKER_02",
+    "text": "So here's logistic regression. learned using two different loss functions. So the green line is learned using binary cross entropy. That's that kind of principled loss function that will derive and that people have sort of just given you and said, ah, this is what we use. And then the purple line is what happens when we use a mean squared error. And you can see that this mean squared error function, when I use that, is really sensitive to outliers. So I add in this little extra cluster of points. And all of a sudden, I've got a lot of classification errors with my purple line. "
+  },
+  {
+    "start": 2838.71,
+    "end": 2870.348,
+    "speaker": "SPEAKER_02",
+    "text": "And there's a really nice discussion, I think, in Bishop's book, which is where this figure is pulled from. And so if you're really interested in understanding why this is in detail, you can see that section. But we'll derive principally why you should do things or how to do things the correct way, again, in lectures six and seven. So now let's do a little bit of analysis. Let's do a little bit of thinking about this algorithm. In particular, gradient descent is used everywhere. "
+  },
+  {
+    "start": 2870.889,
+    "end": 2905.567,
+    "speaker": "SPEAKER_02",
+    "text": "And so one could reasonably ask, well, what if I just never use the ordinary least squares? Why do I need to know? Should I use OLS or should I use gradient descent? Why don't I just use gradient descent everywhere and call it a day? I don't need to make these choices. And it's a nice question, but one thing you might think about is, well, what's the computational complexity of running gradient descent? And is there some computational savings doing this over ordinarily squares? Or is one more efficient than the other? When should you pick? And this is a nice... way of sort of starting to think like a computer scientist about these problems. "
+  },
+  {
+    "start": 2905.927,
+    "end": 2938.501,
+    "speaker": "SPEAKER_02",
+    "text": "If you were only cared sort of abstractly about these as mathematical objects, you likely wouldn't kind of do this sort of analysis. Like, well, you'll get to the same point. And we'll show that you'll get to the same point anyway. It's like, why do I actually care? But we care quite a lot these days, especially about optimizing and doing as little work as we can to get the best model, because the amount of work that we have to do is going to have sort of a direct financial and environmental cost. So we'll measure the computational complexity, taking our atomic operations to be a floating point operation. "
+  },
+  {
+    "start": 2938.782,
+    "end": 2977.017,
+    "speaker": "SPEAKER_02",
+    "text": "It's one of those things we talked about in lecture zero. It's not super important, but let's just take that to be constant time. And so we need to think about the computational complexity of these two processes. Here I have the minus sign correct, so I need to just replace it on the other slide. So what's the complexity of a matrix product, so this x transpose x? So we have, actually, if you want to go ahead and think about that, see if you can come up with the answer of what's x transpose x, I'll do it in just a second. "
+  },
+  {
+    "start": 2988.448,
+    "end": 3021.688,
+    "speaker": "SPEAKER_02",
+    "text": "OK, so one thing to start off is some people might say, what do you mean the computational complexity of this? I know computational complexity, but only looking at algorithms. Of course, that's one really nice thing about summation notation is that summation notation kind of suggests an algorithm for computing this. Your summation is just going to become a for loop. It already has its range here, and you're only incrementing by one. So you could write out. the algorithm for this, just using two for loops. "
+  },
+  {
+    "start": 3022.709,
+    "end": 3054.134,
+    "speaker": "SPEAKER_02",
+    "text": "So x is going to have m rows and n columns. And so we can think about how many operations do I have to do to compute this final thing. So the first term is x transpose. x transpose is going to be n by m. x is going to be m by n. So nice, the inner terms match up. The outer terms tell us that my output of this is going to be an n by n matrix. "
+  },
+  {
+    "start": 3054.934,
+    "end": 3085.262,
+    "speaker": "SPEAKER_02",
+    "text": "And I have to do this element-wise sum of products that many times for every i and j. So I know that at least this is going to be n squared. So for each of those n squared things, what do I have to do? Well, I have to take the sum over m many products. So I just multiply. And that's two floating point operations. I'll ignore the constant. So we have that this is O of n squared m. Right? "
+  },
+  {
+    "start": 3085.782,
+    "end": 3149.397,
+    "speaker": "SPEAKER_02",
+    "text": "So there's that. The nice thing here with n squared being the term is because, well, n appeared twice in this equation. Good. Now, inversion is one of those things where, OK, you could write out, if you know nice algorithms for inverting things, and you can actually do it faster than in cubic time. But for this class, let's just approximate it as cubic time. And it's one of those things that you'll just have to remember, that matrix inversion is going to be cubic. There aren't many things like that. Great. And so this gives us an overall complexity, because I do this, of n squared plus m plus n cubed. Now, there are, of course, other operations happening in this ordinary least squares equation. But they're all going to be dwarfed by these two terms because it's just another matrix product. So it's going to be a multiple of that first term and then a matrix vector product, which is going to be less computationally heavy than that first term as well. So this is a good approximation of the overall complexity. "
+  },
+  {
+    "start": 3149.737,
+    "end": 3180.609,
+    "speaker": "SPEAKER_02",
+    "text": "If you wanted to write every possible term out and be very specific, you can. I'm just worried about the class here. So is that clear, like how I got to this solution? About 50-50. Does anybody want to volunteer a question about what's not clear there, like what didn't make sense? If not, we can feel free to do the math. Oh, yeah. So the question was, can I repeat the n to the power of 3? "
+  },
+  {
+    "start": 3180.629,
+    "end": 3210.63,
+    "speaker": "SPEAKER_02",
+    "text": "So this is one place where I'm taking a little shortcut, because having all the slides, I'm like, well, this is how you do matrix inversion, and this is the complexity of that, is kind of an ancillary point. So I'm just giving you, as an oracle, the fact that matrix inversion is n cubed. There are actually slightly faster ways. I think the best lower bounds, like, n to the 2.71, somewhere around there, perhaps. But for this class, we can just take it as n cubed, and I'm giving that to you. Any other questions? "
+  },
+  {
+    "start": 3212.552,
+    "end": 3249.39,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah. Sorry? When did the m pop up? Yeah. So I have these two matrices that I'm multiplying. The output of this is going to be n by n. So cij, so c is going to be n by n. So I have to do for every i and for every j, I have to do this operation. This operation, so here I've written the general form where k is ranging from 1 to l. In our actual formulation for x transpose x, it's going to be a sum ranging from i equals 1 to m. "
+  },
+  {
+    "start": 3250.871,
+    "end": 3290.638,
+    "speaker": "SPEAKER_02",
+    "text": "And so the thing that I have to do, n squared many times, is a for loop that takes m as its range. Any final questions? Feel free, again, if some of this is unclear, to put it into the post-lecture form, and we can go over any particular questions at the start of next lecture. So there's the overall complexity. Now, let's think about the complexity of gradient descent. And because this is the complexity of our linear model, of computing the OLS for that, let's just do the complexity for our linear model in gradient descent, so applying gradient descent to our linear model. "
+  },
+  {
+    "start": 3291.759,
+    "end": 3330.041,
+    "speaker": "SPEAKER_02",
+    "text": "If we do that, then, well, we know what the gradient is. We solved for it at the start of or in the middle of last lecture. And it's just that equation that we had before we isolated for theta. It's before we solved. And all right, well, if you look at this, then really it looks like it has about the same complexity. Now, there is this missing plus n cubed term. Right? And maybe just to take a step back and think about this, especially in the context of machine learning, to start to think about what is n and what's m. "
+  },
+  {
+    "start": 3330.641,
+    "end": 3362.425,
+    "speaker": "SPEAKER_02",
+    "text": "n here, remember, was the number of dimensions that each of my feature vectors take. And m is the amount of data that I have. So if you're thinking about a machine learning model that's running on training on internet scale data, m is going to be huge compared to n. Because n would be sort of your embedding space, whatever your tokenizer outputs. So this n squared m, with m being much bigger than n, is going to dominate the n cubed term when we have a lot of data. "
+  },
+  {
+    "start": 3362.886,
+    "end": 3394.032,
+    "speaker": "SPEAKER_02",
+    "text": "And so it looks like these two things roughly equivalent, so it doesn't matter what I pick. But again, this is another place where having a computer science perspective on the problem really helps. Because this is actually a really inefficient way to compute the gradient. I can write out an equivalent form of this gradient that takes me less computational time and will get me to my solution faster. So here's that solution. You can check with all I've done is factored out the x transpose. "
+  },
+  {
+    "start": 3394.052,
+    "end": 3424.488,
+    "speaker": "SPEAKER_02",
+    "text": "This is exactly the same as that equation. But by changing my order of operations and by writing in a slightly different form, I get a much nicer complexity. So here, the first term is x theta, which is not a matrix-matrix product but a matrix-vector product. And so before, when we had that cij term that we were solving for, so going back here, we have cij. That's because the output of a matrix-matrix product is another matrix. "
+  },
+  {
+    "start": 3425.468,
+    "end": 3459.05,
+    "speaker": "SPEAKER_02",
+    "text": "The outputs of a matrix-vector product is a vector. And so one of those n terms drops off. And so I have that both of this is a matrix-vector product, which can be done in m times n time. So that's much nicer. Then we're going to subtract off a vector, which is just m time. So that's linear. So OK, that's going to be less than the thing I've written here. And then lastly, we have another matrix vector product because I have a vector, minus a vector, that's a vector, matrix vector product, and we already agreed that that was m by n. "
+  },
+  {
+    "start": 3460.29,
+    "end": 3497.774,
+    "speaker": "SPEAKER_02",
+    "text": "So really, what I have is something in n by n. Of course, I'm forgetting a very critical term, which is that I have to do this for many steps. I have to do this every step. And so there's a k here. There's k by m by n is our complexity of gradient descent. And then we can think about how these relate and when we should pick one over the other. If I'm converging very fast, so if k is small relative to n and m, then it actually makes sense to use gradient descent instead of ordinary least squares. "
+  },
+  {
+    "start": 3498.728,
+    "end": 3540.662,
+    "speaker": "SPEAKER_02",
+    "text": "However, if it takes you a lot of steps, so if k needs to be very big for you to converge, you should pick the OLS and call it a day. We'll look at like, OK, well, how many steps does it take and things like that a bit later. Now, one thing that I'll point out is that here we've been talking about gradient descent, and I want to quickly, just sort of at the end, introduce the idea of stochastic gradient descent. Again, not diving too deeply into the stochasticity, but essentially, rather than gradient descent, or full batch gradient descent, as you'll see it called in different places, is when I compute my gradient of all of my data points at once, and then I take a step with respect to that. "
+  },
+  {
+    "start": 3542.005,
+    "end": 3566.142,
+    "speaker": "SPEAKER_02",
+    "text": "Now, sarcastic gradient centers, rather than computing my gradient with respect to all of my data points, I just take a subsample. So I'm just going to randomly sample some data, and I'll take a step with respect to that subsample of data. And I can actually sketch that out and talk about a little bit of intuition there. But before I do, any questions, again, on this complexity comparison and how I got to this point? Yeah. "
+  },
+  {
+    "start": 3577.634,
+    "end": 3627.382,
+    "speaker": "SPEAKER_02",
+    "text": "Sure. Yeah, yeah. So let's just quickly look at... So the question was, how is this different from the previous one? And the difference really lies in the complexity difference between a matrix-matrix product and a matrix-vector product. So if I have x transpose x, this is going to be... the sum, right, so the output of this, let's call it a, right, so aij is going to be the sum over k equals one to m of xik xij, yep, kij, transpose, right, and so here, right, I have n squared, many things, and I have to do a sum n times. "
+  },
+  {
+    "start": 3627.782,
+    "end": 3673.093,
+    "speaker": "SPEAKER_02",
+    "text": "Where I have x theta, Right? So here, this is now x. So it's m by n. This is n by 1. Right? And then this output is going to be a vector, not a matrix. So we'll have ai. And ai is going to be the sum of j equals 1 to n of, I guess, xji theta i. Yeah. And so here, because my output is a column vector, I only have to do this, like n, or I guess m, many entries of this, where I have to do n by n, many versions of this. Is that clear, relatively? Yeah. "
+  },
+  {
+    "start": 3685.187,
+    "end": 3688.848,
+    "speaker": "SPEAKER_01",
+    "text": "I'm confused about how you derive that second line. "
+  },
+  {
+    "start": 3689.608,
+    "end": 3722.38,
+    "speaker": "SPEAKER_02",
+    "text": "Oh, this second line. Yeah, sorry. Did I totally miss your first question? Sorry about that. So the question was, how did I get this first line, not why are the complexities different? So the first line is the derivative of the MSE loss. So this is the step. So if you take this step and you set it equal to zero and solve, you get the ordinary least squares estimator. So I've just taken the gradient. So I've removed the alpha because it's a single constant multiplication. So as a constant time operation, it's not going to factor into my complexity. "
+  },
+  {
+    "start": 3723.54,
+    "end": 3773.356,
+    "speaker": "SPEAKER_02",
+    "text": "But the second thing is the computation of the gradient. So in every step, I need to compute the gradient of my model in order to know which direction I'm stepping in. And so that's the term that I'm interested in. Does that make sense? How is that different from the derivation you get? So this is the form of the gradient that we got, just naively deriving from the MSE. When we think about, OK, well, is there a faster way computationally to compute this gradient, all I've done is factored the x transpose out. And the reason that this is faster, these two things are equivalent. It's the same exact value. The only thing I've done is I've changed my order of operations so that I'm no longer computing a matrix-matrix product. I'm only computing a series of matrix-vector products, which is what makes this faster. And all I'm doing is a little bit of algebra. "
+  },
+  {
+    "start": 3773.656,
+    "end": 3781.198,
+    "speaker": "SPEAKER_02",
+    "text": "And you'll get some intuition for like, OK, well, these are expensive operations. These are not. And so if I can order them differently, I'll be able to reduce the complexity of my model. "
+  },
+  {
+    "start": 3794.543,
+    "end": 3873.919,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah, we said it was, sorry? Oh, here, x is, yeah, here it should be m by n. Sorry, I think I also did this in your notes. I need to go back and look at that. So there might be some places where the m are flipped, and I'll make sure I iron that out, and I'll make a post to be like, OK, there was two places where it was flipped. This is one of them. This just is when I revise my notes, I do it on paper, and then I copy it over to LaTeX. So if I switch something on paper, it can get crossed. Yeah? Sure. So the question is, can I explain again what I was talking about when I said, well, when k is large, we'll do this. And when it's not, we'll do the other. So here, what I'm trying to do is we've done this math. We know approximately how complex these operations are to compute. And so what I want to do is know, well, what does this tell me about the choices that I make for my learning algorithm? When should I choose one or the other? Right? And so all I'm saying is that when k is really, really large, when k is much larger than n, then this term, like the complexity here, might dominate the other. "
+  },
+  {
+    "start": 3874.539,
+    "end": 3904.838,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah? Initially, how would we know what the value of k is? Initially, how would we know? The question was, initially, how would we know what the value of k is? So k is the number of steps. It's going to be that hyperparameter. And we'll talk about that again in lecture five. So it's just a hyperparameter for now. Great, so that's the end of this. Again, if you have more questions, feel free to come up. I'll be on the board. Albus Lee is going to go through the ridge regression derivation for anybody who's practiced that. "
+  },
+  {
+    "start": 3904.918,
+    "end": 3919.651,
+    "speaker": "SPEAKER_02",
+    "text": "So we'll have a quick five-minute break to let you guys go to the bathroom and get settled, and then he'll start on that. But also feel free to come and ask me questions afterwards. We'll see automatic differentiation and neural networks in our next lecture. Thank you, guys. "
+  },
+  {
+    "start": 3926.905,
+    "end": 3932.409,
+    "speaker": "SPEAKER_03",
+    "text": "Okay. And do you have a laptop or on the board? "
+  },
+  {
+    "start": 3932.489,
+    "end": 3933.95,
+    "speaker": "SPEAKER_01",
+    "text": "I do have a slide. Okay. "
+  },
+  {
+    "start": 4266.176,
+    "end": 4302.466,
+    "speaker": "SPEAKER_02",
+    "text": "Hello, hello, hello. All right, so math for machine learning, folks. We'll continue general sort of office hours questions with GTAs. I'll send GTAs to different parts of the room. For now, if you're sticking around and you want to see, like... sort of step-by-step solutions to your problem sheet two, or a few of them. Albus is going to present those now, and then again, we'll resume the GTA session afterwards. So if I could ask everybody who wants to be here for the work through of those problems to kindly take a seat, I'll hand it over to Albus to go through things now. "
+  },
+  {
+    "start": 4302.806,
+    "end": 4319.11,
+    "speaker": "SPEAKER_02",
+    "text": "And then again, we'll take general questions after. Will this be recorded on the session? Yeah, I think if it's a 4-2, it'll be on there. A 4-2 album. So even the last year of the competition. Yeah, it should be on there. If it's not, let me know, and I'll re-record them, and we'll figure out how to fix that. "
+  },
+  {
+    "start": 4319.19,
+    "end": 4330.46,
+    "speaker": "SPEAKER_03",
+    "text": "I just want to be honest. I saw that in the previous lecture, I wasn't here, but I watched the recording, and you said you took B-Eng and M-Eng students for the FIP. But I didn't see any of your project proposals. "
+  },
+  {
+    "start": 4331.06,
+    "end": 4339.684,
+    "speaker": "SPEAKER_02",
+    "text": "Oh, so there's four. Email me afterwards, and I'll give you the, we can have the meeting scheduled to chat about something. Thank you so much. Yep, looking forward to it. "
+  },
+  {
+    "start": 4342.325,
+    "end": 4347.928,
+    "speaker": "SPEAKER_03",
+    "text": "Have you won this book? Are you open to EIE students? Maybe that's why, are you open to EIE students? Oh, I'm not sure. "
+  },
+  {
+    "start": 4348.308,
+    "end": 4358.793,
+    "speaker": "SPEAKER_02",
+    "text": "Maybe I can, I can open it up. So I think I'll have to check some box. Thank you so much. Great. Okay, here's this. So it's captured by financial aid. "
+  },
+  {
+    "start": 4367.853,
+    "end": 4377.491,
+    "speaker": "SPEAKER_00",
+    "text": "Albus, which ones are you doing, do you know? Which ones are you doing? I'm doing four questions in total. Four small topics. "
+  },
+  {
+    "start": 4387.604,
+    "end": 4426.174,
+    "speaker": "SPEAKER_00",
+    "text": "Can everybody hear me? Okay, I see. So today, we're going through four main topics that is based on the linear regression lectures. And... The first one is going to be index notation, which is one of the most common questions I get on SDEM. The second one is the vector calculus, how does it work in our course, which is also another question on SDEM that is mostly posed. The third one is we're going to go through the linear regressions optimization process and extend it to ridge regression and see if there's a closed form solution for ridge regression, which is adding an L2 norm penalty to the original plagiarism goal. "
+  },
+  {
+    "start": 4426.635,
+    "end": 4495.278,
+    "speaker": "SPEAKER_00",
+    "text": "And the fourth one is kind of an extension to our course material. It's the Legendre Basic Extension, which is the last exercise question on our exercise sheet. And beforehand, I want to make sure everybody is listening clearly, and if there's any question, just interrupt me and ask, okay. The first one is the index notation. The question I get from S-TEM is... Yeah, sure. Yeah, exactly. The most common question I get from S-TEM is, does our course use Feinstein notation? Because there is one question, looks like this. Sum over j, aij times... bj plus bj. First, let's make clear what Einstein notation is. Because in this term, the i already appeared twice. In this term, the i already appeared twice in this term. "
+  },
+  {
+    "start": 4495.618,
+    "end": 4545.036,
+    "speaker": "SPEAKER_00",
+    "text": "So in certain notation habit, we will just omit this symbol and just write it as aij times bj because it won't cause any like a different opinion. There are already two Js, so it's sum over J. But this course doesn't have this notation. We will write all the summation form like this in total. And how do we solve this problem? How do we write this, group this into a vector? So, Here, the sum over j, this is a matrix, A, and if we write it into a row vector form, we can see the ith row, this thing is basically just doing, did I write it wrong? "
+  },
+  {
+    "start": 4548.098,
+    "end": 4582.998,
+    "speaker": "SPEAKER_00",
+    "text": "No, I didn't. So B is also a column vector, like this. So this notation is basically doing the ith row of this matrix and the inner product between the ith row of this matrix and this vector. So we can write this into A, the ith row. This is a column vector, write it into transpose of row vector times B. So this is the inner product notation that we want. And this thing is still plus VI. And if we see this notation, this is just A times B, the original vector. "
+  },
+  {
+    "start": 4583.773,
+    "end": 4615.18,
+    "speaker": "SPEAKER_00",
+    "text": "the i-th element of this vector plus bi. And this is ab plus b, the i-th element. Does people have questions about this? Please. So this is a good question. The question is, why do I write notation like this? Is that your question? Yes. So this is taking the ith row of the original vector. "
+  },
+  {
+    "start": 4615.741,
+    "end": 4678.817,
+    "speaker": "SPEAKER_00",
+    "text": "But we always use this notation as a column vector. And here, we're trying to make it into a row vector so that we're doing inner products. That's why we're adding a t. Does that make sense? But you're considering also all the columns, no? Sorry? You are considering all the columns, no? Not on the column, but on the row. But I'm taking the row. This notation means the column lecture. Yeah, it's just a habit of writing this. Yeah, so yeah. And one implicit thing that we're hinting here is, The answer we get is a scalar. And if we have an element i in here, we need to group them back into a vector. So the final answer of this question should actually be ab plus b. And it doesn't need to have to be a vector, like the question C, when it's xi, xj, because there are i and j two index in here, so it's actually a matrix. "
+  },
+  {
+    "start": 4679.198,
+    "end": 4710.374,
+    "speaker": "SPEAKER_00",
+    "text": "And if you write it into x times x transpose, this is actually taking the ith row and jth column of this matrix. So the final answer we get is actually the matrix, x, x transpose. Does that make sense? Cool, this is grouping into a vector, this is grouping into a matrix. And the third one is, the third one I want to go through is the Kronecker delta function that people is kind of confused about. Kronecker delta means if i is equal to j, the value of this is one. "
+  },
+  {
+    "start": 4710.915,
+    "end": 4716.137,
+    "speaker": "SPEAKER_00",
+    "text": "Otherwise, when i is not equal to j, the answer is zero, sorry. "
+  },
+  {
+    "start": 4722.804,
+    "end": 4726.667,
+    "speaker": "SPEAKER_05",
+    "text": "The column. Here? Yes. Yes. "
+  },
+  {
+    "start": 4745.023,
+    "end": 4817.438,
+    "speaker": "SPEAKER_00",
+    "text": "This is summing over j, which is all the columns of the i-th row of this matrix times each element of this column vector and add them together. So it's this times this plus this times this plus this times this. And if you think about this, this is just the inner product between these two vectors. And so we write them into an inner product form. Then why are you summing b there? Why am I something be where? Here? Here? Because there is a bi in here. Okay. Any more questions? Please. You mean why do I do the transpose here? Oh, because, okay, that's a good question. The girl is asking, why did I do this? It's because A times B is a vector. I'm taking the ith element of this vector plus the ith element of this other vector. "
+  },
+  {
+    "start": 4817.558,
+    "end": 4850.098,
+    "speaker": "SPEAKER_00",
+    "text": "So we can just group them together, take the sum of that vector's ith element. Why is the answer this, or? I'm sorry, I didn't get that. Because, as I said before, this is kind of an implicit hinting that we're doing here. The answer is a scalar, but we're trying to group them into a vector. And when there's ij in the final answer form, we're trying to group them into a matrix. "
+  },
+  {
+    "start": 4851.459,
+    "end": 4906.603,
+    "speaker": "SPEAKER_00",
+    "text": "Yeah, this is what we're doing. Do you understand? Cool. So, yes. So, after doing this, we can see only when i is equal to j, this thing is 1. So, the final answer is actually ai. And as a convention we just stated about, we group them back into a vector. So, the answer is a. Cool? Please. So, back to the first one again. Yeah. So, is b a column vector? Yes, b is a column vector. So, how do you have to put i and j at the same time? how do we have both i and j at the same time? What do you mean by how do we have i and j at the same time? Because the j is a summation form, so the j will finally be gone from this notation we're trying to get. So the final answer should only contain i like this. Okay. "
+  },
+  {
+    "start": 4906.803,
+    "end": 4944.395,
+    "speaker": "SPEAKER_02",
+    "text": "Maybe also just one minor thing is like, whether you have i and j or just i or just j, it depends on the output that you're looking for, which is similar to what Albus has said for other things. But if my output is going to be a matrix, then I need to have, and not doubled up, two unique indexes. So you could have i, j, k, but then there's two k's, which means there's a summation over them. So the unique single indices are i and j, meaning that the output should be in matrix form. So if you look at it, right, and you can do that lining up the inner terms, lining up the outer terms, you see, hey, this is a vector, right, then you should only have one. "
+  },
+  {
+    "start": 4944.895,
+    "end": 4971.482,
+    "speaker": "SPEAKER_02",
+    "text": "If it's a matrix, then okay, I need to have i and j, and I need to figure out, like, by knowing what the operations are, okay, where do I put the i, where do I put the j? So I'll put i and j corresponding to the row, which is here. Yeah. Yeah, so you're writing down whichever i and j you're using, right? It's just, what is the expression of that ij entry of the matrix in terms of the things on the other side of the equation? "
+  },
+  {
+    "start": 4972.523,
+    "end": 5002.61,
+    "speaker": "SPEAKER_00",
+    "text": "Yeah, please. Just to clarify the question, you have that kind of slice notation .. The slice notation, yes. Yes, when you do the slice notation, either you slice on i or slice on the column, it will always be a column vector. Yeah, that's why when you do inner product, you need to put a transpose to make it a row vector. Good? Cool. So these are the three questions we just got. "
+  },
+  {
+    "start": 5002.67,
+    "end": 5045.875,
+    "speaker": "SPEAKER_00",
+    "text": "Please. I'll take one more question. In the second exercise, I don't know what I said because the first two x are not vectors. Yes, it is vectors because it's taking the element of the i-th element. So it should be a vector. It's implicitly kind of hinted. Yeah? OK. One more question. One last question, please. Yeah, so this is Kronecker delta. I gave the definition in here. This is only equal to one when i is equal to j. Otherwise, it's all zero. So all other elements, when j is not equal to i, will equal to zero. So only ai is here. "
+  },
+  {
+    "start": 5046.823,
+    "end": 5064.223,
+    "speaker": "SPEAKER_00",
+    "text": "Does that make sense? If I write it completely, it will be coronary delta ii times ai and all other things. J is not equal to i, delta ij times aj, and this will all equal to zero, this will equal to one. That's why the final answer is ai. Make sense? "
+  },
+  {
+    "start": 5065.558,
+    "end": 5077.504,
+    "speaker": "SPEAKER_02",
+    "text": "Also just like note to flag, almost everywhere we use uppercase Roman letters for matrices. You can see that the delta has both I and J and so you can think of this as a matrix again with identity. "
+  },
+  {
+    "start": 5079.905,
+    "end": 5117.064,
+    "speaker": "SPEAKER_00",
+    "text": "Yeah, cool. So that's the index notation. I hope that clarifies your confusion. Our second agenda on the table, is vector calculus. One reference book I highly recommend is the chapter six of mathematics machine learning book, because we're using the same notation, which is, we called numerator layout. Let's first define the problem setting. "
+  },
+  {
+    "start": 5117.304,
+    "end": 5154.61,
+    "speaker": "SPEAKER_00",
+    "text": "We're trying to compute the derivative of y with respect to x. Let's assume x is of dimension m, y is of dimension n. For deep learning and machine learning people, the most common way to note this is make sure the final shape of this gradient, n times m. which is what we call numerator layout. But for optimization people, other pure maths people, they always notate this as m times n. "
+  },
+  {
+    "start": 5155.511,
+    "end": 5186.457,
+    "speaker": "SPEAKER_00",
+    "text": "We're going to use this throughout the entire course. I highly recommend you do this because first, it will be very helpful if you do back propagation notation. And we will do this in the later courses, and you will see why. And the second thing is there is going to be, the final exam is going to be closed book, and there is one formula sheet before the exam. And all of the gradient rules we give there is going to be on numerator layout. So I highly recommend you get used to this now, very fast. It's for exam reason. "
+  },
+  {
+    "start": 5187.538,
+    "end": 5220.845,
+    "speaker": "SPEAKER_00",
+    "text": "And so, is there a question on gradient shaping here? Okay, I see. I don't think so. But there are three rules that we're going to use in the later exercise on the linear regression. The first one is this. The quadratic form of this term, the gradient with respect to theta, is going to be theta times theta t times a plus a transpose. "
+  },
+  {
+    "start": 5221.325,
+    "end": 5256.495,
+    "speaker": "SPEAKER_00",
+    "text": "And when a is symmetric, this will be equal to a to theta transpose times a. The second one is theta, A times theta gradient. It will be A. The third one is the inner product between theta themselves, the L2 norm of this. The gradient will be two times theta t. This is what we're going to use in the later exercise. So I want you to remember that. And all of these can be derivated from the index notation we're using before. "
+  },
+  {
+    "start": 5257.175,
+    "end": 5298.638,
+    "speaker": "SPEAKER_00",
+    "text": "So that's the vector calculus bit we're going through. Does anyone have a problem with this? No? Okay. Okay, so last week we did linear regression, and we're seeing linear regression as an optimization problem. So it's basically an ordinary least square, which is trying to minimize... the loss, which is a mean squared error. What is a mean squared error? It's the model's prediction, the error between the model's prediction, in this case, each data point xi, inner product between this and our parameter of the model, w, minus the i-th label. "
+  },
+  {
+    "start": 5299.498,
+    "end": 5332.886,
+    "speaker": "SPEAKER_00",
+    "text": "The squared of that, and sum it over all k data points. And then take the average. This is the linear regression's ordinary least square loss form that we're looking for. And the first question is how do we group them into a matrix notation in a compact form? So first we need to define our design matrix. What is a design matrix? It's seeing each data point as a row vector. "
+  },
+  {
+    "start": 5334.403,
+    "end": 5374.833,
+    "speaker": "SPEAKER_00",
+    "text": "and grouping them together into a large matrix. So the dimension of this matrix will be K times M. K will be the number of data point. M will be the feature dimension, as we call it. So if you write it into a complex vector form, this will just be the design matrix times W, as we did in the first index notation exercise, minus the y, which is grouping all the labels into a column vector, take the outer norm of this, times a one over k. "
+  },
+  {
+    "start": 5375.033,
+    "end": 5406.666,
+    "speaker": "SPEAKER_00",
+    "text": "This is a previous error, and our slide now is corrected. And so this is the compact form we're looking for. Does anyone have a problem with this? Cool. So now we're trying to... optimize this, try to find a closed-form solution of W. Oh, we're using theta in this course, so I'm changing this back to theta. Sorry about that. The way for us to do this is to compute the first-order gradient of this loss function. "
+  },
+  {
+    "start": 5408.127,
+    "end": 5444.652,
+    "speaker": "SPEAKER_00",
+    "text": "Let's write it into the vector form. Alternorm is the inner product between this vector and itself. It should look like something like this. And for the simplicity, we will just, because we're taking the first order gradient, we're taking the first order gradient, so this is a constant. We can just ignore it. So we will just expand this term. This will become theta transpose times x times theta minus two y transpose x theta plus one transpose y. "
+  },
+  {
+    "start": 5445.954,
+    "end": 5478.184,
+    "speaker": "SPEAKER_00",
+    "text": "and we're computing the first order gradient of that, so it becomes, using the formula we just give, the first one is going to be two theta x transpose x, because x transpose x is symmetric. It's satisfied this condition. And for the second term, it's going to be two y transpose x. The third term has nothing to do with theta, so it's not here anymore. We're setting this to zero. And now we have the solution to theta. "
+  },
+  {
+    "start": 5478.905,
+    "end": 5512.896,
+    "speaker": "SPEAKER_00",
+    "text": "It's theta transpose times x transpose x equal to y transpose x. We're doing a transpose on both sides. It becomes transpose x theta x transpose y. So theta becomes x transpose x inverse times x transpose y. This is basically what we derivate from the last lecture's closed-form solution for linear regression. And the answer to this question here is to ridge regression, which means on top of the original loss function, we're adding a normalization terms. "
+  },
+  {
+    "start": 5514.017,
+    "end": 5550.519,
+    "speaker": "SPEAKER_00",
+    "text": "Can I have another color, please? which means our L, our new L is the original L plus lambda times the L2 norm of our parameter. So now the loss function becomes our original one plus lambda times theta transpose theta. And how do we compute, the procedure we're going through is basically the same as the ordinary least square. "
+  },
+  {
+    "start": 5551.159,
+    "end": 5590.63,
+    "speaker": "SPEAKER_00",
+    "text": "What we're doing is we're trying to compute the gradient of the L prime. And the gradient of that is this, because we're ignoring the one over K here, we're trying to make it back, it's going to be one over K times this plus Lambda, theta transpose theta's gradient with respect to theta is two theta transpose is here. So we're setting this term to zero. And the derivation is quite simple from here. "
+  },
+  {
+    "start": 5590.81,
+    "end": 5622.128,
+    "speaker": "SPEAKER_00",
+    "text": "We're timing the k on both sides, so it becomes two theta x, sorry, Oh yes, we need to group the theta together because these two terms have theta. So I'm gonna write this as two over k times theta times x transpose x plus two lambda theta is equal to two y transpose x. And we make all the two gone. And we see a theta transpose in here. "
+  },
+  {
+    "start": 5622.928,
+    "end": 5660.863,
+    "speaker": "SPEAKER_00",
+    "text": "So we're, make sure the, we add the identity matrix to the right of theta t. So the original term becomes theta t times one over k times x transpose x plus lambda i. And this is equal to one transpose x. So according to our original calculation, the theta will become, the theta will become what? This is also symmetric because of the same thing. This will become 1 over k, x transpose x plus lambda i inverse times x transpose y. "
+  },
+  {
+    "start": 5661.524,
+    "end": 5694.01,
+    "speaker": "SPEAKER_00",
+    "text": "This is the closed-form solution we're looking for in this problem. Is this correct? It's good? It is good. Oh, sorry, please. Sorry? Oh, it's from here. Like the loss function becomes, I just erased it, sorry about that. It's the original loss function plus lambda times theta transpose theta. "
+  },
+  {
+    "start": 5694.57,
+    "end": 5716.343,
+    "speaker": "SPEAKER_00",
+    "text": "And the gradient of this is two theta t. So it's lambda times two theta t. Please. Because in the original derivation, we kind of ignored this 1 over k, right? Because it didn't affect the final result. But as we're adding a regularization term, there's a lambda here. So the original k kind of has an effect on the final result. Please. "
+  },
+  {
+    "start": 5716.363,
+    "end": 5732.436,
+    "speaker": "SPEAKER_01",
+    "text": "I understand why, in the last step, you invert the matrix, but why x transpose y, why before it was y transpose x and then x transpose y? "
+  },
+  {
+    "start": 5736.089,
+    "end": 5739.732,
+    "speaker": "SPEAKER_02",
+    "text": "It's a, why was it y transpose x, and here it's x transpose y? "
+  },
+  {
+    "start": 5739.772,
+    "end": 5796.062,
+    "speaker": "SPEAKER_00",
+    "text": "Yeah, it's the same thing. You need to transpose the entire thing first. Yeah, because of our stupid notation, our numerator layout, you have to do the transpose thing to make sure it's consistent. And I just realized I made a mistake. It's over here. There should be a one over k on the right-hand side, so there's k in here, and... Yeah, so this K should be in here. So this should be this. I was thinking for a bit, does Matthew make a mistake? But no, I made a mistake. Yeah, so that's the answer. I think you should be very proficient in this, at least for the final exam. Yeah, just practice more. This should be like a medium question, I think. So that is ridge regression. Does anyone have a problem? No? Okay, cool. "
+  },
+  {
+    "start": 5796.202,
+    "end": 5829.459,
+    "speaker": "SPEAKER_03",
+    "text": "It is a fun little thought, and I think we talk about this later, but whenever, like, one really nice thing about math or machine learning is that, like, you get this result, and this is a nice result because it's true, right? Like, this is how you get that ridge regression estimator, this is how we find those nice smooth functions, even when we have a you can look at it and try and interpret what's going on. "
+  },
+  {
+    "start": 5829.799,
+    "end": 5876.668,
+    "speaker": "SPEAKER_03",
+    "text": "Because you have control over what some of these values are. For example, this lambda we talked about as being a hyperparameter. And so I get to choose what that hyperparameter is. And because of that, you shouldn't just see this as an equation that is true, even though that's the case. You can also see this as an equation where you have some control over some knobs and think a little bit about, oh, well, how do I want to turn these knobs? Or what happens when I turn them? when lambda here goes to infinity, right? Or let's say when lambda drops off to zero. When it goes to zero, this little additive term goes away, right? And what I'm left with is x transpose x inverse x transpose y, which is exactly the ordinary least squares. "
+  },
+  {
+    "start": 5877.829,
+    "end": 5898.951,
+    "speaker": "SPEAKER_03",
+    "text": "So this is the same as saying, like, well, if you, like, and then does that make sense to us, right? Like, does that seem reasonable? And you can check that in your loss, and that term drops off and you just have the mean squared error. So yeah, you should get the ordinary squares. But it's just like, as we go through, it's a nice thing to take it off. "
+  },
+  {
+    "start": 5907.178,
+    "end": 5912.802,
+    "speaker": "SPEAKER_02",
+    "text": "So I guess that's the end of the demonstration. Thank you so much. One more. Oh, there was one more. Yeah. Okay. I'm sorry. "
+  },
+  {
+    "start": 5912.842,
+    "end": 5920.888,
+    "speaker": "SPEAKER_00",
+    "text": "I kind of over expressed. But the last question is going to be kind of hard. Oh, was it the base expansion one? The polynomial one. Yeah. "
+  },
+  {
+    "start": 5921.609,
+    "end": 5933.798,
+    "speaker": "SPEAKER_02",
+    "text": "Do you want to, well, so maybe I'll take, let's maybe open it up so there's room for conceptual questions like general things. And then we can go over this maybe at the start of next lecture if you're available or I can go. Yeah, sure. "
+  },
+  {
+    "start": 5943.816,
+    "end": 5944.957,
+    "speaker": "SPEAKER_03",
+    "text": "for being here. "
+  },
+  {
+    "start": 5945.057,
+    "end": 5960.367,
+    "speaker": "SPEAKER_02",
+    "text": "Again, if you have any more conceptual or specific questions, if you want to go over this, we can go over it for a smaller group, but I want to leave room in case people have questions about today's lecture and the material we went over that isn't clear, so that it's clear what they're attempting to do. "
+  },
+  {
+    "start": 5961.628,
+    "end": 5966.912,
+    "speaker": "SPEAKER_03",
+    "text": "Thank you, guys. "
+  },
+  {
+    "start": 5968.032,
+    "end": 5971.995,
+    "speaker": "SPEAKER_00",
+    "text": "Okay. At the start, I wanted to just touch on... Do you want to have the... "
+  },
+  {
+    "start": 5987.009,
+    "end": 6001.577,
+    "speaker": "SPEAKER_03",
+    "text": "I think I'll practice more and then I'll have more questions to come to you. That's the best way to go forward. Yes, absolutely. I've got some clarity, but yeah, I think the practice would make it much more easy for me. Always the case with math. "
+  },
+  {
+    "start": 6001.957,
+    "end": 6037.342,
+    "speaker": "SPEAKER_01",
+    "text": "Yes, I think that's the right thing to do. Earlier, you did talk When we use an L2 regularization. "
+  },
+  {
+    "start": 6037.362,
+    "end": 6073.313,
+    "speaker": "SPEAKER_01",
+    "text": "What regularization? L2 regularization, yeah. It's the same as the estimator distribution on the weight. Yes, we're going to go through that later. For N1, it's the same. It overlaps with the solution. Yes, when we have the N1 regularization term, it's the same as assuming the prior on the weight. Yeah, it's a Laplace prior on SL1, yes. So a simple prior on the parameter space can always be interpreted as a penalty function. Does that make sense? "
+  },
+  {
+    "start": 6085.499,
+    "end": 6112.79,
+    "speaker": "SPEAKER_00",
+    "text": "Like this, yes. We're going to go through this in the later half of the lecture. We're going to thread everything together from a probabilistic perspective, from the empirical risk minimization perspective, and from optimization perspective. Which part of the book? Later, after the problem. I think maybe three lectures afterwards, after the neural network part, back-rogation, everything is done. When it's probabilistic, then. I try to do my stuff and also check the answers for my papers. "
+  },
+  {
+    "start": 6112.93,
+    "end": 6115.753,
+    "speaker": "SPEAKER_01",
+    "text": "Maybe I give you a paper to keep. "
+  },
+  {
+    "start": 6137.19,
+    "end": 6139.253,
+    "speaker": "SPEAKER_03",
+    "text": "Sorry for moving around a lot. "
+  },
+  {
+    "start": 6139.273,
+    "end": 6164.001,
+    "speaker": "SPEAKER_01",
+    "text": "So basically you want to know how to transform from this to this, or from this to this, and which way you compile. You understand our model was trying to take the input, take the inner product between this and the parameter minus y. You understand this part? "
+  },
+  {
+    "start": 6164.021,
+    "end": 6175.071,
+    "speaker": "SPEAKER_03",
+    "text": "Yeah, this is for one specific data point. This is the scalar vector. Scalar vector. Vector scalar. "
+  },
+  {
+    "start": 6175.111,
+    "end": 6182.958,
+    "speaker": "SPEAKER_01",
+    "text": "This is the label. This is for one specific data point. I'll write an i on the top because there are k data points in total. This is the i data point. "
+  },
+  {
+    "start": 6185.068,
+    "end": 6197.151,
+    "speaker": "SPEAKER_00",
+    "text": "So first, let's define our design matrix. What is the capital X? Capital X is to group this column, to think of this data point as a row. "
+  },
+  {
+    "start": 6198.612,
+    "end": 6219.822,
+    "speaker": "SPEAKER_01",
+    "text": "So the dimension is K times K. K is the entire number. M is the feature dimension. That's it, yeah. So what should we do here? This is basically taking the inner product between the row vector, x, and column vector, y. "
+  },
+  {
+    "start": 6220.042,
+    "end": 6228.088,
+    "speaker": "SPEAKER_03",
+    "text": "And what does this do? It moves everything into a line. Now we solve this, and the answer to this is a row vector, right? It's a column vector, y hat. "
+  },
+  {
+    "start": 6240.378,
+    "end": 6280.49,
+    "speaker": "SPEAKER_01",
+    "text": "This is the predictive value of our model. And all of these sum together. It's just y hat minus y is the column vector of the difference between these numbers. And how do I get from this to this? It's just how few more of these numbers are available. which is the helpful one, the white hat, my useful friend, which is the next date of the plan, so I'll just go with that. Okay, man, that doesn't make sense at all. "
+  },
+  {
+    "start": 6289.713,
+    "end": 6299.816,
+    "speaker": "SPEAKER_00",
+    "text": "So first, I help you to group them into a matrix. The second one, I help you understand how do you take the difference between the label, and not predict value, and transform it into the sum. "
+  },
+  {
+    "start": 6299.836,
+    "end": 6305.518,
+    "speaker": "SPEAKER_03",
+    "text": "Yes. But do you have to engage with the matrix to index the attention for this question? No. "
+  },
+  {
+    "start": 6305.578,
+    "end": 6307.839,
+    "speaker": "SPEAKER_01",
+    "text": "Yeah, it's the opposite. "
+  },
+  {
+    "start": 6319.042,
+    "end": 6327.047,
+    "speaker": "SPEAKER_03",
+    "text": "How do we do this? This is exactly what we did. But I use I, they use J. I'm Daryl, Daryl, oh sorry. Yes, I'm Daryl. "
+  },
+  {
+    "start": 6338.251,
+    "end": 6348.745,
+    "speaker": "SPEAKER_01",
+    "text": "And this is deriving from here to here. Now it's just the opposite. Go back. Okay. Does this make sense? "
+  },
+  {
+    "start": 6349.025,
+    "end": 6351.428,
+    "speaker": "SPEAKER_00",
+    "text": "Just grouping the index notation into batches. "
+  },
+  {
+    "start": 6352.169,
+    "end": 6368.716,
+    "speaker": "SPEAKER_04",
+    "text": "I will review this later. Okay, sure. Any more questions? Yeah, I have. Okay, one more. I was confused about, like... Which one? How can I, like, take in the deriva to this one or a simpler one, this one? "
+  },
+  {
+    "start": 6368.856,
+    "end": 6371.456,
+    "speaker": "SPEAKER_01",
+    "text": "Understanding this proof. Answering this proof? "
+  },
+  {
+    "start": 6380.998,
+    "end": 6394.481,
+    "speaker": "SPEAKER_00",
+    "text": "This is, so this is a scalar. Theta, the transpose times theta is a scalar. The dimension is one. Theta is of dimension m. First figure out the gradient shape. It should be one times n, which is a row vector. "
+  },
+  {
+    "start": 6404.747,
+    "end": 6436.106,
+    "speaker": "SPEAKER_00",
+    "text": "Now, the thing we're trying to do is to figure out what is the value of theta transpose theta, this is theta, the gradient of that with respect to theta i. Try to do indexing of each of the elements first, and then group them together into a vector. That's always the way to do that. So first, we write it into the form. which is summation from j, theta c j times theta j. What is the gradient of this with respect to theta i? "
+  },
+  {
+    "start": 6436.326,
+    "end": 6462.564,
+    "speaker": "SPEAKER_00",
+    "text": "All the terms except for theta i, c i theta i is unrelated to theta j. So the result will be just the same. This is the partial derivative of our final y-bound with respect to i-th element of x. So we need to group them into a vector, which is a row vector, so it becomes C transpose, because C is a coordinate. "
+  },
+  {
+    "start": 6466.013,
+    "end": 6472.399,
+    "speaker": "SPEAKER_01",
+    "text": "Does that make sense? I guess so. "
+  },
+  {
+    "start": 6472.94,
+    "end": 6498.295,
+    "speaker": "SPEAKER_04",
+    "text": "Yeah, as if... Like, I'm confused how this index comes from this Qj. Oh, as I said before, it's kind of hard to compute the entire derivative with respect to data as a vector. Uh-huh. Like, we don't go by Y1 with indexes. Yeah, exactly. We step, like, we do not show not everything here. That's why I'm confused here. "
+  },
+  {
+    "start": 6498.955,
+    "end": 6533.451,
+    "speaker": "SPEAKER_00",
+    "text": "Okay. So now you're... This is okay to, when it comes in the exam, this is okay to show this way. This will be given in the exam. But, like... The exam question will be hard. It's more like a lost function derivation. Like, this is something you know already. Yeah, but like, old Matthew also said that I can push about derivations. Yeah, yeah, you should know about this, because this can always be confusing. One question for you to do at home is to do this. It's not a row vector anymore, it's a matrix. The derivative of that should be A. "
+  },
+  {
+    "start": 6533.491,
+    "end": 6554.24,
+    "speaker": "SPEAKER_01",
+    "text": "We can do this anyway. Like, I don't have too much stress on this kind of questions. It's better for the sandwich, but it's, yeah. Like, if it is given, because I understand the solution you have solved, like, derivative of the theta. Yeah, it will be given. "
+  },
+  {
+    "start": 6554.26,
+    "end": 6568.189,
+    "speaker": "SPEAKER_04",
+    "text": "Like, it will be not asked to do this. Probably not. I can't give a definitive answer. Yeah, for sure. Like, for these exercise questions, which one, like, should I focus more on the linear regression ones or the fundamental ones? "
+  },
+  {
+    "start": 6568.309,
+    "end": 6588.334,
+    "speaker": "SPEAKER_00",
+    "text": "Every one, except for the last one. Everything is pretty basic. Now it's not, but towards the end, you will find these are all basic principles. It's like one-in-one. It should be like that. The last one I can't remember. The LeBron-Dwey basic function. It has a more complex idea in machine learning called kernel. Uh-huh. OK. "
+  },
+  {
+    "start": 6588.354,
+    "end": 6606.098,
+    "speaker": "SPEAKER_03",
+    "text": "Like, do you have other, like, how can I find, like, for these guys? Yes, at stem, or you know my name? I don't know what. Albus. Albus Lee. Yeah, you can add my name. What can you add? Send me, you know, probably. Or just add my WhatsApp. It's OK. I need to save my account. Huh? "
+  },
+  {
+    "start": 6606.118,
+    "end": 6607.339,
+    "speaker": "SPEAKER_00",
+    "text": "Yeah, if you want to, that is. OK. "
+  },
+  {
+    "start": 6618.381,
+    "end": 6630.244,
+    "speaker": "SPEAKER_03",
+    "text": "I might be wrong. Yeah, I said it on the last time because it's a question. Okay, cool. Okay, cool. Okay, the next question I had was about... Okay, all of this is fine. I got this bit. It is about the next action now. "
+  },
+  {
+    "start": 6647.508,
+    "end": 6650.809,
+    "speaker": "SPEAKER_01",
+    "text": "It would be more intuitive to understand than we did a process to pass back and forth. "
+  },
+  {
+    "start": 6650.829,
+    "end": 6661.971,
+    "speaker": "SPEAKER_03",
+    "text": "So basically, the great thing to understand is how to compute this loss function on the entire data set. Like if there's 10 data points, take the loss function, sum it up them all, and then compute. "
+  },
+  {
+    "start": 6677.375,
+    "end": 6693.818,
+    "speaker": "SPEAKER_03",
+    "text": "It's not that bad, yeah. The tactic is to take a subset, just to take one data point. So for the entire data set, you do n dots. But how do we decide which point are we taking? Because you're taking a subset of the two points, right? Yes. So how are we deciding what's inside the subset? It's just random? Have you done it differently? "
+  },
+  {
+    "start": 6705.197,
+    "end": 6713.601,
+    "speaker": "SPEAKER_01",
+    "text": "Yeah, so it's batched. It's basically a subset. It will make the operation stand. So the point is to select a sub-zero, this is zero, instead of zero. "
+  },
+  {
+    "start": 6713.621,
+    "end": 6723.566,
+    "speaker": "SPEAKER_03",
+    "text": "Kind of, but I don't get how it's being done. I understand the concept behind it, that we are trying to do it so it's faster. But I don't get why. I don't get why. I don't get how it's being done. "
+  },
+  {
+    "start": 6734.932,
+    "end": 6739.673,
+    "speaker": "SPEAKER_03",
+    "text": "At least for now? Okay, fine. This is about when you're solving for the gradients for the information. "
+  },
+  {
+    "start": 6739.693,
+    "end": 6742.174,
+    "speaker": "SPEAKER_01",
+    "text": "When you're solving for the gradients? Yeah. What is this? "
+  },
+  {
+    "start": 6754.057,
+    "end": 6755.939,
+    "speaker": "SPEAKER_01",
+    "text": "So this is a scaler. All of them are scalers. "
+  },
+  {
+    "start": 6774.255,
+    "end": 6817.683,
+    "speaker": "SPEAKER_03",
+    "text": "I just had a question about the last question, the Legendre one, so I get the idea that Like, your X transpose X becomes a diagonal matrix, I think is the... Yes, that is the... I don't... And I get why that is. I just don't really understand what the interpretation of that is in space. Like, why is that useful? Is it useful just purely because it's very convenient to mathematically... "
+  },
+  {
+    "start": 6817.704,
+    "end": 6825.61,
+    "speaker": "SPEAKER_00",
+    "text": "Yes, exactly. Because we're trying to find a close contact. Right. There is a... I don't know where you're trying to get to, but this makes sense. "
+  },
+  {
+    "start": 6843.223,
+    "end": 6850.91,
+    "speaker": "SPEAKER_03",
+    "text": "Okay. And is there like a interpretation in space about what's going on there or is that not so important? "
+  },
+  {
+    "start": 6850.93,
+    "end": 6861.859,
+    "speaker": "SPEAKER_01",
+    "text": "Because it's still a problem. You still have all the time. Yeah. Yes. "
+  },
+  {
+    "start": 6863.68,
+    "end": 6879.568,
+    "speaker": "SPEAKER_03",
+    "text": "So like the interpretive, like there's nothing special going on in the space as such, it's just that it's a very useful outcome. Yes, by the way, that is a diagonal matrix. Yes. Why? Yeah, that's why. "
+  },
+  {
+    "start": 6879.608,
+    "end": 6895.597,
+    "speaker": "SPEAKER_01",
+    "text": "That's what I'm going to do today, because it's a plan apart, and it kind of involves a very important idea of the height of the post-modular matrix. I understand algebraically why it's diagonal matrix, I just don't understand geometrically why it's diagonal matrix. "
+  },
+  {
+    "start": 6963.308,
+    "end": 6968.953,
+    "speaker": "SPEAKER_03",
+    "text": "Yeah, I'm sorry about that. That's alright. Have you done this? Yeah. "
+  },
+  {
+    "start": 6968.973,
+    "end": 6970.895,
+    "speaker": "SPEAKER_01",
+    "text": "Drop me a message. Yeah. "
+  },
+  {
+    "start": 7065.158,
+    "end": 7120.888,
+    "speaker": "SPEAKER_01",
+    "text": "It was basically this step. I guess I can say that this step here is something I've actually learned. I just find it hard to take into account. So it's weird. It's a big stage. And we're like, let's go. No, yeah, this is a big stage. We have robot alchemists. No, wait, yeah. This is a big stage. And we're like, let's go. This is a big stage. And we're like, let's go. And we're like, let's go. There's a set of keys though, is that what you were looking for? Nope. Oh, okay. Is this also yours? Nope, that's not mine, no. And there's a bag down there as well. Okay, I see. Yeah. "
+  },
+  {
+    "start": 7123.658,
+    "end": 7127.561,
+    "speaker": "SPEAKER_03",
+    "text": "Sorry, we need to pack up and move on to the next question. "
+  },
+  {
+    "start": 7149.909,
+    "end": 7151.429,
+    "speaker": "SPEAKER_03",
+    "text": "I'm assuming this isn't yours? "
+  }
+]

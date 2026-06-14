@@ -1,0 +1,884 @@
+[
+  {
+    "start": 134.52,
+    "end": 169.68,
+    "speaker": 0,
+    "text": "OK, can you hear me? If you can hear me, let's slowly get started, guys. Can you hear me at the back? Yes? All right, guys, let's settle down. Let's settle down. It's incredible how the noise slowly attenuates without me saying anything. All right, let's get started. OK, so I think today we'll manage to finish Transformers. ",
+    "model_probability": 0.926
+  },
+  {
+    "start": 170.07,
+    "end": 204.79,
+    "speaker": 0,
+    "text": "And there has been some good questions along the way. So one reminder I have is a common question we keep getting is, are the first week lecture notes examinable? And the answer is yes. So the lecture notes for word representations that I prepared for this year cover the material in more detail than what we did in the lectures. And they are examinable. And they will be helpful to go through to support the material. And I think that was I mentioned word representations and how we switch from tokens to dense representations has been quite a crucial part of NLP. ",
+    "model_probability": 0.9968
+  },
+  {
+    "start": 204.83,
+    "end": 235.96,
+    "speaker": 0,
+    "text": "So we've put some extra time and effort to make sure that material is sound and complete for you. So that is examinable. The second thing is there has been some questions about residuals and layer norms last time. So I'm going to recap from there and make sure that we are on the same page with respect to what's happening. So we did this sort of scale dot product attention. So this is from the paper. I mean, in the slides, I think this was explained as much as possible. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 236.04,
+    "end": 269.06,
+    "speaker": 0,
+    "text": "But if you remember, we had this sort of query key value attention that was softmax, and then we sort of identified this learnable information flow and opening the floodgates and all of that stuff. Now, one of the questions was, I think, in the slides, I realized it's not clear, is where does the residual and where does the layer norm actually happen? And I think in the paper, it's very clear. I can't remember where I marked it. Let me see. This is where you get lost in the paper that you've been reading every day. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 269.86,
+    "end": 306.03,
+    "speaker": 0,
+    "text": "Ah, yes, here it is. So this was the overall architecture, if you remember. So in the paper, I think this should have been in the slides now that I look at it. So it says the sublayer here is either multi-head attention or the point-wise feedforward network that we were going to do. So it's either this section here or this section here. And then we add the residual on top of it and we apply the layer norm afterwards. So this result here, This result here is effectively that equation there, which is you add the residual and then apply the norm. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 306.15,
+    "end": 350.24,
+    "speaker": 0,
+    "text": "So that's where actually the application happens. I think in the slides that wasn't super clear. The second thing that was asked is how the hell does this residual business help us? It's a bit outside of the scope of this course because you should be potentially doing deep learning, and deep learning is really sort of looking into guts of these networks. What are residuals? What are norms? You know, there's batch norm, there's layer norm. Here, we're looking at what people have done in the field of NLP, and in this case, machine translation. But to give you some insight, and I think there was a question last time as well, if you have an input X and then you apply a function to it, so this could be your feedforward network or multi-head attention, whatever, And then it spits out a z, and then you add it. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 350.26,
+    "end": 388.24,
+    "speaker": 0,
+    "text": "So this z is effectively the sum of x plus f of x, f1 of x. And then that goes into another sort of block in some sense, something like this. If you see that's multi-headed tension, you do a residual. Well, in this case, there's a norm. And then you do something else to it, and then there's another residual. And the whole thing loops around. If you look at the derivative of this in the first instance, let's say there is some loss function. And then we're interested in the derivative of loss function with respect to x. If we do the chain rule and the back propagation, we're going to obviously look at how the loss function changes with respect to y, which is the output at the top. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 388.82,
+    "end": 422.0,
+    "speaker": 0,
+    "text": "And then we're going to obviously look at how we go back through the stack. So how does y change with respect to z? And how does z change with respect to x? following the chain of sort of equations here. And when you look at these derivatives, you're going to see that, well, you know, the derivative of z with respect to y is, you know, is just the residual. There's one constant there, and then the derivative of the function, and then multiplied by the derivative of z with respect to x. And if you expand this thing out, you're going to find out there's four components in the equation. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 422.04,
+    "end": 457.53,
+    "speaker": 0,
+    "text": "And this one corresponds to the residual. So if you ask, oh, what is the derivative of the loss function with respect to x, assuming this is a scalar version, but it will be the same for vector calculus, you'll see that because even if this part of the equation vanishes away, you're still going to get the original gradient from y passed through. And that's your residual connection. And now the dynamics of this, why we need to apply norms, or how this works. Again, this is a bit outside of the scope of this course, because it will take, like, there's so much material to cover in different directions. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 457.99,
+    "end": 491.04,
+    "speaker": 0,
+    "text": "But if you look at the four components, you'll see that there is this one. So this one corresponds to the pathway where x gets untouched. It goes all the way to y. And this one means that it goes through f of 1. So it goes through here and then bypasses this one. And then there is another pathway that passes this way. And then there is the pathway that passes through both. And you can see that it corresponds to all of the sections. But as I said, I think this is not fully within the scope. I just wanted to show how these connect together. And in the paper, this is how this is all connected together. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 491.1,
+    "end": 527.19,
+    "speaker": 0,
+    "text": "So this sublayer they refer to is multi-head attention. So we already saw this. We did the key query value, and then we added them together, concatenated them, and then applied a linear. So it was this section here. So that was key query value, multiheads concatenated in a linear. That gives you a result here. And then that's your sublayer. And then the other one, which is we were going to look at now, is positionalized feedforward networks. That's another sublayer. So that's in the diagram. that's this section, so we're going to look at this, and then the same thing happens, so you add the residual and then put a layer norm. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 527.89,
+    "end": 567.27,
+    "speaker": 0,
+    "text": "And then in the original paper, the dimension of this is 512, and then for the encoder, this thing is repeated six times. Hopefully that will give you a picture of how these things now connect together as we're building more and more complex networks. So I'm just going to leave this diagram here so we're aware of where the hell we are. And yeah, these things grow. I feel like... Yeah, I feel like things change, so people have changed certain things, so now layer norm is usually applied to the input, so the residual layer doesn't, the residual connection doesn't get normalized, so this usually gets applied to, at this point here, to the input. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 567.28,
+    "end": 597.84,
+    "speaker": 0,
+    "text": "So that's a subtle change people have done, if you look at models now. So people tweak these things around, and that's why I said don't get too attached to transformers at this moment in time. As things go on, I think people will change certain bits and tweak them around, okay? So the next section is this position-wise feedforward network here. So this is the next component we're going to look at. So the position-wise feedforward network is an MLP. It just means that it's applying the same transformation to every element in the sequence. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 598.3,
+    "end": 628.74,
+    "speaker": 0,
+    "text": "So if you have a bunch of tokens and you're looking at transforming their representation, you're applying the same MLP at every token. So that's what that thing does. And I think there was another explanation of it here. Again, back then CNNs were a bit more popular, so interpreting them as such was a bit more interesting. So position-wise Fibonacci networks in the paper, it says it's as if it's two convolutions with a kernel size of one. So you're taking the same weights and you're applying it to every token as you go along. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 629.18,
+    "end": 665.02,
+    "speaker": 0,
+    "text": "And the equation is exactly as it's in the paper. So it's a two-layer, multi-layer perceptron that max, if you recognize it, will be ReLU activation. So it's maxing between 0. That's how they've written it in the paper. You could have written it ReLU. It's obviously the same thing. And then it has weights and biases that are learnable parameters. And it also tells us in the paper what these dimensions are. As I said, the model dimension is 512, but the feedforward inner dimension is 2048. So the first application expands the dimension of the feature space, applies value, and then sort of reduces it back down. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 666.61,
+    "end": 698.32,
+    "speaker": 0,
+    "text": "So this is a two-layered network with a Rayleigh activation function. And again, there's a really nice video that 3Blue1Brown did that visualizes this and also gives an interpretation which I really like and somewhat agree with. As I said in this course, rather than looking at what something is, we also should consider why something is. And in this case, suppose you've done the communication with different tokens and you've gathered some information about football and basketball, the example we did. Then you're like, well, I gathered all this information. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 698.4,
+    "end": 728.93,
+    "speaker": 0,
+    "text": "Now, what does this actually mean to me? And is there anything that I have learned before that I can apply to this to update my representation? And I think in the example that 3Blue1Brown gives is that suppose there is a token called Michael and then there is something about basketball. And Michael communicates with basketball and does a multi-head attention and something about basketball comes to Michael. And then when you apply your internal weights, your representation suddenly gets closer to Michael Jordan. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 729.94,
+    "end": 767.31,
+    "speaker": 0,
+    "text": "And that internal information, we believe, is stored inside the feedforward networks, where it's taking the combined information from different tokens and then churning that through. So you get information around, and then you update it. And that leads you to potentially utilizing or memorizing things. So if you think about, how does an LLM know the capital of France is Paris? Where is that information actually stored inside the network? Most likely, it will be stored in the feedforward networks, where when it sees France and when it sees capital, that information will be communicated with attention heads. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 767.67,
+    "end": 804.38,
+    "speaker": 0,
+    "text": "And then the feedforward will apply something that nudges that token's representation towards Paris. And then it predicts Paris, if you say, what is the capital of France? So there's a bit of information, sort of storage and application of this feature transformation that goes along. So that leads us to the encoder layer. Again, getting lost in a paper is a brilliant pastime. So if you think about it, the input is, I mean, this is done for machine translation, as I said, but imagine the input is, what is the capital of France? ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 804.68,
+    "end": 836.67,
+    "speaker": 0,
+    "text": "We will look at this position encoding. This input embedding is just like our word embeddings from week one, so these are learnable word embeddings. They go in, we do multi-head attention, so they communicate with each other, And then they process that information with the feedforward networks. So the information about the capitals and this and that, that could be stored here. The information about passing color, capitals, other things could be here. And then every time we do this, we add to the residual stream, and then we sort of apply norm to keep the thing stable as we go along. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 837.23,
+    "end": 868.7,
+    "speaker": 0,
+    "text": "So that's about 70% of what we need to cook up this encoder bit. So this is the encoder of the thing. What we're actually missing is this idea of positional encodings. Now, as you're building this out, you'll notice that there is a problem. Without this component, there is nothing in the network that tells us what the order of tokens are. And that's a major, major problem. Transformers are positioned invariant by default. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 868.78,
+    "end": 899.34,
+    "speaker": 0,
+    "text": "So if you had the sentence, the cat sat and sat the cat, It's the same thing. You can do multi-head attention, and everyone can look at everyone else, and the information will be flowing around, and then you sort of apply your feed forward, and then you'll get at an output. But obviously, the semantics change if you have certain ordering of words, where the adjectives are and where the other letters are. So this fundamentally differs from RNNs, which are inherently sequential, right? You have a certain notion of a time step, and you process each token one at a time. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 900.53,
+    "end": 934.17,
+    "speaker": 0,
+    "text": "But in this case, with transformers, it's more like a set operation. So they actually work really, really well if your input is order invariant. So these are like sets, is order invariance, right? It doesn't matter in which order you give it, the transformers will work wonderfully. But in language, it's not order invariance. The order of tokens actually do matter. So this is where positional encodings actually come in and sort of give us a way of injecting that information into the embeddings before it gets processed further up the line. So that's the main reason why positional encodings are needed. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 935.21,
+    "end": 967.17,
+    "speaker": 0,
+    "text": "From a visual perspective, if you imagine the embedding of x is in some high-dimensional space, what we're doing is we're adding the positional encoding of where it's in the sequence to its embedding. So it's nudging it around in that high-dimensional vector space. So it's saying the cat sat on the mat. the representation of math will slightly be different where it is in the sequence. So the embedding is the same, but we're adding positional information into that. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 967.41,
+    "end": 1002.64,
+    "speaker": 0,
+    "text": "And the model, in theory, we hope that is able to use this information. in order to make predictions or learn translation and other things. So there are multiple ways of incorporating positional embeddings. And the authors propose using sinusodes. But in the paper, they actually mentioned that they also tried learning positional embeddings. Again, if I can find where it is, I'll tell you. I think it's here. So it says here, we also experimented with using learned position embeddings instead and found that the two versions produced nearly identical results. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 1002.68,
+    "end": 1044.04,
+    "speaker": 0,
+    "text": "We chose the sinusoidal version because it may allow the model to extrapolate the sequence length longer than the ones encountered during training. And so this is what they propose. So this is the equation. So we'll have that on both of the sides. And it's a case of why have they constructed something like this, I think, is something we need to dive into, just to give ourselves an intuition. And how does this allow the model to attend to different relative positions in the input? So they say in the paper that they chose this function because they hypothesized it would allow the model to easily learn to attend to relative positions for any fixed offset k. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 1044.36,
+    "end": 1080.93,
+    "speaker": 0,
+    "text": "So if you have a position encoding of a particular position plus k, it can be represented as a linear function of the position embedding of a particular position. So let's make this thing happen. Let's see if we can reproduce some of those mechanics, not at a full scale. but at least at a little scale. It's always daunting to start a blank page. I'm not going to lie. Okay, so we have our equation at the top right. So what we can do is we can do a little simplification and just say, imagine we have... ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 1081.99,
+    "end": 1113.56,
+    "speaker": 0,
+    "text": "some omega i, which is equal to, or wi. My writing is not that clear again. This is this 10,000. It's the frequency of the sinusoids and the cosines and sines. And 2i d. So what they've done is this i is the position in the vector, the position embedding that we're going to add. And then d is the size of that embedding. So if it's 512, then that will be 512. And that's effectively what they have written down. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 1114.32,
+    "end": 1146.87,
+    "speaker": 0,
+    "text": "So let's simplify it for just two pairs, a pair of sine and cosines. Let's say this vector position that we have is just the two a single pair, the two numbers that we're interested in in the first instance. So that's going to be the sign of this number here. If it's the first two positions, then it will be 0 and 1 and so on. And then the multiplied by the position, that gives us back that system of equations there. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 1147.43,
+    "end": 1189.66,
+    "speaker": 0,
+    "text": "And then we have the cosine, I think, of that as well at the bottom. So nothing too surprising, we're just saying, imagine we're just taking a pair of sines and cosines from this. Now the question that the paper was sort of hinting at is what happens if we go pos plus k, okay? What happens in this case? And this, we can obviously write out, we can say, well actually in this case, it would be, for any given pair, it would be something like this. So it would be the same, oh, it would be plus, k, oh my god, that's not as clean as I hoped it would be, wi, and then the position plus k. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 1190.96,
+    "end": 1227.21,
+    "speaker": 0,
+    "text": "So far so good. Now, if we consider this two signs, the sine and cosine here, if I just take them out and sort of write it cleanly here, I'm going to get something like wi pause, that's the position in the sequence, plus, I'm going to get the other half, which is WIK. And then this is going to expand into something. And to do that expansion, we'll need to look at this formula for summation of sines. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 1227.23,
+    "end": 1263.51,
+    "speaker": 0,
+    "text": "So sine of A plus B is equal to sine of A cosine of B. I'm trying to not muck this up, just to make sure I get this correctly. So a beautiful relationship, absolutely lovely. And then we plug this in there. So we go dot, dot, dot. This will expand into that. Okay, there's a lot of writing here, so I'm going to shorten it down. And we also have the second component, which is the cosine of, again, the wi of pos plus wik. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 1264.92,
+    "end": 1296.19,
+    "speaker": 0,
+    "text": "And then this is going to be equal to some dot, dot, dot. And we know what the relationship for that is as well. We know it's the cosine of A plus B. And that is equal to cosine of A cosine of B minus really nice secondary school trigonometry here. Speaking of which, I had a teacher who used to say, if you spit, you need to spit, cough, cough, spit. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 1296.43,
+    "end": 1328.12,
+    "speaker": 0,
+    "text": "If you cough first, you have to cough, cough, and then spit, spit. That's how I remembered. We didn't used to do open exams back then, and my memory is not as good, but... I've never done an open exam in my life. That thing didn't exist, except for having the statistics formula sheets in statistics. Otherwise, we always had to memorize our formulas and always have to memorize things. And I remember, I think deep Q learning, I remember forgetting that formula, and it was traumatizing. The exam was just about that formula, and I couldn't remember it. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 1328.36,
+    "end": 1382.26,
+    "speaker": 0,
+    "text": "But nowadays, it's all open book, I think. Definitely NLP is. So you don't have to memorize stuff like that. You can just take it with you. Okay, so if we do this expansion of these two things, this quantity at the top, if we take it back down, okay, this thing is going to be equal to, and you can do this yourself, you can do this algebra yourself, it's going to come out as cosine of, WIK sine of WIK, and then I think it's a minus, minus sine WIK, and then cosine of WIK, not the most mesmerizing output, multiplied by sine of WIPOS. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 1382.5,
+    "end": 1413.67,
+    "speaker": 0,
+    "text": "You can fill the gaps yourself, but soon we're going to realize what's happening. WIPOS, okay? Okay. So I think I got all of that in the thing. So this was, if you remember, holy moly, is actually vpos. So on this side, we were actually calculating vpos plus k. So this little component here only depends on k. It doesn't depend on pos. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 1415.72,
+    "end": 1447.99,
+    "speaker": 0,
+    "text": "So you effectively have now a linear, a matrix multiplication, a linear operation that goes from vpos to vpos plus k. So imagine if the network has learned these weights, then it can potentially help it to attend to relative positions in the input. Does that make sense? So we've come out with effectively a coefficient. If I was at a particular position and I wanted to attend five steps ahead of me or two steps behind me, I don't need to know what position I'm at. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 1448.15,
+    "end": 1480.14,
+    "speaker": 0,
+    "text": "I just need to know this construct here. And that will allow me to create a bias or a preference to attending to a particular token in the input sequence. Not too mesmerizing, but it's better than this little explanation, I hope, which says we hypothesize this is the case, but we're not going to provide too much more information. Okay, so that's how it comes out. All right. So how do we implement this thing? ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 1480.86,
+    "end": 1543.16,
+    "speaker": 0,
+    "text": "If you look at the implementation of it, let's go for... Do you like having the paper here with the overall diagram, or should I switch to the two slides? Hands up if you prefer having the paper here. Okay, let's have the paper there. Cool. Where are we? Let's get the diagram back up then. I think it's good to know what the hell we're doing and what's going where. OK, so we implement this. I think it's a Python version as well. When we implement it and we visualize it, you'll see these patterns coming out of it. And one way of interpreting these positional embeddings is they're like soft counters. So dimension 0 flips a lot. So imagine there is a binary counter. So if you have a binary number, the least significant digit will flip quite quickly. Every time you're incrementing, it will flip between 1 and 0. And the second one will flip after the first one has flipped twice and so on. And away we go. If you look at this diagram, at depth 0, the component changes a lot as the position goes along. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 1543.28,
+    "end": 1576.58,
+    "speaker": 0,
+    "text": "And as you go further down, the numbers don't change as much. So the model is able to have a soft counter of how it's progressing through different positions. That's another way of interpreting it. And here is an implementation in Python. It's exactly as you would imagine. You sort of implement it and then just add it onto the embeddings that you have. Because these are fixed, you don't have any learnable components. So you can calculate this in NumPy and then snap it into the word embeddings. or the token embeddings as it goes along. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 1576.72,
+    "end": 1611.43,
+    "speaker": 0,
+    "text": "So this thing is not a learnable component. The positional encoding is fixed, at least in this model. And when they say we have attempted to learn positional encodings, what they actually mean is that they had another embedding matrix for each position, and then they add the learnable positional embeddings to the input, and the gradients would flow in both directions, and you would learn the representations. But when something doesn't give you too much of an advantage, stick to the simple thing is, I think, what's happening there. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 1611.53,
+    "end": 1642.05,
+    "speaker": 0,
+    "text": "Another interesting sort of component about positional encodings is that as you further go away, the cosine similarity or the dot product between these two position embeddings starts to decrease. So what we're seeing there is that obviously position zero is quite high. I think this is normalized. So it's divided by the dimensions of the model. And then as you go further along, it fluctuates because you're dealing with sines and cosines. But as it goes along, there's a general trend that it's sort of... ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 1642.91,
+    "end": 1676.27,
+    "speaker": 0,
+    "text": "becoming less and less pronounced. What that means is that if I'm trying to attend way down the line to some, say, let's say I'm trying to attend to someone at the very back, there's a natural sort of decay of the dot product. And why is this important? Because remember the attention mechanisms, they all use, the similarity measure is all based on dot products, right? Remember this multi-head attention and everything else that's using it, when we're computing these sort of transformations, keys, queries, values, the positional embeddings have this natural decay along with them. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 1676.47,
+    "end": 1715.9,
+    "speaker": 0,
+    "text": "So it's another property to look at. Is there a reason why it's... Is there a reason why it fluctuates? So what happens, so the question is, is there a reason why it fluctuates? The reason it fluctuates is because you have sines and cosines, and they constructively and deconstructively interfere with each other. Okay, so as you're going further away, you change the cosines and sines in the positional, the embeddings change, and then when you take the dot product, you're multiplying all of them and summing them up. So sometimes they line up, and you get a higher score, and then sometimes they interfere destructively, and then you get a lower score, and it fluctuates around. But this is not, I think, the state of the art now. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 1715.94,
+    "end": 1746.41,
+    "speaker": 0,
+    "text": "I think people have changed position encodings to use rotary embeddings, and I think that allows you to attend to further distances. Again, certain things have been tweaked. I mean, we're talking, what, six, seven years ago now? Some of these ideas were being developed. But the core thing you need to remember is that we need positional embeddings. Positional encodings or whatever you want to call them. Without them, the modeling becomes a set. The Transformers model is a set. If anyone's doing their individual project on set inputs, what could that be? ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 1747.01,
+    "end": 1780.58,
+    "speaker": 0,
+    "text": "I don't know, like the students in this classroom, it doesn't matter where they sit. It's a set. And you want to learn some features around it, then Transformers is perfect. And you wouldn't need positional encodings in the first place. Okay? So that brings us to the diagram. I can see that that one looks much better than the printer that we have here. Okay, so this section is really, really important. Now what we do is this encoder business. So this N here in the paper was equal to six. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 1781.12,
+    "end": 1821.64,
+    "speaker": 0,
+    "text": "So N equals six. You do this six times. with different weights. So the attention heads and the feed forwards are different at each stack of this layer. So encoders consists of these blocks or stacks as they call them. And then we do six of these as they go up the chain. And every time we go up the chain, we're sort of computing more information into the tokens and then updating them as we go further deep. And then as we're sort of coming out of it, the representations get richer and richer. So in one time step, in one sort of application of this linear layer, I might learn that someone plays football, someone plays basketball, and one One step of this will say, oh, this is a sportsy class. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 1822.54,
+    "end": 1854.67,
+    "speaker": 0,
+    "text": "And then in the next round, I might communicate to someone else and say, oh, this is a sportsy class. Now I can use that information and then do my communication and then update again. And I keep going. And this thing scales. And the reason it allows you to process more and more information. But the absolute key in this architecture, if you want to remember one thing about transformers, it's those two words. What we're doing is we're communicating information between different tokens, and then we're computing using internal weights. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 1855.11,
+    "end": 1921.82,
+    "speaker": 0,
+    "text": "Communicate and compute, communicate and compute. If you think about it, it's a way of asking questions around, you gather the information, and then you say, what does this mean? I'm gonna add my own information. And then now that you have an updated version, so you go around this loop, you come up with an updated version, you're like, oh, I know more now, I'm just gonna go back and do this multiple times. That is, I think, the core of it. Okay? Communicate, compute. That's one of the key insights that this thing allows you to do. Yes, question? When you say compute, do you mean interpret? I mean more transform. There's a reason why these things are called transformers. When I say compute, I'm more talking about this feedforward here. So this multi-head attention gathers information. it says, oh, there's Big Steve here today. And then this is like, oh, Big Steve is a duck. So now I add information that I already have learned in the past. And it could be something else. It could be arithmetic. So maybe there's two. Oh, there's two plus two somewhere. And then feed forward creates a representation for four. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 1922.68,
+    "end": 1953.17,
+    "speaker": 0,
+    "text": "OK, so there's some internal knowledge there. Or there's some internal things about poetry, rhyming, other things. All that stuff that we crammed into these language models or these translation models, it has to live somewhere. And it lives inside these blocks. Some of them live inside the multi-head attention. So the attention heads do some of the work. And then some of them live inside the feed forward. So this creates this overall setup that we're interested in. And that's the encoder architecture. The decoder will be very similar to it. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 1953.21,
+    "end": 1986.92,
+    "speaker": 0,
+    "text": "So if you understand what the encoder does, the decoder almost does the same thing, but the information flows slightly differently. If you want to take one thing, in my opinion, I think it's this. Communicate, compute. Almost all architectures that come after building on transformers build on this idea of communicating information around and then doing some internal computation. So that's the encoder done. So this section, we should now be happy. We did the input embeddings, that's our learnable embeddings, almost all the way from week one. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 1987.4,
+    "end": 2055.73,
+    "speaker": 0,
+    "text": "We did positional encoding to add that information in, multi-headed tension, residual, and then we added norm. That then went to feed-forward network, which was a two-layer MLP. Then we added it, and then we normalized it, and then we did this thing six times. That's the encoder. Now, the decoder is almost the same. There's just a few differences between encoder and decoder. So remember, this was originally designed to do machine translation. So one of the first things is this masked multiheader tension. As you can see, it now says it's a masked multiheader tension. Do we have any slides on that? Does it have masked attention? Maybe. I'll just say what it is. And if we have slides, we'll skip through them. The mass multi-head attention effectively stops the decoder from looking into the future. So if you give it the output, what's it? I am a student, right? Let's work it out here. I am a student. If you're decoding this time, let's say if you're decoding this token, you can't do this. This is not allowed. This is in the future. That's what multi-head attention is. We're masking it in the future. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 2056.13,
+    "end": 2086.59,
+    "speaker": 0,
+    "text": "And the way we mask it, I don't know if the slides have it again. The way we mask it, I think the paper says it as well somewhere. Let me see. Yeah. We mask it, the dot product, attention, so we mask it. So we say, you can't attend to this guy by setting it to minus infinity. So in some sense, where did it go? The attention score, the attention score, the key query value between this and this is minus infinity. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 2086.61,
+    "end": 2117.96,
+    "speaker": 0,
+    "text": "You're like, you will never be able to attend to this guy. And then it's the same here and it's the same here. So you get this same diagonal masking we did with the previous RNN based attention model. So that's what multi-head attention means. You're just stopping this guy from attending to the future. And then there is this multi-head attention comes in. Now, this is what's called a cross attention. So the cross attention, the decoder has this mass multi-head attention. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 2118.0,
+    "end": 2150.9,
+    "speaker": 0,
+    "text": "So you do this for the tokens that are in your output. So obviously, if there is a token here, let's say there is a start of sentence. Sorry, we're overriding it. But this guy can attend to this guy. So that's still allowed. It can't just attend to the future. And by the time we get to these tokens, it can attend to everything in the past. And that's mass multi-head attention. And that goes to another multi-head attention, where this time you can see that the queries, is it the queries? Yeah, the keys and the values, sorry, the keys and the values come from the encoder. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 2151.95,
+    "end": 2183.8,
+    "speaker": 0,
+    "text": "So that's what cross-attention is. Again, we're like, oh, we have all this encoded information of the input. Imagine this is machine translation. How do I pass this information to the decoder? I'm just going to hook up the key and the values to the queries of the decoder. So the decoder says, I would like the query stuff, please. And then the keys and the values come from the encoder. So you're now suddenly passing information across. The lookup happens across the two sections. I saw someone nod like, yeah, good. Yeah, there's a question all the way at the back. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 2187.67,
+    "end": 2218.51,
+    "speaker": 0,
+    "text": "Which layer does it come from? I mean, from this diagram, it comes from the last one. Yeah, I think so. I think so. Off the top of my head, I think people have tried different things. I would like to say, yes, it's the last layer for now. But if I'm wrong, don't take my word for it. But I think it is the last one. Because if you think about it, they probably process all this information, gather all the information, they communicate compute, communicate compute, they update it, and then you have a rich representation at the end. So you will have all that information brewed up. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 2218.81,
+    "end": 2267.76,
+    "speaker": 0,
+    "text": "You know, Michael Jordan plays basketball will be like combined into Michael or something like the rich representation. And then the decoder then says, OK, I'd like to attend to that, please. Really nifty trick. Really clever idea. Yeah. Why can't I attend to the work right after it? So this is during training. During inference, this doesn't exist. And I think that's the next slide. I've managed to catch up with what's happening in these slides. So during training, you have access to this. But during test, you don't. During inference time, you don't. So you're going to say, can you translate this input for me? Or Mr. Chatjipiti, I'd like to study for NLP, please. and the rest is blank, then you can't attend to the future. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 2267.78,
+    "end": 2298.45,
+    "speaker": 0,
+    "text": "It doesn't exist. So you have to make sure the training doesn't allow that either. That's why we can't attend. During training, this happens in the future. That's what multi-attention is. And that's, I think, the next slide. So training versus inference, the decoder has this subtle difference. You have to do mass multi-head attention in order to make sure the decoder doesn't look ahead. And that's something we didn't necessarily have to do in RNNs because the RNN was processing one at a time. But here, it has access to this ability to attend to different tokens. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 2301.22,
+    "end": 2334.67,
+    "speaker": 0,
+    "text": "So that's during training. So that's during inference. It goes one token at a time. And then during training, it obviously sees the full thing. We do teacher enforcing, teacher forcing, whichever we said in the thing. So we supervise the tokens that it is predicting. Ah, so there's a slide on masked multi-hit attention. So in the encoder, we didn't have any masking because we have the entire input. But when we're decoding, we shouldn't have access to the future tokens. That's exactly what I've been saying. And then masked multi-head attention is a strategy to tell the model during training not to look at future tokens. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 2334.71,
+    "end": 2366.98,
+    "speaker": 0,
+    "text": "I think this was a much easier and quicker explanation than this slide. But this visualization is really nice. I quite like this. So imagine we have an attention mechanism that goes from every token to every other token. What you're doing is you're actually masking it on the upper right triangular. So where it says x, you'll replace it with minus infinities during inference and during training. So it will never be able to attend to those. Okay, does that make sense? I like this deafening silence, it's so good. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 2370.74,
+    "end": 2406.14,
+    "speaker": 0,
+    "text": "Okay, so let's try to wrap up what we have, and then there's some tips and tricks for transformers to go over. And then I think we'll be in good time. So, what are the differences between training and testing in a transformer? So we spoke about this. Most of the differences happen in the decoder. This thing can't look into the future, and that's one of the big differences that we see when we're decoding it. As you can see, the decoder also has the positional encoding, but the positional encoding is applied to the sequence on the output. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 2406.16,
+    "end": 2439.03,
+    "speaker": 0,
+    "text": "So this is not necessarily the same position. It's the same formulation, but the sequence length is different. So you have two sentences here. Now, how does mass self-attention work? So it works by looking at the output tokens that we have. So initially, it will be zero, and then it will output one token, and then it will output another token. And then every time it outputs, it can allow itself to look at all the other tokens that it has outputted to update its representation. I added this question this year, I think. ",
+    "model_probability": 0.9981
+  },
+  {
+    "start": 2439.23,
+    "end": 2480.24,
+    "speaker": 0,
+    "text": "I can tell. It's definitely my style. Why don't we encode all of Wikipedia and then run a decoder? I think this is a good question. I remember adding this when I was going over the slides. Does anyone have any idea why don't we just encode all of Wikipedia, just dump it, and then do a massive encoding, and then say, OK, go? Oh wait, let's hands, oh this is very surprising, two answers at the same time. I'm flattered, let's go, who wants to go first? No one wants to answer. Absolutely brilliant. I have a question. Yeah, go for it. ",
+    "model_probability": 0.996
+  },
+  {
+    "start": 2480.58,
+    "end": 2499.02,
+    "speaker": 4,
+    "text": "I guess the first one wasn't, isn't that what exactly is done? And the second one was, doesn't this motivate the discussion you've had in the last slide, doesn't this motivate different architectures for training and inference? Because in inference, why have that massive high bandwidth message? ",
+    "model_probability": 0.9755
+  },
+  {
+    "start": 2501.07,
+    "end": 2531.3,
+    "speaker": 0,
+    "text": "So I think I got the first part. Isn't this what they already do to some extent? So they don't do it with the scale of Wikipedia, but with LLMs, this input becomes the context. So everything that you have dumped in the context, including the system prompt, that gets encoded. and next week Marek is going to discuss with you what is an encoder architecture, what is an encoder decoder architecture, and most architectures today are decoder only architectures. ",
+    "model_probability": 0.9985
+  },
+  {
+    "start": 2531.5,
+    "end": 2596.28,
+    "speaker": 0,
+    "text": "So they completely get rid of this and they just say okay, the existing outputs of the decoder is the current context and then the decoder just decodes one word at a time. That's what GPT did in some sense. I did miss the second part of your question though. So inference forces us to wait for the next token, right? So both in training and during inference, you're actually decoding in some sense one. So during training, you're doing teacher forcing, but during inference, you have to decode one at a time. You decode and then feed it back in, decode, feed it back in, and so on. That still stays the same. That's how still LLMs work. That's why you see this sort of text appear left to right. If you were following any of the Google I.O. announcements this year, there's also diffusion LLMs where it sets a certain size and then the letters appear at different times. ",
+    "model_probability": 0.998
+  },
+  {
+    "start": 2596.44,
+    "end": 2628.13,
+    "speaker": 0,
+    "text": "So there's also diffusion models just like they did with images, so image generation. But as far as these decoder architectures work, they always decode one word at a time. And during training, you have the full decoded sentence, you do teaching forcing. So this is very similar to what's already there. Okay, and then the second, so the question is why did, we didn't necessarily answer the Wikipedia, but partially did. The reason it doesn't really work is this context size problem, okay? And I think the state of the art models are what, one million contexts? ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 2628.71,
+    "end": 2662.55,
+    "speaker": 0,
+    "text": "When you stretch this thing out, and so if you start to attend, the context that you're going to create, the computation time expands, and it becomes a massive bottleneck. And here, if you consider this key query attention, imagine to decode one token, you have to then attend to all the tokens of the keys in Wikipedia. Imagine how many millions or hundreds of millions of tokens you'd have to deal with. So this system effectively has a runtime complexity. And I think they do... they do look into it. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 2662.59,
+    "end": 2696.4,
+    "speaker": 0,
+    "text": "If you do want to read the paper, and I'm assuming you're not going to, but if you do, they do discuss the runtime complexity of this architecture, okay? As you can imagine, there's a subtle problem with every token attending to every other token. There's something that's not quite linear as you did with RMS, okay? So wouldn't it have all the context knowledge? Yes, it would. If we were able to process that somehow and scale it up to that system, then you would. And then because we can't, a lot of things have appeared since then, like RAG, so retrieval augmented generation. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 2696.48,
+    "end": 2733.09,
+    "speaker": 0,
+    "text": "It says, well, we have a finite context size. We need to pull the right information to do generation. That's sort of where these things have come from. Ultimately, we should just let a machine read all the Wikipedia and have it accessible at any time. But you bump into engineering problems as you go along. Any other questions coming around? And then let's take a break. I think this is a good point. We don't have much on the other side, so we'll definitely finish transformers in the next lecture. Something in the back? Yes, positional encodings, yes. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 2741.94,
+    "end": 2777.36,
+    "speaker": 0,
+    "text": "So the question is, do we concatenate the positional embeddings with the q, k, and the v values that we're using? No. Actually, it's much, much easier than that. We just add them into the input. Where is that? Yeah, here. That's literally what we do. So the input to the first layer becomes the embedding of the word plus the positional encoding. So this thing gets added once. You can see that there's a plus sign here. It's literally that. So you just add them together. And that information gets sort of, it's very difficult to come up with intuition around here. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 2777.38,
+    "end": 2838.62,
+    "speaker": 0,
+    "text": "You're just sort of injecting that information into the representation and hoping that the upper layers know how to dissect it or make use of it. So if there is any cases where the words jumbled up have a different meaning, you're hoping that this will sort of allow you to attend to that. Okay? Any other questions? I think we're at a very good position here to take a break. Okay, one last question, and then I'll take one of your offline. Yeah, go for it. You know when GP searches are online, is that adding to it? So when GPT searches stuff online, is it adding to the context? Yes. So most of the machinery you see, so ChatGPT, so you take this decoder on these sections. So you take this decoder and then you sort of tell it to sort of learn one token at a time. You give it the internet. That's not that clever. The language model has a lot of information, but it doesn't really know what to do. Then you have to do a lot of engineering around this. You connect it to tools. You connect it to UIs. You make it fancy. Then you suddenly get stuff like ChatGPT. ",
+    "model_probability": 0.9982
+  },
+  {
+    "start": 2838.64,
+    "end": 2882.17,
+    "speaker": 0,
+    "text": "You have to fine-tune it. You say you're an assistant. Be helpful. Don't do this. Don't do that. And then you have to build all of this thing up. If you just did it raw, oh, the thing is nasty. Like there's a lot of Reddit data and it is not nice. So a lot of work on alignment, as you see in companies or there's like alignment engineers, what they're actually doing is they're trying to make sure this thing doesn't reflect the internet. Okay, there's a lot of stuff on the internet that they don't want to come out. So that's where most of this action happens. But as far as the algorithm is concerned, we're gonna look at the overall architecture, some tips and tricks, and then we can do some overall discussion So, yeah, I think it's a good place to just take a break, and then I think we'll definitely finish transformers in the next lecture. ",
+    "model_probability": 0.998
+  },
+  {
+    "start": 2882.33,
+    "end": 2887.28,
+    "speaker": 0,
+    "text": "Okay? So, 15-minute break, 10, 15 minutes, and then we reconvene. ",
+    "model_probability": 0.9704
+  },
+  {
+    "start": 3769.34,
+    "end": 3800.93,
+    "speaker": 0,
+    "text": "OK, shall we get started again? All right. Welcome to the graveyard slot again. 5 to 6 PM lecturing is my favorite. It's not as bad. I mean, we're talking about NLP and AI, but imagine if you did complexity. It's tough. I think you see less and less people show up, but I think the attendance has been absolutely wonderful. So thank you very much for coming and being here. ",
+    "model_probability": 0.9971
+  },
+  {
+    "start": 3801.11,
+    "end": 3831.84,
+    "speaker": 0,
+    "text": "So there has been a few nice questions in between, and I do like sort of iterating them again. And so one question has been about, what is this? So this is the query. And why does it come from the decoder? And the keys and values come from here. And the reason is the decoder wants to query, in some sense, what the information the encoder has. And this, again, is designed for translation. This model is designed for translation. So that's why this connects here and then you sort of use the same mechanisms around. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 3832.6,
+    "end": 3867.5,
+    "speaker": 0,
+    "text": "Another fascinating thing was how does this thing actually learn? I think the most interesting and maybe where some of this magic of AI comes from is that you give this thing training data that comes from here, there's a loss function, and this entire information flows through multiple decoder stacks, and multiple encoder stacks, all the way to the input embedding. All of this is learned from just one output. And people obviously created these more complex architectures, but the principles by which what you trained an MLP with is still the same how you train this beast. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 3867.86,
+    "end": 3898.76,
+    "speaker": 0,
+    "text": "Obviously, you have to do a bit more tricks as you go along. Speaking of which, I think the slides don't necessarily detail them. What did they train this thing with? So again, in the paper, I did put a big X marks the spot, but completely forgot to see it. So they trained it on English to German data set. So this is a translation data set, the WMT2014. And it consists of 4.5 million sentence pairs. They used bipair encoding. Dun, dun, dun. We know what that is, right? ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 3899.79,
+    "end": 3933.48,
+    "speaker": 0,
+    "text": "So these things will now start to appear more familiar to you. If someone said, oh, have you seen this new architecture or this paper? To be honest... A sad thing is that most of the companies don't publish the details anymore. It's too secret. It's too valuable. But back then, people used to share everything. But if you do see a paper, you will see similarities. How do they tokenize it? What is the attention mechanisms? You can immediately recognize it. So in this case, how do they tokenize it? Well, they use byte pair encoding. And the target vocabulary is around 37,000 tokens. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 3933.62,
+    "end": 3964.55,
+    "speaker": 0,
+    "text": "So here, when we are let's go back really quickly to the diagram, when we're sort of predicting this is 37,000, a distribution over 37,000 tokens, okay? So that's what that means. And then we come back here. My favorite usually is, and so there's another English-French data set, which has 36 million sentences, so much bigger, and split into tokens. This time they used a word piece vocabulary, so maybe they have more information to use that. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 3964.59,
+    "end": 3999.44,
+    "speaker": 0,
+    "text": "We didn't necessarily look at how that works, but it's effectively a tokenization method. And then it tells you how many sentences. Usually my favorite bit of these papers is how long they've spent training. So for the small model, it took them 12 hours on eight NVIDIA P100 GPUs. And for the bigger model, it was trained for 300,000 steps. Sorry, it was trained for 300,000 steps for three and a half days. It's really nice. I feel like You just set it off and then three and a half days later you're hoping that this machine can translate between English and German or English and French. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 4000.04,
+    "end": 4031.82,
+    "speaker": 0,
+    "text": "And if it doesn't, then stress starts to kick in and you start sweating and you're like, I've wasted all these credits and stuff like that. For the students who are supervised for final year projects, this sort of research or stuff, failure is guaranteed. You will fail at some point. We're only looking at what has worked. I guarantee you these people would have tried many other different things. And when you're at a company like Google, you have a lot of resources, so you fail quite fast, and no one knows about that. And if I have one criticism about... ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 4033.39,
+    "end": 4063.8,
+    "speaker": 0,
+    "text": "I think this is recorded, isn't it? If I have one criticism, it's that this field, we never publish failures. And a lot of people fail probably in similar ways until they find the similar or same solutions. And that's very much a shame. If I look at what my wife did in insects and biology, if something didn't work, that's also very interesting. If a chemical didn't work, then you're like, well, and you thought it was going to work, the null hypothesis is as valuable as the hypothesis that you were trying to test. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 4063.84,
+    "end": 4093.99,
+    "speaker": 0,
+    "text": "But here, if this thing didn't translate, we would have never seen the paper. This paper, in machine learning, we always publish if this table has a result that says, oh, look, my model is better than the others. That is what we publish. We never say, oh, I've made this model, and it actually doesn't work as much. Unfortunately, I have never seen it, and I have So I've seen the pressure that creates on people and research, hence why I'm teaching and maybe not doing as much research as I would otherwise. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 4094.41,
+    "end": 4124.55,
+    "speaker": 0,
+    "text": "So another question was about positional encodings, and I did say about counters and another way of looking at it, and that's why that slide is up. So another way of thinking about positional encodings is imagine you had a binary counter, so you go zero, one, one, zero, one, one, one, zero, zero, and so on, okay? If you look at the bits and how frequently they swap between values, you'll notice that the least significant bit at every number, it swaps between 0 and 1. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 4124.83,
+    "end": 4159.82,
+    "speaker": 0,
+    "text": "So its frequency is very high. The second bit swaps every two digits, every two numbers as we're going along. So it goes 1, 1, 0, 0, 1, 1, and so on. I think I made a mistake there. So it goes 1, 1, 0, 0, 1, 1, 0, 0. And now if you look at this chart here, and if you look at depth zero, you'll see that depth zero changes very frequently. It goes up, down, up, down, up, down, up, down, up, down. But if you look at further down the depth, where when you go up in the dimensions, you'll notice that it sort of changes slowly, right? ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 4159.84,
+    "end": 4206.82,
+    "speaker": 0,
+    "text": "So the number goes up, and then the number goes down, and so on. So if you look at this, for example, column, you'll notice that the number isn't going up here. It goes up, and then dips back down, and then goes back up . So it sort of creates another way of interpreting this. Another way of interpreting this is that it's like a soft counter using sines and cosines, OK? So it allows you to count in a soft way. And by soft, we mean sort of smooth functions. You can't just do this because this is not differentiable. So let's go back to where we were. So good questions, definitely good questions. Oh, there's cross-attention. Is there anything here that we didn't cover? So key value tensors from the last encoder. Oh, so the last encoder there. ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 4206.84,
+    "end": 4238.78,
+    "speaker": 0,
+    "text": "That answers the question. So we use the last encoder layer. And the query comes from the current decoder layer. So we already said why that is the case. So that's this slide. This cross-attention mechanism is very powerful. If you're doing any final year projects and you need to fuse information from different sources, you can either let the transformer attend to everything or you can, for example, let the transformer do a particular encoding and then cross-attend to something else. So people have done many different versions of this and in different architectures as well. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 4241.06,
+    "end": 4274.23,
+    "speaker": 0,
+    "text": "So the cross-attention matrix shape, I think that's important to note. So T times S. So T is the target sequence and S is the source. And so remember, this multi-head attention had the shape of S times S. And then this multi-head attention has a shape of T times T. So every token to every other token in the decoder, every token to every other token in the input. And then this multi-head attention has a shape of T times S. Frankly, I wouldn't be too concerned if it's s by t. It depends on which version of libraries you're using. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 4274.25,
+    "end": 4305.04,
+    "speaker": 0,
+    "text": "I think PyTorch does it the other way, or TensorFlow does it the other way, so long as you know it's every target to every source, or every source to every target. I wouldn't worry about the transpositions of different matrices, so long as there's consistency. So what is cross-attention doing? And what should the shape of the cross-attention be? As you can see, these are not my questions. They're not as deep or thoughtful at the end. So this information flow, as I said, is quite powerful. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 4305.32,
+    "end": 4338.52,
+    "speaker": 0,
+    "text": "So please bear that in mind. So this is the communicate part of between encoder and decoders. Another question that was in the training is, what do people actually do when they do model alignment and so on? And I can answer that, but Marek next week is going to cover that in more detail. So when you're doing your LLM and you ask a question to chat TPG, I like changing it every time. It confuses people. So when chat PTG decides to answer, you're effectively doing this sort of attention mechanism and then sort of decoding one word at a time. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 4338.66,
+    "end": 4373.69,
+    "speaker": 0,
+    "text": "It doesn't necessarily have an encoder section, okay? So let's look at this visually. Let me go to both. So this is where everything comes together, guys. So let me see. Where's my mouse? Let's get rid of this. OK. So this beast is nanoGPT. I think this is a decoder on the architecture and has around 85,000 parameters. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 4374.31,
+    "end": 4406.12,
+    "speaker": 0,
+    "text": "So now you should be able to recognize the decoder architecture or the encoder architecture that we just did. So let's just take five minutes just to appreciate this thing. So how big it is, what does it visually look like? Just five minutes. Bear with me. So the input comes in. This is actually quite difficult with the trackpad. Okay, so the input comes in, and then you have your input embeddings, and you have positional embeddings, okay? So this gets added to each other to form the input. Then you have your multi-head. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 4406.64,
+    "end": 4460.79,
+    "speaker": 0,
+    "text": "So, well, as I said, in this architecture, they use layer norm first, but in the original transformers, remember, layer norm was afterwards. And that's something I was highlighting already. So this thing is multi-head attention, okay? Can you recognize the heads here? So there's key query values, key query values. Is that coming quite nicely? Oh, that actually looks very nice. Maybe I should do it here. You have key query values, key query values. And you can see that this is repeated for each head. Head zero, head one, head two. And then this information does your multi-head self-attention. Let's see. And then for each one of them, you get an attention matrix. So this is a key query multiplied with each other. Then you softmax this thing. We can zoom in a bit. And then using this softmax, we then compute the output. So this is the V. So this is, we know what equation this is at this point. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 4462.3,
+    "end": 4492.33,
+    "speaker": 0,
+    "text": "I mean, when you see it this way, you do realize how much machinery is actually encoded in it. So it's like a highway of information flowing around, a lot of multiplications, a lot of information being processed. So the attention output gets concatenated, remember, at the end of the process. And then we project it back to the original dimension. So this concatenation could be bigger than the original. Or if it is the same size, we project it still back in this architecture. Then that gets added to the attention residual. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 4492.49,
+    "end": 4526.41,
+    "speaker": 0,
+    "text": "So that's the residual. So that's your multi-head attention and residual and norm. In this case, layer norm is applied first. That's your first subblock. or sublayer, as they say in the paper. Then you go further down, and then you come to this beast. In this section, we have the layer norm. The layer norm gets applied to the input as it's coming in. This gets passed on to the MLP. You then multiply this with the MLP weights and the bias to then get the intermediate feature. So this is the two-layer MLP, remember? And then that gets projected back onto the original dimensions. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 4526.47,
+    "end": 4567.37,
+    "speaker": 0,
+    "text": "You get the MLP result. You add it to the residual. Visually looking, it actually looks like there's a lot of happening. And this is nano GPT, guys. This is nano GPT, OK? So then, the layer gets repeated, but with different weights. So you stack it up. Remember, in the original transformers, it was six encoder layers. I don't know how many this has, but we can potentially look at the picture. You do self-attention, so layer norm, self-attention, projection, residual, and then you come back, and then you do your feet forward, and then you sort of, you know, the second block of the transformer gets run, and then you do it again, and I think that's it, and then that's it. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 4568.21,
+    "end": 4642.74,
+    "speaker": 0,
+    "text": "And then you come out, so at the very end, you have this representation here, okay? So hopefully that representation is quite rich with information. You've processed different communications, different tokens, you've updated internal weights, so you transform the representation with internal weights, and then you did this multiple times, and you're hoping, please let me predict the next token. And you do, so in this case, they add another final layer norm, and then you do sort of your projection, to the logits, and then you sort of apply your softmax, and then that creates your distribution at the end. Yes, there's a question. I think in this case, tokens, I think in this visualization, what they've done is each character is a token, like CBA, and these are tokens in this case. Well, your inputs are tokenized and your outputs are tokenized as well, right? So you have one consistent vocabulary of tokens that you're working with. So in this case, the model is trying to predict A. I think this is a decoder-only architecture. Let me see if I can go all the way to the top and what the input was. Come on, trackpad. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 4643.92,
+    "end": 4674.16,
+    "speaker": 0,
+    "text": "Zoom in. Zoom in. Yeah, so as you can see, so this was the input tokens, and then it's tokenized, and then you pass it on. And then each token has a token embedding, and then a positional embedding, and you add them up together, and then you process that as it goes through. If you just search LLM visualization, this comes up, and it's a huge credit to this person who's done it. I think you look through all the slides, you look through all the equations, and you're like, what the hell is this thing? This is it. Sorry, that's just the input. This is it, okay? ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 4675.26,
+    "end": 4706.3,
+    "speaker": 0,
+    "text": "And that's what, architecturally, it looks like. And then this, I think, also has, you can go around GPT-2-XL, and you can see, oh my god, there's now a lot more compute and a lot more attention heads that are going around. And then you go to GPT-3, and you're like, oh my god, there's even more. This thing is just going out of control. And that's GPT-3. We're at GPT-5.2 now. GPT-4 was quite big as well, and these models get bigger. But you could see the regular structure. Communicate, compute, this thing is there. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 4706.34,
+    "end": 4739.21,
+    "speaker": 0,
+    "text": "The overall structure of this thing is there. Now let's see what other information. Are there any questions on the overall architecture of transformers? Good. I think, raise your hands if it now feels not as magic. Yeah, OK. Who still thinks ChatGPT is magic? Raise your hands if you think ChatGPT is magic. I mean, it's still pretty good, isn't it? If you do this, there's still a lot of work. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 4739.23,
+    "end": 4774.69,
+    "speaker": 0,
+    "text": "You still have to train this thing on the internet, and you do the decoder. And all of these different models, Marek is going to cover next week. So let's go back to the slides. I don't think we have much left at this moment in time. Okay, so let's summarize, okay? For the transformers, the original paper that we had, the original paper that we were looking at, what we do is we plug the encoder and decoder together. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 4775.65,
+    "end": 4811.92,
+    "speaker": 0,
+    "text": "Our transformer class four things in every training loop. It creates a source and a target mask. It runs the encoder, runs the decoder, and then output logics for token prediction, okay? That was the original thing. Now, you can flip this around. You can, as I said, you can do decoder only, encoder only, and there are different varieties and versions of these things people have done. Encoder only, decoder only transformers should be very easy for you to recognize, okay? What these sections are and what these things are used for, okay? So, there's... One trick that they did in the paper to train this, and they used a weight tying in the decoder. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 4811.94,
+    "end": 4844.78,
+    "speaker": 0,
+    "text": "So embedding matrix and output projecting matrix are shared. And what that means is that, let's go back to the visualizer. Right display. I think this is so much nicer than just looking at the same slide twice, personally. So what this means is that the input embedding here was tied to the linear layer here. So you're saying, I'm starting off with this input. Please work on it, work on it, work on it, work on it. And then you say, OK, which representation am I close to now? ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 4844.86,
+    "end": 4879.04,
+    "speaker": 0,
+    "text": "And then you sort of undo the embedding, if you will. And then that gives you the probability distribution. What does that remind you of? It should remind you of something. Does it remind you of word2vec by any chance? Where we started off with an embedding, we sort of had an intermediate representation and then we sort of kind of undid the embedding and got a probability distribution. I don't know where that slide is at the moment. So they do weight tying and you can and you cannot do weight tying. It's optional and some of this is empirical. And yeah, I think people try different things to tell you how it works. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 4880.23,
+    "end": 4912.78,
+    "speaker": 0,
+    "text": "So authors use a decaying learning rate. So when you have such complex architectures and such deep architectures, how you train these things is quite important. As you can see, training is quite a big section. So hardwares, how many iteration steps you're doing, and then in this case, what is your optimizer? So they say we use Adam optimizer with these parameters. And then we also have this learning rate decaying with a number of steps to warm up and so on. What this allows you to do is it allows you to start slow so you're not making sudden jumps in your training. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 4912.8,
+    "end": 4950.28,
+    "speaker": 0,
+    "text": "So if you are warming the system up, you're making small adjustments to this massive architecture. And then as you're sort of training in the middle, you sort of increase your learning rate, and then you start decaying again. So what this allows you to do, you start taking small steps, and then you sort of, okay, I know what I'm roughly doing now, and then you sort of learn your parameters, and then the intuition behind it is you sort of slow it down so it converges into something reasonable. So yeah, so the four warm-up steps here, they set to 4,000. I think this is not necessarily in the slides, but while we're here, let's also look at this regularization techniques they do. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 4950.34,
+    "end": 4984.5,
+    "speaker": 0,
+    "text": "So you can't just plug and play and expect this to work. Oh, there was a really good discussion in the tutorial last week, and someone asked how these mechanisms work, and I gave them the analogy. So inventing neural networks is like inventing the internal combustion engine. So transformers is your internal combustion engine. And then you have to tune this engine. You mechanically fix a pipe, you change it, so if you fix bits and pieces, that's all this stuff here. It becomes a very mechanical problem that you have to solve, and you're like, well, if I just run it, it doesn't work. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 4984.58,
+    "end": 5016.16,
+    "speaker": 0,
+    "text": "Oh, well, should I just do a learning rate decay? Okay, let's try that. Okay, so this thing overfits. What are some regularization techniques I need to use? Oh, well, people use dropout. Let's use dropout as well, see if that helps. So in this case, they do a residual dropout. So each output of the sublayer, before it is added to the sublayer input and normalized, so they apply a dropout to it, and they apply a dropout of 0.1. Okay, so 10% of inputs that are going through get zeroed out. Raise your hands if you've seen dropout before. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 5016.98,
+    "end": 5047.88,
+    "speaker": 0,
+    "text": "Okay, good. As I said, these things usually come up in introduction to machine learning or in the deep learning course as machinery to get these things working. So if you're working on individual projects, you'll potentially have to encounter or do these things if you're training your own models. Depends on the project. Okay, let's see if I marked anything else. And the final thing is, as I said, you publish this paper if your results are better than others. So you might be able to recognize what some of these architectures do. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 5047.92,
+    "end": 5078.48,
+    "speaker": 0,
+    "text": "So convolutional sequence to sequence, some neural machine translation with RL, mixture of experts, presumably, I think that is. I don't know which link that is. some ensemble of convolutional sequence-to-sequence models, and then they're like, look at us, our transformer big model performs better than everyone else. And guess what? They're reporting the blue score. It's something that we've seen before. And they're also reporting the training cost as well in this paper. So you can see that it performs better. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 5079.95,
+    "end": 5117.93,
+    "speaker": 0,
+    "text": "So that's wonderful, right? So this thing actually works. It gives you a better result. But as I said, maybe you can't see at this moment in time, so this is 2017, that this is actually going to be the backbone of large language models. So you think, ah, great, they've done translation. But actually, there's something else to it. Again, so you can see some results in the original paper and the number of parameters and other models that people have used in different cases. So in conclusion, I think we have, let me see what slides we have, and then we conclude on the paper. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 5118.87,
+    "end": 5154.09,
+    "speaker": 0,
+    "text": "And then we can hopefully finish around like 35 or 40 past. Are there any questions before we reach out to the conclusion? If you have any questions offline, please let me know. Okay. And so this is non-examinable. I've already mentioned, what if you applied this stuff to music a lot? And let's just get the architecture here. So this music language models in real time was a piece of work by Lancelot. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 5154.87,
+    "end": 5192.26,
+    "speaker": 0,
+    "text": "He used to be my MN student. And then he went to MIT to do a PhD on music in the media lab. And it's wonderful. They do all sorts of fancy stuff. um and it builds on this idea of music transformers so they remember that music we listened to in that lecture so he took that architecture and sort of tuned it and sort of used the other paper and then they sort of instead of tokens from language they use tokens from music so this time the duration and the pitch of a particular thing but you could have encoded it in any other way And they use this model to allow musicians to work in real time with a music language model. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 5192.3,
+    "end": 5228.27,
+    "speaker": 0,
+    "text": "So you play a little bit. If you look at their videos or if you Google this, you'll see it. The musician plays a little bit. And then the transformer replies and then says, da, da, da, da. And then they go, da, da, da, da. It's really fun, really interesting to see. And it's based on those models. And they do this in different ways. So the oranges are in performer input. So the performer can play, and then the jam bot, the music transformer, can play afterwards. The performer can play the chords, and then the transformer can play the melody. And there's all sorts of different versions that they've tried. And I find that very interesting, I think, because it shows you that you can start now thinking outside the box. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 5229.05,
+    "end": 5259.25,
+    "speaker": 0,
+    "text": "You know, people have applied these things to football, to DNA sequences, to protein folding. You know, there's many other problems out there than just language modeling. But what I find fascinating is the concepts that you learn in NLP is widely applicable in different areas. So, you know, please, please do consider this stuff as you think outside the box. Okay. So, conclusion of transformers. I can't believe it. We're here. If you have any last questions, this is your moment. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 5259.31,
+    "end": 5293.32,
+    "speaker": 0,
+    "text": "Otherwise, hold your peace against transformers. Okay. Conclusion. We are excited about the future of attention-based models. I mean, what an exciting future that has been. and plan to apply them to other tasks. We plan to extend the transformer to problems involving input and output modalities other than text to investigate local restricted attention mechanisms to efficiently handle large inputs and outputs such as images, audio, and video. And they have done. So visual transformers was a thing after this. So image captioning, all of those other problems that people have applied and thought about happened. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 5296.8,
+    "end": 5327.31,
+    "speaker": 0,
+    "text": "Well, I think this is the conclusion. So the story about transformers is how, do I still have that drawing? How we went from MLPs to CNNs to RNNs and then now we had this idea of transformers. I don't know what the next architecture is. I don't know if transformers is general enough. I don't know. I think there is a lot of questions for you to think about and a lot of things to explore as you guys go along, okay? So on Thursday, we'll be here with Chirag. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 5327.33,
+    "end": 5357.87,
+    "speaker": 0,
+    "text": "He's going to answer questions about the coursework. It's like a buffer lecture. If there are any burning questions of transformers or anything, we can do certain sections. But otherwise, he's going to look at the coursework and help you sort of answer any questions or general questions that might be helpful. It's what we call a buffer lecture. If this content was overflowing, then we will go there. Or if someone was ill or something like that, then we juggle it around. Otherwise, there's no, I don't think there's any new content on Thursday. But please do come, I'll be here, okay? ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 5358.69,
+    "end": 5389.28,
+    "speaker": 0,
+    "text": "Otherwise, I think we're wrapping up. Should we finish the story about Big Steve and then call it a day? Yes, okay, I see some stuff. Okay, so last time I said we loaned Big Steve from the physics department. Raise your hands if you've ever been to the fifth floor or sixth floor of Huxley Building. Have you ever ventured further up into the building? Only a few of you. Okay, have you ever ventured into the Blackett Building? Okay, yeah. Well, not just walked through, but actually went up and down and see. ",
+    "model_probability": 0.9982
+  },
+  {
+    "start": 5390.4,
+    "end": 5422.04,
+    "speaker": 0,
+    "text": "So the theoretical physics group is on the fifth floor. And they used to sit across my PhD office. And they had Big Steph. And Big Steph was called Sir Stephen Ducking. That was his short name. And they used to do all sorts of theoretical experiments. When you're doing theoretical physics, you have quantum gravity, black holes. It's not like NLP and I'm training my models. It's serious stuff. So we said, well, where is our duck? We need our own duck. So we loaned Big Steve. But the physics people, you know, they're very clever. They wanted their duck back. ",
+    "model_probability": 0.9982
+  },
+  {
+    "start": 5422.58,
+    "end": 5453.26,
+    "speaker": 0,
+    "text": "So they took the duck back. And then we did what all computer sciences did. We copy pasted. We got a clone of Big Sir Stephen Ducking and called it Big Steve. Now, there was an attempt before the pandemic to swap the two around and no one would have noticed the difference. But the pandemic happened. So we don't know where Sir Stephen Ducking is, or is it him standing here? And I think that's the big mystery around it. And someone asked me, why do I bring Big Steve to this? ",
+    "model_probability": 0.9976
+  },
+  {
+    "start": 5453.76,
+    "end": 5485.56,
+    "speaker": 0,
+    "text": "And that's exactly the reason why. The curiosity that Big Steve creates, the passion and the things that you want to learn is exactly what he represents, okay? When you're coming to these lectures, you're learning about NLP, you're learning about other things, but most of you were interested in that Big Steve. I want you to keep that curiosity. I want you to carry it forward and don't feel sort of threatened by all these big news and other things. If you're interested in something, pursue it and ask questions around it. And I think Big Steve has done that, I think, for all of you and symbolized that. So I'll see you on Thursday. ",
+    "model_probability": 0.9966
+  },
+  {
+    "start": 5485.64,
+    "end": 5518.37,
+    "speaker": 0,
+    "text": "If you have offline questions, there's a few more coming up. I know that. Next week, Marek is going to teach. I think we'll say that on Thursday. And then I'll be back for the final week of lecturing. And then that will be the end of it. And I know some of you have reached out to me for projects. Unfortunately, as a guest lecturer, I am not able to allocate more time. And I'm really, really sorry about that. I met over 30 students this year. But I would have loved to supervise many more projects. But I unfortunately can't. So thank you very much. I'll see you on Thursday. Shrag will be here. I'll be here as well for coursework-related questions. ",
+    "model_probability": 0.9933
+  },
+  {
+    "start": 5518.73,
+    "end": 5529.08,
+    "speaker": 0,
+    "text": "But otherwise, if you want to say hello to Big Steve or ask questions, I'll be here. It's really nice to finish a bit early. But that is the end of Transformers. Okay? I'll see you on Thursday. And Amarak will continue on Thursday. ",
+    "model_probability": 0.985
+  }
+]

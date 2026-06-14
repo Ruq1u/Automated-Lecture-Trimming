@@ -1,0 +1,842 @@
+[
+  {
+    "start": 8.88,
+    "end": 14.96,
+    "speaker": 1,
+    "text": "Okay, good, that's one. And now I need to see how I can make this larger. ",
+    "model_probability": 0.8815
+  },
+  {
+    "start": 53.57,
+    "end": 69.7,
+    "speaker": 1,
+    "text": "So David is ill, so I'm taking over for today. I felt that he's not focusing enough on creating skill, so I want you to do some exercises for the notes. ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 87.27,
+    "end": 103.96,
+    "speaker": 1,
+    "text": "So for example, let's say the last four of these. No, let's take the third and the sixth. Try to do those. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 345.41,
+    "end": 346.67,
+    "speaker": 1,
+    "text": "Yeah? OK, then it should be. ",
+    "model_probability": 0.9946
+  },
+  {
+    "start": 357.88,
+    "end": 377.98,
+    "speaker": 1,
+    "text": "You wanted to give you some examples of terms that you don't specify the type for. So for example, you can think about the type of use term. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 416.58,
+    "end": 473.33,
+    "speaker": 1,
+    "text": "So let me do a geophysical construction. So this is subjected at its correct time. So let me do the construction where I built it. Has David done this, building the plant? Did he? What do you mean by that? Well, so you only know the term. You only have the term. So you have to find out what the time should be. I mean, that specifies it. Okay. So let me do the number six. So I'll do number six without knowing the time. ",
+    "model_probability": 0.9981
+  },
+  {
+    "start": 627.92,
+    "end": 679.66,
+    "speaker": 1,
+    "text": "Yeah, so it is easy if you, in this particular notion, because you have the one-to-one correspondence between the structure of the turf and the hole that you're applying to draw the skeleton of the elevation without knowing the times. So all the steps are perfectly sufficient. Actually, this is not sure what the, this is the, So now you step back and you say, okay, what is the information that I have? ",
+    "model_probability": 0.995
+  },
+  {
+    "start": 680.82,
+    "end": 714.67,
+    "speaker": 1,
+    "text": "Well, I know that when I do an inflection step, I introduce an arrow. So I do this here for the first time. And so here I have some time. Question mark doesn't mean to represent the same thing. This is all wrong there. So here I have... So if I now number them, so this one, question mark 1, this is right here. Question mark 2. ",
+    "model_probability": 0.9982
+  },
+  {
+    "start": 724.99,
+    "end": 791.7,
+    "speaker": 1,
+    "text": "I know, this is Christmas. Sorry, I'm a bit confused. Oh, that's a y here. That's where we talk. It's not the y, x, or x. Oh, it's y. That's y. good so there is an application so I have an error here and this is the result type that I get and this is the input type and again this now should have an error Yeah? ",
+    "model_probability": 0.9912
+  },
+  {
+    "start": 792.54,
+    "end": 871.24,
+    "speaker": 1,
+    "text": "Okay. Now here, from this one, I know it's Prismark 2 and Prismark 5. Now I can only expect the type of efficacy of the code. I know nothing else. These are the minimum errors that I have. So now here, I have that this has 5. Where's the mark 2? So this function here, where's the mark 2 error? Where's the mark 2? No. OK. So now we'll do the error deduction. but this is an abstraction so this actually is oh yeah so first action on the line so this question mark to This is question mark, yeah. ",
+    "model_probability": 0.9965
+  },
+  {
+    "start": 871.26,
+    "end": 899.94,
+    "speaker": 1,
+    "text": "So this is the arrow, so there's seven. And this one is question mark eight. And so I have this little question mark. Yeah, because I'm expecting yes. And that's that. Do I have enough now? Well, it was with type of B. With type of B is four. 5 over 4, so 1. ",
+    "model_probability": 0.9958
+  },
+  {
+    "start": 912.63,
+    "end": 926.34,
+    "speaker": 1,
+    "text": "Yeah, anything else? So these are the constraints. This is the, these qualities I have to satisfy. So if I call this A, I call this A is wrong, these are all A's. ",
+    "model_probability": 0.9986
+  },
+  {
+    "start": 958.03,
+    "end": 982.24,
+    "speaker": 1,
+    "text": "Oh, I'm sorry. Sorry. Sorry. ",
+    "model_probability": 0.9478
+  },
+  {
+    "start": 996.67,
+    "end": 1025.32,
+    "speaker": 0,
+    "text": "I hope this works out well. ",
+    "model_probability": 0.8952
+  },
+  {
+    "start": 1113.4,
+    "end": 1143.91,
+    "speaker": 1,
+    "text": "yeah I've done it like this because this is this comes back, this search comes back in the algorithm algorithm does this work. It finds these equations with the source among the lines. It does this work. I mean, I could, rather than using A, I could have said this is type variable, this is non-type variable, and this is non-type variable. ",
+    "model_probability": 0.9931
+  },
+  {
+    "start": 1143.95,
+    "end": 1181.39,
+    "speaker": 1,
+    "text": "That would still be correct. And if I use type variables rather than A, B, and C, because A, B, and C are types that I don't know, You can also look at it. If it took a type variable, then it is a type right now. It's a type variable. So in a certain sense, if I pick type variables, I get the smallest type that I can get from this thing. Yeah. Why does it not do x, y, or x sometimes? Maybe. Maybe. Maybe. Maybe. Maybe. Maybe. Maybe. ",
+    "model_probability": 0.9956
+  },
+  {
+    "start": 1229.09,
+    "end": 1261.0,
+    "speaker": 1,
+    "text": "So the skill involved in this is knowing how this is bracketed. You have to know the structure of the tool to construct the derivation to be able to apply the rules. So if you do this and you accidentally bracket this like this then you go in the wrong direction. So I have to take this as an application of this to this. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 1262.16,
+    "end": 1293.17,
+    "speaker": 1,
+    "text": "That's the hierarchy of this. Now a nice thing to observe, this is why the example is in the notes, is if I run this term, then in two steps, So I did a lot of x, y, dot, x. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 1293.79,
+    "end": 1327.83,
+    "speaker": 1,
+    "text": "It's a redex with two arguments. It collapses into the first argument. If I type this independently, I get something like this. If I compare these types, I see that this one has an extra error. So I can make this be that, but I can also make this a type variable, and then I can't make that. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 1329.93,
+    "end": 1361.93,
+    "speaker": 1,
+    "text": "So David has shown that if you have a typeable term and you run it, you get a typeable term, a typeable term of the same type, and if you go back towards reduction, you lose that property, because here I have The type that I can give to this term, I cannot give to that term. ",
+    "model_probability": 0.996
+  },
+  {
+    "start": 1362.73,
+    "end": 1414.02,
+    "speaker": 1,
+    "text": "Yeah? You're bringing me? It's called beta-expansion. Going against the reduction is called expansion. And so the system is called beta-reduction, but it's not called beta-expansion. And it is a very small generalization of this notion of life assignment, but the complexion explodes. It's like adding I to the set of terms. It's really strange. But that's what we get. So what I want you to observe here is that, so, software production, okay, so it's not the conference sample, so therefore not, not in general. ",
+    "model_probability": 0.9885
+  },
+  {
+    "start": 1416.13,
+    "end": 1429.39,
+    "speaker": 0,
+    "text": "Of course, you can find many examples. ",
+    "model_probability": 0.92
+  },
+  {
+    "start": 1433.96,
+    "end": 1456.33,
+    "speaker": 1,
+    "text": "No, that's not the issue. The issue is that the wider subject that you work is that you... Proof sketch. So the... So you have your derivation for this student. And then here you have the derivation. ",
+    "model_probability": 0.997
+  },
+  {
+    "start": 1477.22,
+    "end": 1510.68,
+    "speaker": 1,
+    "text": "So if you have a real sense type of law, the derivation is shaped like this. That's it, no choice. But it means that if you go to the, oh, you go to the link, at a certain point, there will be a step like this. There will be an action. So what subtle reproduction does, basically says, okay, I can take this derivation and put it in this position. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 1512.22,
+    "end": 1532.5,
+    "speaker": 1,
+    "text": "Then nothing changes for the types. Because this rule, what I do with this thing here, just says it had type A. And I'm putting something in there which has type A. So the time form changes a little. The only thing that will change is that I build a substitution. When I do that, I generate a derivation for this. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 1537.92,
+    "end": 1557.0,
+    "speaker": 0,
+    "text": "which is constructed out of this thing there that is derivation D and this is D with symphonics and here at some point is the derivation function so it is consistent? ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 1558.0,
+    "end": 1589.07,
+    "speaker": 1,
+    "text": "yeah inserting is, extracting is yes No, so what you would like is to be able to have a derivation like this and to construct it. Because this is a reduction step. So can you go back? Not always, but is this in general possible? ",
+    "model_probability": 0.9981
+  },
+  {
+    "start": 1589.31,
+    "end": 1677.26,
+    "speaker": 1,
+    "text": "No, but I can also show why it works. Because the thing is, when I go from there to there, I need to find this subterfuge. I need to find the type of M. What if X does not occur here at all? This is just M. So I do for example delta X, delta Y, Y to contraction of this real x is just like a right now so I can easily build a derivation of this I cannot build a derivation of this because the term that I am extracting is not a subterm so it's not already typed so if it is a subterm if this is a subterm of the contraction so if x occurs in n then yes Who's happy with this? ",
+    "model_probability": 0.9935
+  },
+  {
+    "start": 1677.28,
+    "end": 1724.05,
+    "speaker": 1,
+    "text": "Who's happy with this? It's okay to drop me. It's an open discussion. That's all we... Maybe could you explain why... Not that BC.C is what? No, no, that's not the kind of reduction steps. this is a reduction step so the problem is if I can type m with a and I do a reduction step from m to n then I can type n with a so this holds does that hold? ",
+    "model_probability": 0.9903
+  },
+  {
+    "start": 1727.24,
+    "end": 1764.16,
+    "speaker": 1,
+    "text": "I see you is it just because of the no no no it's I it is more subtle than that because the thing is what they actually want is that n the term that I'm extracting is typable in the same context but the more goes wrong this is just another counter example of something that I can't type I can't type at all but sometimes I can extract terms that are typable but not in that context Yeah? ",
+    "model_probability": 0.9985
+  },
+  {
+    "start": 1764.56,
+    "end": 1790.86,
+    "speaker": 1,
+    "text": "So the thing is the information, so you want to do a brief extraction, you want to pull the subterm out, but what if it isn't a subterm, what do you do? What's the type of quiz? Okay? So in the intersection system, the problem is solved, but in this particular system, you can't do it. Okay? Did David finish the proof for you? ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 1822.76,
+    "end": 1859.68,
+    "speaker": 1,
+    "text": "is very nice it has a very good property it's it's a software production is fantastic which means that in terms of programming you can have a very big expression with time yeah and you know that at the end of the computation the thing that will roll out of the computation will have that same time so if something says it's a natural then it's a natural yeah although you might So what we'll focus on now is that you can implement. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 1860.82,
+    "end": 1894.1,
+    "speaker": 1,
+    "text": "It has an effective implementation, and this basically means that a type of scientific society. And that made it really important. So the first person to work on that, there are two names involved here. All of them is Roger Henry. And I don't know if Roger's still alive, but he will be building this in 97 years. ",
+    "model_probability": 0.9985
+  },
+  {
+    "start": 1894.52,
+    "end": 1960.06,
+    "speaker": 1,
+    "text": "And the other guy, who's going to build the new one? I wrote the new one as one of the books. If you're looking for a new site, that's me. So do you know the Turing Award? I really had to give the Turing Award to somebody, so he won once. He passed away about 15 years ago, I would say, roughly. But he's massively important. So one of the things that he did is he defined with his students the program language ML, which we'll see later. So these two together, first worked, I mean, not together worked, but they both made a contribution to . And that made that people said, okay, I can use this in . So then the popularity, so they were already from the program . ",
+    "model_probability": 0.9835
+  },
+  {
+    "start": 1969.57,
+    "end": 1999.78,
+    "speaker": 1,
+    "text": "types and effects, because, you know, I cheat the programming. If you ever try to program without types in programming, it's tricky. But with types, it becomes very nice. So they open the gates. So, Aintley did it for combinatorial logic. Milner did it for ML. We will do the same work for the local So, there are two things. ",
+    "model_probability": 0.8499
+  },
+  {
+    "start": 2000.31,
+    "end": 2008.24,
+    "speaker": 0,
+    "text": "I'm going to give an algorithm, and that algorithm is going to produce a decided deterministic table. ",
+    "model_probability": 0.4295
+  },
+  {
+    "start": 2027.18,
+    "end": 2097.52,
+    "speaker": 1,
+    "text": "So it's the first pair algorithm. And the first pair algorithm runs on the term. And it returns a context and type. And they use that context. Because these are special context and type for the applying. So this is what you get for every type of term. Type. The trick is to show that it is correct, and so if that's the case, then what you want, that's one file you can type, and the other thing that you want, is that this more or less, I mean this is the real powerhouse of programming, of type assignment programming, but this is the smallest type possible, in the sense that, you can have a term that has that type, put it in a context where the type is supposed to be different, which you will find a relation between this new type and the type that you found in a very simple way, which was the order of the type. ",
+    "model_probability": 0.9444
+  },
+  {
+    "start": 2098.3,
+    "end": 2130.9,
+    "speaker": 1,
+    "text": "So you don't have to reconstruct the type, you just have to replace type variables. So, what we need is the notion of substitution. This is something I think that David hinted at, Yeah? So substitutions are defined by replacing a type variable by a type. And you apply to a type variable, you get a type. You apply to a null type variable, you get a type variable. And you apply to another type variable. ",
+    "model_probability": 0.8648
+  },
+  {
+    "start": 2143.5,
+    "end": 2146.12,
+    "speaker": 1,
+    "text": "Yeah? That was tricky. ",
+    "model_probability": 0.3615
+  },
+  {
+    "start": 2147.73,
+    "end": 2239.91,
+    "speaker": 0,
+    "text": "and then you can compose a number of them and get an arbitrary substitution that replaces arbitrary type substitutions and the assumption is that you do not reintroduce a type substitution so here's substitution, type substitution and the main theorem that we're proving is that if we have this type assignment no, sorry if it turns out then the algorithm is successful it returns a pair and there exists another choice Okay, so any type of assignment that I find from the term, I can create from the output of the output of the principal And I can create it by applying a substitution. ",
+    "model_probability": 0.9348
+  },
+  {
+    "start": 2241.75,
+    "end": 2277.31,
+    "speaker": 1,
+    "text": "So of course this is still in this pool. So this is subset rather than equals because this is subset rather than equals because it might be that in the type assignment that I have for n I'm doing stuff that I don't need. I might be talking about types that I'm not doing in the book. Whereas the algorithm works on them and only will find types for things that I need. ",
+    "model_probability": 0.9572
+  },
+  {
+    "start": 2279.21,
+    "end": 2394.52,
+    "speaker": 1,
+    "text": "But maybe the algorithm doesn't find everything. So, A is applied to context means to place all the types together. Yeah. So this is the goal. So the algorithm is defined by... So first of all, what is the principal pair of x for a type? So I know that through rule x, I can get any type of as long as I type it and since I'm aiming for a substitution vector I type it should be as generic as possible if I want to generate all the times I should if I pick an error type it will always be an error so I want a type variable here as a result and so the so what is the context in which I type this well the context in which I type this is the minimum that I need so where does phi come from it's In what I do here, it's an order. ",
+    "model_probability": 0.9877
+  },
+  {
+    "start": 2395.08,
+    "end": 2408.56,
+    "speaker": 1,
+    "text": "When I need a new file, if you implement this, you have to give a second parameter to the algorithm that collects the whole . So this is not what it's called, but it's easy. ",
+    "model_probability": 0.9965
+  },
+  {
+    "start": 2418.84,
+    "end": 2461.44,
+    "speaker": 1,
+    "text": "So how now do we deal with an abstraction? Well, it has a subterm. So deal with the subterm first, and then, depending on what you find, decide what you want to call it. So we will start by saying, okay, we have a run for the body. So we assume that the algorithm, because the, you know, one standard code, that comes back with the result of the detection. ",
+    "model_probability": 0.9973
+  },
+  {
+    "start": 2462.46,
+    "end": 2500.75,
+    "speaker": 1,
+    "text": "There are two cases. So, the IDON, what I want here is, because it's an infection, so I have a and I will have an error that error type will have the p on the right this is the minimum p I'm not making it more complex on the left of the arrow it's the type that I have for x but did I encounter x? ",
+    "model_probability": 0.9911
+  },
+  {
+    "start": 2501.31,
+    "end": 2510.22,
+    "speaker": 1,
+    "text": "has x been found? so this is a and I say A is... ",
+    "model_probability": 0.7018
+  },
+  {
+    "start": 2511.24,
+    "end": 2536.07,
+    "speaker": 0,
+    "text": "No, so it doesn't turn out... ",
+    "model_probability": 0.9022
+  },
+  {
+    "start": 2542.34,
+    "end": 2577.21,
+    "speaker": 1,
+    "text": "so this means that take the type from the context if it has occurred in the context and if it occurs in the context it has met it so if it finds the type it will be a type of context so you put the type in the context but if you find the type in the context put it on the left or if it is not You haven't found it. ",
+    "model_probability": 0.9957
+  },
+  {
+    "start": 2578.11,
+    "end": 2640.27,
+    "speaker": 1,
+    "text": "You still need to put A-type on the left. Be as generic as possible. Put that there. Huh? So the implementation looks like what it has. Let's strike it from there. Now the tricky bit is the following. Begin with one. the result there and so I do my recursive calls now what I need to do is I need this so I want p1 So it is here. ",
+    "model_probability": 0.9716
+  },
+  {
+    "start": 2640.31,
+    "end": 2671.69,
+    "speaker": 1,
+    "text": "So I'm dealing with an application. So it's divide and don't come. You deal with the subterms and you try to solve the problem. So you deal with the subterms. You get these. For n, you get pi 1, p 1. ",
+    "model_probability": 0.9127
+  },
+  {
+    "start": 2671.97,
+    "end": 2704.0,
+    "speaker": 1,
+    "text": "For n, you get pi 2, p 2. And in order for this to work, I need p 1 to be an error type. Let's go. p 2. Error. So I'm looking for P' and I'm looking, can I make this become the same? How do I force this type to be of this shape? ",
+    "model_probability": 0.8594
+  },
+  {
+    "start": 2706.5,
+    "end": 2715.47,
+    "speaker": 1,
+    "text": "Okay? So it is tricky bit. And this is what Milner said. I know how to do this. There is what's called Robinson's unification. ",
+    "model_probability": 0.5281
+  },
+  {
+    "start": 2727.16,
+    "end": 2770.07,
+    "speaker": 1,
+    "text": "Any of you ever wrote in Prolog? Yeah? It is. So you're familiar with the concept of unification? So you have these constraints coming from both sides. So this Robinson wrote the unification algorithm. And that algorithm developed outside of the language. So what does unification do? Unification says unify two types. ",
+    "model_probability": 0.9591
+  },
+  {
+    "start": 2771.01,
+    "end": 2827.56,
+    "speaker": 1,
+    "text": "This gives me a substitution bracket. Okay, so the result of unification is this. What does substitution do? Well, S of A is S of B, so it makes the types become the same. and also it is the smallest this is the most general which means that if S prime on A is S prime on B So if you find another substitute, then that is an extension of unification. ",
+    "model_probability": 0.9106
+  },
+  {
+    "start": 2827.58,
+    "end": 2834.86,
+    "speaker": 1,
+    "text": "Unification is really, really simple. Unify. ",
+    "model_probability": 0.4386
+  },
+  {
+    "start": 2851.89,
+    "end": 2899.5,
+    "speaker": 1,
+    "text": "So this is an exception of this. It's the only case in which you are allowed to do this. And the So I first unify A and B and C, which gives me S1. ",
+    "model_probability": 0.9667
+  },
+  {
+    "start": 2900.7,
+    "end": 2956.34,
+    "speaker": 1,
+    "text": "And then I unify B and D. but I do that after applying S1 to them, because it might be that the first unification says, well, you have to change these typefiles to make it work. And those typefiles might occur in the rest, so you have to change them before you continue. Otherwise, it's completely consistent. So I unify A and C, get the substitution. If I unify B and D after applying S1, I get the second substitution. And the composition of all which basically means, sorry, there's one case missing here, and this is the type variable, and that is the type, but that's the same, so this is missing. ",
+    "model_probability": 0.9501
+  },
+  {
+    "start": 2956.8,
+    "end": 2993.81,
+    "speaker": 1,
+    "text": "So this basically means two types are compared, and if they have the same error structure, that's fine, and replace one of them as a type variable, and the other one as a type, you replace the type This is used here. What we do is we want this to become the same so we're going to unify. It's going to produce a substitution that makes it become the same. ",
+    "model_probability": 0.9196
+  },
+  {
+    "start": 2995.25,
+    "end": 3010.56,
+    "speaker": 1,
+    "text": "The substitution says that S of P So the P prime that I'm looking for is this one. ",
+    "model_probability": 0.6342
+  },
+  {
+    "start": 3032.6,
+    "end": 3052.25,
+    "speaker": 1,
+    "text": "Yeah, so I'm on this. So the algorithm says, okay, run m, run m, get the results back, uniform those times, and the type that you want that. It's this one. And this phi here that I have should be a fresh phi. ",
+    "model_probability": 0.7249
+  },
+  {
+    "start": 3052.77,
+    "end": 3059.37,
+    "speaker": 0,
+    "text": "So it should not occur in the values. And this is where I get my resource of my error. ",
+    "model_probability": 0.1369
+  },
+  {
+    "start": 3070.89,
+    "end": 3108.46,
+    "speaker": 1,
+    "text": "the error message was very very coarse so the only thing we said cannot unify we had no idea this is the only thing that blocks the term being planned. And this also means that if you go to the main resultant issue, if the term is typeable then this will never happen. ",
+    "model_probability": 0.889
+  },
+  {
+    "start": 3124.38,
+    "end": 3182.03,
+    "speaker": 0,
+    "text": "because if you don't type on the other success again so let me move this definition so this is So the combination of those two contexts, the type that I had was fine, that's okay. But I need to do a little bit more of that. Because just applying this substitution to these contexts is not enough. Because the combination of two contexts, so remember that contexts are officially partial functions. So they have factor variables sometimes. ",
+    "model_probability": 0.9472
+  },
+  {
+    "start": 3183.43,
+    "end": 3214.69,
+    "speaker": 1,
+    "text": "And they do that consistently But if I throw two together, I might not, I might lose the consistency. I might have to determine whether the recursal is already there, and the recursal is already there, with different types, because the algorithm, every time it meets the term variable, it assumes a new type of it, so the results are independent. So what I need to do, and the specification is in the nodes, I need to unify the components. ",
+    "model_probability": 0.9906
+  },
+  {
+    "start": 3246.14,
+    "end": 3260.55,
+    "speaker": 1,
+    "text": "This is how you make that context. The only thing I haven't specified yet is pi prime. So pi prime is if x does not occur in pi, then this is pi. ",
+    "model_probability": 0.9956
+  },
+  {
+    "start": 3260.57,
+    "end": 3273.83,
+    "speaker": 0,
+    "text": "And pi prime is pi. So you have to remove it from the context if you found it. ",
+    "model_probability": 0.3713
+  },
+  {
+    "start": 3274.72,
+    "end": 3749.81,
+    "speaker": 1,
+    "text": "And otherwise you don't have So I suggest you do it like this. ",
+    "model_probability": 0.1103
+  },
+  {
+    "start": 3760.68,
+    "end": 3767.55,
+    "speaker": 1,
+    "text": "So you make the decision to do it. And then with the results you find you can go back upwards and do it again. ",
+    "model_probability": 0.1127
+  },
+  {
+    "start": 3938.03,
+    "end": 3952.17,
+    "speaker": 1,
+    "text": "So it's short-handed notation, and so you're going to have a lot of type variables in this, rather than writing a type variable with the index. Just write the index. It's beautiful. ",
+    "model_probability": 0.9451
+  },
+  {
+    "start": 4212.77,
+    "end": 4270.12,
+    "speaker": 1,
+    "text": "Yeah. Talk to you through what I've done here. So the divide and conquer. Yeah. The real works is in the unification and in the assignment of type of terrariums. Yeah. Because the abstraction step is mechanical. Nothing gets inside of there. So I just go inside until I hit the application. And now we have two subterms, x applied to z and y applied to z, which are run independently. Which means that if I run x and run z, I pick a type variable within the context, and now I need to do my unification step. The unification step says we'll unify the type for the first one, with the type for the second one, arrow, a new type variable. ",
+    "model_probability": 0.9918
+  },
+  {
+    "start": 4270.2,
+    "end": 4303.24,
+    "speaker": 1,
+    "text": "So I'm unifying 1, 2, and 3. 1 becomes 2. Now, Willem says that I need to unify the contexts as well. The contexts are different, so there's nothing to do then. So I apply the substitution to what I had before, and I build a new context. So 1 becomes 2 over 3, so x is 2 over 3. Z is not changed by the substitution, z is 3, and the result is 3. ",
+    "model_probability": 0.9982
+  },
+  {
+    "start": 4311.81,
+    "end": 4357.85,
+    "speaker": 1,
+    "text": "and I get a y star five over six, and a star five over six. So again, I'm dealing with replication, I have to do the replication, and I unify the outcome there, and at that time, it was something new. Okay, this means substitution three becomes six over seven, and I apply the substitute, so I take the context here, and the context there, and I put them together, and apply the substitution, and here it's a stop. Why? I have Z occurring twice. So officially, this is not a coordinate. So I fix this by making it typescript. So in particular, I make this disappear. ",
+    "model_probability": 0.9985
+  },
+  {
+    "start": 4384.07,
+    "end": 4398.85,
+    "speaker": 1,
+    "text": "So now I've got a context to do the abstraction steps, and I hope you agree with me that I end up with the empty set. ",
+    "model_probability": 0.9945
+  },
+  {
+    "start": 4416.52,
+    "end": 4464.99,
+    "speaker": 1,
+    "text": "So if we do the same thing for But in this case, B doesn't occur in the context. ",
+    "model_probability": 0.4106
+  },
+  {
+    "start": 4465.05,
+    "end": 4468.79,
+    "speaker": 1,
+    "text": "So I pick them in the background. So that's the same context. ",
+    "model_probability": 0.2494
+  },
+  {
+    "start": 4522.33,
+    "end": 4567.01,
+    "speaker": 1,
+    "text": "so I can type this term and if I look at this then the substitution so the algorithm says this is the role of the principal time algorithm this is the arbitrary assignment and I can build this one from that one by substitution and substitution again Yeah, you read me? ",
+    "model_probability": 0.8729
+  },
+  {
+    "start": 4568.53,
+    "end": 4626.35,
+    "speaker": 1,
+    "text": "The proof that this works is especially in the application cases. I mean, it took me a long time, and I mean years, before I had written down something in the notes of what's out there. The previous years always thought, I don't like this. You know, you have this feeling that something's fishy. Now it's, but it means that there's a lot of substitutions working together in that proof you have to reason about that you get an arbitrary sequence of substitutions so to prove this in the case of an application you get a substitution for the left hand side and you get a substitution for the right and you have to link those two substitutions to the substitutions that you get from the equation of types of code. ",
+    "model_probability": 0.9757
+  },
+  {
+    "start": 4627.56,
+    "end": 4660.46,
+    "speaker": 1,
+    "text": "It's administrated data. So I don't do that for you. There's so much admin going on in the code. There's nothing you can do about it. So if you're interested, have a read. It's in the notes. It's all good. The thing that might be interesting to try for yourself is a little, I think David already hinted at that, is that you prove substitution So you prove that. ",
+    "model_probability": 0.9929
+  },
+  {
+    "start": 4660.77,
+    "end": 4689.85,
+    "speaker": 1,
+    "text": "It's a very important property in the whole Okay. ",
+    "model_probability": 0.8992
+  },
+  {
+    "start": 4689.91,
+    "end": 4703.26,
+    "speaker": 0,
+    "text": "Clear? ",
+    "model_probability": 0.7181
+  },
+  {
+    "start": 4708.38,
+    "end": 4782.12,
+    "speaker": 1,
+    "text": "So we will see type of principal pair algorithms for many different calculi and different systems. They all boil down to the same thing. So the, so Robert Milner, he finds something in ML. And we will see this when I'm doing it. So it refers to polymorphism of recursion methods. and you will see that his algorithm is different because his type assignment system is different he has new code structure terms which have a knock on effect on how you type a term so his algorithm says the term in the context So, you have to feel the context before you start talking. ",
+    "model_probability": 0.9625
+  },
+  {
+    "start": 4784.1,
+    "end": 4819.68,
+    "speaker": 1,
+    "text": "And the property that you get is the substitution climate context. So, there's a completely different property. So, in a certain sense, that's probably why they're all complicated, because you need to know the context before you start. We will see that when we get there. ",
+    "model_probability": 0.99
+  },
+  {
+    "start": 4819.7,
+    "end": 4838.19,
+    "speaker": 1,
+    "text": "No one in the room is signing that I've lost everything. So you need to reassure me that that's what I found out. It's okay? Can you follow what I've done? The instructions are clear? So, can you type this through? Try to type it together. ",
+    "model_probability": 0.9977
+  },
+  {
+    "start": 4863.94,
+    "end": 4898.61,
+    "speaker": 1,
+    "text": "Substitution gives you 1 minus 2, 2 over 3. Yeah? This one becomes a function of 11 to something else. Yeah? The same as 3, 4. So this means that 1 is 2 over 3. It's 2 over 3. So in terms of the error elimination step, it's okay. We can't unify this. Because the unification fails on the first check. ",
+    "model_probability": 0.9984
+  },
+  {
+    "start": 4905.59,
+    "end": 4956.77,
+    "speaker": 1,
+    "text": "And it's right that it fails on the first check, because if you have a solution for 2 is equal to 2, then you have infinitely many errors. Yeah. No, no, that's political. No, you need recursive times. So you need time languages that says two, two and three can be the same. But that's physics. Okay. So you will find these kind of algorithms for different calculi. ",
+    "model_probability": 0.9858
+  },
+  {
+    "start": 4958.13,
+    "end": 5026.99,
+    "speaker": 1,
+    "text": "It requires a similar kind of skill in the sense that you have to be able to deconstruct the term and see where you have to be applied. I don't think I've ever asked an exam to run the algorithm, but I see people do. So what I ask, give me a type for this term, sometimes . And when I ask, give me a type for a term, I don't want you to justify it, so just . So if you see the type, . Okay, yeah? Yeah, so I have a, officially, . And x of 5a times 5.2 is identity if x is more than 5.2. And this is the unification of 5.1. ",
+    "model_probability": 0.9569
+  },
+  {
+    "start": 5047.48,
+    "end": 5081.89,
+    "speaker": 1,
+    "text": "so you see the list and you walk to the first one you can check it so you define apply the substitution So in this case here, we find Z twice, so we unify them. ",
+    "model_probability": 0.5161
+  },
+  {
+    "start": 5083.99,
+    "end": 5089.38,
+    "speaker": 0,
+    "text": "So we have to unify them. ",
+    "model_probability": 0.1329
+  },
+  {
+    "start": 5099.04,
+    "end": 5144.98,
+    "speaker": 1,
+    "text": "So we're ready to talk about polymorphism. So the, yeah, so what I was just saying about ML. So ML is the first time somebody really sat down and defined type assignment in the context of programming. So there were programming language types. I mean, there are some types, strongly typed, some weakly typed, So Milton brought time study to the programming language community. If you look at his definition, so what I do is I define an inference system. ",
+    "model_probability": 0.8804
+  },
+  {
+    "start": 5162.98,
+    "end": 5287.37,
+    "speaker": 1,
+    "text": "Nando talks about well-timed expressions. He says, if this is a well-timed expression, this is a well-timed expression. Similar to what I suggested last week with derivative statements. So there's a lot of difference. And he has a different way of defining the algorithm. Because it is such a milestone in time being programmed, Almost everybody, I mean, has done it, certainly, but I think a lot of the problem, and also a lot of the documentation, a lot of the discussion, is all based on Milner's approach. Which I think is fine, but not if you did a lot of code. If you did a lot of code, it's nonsense. A lot of the code, you should divide it. So, the, Milner deals with, polymorphism, and it deals with recursion. It does it really well, but the recursion solution that we will have is based on this. The polymorphism approaches phytoprism. In week four, we will see how these things combine. So let me wipe the board. So you said the type of silent system that is inside language that has got, it's called the Hintley-Milner type of science, because the Roger and Ruben are both at the root of the solution. So I've not really ever tried to really advocate it, but the way I define type of science, is coming from a lab which is slightly different and you can advocate that that would be an alternative way to do it. ",
+    "model_probability": 0.9789
+  },
+  {
+    "start": 5288.49,
+    "end": 5336.41,
+    "speaker": 1,
+    "text": "I don't say that my solution is better, it's just a different way. So, who wants to write a program in a lab? Nobody. It's a horrendous program. it's a computational model even if it's just writing so implement it a lot of the time we will see a solution to that in a few weeks it becomes tricky what is much more common is that you have a definition like Like this. ",
+    "model_probability": 0.993
+  },
+  {
+    "start": 5336.43,
+    "end": 5434.16,
+    "speaker": 1,
+    "text": "You have your functions defined, then you apply your function. Normal, this is normal code, you write the procedure, and you enter the main code. The thing that, the strange thing about running a Haskell code is that nobody has the bigger contractions in their head, but they have the Haskell contractions. But it's, it doesn't, it doesn't contract. This is the level that you want to work, but this is the level that you want to practice. Now, in particular, I can write this. So, how do I want to type this? What is the natural way to type this? Now, coming from the latter part, what I want to enhance is the main approach. so i want this to be i want this one in particular to be like so i want i to be like and i want i to be so i want type of sign for this language that is based on our so this is not self-replication Now, I can do two things. ",
+    "model_probability": 0.9957
+  },
+  {
+    "start": 5434.56,
+    "end": 5466.51,
+    "speaker": 1,
+    "text": "I can translate it to the lava conicalis, type that, and then go back. So the type of synthesis that is set up for this conicalis should be basically based on the type of synthesis. But that's not practical. Because I only give this definition once. If I translate it to the laptop, this term, which is T, appears twice, so I'm typing it twice. ",
+    "model_probability": 0.9985
+  },
+  {
+    "start": 5466.59,
+    "end": 5501.16,
+    "speaker": 1,
+    "text": "Imagine that this is a very big term, then I'm typing it twice. So rather, what I use is the observation that this type here, which is of the same age, and this is type A. They are both instances by substitution of the principal pair, the principal type of . Okay? ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 5503.48,
+    "end": 5516.06,
+    "speaker": 1,
+    "text": "So I know this. It just worked on the left terms. This is the property that I showed you. So what I want to do now is I want to find the substitutions. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 5541.86,
+    "end": 5576.89,
+    "speaker": 1,
+    "text": "And of course the substitutions that I get for the left one will be 5 maps to the right. So that's what I want to achieve. So I want to, in this approach, I do not type the terminal twice, but type the terminal once. But the strange thing is, when I type this term, I have no knowledge about something. ",
+    "model_probability": 0.9983
+  },
+  {
+    "start": 5576.91,
+    "end": 5635.17,
+    "speaker": 1,
+    "text": "That knowledge comes from me. So these two are not occurrences of the function. These are calls to the function. The function is called twice. It's defined once, called twice. Translated to the left account, it's a type for the left one. It will be of type A or B. We type it to the right one. and a and b and a are both types of distal and therefore will be substitutions of the principal type for distal okay yeah it works So this is me designing the system. ",
+    "model_probability": 0.9967
+  },
+  {
+    "start": 5635.29,
+    "end": 5728.58,
+    "speaker": 1,
+    "text": "This is how I want it to work. I want the understanding of a lot of the problems, I want the approach of the type of samples, a lot of the problems, but I don't want to do particular work. So I want to have an advantage over knowing the deterministic ways. So what you do is you calculate for each definition you calculate the type you associate that with the identifier and that type associated with the identifier is used to type this and when you counter the identifier you say okay this is a call I need to substitute the time so you do that by pulling a copy of both so here you've got and then you find substitutions by unifying 1, 2, 3 this could give you 1 minus 2, 2, 3 and 2 minus 2 it's the other way around Which means that these substitutions that I find here says one maps to two. ",
+    "model_probability": 0.9959
+  },
+  {
+    "start": 5733.73,
+    "end": 5776.12,
+    "speaker": 1,
+    "text": "And this one says two. Two. And the type here is three. Okay? So this is the polymorphism. The polymorphism says, I have an object that has a type, which defines the story in an environment, and whenever I call that object, the type that I need in that position is going to be substitution instances of the appropriate form. So I allow myself to build substitution instances. ",
+    "model_probability": 0.9958
+  },
+  {
+    "start": 5777.42,
+    "end": 5928.38,
+    "speaker": 1,
+    "text": "I have to be careful, because I don't want building a substitution instance of the type in the environment. destroy the type of minimum. If I allow phi to be replaced, phi is replaced there. So I want this to be a fresh instance. So the algorithm says, okay, I expect the type. That's the approach. Now the definitions. so we're now at the at the stage in which I will no longer prove things I will just say it's it's perfectly provable so we have definitions definitions are an empty definition okay so this is not like this so i go into this and then you have the program and this is the definitions and the term Okay, so the grammar becomes more complex because we lift from something that's completely expressed in a single object to a list of things that are combined. ",
+    "model_probability": 0.9898
+  },
+  {
+    "start": 5929.52,
+    "end": 5971.03,
+    "speaker": 1,
+    "text": "So we have turned the definition into a program. so reduction is defined as the beta reduction plus the rule that says if m goes to n And what you also need is to do what you have in the file. ",
+    "model_probability": 0.9793
+  },
+  {
+    "start": 5971.07,
+    "end": 6022.83,
+    "speaker": 1,
+    "text": "So you are running So you run your code, if you hit, you have to run the identifier, you look up the identifying the list of definitions, and you replace it by which it is defined. ",
+    "model_probability": 0.9492
+  },
+  {
+    "start": 6025.17,
+    "end": 6179.66,
+    "speaker": 1,
+    "text": "So this is not like f-axis something because this is just f. So f then becomes interesting. So now a type assignment system deals with these syntactic constructs. So this one is t. what we had before so what I do is I change them so I'm going to give a rule for the empty environment and the empty environment says that the so this does not give a type to the environment so I want to be able to say that now the identifier added to the is okay as well but I need to store the time what am I doing with it so what I need is I need an extension I need to talk here not just about the three variables but I also need to talk about the identification So my statement is going to be of this shape. ",
+    "model_probability": 0.9713
+  },
+  {
+    "start": 6186.4,
+    "end": 6219.09,
+    "speaker": 1,
+    "text": "So now this is the end of the environment. The environment is the collection of all the identifiable elements. So this analysis will have built in an environment. And here I say, okay, the environment that I'm building is the identity. Okay, so the type that I've given to the term, I can give to the identifier. ",
+    "model_probability": 0.996
+  },
+  {
+    "start": 6223.94,
+    "end": 6289.46,
+    "speaker": 1,
+    "text": "Now, for the moment, I am assuming that the identifier does not occur in it. This is pure love. This is because the moment that I identify that everything becomes more complex, and I get recursion, and I deal with recursion. So for the moment, this is just pure love. So this is pure love. This one, you know. That one. So it's a pure term and actually it's a closed term. No free variables and definitions. So that's my rule for a definition. I type the definition. So I have the normal type assignment rules for a lot of terms with the added information to the environment. ",
+    "model_probability": 0.9951
+  },
+  {
+    "start": 6290.04,
+    "end": 6320.4,
+    "speaker": 1,
+    "text": "And now how do I type an identity here? So this is like typing this i there. So I've analyzed this definition. So I get that I have i as type 5.5 in the environment. Now I encounter this here. So I have my environment here. ",
+    "model_probability": 0.9969
+  },
+  {
+    "start": 6340.94,
+    "end": 6398.74,
+    "speaker": 1,
+    "text": "So, what do I do? Well, in order for me to not destroy the time that I've constructed, because this means I can use the amount that I want to use. So, what I do is I take a substitution. And I can insist that the substitution is replaced, so so the type assignment system talks about environment and context in which the term is typed Context is used as before for the variables handling. ",
+    "model_probability": 0.9892
+  },
+  {
+    "start": 6399.22,
+    "end": 6501.44,
+    "speaker": 1,
+    "text": "The environment is used for the new things that are added, which is the identifier. And the, so the new things for the identifier, how do you type an identifier? Well, you have to have a type for the identifier in the environment. How does it get that? It gets that because you've used that. So, so it's not a trivial thing polymorphism so polymorphism is the concept that you have an object you find once that you allow to produce in different ways by for example so you have one definition it gets analyzed you derive the principal type and the principal type is used to calculate the type so here in this particular case so you take the substitution instance of this type for the left one you take another substitution instance for the left And they unify as you did before. ",
+    "model_probability": 0.9786
+  },
+  {
+    "start": 6502.1,
+    "end": 6540.58,
+    "speaker": 1,
+    "text": "The unification then says, okay, this should explain. So the time that you create for those two lines is different. The whole substitution instance is for the time you define for the difference. Good, stand six. This one there? ",
+    "model_probability": 0.8832
+  },
+  {
+    "start": 6541.6,
+    "end": 6571.82,
+    "speaker": 1,
+    "text": "Diamond? You're asking about the diamond or this one? So it's the anti-sense? But normally you write the gamma there. But the gamma is so you can remove it if you like. So you have to do that. I just want to explicitly say this is an intercept. So M is a closed term. There's no free value. This is what you want from the function definition. ",
+    "model_probability": 0.9385
+  },
+  {
+    "start": 6572.46,
+    "end": 6586.2,
+    "speaker": 1,
+    "text": "It should work on the operands, not on something else. Good. So on Friday I'll do the formal definitions. ",
+    "model_probability": 0.198
+  },
+  {
+    "start": 6638.72,
+    "end": 6644.9,
+    "speaker": 1,
+    "text": "So I've been working on a research problem for a while now, and I can't crack it. ",
+    "model_probability": 0.2478
+  },
+  {
+    "start": 6645.02,
+    "end": 6690.4,
+    "speaker": 0,
+    "text": "And a friend of mine was a professor, and he said he was really impressed with AI, because he came to a little school, and he came back with a book about AI. And for people who know AI, they said, yeah, it's easy, because it's simple. It's easy with AI. But he was very impressed. And he said that the . And he says that the students submit work very, very quickly. ",
+    "model_probability": 0.1573
+  },
+  {
+    "start": 6690.44,
+    "end": 6720.79,
+    "speaker": 1,
+    "text": "So he suspected . And I thought to myself, OK, . So I'm outside the area. I think you can do wonderful things with AI. I'm thinking that it is the solution. So do you know what I said about induction? There's a domino explanation. ",
+    "model_probability": 0.1565
+  },
+  {
+    "start": 6721.65,
+    "end": 6752.11,
+    "speaker": 1,
+    "text": "So if you ask to tell you why it's induction, that's the story. but it's just a collection of humans to feed people. Yeah? Fair enough? But using it for medical research. ",
+    "model_probability": 0.088
+  },
+  {
+    "start": 6753.11,
+    "end": 6754.57,
+    "speaker": 1,
+    "text": "Because they are new fingers. ",
+    "model_probability": 0.025
+  },
+  {
+    "start": 6791.88,
+    "end": 6796.31,
+    "speaker": 1,
+    "text": "Can I do a line thing? Okay, yeah. ",
+    "model_probability": 0.036
+  },
+  {
+    "start": 6825.87,
+    "end": 6834.14,
+    "speaker": 1,
+    "text": "Yes, I know. I'm going to retire soon. ",
+    "model_probability": 0.0112
+  },
+  {
+    "start": 6842.13,
+    "end": 6844.63,
+    "speaker": 0,
+    "text": "So you know that you are worried about AI. ",
+    "model_probability": 0.0008
+  },
+  {
+    "start": 6902.35,
+    "end": 6960.2,
+    "speaker": 1,
+    "text": "No, I'm changing. Oh, you're changing. Okay, yeah. So I teach the first years. What is a proof? Sorry? It's good math. It's good math. So I teach them what is a proof. And that's when I did math. So as a mathematician, you learn that explaining something is good. It's when you're going to leave, that's when you leave. Yeah, that's the word. You're going to need to understand the difference, yeah? Yeah, yeah, sure, sure. The point is if you want to really have a mathematical proof, is to say, okay, this is following the rules. Because the reason is that no computer has a proof. Understanding that something is true is not. ",
+    "model_probability": 0.0107
+  }
+]

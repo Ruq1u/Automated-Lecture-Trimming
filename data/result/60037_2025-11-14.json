@@ -1,0 +1,1311 @@
+[
+  {
+    "start": 30.32,
+    "end": 33.27,
+    "speaker": 0,
+    "text": "I was thinking the benefits are already higher. ",
+    "model_probability": 0.0805
+  },
+  {
+    "start": 82.92,
+    "end": 93.25,
+    "speaker": 1,
+    "text": "Not yet for this lecture. It's just behind a little bit because I changed this lecture up and then posted your midterm stuff and so it'll come back. ",
+    "model_probability": 0.0741
+  },
+  {
+    "start": 146.27,
+    "end": 149.39,
+    "speaker": 0,
+    "text": "I quickly asked a few questions. ",
+    "model_probability": 0.1718
+  },
+  {
+    "start": 284.44,
+    "end": 341.33,
+    "speaker": 1,
+    "text": "All right. Good morning, everybody. Hope you're doing well. Sorry? Yeah, yeah. OK, good morning, everybody. Hope you're doing well. Today, we're going to sort of complete our discussion on Bayesian machine learning. So in last lecture, we took a Bayesian view on some of the stuff that we've been doing. We saw, in the case of density estimation and linear regression, what happens when we consider the parameters of our machine learning models to be a random variable. In particular, a random variable that models our belief about the data generating process and, for example, our belief about what parameters might fit our data best in a supervised learning scenario. ",
+    "model_probability": 0.9765
+  },
+  {
+    "start": 341.35,
+    "end": 372.7,
+    "speaker": 1,
+    "text": "So today we'll be continuing that. If you're not a big fan of derivations, today's the lecture for you, because today we're really not going to be doing a lot of derivations, but a lot of taking a step back and looking at all of the implications of that Bayesian point of view. So a lot of high level concepts, but not a ton of proofs here. So you may notice also that your lecture notes for this lecture I haven't posted yet. I wanted to move some stuff around because I changed the order that I presented in lecture. ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 373.14,
+    "end": 409.47,
+    "speaker": 1,
+    "text": "But you do have the solutions to your midterm exam now. You have a new practice exam, so this is a full exam if you want to practice it. The solutions will be posted before next lecture. And then you have the solutions to last questions, or last lecture's practice questions. Great. So we can either, I can either go ahead and like, because this is a very conceptual lecture, I can start from kind of the beginning of the class and map out some of the stuff we've seen, if we'd find that useful. Or if you guys prefer, I can dive straight back in and pick up where we left off with Bayesian posterior stuff. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 410.05,
+    "end": 441.14,
+    "speaker": 1,
+    "text": "So just show of hands, who would prefer kind of like a very high level view going back from the beginning and just kind of taking a step back and looking at how things connect? Cool, almost everybody. We'll start there. All right, so we started, the way the class is organized, part of it is to help you guys by not hitting you with so much math all at once. We didn't see probability or statistics until lecture four or five. What we did see were a few different models. So also I'm doing this very ad hoc. I hope the diagram, the mind map that I come up with makes some sense. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 442.4,
+    "end": 473.44,
+    "speaker": 1,
+    "text": "So we started with linear models. And we saw basis expansion. And the first kind of technique that we saw for learning in these models was to consider an error, which we considered as some p-norm. And we directly minimize. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 474.1,
+    "end": 520.6,
+    "speaker": 1,
+    "text": "So minimize. The error which gave us the OLS. So both of these went here. Now, when we did basis expansion, you'll remember that the thing we saw was that our linear model all of a sudden can be very expressive. Later in the course, we saw that it's so expressive it can approximate any continuous function. So we had regularization. which gave us an error that, and maybe I'll just do a dotted line here, and it's a direct line to the ridge regression estimator. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 521.62,
+    "end": 555.6,
+    "speaker": 1,
+    "text": "So those were the first kind of models that we saw. We then saw generalized linear models. And here, we were not able to do this minimization by direct solution. So again, we did error minimization. But we didn't have a closed form. And so we looked at gradient descent. And then finally, we had deep neural networks. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 559.96,
+    "end": 595.41,
+    "speaker": 1,
+    "text": "And they did the exact same thing. The only difference was this gradient descent for deep neural networks. Maybe I should switch over to some colored pens. The gradient descent for deep neural networks, we were no longer able to just use a single chain rule and compute the symbolic gradient. Instead, we needed numerical approximations. So we used auto diff here. So this line here is where we looked at auto diff. So that's generally the original perspective that we took. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 595.91,
+    "end": 643.52,
+    "speaker": 1,
+    "text": "Let's minimize and error. And then when we came back, and took a statistical perspective on learning, one of the things we thought about was like, okay, well, even if I do this error minimization, how do I know that my model is good in the end, right? And for this, we took, again, a statistical perspective, and we thought about empirical risk minimizations. And so we thought about On a test set, do these parameters minimize our empirical risk? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 643.58,
+    "end": 679.77,
+    "speaker": 1,
+    "text": "And from this, we looked at lots of things. We looked at bias variance. We looked at concentration arguments. All of this came out. And when we finally introduced probability, we were like, all right, maybe we need to think carefully about what are the foundations of these loss functions we're looking at. And so we then gave ourselves the perspective of maximum likelihood estimation, in which case these errors became likelihoods, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 689.58,
+    "end": 726.76,
+    "speaker": 1,
+    "text": "And this gave us a very principled way to choose our loss function and a different perspective on why we might choose them that way. And then in last lecture, one thing that we saw was that, for example, the maximum likelihood estimator and the OLS are equal when MLE is using a normal distribution. We also saw method of moments, but we can come back to that. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 727.34,
+    "end": 763.9,
+    "speaker": 1,
+    "text": "And then finally, in our last lecture, we introduced this probabilistic perspective on learning. Maybe while I finish this up, I'll turn the one over my head off. Oh, wrong one. Okay, so then we went through last time and we thought about a Bayesian perspective. And when we did a Bayesian perspective, now our parameters are random variables expressing our beliefs. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 764.46,
+    "end": 803.15,
+    "speaker": 1,
+    "text": "And we talked about lots of different things in sort of small details, but the main thing that we talked about is that what we wanted to compute was our posterior. And that was going to be proportional to the likelihood, right? Same one for maximum likelihood estimation and our prior. And we went through exactly how to do this and connecting it back to all of the things we had seen before. The main connection that we'll expand on today is we ended up with the maximum a posteriori, which we'll revisit at the beginning, was equal to the ridge regression estimate. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 804.92,
+    "end": 838.67,
+    "speaker": 1,
+    "text": "where this is with a normal prior. And so that's what we're going to pick up today. And we're going to come back and look at a lot of this stuff from a Bayesian perspective, from a more probabilistic perspective. Maybe the last thing that I needed to get here with this kind of concentration and bias variance in the same kind of vein, this spawned off cross-validation. And we used all of this to think about our model errors and to do model selection. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 843.37,
+    "end": 874.04,
+    "speaker": 1,
+    "text": "Okay, any questions about like that high level view of things? Okay, let's go ahead then and start, I'll pull this back up at the end and we'll revisit it sort of as we go. Let's go back to where we ended last lecture, which was with our Bayesian posterior. And I'll turn on the overhead. Great. So we walked through. So we saw this idea of conjugacy. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 874.98,
+    "end": 908.57,
+    "speaker": 1,
+    "text": "And we had that if you take the product of two normal densities, you know you're going to get a normal out. This was the driving idea, the reason that we selected priors the way we did. And what we got at the end when we did our density matching, so we looked for the parameters that gave us the density we needed, were the following parameters. And we talked about how this mu was very similar to the ridge regression estimate. Up to this tau term here, we have our ridge regression estimate. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 908.93,
+    "end": 945.75,
+    "speaker": 1,
+    "text": "And what I said at the end was that this was the maximum a posteriori. What do I mean by this? Well, this is where the posterior distribution, so our posterior is our belief about theta after we observe a data set D. And the maximum a posteriori estimate or map is equal to the argmax over theta of this distribution. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 947.13,
+    "end": 978.18,
+    "speaker": 1,
+    "text": "which parameter has the most probability under my posterior distribution? And we talked last time about maybe that's a good thing to look at in terms of very efficiently making decisions. And we're going to explore this idea a little bit more. So we talked about, well, here's a visualization, a nice visualization of what's happening with the maximum a posteriori. So we looked at reviews of online sellers and thinking about which seller we should go with in our last lecture. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 978.64,
+    "end": 1012.01,
+    "speaker": 1,
+    "text": "You could also think about estimating the probability or the bias of a coin with coin flips. This is a very classical example. We did this when we did Bernoulli density estimation. And so we might have a prior belief, unlike in our seller case, that it's likely, most likely, that the coin is a fair coin. I give a link to a paper about the possibility of biasing a coin in a substantial way, and it seems like you couldn't exactly bias a coin, but see the paper, it's kind of fun to think about. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1013.27,
+    "end": 1050.7,
+    "speaker": 1,
+    "text": "So this prior makes a bit of sense. Most coins you encounter are going to be fair, maybe a little off to the side, but certainly it's almost impossible and likely physically impossible to create a coin that when you flip it always comes up heads or always comes up tails. So there's our prior belief. And we have the likelihood of our data. This is just the Bernoulli likelihood. We did this with lecture, I guess, seven or eight. And if you observed that 70% of the tosses that you did came up heads, you would say, well, my maximum likelihood estimate for my Bernoulli parameter is simply 0.7. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1053.0,
+    "end": 1086.02,
+    "speaker": 1,
+    "text": "Of course, if you don't have a lot of data, you might not believe this very strongly. You might believe this very strongly. It depends. One way to bound that kind of confidence is to think in a frequentist way and think about things like concentration. OK, what's the probability that I'm wrong? So that's one thing you could do. In the Bayesian perspective, we would take our prior and we take the product with the likelihood and we'd say, okay, what is my new belief about the bias of this coin? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1086.86,
+    "end": 1119.45,
+    "speaker": 1,
+    "text": "And you can see here that because we have a prior belief that the coin is likely fair, we're not as convinced as the frequentist that the bias of the coin is exactly 0.7. Well, my prior belief tells me that even if I observe that it's 0.7, I really strongly believe beforehand that it was fair. And so I think it's going to be slightly less than 0.7, just because my prior belief is there. Great. Any questions about that? Again, this is all sort of high-level ideas. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1119.81,
+    "end": 1152.75,
+    "speaker": 1,
+    "text": "Now, when we look at our... or maximum a posteriori in linear regression. We have the following. So we have our ridge regression estimate. And the prior that we have control over is this parameter tau squared. And so I want us to think about how tau squared biases us. Like in the coin before, we said, well, I believed that it was fair before, so I don't quite believe that the maximum likelihood estimate is going to be exactly right. I have some information before I saw the coin flip result. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1153.17,
+    "end": 1183.64,
+    "speaker": 1,
+    "text": "And my prior information was that the coin's probably fair. So what do I have here? Well, let's consider the case that all of these are scalars. If they're scalars, we can take x transpose x, and we'll just have this be some value a. Plus, and then sigma squared so far has always been fixed, right? In our likelihood model, we always fixed that. We'll change it in a few slides. But so sigma squared is going to be fixed as some constant, and I'm not going to worry about it because the thing that I want to change is tau. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1184.08,
+    "end": 1214.62,
+    "speaker": 1,
+    "text": "So I'm going to say that this is 1 over and then my prior parameter. I'm going to invert that, and then this is just going to be some value b. Right? So I'm thinking again all about scalars. So my final parameter is a scalar. If I'm inverting things, then this is going to just be 1 over a plus 1 over a tau squared b. And this is going to be my final parameter value. And what I want you to think about is what happens when tau gets very, very big or very, very small. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1216.23,
+    "end": 1252.38,
+    "speaker": 1,
+    "text": "So if tau gets really, really small, and we have the reciprocal of tau here, then this is going to be a huge number. So at the bottom, we're going to have A plus some very large number is something very large times B. 1 over something very large is something very small. Something small times b means that we're going to get our final parameter being something very small, right? And you can take this to the limit, and you can say, like, well, this is going to be 1 over infinity, right, which is just 0. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1252.56,
+    "end": 1323.61,
+    "speaker": 1,
+    "text": "So I have 0 times b. And so what's happening is that as I increase my prior parameter, well, so decrease my prior parameter, right, the variance gets smaller, right? It has a large effect in biasing me towards 0, right? As your prior variance shrinks to zero, your maximum a posteriori estimate also goes to zero. And we saw the same thing happen with regularization for the exact same reasons. Any questions on that? Great. Where's my eraser? There we are. Great, so another thing that I want to think about to sort of underscore our discussion is what happens with the variance. Right. So here was the variance of our posterior predictive distribution. Again, thinking about all of these things as scalars. Right. So if they're all scalars, it means that our features are sort of single dimensional. They're going to be real values, which means our matrix here are X transpose X. The design matrix is a design vector. Right. So what we have is one over sigma squared X transpose X. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1323.63,
+    "end": 1355.1,
+    "speaker": 1,
+    "text": "So the dot product of, for example, all of our vectors. And we're going to add the identity and take the inverse. And what I wanna think about here, so one thing you'll notice is our prior doesn't appear here. So changing the prior isn't going to have such a big effect on this. Instead, what happens, or what I want you to think about is what happens when we observe more data. So when we observe a lot of data, we're going to have this x transpose x vector, which is the dot product of all of my terms. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1355.62,
+    "end": 1389.32,
+    "speaker": 1,
+    "text": "And as I observe more data, that term is going to get bigger and bigger in magnitude. Because essentially, I'm taking the L2 norm of a vector in a larger and larger space. And assuming that all of those are zero or the same and I've normalized that, the norm of that's going to get very big. And so if it's a scalar, as I observe more data, the X transpose X can get very large, which means my variance is going to shrink. And this makes some intuitive sense when we think about uncertainty. Because as I observe more data, my uncertainty about the data generating process should shrink. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1391.22,
+    "end": 1425.18,
+    "speaker": 1,
+    "text": "So it makes sense that like, all right, I'm more and more convinced about my posterior belief as I observe more data. So those are some nice ways to break down some of the things that we've seen before in terms of what's happening in these equations. But now I want to talk about uncertainty and decompose it into a couple of different terms. So in general, we can always decompose uncertainty into aleatoric and epistemic uncertainty. We'll talk about exactly what that means in a second. And aleatoric uncertainty we can decompose into heteroscedastic and homoscedastic uncertainty. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1426.51,
+    "end": 1457.7,
+    "speaker": 1,
+    "text": "All right, so let's define those terms, starting with our decomposition of aleatoric uncertainty. And before I show the next slide, I want to think about what it looks like to make predictions with our Bayesian model. So what does it look like to make predictions in normal linear regression? We have y hat is equal to theta transpose x. And then we had some noise. But our noise is going to be, so we have our likelihood. Well, actually, let's do this in a Bayesian way. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1457.82,
+    "end": 1473.71,
+    "speaker": 1,
+    "text": "Let me start over. So if I want to think about, we had our posterior predictive. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 1487.31,
+    "end": 1519.48,
+    "speaker": 1,
+    "text": "Here was our posterior predictive. And because theta is a random variable, rather than just computing this, I can think about what happens if I sample from my process. And so an estimator for this would be something like 1 over n sum of theta. Well, let's do x transpose theta. And I'll give theta an i here. Theta i sampled from our posterior distribution. So here's what my predictions look like. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1520.16,
+    "end": 1552.58,
+    "speaker": 1,
+    "text": "And if my likelihood term, right, that's that one, is normal, with a fixed noise, I end up with something that looks like this. Right. So this term here. Right. So our sample from our posterior, if we integrate over, is just going to be a value. And the only randomness left after we integrate out is going to be the randomness from our likelihood. Right. Our normal likelihood, that sigma squared term. If you compute out, it's one of the exercises on your example sheet. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1552.92,
+    "end": 1583.61,
+    "speaker": 1,
+    "text": "If you compute the posterior predictive, you'll see it depends on sigma squared. So if you're not super convinced by that, you can convince yourself afterwards. But you'll end up with something that looks like this. Essentially, we have our posterior predictive mean, and then about that mean, we're sampling our observational noise in order to make predictions. Now, one thing here is that for every point x, we always have the same noise. We always have the same sigma squared. And that's exactly what homoscedasticity is. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1585.23,
+    "end": 1618.2,
+    "speaker": 1,
+    "text": "Instead, we might want to look at a process like this, where the variance in my observational noise depends quite significantly in this case on the actual value of x. And so this is one kind of way to break down and think about the kinds of observational noise you have. And observational noise before like that's sort of what we call it. And now we can use this term aleatoric uncertainty to describe this, which is also a third term is irreducible uncertainty. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1619.12,
+    "end": 1642.67,
+    "speaker": 1,
+    "text": "The reason it's called irreducible is that there's no amount of more data I can observe that reduces this kind of uncertainty. We had the same rationale in our bias-variance decomposition, where we had that label noise term, and there was nothing we could do about it. Same thing here. If your observation process is noisy, Bayes doesn't help you with that. It's still irreducible. Yeah? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1643.21,
+    "end": 1653.7,
+    "speaker": 0,
+    "text": "A couple of slides earlier, you said that as you get more data, you know the X-tank code is quiet, your variance shrinks. And then in this case, you say even if you have more data, the variance will shrink. ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 1654.61,
+    "end": 1694.15,
+    "speaker": 1,
+    "text": "Right. That's a great question. So this is irreducible uncertainty. And we talked about our variance reduces. Instead, we have reducible uncertainty. So there's irreducible uncertainty and reducible uncertainty. Together, they make up total uncertainty. And that's what we'll talk about next is epistemic uncertainty. Epistemic uncertainty is the uncertainty that I can reduce. It's the uncertainty I have about exactly what my model parameter is. And so as I observe more data, my epistemic uncertainty will shrink to zero, just like we saw in the covariance term. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1695.15,
+    "end": 1729.12,
+    "speaker": 1,
+    "text": "Maybe another way to sort of observe this sort of cleanly is to think about classification. So if you're doing classification, we talked about how, okay, you have some binary, let's do binary classification. You have a Bernoulli likelihood model, and when you make a prediction, you're going to, for example, with the generalized linear model, you have the following. So this is going to give you, right, the parameters. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1729.22,
+    "end": 1763.31,
+    "speaker": 1,
+    "text": "Let's do this. This is going to give you a parameter q of your Bernoulli likelihood. And then your Bernoulli likelihood says, well, what's the probability that y equals y? So let's say y equals y prime. And then we have that this is just q if y prime is 1 and 1 minus q. if y prime equals 0. So this is what we had for our Bernoulli likelihood. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1763.67,
+    "end": 1796.04,
+    "speaker": 1,
+    "text": "If you have an image of a dog or a cat, what your output here tells you is how confident you are that this image is a cat. So you're predicting q, and then your likelihood says, well, 0. 75 is my prediction. And so I'm 75.75 confident. My model is 0.75 confident that this is a cat. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1796.42,
+    "end": 1832.68,
+    "speaker": 1,
+    "text": "And that's only coming from my likelihood. So that's only aleatoric uncertainty. If I have epistemic uncertainty, then usually what I have in Bayes is that this parameter is coming from a distribution. So I could drop an index on this. I could say theta i is gonna be drawn iid from my posterior distribution. And then rather than having a single value, I could sample many values. So every parameter is going to give me a different Q and every Q gives me a different parameter for my likelihood. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1833.0,
+    "end": 1869.23,
+    "speaker": 1,
+    "text": "And so I could imagine thinking about this, Right, so these numbers, let's say I took five samples, have very high variance. This variance represents my sort of epistemic uncertainty. As I observe more data around this cat, I'll reduce this uncertainty. Like I'll start to converge to a single parameter value. This, so like whatever my final, when I average all of these out, I don't know what the average of these numbers are, it's probably something like, probably something in the high 60s. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1872.34,
+    "end": 1905.22,
+    "speaker": 1,
+    "text": "this would represent my aleatoric uncertainty. Because when I average all of these, I get my posterior predictive mean. And then this is the final Bernoulli parameter. It's the Q that I get after I estimate it. This uncertainty reduces. If after you've reduced all of this uncertainty, you still have 0.68 here, that's aleatoric uncertainty. Does that make some sense as a decomposition? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1907.28,
+    "end": 1938.9,
+    "speaker": 1,
+    "text": "So here's another way of looking at it. We had, for example, our sellers. that we looked at, and if I had 10 examples from one seller, I mean that should be a one there, then I have that the expectation is .91, and I'm very sure about it. The variance, or sorry, I'm not very sure about it. The variance is .005. On the other hand, if I observe a lot of data, my expectation is .5, but my variance is much smaller. So this represents two kind of opposite cases. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1939.04,
+    "end": 1970.01,
+    "speaker": 1,
+    "text": "In one case, I have very low epistemic uncertainty. That's this one. Because I've observed a lot of data, and so my variance about my belief is very small. On the other hand, if you ask me to tell you exactly what's going to happen when you order from the seller, I'm quite unsure. 50-50 chance. But I'm very sure that it's a 50-50 chance. On the other hand, here, it's 0.91, but my variance is much higher. So if you ask me what I believe is going to happen, I would tell you I'm uncertain. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1970.89,
+    "end": 2004.92,
+    "speaker": 1,
+    "text": "More likely than not, it seems like I'm going to have a good experience, like 0.91, but I have a lot of variance around that, because I haven't seen this seller sell many things. So let's look at how that actually plays out in our linear model. So we're gonna have this nice visualization where our likelihood, we haven't observed any data, so we have no likelihood. We have our prior distribution. This is gonna be an isotropic Gaussian. And then we have our data space. And here, all of the red lines are samples from my prior distribution. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2005.71,
+    "end": 2046.2,
+    "speaker": 1,
+    "text": "So what I'll do is I'll just sample a w1 and w0. This is just y equals mx plus b, y equals w1x plus w0. So I'll sample some random w1s and w0s, and I'll plot them over here. Now, if I observe a data point, I have my likelihood that I plotted here, so now there is, some points are much more likely than others, because I've observed some data, and my posterior has shrunk. So I took that spherical Gaussian, I've multiplied it, taken the product of that with my likelihood, and now when I draw from my posterior, I have lines that essentially only go through, or approximately go through my point. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2046.28,
+    "end": 2082.93,
+    "speaker": 1,
+    "text": "Some of those stray lines have disappeared. As I observe more data, you can see that my posterior is even smaller. Exactly what w1 and w0 I'm sampling from is more constrained. And again, you can see in function space that now I'm only drawing lines that approximately go through those two points. And then lastly, you can have a lot of data. And you see that our posterior again has shrunk. And this is exactly that effect that we saw before, where as I observe more data, my posterior variance is going to go down to zero. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2083.35,
+    "end": 2138.5,
+    "speaker": 1,
+    "text": "And in function space, you can see that all of a sudden, where we were drawing lots of potential lines, we're now drawing from a very tight distribution of potential predictors. So this is what it looks like for epistemic uncertainty to shrink. Any questions on that? No? All right. Cool, so here's something, you'll notice the little green, so you're not responsible for this idea at all, but it's sort of a very natural one to have one slide on, which is that if you can quantify your epistemic uncertainty very well, so you know that like, oh, give me an X, I'll tell you how certain or uncertain I am about my prediction on that point, then when you want to improve your model, it makes sense that you would want to reduce your uncertainty as much as possible. Because if you get a new point in and it doesn't reduce your uncertainty at all, well then you already knew about that point. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2138.52,
+    "end": 2169.88,
+    "speaker": 1,
+    "text": "You knew where it fell. So here we have an example up top. These are from Bayesian neural networks. Again, not part of this course. But I can see where I have the highest predicted variance. And then you've said, Matthew, what data point is the most valuable to you? I can do what's called active learning. So I set up an acquisition function is what it's called. And then I say, can you tell me what the label is for this point? x equals 0.7. At that point, if I know it, I can reduce my uncertainty. And you can see I've changed my function considerably towards the kind of true function. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2170.28,
+    "end": 2189.15,
+    "speaker": 1,
+    "text": "So that's the idea of active learning, is trying to reduce your epistemic uncertainty in a very systematic way. Great. The next thing that I want to talk about is we started last lecture with Bayes' theorem, and we removed that denominator. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2199.35,
+    "end": 2233.37,
+    "speaker": 1,
+    "text": "So here's Bayes' theorem. And one of the first things we did is I said, well, let's get rid of this probability of data set thing because I only care about something proportional to the posterior. If I know this numerator thing, I can always normalize afterwards. I can always just make it a distribution by taking the integral. Of course, in practice, this is very difficult. You can't really do this. But where you have conjugacy, the form of the density takes care of that normalization for you because you know what normalization constants are for, for example, exponential family distributions. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2233.39,
+    "end": 2265.5,
+    "speaker": 1,
+    "text": "You're going to have your partition function. Great. One thing in the sort of Bayesian paradigm is that all of this, our random variable is over our parameters. This expresses our belief about our function. And then we observe some data, but typically when we get rid of this bottom bit, the data is not a random variable. It's like an observation and we're considering what's the probability of that very concrete observation. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2266.88,
+    "end": 2300.72,
+    "speaker": 1,
+    "text": "If we consider the marginal likelihood, we want to think about what the probability of that data is just in general to normalize things. And of course, we can write this out. So this up here is the marginal likelihood equation expanded. You can see that if I expand it on the board, that of course, we're just normalizing to 1. So if I put that here. Definitely integrates to one now. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2301.82,
+    "end": 2339.27,
+    "speaker": 1,
+    "text": "But what does this represent? And how can we do this? So the marginal likelihood is essentially how likely is our data set to appear under our prior distribution? Think about the class of models that you're looking at. So if you're looking at a linear model, so here I've considered, let's say, M1, M2, and M3. These are going to be different models that you would consider. So linear regression, generalized linear model, deep neural network. And you're going to compute, well, what's the probability of this data set under my prior distribution? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2339.37,
+    "end": 2370.04,
+    "speaker": 1,
+    "text": "You have a very complex data set. A linear model isn't going to fit it very well. So for all of the parameters in your prior distribution, your likelihood, PD given theta, is going to still be small. It'll never fit that data set. On the other hand, for generalized linear models, maybe you're getting a little bit better. And for deep neural networks, maybe there's naturally some nice parameters that fit. And so you'll have, for some values of this bottom integral, that the likelihood will be high. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2372.38,
+    "end": 2405.39,
+    "speaker": 1,
+    "text": "But all of these, the probability of the data, are probability distributions. So at the end, they all have to integrate to one. So to think about what happens here, I'm going to consider, and this is a very conceptual diagram. There would be no way to compute this in practice. On the x-axis, I want to think about data sets of varying complexities. So here's going to be our marginal likelihood. And here, I'm going to have data sets of different complexities, data sets. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2406.57,
+    "end": 2440.31,
+    "speaker": 1,
+    "text": "And we can have something like purely linear data here. It's very easy to fit linear data. polynomial data. You have kryptonite. It's a bit harder than polynomial, I think I've established. If you're still using a polynomial, you may be using a lot of compute. I'd be interested to know what polynomial may fit it, if it does work. And then we have things like MNIST and Image nets. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2440.71,
+    "end": 2471.92,
+    "speaker": 1,
+    "text": "These are all very classic data sets. And if I use a linear model, that likelihood is going to be basically only non-zero here. Well, not non-zero, but it's only going to have not negligible likelihood there. If I use a generalized linear model, I might be able to get all the way up to here. Well, maybe even a little bit. We'll save that. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 2473.16,
+    "end": 2511.14,
+    "speaker": 1,
+    "text": "And then if you use a deep neural network, you can do all of these things, right? So that's where you can do it. But remember, they all have to integrate to one. And so if a deep neural network has high marginal likelihood for all of these, then the actual density it has has to spread its mass across this entire range. So now let me get rid of this and think about the y-axis. So for a deep neural network, I have a high marginal likelihood for all of them, but it's spread across. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2512.74,
+    "end": 2547.13,
+    "speaker": 1,
+    "text": "For generalized linear models, I'll have high likelihood for these and very low likelihood here. So when I think about the distribution, it'll tail off like this. And finally, if I think about linear models, well, I can only really fit this initial thing. And so here we're looking at where our marginal likelihood will distribute its density. And this allows us to do model selection. So if you were going to choose between these models, one rationale is to select the model with the highest marginal likelihood. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2547.71,
+    "end": 2583.37,
+    "speaker": 1,
+    "text": "So let's say you had some polynomial, and you compute the marginal likelihood, and you say, well, look, the marginal likelihood for generalized linear models is the highest, and therefore, I will pick this. And the interpretation of this is sort of an Occam's razor style rationalization. You want to pick the most simple model that fits your data. The deep neural network will fit your data, but it also fits a lot of other hypotheses. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2583.55,
+    "end": 2623.54,
+    "speaker": 1,
+    "text": "It fits a lot of other data, so it may basically overfit, and so maybe not the best. On the other hand, the linear model doesn't quite explain your data. It has very low marginal likelihood, also not the best. And then finally, generalized linear models, it explains your data and doesn't explain things much more complicated. So this is sort of the simplest model that works for your data set. And again, there's lots of things to think about here, like current researches in approximating marginal likelihoods for deep neural networks and things to make decisions on this basis rather than just doing your test set or validation set. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2624.68,
+    "end": 2663.23,
+    "speaker": 1,
+    "text": "One thing to clarify is that it's not uncommon to see within Bayesian deep learning papers and things like very complex models, which I'll talk a little bit about learning it in a second, it's not uncommon to still see things like held out test set accuracy. The reason is that this integral, again, extremely hard to approximate. And it's not that Bayesians don't agree with the weak law of large numbers. That's just a true fact of probability. There's nothing you can do. You should use it as a tool. And so if you can't estimate this, or you can't compute it exactly, having an estimator and using weak law of large numbers is sort of the next best thing. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2663.41,
+    "end": 2694.96,
+    "speaker": 1,
+    "text": "You'll still see test set accuracy and stuff used. Great. Okay, I'm gonna move on to like going into a bit more of the math of uncertainty, right? But this kind of is where a lot of the conceptual discussion has ended. Do we have any questions about that stuff? Before I move on, would you want me to map it back to here to discuss or we're happy to continue? Who wants to see it mapped onto here? Okay, a lot of people. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2696.22,
+    "end": 2726.76,
+    "speaker": 1,
+    "text": "Let's do that then. OK, so when we were talking about Bayes at the very beginning, the only thing we had is that the map was the ridge estimator. And we've talked about that. Bayes also gives you model selection through the marginal likelihood. And it also gives you, and I need to create a little bit of room here, it also gives you very nice principled uncertainty estimation. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2732.2,
+    "end": 2767.86,
+    "speaker": 1,
+    "text": "Right, and we just saw several things that come out of this, right, not just model selection, but you could think about active learning, you can think about decomposing your uncertainty into whether or not you need more data to make your decision, or whether or not, just at this point, there's too much inherent noise for you to make a decision. And also, like, we have this ridge regression estimator, so like, a dotted line here. But you can also get other regularizers this way. So other priors, and I'll make this one of your questions in the answer sheet. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2772.16,
+    "end": 2807.0,
+    "speaker": 1,
+    "text": "If you select different priors, you'll get different kind of decay towards zero behavior. For example, you can show that L1 regularization kind of makes your parameters more sparse, right? And you can think about why this is the case with your prior distribution. So that's all of the stuff we've just covered at a very high level. And now I want to dive into some of the math of this with respect to our previous models. And then we're going to end. So really, when we looked at Bayes, we're talking about these sorts of things. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2807.65,
+    "end": 2838.73,
+    "speaker": 1,
+    "text": "At the end of this lecture, very end, we'll talk about this. But it's not examinable. So it'll get very complicated sort of quickly, but we have seen things that are very similar, and so it's reasonable to talk about. Any questions about that? Again, I can put this up at the end if you want to take closer pictures. But again, I think one of the really nice things that we've seen is that with our likelihoods, so when we started, we just kind of had our error and our regularization. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2839.11,
+    "end": 2869.35,
+    "speaker": 1,
+    "text": "And they kind of made intuitive sense. Like if somebody explained to you in the documentation of scikit-learn why you pick these things, you'd be like, OK, fine. I'll do that. I'll use regularization so I don't overfit. And I'll use the mean squared error because that's what we're all using. Whereas now that you've seen the foundations, you know that when you're using the mean squared error, you're using a Gaussian likelihood. If you're using L2 weight decay in your neural network or in your linear regression, you're assuming a normally distributed prior. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2870.67,
+    "end": 2904.49,
+    "speaker": 1,
+    "text": "And so you can think about whether or not that's the right thing to do for your situation based on the assumptions that it encodes. Let's think a little bit more then about our uncertainty. So we, oh, let me turn this back on. Okay, so before we had this heteroscedasticity that we wanted to think about, which was that our uncertainty depended on our parameter, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2904.63,
+    "end": 2935.71,
+    "speaker": 1,
+    "text": "And like this does happen very often in real world data. And so it's worth talking about how you might model this. A very natural thing to do is to just take that sigma squared that was fixed and parameterize it. Say, well, now sigma squared is going to be a function of x. And I'm going to make it a function of alpha. I've just picked a variable here. And so now I have theta, which is mapping my inputs to the parameters of my likelihood. And I have the mean parameter, usually. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2936.43,
+    "end": 2966.78,
+    "speaker": 1,
+    "text": "And then I have my alpha here, which is mapping my inputs to my variance parameter, my observational noise, my likelihood. Now, one thing we know, of course, about our variance is that it needs to be positive. So we can't just take a linear model and shove it directly into our variance. Otherwise, we may have a normal distribution with variance minus 12, and OK, now we're in trouble. Plug it into the density, and you'll see this doesn't integrate to 1. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2967.41,
+    "end": 3011.89,
+    "speaker": 1,
+    "text": "All of probability breaks down. So before we've dealt with this in class, where we've said that, all right, we're going to have an exponential. We're going to exponentiate, which is strictly positive. And this means that our variance will only be positive. And then hooray, we can use probability. Essentially what this boils down to, and sometimes you'll see this, which is why I've written it here, is that what you're modeling is the log of the variance, the log of the covariance. Great. And basically, at the end, what your model would be is you'd have some distribution over your parameters, both for the sort of mean parameters that we've already seen and derived, and then you'd have some distribution over the parameters of your variance. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3012.93,
+    "end": 3043.26,
+    "speaker": 1,
+    "text": "Now, the reason I say some distribution, which you may find intuitive, is that if we started that process of computing our Bayesian posterior over this, we could write out our likelihood And then we take the log of our likelihood and we run into that same error that we ran into in Poisson regression and in logistic regression and in all of our generalized linear models, which is that this non-linearity here means that we can't actually compute a closed form distribution. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3043.82,
+    "end": 3078.66,
+    "speaker": 1,
+    "text": "This is a very general thing, which is that conjugacy breaks down. If we go back to our slide on change of variables, you can see this exact situation where I have a normal distribution plotted in blue. I've applied the exponential to this normal distribution. The new distribution, which is a new distribution, so that's fine. We can definitely do this, again, by changing variables. But the orange distribution is not normal. It's not a normally distributed random variable. And so if I try to equate the parameters of a normal, I'll be off by a bit. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3081.2,
+    "end": 3139.83,
+    "speaker": 1,
+    "text": "So for logistic regression, for example, or for any of your generalized linear models, there isn't conjugacy. Does that make sense? Show of hands, who's confused? And questions. Yeah, general questions here. So where did the z come from? Ah, yeah. This is just going to be, just needs to be x. Sorry. Yeah, it needs to be an x. Sorry about that. I think I may have written something different originally. Great. So now we'll be off by a little bit. But OK, how much are you off by really is a very nice question to ask. But then also just accepting that you'll always be off by a little bit seems like a natural thing to do because there's no way for you to compute this in closed form. And this is where we get into the idea of variational inference. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3140.39,
+    "end": 3177.48,
+    "speaker": 1,
+    "text": "Now, if you study variational inference or go and read about it, again, there are lots of different terms you'll see. This is why I introduce things like link function and canonical link function, so that if you read outside of this class, you can map what I'm saying to my classical diction about these things. So here, we have the log unnormalized posterior, which is sometimes called the energy. And basically, if you look here, this is just the joint distribution. Right, and so that's all I've done up top. Okay, let's look at the log of our unnormalized posterior, and let's think about this function E. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3178.8,
+    "end": 3213.46,
+    "speaker": 1,
+    "text": "Now, I don't know what this is, and we've dealt with functions that we don't know their exact form before. When we made our progress bound in gradient descent, so with convergence, we did a Taylor series approximation of that function to think about how it might change. You could do the same thing here. So let's take a second order Taylor expansion approximation of our energy function. And then let's consider our generalized linear models. So thinking about this last equation, maybe I'll see if anybody can spot the observation before I say it. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3215.28,
+    "end": 3224.68,
+    "speaker": 1,
+    "text": "If I think about my generalized linear models, one thing I had is that their optimization is convex. ",
+    "model_probability": 0.9969
+  },
+  {
+    "start": 3236.63,
+    "end": 3266.69,
+    "speaker": 1,
+    "text": "And this was for just the likelihood. My prior irregularization parameter is also convex. And we can see that I'm taking the sum, well, minus of these. A sum of convex functions is also convex. This is a property you could very easily prove. And so we have that our energy. is convex. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 3267.17,
+    "end": 3306.14,
+    "speaker": 1,
+    "text": "And what does that mean about trying to find the optimal point? Let's say it's strictly convex just to make things even nicer. If I use gradient descent on a strictly convex function, what happens as I continue to descend? That's right. You'll end up so gradient descent will converge. And then if we have strict convexity, so this is more an assumption here, we have to a unique minimum. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 3309.84,
+    "end": 3328.65,
+    "speaker": 1,
+    "text": "Even if it doesn't, even if it converges to a minimum, what do we know about minimas? What's a property that we've used about them, for example, to find minimas in closed form? And yeah? the gradient is zero, exactly. At a minimum, the gradient is zero. What does that tell me about this? ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 3338.77,
+    "end": 3369.31,
+    "speaker": 1,
+    "text": "Anyone? That middle term, where I'm multiplying by my gradient, that gradient's zero, so it's gonna drop off, right? This middle term. Hooray. So if you compute the maximum a posteriori, and you're using a GLM where this is going to be convex, sometimes strictly convex, then that middle term is going to be 0, and it drops off, leaving us that gradient of e theta star 0. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 3370.15,
+    "end": 3401.8,
+    "speaker": 1,
+    "text": "And so we end up with something like this. Now, we've seen something that looks exactly like this yesterday. or not yesterday, on Tuesday, which is that here we have something at our maximum a posteriori plus a quadratic term here involving the Hessian. But yesterday when we saw it, it involved the covariance matrix, which is the log normal density is just the thing above. It's just going to be centered at theta star. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 3403.25,
+    "end": 3440.42,
+    "speaker": 1,
+    "text": "And so I can take my approximate posterior to be a normal distribution with my approximate maximum a posteriori as my mean and my Hessian inverse Hessian as my covariance. So it's true that for something like logistic regression, that I'll never be able to know what the closed form posterior is. But I can at least get close, right? And the way that I know I can get close is by using the exact same facts and techniques that we've used to analyze lots of other parts of our sort of machine learning ecosystem that we've built. ",
+    "model_probability": 0.9986
+  },
+  {
+    "start": 3442.0,
+    "end": 3473.86,
+    "speaker": 1,
+    "text": "Any questions on that? Again, none of this will appear on your exam. I just think it's very useful to see that all of the steps that we used for gradient descent, they all come back. All we've done is introduced probability, and now we can review the things that we did before. Our convergence. Oh, I didn't write the convergence stuff here. Well, we can review our convergence and think about, for example, variational inference, doing Bayes where we don't have conjugacy. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3477.71,
+    "end": 3508.83,
+    "speaker": 1,
+    "text": "Okay, few issues. One, maybe as you will have seen in your coursework, computing the map is hard enough. Converging to the maximum a posterior, for example, in deep neural networks, we have highly non-convex problems. Not gonna happen to you all the time. It becomes a good approximation, but if you have something non-convex, all of that reasoning that I gave you breaks down. This is the first thing. If you have a large number of parameters, your Hessian is huge. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 3510.21,
+    "end": 3542.74,
+    "speaker": 1,
+    "text": "giant, giant matrix, computing it or estimating it is going to take you either a lot of time, and even if you compute it, it's going to take you a lot of time to do inference, right? And so instead, what we usually do is we make it like a diagonal approximation of this. And if we have a bad maximum a posteriori and a bad approximation of h, then maybe this isn't the right thing to do. Maybe doing just a Laplace approximation with a normal is not the appropriate way to do inference. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3543.96,
+    "end": 3576.38,
+    "speaker": 1,
+    "text": "But there are things you can do without abandoning this framework. So the thing that I wanted to point out was the more general idea of variational inference, which is that you take your posterior distribution Right. And then you'll take a family of distributions that you'll parameterize and you'll say, all right, well, I'm going to assume that this is approximately equal to some family of distributions Q over theta, which will take, let's say, in our previous case. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3580.4,
+    "end": 3615.07,
+    "speaker": 1,
+    "text": "a mu and a sigma, a mean and a covariance. And then I want to learn the mean and the variance, and that will give me my posterior. And there's lots of different families, variational families of distributions. We already looked at exponential families. Right. For Q that you can pick that will do much better. For example, here we have a bimodal distribution. Right. Rather than fitting a single normal to this bimodal distribution, you might want to pick a different family of Q. And that is the family of mixture of Gaussians. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3615.09,
+    "end": 3645.61,
+    "speaker": 1,
+    "text": "So all hope is not lost. Just you need to be a little bit more careful with that. Great, so we'll never, again, there are lots of downsides to this. In particular, you'll never know if you converge, right? You need to pick this family of distributions, Q, And of course, in the same way that we made decisions prior in our course, this becomes sort of a hyperparameter. And so if you're Bayesian, you would put a hyperprior, a prior, over the distributions. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3645.93,
+    "end": 3686.84,
+    "speaker": 1,
+    "text": "And then you would think about the marginal likelihood. You would pick a family of distributions that maximizes your marginal likelihood. And then you'd say, great, that's the one I want to use. And you'd go forward. This is also known, so you can think about this just purely from a likelihood perspective, and this gives you what's known as type two maximum likelihood. All right, so the last thing that I want to show you is what happens when, again, all of this breaks down, when you have a super non-convex optimization landscape, but you still want to do inference. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 3686.86,
+    "end": 3718.35,
+    "speaker": 1,
+    "text": "There's no way to know what family of distributions is best going to approximate the landscape that you're sort of posterior of a deep neural network. So what do you do? And one thing you can do is sample-based inference. So sure, I can't compute p theta given d, but I know how to compute the values of pd given theta. That's that likelihood. We've already seen that we can compute the likelihood for Bernoulli's and normals and all of that. This is just going to be your loss function. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 3719.11,
+    "end": 3752.74,
+    "speaker": 1,
+    "text": "And your prior, you usually pick such that you can evaluate it, right? Like you can tell me what the prior parameter of a, or the prior probability of a parameter is. If you can't tell me that, then like there's sort of something weird going on because why does that represent your belief? So you'd have to not know what your belief is to not be able to tell me what that is. So both of them we can evaluate. And if we can evaluate them, then I could sample, for example, lots of different parameters and then just weight them according to their sort of unnormalized posterior probability. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 3753.44,
+    "end": 3786.58,
+    "speaker": 1,
+    "text": "So if one parameter has much higher posterior probability than another, then I'll take that one with higher probability. And this leads us to the Metropolis-Hastings algorithm, MCMC. Again, none of this on your exam. I just think it's important that because we've seen all of these things, it's best to make sure we've touched on all of them with Bayes to complete our discussion. So the way that MCMC works is I started a parameter, and I think about what its unnormalized posterior probability is. Then I'm just going to sample from a proposal distribution. ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 3786.6,
+    "end": 3821.99,
+    "speaker": 1,
+    "text": "So I'm just going to take a random step. Rather than stepping in the gradient, I'll just move randomly. And then I'll ask, how much better is this parameter that I'm standing at than the one I was previously at? So before I took a step. If it's higher, then with high probability, I'll keep it. And if it's lower, then I'll go back to where I was. That's the general idea. And if you continue this process infinitely, then what you'll get is a distribution. So here's an example where after I've gone to this new parameter, this green parameter, if it has higher likelihood, I'll keep it. ",
+    "model_probability": 0.9977
+  },
+  {
+    "start": 3823.19,
+    "end": 3854.54,
+    "speaker": 1,
+    "text": "And if it doesn't, I'll get rid of it. If you get rid of it, you go back to where you were. And if you run this process, you end up sampling from exactly the posterior distribution in the limit of the number of samples. Of course, you're taking random steps. You can imagine that if you were to just randomly guess the right parameters of, let's say, a pre-trainer, a transformer model, your guess is probably going to be wrong. And taking a step in a random direction, likely not going to help you for a very long time. ",
+    "model_probability": 0.9961
+  },
+  {
+    "start": 3855.2,
+    "end": 3888.32,
+    "speaker": 1,
+    "text": "There are lots of ways to improve this. You can, in fact, use the gradient information to inform your steps. It's called Hamiltonian Monte Carlo. It's a very powerful inference algorithm. But that gets us into a little bit more math than we need. Great, so that's my last slide for today. We'll go over some exam questions now. We'll sort of do one on uncertainty and on Bayesian inference so you can see how I would examine you on this. And then we'll do an exam question on automatic differentiation. ",
+    "model_probability": 0.9926
+  },
+  {
+    "start": 3888.74,
+    "end": 3907.39,
+    "speaker": 1,
+    "text": "I'll pause here so we can all take a break if you want to get some water or go to the bathroom. And I'll take any conceptual questions to start if you have them. Also, if you want to just go ahead and start the problem, I'll put it up here. ",
+    "model_probability": 0.9581
+  },
+  {
+    "start": 3912.53,
+    "end": 3928.54,
+    "speaker": 2,
+    "text": "Yes, you might ask me something really great. I'm so sorry about the game. Sorry, bro. So it's about the coursework, and I can't believe it's possible. So if we try to do this, like the Jeb said, inequality. So something will be fishy. For what? The result, I don't know, will be fishy. ",
+    "model_probability": 0.123
+  },
+  {
+    "start": 3931.69,
+    "end": 3941.75,
+    "speaker": 0,
+    "text": "For example, for any person, give us 5% confidence, and for n equals 20, give us 99. Because n equals 20. Yeah, it gives us 99% of like, that's so fishy. What's your delta? Wait, when you say, what's 80? So if delta is 80, that makes sense. ",
+    "model_probability": 0.1003
+  },
+  {
+    "start": 3954.61,
+    "end": 3974.47,
+    "speaker": 1,
+    "text": "Well, you have the value that you estimated. You have the true value that you don't know. So here's the estimate. Now you want to bound the difference between these, which we often call delta. Omega. Sure, so do you mind if I... ",
+    "model_probability": 0.0983
+  },
+  {
+    "start": 3974.49,
+    "end": 3994.88,
+    "speaker": 2,
+    "text": "Yeah, yeah, of course, of course, of course, go ahead. So, this is the example, like, for, like, our... Yes, of course. This is the example for, like, our... What's this? And it was like, I understood that all of this is happening because of our omega, because in 10, omega is, like, really small, but in 20, omega is, like, really big. ",
+    "model_probability": 0.0576
+  },
+  {
+    "start": 3997.6,
+    "end": 4021.5,
+    "speaker": 1,
+    "text": "So here, you have, this is like the thing you want to compute. So you are going to, you already know K, because you did your estimate. So let's say K, you used 1,000 samples. Yeah. And then, so here's what K is. And then delta, you're going to set. So we'll say delta is 0.01. Now once you set both of these, you have an equation for epsilon. Yes. ",
+    "model_probability": 0.0215
+  },
+  {
+    "start": 4022.43,
+    "end": 4054.31,
+    "speaker": 2,
+    "text": "But like, that means... That means that my target accuracy and what I achieve is similar. The difference is going to be very small. So that's the case. But just because the difference between the... We have predicted 96 for... n equals 20. So that means that our- When you say n, do you mean the size of the feature space or k? Sorry, it's k. It's a Greek way to write k, so sorry. ",
+    "model_probability": 0.0008
+  },
+  {
+    "start": 4054.38,
+    "end": 4078.69,
+    "speaker": 2,
+    "text": "No, no, that's okay. Yeah, so that's the size of our test set. And omega is the difference between our accuracies, the target one and what we achieve. And because in n20, our difference between our accuracies is huge, right? Because we'll see, like, 95, the threshold's, like, somewhere 80. Mm-hmm. So Dan, like, makes all this... Ah, I see. ",
+    "model_probability": 0.0007
+  },
+  {
+    "start": 4078.97,
+    "end": 4157.9,
+    "speaker": 1,
+    "text": "So you're... you're deriving delta based on the difference between your estimate and what you want. That's fine. But if that difference is huge, then you're right. You'll get a very small number of samples. So we're not proving any point. But the problem is, it's symmetric. So if you say, let's say your estimate is 95. Oh, actually, it doesn't matter. Here's 80. And then you're saying this. The bound you've computed is what's the probability you fall between 95 and 65? Okay, yes. And so you have, well, if you want to know the probability that you fall between 95 and 65, you only need a few samples. That's a huge rate. So instead, what you should do is set delta to be something around 95. So don't worry about this. How do I choose delta? Just set it to 0.05. Just say, okay, I want to know what's the probability that my actual test accuracy is between 100 and 90. This is a much more informative sound than this one. And in order to get this information, K is going to need to be high. ",
+    "model_probability": 0.0008
+  },
+  {
+    "start": 4159.14,
+    "end": 4208.94,
+    "speaker": 2,
+    "text": "So, I'm thinking about, like, not adding at all. I'm thinking about, like, not adding at all. That's fine. And, like, one other question. So, my curiosity, like, that I have to overcome the threshold is, like... Starting from one point. I haven't taken the average. Is that the question? Or can I just leave it like starting from one random point? What do you mean from one random point? So I trained my model and I tried to make predictions so I could fit the threshold, right? And I did it like starting from a random point, the random parameter. Yeah. And that'd be successful, but I don't know what's happening if it's from different starting points. Yeah, you should try some different starting points. Is it necessary for paper? You should do it, yeah. Because you want to have the standard errors on paper. Okay. ",
+    "model_probability": 0.0002
+  },
+  {
+    "start": 4208.96,
+    "end": 4213.94,
+    "speaker": 0,
+    "text": "So make sure you have this. So you're going to be on the average performance? ",
+    "model_probability": 0.0001
+  },
+  {
+    "start": 4215.86,
+    "end": 4228.25,
+    "speaker": 1,
+    "text": "On the average? Yeah, you'll be evaluated on the average performance, but on the labels that you select. So you're going to submit labels on your repository. And then we will check those against the real labels that I have. ",
+    "model_probability": 0.0029
+  },
+  {
+    "start": 4228.29,
+    "end": 4245.28,
+    "speaker": 0,
+    "text": "From the hidden data sets? From the hidden data sets. Yeah. And then we'll say, OK, did your model perform well? Good. And then we'll look at your experiments. Very good. Ah, OK. OK, that's good. That's good. Nice. You don't need the model. ",
+    "model_probability": 0.0002
+  },
+  {
+    "start": 4265.96,
+    "end": 4295.0,
+    "speaker": 0,
+    "text": "Yeah, just like, the codes that ran along with your experiment, so we can, like, if something went wrong, we can see what went wrong, we can check, like, what you described, what you have in your code, right? Yeah. I would be . I don't like it that way. ",
+    "model_probability": 0.0002
+  },
+  {
+    "start": 4314.5,
+    "end": 4323.09,
+    "speaker": 0,
+    "text": "You should run your model the whole time to get your variance on your error, right? But that's just experimental. ",
+    "model_probability": 0.0007
+  },
+  {
+    "start": 4323.19,
+    "end": 4325.61,
+    "speaker": 1,
+    "text": "Okay, we ran this, we didn't run this. ",
+    "model_probability": 0.0043
+  },
+  {
+    "start": 4336.9,
+    "end": 4341.8,
+    "speaker": 0,
+    "text": "Epistemic means how uncertain you are about your own prediction. ",
+    "model_probability": 0.0007
+  },
+  {
+    "start": 4357.6,
+    "end": 4361.4,
+    "speaker": 1,
+    "text": "So epistemic is sort of like, how uncertain are you about them? ",
+    "model_probability": 0.0016
+  },
+  {
+    "start": 4361.42,
+    "end": 4374.29,
+    "speaker": 0,
+    "text": "Okay, so the parameter came up, and then it would be a parameter, for example, tells you now that the prediction is fine, and that would be very, very, very, very certain. Whereas here, it's very certain. What is actually? ",
+    "model_probability": 0.0085
+  },
+  {
+    "start": 4385.8,
+    "end": 4393.55,
+    "speaker": 0,
+    "text": "And as you observe data, you're taking the product . So, which one's posterior? So, this is the prior. And then when you update . ",
+    "model_probability": 0.0059
+  },
+  {
+    "start": 4405.93,
+    "end": 4409.59,
+    "speaker": 0,
+    "text": ". Let me answer a few more questions. ",
+    "model_probability": 0.0007
+  },
+  {
+    "start": 4432.88,
+    "end": 4464.09,
+    "speaker": 0,
+    "text": "First of all, do you have the GSP back yet? Yes, I have it here. I think this sign here up there is still for the cloud, but we can still only upload the app.js. Thirdly, what does the state of the environment look like? So, you can talk about the societal one, but that's definitely something that we need to be honest with you, right? Because it is the, sort of, core dataset. ",
+    "model_probability": 0.0009
+  },
+  {
+    "start": 4464.11,
+    "end": 4473.62,
+    "speaker": 0,
+    "text": "So, like, the ethical impact that you can point very well to tonight and or tonight, right? If you're going to be paying for this, right? ",
+    "model_probability": 0.0014
+  },
+  {
+    "start": 4473.72,
+    "end": 4476.54,
+    "speaker": 1,
+    "text": "The ethical impact is, like, it would be used for similar reasons. ",
+    "model_probability": 0.0048
+  },
+  {
+    "start": 4498.76,
+    "end": 4500.36,
+    "speaker": 0,
+    "text": "I have a question about . ",
+    "model_probability": 0.0024
+  },
+  {
+    "start": 4541.35,
+    "end": 4543.02,
+    "speaker": 0,
+    "text": "I forgot to give you . ",
+    "model_probability": 0.0007
+  },
+  {
+    "start": 4560.54,
+    "end": 4562.56,
+    "speaker": 0,
+    "text": "It works out really well for you guys. ",
+    "model_probability": 0.0044
+  },
+  {
+    "start": 4637.95,
+    "end": 4643.9,
+    "speaker": 0,
+    "text": "What is this? What? Yeah. We can talk about it. It's not part of this class. I don't like it. ",
+    "model_probability": 0.0061
+  },
+  {
+    "start": 4722.04,
+    "end": 4726.58,
+    "speaker": 0,
+    "text": "Make sure you have this left as a posterior instance. ",
+    "model_probability": 0.0153
+  },
+  {
+    "start": 4758.66,
+    "end": 4768.53,
+    "speaker": 0,
+    "text": "And then once I move the library around, it's going to be fine. Thank you. Paper and... Yes, this seat, maybe. This everyone's very open to questions. ",
+    "model_probability": 0.0445
+  },
+  {
+    "start": 4809.9,
+    "end": 4849.03,
+    "speaker": 1,
+    "text": "Is it coursework questions or conceptual stuff? Oh, can you ask me after? I want to be able to get to this. OK, guys. Let's quickly go through the answer to this. So how many people have tried the problem on the board? Oh, just a couple. OK. In that case, do you guys want to see the next question and give that one a try altogether? Because the first step of this we worked out before. This is the posterior we did last lecture. So it's just a are you paying attention question. And then the rest of them are kind of new. Do you guys want to work through this or just go to the next one, which is on auto-differentiation? ",
+    "model_probability": 0.9005
+  },
+  {
+    "start": 4850.73,
+    "end": 4890.69,
+    "speaker": 1,
+    "text": "Show of hands who wants to do Bayes? Cool, then we'll stick with that. OK. Does somebody want to? I should have, but didn't put the density of the gamma distribution here. Somebody wants to read it out to me? It's on your exam sheet, so. The gamma distribution, it's like beta. ",
+    "model_probability": 0.9586
+  },
+  {
+    "start": 4909.29,
+    "end": 4917.16,
+    "speaker": 0,
+    "text": "So is it x to the power of alpha minus alpha divided by e to the power of minus lambda x? ",
+    "model_probability": 0.6699
+  },
+  {
+    "start": 4917.18,
+    "end": 4975.08,
+    "speaker": 1,
+    "text": "So this lambda is the variable. So in terms of a, the thing is beta over the gamma distribution evaluate with parameter alpha. And then what were these two terms? Sorry, I don't know if you want to read. e to the It's the power of a minus 1. A minus, OK, a minus 1. A minus 1, sorry. It's the power of minus beta phi. Minus beta times 1. OK, so it's usually just written like this. Thank you. All right, so this is the gamma. Who wants to tell me where I start with this problem with 1? What's the first thing we write out? Yeah? Assume IID. That's exactly what we'll have to do. The first thing that I want is you've asked me for the posterior, so I'll write. Then I'll expand. ",
+    "model_probability": 0.9962
+  },
+  {
+    "start": 4975.1,
+    "end": 5010.03,
+    "speaker": 1,
+    "text": "This is a gamma. Does somebody want to tell me what my likelihood is? It's going to be iid. The exponential, yeah. Oh, yeah. So you could write. ",
+    "model_probability": 0.9967
+  },
+  {
+    "start": 5023.16,
+    "end": 5057.63,
+    "speaker": 1,
+    "text": "And so if I write out the likelihood up top, I've already given you the xi. So it's e minus lambda xi. I've written that the Sn is going to be the sum of these observations. So I can directly simplify this. Well, I can take the log before I simplify. the log of this is going to be a sum 1 to n. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 5058.75,
+    "end": 5116.14,
+    "speaker": 1,
+    "text": "And I'll also start by getting rid of that. It has nothing to do with the parameter of interest. So it's a constant. Does somebody want to tell me what they got for the log of the posterior? Yeah. So you have this is going to be s. And I guess we have log lambda. Well, minus, because we're going to have plus here. And then we have alpha minus 1 log lambda. times plus minus lambda. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 5117.7,
+    "end": 5152.03,
+    "speaker": 1,
+    "text": "Something looks a little off. Oh, I can combine before I take the log. Sorry. That would make my life easier. So when I wrote it out, I was like, oh, that looks like a lot of things. Now I'm backtracking just because I observed that before I take the log, I have like terms here. So what I'm going to do is I'm going to pull this out. So I'll have lambda a minus 1 plus n, because I have n many copies of that. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 5152.91,
+    "end": 5186.12,
+    "speaker": 1,
+    "text": "And I have e to the b lambda n. Outside here plus, oh, wait. No, no, no. I want to combine before I do this. Whoops. Skipping steps. OK. Lambda of n copies of that inside of here plus alpha minus 1. Here I have e. And then I have minus lambda. I have s copies of that. And then I have minus beta lambda. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 5187.38,
+    "end": 5226.44,
+    "speaker": 1,
+    "text": "And then this is still a product because I haven't taken the log. Clear what I did there, just to make my life easier when I take the log? Let's take the log. So we'll have a sum of n plus alpha minus 1 log lambda minus lambda s minus beta lambda. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 5226.6,
+    "end": 5250.84,
+    "speaker": 1,
+    "text": "OK. Normally, I take the negative log likelihood. And then I'll take the gradient of this. Somebody want to tell me what the gradient is with respect to lambda, the negative log likelihood? ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 5264.78,
+    "end": 5300.59,
+    "speaker": 1,
+    "text": "gradient of the negative log likelihood. Group this together. Here we have a constant times log lambda. So we'll have, I guess it's here, well, I could pull the lambda out, and then I just have minus. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 5302.09,
+    "end": 5332.83,
+    "speaker": 1,
+    "text": "I've dropped a sign somewhere. Let's keep this as plus, and then we'll deal with it afterwards. If I pull the lambda out, I just have minus s minus b. Actually, it won't matter. OK, there's my gradient missing a sign. Yeah. Sorry? ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 5336.33,
+    "end": 5393.04,
+    "speaker": 1,
+    "text": "This one. Oh, yeah, it should be. You're right. If I did that, then I'd have n copies of that, n would become squared, and now I'm in big trouble. Yeah, yeah, yeah. Cool. OK. Set it equal to 0. Again, I've dropped a sign. Does somebody who did this more carefully than me at the board very quickly know where I dropped the sign? We can find out at the end. But if I set this equal to 0 and solve, I'll get s plus beta equals to this. Divide by lambda, divide by this. So I have n plus alpha minus 1. over s plus beta equals lambda. Something like this. I've dropped a sign again somewhere, I'm pretty sure. This feels slightly strange. But there you go. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 5393.18,
+    "end": 5444.1,
+    "speaker": 1,
+    "text": "That's like the steps you would follow. Yeah? Since we shouldn't have put out the power n in the product, then the n after that would have been negative . Yeah, this product goes away, sorry, because I've Sorry. The thing that I didn't do when I combined these two with the product is I erased this. And then I don't have the sum here anymore because I've already accounted for this sum. That was the mistake. The first thing that I wrote out was incorrect? The S is there, so the sum is gone. Yeah. Yeah, so initially what I did is I wrote out, I just like did each term independently, then I realized I could combine like terms, so I erased what I did, combined like terms, but then I left the product in the front. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 5445.12,
+    "end": 5475.83,
+    "speaker": 1,
+    "text": "So I just needed to erase the product after I combined like terms. That's it. Cool. All right, so this is right, again, I did things very quickly and with some strange ordering here. So I feel like I may have made some minor mistake. And because I've now erased most of my work, it's very difficult to trace. So first recommendation is, on an exam, do not do it on a whiteboard. If you are doing stuff on a whiteboard and erasing it after you finish, you've probably done something wrong. There was a question. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5475.85,
+    "end": 5528.67,
+    "speaker": 1,
+    "text": "I was going to say, I think when you erase the sum, you also erase . Yeah, leading negative. Yeah, if I set it equal to 0 and solve it, it'll still do the same, I suppose. I'll check afterwards and see, but let's continue on to make sure that we, like, so just to, like, one of the major points of these kinds of problems is for me to work through the process, right, so that you can see exactly how I would ask questions and what I expect you to do when you see the questions. So what I expect you to do when you see this question is first write out Bayes' theorem. Show me that you know what Bayes' theorem is. That's the first mark. If you don't get any of the rest of this, you at least haven't gotten the zero for this problem, because you knew what a posterior is. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5529.21,
+    "end": 5560.94,
+    "speaker": 1,
+    "text": "So that's a good place to start. Then you expand out. This probably isn't any marks, but it shows that you know what you had to do from there. Then you combine. Right, you take the gradient and set it equal to zero. Oh, sorry, I've computed the maximum a posteriori. I've done two steps. So the first thing is the posterior. And actually, now we just need to go back. I apologize, I jumped way ahead. So we need to go back when we have this. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5563.6,
+    "end": 5596.32,
+    "speaker": 1,
+    "text": "Right, and we need to compute or think about what distribution our posterior has. So I went straight from this to our maximum a posteriori. Apologies. Does anybody want to tell me what the actual parameters I need are? Good thing that I walked through the process. Otherwise, I wouldn't have caught that. So write down the posterior. Write down base. Write to iid and expand. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5599.29,
+    "end": 5631.75,
+    "speaker": 1,
+    "text": "three equate parameters due to conjugacy. And that's enough to solve the first one. So what are the parameters that I need? If this is my distribution here, and we want to equate parameters, then there is some alpha prime and some beta prime that parameterizes a gamma distribution, this thing. such that that's the expression of our posterior. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5632.03,
+    "end": 5667.42,
+    "speaker": 1,
+    "text": "Does somebody want to tell me what alpha prime and beta prime are supposed to be, assuming that this is all right? Looks like it's just alpha plus n. and then I need a negative beta, so I'll pull lambda out, and then I've got s minus s minus b, and I'm always gonna multiply by negative one, so I just have s plus b, s plus beta. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 5670.02,
+    "end": 5700.84,
+    "speaker": 1,
+    "text": "There's my posterior. Now the second asked us to find the maximum a posteriori. There's a couple of things you can do here. The first thing is to write out your posterior density, if you would like. So we're maximizing a function. The function that we're maximizing is the density. And so the steps that you want to follow, write out that density, compute its derivative. You can take the log. Log makes this much easier. So we already have the log density here, which preserves its maximum. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5702.52,
+    "end": 5752.35,
+    "speaker": 1,
+    "text": "Compute the gradient, set equal to 0, and solve. So that's what we did here. So this is the answer to 1, is the gamma of alpha prime beta prime with alpha prime and beta prime equal to this. This is my posterior. So you could write posterior over lambda given data is equal to this. Yeah? In this question, it says Yeah, so the question was, here it says take the derivative with the posterior. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 5752.6,
+    "end": 5785.24,
+    "speaker": 1,
+    "text": "What I did was something proportional to the posterior. So if you wanted to do all of the steps, which, again, I recommend just to give yourself a consistent process, you know that your posterior is gamma of alpha prime beta prime, with those being your values. And you know the gamma distribution. It's this. So you could start. by writing this without substituting in alpha prime and beta prime, like your expressions. And then you could say, all right, I want to maximize this so I can take the log of this, which is the first thing. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5786.22,
+    "end": 5819.38,
+    "speaker": 1,
+    "text": "And I can, of course, because this getting rid of a constant preserves where my argmax is, I can get rid of the constant, get the log. And so you get to this exact same point, whether you started from here or started from here. Again, I'm just trying to get through so that we can get to the second question, because last time we ran way over, which is my fault. OK, so then this is your maximum a posteriori. And the process, like we said, was to take that posterior, manipulate it so that you can get the maximum. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5819.48,
+    "end": 5862.04,
+    "speaker": 1,
+    "text": "In this case, it's best to take the log first, then take the gradient, set it equal to 0, and solve. OK, lastly, we have three. Three is one of those questions that's more of a discussion question than it is one that you need to solve for. So you need to demonstrate that you know what concepts I'm asking about. So the law of total variance, which I've given you, or I've given you in this context, says that I can write the variance of a prediction. So if I'm observing a new x star and I want to think about its distribution, I can write out the variance of that prediction with these two terms, the expectation of my variance and the variance of my expectation here. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5862.42,
+    "end": 5897.48,
+    "speaker": 1,
+    "text": "And then I've asked you to tell me which one of these is aleatoric and which one is epistemic. And then you reason about it by telling me which one of these basically goes to zero. So which one of these is irreducible? So the question is basically, do you know which one, aleatoric or epistemic, is reducible and which one's irreducible? And then after you know that, can you look at these expressions and think about which one of these will go to zero as you observe more data? So to start, is epistemic uncertainty reducible or irreducible? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5900.09,
+    "end": 5931.58,
+    "speaker": 1,
+    "text": "Yeah, reducible, exactly. So the one that is reducible is going to be our epistemic uncertainty. So now we just need to know which one goes to 0 and which one of these terms, call this one A, call this one B, goes to 0, first term, second term. Anybody want to volunteer which one they think? Yeah. Is it b? Yeah. Looks like b is going to go to 0 to me. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 5931.6,
+    "end": 5933.26,
+    "speaker": 1,
+    "text": "Do you have a reason why that's the case? . ",
+    "model_probability": 0.9931
+  },
+  {
+    "start": 5947.88,
+    "end": 5978.54,
+    "speaker": 1,
+    "text": "Yeah, so the answer or the rationale given is that, well, I'm taking the variance of an estimator. And the variance of an estimator, as I take more samples, seems like it's going to reduce. And if you really wanted to be more formal about this, you could say, hey, Chebyshev's inequality says something about how the variance reduces. That's convergence. The other thing you could observe, if you wanted to start with the other one, is the expectation of the variance of x star. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 5979.4,
+    "end": 6012.83,
+    "speaker": 1,
+    "text": "Well, there is some variance of x star. There is some observational noise happening. The expectation of my observational noise in that process is not going to reduce. This is just how much noise is there in my observations. It's exactly aleatoric uncertainty. And so the first one you can't do anything about. So that finishes that question. Are there any things that are unclear, things you wouldn't have thought to do or something like that? Cool. ",
+    "model_probability": 0.998
+  },
+  {
+    "start": 6014.11,
+    "end": 6028.5,
+    "speaker": 1,
+    "text": "With our last 10 or so minutes, if you want to go ahead and try this auto diff question, three parts, much shorter than the last one and much less room for error, I think. So I'll give you a few minutes, and then I'll do this one on the board. ",
+    "model_probability": 0.9957
+  },
+  {
+    "start": 6182.5,
+    "end": 6373.72,
+    "speaker": 0,
+    "text": "This is a little bit There are a couple more in there. ",
+    "model_probability": 0.0853
+  },
+  {
+    "start": 6392.01,
+    "end": 6401.79,
+    "speaker": 0,
+    "text": "And so I have to do something proportional to . And now I just want to know, what are the parameters of a gamut that gives me this? ",
+    "model_probability": 0.0509
+  },
+  {
+    "start": 6440.32,
+    "end": 6441.6,
+    "speaker": 0,
+    "text": "So, what we can ask is . ",
+    "model_probability": 0.0007
+  },
+  {
+    "start": 6479.96,
+    "end": 6555.82,
+    "speaker": 0,
+    "text": ". In this case, I said, This is without . ",
+    "model_probability": 0.0002
+  },
+  {
+    "start": 6555.86,
+    "end": 6558.46,
+    "speaker": 0,
+    "text": "This is about . Oh, come on. . ",
+    "model_probability": 0.0018
+  },
+  {
+    "start": 6620.07,
+    "end": 6627.65,
+    "speaker": 0,
+    "text": "If you're using the circuit, right? Yeah. So, if you want to . Yeah. Okay. I might look into that. Yeah. . ",
+    "model_probability": 0.0045
+  },
+  {
+    "start": 6709.18,
+    "end": 6729.43,
+    "speaker": 0,
+    "text": "Okay, let's go through this one very fast. Hopefully I don't make more silly mistakes, but when you do math fast, that's what happens. ",
+    "model_probability": 0.2483
+  },
+  {
+    "start": 6740.31,
+    "end": 6776.41,
+    "speaker": 1,
+    "text": "Okay, so let's draw our computational graph. The first thing we want to do when drawing a computational graph is identify our inputs, in this case, x1, x2, and x3. Now I want to look at my sort of elementary operations. I have a multiplication here, x1 and x2 coming in. I'll call this v1. I have, This being exponentiated, call this v2. ",
+    "model_probability": 0.663
+  },
+  {
+    "start": 6777.23,
+    "end": 6812.88,
+    "speaker": 1,
+    "text": "And I have sine of x3. Call this v3. I'm going to take the sum of these two. And then I'm multiplying by this. I'll call this v4. This gives me f, or v5. ",
+    "model_probability": 0.434
+  },
+  {
+    "start": 6812.9,
+    "end": 6846.19,
+    "speaker": 1,
+    "text": "So there's your computational graph. Any questions about that? All right, suppose we want to compute the gradient. of all of the partial derivatives for a given point, like a given value. Based on the structure of the problem, maybe not the structure, which mode of automatic differentiation is more efficient, forward mode or reverse mode? ",
+    "model_probability": 0.9339
+  },
+  {
+    "start": 6846.39,
+    "end": 6880.74,
+    "speaker": 1,
+    "text": "Briefly justify your answer. So which is more efficient here, forward or reverse? Reverse, yeah, makes sense. Justify your answer. Perfect. Yep. So backwards mode is going to be more efficient. The one rationale, there's lots of ways you could reason about this. You could start by saying, well, the full Jacobian of this is going to be 1 by 3, so a row vector. ",
+    "model_probability": 0.9713
+  },
+  {
+    "start": 6885.88,
+    "end": 6917.56,
+    "speaker": 1,
+    "text": "My forward mode is only going to give me one column. So I have to do three forward mode passes to get the full Jacobian. The backwards mode is going to give me a row vector. I only have one row vector, so I only need one backwards pass. Right? Great, so that answers that. And then three, after implementing your equation, you find that you have a very silly implementation because reading and writing costs the computational complexity for some reason of a little bit more than a forward pass. ",
+    "model_probability": 0.9942
+  },
+  {
+    "start": 6918.08,
+    "end": 6931.98,
+    "speaker": 1,
+    "text": "So does this change your answer to the above? Who thinks yes, show of hands? Who thinks no, show of hands? OK, do the yes people want to give me a reason? Yeah. ",
+    "model_probability": 0.9867
+  },
+  {
+    "start": 6932.0,
+    "end": 6964.95,
+    "speaker": 0,
+    "text": "So to do a backward pass, you first need to do a forward pass as well. So I'll pause you just to repeat for people in the back. So he started with, in order to do a backwards pass, we first have to do a forward pass to get an output, and then we have to do a backwards pass. Yeah? So in forward mode, we do three forward passes. Backward mode is one forward, one backwards, and however much time it takes to do the reading, right? ",
+    "model_probability": 0.9449
+  },
+  {
+    "start": 6977.73,
+    "end": 6985.01,
+    "speaker": 0,
+    "text": "As the question says, reading and writing takes a bit longer. So we actually change our inserts and use forward mode. ",
+    "model_probability": 0.79
+  },
+  {
+    "start": 6985.33,
+    "end": 7021.88,
+    "speaker": 1,
+    "text": "That's right. Yeah. So the answer is that if you do forward mode, you have to do it three times. And you don't really need to store anything. You don't need to store any intermediate values. And so you have three forward passes is how long it takes you. Backwards mode, you have to first do a forward pass and then do a backwards pass. But before you do that backwards pass, you have to store all of your intermediate values. The question tells you that storing those values takes a little bit more time than a forward pass. So with backwards pass, you have to do two passes, one forward and one backwards, plus a little bit more than the time to do a forward pass. ",
+    "model_probability": 0.9922
+  },
+  {
+    "start": 7021.96,
+    "end": 7055.04,
+    "speaker": 1,
+    "text": "So you have to do three and a bit is the amount of time that it takes to do the backwards mode. And three is what it takes to do forward mode. So in the second part, in part three, you would change your answer. You would say, actually, now I prefer forward mode because I have the slowest writing to memory in the world, and now I can't do backwards mode anymore. Great. So that's it. We're still a little bit over, but I don't think there's a class after us normally. So I'll stay for just a bit to take questions, but I do have to run relatively quickly. ",
+    "model_probability": 0.9893
+  },
+  {
+    "start": 7075.13,
+    "end": 7130.59,
+    "speaker": 0,
+    "text": "the likelihood of each of those combinations . Given the . So, initially, this is your likelihood. Once you observe these two points, you have a different likelihood because you're essentially based on your zero, your five. Okay, sorry. Yeah, this part, why did it change so drastically? The reason that it looks so strange is because if you have two points, None of the, none of the points are happening there. ",
+    "model_probability": 0.0957
+  },
+  {
+    "start": 7130.63,
+    "end": 7176.25,
+    "speaker": 0,
+    "text": "But there are lots of y-axis that are quite enough to give you lines that are very clean. And the color map here is the blue versus red. This, all of these with red, this, this, So the likelihood of this is very low. The likelihood of this, the one going straight through them, is really high. But relative to this, the likelihood of all of them falling is really low. So this is like a strife. Is it really a culture for flying in relative to falling? You have an intercept here, right, and the same slope. Again, and then measure your likelihood. ",
+    "model_probability": 0.0357
+  },
+  {
+    "start": 7176.65,
+    "end": 7189.27,
+    "speaker": 1,
+    "text": "This distance is really bad. This one's tiny, right? And then if you consider this distance, this is also tiny, right? ",
+    "model_probability": 0.0358
+  },
+  {
+    "start": 7189.83,
+    "end": 7194.54,
+    "speaker": 0,
+    "text": "So the reason it goes like this, which is strange, but that's the first thing. ",
+    "model_probability": 0.0061
+  }
+]

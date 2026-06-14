@@ -1,0 +1,962 @@
+[
+  {
+    "start": 478.18,
+    "end": 486.011,
+    "speaker": "SPEAKER_00",
+    "text": "Okay, so while this is loading, I see some faces that I've seen before. How many of you have done a breaking system with me? "
+  },
+  {
+    "start": 547.735,
+    "end": 564.143,
+    "speaker": "SPEAKER_00",
+    "text": "Sorry, I forgot that the first time it always takes extra time to load the content. OK, so while this is loading, I have a very short slide set for those of you who don't know me. Let's see. "
+  },
+  {
+    "start": 587.281,
+    "end": 599.941,
+    "speaker": "SPEAKER_00",
+    "text": "So while that's loading, let's see my... Okay. So some of you are already moving. "
+  },
+  {
+    "start": 614.1,
+    "end": 659.19,
+    "speaker": "SPEAKER_00",
+    "text": "or there's also some contact information in my office. I'm part of the LSBS group, and the topics that I do research on are very much linked to what this module is about. I mean, of course, I'm going to give you kind of some of the fundamentals and teasers of some of the research that is happening, but a lot of the topics that I'm going to be bringing up on this module are topics that we are doing research on. and the mixture of any of all of these, we are not gonna put a lot of emphasis in security, but since we have to maintain security, that has an impact on performance, which is the bit that we care about. "
+  },
+  {
+    "start": 659.731,
+    "end": 692.998,
+    "speaker": "SPEAKER_00",
+    "text": "So we're gonna have a bit of a look into that. So things that are, for example, related to the topics we are gonna see in this module are smart data center infrastructure, as I said, a little bit of that. We're gonna do some amount of efficient IELTS and so forth. So, if at any point you are interested in any of these topics, you can contact me. "
+  },
+  {
+    "start": 693.138,
+    "end": 747.699,
+    "speaker": "SPEAKER_00",
+    "text": "I mean, UROP doesn't apply for you, because you are far deep into your degrees, but there's final year projects, many of them around these topics, and of course, I'm also looking always for good PhD candidates. So before we start, you will see that the slides have these color-coded headers. That's the meaning of them, OK? So blue headers is just like regular yellow And then I have some additional slides of getting a bit deeper on things, but with contents that will not be . "
+  },
+  {
+    "start": 748.599,
+    "end": 789.611,
+    "speaker": "SPEAKER_00",
+    "text": "So what is the second half of the module? Oh, I forgot to grab the microphone. The second half of the module. So first, with Holger, you've been looking mostly at single-threaded performance. And what we're gonna do is look at the machine going out from there. So first of all, the first bit is multicore and how to scale the machine up, what is called up, making the machine bigger in a sense, doing multicore processing and parallelism and what are the implications in terms of performance. A little bit of some tools, algorithms, and patterns that I find useful. "
+  },
+  {
+    "start": 790.971,
+    "end": 826.627,
+    "speaker": "SPEAKER_00",
+    "text": "after that. And then we are going to start looking beyond CPUs. So we're going to look at system interfaces and performance, both in terms of software and hardware. Because in many cases, you cannot quite get performance in your software components, whatever they are, libraries, applications, whatnot, unless you understand well enough the hardware that is underneath and why the hardware is forcing your software to be designed in very specific ways and how to get performance out of that. Then, once we understand those interfaces, we're going to look at some system level programming models. "
+  },
+  {
+    "start": 827.523,
+    "end": 857.54,
+    "speaker": "SPEAKER_00",
+    "text": "And finally, up to here is single machine. And then we're gonna go, we're gonna scale out of a single machine. Look at scale out systems, essentially network systems. And if we have time, we're gonna look a little bit at specialized devices. What people sometimes call as smart infrastructure and such. Any questions? I suppose not, but tell me if you have any. "
+  },
+  {
+    "start": 859.121,
+    "end": 891.971,
+    "speaker": "SPEAKER_00",
+    "text": "If not, we will go into the contents. Hopefully the slides now have downloaded on this computer. Let me grab my clicker because I like to place around. All right. Yeah? Yes. "
+  },
+  {
+    "start": 893.452,
+    "end": 933.198,
+    "speaker": "SPEAKER_00",
+    "text": "There's no pre-recorded material for the second half. It's one hour on Mondays and two hours on Friday, I think, 9 to 11, if I'm not mistaken. And that includes the lecture content and some more exercises that we're gonna do, a few of them. Okay, so multicore and parallelism. What we're gonna talk about, just a brief introduction. There's, depending on where you're coming from, you will have slightly different levels of knowledge on this, but so the purpose of this lecture is to set some kind of common understanding. "
+  },
+  {
+    "start": 934.47,
+    "end": 966.617,
+    "speaker": "SPEAKER_00",
+    "text": "with an introduction to parallelism. And then, mostly, we're going to be looking at multithreading and, at the end, a little bit about multiprocessing. What I mean by that, we're going to see later and what are the main differences. But let's talk about parallelism first and why parallelism. How many of you know about Moore's law? OK, so 1965, Gordon Moore, if I remember the first name correctly, came up with this law. "
+  },
+  {
+    "start": 967.057,
+    "end": 997.899,
+    "speaker": "SPEAKER_00",
+    "text": "Can anybody tell me what Moore's law says? Don't be afraid of not getting it fully right. Yeah. Yes, exactly, something like that. Every 18 months, I think it was the original law. And I use scare quotes because it's not really a law. Oh, OK, so I have two years. I don't know why I remember the 18 months for some reason. "
+  },
+  {
+    "start": 997.919,
+    "end": 1028.769,
+    "speaker": "SPEAKER_00",
+    "text": "So that's a guy. He was some engineer at Intel. He came up with this Moore's law in 1965 while working for Intel. This Moore's law from 1964, or 1970 in this case, all the way to 2020. And this is the transistor number per chip. And you can see that Intel has been just churning out processors that kind of follow this Moore's law. That would be the ideal of the law. "
+  },
+  {
+    "start": 1031.285,
+    "end": 1065.052,
+    "speaker": "SPEAKER_00",
+    "text": "But of course, he didn't do that in 2010. He did that in 1965 based on some data that he collected. So this is what the data that he collected looked like. He had a few points, and he said, well, I guess I can make a linear regression. And then this is my law. He didn't call it a law, but people kind of caught up with the term later. So the truth is that there's no law here. There is nothing that intrinsically says we will get twice the number of transistors every two years. "
+  },
+  {
+    "start": 1065.332,
+    "end": 1096.977,
+    "speaker": "SPEAKER_00",
+    "text": "This is just companies pushing to make that true. The dude said, oh, this kind of looks like this. And the problem then is that if Intel, after making a lot of noise about this, says, oh, shit, we didn't make it for the deadline, then it looks bad. And therefore, everyone worked as hard as they could to get somewhere on that line. So it's not a law. It's just markets. OK? So it's... "
+  },
+  {
+    "start": 1099.403,
+    "end": 1129.601,
+    "speaker": "SPEAKER_00",
+    "text": "Not about making processors faster, which sometimes people think about Moore's law about being about speed. It's not about speed, it's about number of transistors in the chain. So why do we link Moore's law with performance? Why does this link exist? And to understand that, we need to think of how we can put more transistors in a chip. "
+  },
+  {
+    "start": 1129.661,
+    "end": 1165.885,
+    "speaker": "SPEAKER_00",
+    "text": "It's a very obvious observation. What should we do to put more transistors in a chip that is the same size? Make them smaller. What happens when we make them smaller? Who here has heard about Dennard scaling? Much fewer people. OK. That's the crux of why we get performance. They're not scaling in 1974. Came with this, which is a fundamental property of the system, is that as transistors shrink, they become faster, consume less power, and are cheaper. "
+  },
+  {
+    "start": 1166.845,
+    "end": 1197.375,
+    "speaker": "SPEAKER_00",
+    "text": "So we not only put twice as many on the same size chip, Because we are making them smaller, we are just essentially making our CPUs faster for free, essentially. They are smaller. We can amp up the frequency. They just work faster. That was sort of the golden age of chip manufacturing, because thanks to the NARS scaling, well, it was very easy to get more performance. You just make sure that you make a transistor twice as small. It's twice as good, in a sense. "
+  },
+  {
+    "start": 1199.752,
+    "end": 1233.324,
+    "speaker": "SPEAKER_00",
+    "text": "So it was all about manufacturing technology. Of course, a chip needs to be well designed. The computer architecture needs to be good. But most of the advantages back then were coming from the technology used for manufacturing the chips. Then something happened. In 2004, it was officially called the N of Dennard scaling. This is because of fundamental limitations on the process of manufacturing. At some point, it gets too small that observation doesn't hold anymore. "
+  },
+  {
+    "start": 1234.124,
+    "end": 1267.589,
+    "speaker": "SPEAKER_00",
+    "text": "So if we cannot keep making things smaller, and when we do that, make them faster and consume less power, what happens is that we have a lot of power being consumed. And this is why, at some point, if you ever looked at it, I think Pentium 4 was the end of that around here. when essentially the Intel was just taking processors out with higher and higher frequencies, and at some point, we got to the point where we could just fry an omelet on top of a chip because it was getting too hot. "
+  },
+  {
+    "start": 1267.749,
+    "end": 1303.084,
+    "speaker": "SPEAKER_00",
+    "text": "It was the end of the NARS scaling, and heat dissipation systems had to become more and more sophisticated. Now, if we look at that instead of the picture here on the left, we look at the picture on the right, we see some numbers taken out of these processors as they evolved over time. So on the x-axis, we have the years. This blue vertical line here, that's kind of the end of the Nard scaling. And then we have a few measures, right? We have transistors. So Moore's law kept on going for a few more years, although it also has ended now. "
+  },
+  {
+    "start": 1304.714,
+    "end": 1340.997,
+    "speaker": "SPEAKER_00",
+    "text": "And then we see on the blue dots the single thread performance on some abstract metric. It's the performance of a specific benchmark over time. And then, as I was telling you, frequency, everybody was just getting things. Thanks to the narrow scaling, we're getting processor faster and faster by increasing the frequency. because they were making the transistor smaller. But then at the end of the NAR scaling, they couldn't make it with higher frequencies because the faster you switch a transistor, the more energy it dissipates. So if a new generation of transistors doesn't dissipate less energy, amping up the frequency will just make the chip hotter. "
+  },
+  {
+    "start": 1343.199,
+    "end": 1373.396,
+    "speaker": "SPEAKER_00",
+    "text": "And of course, at some point, we essentially need to see if the technology doesn't help us lower the energy consumption and therefore the power. we need to cap it by stopping that, right? We stop frequency scaling, and therefore we stop power consumption to a degree because of that. But what we see at the bottom here is some black dots that are kind of constant across the years until Denard scaling hits, and then we just rack that up. "
+  },
+  {
+    "start": 1374.356,
+    "end": 1410.23,
+    "speaker": "SPEAKER_00",
+    "text": "Any ideas what that could be? Yeah. It's multiple cores. So if we cannot run things faster by racking up the speed of a single core, what do we do with all those transistors that Moore's law gives us? Well, we just copy paste them and create more cores. and then cross our fingers so that programmers will be able to utilize all those scores to get faster applications. "
+  },
+  {
+    "start": 1410.69,
+    "end": 1444.669,
+    "speaker": "SPEAKER_00",
+    "text": "So we went from getting our computations faster by increasing frequency, which is transparent to applications, to just saying, I'm so sorry, programmer, now it's your problem. You need to parallelize your applications. So that's why parallelism is important, because today, after Dennard scaling, we just have an increasing number of cores, and we just have to write applications that can effectively use them. So this is an example. In 2002, there was some advanced processor that is now dead from Intel, the Itanium. "
+  },
+  {
+    "start": 1444.689,
+    "end": 1477.072,
+    "speaker": "SPEAKER_00",
+    "text": "This is a picture of a chip from Itanium 2, where Back then, what we would do is increase frequency, and then all those extra transistors would go into core complexity. For those of you who have done advanced computer architecture, this is a VLIW processor with some vector instructions and a lot of on-chip memory. All these blue, very structured processors things over here, all of this is cache, is memory. "
+  },
+  {
+    "start": 1477.312,
+    "end": 1508.482,
+    "speaker": "SPEAKER_00",
+    "text": "That's what memory looks like when you make these sort of pictures, okay? Then after the NAR scaling, well, we had a shit ton of cores, right? That's the only way we could use those transistors to increase performance. We could no longer just say, oh, it's easy, I just increased caches, now I need to add cores, each one of them with their own cache, because otherwise those transistors won't be useful. Because if we just maintain one core and we cannot increase the frequency, there's very little we can do. "
+  },
+  {
+    "start": 1510.245,
+    "end": 1548.369,
+    "speaker": "SPEAKER_00",
+    "text": "OK? So parallelism was always there. I'm saying, oh, we increased cores. Now we have to take care of parallelism. But parallelism didn't suddenly appear when we added cores. It's just that there are different types of parallelism. There's data-level parallelism. Vector instructions are an example of that. You have MMX, CIVX, all of that stuff. I don't remember the names for the ARM instructions. These are Intel and AMD. Data-level parallelism essentially is I have one instruction that says, oh, take sort of an array of data and apply the same operation on every element of the array. "
+  },
+  {
+    "start": 1548.629,
+    "end": 1581.483,
+    "speaker": "SPEAKER_00",
+    "text": "So all of these elements of an array are processed in parallel. That's what the vector instruction does. Then we also have instruction-level parallelism. Every single core that you have on your laptop, on the desktop, when you log into the machines in the department, on your phone even, has an out-of-order superscalar processor, which means that even though every core has a sequential stream of instructions, it can execute them multiple at a time and out of order to exploit some parallelism that exists between instructions. "
+  },
+  {
+    "start": 1581.543,
+    "end": 1613.927,
+    "speaker": "SPEAKER_00",
+    "text": "If there's no dependency between two instructions, we can execute them at the same time, right? So that's what ILP is. And then the bit that we care about is task-level parallelism. That's the one that became an absolute nightmare because of the N of Dinard scaling. Now we have more cores, and we have to manually break our applications down into tasks, and every task is shipped into a separate core. Examples, we see these on GPUs. We have to think of task-level parallelism on GPUs. "
+  },
+  {
+    "start": 1614.948,
+    "end": 1650.279,
+    "speaker": "SPEAKER_00",
+    "text": "When we look at threads, which we will see later on this lecture, if any of you ever uses something like Spark, and Spark is kind of old now, but there are other systems that do essentially the same. That's also a form of task-level parallelism. Essentially, as I was saying, the programmer has to manually break an application down into tasks so that they can be executed in parallel. So it's our burden to identify that parallelism. And the focus of this lecture, as I said, is task parallelism using threads and processes. "
+  },
+  {
+    "start": 1651.199,
+    "end": 1704.828,
+    "speaker": "SPEAKER_00",
+    "text": "If we have time at the very end of the lecture, we will look a little bit about GPUs. And to a degree, halfway into the second half of the module, we will see some form of process level parallelism across machines. Any questions? All right. Important, do not confuse concurrency and parallelism. Sometimes people use them interchangeably, but they are not interchangeable, okay? Parallelism or parallel computing means that things are in fact running at the same time. Concurrency or concurrent computing means that they can be overlapped in any way across time. It could be in parallel or it could not be in parallel. "
+  },
+  {
+    "start": 1706.388,
+    "end": 1741.739,
+    "speaker": "SPEAKER_00",
+    "text": "So if we have to look at all of this, we have this serial execution here, right? Sorry, if we have a serial execution on a single core, could you tell me if this is concurrency or parallelism? It's concurrency. Nothing is executing at the same time in terms of tasks. If we have a green task and, sorry, I didn't quite explain that. I hope it was obvious enough. If we have green and kind of orangey, and they are not executing at the same time, that is concurrency. "
+  },
+  {
+    "start": 1742.04,
+    "end": 1773.776,
+    "speaker": "SPEAKER_00",
+    "text": "In which order are they gonna be time multiplexed? Depends on the system, right? This could be threats or it could be anything. If we execute instead on this configuration where green tasks execute in one core and orange tasks execute in the other core, that is, Parallel, yeah, that's parallelism, exactly. Because it's green executing at the same time as orange. "
+  },
+  {
+    "start": 1774.997,
+    "end": 1810.465,
+    "speaker": "SPEAKER_00",
+    "text": "What would this one be? It's both, yeah, it's as obvious as it seems, okay? they can coexist. We can have multiple cores and we can have threads and the scheduler can just move threads around. There is concurrency between those threads and some of them will be executing in parallel when they are at the same time being executed on separate cores. So here's a quick question. Okay, for some reason that was supposed to be covered and it is not. "
+  },
+  {
+    "start": 1814.238,
+    "end": 1848.984,
+    "speaker": "SPEAKER_00",
+    "text": "Well, too bad. The answer to the question I wanted to pose to you is now on the slides. So what is parallelism good for? One is performance, right? We can execute multiple things at the same time, and therefore, we do all of that work faster, because, well, if we are breaking it down into two, we go twice as fast, right, in an ideal world. That's what you saw with Holger in terms of Amdahl's law. "
+  },
+  {
+    "start": 1850.104,
+    "end": 1881.35,
+    "speaker": "SPEAKER_00",
+    "text": "Another advantage of parallelism is that we can also make systems more cost efficient. And this might sound counterintuitive, but let me show you why. If we have one machine with one core and we want to go twice as fast, we have two options. We can have two machines, each with one core, and we split our program into two. And then we execute twice as fast in an ideal world. Or we can have one single machine with two cores and then also execute twice as fast. "
+  },
+  {
+    "start": 1882.243,
+    "end": 1917.007,
+    "speaker": "SPEAKER_00",
+    "text": "What is the delta? What is the difference between one machine with two cores and two machines with one core each? Everything else in the machine. The RAM, the disk, the box, the network card, everything else is shared if we have one single machine. Therefore, we are making that machine cheaper because we are sharing everything else. So we can use parallelism to reduce costs essentially by increasing cores in the same machine as long as we can add cores and make the application faster, we are good. "
+  },
+  {
+    "start": 1917.347,
+    "end": 1949.351,
+    "speaker": "SPEAKER_00",
+    "text": "Of course, as we will see in some exercises later, we will get to a point where adding cores naively is not sufficient because something else then becomes a bottleneck. And then it becomes a game of whack-a-mole of finding where the bottlenecks are. OK? So here's an example of a parallelism for performance. This is an example application in C++. "
+  },
+  {
+    "start": 1951.712,
+    "end": 1982.04,
+    "speaker": "SPEAKER_00",
+    "text": "Don't worry too much about the specific functions being used here. But essentially, we have a vector. We calculate what is the middle point of this vector. And then we use std async, which essentially says, run this function on a separate thread. Call std accumulate with two iterators, the starting point of the array and the ending point of where you want to apply this accumulate. And then start another thread. Also apply the C++ accumulate algorithm on the second half of the array. "
+  },
+  {
+    "start": 1982.401,
+    "end": 2023.407,
+    "speaker": "SPEAKER_00",
+    "text": "So from begin plus middle to end. And this one is from begin to begin plus middle. We are chopping it down into two and saying, each thread, accumulate the elements on the array. And then at the end, we say, oh, I want to now synchronize. Give me the end result of accumulating the first half. And I add it to the result of accumulating the second half. And in principle, this should take half the time, right? If most of the time we spend in this application is here, if we apply Amdahl's law, essentially it tells us that, in our case, S would be 2, the amount of parallelism, because we have two threads, two calls to STD async. "
+  },
+  {
+    "start": 2023.927,
+    "end": 2059.812,
+    "speaker": "SPEAKER_00",
+    "text": "And if P is 100% of the application execution time, then we get a 2x PW. Yeah? Everyone clear on that? I mean, this is what you did with Holger. In terms of cost, let's look at the similar problem, but how we use this to optimize cost. as it is the case for almost always, that a single core is too slow to process incoming data. "
+  },
+  {
+    "start": 2060.392,
+    "end": 2091.637,
+    "speaker": "SPEAKER_00",
+    "text": "So we have an example here. We have 100 requests per second coming into our system. And then we have that every core takes two seconds for every request to process. If we do a simple division, we need 50 cores to be able to keep up with the amount of load that comes into the system. So what are the solutions? As I was saying, we can either have multiple machines. "
+  },
+  {
+    "start": 2094.332,
+    "end": 2130.392,
+    "speaker": "SPEAKER_00",
+    "text": "Instead of, if we have 50 times one core on 50 machines, that's 50 times the cost in terms of machines, right? If we have multiple cores in a single machine, 50 cores is less expensive than 50 machines. 50 cores in one machine is less expensive than 50 machines. Reality is we will need almost always a mix of both for a sufficiently large problem because, At some point, if we keep adding cores, something else will become the bottleneck. "
+  },
+  {
+    "start": 2130.492,
+    "end": 2165.684,
+    "speaker": "SPEAKER_00",
+    "text": "Maybe we need more network bandwidth to be able to absorb all that load, and then we need multiple network cards. Or maybe we need more memory, because if our application is memory intensive, if our memory does not have enough bandwidth to serve, all the memory accesses that we have in this application, at some point we need additional memory bandwidth. Adding more machines is one way of getting more memory bandwidth. And also because at some point, scaling up a machine, making it larger and beefier, it doesn't pay off, okay? "
+  },
+  {
+    "start": 2166.124,
+    "end": 2208.172,
+    "speaker": "SPEAKER_00",
+    "text": "So these are some numbers that I got two or three years ago, I think. From uh, AMD. Oh yeah. In 2020. Okay. So it's six years ago or five depending on when I took it. Um, For a 48-core CPU, the average price that you pay per core, if we look at the price of that chip, is about $63.54 per core, okay? If we then bought or compared the price of a larger chip from AMD, otherwise the same core configuration is just the same thing but with more cores, the price per core is 64.84. "
+  },
+  {
+    "start": 2209.373,
+    "end": 2243.961,
+    "speaker": "SPEAKER_00",
+    "text": "So at some point, adding more cores becomes increasingly more expensive on the cost per core. And does anybody know why? So this is just for curiosity, yeah. So do you know how chips are fabricated? Do you know what, I forgot what the name, yeah? Exactly. "
+  },
+  {
+    "start": 2244.121,
+    "end": 2277.042,
+    "speaker": "SPEAKER_00",
+    "text": "It's because chips are fabricated in a wafer. It's like you can think of it as a big, round thing with all the transistors. And we just have some hundreds of, or whatever, or thousands of chips in them. And we essentially fabricate that wafer and chop it down into pieces. And each one of the pieces is one chip that then we put into a dissipation thing and all the pins and everything. But every chip is like a few millimeters square. Of course, like anything else, manufacturing is not perfect. "
+  },
+  {
+    "start": 2277.102,
+    "end": 2310.762,
+    "speaker": "SPEAKER_00",
+    "text": "We will have errors in the wafer. And the bigger our chip, the more chances that we will have errors. So the more cores we have, the harder it is to get a chip with all those cores fully functioning. And therefore, since this is harder to get, I will charge you more. In many cases, when you buy a 48-core machine and a 64-core machine, it's the exact same chip, except that some of the cores are not working because of manufacturing defects. "
+  },
+  {
+    "start": 2311.462,
+    "end": 2342.774,
+    "speaker": "SPEAKER_00",
+    "text": "And then they say, OK, we're going to burn misbehaving and other well-behaving cores down from 64 to 48 and then sell this as a 48. Because then we can sell you a chip that is essentially not fully functioning. But we sell it for cheaper, because those are more common. So that is the main reason. The bigger you want to get it, the more expensive it becomes, because it's harder to manufacture. And in this case, it's because of the wafer technologies. "
+  },
+  {
+    "start": 2343.534,
+    "end": 2380.62,
+    "speaker": "SPEAKER_00",
+    "text": "I'm not sure why this is not working. Oh, there we go. So when we are looking at cost, I mean, of course, this is a very important bit, the cost of the hardware and all of that. But if we were to build a data center, the problem is much more complex. So data centers today are optimized not for just the cost of the machine, but for something that is called TCO, total cost of ownership. "
+  },
+  {
+    "start": 2381.001,
+    "end": 2411.04,
+    "speaker": "SPEAKER_00",
+    "text": "How many of you heard that term before? So tissue essentially accounts for the entire lifetime of a data center. So that means buying hardware, but also how often I need to replace hardware and I just get some averages right because. Manufacturers if you ask hard enough or if you buy enough of their products, they will give you measurements of what is the average time that it takes for every piece of hardware to fail so that you can. "
+  },
+  {
+    "start": 2412.167,
+    "end": 2446.173,
+    "speaker": "SPEAKER_00",
+    "text": "project into the future, how often will you have to change hardware? And then have some average costs of your data center because you will have to be replacing hardware all the time. But it also goes beyond hardware. We have to take into account energy consumption. We have to take into account cooling and power distribution, which, I mean, I don't know how many of you are interested on this topic. We are definitely not gonna talk about it, but it's also one very large area of complexity on data centers. "
+  },
+  {
+    "start": 2446.933,
+    "end": 2492.355,
+    "speaker": "SPEAKER_00",
+    "text": "We also need to have some physical security guards and such. We need to build a building and buy some land. All of that is factored into TCO. And now for the more computer technical details, but also the entire big picture, there's this really good book called The Data Center as a Computer. And this is something that some Google engineers did a while ago where they essentially said, our data center, we need to design it as an entire machine that just happens to have some walkie interconnection cables between some of the cores that some of them are very close together and have very good communication properties. "
+  },
+  {
+    "start": 2492.815,
+    "end": 2531.577,
+    "speaker": "SPEAKER_00",
+    "text": "Other are really far away from each other and we need to use the network and so forth. And we're going to look at some of the issues that came from that book. Today, this idea of the data center as a computer, that's how every single data center operator thinks of their data center as. This became the way of thinking about data centers. All right, so now that hopefully I convinced you that Parallelism and concurrency are important what we're going to look at is different ways of expressing it. "
+  },
+  {
+    "start": 2534.019,
+    "end": 2572.51,
+    "speaker": "SPEAKER_00",
+    "text": "The parallelism concurrency then of course if things are happening potentially at the same time either sorry if things are happening potentially in parallel or concurrently we need some form of communication so we're going to look at what happens when we need to communicate. And what are the performance implications on both software and hardware? Because as I said, this is not about designing hardware, but we need to understand the hardware to design good software in terms of performance. And we are gonna use some very simple modeling strategies to reason about different designs, what the trade-offs are, okay? "
+  },
+  {
+    "start": 2572.83,
+    "end": 2611.684,
+    "speaker": "SPEAKER_00",
+    "text": "Okay, I didn't uncover this one by mistake. So here's a very simple example, exam-like problem, of CPU provisioning. Provisioning here means calculating the amount of resource X, in this case CPU, that we need to buy for a machine to support a specific load. So what is our load? This is what we have. Imagine that we have a network server with a one gigabit per second network, and here, To avoid confusions, I'm putting you exactly the number, 2 to the power of 30 divided by 8. "
+  },
+  {
+    "start": 2614.605,
+    "end": 2647.997,
+    "speaker": "SPEAKER_00",
+    "text": "Now, imagine that this application receives requests of all of them are the same size, one kilobyte input, so 2 to the power of 10 bytes. And let's imagine a very simple case. It's never like that, but let's imagine a very simple case where there's a very good average time for processing each request, which is 50 microseconds. And what we need to do is provision the number of CPUs. So calculate the number of cores that we need to serve this load. So how should we start thinking about that? "
+  },
+  {
+    "start": 2651.039,
+    "end": 2684.67,
+    "speaker": "SPEAKER_00",
+    "text": "What is the first thing we should do, do you think? Yeah? Yes, you're going a bit farther ahead than what I wanted first. So first we need to normalize units, right? What you are saying is one specific case of normalizing units. Because we have network throughput, we have request size, and we have processing time. "
+  },
+  {
+    "start": 2684.75,
+    "end": 2715.602,
+    "speaker": "SPEAKER_00",
+    "text": "These things are all different units. We need to normalize somehow. We need to compare apples to apples. So one way of comparing apples to apples is abstracting every system, every step that we have in our system. In this case, we have one single step. That is, we have some incoming throughput in terms of requests per second. Then we have a processing throughput in terms of requests per second, and we have an output throughput in terms of requests per second. "
+  },
+  {
+    "start": 2716.183,
+    "end": 2746.49,
+    "speaker": "SPEAKER_00",
+    "text": "So we normalize everything to requests per second. So how do we go about this is exactly as you were saying. The first thing we do is normalize these two areas here. The first one is the incoming, I mean, we can do it either way, right? But you should think of them as separate things. What is the incoming throughput? Well, it's just however many requests of one kilobyte I can send through a one gigabit per second network. "
+  },
+  {
+    "start": 2746.811,
+    "end": 2779.6,
+    "speaker": "SPEAKER_00",
+    "text": "Forget about compute, just calculate how much stuff is coming in in terms of requests per second. So the incoming throughput is essentially network throughput divided by request size. It's as easy as it seems. And that gives us requests per second on the incoming throughput. Now, the processing throughput, again, it's as simple as it seems. It's one divided by the processing latency. So if we have 50 microseconds, it's one divided by 50 microseconds. Just be aware of the units, right? And what we get is 20,000 requests per second. "
+  },
+  {
+    "start": 2781.081,
+    "end": 2812.457,
+    "speaker": "SPEAKER_00",
+    "text": "So what we have here is that we have 131k coming in, And every core can process 20K. So obviously, now we can see that we need more cores. If we just keep this incoming throughput, we need to divide it into multiple cores that can process it in parallel. How many cores? As many as necessary to at least get the incoming throughput. How do we do that? "
+  },
+  {
+    "start": 2812.618,
+    "end": 2845.367,
+    "speaker": "SPEAKER_00",
+    "text": "Simple division. If we have 131 as the target and we divide it in chunks of 20K, it gives us 6.5. Of course, we cannot install a half a core, so we round it up to seven. And yeah, we will have some spare capacity, but we will be able to meet the application mode. If we instead deployed six cores, we would have no spare capacity, so no wasted resources, but also we would not be able to process what's coming into the system. Yes? "
+  },
+  {
+    "start": 2847.947,
+    "end": 2879.543,
+    "speaker": "SPEAKER_00",
+    "text": "I see, I'm starting now to see some poker faces. I don't know if it's because this is too easy or because you're still processing. Yeah? So the output throughput in this case will be, so if we have 7 here, 7 times 2 would be 140. So this is processing at 140, ideally, or at maximum. This is coming at 131. "
+  },
+  {
+    "start": 2879.863,
+    "end": 2911.987,
+    "speaker": "SPEAKER_00",
+    "text": "So we will never get out more than we bring in. So we essentially get the minimum. So the output here is going to be 131.072. And this is the simplest case of an application, where we only have things coming in, one single step of processing, things come out. In a real application, we will have multiple steps. Sometimes there's going to be branches in what we do, like conditional. Sometimes I do this thing that is very expensive. Sometimes I do this thing that is much cheaper. "
+  },
+  {
+    "start": 2912.808,
+    "end": 2945.971,
+    "speaker": "SPEAKER_00",
+    "text": "That's going to be the kind of exercises that you will have to do. Because if we have that, for example, this one takes 50 microseconds to process and another 90% of the times that the request comes in needs to go through here. It could be that the other 10%, we have something else that processes much slower. And then the amount of processing capabilities that we need will have to be different. But the tools that we use is just very simple math. "
+  },
+  {
+    "start": 2949.292,
+    "end": 2979.966,
+    "speaker": "SPEAKER_00",
+    "text": "All good? Should we go forward? Those of you who stay not moving, not nodding, should I go forward? Yeah? OK, thank you. So let's see, what is the timing? We have a little bit of time. Multithreading. So now that we started looking at modeling, let's look at multithreading as the first form of parallelism, or expressing concurrency. "
+  },
+  {
+    "start": 2980.226,
+    "end": 3018.612,
+    "speaker": "SPEAKER_00",
+    "text": "And then we will get parallelism if we have multiple cores. Multi-threading is the simplest thing. This is essentially what the previous example was showing. It's very simple conceptually. Threads are concurrent. They share all the memory within that process, so they all can access this array. And then if each one of these threads is mapped to a separate core, what we have is parallelism. But the threads only express concurrency. The reality, and as we will see now, is more complex than this very easy example. "
+  },
+  {
+    "start": 3019.673,
+    "end": 3054.684,
+    "speaker": "SPEAKER_00",
+    "text": "We will have to deal with some low-level operations. Using threading is complex to program compared to a sequential application. How many of you have developed any multi-threaded application? How many of you wished at some point that you were not doing that? almost all of you, because it's fucking hard. We will try to look at some tools to ease that. And then also, it's not only hard, it's also expensive. "
+  },
+  {
+    "start": 3055.224,
+    "end": 3085.866,
+    "speaker": "SPEAKER_00",
+    "text": "Managing threads and communicating threads is expensive, so we need to think very carefully about how we do that. That's exactly what we're gonna look at, okay? And so what are the topics? Performance analysis, communication and synchronization, and some models that we can use to manage threads or tasks, depending on how you want to talk about them. I'm going to use them as interchangeable, unless I explicitly say they are not. So let's look at performance analysis. "
+  },
+  {
+    "start": 3087.767,
+    "end": 3121.328,
+    "speaker": "SPEAKER_00",
+    "text": "Two topics we're going to look at, naive multithreading and critical path analysis. What are we gonna do? It's very simple. We start with a sequential application usually, right? We think of what is the thing that I need to do. After that, we apply tools for performance analysis and figure out what are the expensive parts of this application And then I need to think very carefully about how they relate to each other and think of them in terms of Amdahl's law. "
+  },
+  {
+    "start": 3121.988,
+    "end": 3154.055,
+    "speaker": "SPEAKER_00",
+    "text": "Because if something is really large, something can be really large in our application, but it might not necessarily bring all this bit up we wanted if it depends on the execution time of other bits, right? So we always need to keep Amdahl's law on the rear-view mirror. And once we get that understanding, only then we change the application to use multiple threads, once we have a good sense of what this modeling tells us that we should get out of it. "
+  },
+  {
+    "start": 3154.175,
+    "end": 3191.521,
+    "speaker": "SPEAKER_00",
+    "text": "Because once we have that and we have a reasonably good approximation, then we can check, is our result according to what we originally expected? If it is, good. If it is not, then we need to understand, did I model these incorrectly? Or am I having overheads from managing communication and threats? Because those I can solve. If it's about, oh, I parallelized the wrong thing, well, too bad, that's it. Okay? And here, I think with Holger, since this year or maybe last year, you also started using perf, right? "
+  },
+  {
+    "start": 3193.367,
+    "end": 3224.422,
+    "speaker": "SPEAKER_00",
+    "text": "Did you use perf or vtune? Okay, I thought that he had changed. We're gonna use perf, which is available for Linux, but it's essentially the same thing, okay? Just command land. This is an example of how you do that. Perf, record program and arguments. It dumps the profile information into a file, and then you can analyze that profile information. In this case, just take the profile data, print it into the screen, and show me only things that have at least 1% of execution time. Anything below that, I don't care. "
+  },
+  {
+    "start": 3225.282,
+    "end": 3256.261,
+    "speaker": "SPEAKER_00",
+    "text": "Okay? So to go fast, because we're about to finish, I'm not gonna show you the I'm not going to do this on the command line, but I have the answers recorded on the slide. So we have a multi-threaded application. I will publish the example code at the end of the lecture. It's called the O5 hot code base. And there's a makefile that will run it for us. What this makefile does is execute two things. "
+  },
+  {
+    "start": 3256.661,
+    "end": 3286.808,
+    "speaker": "SPEAKER_00",
+    "text": "First, it executes the application with time. How many of you have ever used the time command to measure time? So essentially, it tells us for running something, it gives us these three bits of information, which is the time spent on different parts of the application. Sys means time spent inside the operating system, not in application level, doing whatever system call. In this case, this application does nothing, so there's barely any time spent there. And this is the important bit. "
+  },
+  {
+    "start": 3286.828,
+    "end": 3319.985,
+    "speaker": "SPEAKER_00",
+    "text": "This is all user time, but measured in different ways. Real means what you measure on your clock. This is when it starts. This is when it stops. It took 10 seconds. But since some applications have parallelism, the user time, as we call it, is higher. Because imagine that you run for 10 seconds on two cores. The amount of CPU time you got is 20 seconds, ideally, if they are all running at the same time. In this case, it's somewhere in between. "
+  },
+  {
+    "start": 3323.447,
+    "end": 3358.433,
+    "speaker": "SPEAKER_00",
+    "text": "Which tells us that there is parallelism. Since the user time is higher than the real time, it means that there is some parallelism in this application. Now, if we do perf report and print the profile, we get that every function takes this much time to execute. So if we didn't go deeper, which function should we optimize here? Which function should we accelerate? Don't think too much. "
+  },
+  {
+    "start": 3359.734,
+    "end": 3391.121,
+    "speaker": "SPEAKER_00",
+    "text": "A. The one that takes the most time, let's accelerate that, right? Ideally, we could accelerate it to the point that it takes zero time. That would be the ideal. Reality, that's not what we can do, but I wrote some, I hacked this application to make it look as if we had made each one of these functions take zero time. And these are the results. Okay? There's the base, there's one where function A takes no time, function B takes no time, function C takes no time. "
+  },
+  {
+    "start": 3391.661,
+    "end": 3424.583,
+    "speaker": "SPEAKER_00",
+    "text": "And what we get is that We go from a real time of, in this case, 12. If I optimize A, it goes from 12 to 12, so it barely does anything. If I fully optimize B out, and it takes no time, it goes from 12.7 to 12.5. And if I optimize C, I go from 12.7 to 7.1. And remember, C is the one that took the least time, but it's the one that gives us the most speedup if we eliminate it from the application. "
+  },
+  {
+    "start": 3426.825,
+    "end": 3460.634,
+    "speaker": "SPEAKER_00",
+    "text": "So how is that possible? There's parallelism, which means that things are executing in parallel. We need to know what the heck is happening on the application to understand how to optimize things. As I told you, this application has parallelism, but I didn't tell you what it looks like. In this case, this is exactly what it looks like. Main calls A and B at the same time, and they both wait, and then call C, and then ends. "
+  },
+  {
+    "start": 3462.235,
+    "end": 3495.475,
+    "speaker": "SPEAKER_00",
+    "text": "So what happens if we optimize the base application, the shortest path, what is called the critical path, is the one that takes the least time. On this fork, we, sorry, the one that takes the longest time, on this fork, we either take 6.7 or 6.2, so the longest is 6.7, we always take 5.6. So the critical path is main, A, C, main. If we remove A, the critical path is B and C, and this is roughly the same time. "
+  },
+  {
+    "start": 3495.675,
+    "end": 3530.538,
+    "speaker": "SPEAKER_00",
+    "text": "That's why optimizing A doesn't do much. If we optimize B, the critical path remains A and C, so it does absolutely nothing. And if we optimize C, the critical path then becomes A. Because between A and B, the one that takes the longest is A. That's the only one that matters for the critical path. And then C, we magically turned it into zero. So the critical path is A. So the problem is that profiling tools are completely unaware of critical paths when there is parallelism in an application. "
+  },
+  {
+    "start": 3530.738,
+    "end": 3565.903,
+    "speaker": "SPEAKER_00",
+    "text": "That's why... just using a profiler is never enough to know what to optimize in an application. You need to use some thinking and do some understanding of the code so that you know, first, what is the critical path? And then on that critical path, what is the impact of optimizing each one of the portions in it? OK? And I think this is a good stopping point. Well, yeah. only just to wrap this up. "
+  },
+  {
+    "start": 3566.343,
+    "end": 3598.536,
+    "speaker": "SPEAKER_00",
+    "text": "This is essentially because optimization takes time. You don't want to waste your time, right? You want to use your time as effectively as you want. And optimization won't always improve execution time for the reasons that we showed. So measure, think, and plan, always. And that's some of what we're going to do on the rest of this lecture, okay? Okay, so in that case, I'll see you on Friday. Any questions before we wrap it up? Yeah. Is it? I thought that Friday was two hours. "
+  },
+  {
+    "start": 3601.757,
+    "end": 3608.659,
+    "speaker": "SPEAKER_00",
+    "text": "Oh. OK, then we keep on going. Let's take a break, though, so I don't overload you. "
+  },
+  {
+    "start": 3623.848,
+    "end": 3628.114,
+    "speaker": "SPEAKER_00",
+    "text": "They are not? They should be there from last year. Okay, sorry. I'll upload them now. "
+  },
+  {
+    "start": 4431.418,
+    "end": 4466.597,
+    "speaker": "SPEAKER_00",
+    "text": "So let's get back to it. So critical path analysis is important. As I was saying, also keep an eye out that there is some speedup we can get on A by optimizing it, right? A is still larger than B. But given the relationship between A and B and the rest of the critical path, optimizing A, in this case, would never give us more than a 6.5 speedup, right? "
+  },
+  {
+    "start": 4466.677,
+    "end": 4498.255,
+    "speaker": "SPEAKER_00",
+    "text": "Because that is the difference between A and B with respect to the total execution time. So in this case, even though that A and B are executing in parallel, there is some optimization that we could do. It's just not very, not necessarily that effective. because of that critical path relationship. So let's talk about multithreading in particular when it comes to communication and synchronization, right? "
+  },
+  {
+    "start": 4499.656,
+    "end": 4536.207,
+    "speaker": "SPEAKER_00",
+    "text": "Because that is the main issue that will affect our performance and correctness. That is where the source of complexity comes for both correctness and performance. And we're going to start with sharing of information on parallel or concurrent programs. So I have an example application that I set. By the way, I uploaded the slides. I thought that they were uploaded already, but it seems they were not taken forward from last year. "
+  },
+  {
+    "start": 4537.427,
+    "end": 4571.148,
+    "speaker": "SPEAKER_00",
+    "text": "So we have this test application here. It's something very simple. It's essentially this. It's very similar to the example before. We have some number of target iterations and then some counter where we aggregate that, right? We look for, I don't even know how many zeros this is, 100 million iterations on each thread and on every iteration we increment A, right? So we know what should be the value of a at the end, right? "
+  },
+  {
+    "start": 4571.188,
+    "end": 4601.895,
+    "speaker": "SPEAKER_00",
+    "text": "It should be iterations times 2, because we have two threads doing this number of iterations and doing an increment of 1 for each one. So we know we should expect 200 million as the value of a, as we are printing here. But the real value that we get changes every time and is not what we expect. ATSY? It's a race condition. "
+  },
+  {
+    "start": 4602.115,
+    "end": 4633.826,
+    "speaker": "SPEAKER_00",
+    "text": "And what is the race condition here? Say again? Oh, I'm talking about more generally. Where in the code is the problem? It's the increment of A. The reason is that A is stored in memory. When we increment a value by one, we take the value, we put it in a register, we increment it by one, and then we store it back into memory. "
+  },
+  {
+    "start": 4635.008,
+    "end": 4669.913,
+    "speaker": "SPEAKER_00",
+    "text": "Now, if these two threads are running on separate cores, if they are running in parallel, we will see later that this also happens with concurrency, even if there is no parallelism. The time between me getting the value from memory, incrementing it with one and storing it, anything in between can happen where somebody else reads an incorrect value. And we're going to see why exactly that happens. So the problem is in this increment. It's not correct to do this when we have concurrency. "
+  },
+  {
+    "start": 4670.053,
+    "end": 4709.774,
+    "speaker": "SPEAKER_00",
+    "text": "And the reason is because of how, in the case of parallelism, how cache concurrency works. Who here knows what cache coherency is to some degree? Okay, I see some clear hands and some hesitant hands, so we're gonna do kind of like a quick catch up, right? The whole idea is every core has its own L1 cache with data, and these are the cores, we have the caches here, every core has its own, and we have some network that cache interconnect, some wires that connect the two caches, right? "
+  },
+  {
+    "start": 4711.138,
+    "end": 4744.45,
+    "speaker": "SPEAKER_00",
+    "text": "And now we have to think of these as, well, if different cores are running these threads, they are all accessing the same memory address. So the role of the cache coherency protocol is to make sure that these things work correctly when multiple cores are accessing the same memory address. In this case, I'm gonna show a very simple protocol for cache coherency known as MSI. That's probably the first one that you saw in class when you were told about cache coherency. "
+  },
+  {
+    "start": 4745.11,
+    "end": 4775.397,
+    "speaker": "SPEAKER_00",
+    "text": "And then the whole idea is every single one of these is a line, a cache line, where we have the address that it's holding information for, what is the state according to the cache coherency protocol, and what is the value stored in that address in memory, right? It's just a memory cache. And in this case, the state is one of these three letters, which is the state, modified, M, shared, S, and invalid, I. And cache coherence is a hardware implementation for keeping some coherency between these cache lines. "
+  },
+  {
+    "start": 4775.457,
+    "end": 4807.367,
+    "speaker": "SPEAKER_00",
+    "text": "So let's look at an example, right? Let's imagine core one rides into address cafe, value 111, okay? So what we get then is that on address cafe, we have a modified value, meaning it's not the same that is stored in main memory in RAM, and the value is 111. Now, imagine that later on, the same core writes on address that the value 222. So again, that, address that, state modified and the values 222. "
+  },
+  {
+    "start": 4808.427,
+    "end": 4842.356,
+    "speaker": "SPEAKER_00",
+    "text": "Now, just sometime later, it doesn't really matter when, core number two reads the value cafe. If it went to the main memory, I mean, that's the whole purpose of coherency, right? If it went to main memory, it would get the wrong value because this new value that was written by core one is in the cache, not in main memory. So then these caches need to talk to each other and figure out, oh, this one is where cafe is. It's modified. This one is the real value. So now we are going to share the value, and we are all going to have the same copy of that value. "
+  },
+  {
+    "start": 4842.576,
+    "end": 4873.617,
+    "speaker": "SPEAKER_00",
+    "text": "That's what the s state is for shared. And then these two cores have are caching the correct shared value of address cafe. Now, if core two wanted to write into the same address, it needs to make sure that the other cache is no longer holding that value as shared, because now we want to write two to two. So what it does is this cache is going to say, oh, I'm on shared state. I'm not the only one holding a valid copy. So I need to tell everyone else to invalidate their copies. "
+  },
+  {
+    "start": 4874.023,
+    "end": 4908.775,
+    "speaker": "SPEAKER_00",
+    "text": "That's exactly what this message says. Invalidate cafe. Cafe now becomes invalid, and we have modified for cafe. So if later on core one tried to read it, the same address, it would say, oh, this is invalid. I need to ask somebody else, in this case core two, to give me the valid so that we can go back to shared state. So these are a quick recap on cache coherency. Any questions? Yeah. We are going to talk about that later, OK? "
+  },
+  {
+    "start": 4909.396,
+    "end": 4951.368,
+    "speaker": "SPEAKER_00",
+    "text": "The answer is it depends very much on the implementation. But because there are messages back and forth, there is an overhead. Yeah? If you're multi-threading, it's not the fact that always threads are . GABRIEL SANCHEZ- Yes. We will look at that later. It is true that in that case, we would not have this ping pong. If we are taking those two threads and run them on the same core over time, we time multiplex them, everything, there's no additional traffic on the cache. But there's still a problem, and we're gonna look at that. "
+  },
+  {
+    "start": 4962.252,
+    "end": 4995.553,
+    "speaker": "SPEAKER_00",
+    "text": "So there typically is always an L3 or L whatever, like a last level cache that is shared. So caches do not really, I mean, this is not the purpose of this module, but if we were designing a real system, we would not have just L1 caches directly communicating with each other. But rather, the L1 cache says, I don't have this. I need to ask somebody else. And that somebody else is the last level cache, who not only caches data, but also has information of who else holds copies, whether valid or invalid. "
+  },
+  {
+    "start": 4996.393,
+    "end": 5027.942,
+    "speaker": "SPEAKER_00",
+    "text": "I mean, if you want to dig deeper, if we were to do a computer architecture, essentially the LLC doesn't hold just one state. It holds a bitmap of states. for every other core in the system. So that means that our LLC limits how many cores we can have in the system, and that is just the reality of how these systems are designed. We have a maximum number of cores. All right. "
+  },
+  {
+    "start": 5029.703,
+    "end": 5060.985,
+    "speaker": "SPEAKER_00",
+    "text": "So what we need to do is essentially add atomics, whether there's parallelism or concurrency, because as I was telling you, Coherency is not sufficient to write parallel programs or concurrent programs, because that's what's happening in assembly. We load the address into our register, we increment the register, and then we store that register into the address. These things, because of concurrency or because of parallelism, can be overlapped in any way, right? So... "
+  },
+  {
+    "start": 5062.408,
+    "end": 5099.445,
+    "speaker": "SPEAKER_00",
+    "text": "Hopefully you can see here that quite clearly, if I load address foo into R1, and here I increment just the register, but don't store it back yet, here when I read foo, I read whatever the same value was here. It doesn't matter what cache coherency does for us. In both these two points, we are reading the same value. But then we are storing original plus one, but this one has original on the register, so we have original plus one. So we executed the increment twice, but we only will see it once in this very particular example. "
+  },
+  {
+    "start": 5099.786,
+    "end": 5151.937,
+    "speaker": "SPEAKER_00",
+    "text": "That's what was happening in the example application. And that happens with parallelism and concurrency, because the operating system could be time multiplexing and context switching between threads. It would be exactly the same problem. Yeah? Any questions? All right. So we need, yeah? Yes. So what, this is value O for original, right? Then we take O, now it's stored in a register. We increment this so it goes from O to one. And then this one loads from memory The cache says that the value is all and it can be shared. "
+  },
+  {
+    "start": 5152.657,
+    "end": 5196.079,
+    "speaker": "SPEAKER_00",
+    "text": "The data has not been modified into memory. Nobody has issued a write into memory that will change the cache state. So we both read O, incrementing by one, write into memory, so I write one into memory, then cache coherency kicks in, oh, this data was read here and here, so both cores have it in shared state. I will invalidate cores to value. And I will set minus modified to value one then core to says oh I have the good value it's already on my register and it's all I incremented by one it's one and then I read it into memory when I read it into memory my cash says that I have an invalid copy so. "
+  },
+  {
+    "start": 5197.46,
+    "end": 5229.386,
+    "speaker": "SPEAKER_00",
+    "text": "What I'm going to do. is invalidate everybody else's copy because I'm writing into it and set my cache line into modified state. So the cache ends up with value one instead of two, yeah? Should we go ahead? Yes, yeah? We haven't seen atomics yet. Hold your horses. So we do need hardware to perform atomic operations. "
+  },
+  {
+    "start": 5229.466,
+    "end": 5260.085,
+    "speaker": "SPEAKER_00",
+    "text": "We are going to look at exactly what that looks like. So we need hardware support. We cannot do this without hardware support. So what... is the whole point of an atomic is that we want to do this sequence of operations atomically. And by atomically here, it means that once this sequence starts, Nobody else can do a conflicting sequence with us. "
+  },
+  {
+    "start": 5260.526,
+    "end": 5292.412,
+    "speaker": "SPEAKER_00",
+    "text": "However that is implemented. There's many ways of implementing it, right? But somehow we need to mark the start of an atomic operation, do the sequence of operations for that atomic operation, and then signal atomic end. So if somebody else tries to do, tries to start an atomic sequence for the same thing, for foo, They do atomic start and says, oh, I'm sorry, this one has already started the atomic sequence. So you need to wait until this atomic sequence ends, and then I can continue. "
+  },
+  {
+    "start": 5294.755,
+    "end": 5325.544,
+    "speaker": "SPEAKER_00",
+    "text": "OK? Yes? There is no such thing. There's always some total order that is established. That's what the hardware does. It establishes a total order. It can be arbitrary. If we went really deep into it, there are some arbiters that try to keep fairness implemented in hardware. So not always the same core wins when they are on head-to-head race. "
+  },
+  {
+    "start": 5325.604,
+    "end": 5350.218,
+    "speaker": "SPEAKER_00",
+    "text": "But yeah, the hardware just decides. OK? And the way we handle this is by implementing new coherency protocol states. So instead of just having, give me a second, MSI, modified, shared, invalid, we also have locked. So essentially, we have a new state to identify when the atomic region starts and when it ends. Yeah? "
+  },
+  {
+    "start": 5350.799,
+    "end": 5362.597,
+    "speaker": "SPEAKER_03",
+    "text": "So you said it's based on, like, that it's trying to do is also the one that we want to do. "
+  },
+  {
+    "start": 5362.617,
+    "end": 5416.634,
+    "speaker": "SPEAKER_00",
+    "text": "Good question. We're going to look at that next slide. OK? Because the naive way would be like, oh, only one core can do anything atomic ever at a time. And that would be an absolute the worst possible machine ever. Because we just serialize everything. Yeah? It's essentially like a . Yes. There was some other question back there. We're going to look at the details. OK. So let's look at what. Oh sorry, I thought that I had another slide, but essentially we have a new a new state here. The idea is that instead of going from for example here. Imagine that we want to do an atomic write. "
+  },
+  {
+    "start": 5417.194,
+    "end": 5458.147,
+    "speaker": "SPEAKER_00",
+    "text": "We would invalidate, because previously it was shared. Then we invalidate. And instead of going directly into M, we would go into L state locked and not write into it. It would still be 111 and then we do all the increment on a register and then we write it back. It will go into locked modified and then which is just essentially locked with the new value and then when we release, we transition from locked to modified. And that's because there is a locked state whenever somebody else tries to access the same thing and says, hey, I want a shared copy or I want my own modified copy because I'm writing into it. "
+  },
+  {
+    "start": 5458.327,
+    "end": 5536.9,
+    "speaker": "SPEAKER_00",
+    "text": "If I see that the other cache is in lock state, I wait, which is this wait that we saw here. This wait here is, oh, now this line for this address only is in lock state. If I try to modify into it and I also try to put it into lock state or just write non-atomically, I cannot. It's in locked, so I just wait. My core will wait for a response of saying, oh, now this is unlocked. So that's why doing this frequently will introduce these weights because of this additional state on the cache. Yeah? There are many ways of implementing this in hardware, but also in terms of what are the instructions available to programs. But there is one sort of universal instruction for building anything atomic. and it's the compare and swap instruction. The compare and swap instruction has been formally proven to be sufficient to implement anything atomic that we may want. It's not the optimal instruction. That's why many CPUs in their instruction set have slightly different variants of atomic instructions. "
+  },
+  {
+    "start": 5536.98,
+    "end": 5572.145,
+    "speaker": "SPEAKER_00",
+    "text": "Because if you have those exposed directly as separate instructions, the hardware can do a few optimizations that are not possible if we only had this universal CAS or compare and swap instruction. But in this class, we are going to express everything in terms of CAS because it's easier. CAS, as I said, stands for compare and swap. And the whole idea is that we pass through it an address that we want to perform a modification on. We say, this is the old value that I expect, and I want you to store this new value only if the value in memory is the old one. "
+  },
+  {
+    "start": 5573.705,
+    "end": 5607.312,
+    "speaker": "SPEAKER_00",
+    "text": "If somebody else has modified it, and what I thought was the old previous value has changed, I will back off and say, oh, I could not do the atomic. I'm going to show you an example. So essentially, this is what happens atomically. This is what the hardware helps us do. And this is how we express it in an atomic instruction. These are the semantics, essentially, when we use this instruction. So an example here of an atomic increment, now we cannot just do an increment, right? "
+  },
+  {
+    "start": 5607.352,
+    "end": 5643.542,
+    "speaker": "SPEAKER_00",
+    "text": "We need to do an atomic increment using this new instruction that allows us to do it atomically. So what is the idea? We have an address that we want to increment by one. So first of all, we keep track, have I been successful in doing the increment or not? And then I try until I'm successful. Why do I try? Because I said cast can fail. That's exactly what cast tells us, okay? So we say, first of all, I read the old value that is in memory, and I compute the new value based on the old value. "
+  },
+  {
+    "start": 5643.782,
+    "end": 5681.526,
+    "speaker": "SPEAKER_00",
+    "text": "So if I want to increment by one, I want to read the value in memory, it's old, and I wanna store old plus one. And if I use this with CAS, essentially it says if, and only if, in memory in the cache. What I have stored is the old value, then I will atomically replace it with this new value that you computed here. But remember, this is C. There's some assembly here that will read this address, compute the new value in a register, and then put it back here into this instruction. "
+  },
+  {
+    "start": 5684.063,
+    "end": 5719.053,
+    "speaker": "SPEAKER_00",
+    "text": "The increment is not happening atomically. It's just the compare and swap that is happening atomically. It's this thing we are loading, incrementing, and then doing a compare and swap here. That's the bit that is atomic. If it fails, we start again. That's what the loop is for. Compare and swap tells us if the swap happened. If it didn't happen, we try again. We read the new value. If it didn't happen, it's because the value in memory is no longer what we specified as the old value, and we try again. "
+  },
+  {
+    "start": 5720.914,
+    "end": 5734.822,
+    "speaker": "SPEAKER_00",
+    "text": "If it's successful, then swap will be true, and then we get out of the loop. Yes? Yep. "
+  },
+  {
+    "start": 5748.655,
+    "end": 5781.103,
+    "speaker": "SPEAKER_00",
+    "text": "There's no warranty. The only atomic warranty is this one. This is one instruction. So perhaps it would have been easier if I wrote down this into a separate line of C code. We say alt is value of address, new is alt plus one, and then I do compare and swap address alt new. That's the only atomic operation here. If the current value of address is not old, I don't do the swap. "
+  },
+  {
+    "start": 5781.483,
+    "end": 5845.505,
+    "speaker": "SPEAKER_00",
+    "text": "I just return false. If the current value of address is old, then I store the new value that is provided here that was computed non-atomically. And then I return true. So the point is that it is a single ascending instruction? GABRIEL SANCHEZ- Yes. Compare on top is an instruction. Yes. Any other questions about compare and swap? Yeah. Nothing else is atomic here. Only compare and swap is atomic. Say again? It can, but if there has been a data raise, if by the time I execute compare and swap, the value stored in this address is not the value that I pre-read non-atomically, compare and swap will fail. "
+  },
+  {
+    "start": 5847.586,
+    "end": 5885.759,
+    "speaker": "SPEAKER_00",
+    "text": "Because compare and swap is implemented like this, atomically. It's an instruction that will do this atomically. If the value of address equals to alt value, which is the second argument, then the value of address will become the new value. Otherwise, I fail. And then it's up to the code to retry. Yes? Does that answer your question? What is not allowed? "
+  },
+  {
+    "start": 5895.515,
+    "end": 5931.346,
+    "speaker": "SPEAKER_00",
+    "text": "What did this undefined behavior, sorry? What line are you talking about, this one? What is the problem if this is not atomic? What do you mean by atomic load? This is not happening atomically. These are different instructions. These get compiled down into different instructions. Yes. Let me perhaps break it down into assembly. "
+  },
+  {
+    "start": 5931.826,
+    "end": 5961.542,
+    "speaker": "SPEAKER_00",
+    "text": "Maybe that will be easier. Maybe I can... Which one can I turn off? Oh, not this one. That's the wrong one. So let's see. What we're doing here, and I'm going to just put the body of the loop. Load R1, what is this for? "
+  },
+  {
+    "start": 5981.554,
+    "end": 6002.921,
+    "speaker": "SPEAKER_00",
+    "text": "Let's say that this is starting to R2, the result of CASP. And we say, well, we need both. OK, let me put it more abstractly because it's easier to write. Let's say r1 is load full. "
+  },
+  {
+    "start": 6013.178,
+    "end": 6050.22,
+    "speaker": "SPEAKER_00",
+    "text": "R2 is R1 plus 1. And then R3 is CAS of R1, which is the original value. Sorry, it would be full, which is the address. R1, which is the original value, and R2, which is the new value. And then we loop based on R3. Not R3. "
+  },
+  {
+    "start": 6052.281,
+    "end": 6084.279,
+    "speaker": "SPEAKER_00",
+    "text": "Yes? The only atomic instruction that is a complex instruction that is executed atomically is CAS. We load this from memory. We increment the register and store it in a new register. Somebody could modify this in between. I have no warranty of that, of whether it will happen or not. That's why compare and swap. compares this with this, which we loaded here, it should be the same. If it's the same, I store the new value. "
+  },
+  {
+    "start": 6086.48,
+    "end": 6100.95,
+    "speaker": "SPEAKER_00",
+    "text": "If it's not the same, I don't store it. And I tell you whether I did or did not store it in the R3 result. Yes? Yeah. "
+  },
+  {
+    "start": 6131.381,
+    "end": 6147.169,
+    "speaker": "SPEAKER_00",
+    "text": "Yes, but it may read this previous value or the new value, depending on the ordering. That is fine. Yeah. What is the incorrectness? "
+  },
+  {
+    "start": 6157.616,
+    "end": 6189.454,
+    "speaker": "SPEAKER_00",
+    "text": "Yes, and that's why it's hard to program concurrent code, because we have to make sure that our accesses are atomic. Yeah, but this load access, it's OK. It will either read the old value or the new value. It cannot read something in between. There's no such thing. It either will read the old value, and then find out when it does a compare and swap, there's the new value in foo, and therefore foo is not the same as R1, and then compare and swap fails. "
+  },
+  {
+    "start": 6190.194,
+    "end": 6225.883,
+    "speaker": "SPEAKER_00",
+    "text": "That's correct. We are controlling for it. Any load operation in, according to the C standard, will either give you the old value or the new value. it cannot give you something in between both values. There's no such thing, that doesn't exist. What is the difference between a normal load and a load where? "
+  },
+  {
+    "start": 6234.147,
+    "end": 6264.393,
+    "speaker": "SPEAKER_00",
+    "text": "Um, these has to do with different things that have nothing to do with this, uh, ordering with this example of atomicity here. The difference when we are using atomic variables in C++ and we just load them, you would think, oh, that's just about why do I care? But, um, unless you're writing assembly, the compiler does all kinds of tricks on us, right, to optimize the code. It can reorder instructions in ways that are not sequential to the code you wrote, as long as it's safe to do so. "
+  },
+  {
+    "start": 6264.633,
+    "end": 6304.488,
+    "speaker": "SPEAKER_00",
+    "text": "It doesn't change the ordering, the semantics of it. But if the compiler does that, in cases where you have very strict, you know, Atomic warranties from atomic such as compare and swap operations. You have to be careful about that you cannot For example imagine that we have our zero and then we load it From variable bar, right? "
+  },
+  {
+    "start": 6306.95,
+    "end": 6340.797,
+    "speaker": "SPEAKER_00",
+    "text": "In this case the compiler, if those two things are not related to each other, the compiler could move it here, or the CPU could move it here, because they are non-dependent. In C++, and I will show you some examples later in the, I think that you're asking about something that we haven't talked about yet. But we will see later that C++ allows us to define some restrictions for cases where I know that this variable has to be read before I modify this one and we can express that in C++. "
+  },
+  {
+    "start": 6341.157,
+    "end": 6374.206,
+    "speaker": "SPEAKER_00",
+    "text": "Or otherwise we can express it in assembly by just writing the assembly in that way. But those are more advanced uses of atomic semantics in languages than the pure thing we are seeing here. In this case, this is a non-problem because we don't have this. These things have to be executed in strict order because there's a direct dependency between. This register can only be read before this one because there's a dependency here. "
+  },
+  {
+    "start": 6374.386,
+    "end": 6408.407,
+    "speaker": "SPEAKER_00",
+    "text": "I'll read off the right. This one, depends on both instructions because there's a read after write here. It's reading registers 1 and 2. So in that case, that is a non-issue. These three instructions will always be executed in this order. Any more questions about compare and swap? All right. "
+  },
+  {
+    "start": 6410.856,
+    "end": 6467.356,
+    "speaker": "SPEAKER_00",
+    "text": "Let me check the timing. So what does this look like in C++? Instead of using compare and swap and all of that, there are some data types that make it easier. The simplest and more versatile one is std atomic. It's just a data type in C++. You will see plenty of examples here. You just say std atomic of int, which means from now on, this is an integer atomic type, and there are some basic arithmetic operations that I can use such as increment that get automatically translated by C++ from this plus one or plus n into the appropriate compare and swap or equivalent calls, right? "
+  },
+  {
+    "start": 6467.536,
+    "end": 6507.519,
+    "speaker": "SPEAKER_00",
+    "text": "So this is just to make it easier for you to write atomic operations. There's a whole long bunch of operations. I mean, you can directly use compare and exchange, which is a compare and swap, or you can use this much easier to use data type. Most of the examples I'm going to show in terms of STD atomic, just because it's easier and shorter to write. So one example here, for example, is that this very silly piece of code. that uses an atomic integer for counting the number of beings in a room and the number of legs inside that room. "
+  },
+  {
+    "start": 6507.839,
+    "end": 6538.632,
+    "speaker": "SPEAKER_00",
+    "text": "So when some entity enters the room, an entity with n legs, we increment beings by one and the number of legs in the room by the number of legs of that being. And then we also have another function for exiting the room, which does the same. Reduce the number of legs and reduce by one the number of things in the room. So let's, same thing exists for C, don't worry about it. You can look into it if you are interested in C11 or later. "
+  },
+  {
+    "start": 6539.372,
+    "end": 6571.25,
+    "speaker": "SPEAKER_00",
+    "text": "There's these functions that allow you to do atomic operations, similar to C++, just different names because it's C. But the main advantage is that you no longer have to write assembly code, which is what used to happen in the past before atomic operations were standardized in the language. So here's a very simple example of the atomic operations. Essentially, if I'm not mistaken, yeah. "
+  },
+  {
+    "start": 6571.39,
+    "end": 6602.872,
+    "speaker": "SPEAKER_00",
+    "text": "I mean, this is very simple. We have the same example as before. Instead of having an integer a that we increment non-atomically, we just replace this counter of iterations with std atomic, and now it's correct. That's all it takes, right? Because C++ defines all these various increment operators for STD atomic. If you look back at the documentation, you will see that it has plus plus, plus equals, and all this kind of stuff. "
+  },
+  {
+    "start": 6607.014,
+    "end": 6660.475,
+    "speaker": "SPEAKER_00",
+    "text": "Any questions? All right. OK. So let's make it a little bit more complicated. Let's look at what happens. Yeah. What do you mean by a normal synchronized log? Like a synchronized log. We are going to talk about that now, what the differences are. I think you are referring to critical sections in this case. So the whole idea is, let's assume that we have these atomic operations, like for the enter room function that I showed earlier. We use atomic counters for counting the number of beings and the number of legs. And then we have another function that says how many beings and legs are in the room, right? "
+  },
+  {
+    "start": 6662.034,
+    "end": 6698.208,
+    "speaker": "SPEAKER_00",
+    "text": "And here, let's assume that in time zero, a dog enters the room with four legs. Then in time one, an octopus enters the room with eight legs. And then later in time two, we check what's inside the room. It tells us there's two beings in the room, and there's 12 legs total inside that room. Now remember, once we have concurrency, and parallelism can be one way we can see that, but just concurrency based on scheduling will be the same, the state can be incorrect. "
+  },
+  {
+    "start": 6698.248,
+    "end": 6740.909,
+    "speaker": "SPEAKER_00",
+    "text": "Even though we are using atomic operations, the state can be incorrect in intermediate points. So imagine all these various time steps, right? Time 0, 1, 2, 3, and 4 for all these various time steps. So initially we start with being 0 and like 0 then thread 0 has the dog enter So it increments beings by 1 at this point. We have one being and 0 legs So we have one goal ghost in the room if we ever checked we haven't we are not checking but if we did that would be it then imagine that thread 1 as we said in time 1 so 0 and well, this is time 0, and this is time 1. "
+  },
+  {
+    "start": 6741.249,
+    "end": 6771.975,
+    "speaker": "SPEAKER_00",
+    "text": "We have now an octopus entering the room. So increment beings by 1. So now if we ever check the room state, it would be two ghosts inside the room. one tick later, then thread zero finally does the lag increment. So at this point, we have two beings and four lags, so we could maybe say it's two humans, and only one tick later, thread one increments lags by eight, and therefore we say, oh, it's two beings, 12 lags, that's the dog and the octopus that we originally wanted. "
+  },
+  {
+    "start": 6772.376,
+    "end": 6803.034,
+    "speaker": "SPEAKER_00",
+    "text": "So between here and here, sorry, if we go from here to here, it's correct. After these atomic operations, we are solving the atomic problems of the increments separately. But if we check the room state anywhere in between, the state is incorrect. So atomics are necessary, but they are definitely not sufficient. Any questions? Everyone, this is the example. "
+  },
+  {
+    "start": 6803.314,
+    "end": 6836.095,
+    "speaker": "SPEAKER_00",
+    "text": "So the whole idea is we need to, clearly identify this area. We essentially need to do these two things atomically. If somebody could ever check the room state in between me doing these two atomic increments, then I need to do the whole thing atomically. That's what a critical section is. Critical section means it's not only the one increment instruction that I do atomically, it's the whole big arbitrary sequence of operations that I need to do atomically. "
+  },
+  {
+    "start": 6838.135,
+    "end": 6870.97,
+    "speaker": "SPEAKER_00",
+    "text": "And here, hardware has a harder time helping us. Here, we have to do a lot more manual work. So essentially, we can use the same atomic operation we had. Let me check the time. compare and swap to instead of atomically incrementing those counters, atomically say one thread is inside the critical section, nobody else can enter or delineate when somebody exits. "
+  },
+  {
+    "start": 6871.03,
+    "end": 6902.445,
+    "speaker": "SPEAKER_00",
+    "text": "So the whole idea is only one thread can be inside this function at a time. We can use compare and swap to implement that, which we're going to show now. So the whole idea is, we need some new function that says, oh, when I enter the room, I enter the critical section one, which shows this. And then I do all of these things atomically. And then I say, now I exit critical section one. when somebody wants to check the room. "
+  },
+  {
+    "start": 6903.066,
+    "end": 6941.031,
+    "speaker": "SPEAKER_00",
+    "text": "So increments can only happen, only one thread can be doing the increments but also we need to put this on reading the room state so that only one thread can either be doing the increments or reading the values because otherwise we would allow somebody to read the room state in between the increments and we want to avoid that. So the whole idea is that once we add that any time that we can read, which is shown in red, that whatever we read is correct according to the original application. "
+  },
+  {
+    "start": 6943.011,
+    "end": 6976.825,
+    "speaker": "SPEAKER_00",
+    "text": "How we implement that, it's an example we're gonna see in a tutorial, but the whole idea is we just have an atomic operation that tells us is somebody inside or not. And I think, okay, let's, Let me see if I can sneak in a couple more. Yeah. So threads not only need to synchronize for atomic increments and sites, they also need to synchronize for critical sections. "
+  },
+  {
+    "start": 6977.305,
+    "end": 7018.813,
+    "speaker": "SPEAKER_00",
+    "text": "That's the whole point, right? So without it, without using some form of atomic synchronization for critical sections, we would have problems with concurrency because threads can be rescheduled at any time, and we would also have problems with parallelism as we saw in the example, because two threads can enter the same critical section. The way that this works, there's many primitives that You should, all of you should have seen already from perhaps operating systems or some equivalent course if you did study somewhere else. "
+  },
+  {
+    "start": 7019.654,
+    "end": 7055.702,
+    "speaker": "SPEAKER_00",
+    "text": "If you don't know about them, you can check the documentation that I linked earlier for C++ that tells you what is the, what are the semantics for each one of these. But it's like mutexes, semaphores, all of these things that you already know about. One interesting one that we will make a bit of use of is the shared logs. But the whole idea is exactly this. We can use these primitives to implement this enter critical section. And I think that the next bit, yeah, it gets a bit too detailed. "
+  },
+  {
+    "start": 7055.762,
+    "end": 7060.983,
+    "speaker": "SPEAKER_00",
+    "text": "So I think this is a good point to stop. And then we will continue on Friday. "
+  }
+]

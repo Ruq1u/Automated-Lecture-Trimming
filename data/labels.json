@@ -1,0 +1,815 @@
+[
+  {
+    "audio_path": "50010/2025-05-27.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 4,
+        "end": 2982,
+        "label": 1
+      },
+      {
+        "start": 3545,
+        "end": 6392,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "50010/2025-05-28.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 2,
+        "end": 3209,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "50009/2025-03-07.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 53,
+        "end": 3529,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "50009/2025-03-12.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 5,
+        "end": 3332,
+        "label": 1
+      },
+      {
+        "start": 3890,
+        "end": 6404,
+        "label": 1
+      },
+      {
+        "start": 6452,
+        "end": 6502,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60034/2026-02-20.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 226,
+        "end": 378,
+        "label": 1
+      },
+      {
+        "start": 447,
+        "end": 3716,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60006/2026-02-20.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 68,
+        "end": 3640,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60006/2026-02-17.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 35,
+        "end": 3204,
+        "label": 1
+      },
+      {
+        "start": 3790,
+        "end": 6546,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60006/2026-02-06.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 69,
+        "end": 4309,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60023/2025-10-21.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 8,
+        "end": 105,
+        "label": 1
+      },
+      {
+        "start": 346,
+        "end": 464,
+        "label": 1
+      },
+      {
+        "start": 628,
+        "end": 927,
+        "label": 1
+      },
+      {
+        "start": 1114,
+        "end": 3277,
+        "label": 1
+      },
+      {
+        "start": 3938,
+        "end": 3953,
+        "label": 1
+      },
+      {
+        "start": 4216,
+        "end": 6587,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60023/2025-11-18.wav",
+    "labels": [],
+    "segments": [],
+    "meta": {}
+  },
+  {
+    "audio_path": "60023/2025-11-11.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 938,
+        "end": 1114,
+        "label": 1
+      },
+      {
+        "start": 1473,
+        "end": 3577,
+        "label": 1
+      },
+      {
+        "start": 4561,
+        "end": 5965,
+        "label": 1
+      },
+      {
+        "start": 6084,
+        "end": 6124,
+        "label": 1
+      },
+      {
+        "start": 6173,
+        "end": 6494,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60023/2025-10-07.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 36,
+        "end": 3750,
+        "label": 1
+      },
+      {
+        "start": 4486,
+        "end": 6684,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60023/2025-10-10.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 187,
+        "end": 384,
+        "label": 1
+      },
+      {
+        "start": 502,
+        "end": 1372,
+        "label": 1
+      },
+      {
+        "start": 1650,
+        "end": 3288,
+        "label": 1
+      },
+      {
+        "start": 3814,
+        "end": 6613,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60029/2025-11-17.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 117,
+        "end": 3180,
+        "label": 1
+      },
+      {
+        "start": 3839,
+        "end": 4471,
+        "label": 1
+      },
+      {
+        "start": 4591,
+        "end": 5807,
+        "label": 1
+      },
+      {
+        "start": 6305,
+        "end": 6828,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60029/2025-10-13.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 59,
+        "end": 3290,
+        "label": 1
+      },
+      {
+        "start": 3963,
+        "end": 4570,
+        "label": 1
+      },
+      {
+        "start": 4648,
+        "end": 4724,
+        "label": 1
+      },
+      {
+        "start": 4864,
+        "end": 5568,
+        "label": 1
+      },
+      {
+        "start": 5782,
+        "end": 5934,
+        "label": 1
+      },
+      {
+        "start": 6047,
+        "end": 6156,
+        "label": 1
+      },
+      {
+        "start": 6420,
+        "end": 6803,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60029/2025-10-27.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 12,
+        "end": 3277,
+        "label": 1
+      },
+      {
+        "start": 3855,
+        "end": 5553,
+        "label": 1
+      },
+      {
+        "start": 6298,
+        "end": 6795,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60037/2025-11-14.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 284,
+        "end": 3897,
+        "label": 1
+      },
+      {
+        "start": 4816,
+        "end": 6028,
+        "label": 1
+      },
+      {
+        "start": 6729,
+        "end": 7056,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60037/2025-10-17.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 139,
+        "end": 3920,
+        "label": 1
+      },
+      {
+        "start": 4265,
+        "end": 4306,
+        "label": 1
+      },
+      {
+        "start": 4364,
+        "end": 5964,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60037/2025-11-11.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 146,
+        "end": 3982,
+        "label": 1
+      },
+      {
+        "start": 5104,
+        "end": 5275,
+        "label": 1
+      },
+      {
+        "start": 5470,
+        "end": 6149,
+        "label": 1
+      },
+      {
+        "start": 6394,
+        "end": 7199,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60035/2026-01-15.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 185,
+        "end": 3195,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60035/2026-02-10.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 135,
+        "end": 2887,
+        "label": 1
+      },
+      {
+        "start": 3770,
+        "end": 5529,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60035/2026-01-13.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 378,
+        "end": 2642,
+        "label": 1
+      },
+      {
+        "start": 3180,
+        "end": 6255,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60007/2025-10-07.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 81,
+        "end": 3469,
+        "label": 1
+      },
+      {
+        "start": 4022,
+        "end": 6146,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60007/2025-11-04.wav",
+    "labels": [],
+    "segments": [],
+    "meta": {}
+  },
+  {
+    "audio_path": "60007/2025-10-17.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 1,
+        "end": 145,
+        "label": 1
+      },
+      {
+        "start": 215,
+        "end": 849,
+        "label": 1
+      },
+      {
+        "start": 982,
+        "end": 2004,
+        "label": 1
+      },
+      {
+        "start": 2038,
+        "end": 2938,
+        "label": 1
+      },
+      {
+        "start": 3575,
+        "end": 6713,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60007/2025-10-10.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 0,
+        "end": 3348,
+        "label": 1
+      },
+      {
+        "start": 3917,
+        "end": 6534,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60007/2025-11-07.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 95,
+        "end": 3329,
+        "label": 1
+      },
+      {
+        "start": 3901,
+        "end": 6644,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60007/2025-11-11.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 50,
+        "end": 3067,
+        "label": 1
+      },
+      {
+        "start": 3648,
+        "end": 6768,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60013/2026-02-16.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 124,
+        "end": 3720,
+        "label": 1
+      },
+      {
+        "start": 4136,
+        "end": 7199,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60013/2026-02-19.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 263,
+        "end": 964,
+        "label": 1
+      },
+      {
+        "start": 1020,
+        "end": 5920,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60013/2026-03-02.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 215,
+        "end": 2713,
+        "label": 1
+      },
+      {
+        "start": 2821,
+        "end": 2979,
+        "label": 1
+      },
+      {
+        "start": 3070,
+        "end": 5392,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60013/2026-02-02.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 61,
+        "end": 3915,
+        "label": 1
+      },
+      {
+        "start": 4673,
+        "end": 4768,
+        "label": 1
+      },
+      {
+        "start": 6016,
+        "end": 7140,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "50006/2025-03-06.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 294,
+        "end": 4113,
+        "label": 1
+      },
+      {
+        "start": 4630,
+        "end": 7034,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "50006/2025-03-13.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 510,
+        "end": 2772,
+        "label": 1
+      },
+      {
+        "start": 2837,
+        "end": 3646,
+        "label": 1
+      },
+      {
+        "start": 3701,
+        "end": 6997,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60017/2026-01-19.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 222,
+        "end": 3608,
+        "label": 1
+      },
+      {
+        "start": 4206,
+        "end": 5850,
+        "label": 1
+      },
+      {
+        "start": 5952,
+        "end": 5966,
+        "label": 1
+      },
+      {
+        "start": 6224,
+        "end": 6274,
+        "label": 1
+      },
+      {
+        "start": 6575,
+        "end": 6797,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60017/2026-01-26.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 152,
+        "end": 3202,
+        "label": 1
+      },
+      {
+        "start": 3789,
+        "end": 6524,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60017/2026-02-09.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 548,
+        "end": 3609,
+        "label": 1
+      },
+      {
+        "start": 4431,
+        "end": 7062,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60017/2026-02-13.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 446,
+        "end": 6488,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60017/2026-02-16.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 251,
+        "end": 2293,
+        "label": 1
+      },
+      {
+        "start": 2362,
+        "end": 2370,
+        "label": 1
+      },
+      {
+        "start": 2539,
+        "end": 2613,
+        "label": 1
+      },
+      {
+        "start": 2836,
+        "end": 2944,
+        "label": 1
+      },
+      {
+        "start": 3078,
+        "end": 3414,
+        "label": 1
+      },
+      {
+        "start": 3986,
+        "end": 4040,
+        "label": 1
+      },
+      {
+        "start": 4106,
+        "end": 5909,
+        "label": 1
+      },
+      {
+        "start": 5983,
+        "end": 7172,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "audio_path": "60017/2026-02-23.wav",
+    "labels": [],
+    "segments": [
+      {
+        "start": 516,
+        "end": 3366,
+        "label": 1
+      },
+      {
+        "start": 3917,
+        "end": 7199,
+        "label": 1
+      }
+    ],
+    "meta": {}
+  }
+]

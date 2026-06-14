@@ -1,0 +1,974 @@
+[
+  {
+    "start": 0.412,
+    "end": 70.957,
+    "speaker": "SPEAKER_02",
+    "text": "You basically read the first node into the cache, it's not there, that's one miss. Then you go to the next one, it's also a miss, right? And then you go to the third level. It's just the misses here are the same number as your levels. That makes sense. Yes. How do you know what to do pre-order, in-fix order, post-order? When you search the tree, how do you know to count how many cash misses? How do you know that you have to go to this one first, the right first? What do you mean? You know how you can search a tree pre-order, post-order? Yeah, yeah, yeah. How do you know which one to use here? How do you know? But you're going to visit the same number of levels every time. Those are the number of misses, right? It doesn't matter in which order you're searching. What counts as a miss, then, to each of these nodes? Yeah, exactly. One, two, and three. Why does that one count as a miss? That's the one that we want. Because it's not in the cache, right? It's not in the cache, right? The cache is called, but it's not in the cache. So that's why it's really... The most people... "
+  },
+  {
+    "start": 187.379,
+    "end": 198.906,
+    "speaker": "SPEAKER_03",
+    "text": "Okie dokie, last lecture of the week. We ended by looking at this term that could repeat doing a function many times. "
+  },
+  {
+    "start": 200.086,
+    "end": 207.09,
+    "speaker": "SPEAKER_01",
+    "text": "And it looked something like this. "
+  },
+  {
+    "start": 225.362,
+    "end": 258.279,
+    "speaker": "SPEAKER_03",
+    "text": "Okay, and that was like the looping term except we add an f in here each time. Now the fun thing about this is this in a few steps or in one step will run to f of, if I call this y of f, and this runs to f of yf And then in another step, it runs to f of f of yf. "
+  },
+  {
+    "start": 258.859,
+    "end": 287.709,
+    "speaker": "SPEAKER_03",
+    "text": "So the main thing is after n many reductions, it will reduce to f of n many times applied to the same thing. And then I forget who it was last week, but they figured out that you can The F here, we'd never use the definition of it, so we can just abstract over it with Lambda abstraction. So we can write a more general version of Y, which looks like this. "
+  },
+  {
+    "start": 304.473,
+    "end": 346.98,
+    "speaker": "SPEAKER_03",
+    "text": "Hello. Um, and then just from before we can see that y of f equals yf above. Uh, the cool thing now is that we have this generic combinator that seems to be able to take a function and apply it infinitely many times to something. Uh, What we can see here is that y of f then plugging y into above instead of yf is going to be beta equal to f of yf. "
+  },
+  {
+    "start": 348.44,
+    "end": 381.664,
+    "speaker": "SPEAKER_03",
+    "text": "Are we all convinced by that or do you want me to write out the reduction? It doesn't directly reduce. You have to do one expansion step. Sorry? Yeah, sure thing. Okay. Prove this. All right. That's why. Prove that. Take a couple minutes. "
+  },
+  {
+    "start": 490.923,
+    "end": 504.707,
+    "speaker": "SPEAKER_00",
+    "text": "Yeah. I'm not sure why it's called y. "
+  },
+  {
+    "start": 507.467,
+    "end": 511.148,
+    "speaker": "SPEAKER_03",
+    "text": "often they stand for something in German, combinators. "
+  },
+  {
+    "start": 527.574,
+    "end": 574.849,
+    "speaker": "SPEAKER_03",
+    "text": "Okay, let's quickly write out why these two are beta equal. Y of F equals this thing. so I'm going to be lazy and just write that because I've written it over there and that we saw reduces to f of y of f and then it reduces and it expands to f of y of f because y is a lambda abstraction over f then Y of F reduces Y of F, and then we write the arrow in the other direction, meaning it expands in this direction. "
+  },
+  {
+    "start": 575.249,
+    "end": 628.193,
+    "speaker": "SPEAKER_03",
+    "text": "Then we prove the two are equal because we can find a way to reduce to it, to a common term. Y then, this phenomenon in maths is called a fixed point. so if you have a function f from some set a to a that isn't affected by The name fixed point comes from the fact that x is fixed or it doesn't change when you apply f to it. "
+  },
+  {
+    "start": 630.234,
+    "end": 666.214,
+    "speaker": "SPEAKER_03",
+    "text": "Now, in our lambda calculus, obviously these aren't equal, but they're beta equals a fixed point. In lambda calculus of a function or term m is a term n such that n applied to n is beta equal to n. "
+  },
+  {
+    "start": 668.015,
+    "end": 678.982,
+    "speaker": "SPEAKER_03",
+    "text": "This sign here, we see that it's flipped around, right? We start with the point and we end with f applied to that point. Here, we've started off with the term and then said that it's equal to the point. "
+  },
+  {
+    "start": 690.072,
+    "end": 755.446,
+    "speaker": "SPEAKER_03",
+    "text": "Okay, so the strange thing about lambda calculus is, or rather in maths, I could have a function f from, say, the naturals, f of n to n, such that f of n equals n plus one. This is all in mathematics notation. f has no fixed points, right? Because any point n here is going to be plus one. Whereas this term y is telling us that for any function f, we can find a fixed point of it. And y is the thing that could find that fixed point. So we call y a fixed point, constructor, because it constructs a fixed point of a function, or a fixed point combinator. "
+  },
+  {
+    "start": 761.148,
+    "end": 791.264,
+    "speaker": "SPEAKER_03",
+    "text": "So in general, a fixed point constructor, let's call it M, is a term such that for any n, m of n equals n of m of n. "
+  },
+  {
+    "start": 793.125,
+    "end": 824.282,
+    "speaker": "SPEAKER_03",
+    "text": "So this just means m is something that you give it a function, it will find you a fixed point of it. And flip it around if you find that more intuitive. Without going into too much detail, this means the semantics of the lambda calculus is quite delicate, because you can't just let your semantics be sets, because there are functions that don't have fixed points, so they won't be definable with lambda calculus. Is anyone here a JMC student? "
+  },
+  {
+    "start": 825.742,
+    "end": 861.116,
+    "speaker": "SPEAKER_03",
+    "text": "Yeah, if you know anything about topology or something, you might know that there's all continuous functions have a fixed point. So you can start to look into topology to find a nice semantics for lambda calculus. Now, why do we care about these things? Because it just seems like a little fun exercise of a term that reduces to an application The idea is we can implement recursion with fixed points. "
+  },
+  {
+    "start": 868.597,
+    "end": 907.174,
+    "speaker": "SPEAKER_03",
+    "text": "Now, it's a bit delicate, but the idea I want us to have in mind is I'm gonna define some syntactic sugar. which is gonna be let rec F equals M in N. This is gonna be syntactic sugar for defining a recursive definition F in terms of M and F may appear in M and then using that in N. "
+  },
+  {
+    "start": 907.434,
+    "end": 939.7,
+    "speaker": "SPEAKER_03",
+    "text": "And this is gonna be equal to Lambda F dot N, fix of lambda f dot m. Check I got that right. Yes, sorry, I wrote fix there. I should write y. Now, why is this recursion? "
+  },
+  {
+    "start": 941.821,
+    "end": 973.573,
+    "speaker": "SPEAKER_03",
+    "text": "First of all, we're punning the name f here. That's just so that we can literally use the same name for f in the recursive definition of m. And the idea is that m, its definition will use recursive occurrences of f. And that's just going to be here. And then yf turns this into some recursive function that n can then use. In my opinion, these are best done by working out some examples. "
+  },
+  {
+    "start": 976.22,
+    "end": 1006.988,
+    "speaker": "SPEAKER_03",
+    "text": "and to avoid spending too much time, I'm going to give us some new terms. So I'm gonna write this to mean we're expanding the syntax of Lambda terms. and it includes the dot, dot, dot here means it includes all the previous things. So we have variables, functions and application. Now we also have, let's call it zero. "
+  },
+  {
+    "start": 1008.449,
+    "end": 1042.313,
+    "speaker": "SPEAKER_03",
+    "text": "And we also have SUC for successor of a term. Let's write it like that. And we also have case M of, The best way to write this is n and x dot n s. "
+  },
+  {
+    "start": 1042.753,
+    "end": 1109.795,
+    "speaker": "SPEAKER_03",
+    "text": "So this lets us do case splitting on numbers. And this is the zero case, so if you just have a zero, you can just put a term in. If you have a successor, so a number that's non-zero, then case of suck of m of n0 or x dot ns will reduce to So what the second case does is X lets us capture the thing that is being successed and then we just plug that into N of S. "
+  },
+  {
+    "start": 1112.457,
+    "end": 1149.53,
+    "speaker": "SPEAKER_03",
+    "text": "Now with this notion of numbers, we want to implement addition. So we want to write a term, add of N M that is going to somehow give us N plus M. And now what I want you guys to do is write it in this form. Something, and then let's just say we're adding five and three. "
+  },
+  {
+    "start": 1150.09,
+    "end": 1158.592,
+    "speaker": "SPEAKER_03",
+    "text": "You don't have to write out that. Okay, can you give a definition for question mark? Take a few minutes and try and write one down. Hello. "
+  },
+  {
+    "start": 1158.632,
+    "end": 1167.455,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah. An extension or another calculus. "
+  },
+  {
+    "start": 1180.109,
+    "end": 1189.012,
+    "speaker": "SPEAKER_03",
+    "text": "Okay. The intention is to extend this. "
+  },
+  {
+    "start": 1204.398,
+    "end": 1209.36,
+    "speaker": "SPEAKER_03",
+    "text": "Is it conservative? Probably because you can do church encodings. "
+  },
+  {
+    "start": 1212.461,
+    "end": 1216.743,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah, I just didn't want to go into church encodings. "
+  },
+  {
+    "start": 1251.121,
+    "end": 1258.587,
+    "speaker": "SPEAKER_03",
+    "text": "Yeah, if you want me to be explicit, then this reduction rule can obviously occur anywhere in a term. And then say... "
+  },
+  {
+    "start": 1258.607,
+    "end": 1260.109,
+    "speaker": "SPEAKER_01",
+    "text": "We had... "
+  },
+  {
+    "start": 1272.299,
+    "end": 1290.152,
+    "speaker": "SPEAKER_01",
+    "text": "That can also occur. reduces like this, and we also say case of M reduces like that. Hey. Yeah, sure. "
+  },
+  {
+    "start": 1290.732,
+    "end": 1323.968,
+    "speaker": "SPEAKER_03",
+    "text": "Um, so in Haskell, maybe that would help as this would look like case, uh, M of 0, 0, and then, suck of x goes to ns. So the idea of case expression is pattern matching on a term. And we're asking is it, is it weird just for now because it's untyped assuming it's a number. "
+  },
+  {
+    "start": 1324.708,
+    "end": 1371.687,
+    "speaker": "SPEAKER_03",
+    "text": "We're saying is m a zero or is m a successor? If m is a zero, then we run n zero. If m is a non-zero number, so a successor of something else, then we plug that something else into X and then run NS. So lambda calculus is true and complete and you could define this stuff in the lambda calculus. The problem is that would take an extra half an hour because there's no need apart from getting through how to work with recursion with fixed points faster. "
+  },
+  {
+    "start": 1416.785,
+    "end": 1418.381,
+    "speaker": "SPEAKER_03",
+    "text": "Everyone have a definition now? "
+  },
+  {
+    "start": 1463.859,
+    "end": 1465.8,
+    "speaker": "SPEAKER_01",
+    "text": "Someone tell me what they've got down before. "
+  },
+  {
+    "start": 1466.52,
+    "end": 1492.67,
+    "speaker": "SPEAKER_03",
+    "text": "The definition of add? Yeah. So give a couple more minutes. Yes. Yes. "
+  },
+  {
+    "start": 1650.48,
+    "end": 1653.682,
+    "speaker": "SPEAKER_03",
+    "text": "So that's what is syntactic sugar for this. "
+  },
+  {
+    "start": 1660.345,
+    "end": 1671.09,
+    "speaker": "SPEAKER_01",
+    "text": "I'm very confused, but if f can reference itself in its definition, do we need that syntactic sugar? "
+  },
+  {
+    "start": 1672.39,
+    "end": 1679.714,
+    "speaker": "SPEAKER_00",
+    "text": "Because the f is from the lambda. If you don't have that syntactic sugar, you cannot reference it. So that's... "
+  },
+  {
+    "start": 1683.068,
+    "end": 1716.879,
+    "speaker": "SPEAKER_03",
+    "text": "Yeah, so this is alpha equal to, the reason that I was reusing the symbol f here is so that you know So all the uses of f in n are gonna be the same f as all the uses of f in n. "
+  },
+  {
+    "start": 1725.001,
+    "end": 1732.783,
+    "speaker": "SPEAKER_03",
+    "text": "Yeah, and that's the goal is that we don't actually have recursion in the lambda calculus, but we can emulate it by using this fixed point combinator. "
+  },
+  {
+    "start": 1740.092,
+    "end": 1743.655,
+    "speaker": "SPEAKER_00",
+    "text": "I think I understand what you mean, right? Yeah. "
+  },
+  {
+    "start": 1768.932,
+    "end": 1774.874,
+    "speaker": "SPEAKER_03",
+    "text": "You know, we're using one F here over both of them, but they can be two different Fs. "
+  },
+  {
+    "start": 1785.857,
+    "end": 1807.878,
+    "speaker": "SPEAKER_03",
+    "text": "Anyone want to have a guess of what question mark is? Basically, yeah. Do you want to tell me? Yep. Where does y come from? "
+  },
+  {
+    "start": 1858.215,
+    "end": 1892.042,
+    "speaker": "SPEAKER_03",
+    "text": "Yup, thank you. Perfect. So how do you do addition? of x and y, where you look at y, if y is zero, then x plus y is just x. If y is non-zero, then we take the thing that's in there, so y is one plus y prime, and we get y prime, and we add x and y prime, and then we add the end, remember y prime was one less than y, so we just do the successor at the end. "
+  },
+  {
+    "start": 1902.826,
+    "end": 1906.087,
+    "speaker": "SPEAKER_02",
+    "text": "That's this reduction step here. Yeah. "
+  },
+  {
+    "start": 1931.273,
+    "end": 1935.894,
+    "speaker": "SPEAKER_03",
+    "text": "Yeah. "
+  },
+  {
+    "start": 1948.437,
+    "end": 2052.679,
+    "speaker": "SPEAKER_03",
+    "text": "No, because you write the variable and then the case, which is another term. That's the variable we're binding. Y prime is bound here. By the syntax, x is bound over ns here. Yeah, I mean if you, we can write x.n here as being like that That's happening here, right? "
+  },
+  {
+    "start": 2053.3,
+    "end": 2058.565,
+    "speaker": "SPEAKER_03",
+    "text": "Is that once you k-split on something and it is a successor, m is linked with x. "
+  },
+  {
+    "start": 2061.183,
+    "end": 2089.028,
+    "speaker": "SPEAKER_02",
+    "text": "I accept that. You don't even have to do that then. I accept that that gives you the thing that is, that you're successful at home. But I don't see that you're right down there at the right time. If this is just me and everybody's happy about that, then I'll shut up. "
+  },
+  {
+    "start": 2093.769,
+    "end": 2123.098,
+    "speaker": "SPEAKER_01",
+    "text": "I mean, who's confused because then I'll happily go for it. Hands up, who's confused? Can we think of the case and all the zero cases? Syntactically, you're defining that found x to such that successor of x is m. "
+  },
+  {
+    "start": 2124.856,
+    "end": 2161.303,
+    "speaker": "SPEAKER_03",
+    "text": "Yes, yeah, that's perfectly it. So in this, if you were to, case suck m, of n zero and x dot. "
+  },
+  {
+    "start": 2177.891,
+    "end": 2183.734,
+    "speaker": "SPEAKER_03",
+    "text": "What about in the zero case? In the zero case, well it will reduce to n zero. "
+  },
+  {
+    "start": 2220.61,
+    "end": 2252.733,
+    "speaker": "SPEAKER_03",
+    "text": "Yeah, that's just habit, so you can. Yeah. I mean, for now, you can just think, yeah, it's a Lambda abstraction. "
+  },
+  {
+    "start": 2252.833,
+    "end": 2262.717,
+    "speaker": "SPEAKER_03",
+    "text": "So you could think of this as just a function Lambda . Yeah, but then you just one-step that. "
+  },
+  {
+    "start": 2285.985,
+    "end": 2296.675,
+    "speaker": "SPEAKER_02",
+    "text": "Okay. Good. So now we'll go back to that step that I said the additions of the y prime don't show. "
+  },
+  {
+    "start": 2307.906,
+    "end": 2345.408,
+    "speaker": "SPEAKER_03",
+    "text": "Okay. The, So, I mean, the point of this was to try and get across that you can emulate recursion in the Lambda calculus. And whenever I work with fixed point analysis, I always in my head have this in mind because I would find this a very odd way of writing recursion, even if you use the same name. "
+  },
+  {
+    "start": 2347.75,
+    "end": 2356.618,
+    "speaker": "SPEAKER_03",
+    "text": "So I always first tend to start off with a recursive definition, and then you abstract over the recursion. So how about I write that out? "
+  },
+  {
+    "start": 2375.888,
+    "end": 2412.439,
+    "speaker": "SPEAKER_03",
+    "text": "So if you have a recursive definition of F equals M, where F appears in M, then what does this tell us to do? Well, we start off with add. and then we abstract over it. So this is equivalent to doing lambda f dot m, because then f is bound over m. "
+  },
+  {
+    "start": 2413.46,
+    "end": 2441.975,
+    "speaker": "SPEAKER_03",
+    "text": "And then we just take the fixed point of it. Then we can, if you will, write f equals that thing. So wherever you've written a recursive definition, you can make it a non-recursive definition by using the Y-combinator or a fixed-point combinator. "
+  },
+  {
+    "start": 2459.923,
+    "end": 2466.217,
+    "speaker": "SPEAKER_01",
+    "text": "So if you write M, Now you can set it there. "
+  },
+  {
+    "start": 2501.104,
+    "end": 2509.609,
+    "speaker": "SPEAKER_03",
+    "text": "It wouldn't be brackets. "
+  },
+  {
+    "start": 2512.33,
+    "end": 2524.076,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah, but they wouldn't be, because I feel like you want me to write that. "
+  },
+  {
+    "start": 2542.385,
+    "end": 2565.957,
+    "speaker": "SPEAKER_02",
+    "text": "Okay, so now my recursive F is a term applied to F. So this is an example of the fixed point equation. F is the term applied to F. So F is the fixed point equation. Yeah, and then you can do the delta, delta, which is back to F. "
+  },
+  {
+    "start": 2579.856,
+    "end": 2619.779,
+    "speaker": "SPEAKER_02",
+    "text": "Well, we'll know later. You don't have to hurt me. I'm gonna say the first thing. You know, you don't use that stuff. Good, so after the fixed point of while. I don't wanna see. So this matches the fixed point. So small f is the fixed point of alpha x. "
+  },
+  {
+    "start": 2640.9,
+    "end": 2697.501,
+    "speaker": "SPEAKER_03",
+    "text": "Yeah, so the only thing Again, the point of this is showing you can emulate recursion in Lambda calculus, but it's not actually recursive in the Lambda calculus. "
+  },
+  {
+    "start": 2698.101,
+    "end": 2759.119,
+    "speaker": "SPEAKER_03",
+    "text": "But from our point of view, we can use syntactic sugar to make it look like recursion. I'll point out now that I think I've rubbed it off. Y is an example of a fixed combinator. There are many fixed point combinators. And any fixed point combinator is something satisfying the equation. Let's say, fix So whatever you want for your fixed point combinator, which you substitute for fix, needs to satisfy this equation for any f. "
+  },
+  {
+    "start": 2763.32,
+    "end": 2822.471,
+    "speaker": "SPEAKER_03",
+    "text": "We've got five minutes. We want to move on to types. I think first we need to go over So does everyone remember the term omega from last time? "
+  },
+  {
+    "start": 2824.412,
+    "end": 2825.972,
+    "speaker": "SPEAKER_03",
+    "text": "It's this one that loops forever. "
+  },
+  {
+    "start": 2839.558,
+    "end": 2873.095,
+    "speaker": "SPEAKER_03",
+    "text": "Now if we write a function, let's say, lambda a b dot b and apply it to omega. Now the first thing we can do is perform this redux which gives us lambda b dot b and then we're done because it's in normal form. But by the definition of beta reduction we can also reduce in here. "
+  },
+  {
+    "start": 2874.221,
+    "end": 2898.386,
+    "speaker": "SPEAKER_03",
+    "text": "So we could just as well write lambda A B dot B of. We can write this. And this reduces to itself. "
+  },
+  {
+    "start": 2910.41,
+    "end": 2919.116,
+    "speaker": "SPEAKER_01",
+    "text": "So this is by definition equal to lambda a dot b b of omega. And then we can keep doing this, right? As we can keep writing. "
+  },
+  {
+    "start": 2924.921,
+    "end": 2956.96,
+    "speaker": "SPEAKER_03",
+    "text": "So, beta reduction, you almost always have a choice of where you want to, which redex you want to pick. Do I pick this leftmost one or do I want to evaluate this before I try substituting it? And in general, picking a redex systematically is called a evaluation strategy. "
+  },
+  {
+    "start": 2960.277,
+    "end": 2999.178,
+    "speaker": "SPEAKER_03",
+    "text": "So the main thing is it's a deterministic way to perform reduction. What that means is that in beta reduction, I had a choice between this redex and this redex in an evaluation strategy, I always have to have picked one. So, a common strategy is call by value. "
+  },
+  {
+    "start": 3000.199,
+    "end": 3036.574,
+    "speaker": "SPEAKER_03",
+    "text": "Yeah, as in you would Well, it's more that it's deterministic, because you could have a really clapped evaluation strategy that does random things. So, call-by-value, which is what most programming languages are, it's similar to calling it strict evaluation. "
+  },
+  {
+    "start": 3037.374,
+    "end": 3079.274,
+    "speaker": "SPEAKER_03",
+    "text": "So, C is call-by-value, ML is call-by-value, Python is, basically everything is. The idea is evaluate before substitution. So this means that if we are faced with a term like this, sorry about the extra brackets, then we want to evaluate N, uh, before we substitute it into the body. "
+  },
+  {
+    "start": 3080.454,
+    "end": 3110.556,
+    "speaker": "SPEAKER_03",
+    "text": "Now, we need to say what does it actually mean to evaluate something? Uh, so then we say evaluate means reduce to a value. And what is a value? Well, something that's either a variable or a lambda abstraction. "
+  },
+  {
+    "start": 3116.577,
+    "end": 3159.12,
+    "speaker": "SPEAKER_03",
+    "text": "There's no great way you can say why these are values. The main idea is that if you imagine a programming language, if you have some abstract thing, you can't evaluate it anymore, so that must be a value. And then if you have a an abstraction that's like a function or a callback and then you can always substitute that in immediately. So things that aren't values are things of this shape or even things of this shape because intuitively this probably should reduce and when you're in this that means that you will have not substituted a value for x even though you should have done a thing. "
+  },
+  {
+    "start": 3159.5,
+    "end": 3192.53,
+    "speaker": "SPEAKER_03",
+    "text": "Basically it's really hard to find one of these values. These are the values. So then, call by value is this rule. So it says if we have a value, that means our argument for function is already evaluated, so we can substitute it in. "
+  },
+  {
+    "start": 3195.231,
+    "end": 3199.017,
+    "speaker": "SPEAKER_03",
+    "text": "We then also need to say, what if this isn't yet a value? We need to actually run it. "
+  },
+  {
+    "start": 3202.283,
+    "end": 3203.324,
+    "speaker": "SPEAKER_00",
+    "text": "So I'm gonna write this. "
+  },
+  {
+    "start": 3227.906,
+    "end": 3264.876,
+    "speaker": "SPEAKER_03",
+    "text": "if M reduces, I'm defining a new notion of reduction and I'm calling it by value. So it's V there. M reduced to N means V M reduces to V of N. And then the last thing, is I call this a V here, and this just means you have to have evaluated the function before you can actually start reducing its arguments. "
+  },
+  {
+    "start": 3266.037,
+    "end": 3286.939,
+    "speaker": "SPEAKER_03",
+    "text": "So this means we can evaluate the head of an application. Let's take a break for a few minutes and then we'll go on to call by name and stuff. "
+  },
+  {
+    "start": 3318.423,
+    "end": 3326.068,
+    "speaker": "SPEAKER_01",
+    "text": "Yeah, same problem as well. "
+  },
+  {
+    "start": 3363.64,
+    "end": 3377.184,
+    "speaker": "SPEAKER_01",
+    "text": "This will explain the context. "
+  },
+  {
+    "start": 3412.378,
+    "end": 3416.551,
+    "speaker": "SPEAKER_01",
+    "text": "First, how many times do I have to do this? "
+  },
+  {
+    "start": 3612.61,
+    "end": 3614.157,
+    "speaker": "SPEAKER_01",
+    "text": "and he just told us, this is that. "
+  },
+  {
+    "start": 3657.152,
+    "end": 3667.774,
+    "speaker": "SPEAKER_01",
+    "text": "Yeah, I'm not sure. They're usually, take the ones on the website. What? "
+  },
+  {
+    "start": 3686.63,
+    "end": 3688.101,
+    "speaker": "SPEAKER_01",
+    "text": "Well, for the other courses. "
+  },
+  {
+    "start": 3797.27,
+    "end": 3804.212,
+    "speaker": "SPEAKER_03",
+    "text": "If you're ready to start, there's a different plan. "
+  },
+  {
+    "start": 3814.174,
+    "end": 3859.677,
+    "speaker": "SPEAKER_02",
+    "text": "So you can never, so Tolkien, one of the big, Yeah, he started publishing in the 70s. And so he points back to a guy called Lenin, who in the 70s, in programming languages talks about and he says, I use this idea. "
+  },
+  {
+    "start": 3860.097,
+    "end": 3881.153,
+    "speaker": "SPEAKER_02",
+    "text": "So I look at that vector, and then he talks about arrays, data structures. So in principle, it is a stable structure that doesn't change anything. And that variable doesn't change anything. The structure doesn't change anything. "
+  },
+  {
+    "start": 3885.381,
+    "end": 3917.613,
+    "speaker": "SPEAKER_03",
+    "text": "It's, so in our, What's the way to put it? The way I convince myself that abstractions are values is I think in C, if you take a function pointer, that's always something you can assign to a variable that's a concrete value. So that's what I think that is. "
+  },
+  {
+    "start": 3917.873,
+    "end": 3929.839,
+    "speaker": "SPEAKER_03",
+    "text": "And why is a variable a value? Because you assign things in C to variables, and then you use those as values in places. But there isn't a particularly great definition. "
+  },
+  {
+    "start": 3930.719,
+    "end": 3940.931,
+    "speaker": "SPEAKER_02",
+    "text": "One final comment from my side. is that if you look at programming, in a program, in any computer program that you write, in the whole program, there are no free variables. "
+  },
+  {
+    "start": 3954.743,
+    "end": 3967.024,
+    "speaker": "SPEAKER_02",
+    "text": "Because you run on the outside, you either run so you have an application, you run on the outside and you have an inflection, Yeah, m can be any term. So m could be an application here. "
+  },
+  {
+    "start": 3990.286,
+    "end": 4020.98,
+    "speaker": "SPEAKER_03",
+    "text": "and the intuition is that M is currently abstracted or parameterized by X and it might not evaluate to a value, but if you substitute something for X, M might evaluate to a value. Okay, yeah, this is call by value. Call by name is the other one. the other big one. "
+  },
+  {
+    "start": 4024.801,
+    "end": 4055.505,
+    "speaker": "SPEAKER_03",
+    "text": "Call-by-name is the opposite of where here we said you have to make sure the argument is evaluated. Call-by-name will, as soon as it can, substitute. So, um, Yeah, sorry, here I introduced this notation. Have people seen this before, inference rules? "
+  },
+  {
+    "start": 4058.586,
+    "end": 4092.888,
+    "speaker": "SPEAKER_03",
+    "text": "No? So this means, general, write p n, da da da da, p n, and then c. Things above the line are called premises. They're like your hypotheses. The thing below the line is called the conclusion. It's the thing you deduce, and the line means from all the things above it, I deduce this statement. So with that in mind, this means if I assume that n reduces to n, then I can deduce that vn reduces to vn. "
+  },
+  {
+    "start": 4094.188,
+    "end": 4136.528,
+    "speaker": "SPEAKER_03",
+    "text": "And for this one, it means, again, if I assume that n reduces to n, then I deduce or conclude that np reduces to np. This means there might in general be multiple premises, but none of these require that. Okay. Call-by-name, so this always happens. But unlike beat reduction, which can occur anywhere within a term, call-by-name only allows this to happen. "
+  },
+  {
+    "start": 4139.749,
+    "end": 4143.17,
+    "speaker": "SPEAKER_03",
+    "text": "I called that beta. Let's call that n for by name. "
+  },
+  {
+    "start": 4156.855,
+    "end": 4193.182,
+    "speaker": "SPEAKER_03",
+    "text": "So call by name is we're constantly evaluating the head of applications until they reduce to a lambda abstraction at which point we substitute in the application and then we keep running on the head. Cool by value. If X is used multiple times in M, then it makes sense to evaluate V first before substituting it, because otherwise we'll duplicate work. "
+  },
+  {
+    "start": 4194.042,
+    "end": 4230.246,
+    "speaker": "SPEAKER_03",
+    "text": "But if X isn't used in M, then we've wasted work by reducing to V. And then it's the opposite with call-by-name, because call-by-name, if X isn't used in M, then by substituting N immediately, we've avoided doing any work by evaluating N. But on the other hand, if X is used multiple times, N is substitute wholly for X. So we're going to evaluate N multiple times. So this is why call by name is called a type of lazy reduction and call by value is a strict form of reduction. "
+  },
+  {
+    "start": 4231.968,
+    "end": 4257.846,
+    "speaker": "SPEAKER_03",
+    "text": "Haskell is called by need and it tries to get the best of both worlds. So when say Haskell is lazy, that doesn't mean all lazy things are called by need. It's just lazy is a type of, called by name is a type of lazy reduction and called by need is. I won't cover called by need because it requires a lot of complicated things with memorization and stuff. "
+  },
+  {
+    "start": 4294.442,
+    "end": 4324.464,
+    "speaker": "SPEAKER_03",
+    "text": "Let's look at types now. So we should be done with untyped lambda calculus. And now the fun part starts. Why do we have types in programming languages? We want to rule out writing nonsense programs. Old maxim is that well-typed programs. And what that means sort of depends on what the types are. "
+  },
+  {
+    "start": 4327.227,
+    "end": 4366.779,
+    "speaker": "SPEAKER_03",
+    "text": "But in general it means, say in a random programming language you write if of two, then three, else four. This isn't a Boolean and your type checker should reject this. So the idea of types is to rule out writing these sort of nonsense programs. So we look at the lambda calculus for types because it's very small and that makes it easy to start a type system for. "
+  },
+  {
+    "start": 4373.832,
+    "end": 4376.794,
+    "speaker": "SPEAKER_03",
+    "text": "So let's write down the set of terms again. "
+  },
+  {
+    "start": 4389.525,
+    "end": 4431.892,
+    "speaker": "SPEAKER_03",
+    "text": "How are we gonna start assigning types to this? Well, there's only variables for now, but if we look at a function, lambda abstraction, in our minds it's representing a function. So the type we should give to it is probably also gonna be a function. Let's say for now, we write lambda x for m. It's gonna have type a arrow v. Okay, this is sort of then hinting at how we should start to type variables. "
+  },
+  {
+    "start": 4433.35,
+    "end": 4466.089,
+    "speaker": "SPEAKER_03",
+    "text": "because we're saying the input X goes to M and we're saying our input here is of type A. So somehow we need to be able to say that this is saying that with X of type A, then M has type B. Everyone happy with this so far? And then how do we use functions, right? "
+  },
+  {
+    "start": 4467.09,
+    "end": 4500.13,
+    "speaker": "SPEAKER_03",
+    "text": "Use them in applications. So if we take this lambda X dot M type A arrow B, then we want to apply it to an argument N. Now our intuition of functions is gonna say, well, N is probably gonna have to have type A. Does everyone agree with that? And why does that work? Well, because, oh no, I should give the actual rule. "
+  },
+  {
+    "start": 4503.031,
+    "end": 4535.49,
+    "speaker": "SPEAKER_03",
+    "text": "And then when we write the application, sorry, lambda x dot m to n, what in our minds is happening? Well, we're taking a function of a arrow b and we're giving an argument of type a. So what are we gonna get out? Hopefully something of type b. So let's say that this has type B. Now, part of the reason that N is of type A is that when we form the lambda abstraction, we assume that X is of type A. "
+  },
+  {
+    "start": 4551.845,
+    "end": 4552.966,
+    "speaker": "SPEAKER_03",
+    "text": "Any questions so far? "
+  },
+  {
+    "start": 4576.22,
+    "end": 4636.455,
+    "speaker": "SPEAKER_03",
+    "text": "Cool. Let's start to formalize our line. So first thing is we're gonna define a set of types. So these are called Curry types or simple types named after Haskell Curry, same name as what Haskell is named after. And they look like this. So we use capital letters at the start of the alphabet for types. And well, now I'm gonna write this thing So to make our life easier, we're just gonna assume that there are some abstract types that we know nothing about, and we call them phi. "
+  },
+  {
+    "start": 4637.015,
+    "end": 4669.391,
+    "speaker": "SPEAKER_03",
+    "text": "If you wanna be concrete, you could think phi could be. We're just saying phi is an abstract type. And then what are all the types? Well, they're either these abstract types or base types, and then functions between them, or functions between functions between them, and so on. So the next thing we want to think about is formalizing how we type things. Oh no, okay. "
+  },
+  {
+    "start": 4671.793,
+    "end": 4704.417,
+    "speaker": "SPEAKER_03",
+    "text": "Formalizing our argument of how we should type terms. Now this is always, to make it precise, we always use a very specific syntax. Don't be put off by the syntax. What do we start with? Well, here we were talking about how we need variables, right? Like if we have a lambda abstraction, then when we're type checking M, we should know that X has type A. "
+  },
+  {
+    "start": 4706.498,
+    "end": 4743.427,
+    "speaker": "SPEAKER_03",
+    "text": "So we need to formalize this notion of knowing the types of different variables. So that we call a context. What is a context? We use gamma to denote one. and is either empty, so we don't know anything about any variables, or we have a context and we assume a variable has a particular curry type in a context. "
+  },
+  {
+    "start": 4746.408,
+    "end": 4785.032,
+    "speaker": "SPEAKER_03",
+    "text": "Now, I've written this as a list, as an ordered list. Frankly, it doesn't need to be. So I'd rather think of gamma as a finite map variables to So I want to consider all of these up to reordering. So if I have X, A, Y, B, I should consider that as equal to Y, B, X, A. "
+  },
+  {
+    "start": 4790.418,
+    "end": 4827.085,
+    "speaker": "SPEAKER_03",
+    "text": "Everyone happy so far? Okay, now we formalized our notion of knowing the types of variables. Now we can finally get to how do we actually type things. So the way we write saying something has a type is with a typing judgment. "
+  },
+  {
+    "start": 4830.465,
+    "end": 4868.526,
+    "speaker": "SPEAKER_03",
+    "text": "So we say that M has type A in the context gamma and write this So that's the syntax we use. "
+  },
+  {
+    "start": 4868.846,
+    "end": 4894.62,
+    "speaker": "SPEAKER_03",
+    "text": "And every time you see it, just think, I'm assuming that all the variables have the types given in gamma, and then I have my term m, and I say that has type a. This little symbol, you've probably seen it in first-year logic, and it's the entailment symbol. And it's sort of meaning the same thing here, is that I'm assuming all these have various types, and then I can deduce that m has type a. "
+  },
+  {
+    "start": 4904.8,
+    "end": 4938.152,
+    "speaker": "SPEAKER_03",
+    "text": "A bit of notation for contexts. I will write X is in gamma and or X has type A in gamma when gamma equals. Right, X is in gamma if it appears in gamma. That's what that means. and X is type A in gamma if it appears with that type in gamma. "
+  },
+  {
+    "start": 4953.64,
+    "end": 4992.493,
+    "speaker": "SPEAKER_03",
+    "text": "Let's start then. So far we've just defined a typing judgment. So this is literally just me making a claim that I can type n with a in this context. What we need now is to introduce a system that actually lets us deduce these things. So we call this a type system or type assignment And again, we're gonna use these inference rules that we saw here to try and type these terms. "
+  },
+  {
+    "start": 4996.015,
+    "end": 5028.633,
+    "speaker": "SPEAKER_03",
+    "text": "So what did we start with? I guess we could look at function application first, right? So we started off saying M has type A. No, we said it had A arrow B. And we also said N had type A. And then what's the type of M applied to M? Fantastic. But these aren't the forms of our judgment. "
+  },
+  {
+    "start": 5028.733,
+    "end": 5073.96,
+    "speaker": "SPEAKER_03",
+    "text": "So how do we generalize this? Well, we say M has type a, b given all these variables. Sorry. And if n similarly has type a, given all the variables in gamma, then we deduce that m applied to n is type b, as long as we assume all the things in gamma. Now none of this touches gamma, so let's look at something that, or the context, sorry, I should call it, let's look at a rule then that does want to affect context. "
+  },
+  {
+    "start": 5075.741,
+    "end": 5110.66,
+    "speaker": "SPEAKER_03",
+    "text": "Here, we want to think back to Lambda abstractions. When we're defining a function a out of b, we said that, well, to check that this is true, we could assume that the parameter has type a, and then check that the body of function has type b. So if we have Lambda x, We want to show that as type A arrow B. Well, we know from before we're going to have some assumptions about some bit. "
+  },
+  {
+    "start": 5117.745,
+    "end": 5154.731,
+    "speaker": "SPEAKER_03",
+    "text": "And we want to then have this saying M has type B, right? Because we looked at the body of our function and we want to say that has type B. that we're missing so far, now including the assumption that X is type A. So this is where we add X to the context. So this says, if we assume X is type A and then M has type B, then we can form a function out of that by abstracting over X. "
+  },
+  {
+    "start": 5156.031,
+    "end": 5208.011,
+    "speaker": "SPEAKER_03",
+    "text": "Or you can look bottom to top and say, if I have a function lambda x dot n, I can say that as type a or b, and I assume x is an a, and then I find that the body of the function is b. Any questions so far? Cool. So the last thing is, In our syntax of terms, we've defined typing for application and for functions. How do we type variables? How could I know the type of x? Does anyone want to guess? "
+  },
+  {
+    "start": 5223.152,
+    "end": 5244.931,
+    "speaker": "SPEAKER_03",
+    "text": "Maybe I was too vague, I'm sorry. That's the one exactly, yeah. So we know X is type A. If, as you said, X is type A in the context gamma. Stefan, would you rather I write this to the side? "
+  },
+  {
+    "start": 5280.112,
+    "end": 5315.496,
+    "speaker": "SPEAKER_02",
+    "text": "But there's no reason why X is... Yeah, because... You have to make something about the notation. And the notation that I make is, when I write up, then x might already have given gamma. "
+  },
+  {
+    "start": 5315.556,
+    "end": 5324.78,
+    "speaker": "SPEAKER_02",
+    "text": "It has to have the same value. So it is, you build this partial function by adding information to it. "
+  },
+  {
+    "start": 5347.89,
+    "end": 5357.836,
+    "speaker": "SPEAKER_02",
+    "text": "So I prefer the notation . "
+  },
+  {
+    "start": 5402.663,
+    "end": 5424.83,
+    "speaker": "SPEAKER_03",
+    "text": "This is the one in the notes anyway. Yeah. I tend to use this because I need ordered contexts. "
+  },
+  {
+    "start": 5449.028,
+    "end": 5481.805,
+    "speaker": "SPEAKER_03",
+    "text": "Yeah. So part of the reason is this is literally more concise. And part of it is saying that, you know, unless you do this sort of ad hoc thing, that X could be, as Stefan was saying, X could appear in gamma multiple times. We obviously don't want that. So when you write this, you're writing the finite map that behaves as gamma on all variables gamma is defined on. But whether or not gamma is defined on X, this new thing is always gonna send X to the type A. "
+  },
+  {
+    "start": 5489.357,
+    "end": 5527.461,
+    "speaker": "SPEAKER_02",
+    "text": "The only thing is you want the context to be a set. It also has to be a function. And gamma for my X of type A, if X of type A appears in the middle, I still want this to represent that fact. Now, so this tells me X of type A is in the context. Yeah. "
+  },
+  {
+    "start": 5527.501,
+    "end": 5579.919,
+    "speaker": "SPEAKER_02",
+    "text": "For you, the idea should be . Is everyone happy with, sorry. Yeah, so couldn't we just say, define the comma to be, like comma x, colon a to be, partial functions, so it would be a square brackets, and yeah, exactly that. So if we define like that, then we wouldn't even need the frequent, like the condition that x is a constant. This actually expresses exactly what I want, so gamma might already matter to me. So if you add it, it probably changes. "
+  },
+  {
+    "start": 5581.12,
+    "end": 5621.984,
+    "speaker": "SPEAKER_03",
+    "text": "But the point of this, Let's look at then how you start actually doing type assignments. "
+  },
+  {
+    "start": 5657.49,
+    "end": 5688.304,
+    "speaker": "SPEAKER_03",
+    "text": "Um, what's a good term to type? So not all terms are typable. That's one thing we'll figure out. But some are, as one would hope. So let's look at this term, lambda x, y, x. Takes two arguments and returns the first. And we want this, I'm going to start doing stuff, and that's how I tend to approach type assignment. "
+  },
+  {
+    "start": 5689.205,
+    "end": 5721.265,
+    "speaker": "SPEAKER_03",
+    "text": "So this is a closed term, so I won't need any assumptions. And I'm also going to be working downwards. So these trees were upwards. I'm going to be working downwards. You can use either in your writing. So what do we have? We have a lambda. So there's only one rule we can do for lambda, and that's What would be very helpful is if I named our rules. Very sorry. "
+  },
+  {
+    "start": 5721.465,
+    "end": 5754.726,
+    "speaker": "SPEAKER_03",
+    "text": "This is called ax for axiom. Applying x in context. This one is called arrow i. Why? Because we're introducing an arrow. We start off with something that isn't an arrow, and then we introduce an arrow type. So the I stands for input. Then this is where we use an arrow and notice we remove it from the typing. "
+  },
+  {
+    "start": 5756.567,
+    "end": 5806.324,
+    "speaker": "SPEAKER_03",
+    "text": "So we call it arrowE, arrowElimination. We're eliminating the arrow. not all typing rules, but all sort of types tend to come with an introduction rule and an elimination rule. And it's very similar if you remember to the natural deduction rules from each logical constructor has an introduction rule and an elimination rule. Okay, so we start off with lambda x y dot x and then all we can use is the arrow i rule because this is a lambda and none of the other constructs work. "
+  },
+  {
+    "start": 5806.704,
+    "end": 5878.289,
+    "speaker": "SPEAKER_03",
+    "text": "So what do we do in a lambda? We take our context we had here and then we add the lambda abstracted variable. So x is going to have, you know, I'm leaving a gap here for now. x is going to have some type. and then we have the term lambda xy dot x. I'm leaving gaps here for now, because I'm not quite sure what these should be. Okay, and then again, I'm faced with a lambda, so I need to use the arrow i rule again, because that's the only rule that applies. What do I do here? Well, x is gonna have the same type, because we just extend the context, and then we're introducing y with some other type. and then we end up with x. All right, now x is a variable, so all we can use is the axiom rule. This is x, this is arrow i, this is arrow i. "
+  },
+  {
+    "start": 5879.809,
+    "end": 5932.701,
+    "speaker": "SPEAKER_03",
+    "text": "When you're doing your work, you don't need to label the rules you're using, but you may find it helpful. So now we can do axiom and this is the point in the type inference where you just start to come up with types. So you go, well, I want to give some arbitrary type to X because I can pick it. So let's say it was A. Well then this has type A, this has type A. Okay. And then what about Y? Again, we can just pick one for Y, right? Because it doesn't matter. So we can say Y has type B. And now we know how to use the arrow I. Because we assume something of type B and end up with something of type A. So by arrow A, we combine them into a function type. "
+  },
+  {
+    "start": 5956.085,
+    "end": 6030.854,
+    "speaker": "SPEAKER_03",
+    "text": "Who can then tell me what we do for the last step? Yep. So what should I be writing here? Yep. How should I bracket that? Yep. and then just run through and check your proof, and I think that's good. Yes? Yeah, I was gonna. I just wanted to check, did anyone have any questions about doing this deduction? Yes, so just to follow up on that, is that because we'll be writing lots of lambda abstractions, we will write this as just A arrow B arrow C. "
+  },
+  {
+    "start": 6031.594,
+    "end": 6039.736,
+    "speaker": "SPEAKER_03",
+    "text": "So this means the arrow is right associative. This is the same in Haskell. "
+  },
+  {
+    "start": 6051.271,
+    "end": 6077.05,
+    "speaker": "SPEAKER_03",
+    "text": "Let's look at another one and with another way of writing derivations that I like. We're going to type lambda x y dot y x. Okay, it's a closed term, so we can start in the empty context. What do I do here? "
+  },
+  {
+    "start": 6089.111,
+    "end": 6114.573,
+    "speaker": "SPEAKER_03",
+    "text": "Yep. So the game is we look at the syntax and there's only one rule corresponding to that syntax. And then we just do a step of that rule. So we start off with X as type. X as type something. and a y dot. "
+  },
+  {
+    "start": 6140.046,
+    "end": 6171.686,
+    "speaker": "SPEAKER_03",
+    "text": "I was gonna introduce a different notation. that Charlie came up with. Yeah, so someone was saying use arrow i again. So we go x and a, and then we're doing arrow i with this variable y. And then we have y, x. Okay, what do we do here? "
+  },
+  {
+    "start": 6176.817,
+    "end": 6212.766,
+    "speaker": "SPEAKER_03",
+    "text": "Yep, error elimination because we have an application of Y to X. So we look at the rules and we see it's the only one that deals with application and we unpack that. So we get on the first premise, Y has some type and on the second, Okay, and now we need to start filling in blanks. "
+  },
+  {
+    "start": 6214.506,
+    "end": 6232.39,
+    "speaker": "SPEAKER_03",
+    "text": "What do we know? We know that we've used our elimination in this rule. So that means that the left-hand thing needs to have an arrow type. So we just say, let's assume it's A arrow B. "
+  },
+  {
+    "start": 6244.533,
+    "end": 6284.167,
+    "speaker": "SPEAKER_03",
+    "text": "Okay, then what must X is type B? Mm-hmm, why is that? Yep, because of the rule and it says that the type of this has to match the domain of this function. And now we're basically done because we can say this is A, this is A arrow B, this is A, Y is A, arrow B. "
+  },
+  {
+    "start": 6285.768,
+    "end": 6305.578,
+    "speaker": "SPEAKER_03",
+    "text": "So then what is the type of this? Remember we used the arrow elimination rule. B, yep, because we follow the rule. B. What's the type here? "
+  },
+  {
+    "start": 6320.383,
+    "end": 6355.088,
+    "speaker": "SPEAKER_03",
+    "text": "Remember I've used the arrow introduction rule. Yep, that's the one a to b to be y because we're abstracting over y. So we've assumed y as type a arrow b. So we write that on the left of our function. And then we end up with something of type b. Again, we've got an arrow introduction rule. What's the last step here? A to A to B. "
+  },
+  {
+    "start": 6356.049,
+    "end": 6389.714,
+    "speaker": "SPEAKER_03",
+    "text": "And why is that? We've assumed X is type A, ended up with something A to B to B. So we just take our assumption, add an arrow, then write that. I'll put the brackets there, but again, you don't need those big brackets. So just to be clear on the notation, This is writing the derivation tree, but just top down. "
+  },
+  {
+    "start": 6391.136,
+    "end": 6418.488,
+    "speaker": "SPEAKER_03",
+    "text": "These ones are written bottom up, and that's how they are usually written in textbooks and stuff. One other notation is where you sort of write it like code blocks. So because it's an introduction, it has only one premise, you can just do that, but as soon as something has two premises, you indent. I find this most helpful when I'm actually doing derivations by hand, and it's compact. "
+  },
+  {
+    "start": 6456.644,
+    "end": 6483.382,
+    "speaker": "SPEAKER_03",
+    "text": "Just to then finish off. Did I just write, sorry, I was copying the line above. Thank you, everyone. You can write on the end here or on the left here between them. For this one, you would probably write it here. "
+  },
+  {
+    "start": 6516.127,
+    "end": 6529.439,
+    "speaker": "SPEAKER_02",
+    "text": "And you have to do it correctly. So if you do it one by one, you make more mistakes. So can I just make a comment about the foundation? Because I think we're running out of time. "
+  },
+  {
+    "start": 6541.429,
+    "end": 6577.363,
+    "speaker": "SPEAKER_02",
+    "text": "The result is Yeah, I just want to know that in exam conditions that I don't know, I remember, I think in the coursework when I did it, I would scribble out derivations because I'd make a mistake. "
+  },
+  {
+    "start": 6577.503,
+    "end": 6581.645,
+    "speaker": "SPEAKER_02",
+    "text": "Okay, yeah, we should stop there. Any questions? "
+  },
+  {
+    "start": 6600.075,
+    "end": 6601.939,
+    "speaker": "SPEAKER_03",
+    "text": "Cool, thank you. Have a nice weekend, guys. "
+  },
+  {
+    "start": 6792.869,
+    "end": 6795.233,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah, the thing about the past is supposed to be... "
+  },
+  {
+    "start": 6795.813,
+    "end": 6806.169,
+    "speaker": "SPEAKER_01",
+    "text": "Hi. The thing about the past is supposed to be... What do you write for that? "
+  }
+]

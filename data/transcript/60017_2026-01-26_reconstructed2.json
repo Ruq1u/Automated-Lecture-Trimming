@@ -1,0 +1,1046 @@
+[
+  {
+    "start": 151.27,
+    "end": 152.351,
+    "speaker": "SPEAKER_03",
+    "text": "It is up. "
+  },
+  {
+    "start": 153.451,
+    "end": 164.615,
+    "speaker": "SPEAKER_01",
+    "text": "I'll try to find the slide for you, but when you have those two analytical models for the random access, the first one that was in relation to S over B, I didn't understand the intuition behind that. "
+  },
+  {
+    "start": 165.115,
+    "end": 174.698,
+    "speaker": "SPEAKER_04",
+    "text": "Okay, so let's just go to the respective slide. So somewhere... "
+  },
+  {
+    "start": 191.995,
+    "end": 211.987,
+    "speaker": "SPEAKER_01",
+    "text": "Tell me when did it start, really. Yeah, this? No, it was earlier than that, I believe. Only the? Earlier, maybe. Earlier? Yes, yeah, slide 55. It was about single access. 55. 55, yeah. OK. Oh, no. Oh, 44 on your numbers. "
+  },
+  {
+    "start": 221.569,
+    "end": 323.855,
+    "speaker": "SPEAKER_04",
+    "text": "This thing? Yeah. Okay. So wait, the intuition for this in general? Yeah. Okay, cool. I mean, let's talk about this, you know, bottom up. What are we trying to do here? to everything, yes, cool, thanks. Estimate memory access latency? Yep. On average? Well, I mean, we don't really make a distinction here. It's just memory access latency, yeah, or whatever. Okay, cool. And so how would you determine memory access latency? Yeah, keep going. By counting cache misses and stuff on each layer? Right. Estimating the number of cache misses induced in each of the memory hierarchy layers, right? And then... Adding it up. Adding it up. But also, well, I mean, you multiply it with their respective latency, right? And, I mean, this is a bit like, you know, funky notion in the model that they say, oh, well, level zero is register access, right? But, okay, fine. You know, it doesn't really matter. Good. And so... In this specific case, what are we trying to calculate? Well, I mean, I suppose this is the bit, the latency bit is, but this is the bit that's probably a bit unclear, right? Good, why do we have this here? I mean, imagine this is what the question is. "
+  },
+  {
+    "start": 324.135,
+    "end": 334.742,
+    "speaker": "SPEAKER_01",
+    "text": "Yeah, it's about why is it to do with block size rather than cache size? Because I get that, obviously, we want to see the probability that we're having a mess. Why is that anything to do with the size of a single cache line? "
+  },
+  {
+    "start": 336.163,
+    "end": 412.092,
+    "speaker": "SPEAKER_04",
+    "text": "Okay, let's bounce the question back. Why is the size of a cache line important to determine the number of caches? I mean, this is what this is, average number of cache misses. Did you just raise your head to see what I explained? I know a little bit, but not the rest. OK, let's hear what you know. Obviously, if your data is split over two cache lines, you're half as likely to find it in the cache because of other things being in the cache. So you need more space in the cache to be allocated to your data. So that is true, though misalignment of data on cache lines is something that we kind of neglect, right? Like, you know, I mean, there is this one slide in the middle where I talk about this, but it's not a... big factor. But that's not it. So, basically, what you're saying or what I'm hearing is, oh, if you have poor alignment of data onto cache lines, the data occupies more cache lines, and that will increase likelihood of eviction. "
+  },
+  {
+    "start": 412.132,
+    "end": 498.55,
+    "speaker": "SPEAKER_04",
+    "text": "That is true. It's a minor effect, I would say. So, sorry, I'm like, yeah. In case the data spans more than one cache line, I'm not talking about misalignment, I mean the data being, the width of the data being bigger than the cache line's width. Yeah, I think this is, this goes in a similar direction. So, as I said, this is an effect, but it's one that, this has nothing to do with this here, right? Let's, for the sake of argument, assume everything is perfectly aligned. Okay? Cool. Did you want to give it a... No, no, it's okay. I changed my mind. You changed your mind. All right, cool. Anyone else? Yeah, go. The only thing I can think of is that the hash line is more aligned with your spatial. The hash size is... But that's... I mean, I suppose that is true, but it is true to a degree of abstraction where it's almost not useful anymore. Okay, maybe one more idea. Why would block size matter? Crickets. Yes. "
+  },
+  {
+    "start": 498.65,
+    "end": 510.493,
+    "speaker": "SPEAKER_03",
+    "text": "Shoot in the dark. Yeah. Well, hopefully not entirely dark. Not entirely dark. If the block size is bigger than the cache line size, and you can't get it... Wait, wait, wait. "
+  },
+  {
+    "start": 510.533,
+    "end": 521.672,
+    "speaker": "SPEAKER_04",
+    "text": "Block size is cache line size, right? This is clear, right? Yes. Okay, good. I changed my mind as well, then. Cool. OK, last shot. "
+  },
+  {
+    "start": 522.293,
+    "end": 538.108,
+    "speaker": "SPEAKER_03",
+    "text": "Also kind of in the dark, but I feel like, was it about probability? Because our stride, if we access it on a size like, how to say, the block size is big, the stride is a smaller percentage of that block. "
+  },
+  {
+    "start": 539.487,
+    "end": 550.431,
+    "speaker": "SPEAKER_04",
+    "text": "So, I mean, in this, so, yes, in general, it is about problems. No, it's not really about problems. So, I'm going to say no. Sorry. Okay, absolute last. "
+  },
+  {
+    "start": 551.912,
+    "end": 580.177,
+    "speaker": "SPEAKER_03",
+    "text": "Is it to do with the fact that the cache miss is spread out across the... We're getting somewhere. I think it's still there. the describe length is one, then the first access within that line will be a miss. And so that's where the, that's where the output comes from. But then as you access the same, the subsequent addresses, it will be in the cache. And so, in the same cache line. "
+  },
+  {
+    "start": 580.637,
+    "end": 625.649,
+    "speaker": "SPEAKER_04",
+    "text": "And so therefore, spread out the initial miss over the size of the the number yeah the number of elements good why didn't you say that in the beginning like yeah yes so okay let me very paraphrase it um just to make this clear and i'm gonna use so yes you know um but let me uh find i have this figure for a sequential traversal. I mean, what we're trying to model here, right, is this experiment, right, with the stride, which is why, like, you know, here I have stride, and this is my experiment. "
+  },
+  {
+    "start": 626.769,
+    "end": 659.548,
+    "speaker": "SPEAKER_04",
+    "text": "So I wanna model, I want something that roughly estimates this code. Excuse me. And for that purpose, here we go. This is roughly the memory access pattern that we have. And so, let's suppose, This is the memory region that we're trying to access, or that we are accessing, and we're reading values from that memory region, right? "
+  },
+  {
+    "start": 660.248,
+    "end": 693.903,
+    "speaker": "SPEAKER_04",
+    "text": "And this is our parameter stride. It's always the distance between one axis and the next, right? Which in this case, it is r.w, right, in this model, but same difference. And let's, for simplicity, assume that u is one. Okay? One integer or one whatever. Good. And so now the question is where do the cache lines fall, right? And let's say the cache lines are perfectly aligned and they always contain four elements. "
+  },
+  {
+    "start": 694.083,
+    "end": 829.178,
+    "speaker": "SPEAKER_04",
+    "text": "Okay? So block size is four. One, two, three, four. Yeah. Roughly. Good. So now what is the... probability of an access being a random, being a cache miss? An access is like, you know, just reading a value, right? What's the probability of it being a cache miss in this specific case? Hm? If there's a loader, then zero. No, no, no, no, no. You're going through this thing sequentially. Initially, like nothing's in the cache, right? Cache is code, right? What's the probability of, well, yeah, one of these accesses being a cache miss? Loading a new cache, right? Yeah? Exactly, one over four, right? And so, what determines the four? how many fit in, so S over block size. That is the block size, right? Yes. And this is because the stride is one. So it's exactly this, right? And that's the equation we had, right? And now we multiply this with the latency and that gives us the time that is spent, that this cache spends loading data, right? Is this clear to everyone? Because this is super crucial. Honestly, I'm happy to repeat it if it increases the number of the probability of you guys knowing it. Yeah. Why is it four again? Why is it four? OK. Because four is the block size. It is the number of elements on a cache line. You know what? I'm going to paraphrase it yet again and put it more in context with what you said, right? So in this experiment, the experiment is, I'm talking about this in terms of probabilities, but it's a deterministic experiment, right? A cache is cold, and I know exactly what's happening. So where are the cache misses? Well, there is a cache miss here, which is the first access to a data item located on that cache line. "
+  },
+  {
+    "start": 829.99,
+    "end": 866.212,
+    "speaker": "SPEAKER_04",
+    "text": "And then this one, zero, zero, zero, right? Next one here, okay, I've not drawn this well, but you get the idea, right? Here you have another cache miss, and then again, zero, zero, zero. So every fourth element data item, do you get a cache miss? So that means on average, the cost over all the data items on a cache line, the access cost is one quarter. And so the 4 is, oh, and if I double the block size, well, obviously, you know, that 4 will become an 8, right? "
+  },
+  {
+    "start": 867.112,
+    "end": 897.147,
+    "speaker": "SPEAKER_04",
+    "text": "And if I increase the stride, and I think maybe this is something I want to actually draw. So now, let's say I increase the stride to 2. So I would always be skipping one element, right? So what that would mean is while I read an entire cache line, including a data item here, that data item I never look at, right? It doesn't matter. It induces traffic. "
+  },
+  {
+    "start": 898.088,
+    "end": 928.37,
+    "speaker": "SPEAKER_04",
+    "text": "but it, um, well, it's never accessed, but I'm still paying for it, right? And so that means if as the stride increases, the, um, uh, the cost per data access increases as well. But, and I think this is, uh, maybe something that might be slightly confusing, eventually let's say the stride is, um, So we still have four byte hash lines. Let's say the stride is eight. "
+  },
+  {
+    "start": 929.793,
+    "end": 965.175,
+    "speaker": "SPEAKER_04",
+    "text": "So I would be accessing this value and then this one. Well, in this case, what would be the number of cache misses I have on average per element? Well, I would be loading this cache line, but I'd be skipping, well, actually loading, maybe I'll put a check mark here, but I'd be skipping this one, so it doesn't induce any cost, right? So the cost is capped at... well, one for a specific data item. Here's where I'm ignoring the fact that the data item might span multiple cache lines, right? "
+  },
+  {
+    "start": 965.535,
+    "end": 998.409,
+    "speaker": "SPEAKER_04",
+    "text": "But, well, I am, I mean, it's not my model, like, you know, but they are ignoring that fact. And so, that is why you get this... No? Here, why you get this minimum of one or this, because you never go above one cache miss per data item access. "
+  },
+  {
+    "start": 1001.664,
+    "end": 1011.476,
+    "speaker": "SPEAKER_01",
+    "text": "That makes sense, probability on a cold cache. But then how does that map to the graph? Because you showed one where you overlaid the model on the experimental data and it lined up. "
+  },
+  {
+    "start": 1012.036,
+    "end": 1122.447,
+    "speaker": "SPEAKER_04",
+    "text": "But surely... Wait, wait, wait, sorry. Let's not discuss this enough. This is the one. Yeah. This is the one. Yeah, okay. So this is on a cold cache. So surely in the model, you would max out at a plateau when stride was larger than the largest block size, because everything would be one, and you'd have... Yes, that is what's happening here, right? Is 32 kilobytes the size of a block? That's a very big block. Oh, that is a fantastic question. So, I made this experiment a long time ago when I was an undergrad. And I want to say I spent a week at least, maybe longer, thinking what the hell, what cache has 32 kilobyte page size? Good. Let's see if we can figure it out in less than a week. Can we try? In less than a week? Yeah, well, I mean, I'll give you some hints. But as I said, this is... This is an excellent question, and we can test your knowledge about how CPUs in operating systems work. Go. Because you said page size. Is it because it's accessing pages from the page table? So it's not based on the cache size, but it's doing page table lookups. So, yes, it's doing page table lookups. But page table, what's the size of a page? Well, okay, you have huge pages. Okay, fine. But it's 4K, right? Practically speaking, it's always 4K. So yes, you would expect a kind of a dent at 4K, and I mean if you, you might be able to see it here a little bit, right? So that is what I expected, right? Like this charge would basically plateau off here, but it doesn't. "
+  },
+  {
+    "start": 1122.648,
+    "end": 1145.641,
+    "speaker": "SPEAKER_04",
+    "text": "It plateaus here. Why is that? If someone gives me the answer right now, I might, you know, I don't know, bring a bottle of something next week and, you know, just put it somewhere. Obviously, I can't, you know, give you out. Yeah, go. "
+  },
+  {
+    "start": 1146.522,
+    "end": 1165.073,
+    "speaker": "SPEAKER_03",
+    "text": "Is it because, like... 32k is the size of L1, but it's absolutely nothing to do with that. Because you've got prefetching enabled and you're not tracking prefetching. "
+  },
+  {
+    "start": 1175.174,
+    "end": 1186.997,
+    "speaker": "SPEAKER_04",
+    "text": "So I don't think I had prefetching enabled and it's also nothing to do with prefetching. Sure. Okay, let's go one more. "
+  },
+  {
+    "start": 1188.737,
+    "end": 1248.61,
+    "speaker": "SPEAKER_05",
+    "text": "I'm not sure actually, but my guess was that it becomes the maximum cost of the fetching, which happens at every access beyond 32K because you always suffer a default. because potentially maybe, I'm guessing this was tested on Linux, and Linux might pre, I don't know how to say this, but like load into the TLB everything within 32K, but nothing beyond that, if that makes sense. I'm going to say no. You might, once I give you the explanation, you might say, well, I had something like that in mind. I'll just repeat the last part. What I'm saying is potentially the operating system already loads everything within 32k, every page mapping within 32k of what you've accessed. No. No. "
+  },
+  {
+    "start": 1251.814,
+    "end": 1285.941,
+    "speaker": "SPEAKER_04",
+    "text": "Okay, so you said one keyword that made me think, yes, the keyword was page walk. And that made me think, oh God, I have to buy a bottle of something. But I'm going to say no and not buy it. Does it have anything to do with associativity? No. But that's a good guess as well. So I had that thought as well. No, so the reason is, what do we know about, what's a page walker? Yeah, go. "
+  },
+  {
+    "start": 1286.642,
+    "end": 1298.407,
+    "speaker": "SPEAKER_05",
+    "text": "It's when you don't have a page mapping in your TLB, so you have to invoke a system for the operating system to load the page mapping from main memory to your TLB. "
+  },
+  {
+    "start": 1298.847,
+    "end": 1331.493,
+    "speaker": "SPEAKER_04",
+    "text": "Yeah, so you get a TLB miss, and TLB miss is clear to everyone, right? It's fine if you're not super comfortable. I know not everyone here is a computing student, so I'm happy to explain things. if something's not clear, but I'll move on if no one objects. Okay, so TLB miss, so you need to perform address translation. That happens basically here, after the 4K, everything to the right of here is a TLB miss, right? "
+  },
+  {
+    "start": 1331.673,
+    "end": 1406.023,
+    "speaker": "SPEAKER_04",
+    "text": "But apparently the effect of that is not that pronounced, right? But how does the operating system, what does a page walk mean? What does that look like? Yeah, go. If the pages are within larger pages, it's got to go multiple levels? Exactly. So address translation tables are high ref, right? So if you have... and um on well definitely this intel architecture i think that's still the case they are um basically you can think of them as a tree with exactly three levels right so basically what you have is um and i think each of them is 10 bits okay So if you're translating a 32-bit address of the operating systems, translating a 32-bit address, it takes the first 10 bits of that address and uses them to perform a lookup into one level of the translation table, address translation table. "
+  },
+  {
+    "start": 1406.483,
+    "end": 1441.671,
+    "speaker": "SPEAKER_04",
+    "text": "that one then points at another table that is the next layer of that tree, and with that pointer plus the next 10 bits, it locates another pointer, and that one then points at yet another table, and that, again, plus another 12 bits it takes from the address, find the last one, right? And so these have to live in cache as well. "
+  },
+  {
+    "start": 1443.113,
+    "end": 1494.209,
+    "speaker": "SPEAKER_04",
+    "text": "And so the first level of that address translation table is likely to be hot in cache relatively quickly. The next one is not. And so basically, this plateau here is another level of cash miss plus associated, I don't know the exact details, what calculation is performed here, why this is so expensive. But if you do the calculations, and at the time I looked it up in the Intel specification, and it literally comes out exactly at 32K, the cash misses and costs that are induced in the second level of the address translation table. "
+  },
+  {
+    "start": 1494.509,
+    "end": 1529.743,
+    "speaker": "SPEAKER_04",
+    "text": "The third level might also induce another plateau somewhere to the very far right of that chart. I never got to that point, but I think this is the second level. And I also found that in this experiment you will actually, or I incurred extra cash misses, and that's exactly one for each of those accesses to the second level of the address translation table. So that, plus the fact that the numbers just come out right, leads me to believe that that is the reason. "
+  },
+  {
+    "start": 1530.423,
+    "end": 1646.278,
+    "speaker": "SPEAKER_04",
+    "text": "I do not know 100%, but I'm 99 point something percent certain that that is what's happening, and no one's given me another explanation in the last 15 years. So if you were to model that, you'd add extra levels of cache. Yes, exactly. Yeah, go on. That's outlier at the plateau. This thing? Yeah. That's the legend. I'm sorry. That's the legend. Oh, okay. I mean, there are some outliers here and there, but this one's not. Okay, okay, okay. Sure. Okay, cool. Yeah, go. Why doesn't that address just map onto, I guess, a great place? Oh, because why are CPUs designed this way? I mean, why? I'm not too sure if I understood it properly. Why is it hierarchical, I guess? Why is the address translation table hierarchical? Okay, excellent question. It has nothing to do with what we're discussing in this module, but while we're at it, we might as well talk about it. Did they explain that to you in OS? Yes. Or in architecture? Can you repeat the question? Why is the address translation table organized hierarchically? They did? No explanation. Yeah, go. I'm not sure if they explained it, but it's probably because of space, yeah. Yeah. That's it, right? Like, if you didn't do that, each of those levels has to be pre-allocated. And you also have to remember, you're now in physical memory land, right? Like, you no longer have the benefit of saying, oh, well, I just allocate 50 gigabytes of virtual memory. Doesn't matter because, you know, OS will do this for me. Well, that's exactly what we're implementing. We can't implement virtual memory with virtual memory, right? And so you actually have to allocate this physically. "
+  },
+  {
+    "start": 1646.818,
+    "end": 1678.076,
+    "speaker": "SPEAKER_04",
+    "text": "And if you had one enormous address table, I mean, what would be the size of that? It would need to be the size of the logical memory because that's the number of addresses you're trying to address. And then you might as well just not do it. And so that's why you allocate this in levels. And I think this is also something where this isn't even the OS determining this, but it is the CPU, because the CPU then has hardware support for this. "
+  },
+  {
+    "start": 1678.216,
+    "end": 1746.505,
+    "speaker": "SPEAKER_04",
+    "text": "So this is not likely to change. Well, it might be different on ARM, I don't actually know that, but on Intel, this is not. Cool. There was another question here, no? Did you have, no? Okay, sorry, I saw this. Okay, anything else? By the way, excellent discussion, I love it. Yeah? Why is the line from book eight to 32k not exactly in here? Is there a reason? Why is the line from? At least to me it looks not. Wait, wait, wait, which part? From book eight to 32k. From here to here? Yeah, because, I mean, there is this effect of just, well, plain 4K TLB pages. That creates a slight bump. But, yeah. And as I said, when I ran these experiments, I thought that bump would be more pronounced. It's not. Apparently, like, you know, 4K TLB doesn't cost you that much, but a 32K one does. Okay, what else? "
+  },
+  {
+    "start": 1751.389,
+    "end": 1782.294,
+    "speaker": "SPEAKER_04",
+    "text": "This whole thing with the memory access packets, right, this algebra. I said that the calculations are not examinable, but the algebra itself is, right? So I would need you to be able to, well, basically model, I might give you, if you look at past exam papers, you will find I sometimes give you a program and then tell you, okay, model the behavior of this. "
+  },
+  {
+    "start": 1782.614,
+    "end": 1796.859,
+    "speaker": "SPEAKER_01",
+    "text": "You introduced us to the notation, the composing concurrently and sequentially, but is that all it is? We just represent it as that, or is there any math behind it that we can actually figure out? Yeah, right. "
+  },
+  {
+    "start": 1797.5,
+    "end": 1881.481,
+    "speaker": "SPEAKER_04",
+    "text": "So, okay, let me paraphrase the question as I understand it. Why do we have that notion of concurrent and sequential access? Can we do anything with that? Yeah, like is it just for show or is it actually useful? Okay, so this is not something I can bounce back. Yes, no, it is not even remotely just for show. So what would be, well, actually, maybe I can bounce it back a little. So what would be the effects that you would expect when executing two, let's say two memory access patterns in parallel versus sequential? What would happen? What are the effects that this could cause? Diego? Cache lines being evicted concurrently. So this is basically contention, right? OK, if you access them, good. How would you model this? What would you capture? Let's say you capture this. You have two memory access patterns. Let's stick with this. So we have two. arrays, and one's being accessed, let's say, like this, and the other one is being accessed like this. "
+  },
+  {
+    "start": 1882.089,
+    "end": 1932.309,
+    "speaker": "SPEAKER_04",
+    "text": "and you're now executing those concurrently. By the way, I wanna say concurrently in this case has absolutely nothing to do with multi-threading, right? I think this is something that sometimes students seem to get confused about. So this, the code for this is not like, you know, thread one doing this, thread two doing this, because they would actually be running on different cores, they would have different caches, so they wouldn't actually be contenting. This is, the code for this is something like, let's say, you know, sum plus equals array one address i plus array two. "
+  },
+  {
+    "start": 1932.509,
+    "end": 1972.475,
+    "speaker": "SPEAKER_04",
+    "text": "And this, let's say this one is a one, right? This one's a two. A two i times three. Something like this, right? So this is what would be considered a concurrent execution of two-memory axis patterns. This one would be modeled with this one, and this one would be modeled, would be modeling, sorry, would be modeled with this one. And so the axis pattern now would be sequential traversal of, well, whatever the parameters of A1 are, right, concurrent, sequential traversal of A2. "
+  },
+  {
+    "start": 1973.616,
+    "end": 2001.069,
+    "speaker": "SPEAKER_04",
+    "text": "Good. What could happen? You don't have to answer immediately. You can take 20 seconds to think, but you can also answer immediately. Maybe someone else. What would happen? What do we think the number of cache misses would be in this case? "
+  },
+  {
+    "start": 2012.776,
+    "end": 2029.421,
+    "speaker": "SPEAKER_01",
+    "text": "Okay, go. A2 is going to have more cache misses. A2 is going to have more cache misses than A1. Okay, cool, yeah. Why is that? Because its stride is longer. Its stride is longer, yeah. Cache will have 3 over 4 for A2 and 1 over 4 for A1. "
+  },
+  {
+    "start": 2030.302,
+    "end": 2061.067,
+    "speaker": "SPEAKER_04",
+    "text": "So basically, just this array would need to be much bigger. Okay, fine, yeah. Other than that... Or let's, let me maybe ask the question differently. Let's say instead of that, I could have an equivalent program, right, that does the same thing for sum plus equals a1i. "
+  },
+  {
+    "start": 2061.787,
+    "end": 2076.206,
+    "speaker": "SPEAKER_04",
+    "text": "And then I have another loop, same bounds, everything, that does sum plus equals a2. times three. Would we expect different performance? "
+  },
+  {
+    "start": 2076.887,
+    "end": 2091.439,
+    "speaker": "SPEAKER_01",
+    "text": "Yeah? If they're concurrent, if they both have a cache miss on the same iteration, then it would take double the time because the CPU would have to do one after the other if it didn't support multiple cache misses. "
+  },
+  {
+    "start": 2093.221,
+    "end": 2275.622,
+    "speaker": "SPEAKER_04",
+    "text": "So you're saying that If they're running concurrently, the access to A1 would somehow stall the access to A2? Possibly, yeah. If they're both missed. Sure, but we're looking at throughput here, right? We're not looking at latency. Yeah, go. Thank you, because the thread is bigger. No, no, sorry. So, very specific question. Would we expect this and this code to have different performance? Okay, who feels like they would have differing performance? Okay, who feels it would be the same? Why would it be different? What's the notion, right? A lot of people, yeah. Because with two fours, it seems sequential, not that the axes are interlinked. Sure. Why would that be a bad thing? Why would that hurt performance? Because maybe accesses to A2 evict a cache line of A1. When would that happen? So, in principle, that's a thought. Why would that happen? Associativity conflict. Okay. That's a very... That's just a phrase. Explain it to me. Like the address of A2 maps to the same cache line of A1. Sure, but why would that, okay, so how many cache lines does, in this case, how many cache lines for optimal performance? How large would the cache need to be? the sum of the size of A1 plus the size of A2. Okay, so you're saying the entire data would need to be in cache for... Demand performance. Right, but we're starting with the cold cache, right? Okay. Okay, but you're saying... The assumption always. Yeah, always is a strong word. Let's ignore that. But it is the assumption in this case, right? Okay, starting with the cold cache, but you're saying, okay, fine, there may be some contention between these two. Okay, now let's say you are designing a CPU. Okay, and you are, you cannot create a cache that is infinitely large, right? So the question is how large do you need to make the cache? "
+  },
+  {
+    "start": 2276.242,
+    "end": 2352.731,
+    "speaker": "SPEAKER_04",
+    "text": "Well, what do you actually, how much data, how much space do you actually need in your cache if you had, let's say, an optimal replacement strategy? An oracle that would predict the next cache accesses. And let's hypothetical. What's the answer to that? How many caches do you actually need to keep in cache? The size of the sum of the two arrays divided by the size of the cache line. Why? My argument is two. That would be my number because I need this cache line, well, when I'm performing this access, right? I want this cache line to stay in cache while I'm still performing these accesses. Afterwards, the moment I go here, I no longer care. I will never look at this cache line again, right? So if it gets evicted at that point, has zero impact on performance. "
+  },
+  {
+    "start": 2353.877,
+    "end": 2420.379,
+    "speaker": "SPEAKER_04",
+    "text": "Right? Same here. I access this value and let's say it's I times three. Okay, cool. So basically I would still be accessing a value on the same cache line, right? But once I'm done with all the accesses on this cache line, I move on to the next. I don't care. have it be evicted. I need exactly two cache lines, or space for two cache lines. Two because we are considering two or two arrays. Exactly, because it is two arrays. One cache line per array. Per array, yeah, or per scan, basically. You could have multiple scans on the same array, at which point things become a little bit more difficult. Right, so I don't actually need a large cache, for optimal cache performance. There is no threading. practically no contention. Now, you've made the argument, but what about associativity, right? Yes, so associativity basically just means you partition your cache, right? "
+  },
+  {
+    "start": 2420.879,
+    "end": 2454.751,
+    "speaker": "SPEAKER_04",
+    "text": "And if you are unlucky, or basically the mental model, I think, to work with associativity is not to say, oh, I have 132 kilobytes cache, but I actually have, you know, 128... well, whatever the associativity eight by eight cache by cache or something like this, right? But it still doesn't matter as long as the associativity is larger than the number of arrays that we're accessing. "
+  },
+  {
+    "start": 2455.091,
+    "end": 2500.315,
+    "speaker": "SPEAKER_04",
+    "text": "So for everyone else who may have not been following the associativity argument, just forget that, right? We're ignoring associativity. It's a stochastic process. So basically, we do not need large caches for this, which is why these two programs have for like, you know, there may be some minor things here and there, but if we are assuming that they are entirely dominated by performance of the cache bandwidth, and we're even assuming that there may be some prefetching going on in this case, we do not have to worry about anything other than the number of data items we are accessing. "
+  },
+  {
+    "start": 2500.355,
+    "end": 2543.448,
+    "speaker": "SPEAKER_04",
+    "text": "There's no contention. These two programs have the same performance. Does this make, yes, cool. So this oracle would prefetch exactly like what we need every single time. Okay, fantastic. Good question. I kind of left that open and I probably would have forgotten to get back to this. So this oracle that tells us what cache lines we should evict, well, it is not, we don't have an oracle, right? In this specific case, Well, what is the eviction strategy that you're probably most familiar with? LRU. LRU, right, least recently used. "
+  },
+  {
+    "start": 2543.848,
+    "end": 2577.501,
+    "speaker": "SPEAKER_04",
+    "text": "LRU actually works perfectly fine here because, well, let's say you don't just have two cache lines, you have well, practically speaking, you have 500, but even if you had 20, right, the ones that were least recently used are the ones that, well, once you are, let's say, here, right, 10 cache lines in, the oldest, the least recently used, well, is the first one you access. That one's perfectly safe to evict, right? So LRU is a good replacement strategy in this case, and it does the exact same thing that the Oracle would do. "
+  },
+  {
+    "start": 2577.841,
+    "end": 2624.932,
+    "speaker": "SPEAKER_04",
+    "text": "There are other cases, we're gonna get to that, in which a real oracle would be nice, but in this case, LRU is perfectly fine. Yeah, go on. Why do we ignore prefetching when we're doing these modelings? Because it's very important now. It is. Because the model is throughput-oriented, right? And we're not really ignoring prefetching, we just assume that it happens. There are edge cases, so full disclaimer, right, a lot of this was actually in my master's thesis. I worked on this, which is why I did all these experiments way back. And I actually extended this model with prefetching as a factor. But it's actually a lot less important than you would think. "
+  },
+  {
+    "start": 2625.312,
+    "end": 2674.652,
+    "speaker": "SPEAKER_04",
+    "text": "Prefetching is trickier once, or is more important once you look at latency. bound applications, but not a lot of applications are latency bound. That's reasonably safe to ignore. Good, but we were actually talking about this, right? So what I would argue is for this kind of sequential traversal access patterns, whether you execute them concurrently or sequentially, does not matter, right? So now we're getting back to your original question, is this just for show? Well, for the sequential access patterns, it kind of is. What about the other patterns? What other patterns do we have? "
+  },
+  {
+    "start": 2676.573,
+    "end": 2735.503,
+    "speaker": "SPEAKER_04",
+    "text": "Well, look, presumably everyone's watched the lecture, so everyone should be able to answer that. What other patterns? Maybe we'll wake up someone who hasn't said anything yet. What is the question? Random. Random what? indirect? We had two other axis patterns, right? Random axis, I think without repetition. We discussed that in lecture. So we had repetitive random axis and Well, we call that a random traversal, right? Hold on. In the original model. Okay, so we have random traversal and repetitive random accesses. "
+  },
+  {
+    "start": 2735.943,
+    "end": 2768.939,
+    "speaker": "SPEAKER_04",
+    "text": "Okay, good. Let's look at the simpler case. Let's say we perform a random traversal, right? So the idea here is just we jump around a bunch, but we never access a value twice, right? And we access every value in the... And let's say, okay, I'm not going to write code for this because, you know, writing a random number generator that is guaranteed to generate every number once but in a random order is not actually as trivial as it sounds. "
+  },
+  {
+    "start": 2769.419,
+    "end": 2801.402,
+    "speaker": "SPEAKER_04",
+    "text": "But let's just say we have two random traversals. We're now executing them concurrently. What happens? Do they impact, let's say I do the same thing, right? Only I access the arrays in random order. Do we think the performance is going to be the same? Yes? "
+  },
+  {
+    "start": 2802.122,
+    "end": 2833.61,
+    "speaker": "SPEAKER_04",
+    "text": "Should we do another vote? Okay, who feels like the performance is going to be the same? Between the two programs. Between the two programs, assuming that the order is random. Okay, okay, three, who thinks the performance is going to be different? Two, three, four, okay. Everyone else should engage, guys and girls. Okay, who thinks it depends? "
+  },
+  {
+    "start": 2835.251,
+    "end": 2845.805,
+    "speaker": "SPEAKER_04",
+    "text": "Wow, yeah, well, I kind of cheated here. No, in this case, it actually does depend. What would it depend on? Why did I say it depends? Yeah, go. "
+  },
+  {
+    "start": 2846.426,
+    "end": 2897.973,
+    "speaker": "SPEAKER_02",
+    "text": "It depends on the probability of if you're going to access the same element as the block size that's loaded onto the cache. Because we're accessing randomly, if every single access, say in programming, every single access is outside the cache, that's the block of elements is loaded into the cache. I'm wording this horribly. Well, with program B, randomly, but you still access pretty much the same way as you did before, then maybe the second one gets better performance because you get more cache hits. Better performance? Okay. What I'm saying is it depends on luck, I guess. On luck? As in, probability of if you'll be hitting the like narrow elements a lot? "
+  },
+  {
+    "start": 2901.775,
+    "end": 2902.935,
+    "speaker": "SPEAKER_04",
+    "text": "Maybe 20% there. "
+  },
+  {
+    "start": 2903.536,
+    "end": 2910.078,
+    "speaker": "SPEAKER_01",
+    "text": "Yeah, go. Depending on if A1 and A2 share any data? Let's say they don't, for simplicity. "
+  },
+  {
+    "start": 2911.139,
+    "end": 2931.165,
+    "speaker": "SPEAKER_03",
+    "text": "Yeah. We still have the different sizes of A2. We do have different sizes. but the same size, then it's just essentially the same as modeling as if it was one big array, I guess. "
+  },
+  {
+    "start": 2934.207,
+    "end": 2966.717,
+    "speaker": "SPEAKER_04",
+    "text": "So there is some truth. You have 10% there. If we're adding this with the 20%, we're about 30% there. So look, if we're assuming in this case, like for the first one, The assumption was we access stride was one. So every address is accessed at least once. So there is some reuse between accesses of reuse of cache lines. "
+  },
+  {
+    "start": 2967.437,
+    "end": 3000.831,
+    "speaker": "SPEAKER_04",
+    "text": "So let me make the extreme case. In this case, it doesn't actually matter that much what the block size is. What matters is what is the capacity of it. Now let's say we're talking about a level one cache, so we have a 32 kilobytes cache. Let's say our array is 16 kilobytes. Well, on the first access to every element, we would get, sorry, to every cache line, we would get a random, we would get a cache miss on that, right? "
+  },
+  {
+    "start": 3001.271,
+    "end": 3032.319,
+    "speaker": "SPEAKER_04",
+    "text": "But then, let's say, you know, I jump, what did I do here? I jumped here, right? So that was, this one was my first access, so now the first cache line is in cache, right? Now I'm jumping here. Now this cache line is in cache as well. Now I'm jumping back. Oh, well, this cache line is still in cache, right? Because cache, well, under least recently used, or it doesn't really matter because we don't need to evict anything. This one would not be a cache miss, right? "
+  },
+  {
+    "start": 3032.679,
+    "end": 3073.763,
+    "speaker": "SPEAKER_04",
+    "text": "Because the cache line is still there. Now we are jumping, where did I jump? Here? Okay, now I get another cache miss. Okay, so that's three. And so I basically get as many cache misses as the array spans. But after that, I no longer get any, right? But same for the second one, right? Now, if the cumulative size of these two arrays now exceeds the cache that I'm looking at, I do get evictions and I can calculate like, you know, equation in the paper to, well, I mean, it's not that hard, right? "
+  },
+  {
+    "start": 3073.783,
+    "end": 3114.852,
+    "speaker": "SPEAKER_04",
+    "text": "Like you basically take the size of the cache divided by the cumulative size of the arrays that gives you the probability of a value being in cache, because that is the, part of the cumulative array that the cache can hold, and that is the probability of you having a cache hit. One minus that is the probability of a cache miss. There you go, right? So basically what these two are doing in the concurrent case is they are contending for cache space, and you will have to account for that in the probability of a cache miss. "
+  },
+  {
+    "start": 3116.899,
+    "end": 3148.47,
+    "speaker": "SPEAKER_04",
+    "text": "of an access to a data item being a cache miss. There is also something in the paper about sequential accesses. Sequential access can, under certain circumstances, actually have a beneficial effect. So imagine, for example, you're scanning the same array multiple times. That would be, well, basically multiple sequential traversals of the same array. If the array is... "
+  },
+  {
+    "start": 3150.153,
+    "end": 3182.506,
+    "speaker": "SPEAKER_04",
+    "text": "smaller than the cache, the second scan will benefit from the first one, right, because it's heated up the array. So there is a bunch of stuff in the paper for specific cases like this, so it's not just for show. That was like, you know, where we started 20 minutes ago. But yeah, so there is. Okay, this was a lengthy discussion, but I think it was worth it. I think that we covered a fair amount and clarified some things. "
+  },
+  {
+    "start": 3182.886,
+    "end": 3204.153,
+    "speaker": "SPEAKER_04",
+    "text": "Are there other questions? Otherwise, I would say let's take a break now and then do the tutorial afterwards. Are there any things that are still unclear, anything you want to get off your chest? Okay, in that case, let's take a 10-minute break, so we reconvene like three minutes past the hour. What's going on? "
+  },
+  {
+    "start": 3219.108,
+    "end": 3230.852,
+    "speaker": "SPEAKER_04",
+    "text": "Can someone check if the instructions on Scientia are accessible? Microbenchmarking? Yeah, for the... Yes, please. How are you guys doing? They're both here. Same content. "
+  },
+  {
+    "start": 3230.932,
+    "end": 3245.297,
+    "speaker": "SPEAKER_03",
+    "text": "I'm going to split you guys behind me. I don't understand this. I don't understand this. "
+  },
+  {
+    "start": 3247.138,
+    "end": 3249.858,
+    "speaker": "SPEAKER_01",
+    "text": "I don't understand this. I don't understand this. "
+  },
+  {
+    "start": 3263.483,
+    "end": 3313.787,
+    "speaker": "SPEAKER_03",
+    "text": "We get allocated on the 31st You have to know I mean, if I go to the... I mean, if I go to the... I mean, if I go to the... I mean, if I go to the... I mean, if I go to the... I mean, if I go to the... I mean, if I go to the... I mean, if I go to the... I mean, if I go to the... I mean, if I go to the... I mean, if I go to the... I mean, if I go to the... I mean, if I go to the... I mean, if I go to the... I mean, if I go to the... I mean, if I go to the... I mean, if I go to the... I mean, if I go to the... I mean, if I go to the... I mean, if I go to the... I mean, if I go to the... I mean, if I go to the... I mean, if I go to the... I mean, if I go to the I want to ask you a question. "
+  },
+  {
+    "start": 3381.931,
+    "end": 3390.018,
+    "speaker": "SPEAKER_03",
+    "text": "Really. So each one's 4K, right? Yeah, absolutely. It passes 4K. 24 when I did it. It's usually like a really big time. Yeah, I also thought so. I mean, I bet you... "
+  },
+  {
+    "start": 3424.274,
+    "end": 3435.084,
+    "speaker": "SPEAKER_04",
+    "text": "But apparently they're not. But you also have to remember this was a log scale. Yeah, I agree. If this were actually accessing disk, yeah. "
+  },
+  {
+    "start": 3435.104,
+    "end": 3438.207,
+    "speaker": "SPEAKER_03",
+    "text": "But if you had to model disk, right, you would just... "
+  },
+  {
+    "start": 3454.069,
+    "end": 3459.231,
+    "speaker": "SPEAKER_03",
+    "text": "That's how to press the button, so to be fair, any type of train, you want to be up during the commuter rush. "
+  },
+  {
+    "start": 3478.081,
+    "end": 3481.444,
+    "speaker": "SPEAKER_03",
+    "text": "That's the advantage, because you get enough flitting. "
+  },
+  {
+    "start": 3494.195,
+    "end": 3529.529,
+    "speaker": "SPEAKER_03",
+    "text": "But I suppose that's the thing. I don't understand it. By the point, by the learning and the learnings, it's just an extra stranger. Because you'd think that, like, the only other people who'd be gone there, everyone would have gone on a bed. So you'd think the people at Bedford would take the connection. I have no idea why. I can't explain. Okay, so the only reason I could think of is that it's cheaper, but I don't know. In fact, my ticket to Wallingborough would often be that it's to Flint. Because we're just unlucky. They charge us for them. "
+  },
+  {
+    "start": 3549.563,
+    "end": 3556.308,
+    "speaker": "SPEAKER_02",
+    "text": "I don't know, but people do. I think it's if you're actually going to work. If you go to work and say talk. "
+  },
+  {
+    "start": 3557.009,
+    "end": 3562.674,
+    "speaker": "SPEAKER_03",
+    "text": "Yeah, but no one gets those stations. "
+  },
+  {
+    "start": 3562.734,
+    "end": 3564.255,
+    "speaker": "SPEAKER_04",
+    "text": "Is this legible in the back? "
+  },
+  {
+    "start": 3576.408,
+    "end": 3578.078,
+    "speaker": "SPEAKER_03",
+    "text": "I think some of the MRIs. "
+  },
+  {
+    "start": 3599.29,
+    "end": 3601.091,
+    "speaker": "SPEAKER_03",
+    "text": "I don't know if they do any breaking changes. "
+  },
+  {
+    "start": 3623.591,
+    "end": 3651.189,
+    "speaker": "SPEAKER_03",
+    "text": "How would I know? I think stable is basically, that's why stuff spends so long and lightly. It's because they want to make sure they get it. The only time that things completely change is the very thing. I basically don't like change. It's basically the entire standard line simply streamed. So prior to... I'm not going to say more simplicity plus pluses, but... "
+  },
+  {
+    "start": 3682.814,
+    "end": 3684.836,
+    "speaker": "SPEAKER_03",
+    "text": "It really can't make its mind up. "
+  },
+  {
+    "start": 3724.896,
+    "end": 3741.266,
+    "speaker": "SPEAKER_01",
+    "text": "This module for me this time is like ACA last time. It's the fun thinking one. Yeah, that's the point. I really like the course. Yeah. Yeah, exactly. What are the modules you're doing then this term? "
+  },
+  {
+    "start": 3759.798,
+    "end": 3770.009,
+    "speaker": "SPEAKER_03",
+    "text": "Are you doing the deep learning course for that? Yeah, yeah, yeah. What's the only other one I'm doing? I've done it. I know. I set it up on my laptop and on my DVD Dojo. "
+  },
+  {
+    "start": 3770.029,
+    "end": 3789.787,
+    "speaker": "SPEAKER_01",
+    "text": "The thing is, Dojo is so slow. That's the issue. I don't think you need that much faster, but because you're on Bitbucket, it takes so much longer to load any data. Once you spend an hour loading all the data, then you can use it much faster. Yeah. OK, cool. "
+  },
+  {
+    "start": 3789.807,
+    "end": 3821.622,
+    "speaker": "SPEAKER_04",
+    "text": "Let's get started. So in this case, today I would I'd like you to play along while I do it. On Scientia, I've uploaded both a PDF as well as a markdown file because in the past, students have often had issues copying the command from the PDF file because Minted does some, puts some funky things in there. So if you want to copy the instructions, use the markdown file, okay? "
+  },
+  {
+    "start": 3822.402,
+    "end": 3856.817,
+    "speaker": "SPEAKER_04",
+    "text": "Cool, and the first thing you want to do is generate some random data. And for that I've basically written a quick note. Oh no, I'm actually compiling this straight away. Yeah, I've written a short program to just generate a bunch of random data points, but there's nothing super secret here, right? It's basically just a sequence of random numbers between one and 500. "
+  },
+  {
+    "start": 3857.858,
+    "end": 3889.495,
+    "speaker": "SPEAKER_04",
+    "text": "But it takes a while for this to run, and so you might wanna just put it in the background while we're doing other things. Good, so next thing you do is you download MonetDB, which is a data management system that, while it's developed like a researchy data management system, it's by now a bit old, but what's nice about it is it's relatively simple and the code is open source and you know. We can work with it. "
+  },
+  {
+    "start": 3889.875,
+    "end": 3920.337,
+    "speaker": "SPEAKER_04",
+    "text": "Okay, cool, so let's download it and unpack it. Here we go, there's a directory. Now, I'm gonna go into it and compile it. And we have to make things a little bit simpler. We have to disable one of the features, which is called an imprint index, and I've written a patch for that as well. Just like a small thing, again, it makes our analysis easier. "
+  },
+  {
+    "start": 3922.1,
+    "end": 3962.699,
+    "speaker": "SPEAKER_04",
+    "text": "The rest, relatively easy, you make a directory, go to that directory, and then you use CMake to compile it, and we're compiling in this rel with dev info. That is release mode with debug info. We want the debug information in the binary, but we still want the compiler to do a reasonable job optimizing it, hence we're compiling in release mode. Okay, and once this is done, we file it, and that takes a little. "
+  },
+  {
+    "start": 3970.307,
+    "end": 3985.958,
+    "speaker": "SPEAKER_04",
+    "text": "And it has a bunch of warnings. We're already halfway through the instructions. That's alright. "
+  },
+  {
+    "start": 4012.4,
+    "end": 4017.223,
+    "speaker": "SPEAKER_04",
+    "text": "Someone asked on my machine again, how game my CPU cycles. "
+  },
+  {
+    "start": 4017.883,
+    "end": 4025.227,
+    "speaker": "SPEAKER_03",
+    "text": "It's like the same thing. That's what the truth is. Oh yeah, here we go. "
+  },
+  {
+    "start": 4052.352,
+    "end": 4083.21,
+    "speaker": "SPEAKER_04",
+    "text": "Cool, good, so I'm done. And now I'm gonna go to the directory here, and you should have something like this, right, where I've basically installed munedib and then into the temporary directory that I've created here. So I have bin and etc and include and all the stuff that I need. So now, the next thing I have to do is I need to create what they call a DB farm, a database farm. "
+  },
+  {
+    "start": 4083.25,
+    "end": 4163.533,
+    "speaker": "SPEAKER_04",
+    "text": "Basically, Monet can manage multiple databases, and all of the databases that it manages, they call a database farm. And so, I basically just need to create that, and then I start it. That might have been me. Yeah, that is an old server that I still have running. Let's just kill that process. While we're at it, kill this one as well. Good. Now let's try to start the database farm. Okay, cool. Now I have a monadb server running, and now I create a new database. And I'm gonna call it test. and then I'm gonna release it when I create a new database. Monet doesn't allow, just doesn't spin it up immediately. I have to release it, and that means, okay, it's active now. "
+  },
+  {
+    "start": 4164.753,
+    "end": 4199.993,
+    "speaker": "SPEAKER_04",
+    "text": "And I can connect to it, I guess. Cool, and now I can like, you know, this is a regular SQL database, right, like I can run SQL commands here. Monet is optimized for analytical data processing, so not transaction processing. It doesn't do inserts very well, but it does analysis really well. So let's do some analysis. I create a new table, and I'm gonna call it points. And then I copy the data that I had generated previously. "
+  },
+  {
+    "start": 4202.908,
+    "end": 4213.731,
+    "speaker": "SPEAKER_04",
+    "text": "I copy that into the table. Should not take too long. "
+  },
+  {
+    "start": 4224.533,
+    "end": 4257.442,
+    "speaker": "SPEAKER_04",
+    "text": "Okay, cool. Now I have the data in there. I can do a select count star, oops. Here we go, okay, bunch of data in the table. And now I'm gonna do something, I'm gonna, again, to make the analysis simpler, I'm going to set the database to read only. For that, I have to first stop it. and then set this attribute to read only. "
+  },
+  {
+    "start": 4257.922,
+    "end": 4304.328,
+    "speaker": "SPEAKER_04",
+    "text": "Cool. And now nothing should have changed, right? I can still connect to the table and I do select star from, no, I'm not gonna do that. Billion tuples from points. Here we go. Okay, data's still there. Good. And now I'm gonna run some queries. And so basically what I have here is a small shell script that runs ten times, well no, it actually runs ten variations of the same query, and it runs each of them five times. So it basically has two nested loops. "
+  },
+  {
+    "start": 4305.248,
+    "end": 4340.465,
+    "speaker": "SPEAKER_04",
+    "text": "And within the each of those iterations, it sets their optimizer to what they call the sequential pipe that just disables multi-threading. Again, we're doing this to make the analysis easier. The same results would hold if we didn't do this, it would just be a little bit more And then we are tracing, so trace basically tells Monet that I want not just the result of the execution, but I actually want some performance analysis of the query plan, what the system actually did. "
+  },
+  {
+    "start": 4340.926,
+    "end": 4374.942,
+    "speaker": "SPEAKER_04",
+    "text": "And then this is the query that we're running, and here is where the parameter s comes in. And S is varied from 1 to 10. So that basically means find the number of points that are less than 50 times S. So first iteration is less than 50, then less than 100, less than 150, blah, blah, blah, all the way up to 500. The rest is just aggregating the results using org and so forth. And if I run this, I can see how the performance changes. "
+  },
+  {
+    "start": 4375.342,
+    "end": 4416.445,
+    "speaker": "SPEAKER_04",
+    "text": "And this trace combined with this grab theta select here is basically zooming in on a specific operator, in this case the filter operator, and giving me a MonetDB's internal performance metric it basically just counts the number of milliseconds that this thing, actually it's microseconds that the thing ran. And so I can basically now see for, if I set this parameter to, why did I, I don't know why I have 10 here. "
+  },
+  {
+    "start": 4416.785,
+    "end": 4515.082,
+    "speaker": "SPEAKER_04",
+    "text": "Well, so although we have this, because this is selecting 10% of the data, 20% of the data, 30% of the data, and so forth. And this is always the time, right? Now I can take this and copy it into a spreadsheet. And I'm gonna do that. And then we can plot it and look at the performance. There we go. So, here are the numbers. Let's plot them. Chart. Here we go. So, this is performance, right? Like, you know, selecting 10% of the data, 20, 30, 40, 50. And then it somehow seems to go down. Everyone with me so far? Yeah, go. My thing said monadb doesn't have release. Doesn't have release? Unknown command release. When I was doing release test. Have you copied the instructions? Yeah. Are you certain? No. As I said, try to copy the instructions from the markdown file. But let's, for the time being, just think about this, right? Is this what we would expect? Well, basically, you know... "
+  },
+  {
+    "start": 4517.019,
+    "end": 4550.166,
+    "speaker": "SPEAKER_04",
+    "text": "Well, yeah. Running a query, we're counting all the points that satisfy a criterion, right? All the tuples in our database. And we kind of expect, well, the more tuples satisfy our criterion, the more work it needs to do. So that part is kind of, that makes sense to me, right? Like, you know, it has to sum up more values if there are more qualifying values. "
+  },
+  {
+    "start": 4550.466,
+    "end": 4576.329,
+    "speaker": "SPEAKER_04",
+    "text": "So it should kind of go up, but then at some point it stops going up and it actually goes down a little and then it goes up again and then down a little. I want to declare this one an outlier, but still the performance trend is somewhat odd, isn't it? Any hypothesis what is happening? "
+  },
+  {
+    "start": 4592.541,
+    "end": 4617.021,
+    "speaker": "SPEAKER_03",
+    "text": "No? Nothing? Yeah, go. Can it look not for data that we actually want to choose, but for data that we are not choosing? Look for data that we... So you're saying it's eliminating data rather than... Yeah, yeah. I mean, just a guess. Yeah, I know. Nope, that's not it. "
+  },
+  {
+    "start": 4622.863,
+    "end": 4658.754,
+    "speaker": "SPEAKER_04",
+    "text": "Okay, let's see if we just perform some more analysis and then maybe we'll get to an answer together. So now we'll look at this through VTune. So let's spin up our VTune. And I'm doing the same thing that I did last week, or at least tried to do last week, spinning up VTune with a web interface. "
+  },
+  {
+    "start": 4659.174,
+    "end": 4661.596,
+    "speaker": "SPEAKER_04",
+    "text": "Probably again already have one running. "
+  },
+  {
+    "start": 4662.705,
+    "end": 4663.775,
+    "speaker": "SPEAKER_03",
+    "text": "Did you choose that one? "
+  },
+  {
+    "start": 4697.358,
+    "end": 4700.82,
+    "speaker": "SPEAKER_04",
+    "text": "Oh yeah, now I need to perform. "
+  },
+  {
+    "start": 4700.88,
+    "end": 4704.502,
+    "speaker": "SPEAKER_03",
+    "text": "I put my... Here is the dash j, what's the last bit for? "
+  },
+  {
+    "start": 4722.33,
+    "end": 4734.303,
+    "speaker": "SPEAKER_01",
+    "text": "So don't do the dash J. Ah, OK. Don't do the shell. Just do shell, yeah. Do that command. Delete the pixel bar. And delete dash J. "
+  },
+  {
+    "start": 4744.783,
+    "end": 4832.524,
+    "speaker": "SPEAKER_04",
+    "text": "That one. Okay, cool. And so what I can do now is I create a new project. Let's call it . And I'm doing the same thing that I did yesterday, no, yesterday, last week. I will... Okay, let's deploy an agent. And what I have in addition to this launch application thing that I did last week, I can also attach to an existing process, to a running process. And I can attach to this mserver5, that is the actual binary, the monedib server. And, well, I'm pretty sure it is. Let me try. Here we go. What? Okay, this worked earlier. I mean, worst case, I have to use the process ID. Oh, because I shut down the server, maybe? Let's see. In the background. Yeah, it is running, it should be running. "
+  },
+  {
+    "start": 4834.064,
+    "end": 4848.387,
+    "speaker": "SPEAKER_03",
+    "text": "Okay, fine, we'll use the process ID, I don't know what's going on. "
+  },
+  {
+    "start": 4849.407,
+    "end": 4880.717,
+    "speaker": "SPEAKER_04",
+    "text": "Okay, cool. And I can now run this? It's attached, and so now we go and run our query again. And I'm running it for 250, okay, here. So basically a point right in the middle. I'm gonna run it a couple of times. Good, done. And now out. "
+  },
+  {
+    "start": 4881.92,
+    "end": 4912.967,
+    "speaker": "SPEAKER_04",
+    "text": "So we're basically zooming in on this point here, right? Where it's selecting about 50% of the data. Cool. And like last time, it gave me some indication and what it thinks I should do. Well, first it says, oh, my parallelism is terrible, which is because I've disabled the parallelism in monadb. Okay, fine, that is kind of expected. But then it also points me at microarchitectural exploration. "
+  },
+  {
+    "start": 4913.327,
+    "end": 4968.583,
+    "speaker": "SPEAKER_04",
+    "text": "Cool, let's try that. So... Good. Let's run the query a couple of times. Good. And now let's take a second and think. What do we think is the microarchitectural component that will dominate the performance? We're thinking about what the system does. It selects a bunch of points and then it counts them. "
+  },
+  {
+    "start": 4970.384,
+    "end": 5022.202,
+    "speaker": "SPEAKER_04",
+    "text": "Right? So how would you implement this? What would an implementation, yeah, go, thanks. If conditions, so it's the branch predictor. All right, thank you. Well, you've answered the first question, not the how did you implement it. Okay, so we kind of think that branch predictions might play a role here, right? And let's see if that hypothesis is validated. Oh, yeah. 50% of the time, almost 50% of it is bad speculation. That is branch misprediction. "
+  },
+  {
+    "start": 5022.582,
+    "end": 5060.394,
+    "speaker": "SPEAKER_04",
+    "text": "Does that make sense? Does that match our expectation? Who's surprised by this? even the specific number makes kind of sense, right? Because it is, as I said, it's selecting 50% of the data points, and that speculation is roughly 50% of the cycles. It is spending 50% of its time speculating, or well, making mistakes, right? "
+  },
+  {
+    "start": 5061.014,
+    "end": 5069.222,
+    "speaker": "SPEAKER_04",
+    "text": "And that is 100% in line with our expectations. We can now do the same thing for funds. Why not? Let's do it again. "
+  },
+  {
+    "start": 5079.507,
+    "end": 5120.293,
+    "speaker": "SPEAKER_04",
+    "text": "Okay, run this, and we're gonna run it for a different number here. Let's say we run it for 30. So in this case, that would be on the very left of our chart. Or actually, no, let's make this more interesting. Let's do it for 450, the very right of our chart. Running it, times, done, stop collecting, look at the results. So we have much less time spent in that speculation, right? "
+  },
+  {
+    "start": 5120.694,
+    "end": 5168.664,
+    "speaker": "SPEAKER_04",
+    "text": "Because the probability of the if condition inside that loop holding is now, well, 90% or 95 or something, right? And so the CPU has a much easier time speculating. And so that also explains why the performance, why it's not getting more expensive here. We're shifting from a piece of code that is largely dominated by branch mispredictions and bad speculation to one that is no longer dominated by bad speculation at all and largely dominated by pure data access. "
+  },
+  {
+    "start": 5169.564,
+    "end": 5203.541,
+    "speaker": "SPEAKER_04",
+    "text": "And it just happens that these are Well, this one's actually a little cheaper than this one. Okay, cool. But let's also... have a, or well, we can still argue that this is a hypothesis that we have, right? It's not validated yet. And now this is where the idea of micro-benchmarking comes in. We can now see if we can validate this hypothesis under controlled circumstances. "
+  },
+  {
+    "start": 5203.961,
+    "end": 5235.423,
+    "speaker": "SPEAKER_04",
+    "text": "But for starters, let's look at what MonetDB actually does here, right? So one, oops. What I can do is I, instead of the, now I need to get the process ID again. Okay, server again. "
+  },
+  {
+    "start": 5241.618,
+    "end": 5265.943,
+    "speaker": "SPEAKER_04",
+    "text": "And we're not doing the microarchitectural analysis, we're doing the hotspot analysis. Okay? And we're now interested in looking at the actual code that Monetti V8. And let's go back to the version with 250. Okay, cool. And then a couple of times. Done. "
+  },
+  {
+    "start": 5276.202,
+    "end": 5306.648,
+    "speaker": "SPEAKER_04",
+    "text": "Cool, so the top hotspot that it's identified is what it calls a dense scan int. So that is basically the code that implements this operator that scans over the data and we can click on it. And we see, okay, fine, here's, by the way, this is interesting, right, here are the three runs of our query. This is the stack trace, and it's scan select, okay, cool. And we can go look at the code. "
+  },
+  {
+    "start": 5307.669,
+    "end": 5349.438,
+    "speaker": "SPEAKER_04",
+    "text": "Cool, let's look at the code. And it spends 96% of the time in this one line of code. Right, scan cell, then scan dense, whatever. Now, the problem with this is why, well, we can't really, there seems to be a function call here, but I don't see that function call in the stack trace, right? For some reason, this, you can even do the top-down tree, right, like where you can see, you can look at things from the bottom of the stack trace, right? "
+  },
+  {
+    "start": 5357.838,
+    "end": 5388.177,
+    "speaker": "SPEAKER_04",
+    "text": "Okay, I'm getting bored here. This is the theta select here. Okay, scan select, there is the function. But it says it spends 96% in that function. And all that, it spins, yeah, all of that in that one function bubble. Why is it not breaking down that function call? Why is this not on the stack frame? "
+  },
+  {
+    "start": 5388.197,
+    "end": 5419.11,
+    "speaker": "SPEAKER_04",
+    "text": "Why is scan cell not on the stack frame? Any ideas? Yeah, go. So it could be inlined. That is a good guess. That would then lead to the function not be on the stack frame. That's not the case, but it's a very good guess. I think I saw your hand first. Is it an external call? An external call would still be external as in loaded from a library. It would still show up on the stack frame. "
+  },
+  {
+    "start": 5419.33,
+    "end": 5465.732,
+    "speaker": "SPEAKER_04",
+    "text": "It would still be a function call. Yeah? I'm sorry, I don't understand what you mean by the stack frame. So, look, this top-down tree here, right? This is basically the, here you see the stack frame, right? and there is then scan int, that is the function I am in here, right? But it spins, the CPU spins according to the top down tree, spins 97% of the time in that one function, but if I look into the function, I see that 97% or 2.4 seconds is spent inside this function, or inside this line of code. "
+  },
+  {
+    "start": 5466.072,
+    "end": 5516.106,
+    "speaker": "SPEAKER_04",
+    "text": "And, but this is, like, you know, I mean, it looks like a function call, right? Like, why is it not, why isn't that the function that it spends all the time in? Does that make sense? It's okay. I mean, I don't want to give it away. Yeah, yeah. So you thought inlining was the answer, right? So if you had a function that was inlined into another, it would not show up in the stack trace, yeah, stack trace here. You would see exactly this pattern, despite it having significant cost here. But in this case, it is not inline. "
+  },
+  {
+    "start": 5516.286,
+    "end": 5617.193,
+    "speaker": "SPEAKER_04",
+    "text": "The MonetDB team is not relying on the compiler to optimize this code. Yeah. Like the sampling interval is too large to sample that function? Could be, but like, you know, two and a half seconds, right? This is quite a lot. No debugging information? No debugging info? No, no, no. Okay, I'll give it away. This thing is a macro, right? It looks like a function, but it's actually defined somewhere further off in the code as a C macro. And so, I think we can actually look at it. So let's look at the code. Let's, maybe, gdk, gdk select. What was the thing called? It was called ScanCell. Okay, let's search for that. Here is the definition of the function, sorry, of the macro. And because it is a macro, it is quasi-inlined during the pre-processing step by the compiler and doesn't show up in the stack trace because it is not a function. "
+  },
+  {
+    "start": 5618.573,
+    "end": 5649.033,
+    "speaker": "SPEAKER_04",
+    "text": "And so we can actually see this in effect by having the compiler, well, performing the pre-processing ourselves. So, what I've done here is, here, with this, can we get rid of the stupid, with this function, and this took me a while to get working, I'm just performing the pre-processing. "
+  },
+  {
+    "start": 5652.07,
+    "end": 5685.109,
+    "speaker": "SPEAKER_04",
+    "text": "not the actual compilation. Oh, sorry. Okay, cool, and if I now look at the, oh, now I am actually in, if I now look at the code afterwards, It looks terrible because it's inlined all the headers and performed all the macro expansion. And the Bonetti B relies heavily on macros. "
+  },
+  {
+    "start": 5685.489,
+    "end": 5764.832,
+    "speaker": "SPEAKER_04",
+    "text": "And I would no longer find the scan cell function at all or function, semi-function macro thing because it's been removed. Yeah, go. I was going to say, what's the... of having a macro instead of a function there? Because I'm not familiar with macros. Well, I mean, macros, as was pointed out, they basically perform the same, at least in this case, they perform the same function as an inline function, and a function call is expensive, and they just want to avoid that cost for the function calls, and so they use macros instead. So they're like manually inlining the function? Pretty much. Okay. Yeah. Okay, cool. But, so now let's, we've now changed, basically expanded all the macros, inline all the headers, basically done all the pre-processing, and we can now look at the code in its expanded form, right? Which also has some advantages over inlining, because inlining is a bit... are harder to control, right? In this case, we have full control over this. So now let's recompile. "
+  },
+  {
+    "start": 5768.701,
+    "end": 5799.519,
+    "speaker": "SPEAKER_04",
+    "text": "and then redo our analysis. The good thing is we don't have to recompile everything, we're just recompiling bits of the code that we've changed, which is, well, this gdk select object. But it still takes a bit to compile. Any other questions while we wait for this to compile? "
+  },
+  {
+    "start": 5802.079,
+    "end": 5807.86,
+    "speaker": "SPEAKER_03",
+    "text": "How do you get VTune to run background? If I put an ampersand, it still doesn't let me. "
+  },
+  {
+    "start": 5809.241,
+    "end": 5877.935,
+    "speaker": "SPEAKER_04",
+    "text": "So what I do is I usually run it in the foreground first. You can do this here as well, right? I mean, if I type control Z, it interrupts it. And then I can go background percent one. Oh wait, in this case, this is job two. And this puts the job in the background. So you can do the same thing with vtune as well. Thanks. Sure. And I think we can also put it back in this. Oh yeah, good, cool, we're done. Good, now we go back to the root of our thing. We stop the database. Well, we stop the database server and we restart it. Okay, cool, so now I've basically recompiled monedb, it has the exact same functionality, all it did is expand all the macros in that one file, right? "
+  },
+  {
+    "start": 5878.435,
+    "end": 5910.034,
+    "speaker": "SPEAKER_04",
+    "text": "Good, now we, do I have, I don't think, I think I might have to kill that as well. No, I think it's actually, yeah, it's restarted it. Okay, good, so now I just need the process ID, and we do the same kind of analysis again, okay? So, go back to configure analysis, attach to the process ID, hello, here we go. "
+  },
+  {
+    "start": 5913.76,
+    "end": 5950.77,
+    "speaker": "SPEAKER_04",
+    "text": "Okay, and now we're running the query. Here we go. Three times. And we stop the analysis. Cool. So here, nothing's changed, right? Because the hotspots, like from the Profiler's point of view, absolutely nothing has changed because the code is still the same function, same stack trace and everything, right? "
+  },
+  {
+    "start": 5951.912,
+    "end": 5982.524,
+    "speaker": "SPEAKER_04",
+    "text": "But I can now click on this. Okay, it takes much longer to load because the file is now much larger. I think it used to be a couple, maybe 2,000 lines of code. Now we're at line 100,000 here. This is after expansion. But now I see the breakdown of the actual performance. Here it scans through the data. "
+  },
+  {
+    "start": 5982.804,
+    "end": 6012.861,
+    "speaker": "SPEAKER_04",
+    "text": "Somewhere here it applies a predicate. Well, and here it writes the output. A destination, cnt is count, so that's a cursor, and o is the object that it writes. And so now you see the actual, you can actually dig through the code. Now the problem is that I've spent a lot of time working with monadb. To me this makes a fair amount of sense. In practice, I don't want you to have to go through this. "
+  },
+  {
+    "start": 6012.921,
+    "end": 6046.325,
+    "speaker": "SPEAKER_04",
+    "text": "It's not pretty code. So just trust me if I tell you that what it really does is, actually let me switch on the light. What this dense scan operator does is it doesn't actually just count the output. What it does is it actually writes the output. So MonetDB actually performs this query in two loops. "
+  },
+  {
+    "start": 6046.546,
+    "end": 6078.676,
+    "speaker": "SPEAKER_04",
+    "text": "So you could have something where you say, OK, equals zero and then you go through the loop and you say if you know value array i less than 250 You do count plus, right? This would be the kind of intuitive way of doing it. "
+  },
+  {
+    "start": 6078.996,
+    "end": 6112.913,
+    "speaker": "SPEAKER_04",
+    "text": "That's not how Monami does it because they split the selection of the values and the counting of the values into two operables. So what they actually do is they have an output that they allocate. I'm glossing over the details here. And what they do is instead of this, they go output j equals j plus plus, actually, equals a r. "
+  },
+  {
+    "start": 6113.994,
+    "end": 6151.473,
+    "speaker": "SPEAKER_04",
+    "text": "So they're basically copying, whenever they find a value of that, well, I think what they actually do is not, basically just write down all the tuples that qualify in one loop, and then to return the result, the count is then just, well, basically j. So this writing of the output is kind of pointless, but it has to do with the operator model in monolingual. "
+  },
+  {
+    "start": 6152.578,
+    "end": 6186.773,
+    "speaker": "SPEAKER_04",
+    "text": "Good. So, what I have planned for us to do is to now develop a microbenchmark that does exactly that. So, in the code, in the instructions, you find that we have a, or I've prepared something for you for a microbenchmark. And let me just briefly run you through the setup, and then you can work on this in your own time. "
+  },
+  {
+    "start": 6187.834,
+    "end": 6220.814,
+    "speaker": "SPEAKER_04",
+    "text": "And the coursework will also be very related, so it's not time that's wasted. Good, so let's clone this. And... So I've set up this MicroMonet repository for you. And what MicroMonet is, is it uses a benchmark, sorry, a framework called Google Benchmark, which Google has developed for exactly this kind of micro benchmarking experiments. "
+  },
+  {
+    "start": 6221.395,
+    "end": 6260.313,
+    "speaker": "SPEAKER_04",
+    "text": "And what Google Benchmark does, it's not like, you know, not rocket science, but it basically allows you to define a function that is the definition of your benchmark and then set, define basically I want to benchmark this function and I want to run it with these arguments. And each of those is basically an instance of the benchmark that is run, a parameter set. There are also some convenience functions to say I want to sweep a parameter or a range. "
+  },
+  {
+    "start": 6260.653,
+    "end": 6299.461,
+    "speaker": "SPEAKER_04",
+    "text": "And then you implement your actual benchmark. And what's cool about Google Benchmark, and this is the beauty of it, is that it doesn't benchmark all code, it just benchmarks everything in this loop so they have this magic syntax for auto underscore in state and state is basically an object that google benchmark passes into your function that you can use to control uh well to get the parameters parameter values but more importantly it controls what is actually being run. "
+  },
+  {
+    "start": 6299.841,
+    "end": 6331.543,
+    "speaker": "SPEAKER_04",
+    "text": "And what Google Benchmark does is it runs this code inside your function for as many times as it thinks is necessary to get a reliable answer here. And so you basically just need to put your code in here and Google Benchmark is smart enough to figure out how often to run. Okay, cool. So let's do this. So we're creating a build. "
+  },
+  {
+    "start": 6334.867,
+    "end": 6336.909,
+    "speaker": "SPEAKER_04",
+    "text": "Compiling this in release mode. "
+  },
+  {
+    "start": 6339.773,
+    "end": 6341.455,
+    "speaker": "SPEAKER_03",
+    "text": "Compile it. "
+  },
+  {
+    "start": 6351.875,
+    "end": 6372.73,
+    "speaker": "SPEAKER_05",
+    "text": "It's related to Google. Not really, no. It just happened to be developed by the same company. It looks similar to me. It's not related to Google. Is the setup? Yeah. It looked similar. "
+  },
+  {
+    "start": 6373.65,
+    "end": 6417.697,
+    "speaker": "SPEAKER_04",
+    "text": "Yeah. I mean, I don't use Google test a lot. I'm not a big fan. Yeah. Okay, but the cool thing is this, right? So now, oh yeah, because my code, inside that loop, right, I have zero code. And so it runs in, well, zero nanoseconds. And Google Benchmark decides it needs whatever many iterations this is, right, a lot of iterations, to be certain that this is actually zero nanoseconds. So if you put actual code in here, like the code that I've written there, this number should go down, right? "
+  },
+  {
+    "start": 6417.737,
+    "end": 6468.302,
+    "speaker": "SPEAKER_04",
+    "text": "It needs fewer iterations. It should give you an actual number here. And ideally, you want to now create, or you write code that now micro benchmarks or emulates the bit that we are actually trying to benchmark, which is the Monedibi code base, which is this theta select in Monedibi. And you should then see numbers that follow the same pattern, like this flattening off at 50% or at 250. And so this is really not, you're writing, you're doing this right, you're writing about eight lines of code, but you can then, in a controlled environment, recreate the performance of the big monadb database server, and it can then decide, oh, okay, this is actually validating my hypothesis. "
+  },
+  {
+    "start": 6470.364,
+    "end": 6504.802,
+    "speaker": "SPEAKER_04",
+    "text": "It seems to be that the performance of the query is actually dominated by bribes. You can then feed this into Vtune and do some more analysis. You can play with the parameters. That's kind of the idea behind it. It will ideally not take you more than 15 minutes to do this, so I would very much encourage you to do it even if we don't have time to do it right now, but please do. Okay, any questions on this? No? "
+  },
+  {
+    "start": 6508.128,
+    "end": 6522.511,
+    "speaker": "SPEAKER_04",
+    "text": "Two, one. Okay, time's up. Good. In that case, I hope this was useful and entertaining. I'll see you all next week, and we all will get to lunch a little bit earlier. Thanks, everyone. "
+  },
+  {
+    "start": 6535.806,
+    "end": 6539.128,
+    "speaker": "SPEAKER_03",
+    "text": "What are you trying to kill me for? I don't know what the next level is. "
+  },
+  {
+    "start": 6560.163,
+    "end": 6562.366,
+    "speaker": "SPEAKER_03",
+    "text": "Possibly one of my new favorite training out. "
+  },
+  {
+    "start": 6590.933,
+    "end": 6597.295,
+    "speaker": "SPEAKER_03",
+    "text": "Yeah, it's our event. I'm like the victorian. So, I'm changing it up that much, Gandhi. I don't think he expects it. No, yeah, I mean... "
+  },
+  {
+    "start": 6616.121,
+    "end": 6636.397,
+    "speaker": "SPEAKER_03",
+    "text": "I hate these setups. If you're ready, I'm really not good at it. Out of nowhere, he gives you like a 20-year-old. Yeah. He comes at you and you're like, no. Oh, it's Archipedes. Oh, it's Archipedes. So good. That's true. Oregon? "
+  },
+  {
+    "start": 6636.417,
+    "end": 6644.423,
+    "speaker": "SPEAKER_02",
+    "text": "So much. I don't know. Was that for me? Say it, say it. I have no idea. I saw it in a room just now. "
+  },
+  {
+    "start": 6663.517,
+    "end": 6667.819,
+    "speaker": "SPEAKER_05",
+    "text": "No, he was doing stuff like this, and it was some random... "
+  },
+  {
+    "start": 6668.119,
+    "end": 6698.64,
+    "speaker": "SPEAKER_03",
+    "text": "Yeah, that's just it, yeah, so you're going to put the PID. So to do that, you go, yeah, you... Do I... PID over database? Yeah. If you watch the lecture back again, you'll see what... Like, so... 10 seconds. 10 seconds. I'm not going through my own research. "
+  }
+]

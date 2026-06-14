@@ -1,0 +1,962 @@
+[
+  {
+    "start": 62.97,
+    "end": 66.354,
+    "speaker": "SPEAKER_01",
+    "text": "This one is normally the best extension ever. "
+  },
+  {
+    "start": 67.175,
+    "end": 69.938,
+    "speaker": "SPEAKER_04",
+    "text": "Honestly, I've never had such a good morning in my life. "
+  },
+  {
+    "start": 82.122,
+    "end": 89.167,
+    "speaker": "SPEAKER_04",
+    "text": "I think I'm the same. You know, I have this one to do this. Where is my girlfriend here? So this weekend. I have not. "
+  },
+  {
+    "start": 114.959,
+    "end": 118.101,
+    "speaker": "SPEAKER_02",
+    "text": "7 p.m. 7 p.m. 7 p.m. 7 p.m. 7 p.m. 7 p.m. 7 p.m. 7 p.m. "
+  },
+  {
+    "start": 248.916,
+    "end": 283.916,
+    "speaker": "SPEAKER_00",
+    "text": "All right. Let's get started. So this one is not working. That's unfortunate. So on Friday, what we left it off was we looked at the communication synchronization, and then we were talking about thread and task management models. on-demand thread creation, which is the easiest, but of course is the worst. "
+  },
+  {
+    "start": 284.817,
+    "end": 327.535,
+    "speaker": "SPEAKER_00",
+    "text": "I mean, we could say that the worst is not using any form of concurrency, so we don't get parallelism, right? Or task parallelism. But on-demand is the most trivial solution we could use to get concurrency here, task-based concurrency. We use that on-demand. we looked at worker threats with taking into account that how we assign work to these worker threats is very important. We can either round robin without thinking willy nilly about the workload distribution and that if the workload distribution of the jobs is heterogeneous, then the workload distribution of the workers will be unbalanced. "
+  },
+  {
+    "start": 329.056,
+    "end": 360.959,
+    "speaker": "SPEAKER_00",
+    "text": "And that's why whenever we can, the data structures that we use for communication allow us, we should aim for a global queue just because in a work-stealing model, then we are implicitly balancing because everyone is taken from a global piece of work. And the last bit that we looked at was streaming. So let's get back to streaming. Up, up, boom. "
+  },
+  {
+    "start": 367.81,
+    "end": 412.247,
+    "speaker": "SPEAKER_00",
+    "text": "So instead of creating multiple threads and dispatching tasks in one way or another to those threads, what we can do is create multiple threads and execute different parts of a task on each one of these threads, right? We are just changing the... the trade-offs of what is being communicated and when, and what is the locality that we are exploiting. In this case, we are exploiting instruction locality and the locality of temporary data, but not the locality of the information being communicated between the stages of this pipeline, the threads, because they will use cache coherency to do that. "
+  },
+  {
+    "start": 417.16,
+    "end": 451.604,
+    "speaker": "SPEAKER_00",
+    "text": "So this is exactly what hardware pipelines do. And there's many software-based solutions that try to essentially exploit this model. There's, for example, in case you are curious, software only implementations of high performance switches that use this model to achieve that very high performance. We are gonna look at some of the bits that are involved in this in later lectures when we looked at how to efficiently access IO devices. "
+  },
+  {
+    "start": 451.744,
+    "end": 485.556,
+    "speaker": "SPEAKER_00",
+    "text": "But for now, we just care about this more general streaming model. Any questions about all the various models of breaking applications down into tasks and distributing those tasks across threads. No? All right. So now I have a question for you. If we had this streaming system built in software, this over here, how would you analyze and optimize performance in it? "
+  },
+  {
+    "start": 486.017,
+    "end": 523.428,
+    "speaker": "SPEAKER_00",
+    "text": "Because we've looked at, roughly, when using these various models of distributing tasks across workers. It's a relatively simple model to reason about, but this is a very different type of model because the task goes across threads. So they have to keep flowing. So in that case, how do you think? Where would you start? Just throw some ideas, and then we're going to build from there about how to analyze whether this system is performing as efficiently as it could, and how can we optimize that? "
+  },
+  {
+    "start": 524.449,
+    "end": 529.113,
+    "speaker": "SPEAKER_01",
+    "text": "Is that the question, or is it just? "
+  },
+  {
+    "start": 529.831,
+    "end": 560.134,
+    "speaker": "SPEAKER_00",
+    "text": "No, I just mean a system built like this where we have multiple threads, and each one of the threads is in charge of processing one portion of what the task needs to do. The task is just flowing through this stream, right? It doesn't matter if it's real time or not. Real time just means that we have very hard requirements on how long it needs to take. All I'm saying is we want to make this as efficiently as possible. But first, how do we define efficient? How do we know if it's being efficient or not? "
+  },
+  {
+    "start": 560.615,
+    "end": 591.689,
+    "speaker": "SPEAKER_00",
+    "text": "And how do we optimize this system to make it efficient? That is one thing that we would probably need to know if we want to reason about, is it taking what I expected or not? That's one important bit. Knowing what is the... if you look at the queue theory, that's service time. It's the time that we spend servicing that one piece of work. What else? "
+  },
+  {
+    "start": 592.429,
+    "end": 608.758,
+    "speaker": "SPEAKER_00",
+    "text": "Yep? Say again? Yes. Could you be a bit more precise? What does it mean that a thread spends time waiting for data? Where does a thread here spend time waiting? "
+  },
+  {
+    "start": 622.464,
+    "end": 642.576,
+    "speaker": "SPEAKER_00",
+    "text": "So whether a worker, one of these stages, is ready to execute something, but there's nothing coming in. It's just waiting for something to process, right? That is very important, yes. Anything else? I saw another hand over there earlier. "
+  },
+  {
+    "start": 658.945,
+    "end": 697.299,
+    "speaker": "SPEAKER_00",
+    "text": "So one thing we could do is analyze what is being executed and break one of these stages down into multiple stages. Is that what you mean? Yes, definitely. What would that give us though? Not necessarily. How do we... Break I'm going to go back to hardware. I know that this this module is not about hardware, but how do we break a pipeline down into stages? Is because we want stages to take roughly the same time, because then everything ideally moves in lockstep. "
+  },
+  {
+    "start": 698.7,
+    "end": 731.476,
+    "speaker": "SPEAKER_00",
+    "text": "If one of the stages takes a really long time and the others take very little time. Well, they will not move in locks that we will have to do something else. So both options are valid. We can either break it down into smaller stages so that all the stages are roughly the same, or we could do something else. Any ideas what we could do? Yeah? Say again? "
+  },
+  {
+    "start": 737.957,
+    "end": 759.282,
+    "speaker": "SPEAKER_00",
+    "text": "What does it mean to move some of the workload from one thread to another? That one thread is reassigned from doing one stage to doing another stage? It's possible, but then somebody needs to still do that stage. Yes. "
+  },
+  {
+    "start": 779.628,
+    "end": 828.049,
+    "speaker": "SPEAKER_00",
+    "text": "So you're saying we have two stages, one takes twice as much as the other, and then what is the solution? To split that stage, that long stage into two. Is that what you're saying? We can split it, yes. We can do something else. We can combine the other stages, that is true. But typically we want to have stages that are kind of like, Self contain and make sense on their own. Suddenly having one. Stage that is not one stage, but just because of we want to balance the work is like 30 stages in one and the other is only one stage can be. It's just harder to program and also it means that we are doing a lot more on that one thread. "
+  },
+  {
+    "start": 829.53,
+    "end": 869.902,
+    "speaker": "SPEAKER_00",
+    "text": "One thing that we can do is add more threats. if one stage is very slow and the other stages are very fast because they are processed for shorter time, we can add more threads to the slower stage so that it can process higher throughput. If we add two threads, ideally, we can process twice as much. So even though the previous stage is faster, If it's producing, let's say, one result per second, and this one takes two seconds to process, what we can do is add two threads, and on average, we process one per second. "
+  },
+  {
+    "start": 871.243,
+    "end": 902.654,
+    "speaker": "SPEAKER_00",
+    "text": "So then we have matched throughputs. That is the whole thing about when we model systems, we want to match throughputs. This is the example, the example that we were doing at the beginning. We were looking at what is the network throughput, what is the processing throughput, and what is the output of the system. First, what we did is reduce it all to a shared unit, which was request per second, and then look at the match. What is the maximum network throughput that I can get for this system? "
+  },
+  {
+    "start": 902.754,
+    "end": 933.045,
+    "speaker": "SPEAKER_00",
+    "text": "What is the processing throughput, and what do I do? I add cores until the throughputs are matched. Here, I can just add threads. It's just adding resources to an abstract model. Does everyone see that? Yeah? Okay, so there's some really neat work from, I forgot what year, 2001, from SOSP 2001 that essentially explored the system that does that in an automated way, okay? "
+  },
+  {
+    "start": 935.313,
+    "end": 969.225,
+    "speaker": "SPEAKER_00",
+    "text": "The whole idea was, well, writing some sort of non-trivial network server that could be something like this is hard. So how can we build a framework that allows us to simplify this process? So the first thing we do, is break the application down into stages. Stages that make sense on their own right, right? Accepting a connection, that's something that one network server does. Reading a packet from an open connection is another, it makes sense, right? "
+  },
+  {
+    "start": 969.265,
+    "end": 1001.866,
+    "speaker": "SPEAKER_00",
+    "text": "That's one of the tasks, one of the jobs that the server needs to do. Then parsing, in this case, an HTTP message through packets, and then what we get out is an HTTP request. We have some cache in this system that we check against the cache. And depending on whether it's a cache miss or a cache hit, we do different pieces of logic. In the case of a cache miss, we handle the miss. We do some disk IO. We put the results of that disk IO reading a file into the cache. "
+  },
+  {
+    "start": 1002.147,
+    "end": 1032.532,
+    "speaker": "SPEAKER_00",
+    "text": "And then we go back into the system and return the result. And finally, we would send a response through HTTP, which is just a bunch of text. And then this needs to be translated into writing out into network. So the first job is break the system down into tasks that make sense. This is kind of like the design of the application. Don't think about the concurrency or anything like that. Just think of the design of the application on an abstract level. "
+  },
+  {
+    "start": 1032.973,
+    "end": 1068.552,
+    "speaker": "SPEAKER_00",
+    "text": "What does it need to do? And then we can make each one of these a stage of our pipeline. And then what the authors of this work did in this framework is that they said, once you express it in this way, using our framework, we will take care of the rest. What is the rest? Well, each one of these stages sends requests downstream to the next stage. Each one of the stages receives requests through a queue. And then each one of the stages processes requests coming through this queue using a thread pool. "
+  },
+  {
+    "start": 1071.038,
+    "end": 1110.056,
+    "speaker": "SPEAKER_00",
+    "text": "And each one of these are controlled independently. And the framework sees everything. The framework sees when putting a request into the queue fails or not, because if the queue has a maximum size, it could be full. So it means that when we try to put a request into a queue for the next stage, if the queue is full, we need to wait, which is a way of throttling us. We cannot go faster as producers than the consumer. Right? Everyone sees that? Also, the consumer can be aware of its own queue. "
+  },
+  {
+    "start": 1110.417,
+    "end": 1140.524,
+    "speaker": "SPEAKER_00",
+    "text": "If the queue is growing a lot, it means that we are not processing as fast as we are receiving requests. If the queue is always zero, it means that we are processing faster than we are receiving requests. So what could we do to balance the throughput? the efficiency of this system. We kind of already said it, right? "
+  },
+  {
+    "start": 1141.485,
+    "end": 1174.958,
+    "speaker": "SPEAKER_00",
+    "text": "The bottlenecks are explicit. Fail on full queue and then we need to decide whether to drop or wait. The load is observable because we can see the queue lengths and what we can do as actions is adding or removing threads from a pool. If our queue is too empty, is always empty, it means that we have too much processing capacity in this stage, so we can remove a thread. If our queue is always full, it means that we don't have enough processing capacity in the stage, and we can add more threads to add processing capacity. "
+  },
+  {
+    "start": 1178.599,
+    "end": 1218.706,
+    "speaker": "SPEAKER_00",
+    "text": "Yes, does everybody see that? Now, if we had an infinite machine, sorry, a machine with infinite number of cores, We would grow all of this until the system is kind of stable in processing throughput, and we would go as fast as the network is able to drop stuff into us, right? If our cores are limited and we cannot get to that point, well, the system eventually will find a stable state in which everything is roughly matched, and perhaps the network will have higher throughput than the system can process, but that's a fact of life, right? "
+  },
+  {
+    "start": 1219.206,
+    "end": 1253.675,
+    "speaker": "SPEAKER_00",
+    "text": "If this needs much more processing capacity than what is being thrown at us through the network, well, we just need more machines. Or we need to change the machine and add more cores. We cannot do anything else. So it's a very flexible design. And you will see that A lot of the modeling that people do in systems and also as part of some exercises in this module are about thinking in these terms. "
+  },
+  {
+    "start": 1254.356,
+    "end": 1286.224,
+    "speaker": "SPEAKER_00",
+    "text": "What are the stages of the program? elements moving through this flow. Because, for example, you could say this is 10% of the requests go this way, 90% go this way. It doesn't need to be that everything goes everywhere. We can have some statistical distribution. And this is one of the fundamental tools for modeling and reasoning about how we build systems. "
+  },
+  {
+    "start": 1289.237,
+    "end": 1326.638,
+    "speaker": "SPEAKER_00",
+    "text": "So this started in 2001, and nowadays that's, in many different ways, that's how many systems, very high performance and high efficiency systems are built today. Back in the day, I think this was a Java framework. Nobody uses the framework itself, but a lot of people have taken over the core ideas from it. And like any streaming system, well, having stages across threads will hurt performance because there's communication through the cache coherency protocol. "
+  },
+  {
+    "start": 1330.239,
+    "end": 1366.021,
+    "speaker": "SPEAKER_00",
+    "text": "All right. Any questions about this system? No? Everyone's clear about it or everyone's kind of somewhere else? Yes? All right. OK, so that's the end of multi-threading. We are going to now do a little bit of multi-processing and then the tutorial. So as I said, we start with multi-threading as the basic form of concurrency. "
+  },
+  {
+    "start": 1366.401,
+    "end": 1399.065,
+    "speaker": "SPEAKER_00",
+    "text": "But of course, having multiple threads in a process is not the only way of having concurrency. We can also have multiple processes that operate independently. That's another way of achieving concurrency, right? The fundamental ideas are exactly the same. We have the same concurrency and parallelism capabilities. We also have communication and synchronization tradeoffs. And what is different from multithreading is that there is no implicitly shared memory. "
+  },
+  {
+    "start": 1399.385,
+    "end": 1432.631,
+    "speaker": "SPEAKER_00",
+    "text": "Anything that we want to communicate between processes has to be explicitly communicated. As you know, we cannot just pass a pointer between processes by default. It will not work because every process has its own completely independent and isolated address space. So we have to write data, for example, into a socket or into a file. And therefore, communication is absolutely explicit. We write into a socket or into a file, as I was saying, or into a bit of memory that we have shared ahead of time, if you want to use shared memory. "
+  },
+  {
+    "start": 1434.267,
+    "end": 1464.912,
+    "speaker": "SPEAKER_00",
+    "text": "But often if we are using sockets, files, pipes, and so forth, or any other form of inter-process communication in many of the systems today, this communication is very expensive because copying data between processes is more expensive than just passing a pointer and letting two threads in the same process access the same data, right? So when to use multiprocessing, then, if it adds these complications? "
+  },
+  {
+    "start": 1464.972,
+    "end": 1523.073,
+    "speaker": "SPEAKER_00",
+    "text": "Well, any time that we have multiple tasks that can execute independently, and if we have some simple communication that we can express, easily express in an explicit way, then we assign processes to each one of the tasks, and that's it. And that's what Unix is. a system that uses processes to achieve concurrency. When you pipe on your shell, what it's doing is just creating a pipeline of processes. It's the streaming model that we just saw, or a simplified version of it, where we just have a very simple pipeline. In fact, if you tinker around with a manual for Bash, for example, you will see that we can build this sort of more complex pipelines. It's just less common to do that. But we definitely can. And where are these queues? Where these queues are in the Linux kernel, in Linux. "
+  },
+  {
+    "start": 1523.793,
+    "end": 1560.183,
+    "speaker": "SPEAKER_00",
+    "text": "Because all these pipes and so forth, they have buffers of fixed size, and there will be some back pressure. And each one of these processes that is a task, if we wanted to program it so, the system will not do it automatically for us, but we could create multiple threads to achieve that. processes in Unix are very disjoint from each other. So there is no global knowledge of who is being the bottleneck in the system and how to rebalance parallelism in it so that we can balance throughput. "
+  },
+  {
+    "start": 1560.203,
+    "end": 1594.675,
+    "speaker": "SPEAKER_00",
+    "text": "So it's not as powerful as this well integrated globally optimized system, but we achieve some of it. Modern examples of this today. Well, if you're curious, there's many scalable distributed pipelines that use this exact idea of using processes because then we can throw processes into different machines and use network sockets to communicate. So I don't know how many of you have heard about this, but do any of these names ring any bell to you? "
+  },
+  {
+    "start": 1594.715,
+    "end": 1629.503,
+    "speaker": "SPEAKER_00",
+    "text": "Apache Beam, Hadoop, Hadoop and Spark probably. um apache beam no ray no they are just different uh let's say implementations of the same foundational ideas just looking at different trade-offs and different system designs right um This has been around for a really long time. I started with the Unix operating system and keeps on going. "
+  },
+  {
+    "start": 1629.923,
+    "end": 1670.981,
+    "speaker": "SPEAKER_00",
+    "text": "There's many runtimes being used today at scale. There's a recent article from Amazon who was explaining how they ported their background Amazon data processing that they do overnight that was initially written in Spark, and it was taken more than the hours you have overnight, so it was not able to keep up anymore, and then they re-implemented it into a new system called Ray, and suddenly they are much more efficient and have like spare hours over the night to process all that background data that they used to kind of, for example, update stocks and so forth. "
+  },
+  {
+    "start": 1676.406,
+    "end": 1717.944,
+    "speaker": "SPEAKER_00",
+    "text": "If we look at the research side of these type of systems, it's the usual suspects. How do we minimize communication overheads and how do we maximize utilization or efficiency? They are just two terms that we can use interchangeably to look at the same. In this case, utilization meaning that if I put one core or if I put 10 cores, I want them to be fully utilized for the actual work that I need to do. I don't want course to be idle and I don't want course to be spending time on system overheads due to synchronization or copying data or so forth, okay? "
+  },
+  {
+    "start": 1718.804,
+    "end": 1751.589,
+    "speaker": "SPEAKER_00",
+    "text": "Any questions before we go into communication? Okay, so very briefly, we're gonna see a bit deeper into this when we look down into how this happens at the device level. But in multiprocessing, since we don't have implicitly shared memory, communication is key because we are gonna have some things to take into account into this trade-off, right? Building systems is always a dance of trade-offs. And with processes, we are gonna have system overheads. "
+  },
+  {
+    "start": 1752.773,
+    "end": 1790.289,
+    "speaker": "SPEAKER_00",
+    "text": "We are most probably, if we use the traditional interfaces, gonna have some system call to tell the OS to communicate something to another process or over the network. We are gonna have some scheduling overheads when processes are rescheduled. For example, if I write into disk or another process or the network and I cannot fully write everything, I need to block and be scheduled out of the CPU, right? And finally, since communication is explicit, between processes, think of, again, writing into a file descriptor over the network, we are gonna have copy overheads, right? "
+  },
+  {
+    "start": 1790.569,
+    "end": 1823.351,
+    "speaker": "SPEAKER_00",
+    "text": "Whenever, I mean, copying data is more, has more overheads than not copying data. But in this case, process communication interfaces, if we use the traditional Unix interfaces like read and write, they are designed to not be able to escape having a copy between user level and kernel level. And then on the other end, the same. We copy from user to kernel, and then from kernel to user. Now no solution is perfect. "
+  },
+  {
+    "start": 1823.651,
+    "end": 1859.557,
+    "speaker": "SPEAKER_00",
+    "text": "We have different ones and that's what makes it complicated, right? You could say, well, surely I could escape the copies if I know that all the processes are on the same machine and use shared memory. I can share memory between processes. We have system calls to achieve that. And we can use a few text synchronizations on shared memory between processes. It does work. It is designed to work. It means that if I put data into the shared memory that is shared with another process, I can communicate with that process with zero copy, right? "
+  },
+  {
+    "start": 1859.997,
+    "end": 1892.241,
+    "speaker": "SPEAKER_00",
+    "text": "I just put it into the shared buffer and the other process reads it from the shared buffer. But there's no standard communication interface. I have to do that manually on my application. Unless we do that from day zero when we start the application, Most probably, I will just do a regular memory allocation, put my data structures in it. And if the only way I can communicate with the other process is putting it into shared memory, I will have to copy from my local allocation into the shared memory. "
+  },
+  {
+    "start": 1892.381,
+    "end": 1922.839,
+    "speaker": "SPEAKER_00",
+    "text": "So I don't escape the copy from local to shared memory. And therefore, I don't gain any of the advantages that I was supposed to. I mean, it can be slightly faster, because no system calls to do a POSIX write and a POSIX read, but the copy is still one of the expensive parts here. I could instead use a more traditional approach, which is sockets, network sockets. "
+  },
+  {
+    "start": 1923.499,
+    "end": 1959.931,
+    "speaker": "SPEAKER_00",
+    "text": "I'm going to have intermediate copies. I cannot escape that in POSIX sockets. And the issue with sockets is that, sure, they can work across machines. They can also work between processes on the same machine. They are just communicating using the same IP. So it doesn't matter where the process is, which is really nice. No matter where the other process is, even if we are on the same machine, I will go through the network stack and create network packets, like break it down into TCP stream and then IP packets and all of that, just to communicate it locally. "
+  },
+  {
+    "start": 1960.052,
+    "end": 1991.493,
+    "speaker": "SPEAKER_00",
+    "text": "So a lot of what the network protocols are offering me in terms of congestion control and resending loss packets and all of that, is completely useless when communicating locally between processes. So it's an overhead that I just kind of have to pay for the benefit of not having to worry whether the process I communicate with is local or not. And then you could say, well, the way in which I can solve this is by using pipes. "
+  },
+  {
+    "start": 1991.653,
+    "end": 2030.212,
+    "speaker": "SPEAKER_00",
+    "text": "Pipes are designed to be roughly the same, POSIX read, POSIX write. But there's no network stack. It's just the copy part that we have the overhead. But there's no network stack processing. So we save that overhead. The bad news, of course, is that pipes only work locally. And then you have to be explicitly aware. Where is the other process? Is it local? I use a pipe. Is it remote? I use a network socket. So as you can see, there's no easy solution here. There's some more recent work. on the systems research community done in various places. "
+  },
+  {
+    "start": 2030.232,
+    "end": 2067.959,
+    "speaker": "SPEAKER_00",
+    "text": "Some of it is also some of the work that we are doing here that we are trying to find a good solution that kind of encompasses the best characteristics of each one of these and trying to switch dynamically with very low overhead to the best solution in a way that is transparent to the application. But that's not what we use by default. OK. So that's the last slide. Any questions before we jump into the tutorial? Yeah. So a POSIX pipe is essentially a file descriptor with two ends, read and write. "
+  },
+  {
+    "start": 2068.62,
+    "end": 2104.12,
+    "speaker": "SPEAKER_00",
+    "text": "If you're not familiar with that, maybe what you can do is look up on the manual, because that is one of the basic POSIX primitives that you have for communication. Think of it like network sockets, except without the network. Any other questions? That's the reason why, on your shell, when you do program, then the vertical bar character, it's called a pipe, and then another program. "
+  },
+  {
+    "start": 2104.4,
+    "end": 2138.552,
+    "speaker": "SPEAKER_00",
+    "text": "That is called pipe because it uses the system code called pipe. That's where the name comes from. All right, so let me pull up the laptop, and I will make sure that the tutorial is released, and I will also put it up here. Let me see, because I think I scheduled it to be released at 12, but it's not 12 yet, so we'll need to go to CMT. "
+  },
+  {
+    "start": 2146.453,
+    "end": 2170.815,
+    "speaker": "SPEAKER_00",
+    "text": "So this is just a tutorial. You can work together. The whole point is that I'm going to give you some time to work together or on your own on some simple exam type problems. And then we are going to look at them together. What is the URL for this? "
+  },
+  {
+    "start": 2194.508,
+    "end": 2233.802,
+    "speaker": "SPEAKER_00",
+    "text": "So let me see. How do I add it? OK. So let me open it here. And you should have it available on Scientia if you want to open it locally. So let's start with just the first question, which is the simplest. "
+  },
+  {
+    "start": 2245.891,
+    "end": 2254.508,
+    "speaker": "SPEAKER_00",
+    "text": "Up until the end of this page. Now let me make sure that since we have two module codes, I will make sure that it's available on both. "
+  },
+  {
+    "start": 2279.478,
+    "end": 2293.96,
+    "speaker": "SPEAKER_00",
+    "text": "Yeah, OK, should be available on both. So everyone should have access to it on CNTN. And I'm going to leave it here. So start working on it, and we can check back on your proposed solutions for question 1.1 in a bit. "
+  },
+  {
+    "start": 2362.405,
+    "end": 2368.17,
+    "speaker": "SPEAKER_00",
+    "text": "OK, for the first one, please start simple. Don't try to optimize. We will do that later. "
+  },
+  {
+    "start": 2539.238,
+    "end": 2565.673,
+    "speaker": "SPEAKER_00",
+    "text": "you should always think of multiprocessing whenever you want the ability to make that system work across machines. Because with multithreading you cannot. I mean, there's some hacks that would allow you, but we don't discuss this on this module. There's something called distributed shared memory, which is not used very much because it's too expensive. "
+  },
+  {
+    "start": 2577.305,
+    "end": 2611.464,
+    "speaker": "SPEAKER_00",
+    "text": "Yep. Say again. What is the problem? Unexpected end of file, does everyone get the same problem? Oh yeah, that's because for some reason the copy paste, it gets the tilde using UTF, but you should use it with regular ASCII. It's a copy paste problem on the URL. "
+  },
+  {
+    "start": 2836.392,
+    "end": 2855.133,
+    "speaker": "SPEAKER_00",
+    "text": "OK, I see that I have a newer C++ compiler that complains about some missing headers that it didn't do in the past. So let me show you the fix so that there's no reason to waste time on that. Let this play. "
+  },
+  {
+    "start": 2865.854,
+    "end": 2880.007,
+    "speaker": "SPEAKER_00",
+    "text": "So just add these two lines on program.cpp. That should be sufficient to add the missing header files. It depends on what C++ compiler you are using. The newer one will complain. "
+  },
+  {
+    "start": 2911.012,
+    "end": 2941.974,
+    "speaker": "SPEAKER_00",
+    "text": "Okay, how many of you has finished with 1.1? Nobody? How many of you has finished defining the class? Okay, just a few. How many of you have managed to download the tarball? "
+  },
+  {
+    "start": 3077.666,
+    "end": 3100.953,
+    "speaker": "SPEAKER_00",
+    "text": "What information do you think we should track in this class in order to implement barrier semantics? Yeah? How many threads are waiting? How many threads are waiting? Maybe? Can you define that more precisely? "
+  },
+  {
+    "start": 3113.97,
+    "end": 3155.52,
+    "speaker": "SPEAKER_00",
+    "text": "So if this is the thread number and this is time, we can plot the time at which. So we have a barrier. We have a piece of code that says barrier. Every thread should come here and wait. And once all the threads have arrived to this point, to this barrier, then they can continue. So it could be that if we look at this over time, thread zero gets here first, then thread two gets to it, and then thread one gets to it. "
+  },
+  {
+    "start": 3156.181,
+    "end": 3170.952,
+    "speaker": "SPEAKER_00",
+    "text": "So what does it mean how many threads? What was again the thing that you said? How many threads have arrived at any point in time? Okay, all right, yes, we need that counter. Anything else? "
+  },
+  {
+    "start": 3190.279,
+    "end": 3226.798,
+    "speaker": "SPEAKER_00",
+    "text": "Nothing else that that's the only thing we need. Yes. A flag for when it's done. When is that flag triggered? How do we know when that time has arrived? You guys when? OK, so what information do we need to track to do that? "
+  },
+  {
+    "start": 3230.28,
+    "end": 3265.777,
+    "speaker": "SPEAKER_00",
+    "text": "The amount of threats that have arrived. Which is what we said earlier and when. And when do you want to trigger that flag? So shouldn't we track that too? So then we are we need to know those two things right how many we expect how many have arrived. Everybody agrees anything else. "
+  },
+  {
+    "start": 3272.62,
+    "end": 3279.322,
+    "speaker": "SPEAKER_00",
+    "text": "Everybody is very quiet. It's OK to just throw ideas I mean we're going to solve it together. "
+  },
+  {
+    "start": 3293.713,
+    "end": 3325.143,
+    "speaker": "SPEAKER_00",
+    "text": "To reset the barrier OK so we are now going into like the next stage which is first how we do identify that we that everyone has arrived at the barrier. And then how do we go to the next barrier right because the barrier can be used multiple times. It is used multiple times in this program. So counting whether everyone has arrived is necessary but not sufficient we also have to. provide some way of counting that again. "
+  },
+  {
+    "start": 3328.283,
+    "end": 3358.307,
+    "speaker": "SPEAKER_00",
+    "text": "Yeah? Why am I saying that? Because one easy way of doing it only once is that you have our counter of how many have arrived and we flip it and we count how many have not arrived yet. We set it to expected and we count down to zero. But then to do another barrier, we would have to reset it. So we need to track both variables. We need to track both pieces of information. "
+  },
+  {
+    "start": 3358.327,
+    "end": 3390.382,
+    "speaker": "SPEAKER_00",
+    "text": "So let me go here, and let's say what I'm going to have here. And let me write this down, and then we take a break and continue later. Const sizeT expected. And we can use an atomic. that will not be const, whoops, arrived. "
+  },
+  {
+    "start": 3391.523,
+    "end": 3412.976,
+    "speaker": "SPEAKER_00",
+    "text": "For this to work, we would need to include atomic group. There we go. Yeah. So let's take a 10-minute break, and then we will continue with the rest. Let's get back at 5 past. "
+  },
+  {
+    "start": 3985.828,
+    "end": 4017.171,
+    "speaker": "SPEAKER_00",
+    "text": "So do you have any questions about the declaration of this class before we move on to the definition of its methods? All right. How many of you have finished implementing the constructor on the, what is the name, arrive on wait? OK. What about the rest? Still working on it. "
+  },
+  {
+    "start": 4021.275,
+    "end": 4039.272,
+    "speaker": "SPEAKER_00",
+    "text": "How many of you have finished implementing the constructor? OK. Those of you who didn't raise your hand about the constructor, do you have any questions about that? "
+  },
+  {
+    "start": 4105.758,
+    "end": 4157.469,
+    "speaker": "SPEAKER_00",
+    "text": "What does the constructor need to do in this case? Yep. Say again. Oops. I'm just writing crap here. Wait. Expected, expected. There we go. That's all we need really nothing else. Yep. "
+  },
+  {
+    "start": 4170.791,
+    "end": 4202.255,
+    "speaker": "SPEAKER_00",
+    "text": "We need to manage that yes we will do that on the implementation of arrive and wait. What doesn't matter? Go ahead, what is the question? We could use that. "
+  },
+  {
+    "start": 4202.415,
+    "end": 4204.297,
+    "speaker": "SPEAKER_00",
+    "text": "We don't necessarily need to do that. "
+  },
+  {
+    "start": 4262.105,
+    "end": 4295.603,
+    "speaker": "SPEAKER_00",
+    "text": "What is the first thing, the very first thing we should do in this function? Increase the current counter. Increase the counter. If you look at the documentation of STD atomic, one way we can do it is saying current fetch at 1. OK? Fetch at is an atomic. increment, essentially. "
+  },
+  {
+    "start": 4295.703,
+    "end": 4327.308,
+    "speaker": "SPEAKER_00",
+    "text": "Remember when we were talking about using compare and swap, how we need to get the current value, compute the next value, and then do an atomic compare and swap. If the current value equals to the one that I saw as the current value before, then replace with the new value, otherwise loop again, right? So all of that complexity is hidden here, and in fact, In most architectures, this gets translated into an atomic increment instruction so that we don't do this looping around, right? "
+  },
+  {
+    "start": 4327.928,
+    "end": 4371.952,
+    "speaker": "SPEAKER_00",
+    "text": "If you remember what we had seen in class during the lectures, it would have been something where we essentially do auto-pref would have been It's a bit weird to be looking in this angle. Load, and then auto new, well, next, equals ref dot one, and then auto okay would be cast. "
+  },
+  {
+    "start": 4373.27,
+    "end": 4422.799,
+    "speaker": "SPEAKER_00",
+    "text": "something like this, right? That would be what we saw in class. I'm not going to make it fully correct, but just so you go to restart. And then this could be restart, right? something like this would be the equivalent compare and swap. All of this, that is a software loop gets replaced with this single method in the STD atomic class that is fetchAt that gets translated into a single instruction that is atomic increment, or atomic fetchAt in Intel machines, which I assume most of you have Intel. "
+  },
+  {
+    "start": 4422.939,
+    "end": 4454.747,
+    "speaker": "SPEAKER_00",
+    "text": "ARM has the same thing, essentially. And remember, this is all thanks to the cache coherency protocol that has the log state. So it goes into the cache, logs the line, and then does this only once on the CPU internally on the microarchitecture. That's the job of that one atomic instruction. So we don't need to do this loop over here. We can just use this bit. And this is related to the question that you raised. "
+  },
+  {
+    "start": 4455.594,
+    "end": 4487.844,
+    "speaker": "SPEAKER_00",
+    "text": "a week ago or on Friday, I don't remember when, and is that if you look at the manual for C++, we have all these atomic operations and there is an optional argument that is the memory consistency model that you want to use for the atomic operations. At the level in which you are programming right now, it's OK to just not specify that whatsoever. The default is what is called sequential consistency. "
+  },
+  {
+    "start": 4488.084,
+    "end": 4524.792,
+    "speaker": "SPEAKER_00",
+    "text": "And that's a safe default. It just works. Sequential consistency means that anything before your atomic operation will execute before the atomic operation and anything after the atomic operation on your instruction stream will execute after the atomic operation. This is because in an out of order pipeline, if there's no dependencies between instructions, an instruction after your atomic could be executed before it, and an instruction before your atomic instruction could be executed after the atomic instruction, if they don't have data dependencies. "
+  },
+  {
+    "start": 4525.393,
+    "end": 4555.842,
+    "speaker": "SPEAKER_00",
+    "text": "But that's not correct, right? In atomics, if we are using this as a, as a mutex, our atomic, we for sure have to ensure that no memory access inside the critical section can be executed before we actually do the atomic operation. Otherwise it's incorrect. So that's why we need sequential consistency. And if you, because it ensures there's no crossing. This becomes a memory barrier. That's what it's called essentially. "
+  },
+  {
+    "start": 4556.122,
+    "end": 4586.366,
+    "speaker": "SPEAKER_00",
+    "text": "Nothing can go, after it or before it from either side. If you want to look into it, then if you pass these additional memory consistency properties here, you can fine tune that to make it more efficient. if the architecture where you compile this for allows it. And then there's some more sophisticated rules where you say things from here can move here, but things from here cannot move here, and the opposite. "
+  },
+  {
+    "start": 4586.806,
+    "end": 4617.274,
+    "speaker": "SPEAKER_00",
+    "text": "Because if you know if you are acquiring or releasing a lock, you can allow one type of non-sequential consistency, but not the other, and then when you release it, you need the opposite. So that's the only reason why this exists, if you want to really, really, really fine tune the performance. But we are not gonna bother with that here, just regular fetch at maintains everything on its own side of the atomic instruction, okay? "
+  },
+  {
+    "start": 4617.954,
+    "end": 4651.046,
+    "speaker": "SPEAKER_00",
+    "text": "Does that answer your question? All right, everyone clear about this? So whenever you see memory consistencies, think of that. The default is sequential consistency. Every time I see an atomic, everything stays on its side with regards to that atomic. All right. We have the previous value. "
+  },
+  {
+    "start": 4651.766,
+    "end": 4666.596,
+    "speaker": "SPEAKER_00",
+    "text": "I'm going to assume that we're going to compare this somehow, right? What should we compare? . "
+  },
+  {
+    "start": 4677.348,
+    "end": 4708.392,
+    "speaker": "SPEAKER_00",
+    "text": "Compare it with expected, yes. What exactly is that comparison we need to do? What is the exact comparison I should write here? If previous. Yep. Almost but not quite. Well, we don't need to do a load on expected. Expected is a regular variable. "
+  },
+  {
+    "start": 4708.592,
+    "end": 4741.422,
+    "speaker": "SPEAKER_00",
+    "text": "If you look here, barrier HPP, that's a regular variable. We don't need atomic operations here. It never changes. It's a constant. I set it as constant to make sure that we don't modify it. The compiler will help us ensure that. This is not quite right, though. Anybody? Yeah? We need to compare exchange which part. "
+  },
+  {
+    "start": 4746.167,
+    "end": 4757.857,
+    "speaker": "SPEAKER_00",
+    "text": "But this is a comparison compare exchange means. Change the value of something if it if some rule if it has certain specific value what do you want to change here. "
+  },
+  {
+    "start": 4777.212,
+    "end": 4809.884,
+    "speaker": "SPEAKER_00",
+    "text": "But that depends on what exactly we implement here. What is the first thing we need to do in a barrier? Increment. What is the second thing we need to do? Compare that increment we just did with whatever the barrier cares about. What does the barrier care about? Has everyone arrived? and as your colleague said, let's compare previous to expected, and if everyone has arrived, that's one of the cases we definitely need to treat. "
+  },
+  {
+    "start": 4810.364,
+    "end": 4842.922,
+    "speaker": "SPEAKER_00",
+    "text": "What I said is, this is almost right but not quite. Yeah? Say again? Yes, fetch add does not return the result of adding one. fetch-add does atomically add 1, but it returns the value of before adding 1. That's why I called it brev for previous, except that it went under some of your raters because, well, I just didn't say anything about it. "
+  },
+  {
+    "start": 4844.873,
+    "end": 4875.585,
+    "speaker": "SPEAKER_00",
+    "text": "So what we need to do here is compare it with expected minus 1. Because if previous equals expected minus 1, we know that the current value is expected. OK? Everyone, the expected amount, has arrived. OK. So this is everyone arrived, and this is some are missing. Let's start with this. "
+  },
+  {
+    "start": 4875.705,
+    "end": 4887.373,
+    "speaker": "SPEAKER_00",
+    "text": "What do we do if some are missing? Yep. How do we wait? We look. We just do it good old fashioned user level. While? "
+  },
+  {
+    "start": 4901.644,
+    "end": 4933.521,
+    "speaker": "SPEAKER_00",
+    "text": "Fetch at is an increment. OK, load. So OK, let's think about it. What do we do here? Because I asked you for the code, but we didn't discuss what the code needs to do. We are counting up until everyone has arrived. When everyone has arrived, current equals expected. So what can we do to signal everyone that everyone has arrived? "
+  },
+  {
+    "start": 4941.06,
+    "end": 4977.003,
+    "speaker": "SPEAKER_00",
+    "text": "Or we can just say store. I think it's store. I don't remember. I mean, we can do equal, and it's just implicitly going to use the store. But let's assume that it's store. I don't remember. If we set it to 0, we are back to where the constructor set us, which is, well, nobody has arrived. And we can say when nobody has arrived is the equivalent to everyone has arrived. So we can just busy loop here. "
+  },
+  {
+    "start": 4982.906,
+    "end": 5024.94,
+    "speaker": "SPEAKER_00",
+    "text": "Yeah? So what you were saying, we need a variable to track when we arrive. It is true, we need to track when everyone has arrived and when we get to the next one, but we can be, I don't know what the adjective would be here, crafty about it if you want, and just reuse this. and say whenever current goes back to zero, everyone goes. OK? Now, wow, it's so, this is too far away. "
+  },
+  {
+    "start": 5025.04,
+    "end": 5057.183,
+    "speaker": "SPEAKER_00",
+    "text": "I cannot see anything. Let me see. So test the program. And if you just use a number of threads that is lower than the number, of course, you will see that it works with the program as it is now. Any questions? No? "
+  },
+  {
+    "start": 5057.443,
+    "end": 5090.234,
+    "speaker": "SPEAKER_00",
+    "text": "OK, so now follow the instructions of 1.2 and do the experiment that is identified right there. Please test before doing that that it works. It should work if you create a number of threads that is less than the number of cores to make sure that there's no weird scheduling time multiplexing between the threads. Once you have verified that with the code that we just wrote, then go and follow 1.2. "
+  },
+  {
+    "start": 5097.893,
+    "end": 5110.025,
+    "speaker": "SPEAKER_00",
+    "text": "By the way, let me see. Is it store? I think it's store. Let me check. Ooh, atomic node. "
+  },
+  {
+    "start": 5125.846,
+    "end": 5149.745,
+    "speaker": "SPEAKER_00",
+    "text": "Oh, I see. I have a typo. There's only one colon. That's double colon. There we go. It's not called current? Oh, arrived. Okay. Well, let's just call it current. Plus lines to change. There we go. "
+  },
+  {
+    "start": 5197.382,
+    "end": 5228.588,
+    "speaker": "SPEAKER_00",
+    "text": "By the way, the example of using task set, all that command does is when you pass the minus C argument, you essentially say, whenever you launch this process that comes after, limited to CPUs numbered zero through N CPUs in this case. So you can say zero dash one, and when you create that process, that process will only be scheduled on CPUs zero and one in your program. "
+  },
+  {
+    "start": 5228.908,
+    "end": 5269.37,
+    "speaker": "SPEAKER_00",
+    "text": "So you're effectively limiting what CPUs it has available. So if it creates two threads, they will go on course zero and one. But if you create four threads, all four threads will only be scheduled in course zero and one. on average two threads per core if you do that. And that's a way in which you can say force limit on the CPUs or even in some cases people use this to say, oh this process runs on this subset of CPUs, this process runs on this other subset of CPUs and they don't use the same CPUs and this way you can sort of avoid performance interference this way. "
+  },
+  {
+    "start": 5270.551,
+    "end": 5285.637,
+    "speaker": "SPEAKER_00",
+    "text": "In our case, we're going to use it to sort of synthetically limit the number of CPUs available to the program so that we can easily launch it with many threads that are for sure more than the number of CPUs that we give it with a task set. "
+  },
+  {
+    "start": 5303.023,
+    "end": 5333.463,
+    "speaker": "SPEAKER_00",
+    "text": "Has everyone tried the new command? Nobody has tried it? Has anybody tried it and had it fail in some way? Is there some problem running it? Oh, there's no task set. Well, what you can do in Mac is just launch your program with more threads than CPUs. "
+  },
+  {
+    "start": 5336.924,
+    "end": 5340.044,
+    "speaker": "SPEAKER_00",
+    "text": "Task set is just a way of limiting the number of CPUs for that process. "
+  },
+  {
+    "start": 5350.066,
+    "end": 5376.21,
+    "speaker": "SPEAKER_00",
+    "text": "Can you create more threads? Yeah. Did you remove the use leap on the program? How many threads are you creating and how many cores do you have? And it's always finishing? "
+  },
+  {
+    "start": 5387.837,
+    "end": 5420.466,
+    "speaker": "SPEAKER_00",
+    "text": "Well, it should just block at some point and not finish. Let's see, where was that useLib? Is that the case for everyone? You all remove this useLib and it still works? It works for you? It blocks, OK. Anybody else works or blocks? Say again? "
+  },
+  {
+    "start": 5421.186,
+    "end": 5434.815,
+    "speaker": "SPEAKER_00",
+    "text": "Blocks? Anybody else? Blocks? Anybody else? OK, gotcha. Does it block now? "
+  },
+  {
+    "start": 5455.917,
+    "end": 5488.255,
+    "speaker": "SPEAKER_00",
+    "text": "So just for reference for those of you who have been so silence, I want you to just remove this line here. And rerun it. OK, so by show of hands, how many of you this is blocking for? OK. And by show of hands, how many of you this is still working for you? Interesting. "
+  },
+  {
+    "start": 5488.355,
+    "end": 5525.01,
+    "speaker": "SPEAKER_00",
+    "text": "You sure that you recompiled and you're running it? It should block. I mean, there's a chance that it doesn't. It is possible. But it's extremely unlikely if you just keep running it over and over. So I would say that either there's not enough threads on your program, or you're not running it without the, after removing the sleep and recompiling. You're not running the same binary. Or you're extremely lucky or unlucky in this case because it's like there's very few chances that it keeps not blocking. "
+  },
+  {
+    "start": 5527.912,
+    "end": 5558.051,
+    "speaker": "SPEAKER_00",
+    "text": "And of course, if I'm talking here about chances, it's because we what we should be hitting here. Is a race condition. Yeah, meaning that we have concurrent code. That is not correct because in some. orderings that are possible, it does not behave in the way that we intended it. That's what a race condition is. "
+  },
+  {
+    "start": 5558.792,
+    "end": 5578.708,
+    "speaker": "SPEAKER_00",
+    "text": "Threads are racing to do something, and so depending on which thread wins that race, it behaves the way we wanted it to, and depending on which thread wins that race, it does not behave the way we wanted it to. Any ideas what could be happening here? Yes? "
+  },
+  {
+    "start": 5607.957,
+    "end": 5621.838,
+    "speaker": "SPEAKER_00",
+    "text": "Okay, can you phrase it again? You are onto something, but I'm not exactly sure if you put your finger on it or not. It is about resetting. "
+  },
+  {
+    "start": 5639.783,
+    "end": 5648.047,
+    "speaker": "SPEAKER_00",
+    "text": "Okay, that's all right. We all confuse ourselves when thinking about concurrency problems and races. It's really freaking hard. "
+  },
+  {
+    "start": 5688.261,
+    "end": 5722.331,
+    "speaker": "SPEAKER_00",
+    "text": "Exactly. So if we look at current here, current is zero. After here, current is one. Then here, current is two. And here, current is three, right? Up until here, These two threads are busy looping, and they keep busy looping. "
+  },
+  {
+    "start": 5728.676,
+    "end": 5766.71,
+    "speaker": "SPEAKER_00",
+    "text": "I'm just going to write a circle because this is too tedious. Ideally, until here. OK. Now, since we have more threads than cores, these threads are not always running. Sometimes we are not on the CPU. We are scheduled out. OK. Now, imagine that this one is scheduled out until here. It's not running. Right here, thread number two, which arrives last, resets the counter to zero. "
+  },
+  {
+    "start": 5771.3,
+    "end": 5804.961,
+    "speaker": "SPEAKER_00",
+    "text": "Here, c is 0, which is when everyone that's looping will unblock and continue. Now, this one arrives to the next barrier and says, here, counter is 1. Then the next one arrives and says, counter equals 2. When this one gets scheduled back into the CPU, it says, oh, this is still not zero. "
+  },
+  {
+    "start": 5805.121,
+    "end": 5837.189,
+    "speaker": "SPEAKER_00",
+    "text": "I will keep looping forever, because everyone else is waiting for the last one to arrive. And this one does not even know that it needs to arrive to a new barrier. Does everybody see the race condition? Yeah? Please, not. Yes? All right. So now take some time to think about how we could solve that. "
+  },
+  {
+    "start": 5851.335,
+    "end": 5854.436,
+    "speaker": "SPEAKER_00",
+    "text": "And please try to implement it. See what you come up with. "
+  },
+  {
+    "start": 5866.028,
+    "end": 5878.577,
+    "speaker": "SPEAKER_00",
+    "text": "which is the last bit. For those of you who are into spaghetti Western, that's what this is about. "
+  },
+  {
+    "start": 5900.884,
+    "end": 5908.176,
+    "speaker": "SPEAKER_00",
+    "text": "The change is very small and simple. You just need to know what exactly is the problem and what to look for. "
+  },
+  {
+    "start": 5997.833,
+    "end": 6028.35,
+    "speaker": "SPEAKER_00",
+    "text": "One simple way of thinking about it is that the whatever the program does, from the perspective of the barrier, there's just rounds of threads getting into the barrier. You can think of it as a circular running track, right? All the threads are running until they get to the start point, and then they start again, right? So we can count the number of laps. The number of laps is essentially that, how many times all the threads have gotten into the barrier, and then they start over again, a new lap. "
+  },
+  {
+    "start": 6031.888,
+    "end": 6065.426,
+    "speaker": "SPEAKER_00",
+    "text": "So we can say, that's the same problem as before. Atomic size t, lapse, oops. So we are now kind of getting to what you were saying, like maybe we need another barrier to know when it's done. But it's not just to know when it's done, it's to know how many laps we've done. "
+  },
+  {
+    "start": 6072.632,
+    "end": 6105.093,
+    "speaker": "SPEAKER_00",
+    "text": "Now, how do we count laps? This is trickier than it seems because of concurrency. Because remember, now we have two atomic variables and we are operating on them independently. Each one of them is atomic, but operations on both of them are not atomic. I mean, we could add a mutex to operate on both of them atomically, but that would be unnecessarily costly to have a critical section. "
+  },
+  {
+    "start": 6105.653,
+    "end": 6121.897,
+    "speaker": "SPEAKER_00",
+    "text": "And we can somewhat easily handle this with just two atomic variables and no critical section. But we just need to be very careful about how we read and update these variables. "
+  },
+  {
+    "start": 6137.127,
+    "end": 6146.953,
+    "speaker": "SPEAKER_00",
+    "text": "Yep. Go ahead. Yeah, go ahead. "
+  },
+  {
+    "start": 6171.587,
+    "end": 6202.446,
+    "speaker": "SPEAKER_00",
+    "text": "Okay, so let's unpack that. So you're saying, in addition to signaling that the current is 0, we also increase the lapse. How do you call this lapse? We can write this. By the way, this is completely equivalent to lapse fetch add 1. "
+  },
+  {
+    "start": 6204.485,
+    "end": 6233.693,
+    "speaker": "SPEAKER_00",
+    "text": "Completely equivalent, C++ handles this for us to make it easier. Yes, now. And then before we enter the while loop, we can take a snapshot of the lab and store it in a variable, so like. Here? Before the while loop, yeah. Of this variable, you mean labs? "
+  },
+  {
+    "start": 6260.955,
+    "end": 6284.856,
+    "speaker": "SPEAKER_00",
+    "text": "You what? You did what? Sorry. OK. So this almost works, but there is one race condition. Can anybody spot the race condition? "
+  },
+  {
+    "start": 6308.975,
+    "end": 6341.538,
+    "speaker": "SPEAKER_00",
+    "text": "Okay, did everybody hear that and get that? So we are arriving, this increment is we arrive on our lap, right? Our lap is lap three. and then we arrive and we say, oh shit, lap three is not done, so I'm now gonna loop on this. By the time I get here, after I have arrived, perhaps this lap has finished. And I arrive on lap three, but when I read this, it says that it's lap four. "
+  },
+  {
+    "start": 6343.262,
+    "end": 6375.209,
+    "speaker": "SPEAKER_00",
+    "text": "That's not correct, that's the race condition. Because what I arrived for is lap three, not lap four. We are back into square one where we had the race condition with current being reset. In this case, laps has been updated between us arriving for lap three and somebody else starting lap four. Good news, the way to fix this is quite simple once we know what the problem is. "
+  },
+  {
+    "start": 6375.249,
+    "end": 6406.407,
+    "speaker": "SPEAKER_00",
+    "text": "We take the load for labs and we read it before signaling that we arrived at the end of the lab. So I know I am on lab three for sure because I haven't arrived yet. I haven't signaled that I'm done. So for sure this is correct. There's no other way. Does everyone agree? So I'm on lab three or whatever. Then I increment, I arrive. If I am the last one to arrive, that's fine. "
+  },
+  {
+    "start": 6406.847,
+    "end": 6447.684,
+    "speaker": "SPEAKER_00",
+    "text": "I set this to zero first and then I increment the labs. If somebody else has not arrived yet, that's fine. I know that I'm on lab three and I will keep waiting until lab three is done. Now be careful, again, anything that is concurrent code is an absolute mindfuck. If you do this, sorry, this is incorrect. Why? Because here I'm signaling that labs are done, they are waiting on the labs, they will be unblocked, and they might increment current before I reset it. "
+  },
+  {
+    "start": 6449.265,
+    "end": 6481.972,
+    "speaker": "SPEAKER_00",
+    "text": "So I will lose somebody arriving if that happens. So a lot of the time, writing efficient concurrent code is not a lot of lines of code, but it's way too much thinking because of these very subtle interactions. In this case, what we wrote is an algorithm that doesn't use locks. It's more efficient, potentially, but it's also oftentimes harder. "
+  },
+  {
+    "start": 6485.764,
+    "end": 6519.856,
+    "speaker": "SPEAKER_00",
+    "text": "Any questions? Yep. Which ones? You mean putting laps here, did you get that one? These two? Because if we have it like this, Current is, let's assume we have two threads, right? Current is two at this point, and labs is zero. "
+  },
+  {
+    "start": 6520.396,
+    "end": 6550.577,
+    "speaker": "SPEAKER_00",
+    "text": "I'm on the first lab. Now I increment labs, I set it to one, then the other thread unblocks, yes? Now it unblocks, and before I can execute this, because it is possible that between this point and this point, there's an infinite amount of time that the operating system schedules me out, or I don't know, the memory access has a page fault, or just the cache takes too long to give me the data. It can be anything. "
+  },
+  {
+    "start": 6550.877,
+    "end": 6586.432,
+    "speaker": "SPEAKER_00",
+    "text": "There's an arbitrary amount of time between those two instructions if we were looking at the assembly. We have to assume that. It's what was happening with the microslip after we removed it. So in this case, We increment the lapse, we unblock the other thread, other thread comes in, increments current, current goes from two to three, and says, well, I'm gonna keep waiting for the next one, and this one sets it to zero, then goes around, increments it by one, and also goes into wait. "
+  },
+  {
+    "start": 6587.592,
+    "end": 6627.529,
+    "speaker": "SPEAKER_00",
+    "text": "So everyone is waiting. Because we lost one increment. in between here and here for the other side, yeah? Does everybody see that, that race condition? Yeah, you had another question? These two lines in C++ are absolutely equivalent. the plus plus operator is implemented for an STD atomic is implemented using fetch at one. "
+  },
+  {
+    "start": 6628.809,
+    "end": 6698.671,
+    "speaker": "SPEAKER_00",
+    "text": "This is just a wrapper that gets in lines and does a fetch at. That's what I was saying, that you can write either of them. But again, this only works because this variable is STD atomic. If these were not STD atomic, this would be a non-atomic increment. Any questions? Yeah. Which lines are we talking about here? The order between these and what? And this one? Yes. Because when we had it here, that's exactly what's happening. Right? This is equivalent to this in all effective purposes. And did you understand why that was wrong? "
+  },
+  {
+    "start": 6701.934,
+    "end": 6732.581,
+    "speaker": "SPEAKER_00",
+    "text": "Why this one is wrong? Is everyone clear why this is a race condition? Because it what? Because we arrived at lab three, and between these increment arriving at lab three and reading the lab number, the lab number could have changed. "
+  },
+  {
+    "start": 6733.342,
+    "end": 6772.982,
+    "speaker": "SPEAKER_00",
+    "text": "Because somebody else finished and incremented. So between executing this instruction, And this one, somebody went and did these two. Yes, you see the race condition? So the only reasonable way of doing this, I mean, there's two ways. If you are learning, which is the case, I would assume, for all of you, just write it down on a piece of paper and think of all the possible orderings. That's the only way out. If you have done this for a long, really long time, you will see that patterns start to emerge and you see these things easier just because you have previous experience. "
+  },
+  {
+    "start": 6773.042,
+    "end": 6812.01,
+    "speaker": "SPEAKER_00",
+    "text": "But there's no trick here. The first way too many times that you hit any of these patterns, it will take a long time for you to think them through. That's the nature of it. It's quite complicated. Okay? Any more questions? All right. So the answers, which we already saw together, they will get published after the class. "
+  },
+  {
+    "start": 6812.61,
+    "end": 6843.858,
+    "speaker": "SPEAKER_00",
+    "text": "They have been already scheduled to be published. This took a bit longer than I thought it would, but I'm going to just sneak in maybe a couple slides before we go and see each other on Friday. All right, a lot of this is more for your own sake and sanity in terms of doing concurrent programming. the actual material that I will examine you about. "
+  },
+  {
+    "start": 6844.238,
+    "end": 6875.272,
+    "speaker": "SPEAKER_00",
+    "text": "Some of it is, but the majority is just tools that I think you should know about to make your programming in concurrent systems more effective and less despairing. So first of all, I don't know how many of you by show of hands know who Knuth is. A few of you. "
+  },
+  {
+    "start": 6875.332,
+    "end": 6928.815,
+    "speaker": "SPEAKER_00",
+    "text": "So Donald Knuth is the author of a series of pretty large books called The Art of Computer Programming. He's one thing that he's really good about or that he spent a lot of time thinking about is how to take algorithms, any algorithm that you can think about and finding the most efficient solutions in terms of implementation, okay? So even though that person's main ethos is that, he also said that essentially what is the, highlighted here that premature optimization, even though his whole work is optimization, is the root of all evil, or at least most of it in programming. "
+  },
+  {
+    "start": 6928.955,
+    "end": 6961.16,
+    "speaker": "SPEAKER_00",
+    "text": "Because if you are optimizing something that is not a problem, you're not making any solution, you're just making things harder for yourself and for future developers that will have to deal with that code. So optimize only based on the knowledge that you need to optimize. And also. Before you start profiling and optimizing things, make sure that they are correct because a program that is incorrect has zero performance. "
+  },
+  {
+    "start": 6961.22,
+    "end": 6992.391,
+    "speaker": "SPEAKER_00",
+    "text": "It doesn't matter how fast it runs. The output is just crap and it's like it never run right. So the first bit that I would like to talk to you about and this is very quick. I promise is correctness tools OK. It sounds stupid, but the first protection against errors is using compiler flags to make sure that common mistakes are warned about. "
+  },
+  {
+    "start": 6993.132,
+    "end": 7034.454,
+    "speaker": "SPEAKER_00",
+    "text": "And so that's the minus w all, warning all. And something that I always use in all my projects is converting warnings into errors. So I cannot compile something unless that warning is solved by properly changing the code, because that is a potential error just waiting to happen. There's some other ways in which you can control this. There's pragmas, and the newer C++ standards, you have this double square bracket, and you can say, for this compiler, gnu.gcc, add diagnostic flags, and that's equivalent to passing flags to specific files, or even to specific functions, you can apply flags. "
+  },
+  {
+    "start": 7036.18,
+    "end": 7069.281,
+    "speaker": "SPEAKER_00",
+    "text": "So typecasts and use return values and variables, all of that can be a source of problem. Let me see how many I have. Yeah. I'm just going to do these few green ones just so you know. How many of you know what Valgrind is? A few. OK. So Valgrind is a very slow but very useful tool that will look for potential memory problems and corruptions in your program. is extremely useful. You just do a Valgrind program and by default it will check the memory correctness of it. "
+  },
+  {
+    "start": 7069.361,
+    "end": 7103.042,
+    "speaker": "SPEAKER_00",
+    "text": "For example, if you look at this, we allocate 10 integers and we access position 11 because we start counting at zero. This is of course a problem, but most of the time that won't be detected because, well, there's no page fault or anything, it's just an array. There's no bounds check in C. or C++ by default, but Valgrind will find it and show us this information saying, hey, the problem is this line here is producing out-of-bounds access for an allocation that comes from this line. "
+  },
+  {
+    "start": 7103.903,
+    "end": 7134.718,
+    "speaker": "SPEAKER_00",
+    "text": "So always use it for development. These are a similar tool. One similar tool is called ASAN. How many of you heard about ASAN or address sanitizer? A few? Less than Valgrind, I'm surprised. So address sanitizer started with the LLVM project, but now it's also in LLVM and GCC. Add this flag, and the compiler will add a bunch of checks to make sure that certain memory accesses are sane and not lead to problems. "
+  },
+  {
+    "start": 7134.798,
+    "end": 7167.417,
+    "speaker": "SPEAKER_00",
+    "text": "It's not as good as Valgrind, but it's a lot faster. Still, don't use this for production code. It makes it too slow. For the type of concurrency problems we had, Valgrind has a tool called Helgrind. I don't know if it's because concurrency is like hell, maybe. But it will help you find concurrency problems in your programs. And Valgrind has many tools that allow you to look at cache and heap profiling, call graphs, and so forth. And here I'm gonna stop. "
+  },
+  {
+    "start": 7167.577,
+    "end": 7171.76,
+    "speaker": "SPEAKER_00",
+    "text": "We are gonna continue with this and some more contents on Friday. "
+  }
+]

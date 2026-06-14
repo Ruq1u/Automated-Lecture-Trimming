@@ -1,0 +1,536 @@
+[
+  {
+    "start": 2.18,
+    "end": 39.548,
+    "speaker": "SPEAKER_01",
+    "text": "OK, so let's get started. And so yesterday we spent two hours talking about copyright, because that is absolutely something you encounter all the time when working with computer software. The next one is actually, as I said yesterday, the bit that is basically generic law, but it's generic law that impinges its way onto computer science absolutely everywhere, which is the law of contract. So this, I mean, you turn up, I mean, everyone encounters contract all the time because contract is how the economy works. "
+  },
+  {
+    "start": 39.928,
+    "end": 75.463,
+    "speaker": "SPEAKER_01",
+    "text": "But computer science in particular encounters this one in interesting ways because of the fact that computer science fundamentally is about automation. And so what happens when you start automating things and then that bumps into legal concepts which are based around things like making agreements, is a little bit interesting and tricky and something to be aware of. So in order to understand what's going on here at all, we need to do a little bit of legal theory. "
+  },
+  {
+    "start": 75.483,
+    "end": 107.886,
+    "speaker": "SPEAKER_01",
+    "text": "We need to talk a little bit about what we call sources of law. So where does law come from? And an obvious answer is that A few kilometers that way is a overly ornate 19th century building in which about 1,500 people with various forms sit and vote and make acts of parliament. And those things are laws, and that's what the law is. And in many countries, that's where your contract law would come from. "
+  },
+  {
+    "start": 108.006,
+    "end": 142.36,
+    "speaker": "SPEAKER_01",
+    "text": "So if you are in Germany, you have something called the Berklee-Cazette book, or the Berklee-Cavette book in the Netherlands, or the Courteousville in France. And that is a big consolidated written law which sets down the law, what we call private law, sets down contract law and torts, which is things like negligence and trespass, and all of the parts of the law that regulate relationships between people, as opposed to criminal law, which regulates your relationship with the state. "
+  },
+  {
+    "start": 143.101,
+    "end": 184.773,
+    "speaker": "SPEAKER_01",
+    "text": "And the... and that would seem kind of the obvious thing to do, right? You write it all down, and here are the laws, and then, okay, it's not always completely clear what they mean, and so then we look to what courts have said about this. This is not how contract law works. This is not actually how quite a lot of the law that you live under if you live in England or Wales comes from, and in fact, This system of law that I'm about to explain is the system of law that emerged in England and Wales in the late Middle Ages, so in about the 13th century. "
+  },
+  {
+    "start": 186.134,
+    "end": 218.804,
+    "speaker": "SPEAKER_01",
+    "text": "And it's slightly a historical artifact that England, and I do really mean England. Scotland is a different story. England has an uninterrupted constitutional history running back for nearly 1,000 years. So 1066 was the last time we had a full-on permanent constitutional upheaval in the UK. There was a temporary one in the 17th century where they chopped the head of the king off, but after 10 years they gave up and they went back to what they were doing previously. "
+  },
+  {
+    "start": 219.244,
+    "end": 250.88,
+    "speaker": "SPEAKER_01",
+    "text": "So that one didn't really change things. And so that means that unlike, say, France, which completely rewrote their legal system after the French Revolution, or unlike Germany, which did it later in the 19th century after Germany unified out of all its states, that's never happened here. So we are still running on our medieval legal system. And the... In the medieval world, there is very little legislation. "
+  },
+  {
+    "start": 251.18,
+    "end": 283.51,
+    "speaker": "SPEAKER_01",
+    "text": "In fact, even the idea that the king could make new laws or the king in parliament, which is what we still have. So that thing down there is actually the king in parliament. That the king in parliament could make new laws was a relatively late occurrence. But obviously, you have legal disputes all the time. And people buy and sell things from each other. And occasionally, they have fights about buying and selling things from each other. So what happens? Well, you have courts, the king's justice. "
+  },
+  {
+    "start": 283.55,
+    "end": 319.945,
+    "speaker": "SPEAKER_01",
+    "text": "So originally, what you did was you went to whoever the local lord was, and then the local lords, when they had disputes, would go to the king. But that very, very early on, even before... even before the emergence of what we're talking about now, the load is too high. So what happens is that the king appoints judges, and judges make decisions. The fact that we call it a law court is because originally what you did was you went to the king's court to get a judgment in a decision. "
+  },
+  {
+    "start": 320.685,
+    "end": 352.204,
+    "speaker": "SPEAKER_01",
+    "text": "So law courts are an extension of the world court, and that's why they're called that. And so then, OK, you have a whole load of judges, and those judges make decisions. So how do you get legal certainty? How do you actually know, absent of what any individual judge does on an individual day, what's going to be the decision of a judge? Because if we're not going to spend all of our lives permanently in court, we need some level of legal predictability, right? "
+  },
+  {
+    "start": 352.244,
+    "end": 384.96,
+    "speaker": "SPEAKER_01",
+    "text": "So you and I need to actually both know what the rules are so that we can comply with them and not end up in a situation where we end up in court. And what emerged was the concept of precedence, or to use the flashy Latin term because lawyers love their medieval French and Latin, stare decisis, let the decision stand. And what precedent says is that courts will generally follow the decisions of prior courts. "
+  },
+  {
+    "start": 386.658,
+    "end": 423.39,
+    "speaker": "SPEAKER_01",
+    "text": "So that is a legal principle. In fact, it's a harder legal principle than that. It actually says that a court must follow the decisions of a higher court in its hierarchy when deciding the same legal points. So you have a hierarchy of courts. If you initially have a contractual dispute of normal amounts of money, so up to several tens of thousands of pounds, then that dispute would be heard in what's called the county courts. "
+  },
+  {
+    "start": 424.293,
+    "end": 454.689,
+    "speaker": "SPEAKER_01",
+    "text": "in England. People talk about small claims courts, which is an American term. There is a small claims procedure of the county court. It's still a county court. And then if it's a bigger amount of money or on appeal from the county court, you go to the high court, and then from the high court to the court of appeal, and from the court of appeal to now, relatively recently in the UK, what's called the Supreme Court of the United Kingdom. They used to be a different mechanism. You used to end up in Parliament at that point. "
+  },
+  {
+    "start": 454.729,
+    "end": 486.003,
+    "speaker": "SPEAKER_01",
+    "text": "You'd end up in the House of Lords. So these cartoons, by the way, these come from one of my textbooks when I was an undergraduate lawyer. And Jeff Pryor was the political cartoonist of the local newspaper in the city where I studied law. And so they commissioned him to illustrate the book. And this is a great Jeff Pryor cartoon. So this describes how precedent works. So you have a hierarchy of courts. "
+  },
+  {
+    "start": 486.063,
+    "end": 523.537,
+    "speaker": "SPEAKER_01",
+    "text": "And generally, the higher up the court hierarchy you are, the flashier the outfits get. Also, literally, the bigger the wigs. So if you're familiar with the English term bigwig to describe somebody who is important, this is where it comes from. Right? And the illustration that's being made here is the lower courts are literally here bound by the decisions of the higher courts. And actually, even the Supreme Court is very, very reluctant to change its previous decisions because legal certainty is so important. "
+  },
+  {
+    "start": 523.957,
+    "end": 564.668,
+    "speaker": "SPEAKER_01",
+    "text": "They do have the freedom to do so. And sometimes practitioners in the lower courts and maybe even sometimes judges in the lower courts feel a little bit like this diagram, which is that they are completely bound while the top court does what the hell it likes. And that makes life difficult further down in the hierarchy as well because... One of the things about having the certainty of precedent means it reduces the number of appeals. Because if you decide in accordance with what the higher courts have said and the parties can see that you decided in accordance with what the higher courts have said, then the parties are less likely to appeal your decisions because they know that the higher court will agree with you. "
+  },
+  {
+    "start": 565.008,
+    "end": 600.347,
+    "speaker": "SPEAKER_01",
+    "text": "If the higher courts have a tendency to just go and do something different, then parties have an incentive to appeal, which is very expensive for everybody concerned, and you don't want that to happen. One of the things that then particularly not very informed newspaper articles will say is they'll get very hung up about the distinction between common law jurisdictions. So the common law jurisdictions are basically, roughly speaking, England and anything that England has ever conquered. "
+  },
+  {
+    "start": 601.147,
+    "end": 637.003,
+    "speaker": "SPEAKER_01",
+    "text": "So most of the Americans, although not Louisiana, or most of Canada, but once again not Quebec, the Australians, Singapore, Malaysia, there are some more complicated ones. So India is a hybrid legal system, which is a hybrid of common law and their previous stuff. South Africa is a hybrid legal system, which is a hybrid of English and Dutch law. But certainly England, Australia, New Zealand, Singapore, Malaysia, US, and Canada are a kind of related legal system. "
+  },
+  {
+    "start": 637.243,
+    "end": 673.197,
+    "speaker": "SPEAKER_01",
+    "text": "And this is important because there's legal certainty. That rule strictly applies to courts in your own hierarchy. So the decisions of the High Court in England are binding on the lower courts. Courts also play quite a lot of weight on legal consistency, at least inside the common law system. And so decisions of superior courts in other common law jurisdictions have what's called persuasive authority. "
+  },
+  {
+    "start": 673.237,
+    "end": 708.087,
+    "speaker": "SPEAKER_01",
+    "text": "So they are taken into account in working out what to do by courts in this system. So as we go through here, even though we are primarily concerned with English law, we will actually encounter some American cases. which have set the law in the UK because British courts have decided to follow them. I don't think we're going to encounter any but there are also cases from other common law jurisdictions that are important in our setup. Also some Hong Kong ones actually because quite a lot of our contract law is set by disputes over big buildings. "
+  },
+  {
+    "start": 708.547,
+    "end": 739.479,
+    "speaker": "SPEAKER_01",
+    "text": "And this is simply because civil engineering is the source of some of the biggest contracts that exist. So they're the ones that are worth litigating all the way up to the highest courts. So you get some out of that, although I don't think we're going to really be looking at those today. Obviously, we also have statute law. And obviously, even if you are in France, where precedent is theoretically illegal, courts have a tendency to follow previous decisions. Otherwise, you have a legal mess. "
+  },
+  {
+    "start": 739.499,
+    "end": 777.568,
+    "speaker": "SPEAKER_01",
+    "text": "So you can overstate the difference between the different legal systems. But for our purposes, what we're going to do today is really completely based in precedent and English common law. This also matters because unlike copyright law, which has an awful lot of commonality between different countries, contract law is actually surprisingly different. And there are important ways that I will try to highlight as we go through in which our law of contract is not the same as the law of contract in non-common law countries. "
+  },
+  {
+    "start": 780.239,
+    "end": 811.4,
+    "speaker": "SPEAKER_01",
+    "text": "Okay, so what is a contract? So a contract is an agreement, but it's a legally enforceable agreement. So contracts form part of what's called private law. And the reason why we can talk about it as private law is because we start off and I and another party have no relationship with each other, and... So if we're talking about, for example, I'm going to sell that person something. "
+  },
+  {
+    "start": 811.42,
+    "end": 869.412,
+    "speaker": "SPEAKER_01",
+    "text": "Well, at the moment, I haven't agreed to sell them something. And there's no relationship with them, so a court's not going to get involved. Then I make a contract with them to sell something. And if I don't deliver, or maybe if I deliver but the product is defective, all of a sudden, a court is going to be prepared to intervene. So somehow the law changed not because of an act of the government. The law changed because that person and I entered into a private agreement. So that's a kind of funny concept. So we can change what is legal and what is illegal, because it's illegal to break a contract. It's not a crime. You cannot be prosecuted for that in contracts. But nonetheless, breaking a contract will result in consequences which can be enforced via the legal system. "
+  },
+  {
+    "start": 869.792,
+    "end": 904.979,
+    "speaker": "SPEAKER_01",
+    "text": "So it's a law, and it is against the law to break contracts. It doesn't mean you can't do it, as we'll come to later, but it is against the law. So that's what a contract is. So the question now is, which agreements are legally enforceable? So if, for example, I said earlier that we're going to come to something later in this lecture, have I just entered into a contract with you that I will cover that later in the lecture? "
+  },
+  {
+    "start": 905.019,
+    "end": 936.415,
+    "speaker": "SPEAKER_01",
+    "text": "And if I don't cover it, are you able to sue me? So I suspect the intuitive answer you've probably come to is no, although I don't know. There can be some very litigious students around. But what is it? What are the bits we have to have in order for there to be an actual contract? And... The first one, which is kind of obvious, is agreement. So in order for there to be a legally enforceable agreement, there's got to be an agreement. "
+  },
+  {
+    "start": 936.435,
+    "end": 967.06,
+    "speaker": "SPEAKER_01",
+    "text": "So what does that mean? That means that the two parties, there's always two parties to a contract. So a contract is an agreement between two parties. One of the parties might be multiple people, but there are always two sides to the contract. It's a bilateral thing. The two sides of the agreement have to agree on what the terms And that can be very simple. So I will sell you my old laptop for 200 quid. You agree to buy my laptop for 200 quid. "
+  },
+  {
+    "start": 967.42,
+    "end": 1004.016,
+    "speaker": "SPEAKER_01",
+    "text": "We have now agreed on the terms of the contract. And the mechanism that you reach that's described for doing that is offer and acceptance. So somebody makes an offer and the other person makes an acceptance. Can be either way around. I will offer to sell you my laptop. You agree to buy it. You offer to buy my laptop. I agree to sell it. So it's actually... in most circumstances, the offer and the acceptance purpose are symmetric. It just merely indicates the fact that somebody has stated the terms and the other person has agreed to those terms. "
+  },
+  {
+    "start": 1004.396,
+    "end": 1038.041,
+    "speaker": "SPEAKER_01",
+    "text": "That's what gets you agreement. Now, that seems obvious. until you confront it with reality. Let's suppose you walk into Sainsbury's. What's going on when you go into Sainsbury's? Who's offering, who's accepting? "
+  },
+  {
+    "start": 1038.842,
+    "end": 1070.977,
+    "speaker": "SPEAKER_01",
+    "text": "Where does the contract occur? Well, in fact, that's actually one of the leading cases. We're going to do that one. It wasn't Sainsbury's, it was Boots. Boots. And so it was Pharmaceutical Society of Great Britain and Boots Cash Chemists, Southern Limited, which was in 1953. It's a while back now. This is relevant because in 1953, the concept of a chemist like Boots was radical. So up to that point, you had sort of old-fashioned chemists, and you walk in, and there's a counter. You walk up to the counter, and you ask the pharmacist for what you want. "
+  },
+  {
+    "start": 1071.94,
+    "end": 1102.193,
+    "speaker": "SPEAKER_01",
+    "text": "And now Boots comes in and has supermarket-style chemists where you walk in, pick up the stuff you want, take it to a cashier and pay for it. World's changing. 1950s. You know, white-heated technology and all that. That was the 60s. So what's the issue? Well, the issue is over-the-counter medicines. So there are categories of pharmaceutical products, drugs, which you don't need a prescription for, but which can only be sold under the supervision of a pharmacist. And boats have got these on the shelves. "
+  },
+  {
+    "start": 1103.233,
+    "end": 1137.931,
+    "speaker": "SPEAKER_01",
+    "text": "And you can go around and pick them up. And there's a pharmacist supervising the cashiers at the front. And the Pharmaceutical Society of Great Britain, which was the regulator, said, no, this is illegal because you're selling these products without the supervision of a pharmacist. Because what's going on is you're offering them for sale. The offer is happening by putting them on the shelves. And the customer is accepting that offer by taking them. "
+  },
+  {
+    "start": 1138.352,
+    "end": 1168.412,
+    "speaker": "SPEAKER_01",
+    "text": "And at that point, you have a contract. And you're only executing the contract at the till. So the customer has agreed to buy and has promised to pay. And you're just executing that payment at the till. And therefore, the point at which the sale is occurring is not supervised by a pharmacist, which is illegal. That actually doesn't conform to your ideas of how a shop works. "
+  },
+  {
+    "start": 1168.953,
+    "end": 1199.363,
+    "speaker": "SPEAKER_01",
+    "text": "I think you would all expect that you can walk around Sainsbury's and put things in your basket and then decide you don't want them and put them back on the shelves and not buy them. And the court agreed. So actually, funnily enough, when a shop puts things up in their shop or relevantly for you guys, when a web shop has stuff up, that is not an offer to sell. Those goods are not on offer. "
+  },
+  {
+    "start": 1200.384,
+    "end": 1231.463,
+    "speaker": "SPEAKER_01",
+    "text": "It is what's called an invitation to treat. So treat as in the terms of treaties. So it's an invitation to enter into a negotiation effectively. And so instead what happens is that the customer takes the items, puts them in their basket, and goes to the cashier and offers to buy them from the cashier. And at the point at which the cashier rings them up and puts them through, the cashier is agreeing to sell. "
+  },
+  {
+    "start": 1231.783,
+    "end": 1263.641,
+    "speaker": "SPEAKER_01",
+    "text": "And so that is the point at which the agreement occurs. And hence, boots were off the hook because that's in there. But I actually had some more consequential versions of that. So there's a 60s case called Fisher and Bell. And in that case, there was a flick knife in a shop window. And you are probably aware that the UK has incredibly strict knife laws. Flick knives are illegal to offer for sale in the UK and have been for a very long time. "
+  },
+  {
+    "start": 1265.483,
+    "end": 1300.175,
+    "speaker": "SPEAKER_01",
+    "text": "And so this knife was seen in the shop front, and the shop owner was prosecuted for offering to sell a fake knife. And what happens? They were acquitted, because they were not offering to sell a fake knife. Yeah? So their shop people might not have sold it, but they must have bought it, and bought But that's, well, I mean, so you remember, this is a criminal prosecution. "
+  },
+  {
+    "start": 1301.976,
+    "end": 1356.344,
+    "speaker": "SPEAKER_01",
+    "text": "It is on the police to demonstrate, or then the police, now the Crown Prosecution Service, to demonstrate beyond reasonable doubt that you bought this and did so illegally. How do they know where you got it from? So is the sale, so the sale is illegal. Offering for sale is illegal. I don't actually know the precise rules of UK knife law and it's not relevant to the question. The relevance of the question is the fact that putting in the window was not an offer. It was an invitation to treat. Something similar happened again with Granger and Son and, well, it was Mellon Monaghan. Mellon Monaghan was the same thing, but it was pornography. Same issue. It was a category of pornography that was illegal to offer for sale. "
+  },
+  {
+    "start": 1356.804,
+    "end": 1391.997,
+    "speaker": "SPEAKER_01",
+    "text": "It was... in a newsagent's, possibly on a top shelf, and that was not sufficient because the police did not catch them actually offering to sell it. And there's a much older case which is more interesting for us in the webshops, which is Granger and Son and Goff Surveyor of Taxes, which is 1896, and that was about catalogue sales. So... You send out a catalog, people fill out a form on the back of the catalog and post it back ordering something that they would like to buy. "
+  },
+  {
+    "start": 1393.118,
+    "end": 1427.515,
+    "speaker": "SPEAKER_01",
+    "text": "And once again, the catalog is not an offer for sale. So consequence of that is if you think about web shops, when something is up on a web shop, it is not being offered for sale. The reverse happens. It's exactly like being in a supermarket. You click on everything, and when you get through to the final stage, you offer to buy it, and it's only when they accept your payment that agreement has occurred. We'll come back to who they're agreeing with there in a second, because that's a bit tricky. "
+  },
+  {
+    "start": 1428.418,
+    "end": 1452.709,
+    "speaker": "SPEAKER_01",
+    "text": "But that's the relevant fact there, which is important also for things like liability. So no liability. Because if you enter into an agreement to sell something and don't supply, then you are on the hook. We'll talk a little bit later about what you're on the hook for. And a webshop is not on the hook until they have accepted your order. OK. So yeah. "
+  },
+  {
+    "start": 1464.116,
+    "end": 1498.162,
+    "speaker": "SPEAKER_01",
+    "text": "I mean, so as a matter of contract law, the purchaser has bought it. It's theirs. So there can be other law which intervenes, which in particular matters when selling to private people because there is consumer protection law which may intervene. But if that was a commercial transaction, well, the other company now owns it and they can deal with it. I mean, contracts are about generating legal certainty, right? You've got to know who's actually bought it. One of the issues that then comes up is offer and acceptance is really easy if we're in the same place and I talk to you and you talk to me. "
+  },
+  {
+    "start": 1498.976,
+    "end": 1536.453,
+    "speaker": "SPEAKER_01",
+    "text": "Right? That's a very, very straightforward set up. This is computer science. We're all about the not being in the same room, right? So what happens when the network connection breaks? What happens when you make an offer, the other side accepts, and you never get their acceptance? So... This is, there's a case on this, and the case is a electronic commerce case. "
+  },
+  {
+    "start": 1537.514,
+    "end": 1572.81,
+    "speaker": "SPEAKER_01",
+    "text": "It's Antares Limited and Mars Far East Corporation. It's from 1955. Because there was e-commerce in 1955, it was done by Telex machines. So basically, it automates the telegraph. So Lord Justice Denning, one of the major big figures in the 20th century judiciary, one of the most famous, in some cases, infamous judges in England, said, in all the instances I've taken so far, the man who sends the message of acceptance, I don't think... "
+  },
+  {
+    "start": 1573.811,
+    "end": 1609.499,
+    "speaker": "SPEAKER_01",
+    "text": "Lord Denning's world included women engaging in commerce. The man who sends a message of acceptance knows that it has not been received or is reason to know it, so you must repeat it. But suppose he does not know that his message did not get home. He thinks it has. This may happen if the listener on the telephone does not catch the words of acceptance, but nevertheless does not trouble to ask them to be repeated. Or the ink on the printer fails at the receiving end, but the clerk does not ask for the message to be repeated. So the man who sends an acceptance reasonably believes that his message has been received. "
+  },
+  {
+    "start": 1612.641,
+    "end": 1645.909,
+    "speaker": "SPEAKER_01",
+    "text": "The offer in such circumstances is clearly bound because he will be stopped from saying that he did not receive the message of acceptance. It's his own fault that he didn't get it. So in these cases, the teleprinter was, your teleprinter is empty, you didn't get back to people, you didn't hear the person clearly, you didn't ask them to repeat. But, if there should be such a case where the offeror, without any fault on his part, does not receive a message of acceptance, So, for example, there's another leg of the communication that has nothing to do with you. "
+  },
+  {
+    "start": 1648.95,
+    "end": 1681.355,
+    "speaker": "SPEAKER_01",
+    "text": "Then, yet the sender reasonably believes it's got home. Then it has not, and it has not. Then I think there's no contract. So if it's not an actual communication, if both parties don't know that there's been offer and acceptance, then no contract has occurred. And that's increasingly relevant because in an e-commerce setting, there are any number of ways that through external matters, something can have not gone through without people realizing. And so that's, I mean, it's a practical matter. "
+  },
+  {
+    "start": 1681.395,
+    "end": 1712.73,
+    "speaker": "SPEAKER_01",
+    "text": "It's a reason why things like confirmation emails exist, so that people can remedy that quickly. But in terms of who's liable, if one of the parties is at fault, then for reasons other than contract law, they are liable to be on the hook for it. But if there's nothing else going on, if you don't actually have what's called a meeting of minds, so if both parties don't know that agreement has occurred, agreement has not occurred, because literally agreement has not occurred. The two parties have not agreed to what is going on. "
+  },
+  {
+    "start": 1715.492,
+    "end": 1746.839,
+    "speaker": "SPEAKER_01",
+    "text": "Okay, so now this gets a bit more fun, because once again, we really primarily care about e-commerce. These systems are automated. There isn't actually somebody sitting on the other side of the Amazon website signing off on all of your orders. It's just transactions that are occurring in a database. Or even simpler case, Coke machine. "
+  },
+  {
+    "start": 1746.879,
+    "end": 1785.835,
+    "speaker": "SPEAKER_01",
+    "text": "Not one of the flashy wired ones that we've got down there. Old fashioned, put coins in, Coke comes out the bottom, Coke machine. So put Coke machine up there, and I put in whatever it is, pound coin. Bottle of Coke comes out the bottom. I sincerely hope that I now own that bottle of Coke. I presumably put the pound coin in there because I'd like to drink it. So presumably, in an ideal world, we would have successfully executed a contract, and the contract is if I give you a pound, you'll give me a Coke. "
+  },
+  {
+    "start": 1788.437,
+    "end": 1819.548,
+    "speaker": "SPEAKER_01",
+    "text": "But it's definitely the case that nobody's agreed, right? Nobody on the other side, there isn't, it's not a mechanical term, there isn't someone sitting in the Coke machine waiting to accept my pound coins. So, what happens there? Well, it turns out that once again the Victorians had an answer for us. So we have this spectacular case. Kyle and Carbolic Smokeball Company. "
+  },
+  {
+    "start": 1819.929,
+    "end": 1893.016,
+    "speaker": "SPEAKER_01",
+    "text": "So this is an amazing case because it's got all the highlights of 19th century and particularly Victorian medical practices. So... This is the carbolic smoke ball. The carbolic smoke ball will positively cure an enormous number of respiratory illnesses, which are listed up on there. And in fact, so sure were the company of this that they placed newspaper advertisements saying, 100 pound reward. 100 pounds is a hell of a lot of money. in the 19th century. This is the case is from, where is it? Is it on this side? 1892. So in 1892, it's a lot of money. \u00a3100 reward will be paid by the Carbolic Smoke Ball Company to any person who contracts the influenza after having used the ball three times daily for two weeks according to the printed directions supplied with each ball. \u00a31,000 is deposited with the Alliance Bank showing our sincerity in the matter. "
+  },
+  {
+    "start": 1894.276,
+    "end": 1929.342,
+    "speaker": "SPEAKER_01",
+    "text": "So, there you go, \u00a31,000 is deposited. It's there. Press it. So Mrs. Carlo used the ball as directed. Oh, how do you use the ball as directed? So this thing, it's quite amazing. It's a rubber ball with a spout on the top. And it contains powdered, dehydrated carbolic acid. And what you do is you squirt it up your nose. I would like to point out at this point that I do not endorse squirting acid up your nose as a mechanism for treating any form of illness at all, let alone any of the ones up on the screen. "
+  },
+  {
+    "start": 1929.722,
+    "end": 1965.108,
+    "speaker": "SPEAKER_01",
+    "text": "Nonetheless, 19th century and all that. And so Mrs. Carwell did this for three weeks, somehow managed to evidence that she'd done so. Possibly, you know, diary entries were sufficient. And unsurprisingly, she still got flu because, you know, squirting acid up your nose doesn't prevent viral infections. Who knew? To be fair, they didn't know what a virus was. And so she sued. And there were a whole bunch of arguments that were raised in this circumstance. "
+  },
+  {
+    "start": 1965.368,
+    "end": 1998.915,
+    "speaker": "SPEAKER_01",
+    "text": "But this is a really similar case to the Coke machine, right? Because there's an offer for sure, because it's written in the newspaper, right? You do this, and we will be bound as follows. no communication of acceptance. The offer didn't ask for communication acceptance. The offer said, if you use the carbolic smoke ball as directed, And the company did try to argue. "
+  },
+  {
+    "start": 1998.935,
+    "end": 2030.402,
+    "speaker": "SPEAKER_01",
+    "text": "The secretary tried to argue, well, yeah, in order to be bound, we have to have agreement. So you have to write back to the company and say, I'm going to use the Cardapolix vote as detected in order to create the relevant meeting in mind. I don't think meeting in mind would be used as a term there, but the requirement was the same. And the court said no. So this established... essentially a new form of contract. And it's called, unhelpfully, a unilateral contract. "
+  },
+  {
+    "start": 2030.802,
+    "end": 2074.027,
+    "speaker": "SPEAKER_01",
+    "text": "It's not unilateral. There's definitely still two parties. You cannot have a contract that doesn't have two parties. But the important point here is that Mrs. Carlow, by her unilateral actions, even though the company didn't know that she'd done them, could enter into the contract. And so if you put out a offer which says, if you do the following, I will do this, and the person starts to do that, and the point at which it becomes binding is the point at which they start to do it, so you can't pull out halfway through, then that is sufficient to set up a contract. "
+  },
+  {
+    "start": 2074.588,
+    "end": 2111.933,
+    "speaker": "SPEAKER_01",
+    "text": "And so this is how things like the XPRIZE work. So you can have public rewards that work this, but also you can have unattended rewards. automated systems which validly enter into contracts because what you're effectively doing is you're saying if you do the following things and I respond, now we're in a contract and so the user's done all the right stuff, they've got the right response, you set that up, you make the offer, it's good. "
+  },
+  {
+    "start": 2113.094,
+    "end": 2143.753,
+    "speaker": "SPEAKER_01",
+    "text": "So that's a setup. Obviously, though, this isn't a complete get-out clause from offer and acceptance. It has to be the case that the offeror has set up an offer that can be complied with by conduct alone. It doesn't require communication back. But really, really, really important for e-commerce because basically all of e-commerce rests on math one pip. Nothing works in e-commerce if we have to have a person on the other end of all transactions. "
+  },
+  {
+    "start": 2144.734,
+    "end": 2178.963,
+    "speaker": "SPEAKER_01",
+    "text": "So this is a game over proposition. Okay. Now we're going to get on to the bits where English law is different to what common law contracts. So England and the US are the same. France, Germany are completely different. It's different from everywhere else. Agreement is not sufficient in English law. You also require something which is unhelpfully referred to as consideration. "
+  },
+  {
+    "start": 2180.363,
+    "end": 2215.91,
+    "speaker": "SPEAKER_01",
+    "text": "So consideration has nothing to do with considering the offer. You absolutely don't have to think about it. I've just been explaining automated contracts, right? It's a different use of the word consideration. The use of the word consideration that matters here is the term, in consideration of you giving me 200 pounds, I will give you a laptop. So the doctrine of consideration says both parties to a contract must do something. "
+  },
+  {
+    "start": 2215.93,
+    "end": 2248.461,
+    "speaker": "SPEAKER_01",
+    "text": "So a contract in which I promise to give you my laptop and you merely agree is not a contract. Because you haven't agreed to do it. Now, consideration doesn't have to be money. In fact, most contracts don't have consideration as money on both sides. Because, I mean, if I'm selling you a laptop, right, only one of us is providing the money. "
+  },
+  {
+    "start": 2248.481,
+    "end": 2268.534,
+    "speaker": "SPEAKER_01",
+    "text": "The other one's providing a laptop. You can have contracts where consideration is money, and one of it, like an options contract, is both sides can be providing money, but we'll come back to what that is later. Obviously, if you have a currency exchange, that's a contract where both sides provide money. But usually, both sides don't provide money. But actually, also, a... "
+  },
+  {
+    "start": 2278.936,
+    "end": 2316.236,
+    "speaker": "SPEAKER_01",
+    "text": "All that's actually required is that each party is in some way bound by the contract. There's something they're going to do or maybe even not do. So the traditional authority for this goes back 1915. Dunlop Pneumatic Tire Company and Selfridge and Co., you know, department store up on Oxford Street. Lord Dunedin, my lords, this is back when the top court was House of Lords, I am content to adopt from the work of Sir Frederick Pollock, to which I've often been under obligation, for the following words as to consideration. "
+  },
+  {
+    "start": 2317.017,
+    "end": 2349.677,
+    "speaker": "SPEAKER_01",
+    "text": "an act or forbearance, so doing or not doing, of one party or the promise thereof, so you can have a valid contract that only happens in the future, that's important, otherwise the economy doesn't work, for which the promise of the other is bought and the promise thus given for value is enforceable. So, the... leading example of what it means in practice is an American case. "
+  },
+  {
+    "start": 2350.757,
+    "end": 2383.416,
+    "speaker": "SPEAKER_01",
+    "text": "It's Hammer and Sidway. And in Hammer and Sidway, William E. Story promised his nephew, who to avoid any confusion was also called William E. Story, that He would pay him $5,000. Once again, this is a 1891 New York case, so $5,000 is quite a lot of money. $5,000 if he would refrain from drinking liquor, using tobacco, swearing, and playing cards or billiards for money until he should become 21 years of age. And so the nephew did so. "
+  },
+  {
+    "start": 2383.516,
+    "end": 2424.732,
+    "speaker": "SPEAKER_01",
+    "text": "Once again, I'm not aware of how he evidenced that he'd done so, but the nephew refrained from all of those adventurous activities until he was 21 years of age. And the uncle did not hand over the 5,000 pounds, and the nephew sued him. And won. Because... The nephew was perfectly legally entitled to do all of those things. It's way before the Americans raised their drinking age to 21. And so by agreeing to not do them, he has provided valid consideration. "
+  },
+  {
+    "start": 2426.473,
+    "end": 2460.345,
+    "speaker": "SPEAKER_01",
+    "text": "And that's actually quite helpful because being able to pay someone to not do something is often a useful commercial operation. So refraining from doing something is just as good as doing something. You also, so what determines valuable? So consideration has to be valuable. How valuable? If I sell you my laptop for 200 quid, is that value on each side? "
+  },
+  {
+    "start": 2463.078,
+    "end": 2499.937,
+    "speaker": "SPEAKER_01",
+    "text": "The answer is the courts are never going to ask. It's up to the parties what they consider to be valuable. And so that's actually used as a mechanism for getting out of the one-way contracts. So something that's quite traditional is if you really want to do a one-way contract, if you want to give something to someone, or if you want to rent something to someone for free, but you want it to be a valid contractual arrangement, it is traditional that they will promise to give you one peppercorn. "
+  },
+  {
+    "start": 2501.078,
+    "end": 2533.279,
+    "speaker": "SPEAKER_01",
+    "text": "You might have heard the term peppercorn rent. That's what it comes from. One peppercorn. Because, I mean, it's a trivial value. But it's up to the parties. As long as you promise to provide the peppercorn. You don't even have to actually hand over the peppercorn. Having promised to provide the peppercorn, then in principle, the other party could sue you for a peppercorn. They're not going to. But that gets there. You actually have heard this in the media. So sometimes you'll hear a news report about some big company that has basically gone bankrupt. And you'll hear that some other company has bought it for a pound. "
+  },
+  {
+    "start": 2534.581,
+    "end": 2578.421,
+    "speaker": "SPEAKER_01",
+    "text": "You might have asked, why are they buying it for a pound? Well, the answer is that the pound's there to turn that into an actually legal contract that transfers the property. And once again, it's exceptionally unlikely that someone is actually transferring a pound or pulling a pound coin out of the pocket and handing it over. Merely the promise of providing a pound is enough. And OK, technically, one party might be in breach for not handing over their peppercorn or pound. But lawyers are expensive, right? We're not going there. There is an Australian case where a lawyer sued over a penny, but it didn't end well for him. "
+  },
+  {
+    "start": 2580.543,
+    "end": 2615.978,
+    "speaker": "SPEAKER_01",
+    "text": "This can be taken to extremes. There's a case called Chappell and Nestle. In Chappell and Nestle, what was going on was a retail offer. So Nestle, it's chocolate people, had a contract where they could send in three chocolate bar wrappers and one shilling and six pence, that's seven and a half pence in current money, to get a record. Now that was interesting because at that point there was price fixing on records in the UK. "
+  },
+  {
+    "start": 2616.479,
+    "end": 2657.207,
+    "speaker": "SPEAKER_01",
+    "text": "And you were not allowed to sell records under the recommended retail price, which was definitely more than one shilling and sixpence. And so Chapel, which is a record company, sued Nestle over this. And Nestle won. Because Nestle weren't selling records for one shilling and sixpence. Nestle was selling the wrappers for one shilling and sixpence and three chocolate wrappers. Which sounds trivial, except that, of course, from Nestle's perspective, that A, has guaranteed the sales of those chocolates, and B, generates advertising for them, both of which are of actual value to Nestle, right? "
+  },
+  {
+    "start": 2658.368,
+    "end": 2698.782,
+    "speaker": "SPEAKER_01",
+    "text": "And of course, it's not up to us to determine how valuable it is to Nestle that you consume their chocolates and hand over the chocolate wrappers. Okay, how are we going? Good, we've got just a few minutes left and that's fine because I've only got a few things to do. So there are some other elements of contracts that are just less relevant to what we are doing here. One that I will mention because some of you are maybe interested in FinTech is the question of options because consideration has to be binding. "
+  },
+  {
+    "start": 2699.082,
+    "end": 2729.363,
+    "speaker": "SPEAKER_01",
+    "text": "The other person has to be under an obligation to do what they're doing. So I will give you \u00a3200 and you may or may not do something. It's not a binding contract. So how do options work? Because options, so I buy an option on chairs, I don't have to exercise the option. But that's fine because I paid for the option. "
+  },
+  {
+    "start": 2730.482,
+    "end": 2761.284,
+    "speaker": "SPEAKER_01",
+    "text": "So my binding consideration is I gave you \u00a3100, and your binding consideration is on that particular date, you are required to sell me N shares of this company at this particular market price. So I may or may not exercise the option, but it's fine because I was bound to give you the original money, and you're bound to execute the option if I exercise it. So that's how you turn that into a binding agreement on both sides. "
+  },
+  {
+    "start": 2763.665,
+    "end": 2795.785,
+    "speaker": "SPEAKER_01",
+    "text": "So there are other elements of contract that we don't need to care about. So things like capacity and so on are not amazingly relevant in our consideration. But the last thing I want to talk about, the last couple of minutes of this lecture, is so what? So you've got a legal contract. What happens if you don't do your side of the contract? What happens if you breach the contract? And the simplest answer is what's called damages. "
+  },
+  {
+    "start": 2796.325,
+    "end": 2836.834,
+    "speaker": "SPEAKER_01",
+    "text": "So the simplest answer is, and the only one to which you ever have a legal right, so the one you can definitely go to court and sue for, is damages, which is the other party has to put you in the same position as you would have been as if they had executed the contract. And so if it's a fungible commodity, so if it's a readily available commodity, then realistically what that means is they have to refund you the money. But it might not be as simple as that, right? So if we go back to the building industry where all the really expensive cases come from, and I've got a contract with you where you're going to supply me with cement, and the cement trucks don't turn up, well, sure, I can buy more cement. "
+  },
+  {
+    "start": 2836.954,
+    "end": 2874.92,
+    "speaker": "SPEAKER_01",
+    "text": "I may not be able to buy cement at the price we agreed because the price moves. And I may not be able to, like, when the trucks don't turn up on the cement contract that we signed three months ago, it might take me a while to procure more cement. And in that time, I've got an entire building site stopped. And so you may well need to pay me not just... the money I gave you for the cement, but actually the price that I have to pay to buy more cement really quickly, and the value of all of those workers' wages that are standing around doing nothing, wasting time because I'm behind on your contract. "
+  },
+  {
+    "start": 2874.94,
+    "end": 2909.017,
+    "speaker": "SPEAKER_01",
+    "text": "And that is one of the reasons why if you are going to start engaging in e-commerce, then insuring yourself against breach of contracts can be quite important, because you can go bankrupt quite easily. in these circumstances. Sometimes that doesn't work, right? So some things are not fungible. So another option is specific performance. So the court can order you to obey the contract, which has then the effect that if you don't do it, you're now not breaking the contract, you're breaking the court order, which is contempt of court, which is a criminal offense, which is punishable by imprisonment. "
+  },
+  {
+    "start": 2909.477,
+    "end": 2941.209,
+    "speaker": "SPEAKER_01",
+    "text": "So now stuff is more serious. Specific performance is likely to be ordered in cases where the contract can't easily be replaced. So if you buy an artwork, for example, and you don't deliver the artwork, the court is not going to order you to give back the money. The court is going to order you to hand over the artwork. So that's the case as well that's likely to happen. You can also have an injunction. So an injunction is an order to do anything, but very, very often it's an order to not do something. "
+  },
+  {
+    "start": 2942.11,
+    "end": 2977.329,
+    "speaker": "SPEAKER_01",
+    "text": "And that's likely to be the case where you had an agreement that someone would not interfere with what you were doing and they interfere. You get an injunction and now the interference has been elevated from breach of contract to contempt of court. I mean, ultimately, the state only has criminal penalties. The only thing that the state can do is criminalize stuff. And so contempt of court is the mechanism by which private law turns into criminal law by doing that. "
+  },
+  {
+    "start": 2977.549,
+    "end": 3011.6,
+    "speaker": "SPEAKER_01",
+    "text": "I'm not going to do it now. I'll answer it later, but I'm really out of time. Now, we talked about damages, and I just talked about the fact that damages can go way beyond the immediate thing that you're handing over. That's painful by itself because it can be very difficult to even work out what the damages are. So it can be expensive to even work out what the breach of the contract was. And so a way out of that, which is quite common, is you can pre-write into the contract what the damages would be for doing a certain thing. "
+  },
+  {
+    "start": 3011.78,
+    "end": 3048.446,
+    "speaker": "SPEAKER_01",
+    "text": "This is called a liquidated damages clause. So in a building contract, it's really common. So if the building is not completed on time, then the builder is liable for so much money for each week that the building is late being delivered. That is allowed. Leading cases, once again, Dunlop Pneumatic Tire Corporation, 1914. Dunlop were having a fun time in court in the period running up to the First World War. And Dunlop were operating a blatantly anti-competitive price-fixing contract, which said... "
+  },
+  {
+    "start": 3049.307,
+    "end": 3087.956,
+    "speaker": "SPEAKER_01",
+    "text": "If you, in this case, New Garage and Motor Company Limited, which is down in Clapham, I think it's still there, a hundred years later, but if you garages sell tyres below our recommended retail price, you owe us \u00a35 per tyre. Once again, \u00a35 is quite a lot of money in 1940. And... The significant point here is the problem for Dunlop of people selling tires below marked price is that overall their profits go down. "
+  },
+  {
+    "start": 3088.296,
+    "end": 3120.838,
+    "speaker": "SPEAKER_01",
+    "text": "But it's very difficult to work out what the impact of their profits of one garage selling tires under prices. So it's impossible, and this is relevant because you're not allowed to have your own private criminal So the liquidated damages clauses have to estimate the damages. They can't be there to coerce the other party into complying with the contract. You're not allowed your own system of fines outside the criminal law. "
+  },
+  {
+    "start": 3121.818,
+    "end": 3156.562,
+    "speaker": "SPEAKER_01",
+    "text": "But the court also says that you don't have to be able to accurately establish what the damages would be. So provided that a figure is not extravagant, there would seem to be no reason to suspect that it's not a true bargain to assess damages rather than a penalty to be held intolerant. So in order to coerce the other party to comply. And so that means that there's actually a pretty wide margin of appreciation to have liquidated damages clauses. "
+  },
+  {
+    "start": 3156.682,
+    "end": 3187.431,
+    "speaker": "SPEAKER_01",
+    "text": "And they are very common because they're efficient, because litigation is ruinously expensive. And so it's very, very often a good deal for both parties to say, OK, if things go wrong, we will pre-agree what the penalties are rather than us having to spend thousands and thousands and thousands of pounds slugging it out in court afterwards. So there we go. It is now just gone 10-2. "
+  },
+  {
+    "start": 3188.592,
+    "end": 3209.232,
+    "speaker": "SPEAKER_01",
+    "text": "So I'm done with this one. So this is the end of that half of the law course. So as mentioned, there will be assessment on this on Monday, Tuesday, on Tuesday. It will be quick. It will be over. And then you've done this. So there we go. "
+  }
+]

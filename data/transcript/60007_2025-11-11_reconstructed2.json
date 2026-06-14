@@ -1,0 +1,1184 @@
+[
+  {
+    "start": 47.36,
+    "end": 81.155,
+    "speaker": "SPEAKER_02",
+    "text": "Good morning everyone, let's make it start. The plan for the rest of this term is that I'm lecturing this week, and then Azalea will take over next week to finish the theory part. So my plan for this week is to spend today covering dynamic data race detection and the vector clock algorithm. and then to spend Friday giving you a taste of concurrency in Rust. I want to reassure you, I'm not expecting you to be able to program in Rust. I just want to give you an overview of some interesting features of Rust that relate to concurrency. "
+  },
+  {
+    "start": 82.516,
+    "end": 112.574,
+    "speaker": "SPEAKER_02",
+    "text": "At the end of last time, we were doing this example of using MLMars and Haskell to build unbounded channels, which I coded up for you in the lecture. actually in the slide. So we've got the code for the data types, the creation of a new channel, and the code for reading from a channel and writing to a channel. I've also pushed these to the repository coding examples, but here they are on the slide for your reference. "
+  },
+  {
+    "start": 112.634,
+    "end": 149.013,
+    "speaker": "SPEAKER_02",
+    "text": "And I had a really nice question at the end of last time, which was, in write chan, write channel, could you swap the last two statements? Could you swap, put mvars, but put the item to the right end stream, and the right that puts the new entity stream to the right end. So my instinct when I got that question was, no, of course you couldn't, that wouldn't work out. And we started going through it on the board, but we got confused in a tangle of lines. So I thought I'd make some slides showing that this isn't gonna work. "
+  },
+  {
+    "start": 149.053,
+    "end": 180.969,
+    "speaker": "SPEAKER_02",
+    "text": "And in the process of doing that, I realized it does work, which is pretty cool. So concurrency is tough to think about. So what I've done is I've made, in the remainder of this deck of slides, a walkthrough of an example to show you that this works out. So, we might go through this. I'm going to skip through it right now, as we've got a work example showing you this works. We might go through at the end of today, if I get through the dynamics, data race detection stuff in time. So, thanks for that great question. I love it when a question for the class leads to me learning something. "
+  },
+  {
+    "start": 182.309,
+    "end": 215.88,
+    "speaker": "SPEAKER_02",
+    "text": "The rest of this deck of slides, contains some useful resources for the Haskell tutorial sheets, which you can look at in your own time. So make sure you do the Haskell programming tutorial sheets, and the rest of these slides will help you in doing that sheet. One thing I think I want to just say about the tutorial sheets and the exam, which is basically the kind of question I remember having in a previous year, Some of the tutorial sheets involve extensive programming tasks, the kind of thing that will take you a good few hours to code up. And obviously, that's not the kind of thing that is directly going to be put in the exam, right? "
+  },
+  {
+    "start": 215.9,
+    "end": 260.296,
+    "speaker": "SPEAKER_02",
+    "text": "I mean, you're not going to have access to it. It's a pencil and paper exam. You've got your time to focus on my question and Azalea's question. Nevertheless, the idea is that by doing that practical experience from those sheets, by doing the practical work in the tutorial sheets. So what you might find is that I would encourage you to do them all to completion, but if you get to the point where you think, okay, the rest of that's just a bunch of coding and I'm confident I could do it, but I don't think I'm gonna learn anything conceptually new by taking it all the way, That would be a good reason in terms of dividing your time between your various courses, hopefully some social life, although they're a computing imperial. "
+  },
+  {
+    "start": 261.377,
+    "end": 294.486,
+    "speaker": "SPEAKER_02",
+    "text": "You get that much of that. But in terms of dividing your time up, that might be a good judgment call for me, thinking, OK, I feel like I've understood how I would do that. I'm competent enough in Haskell. that I could do that. I know Ali's not going to be penalizing me in the exam on exact taskful syntax, so I'm going to move on. Or if you think, you know, I'd actually get satisfaction from completing this, or you think you might kind of like to know for sure that you could do it, then by all means, absolutely finish it. You'll get the solutions in due course in any case. Okay, so what I'm going to do now is switch to the latest deck of slides, which is about dynamic data race detection. "
+  },
+  {
+    "start": 294.506,
+    "end": 326.658,
+    "speaker": "SPEAKER_02",
+    "text": "So we'll go through these today, maybe go back and look at that Haskell works example if there's time. And then on Friday, we'll do our mini deep dive into Rust. Shallow dive into Rust. A dive, anyway. Okay, so dynamic data race detection. As I hope you found out during your coursework, and if you didn't, you're probably not going to do that well, ThreadSanitizer is a really useful tool for automatically finding data races in C++ programs. "
+  },
+  {
+    "start": 326.998,
+    "end": 360.999,
+    "speaker": "SPEAKER_02",
+    "text": "You compile your program with this magic flag, dash F sanitizer equals to thread, and then when you run your program, by and large, if the program exhibits a data race, you will get a warning explaining where the two threads involved in the race were, where they issued their write operation and read or write operation. So this could be a super useful tool. And what I want to do now is spend a bit of time studying how tools like ThreadSanitizer work. We're going to study the vector clock algorithm of dynamic data race detection. "
+  },
+  {
+    "start": 361.18,
+    "end": 395.63,
+    "speaker": "SPEAKER_02",
+    "text": "So this is the algorithm on which ThreadSanitizer is based. At the end of the lecture, I'll say a couple of words about ways thread sanitizer implements a version of this algorithm efficiently, because as we shall see in the course of this lecture, implementing the algorithm completely faithfully wouldn't be feasible in terms of time and space. So we're going to give the algorithm in its general form that would guarantee finding any kind of data race. In practice, thread sanitizer implements a bastardized version of the algorithm the trades, accuracy, the speed. "
+  },
+  {
+    "start": 395.97,
+    "end": 429.859,
+    "speaker": "SPEAKER_02",
+    "text": "The idea is never report a false negative, excuse me, never report a false positive, so never say there's a race when there's not a race, but sometimes miss races. It would actually be able to scale up to really large software projects like the Chrome Web Browser, the Linux operating system, really big multi-threaded projects. I want to start by giving you an example that I hope will illustrate the difference between a data race having occurred and a data race rearing its ugly head by making your program behave non-deterministically. "
+  },
+  {
+    "start": 430.42,
+    "end": 466.489,
+    "speaker": "SPEAKER_02",
+    "text": "I hope you get by now that those are not the same thing. But in case you've not got that, hopefully this example will make it clear. So take a look at this example. We've got a thread body that's going to be executed by two threads. Both threads are going to get a reference to an integer y, a reference to an integer x, and a reference to an integer z. I found there's a sneaker queue that I could use for this. We've got x, y, and z, and they've both got access to a mutex shared between the threads. And what each thread is going to do is acquire m, update x with m health, and release m. "
+  },
+  {
+    "start": 467.21,
+    "end": 497.435,
+    "speaker": "SPEAKER_02",
+    "text": "Then acquire m again, update y with m health, and release m. And then, in an unprotected way, update z. So if we would like this to be a non-deterministic but data-racing program, we could also mute x, protect z. In that case, it would be possible for the program to behave non-deterministically in the order the threads interleave, but we would know, we'd be guaranteed to see x updated twice, y updated twice, and z updated twice, so we'd end up in this data 2, 2, 2. "
+  },
+  {
+    "start": 498.195,
+    "end": 531.163,
+    "speaker": "SPEAKER_02",
+    "text": "However, because we've got a data race here, then that data race, if it happens, will lead to the program exhibiting undefined behavior. We can't guarantee anything about what the program would compute in principle. So my first question for you is, how many executions of this program have a data race? If you think about two threads executing this program and they can interleave arbitrarily, then on how many of the possible space of interleavings of the threads will we get a data race when this program is executed? "
+  },
+  {
+    "start": 544.07,
+    "end": 583.287,
+    "speaker": "SPEAKER_02",
+    "text": "Take your time. Any ideas? Two. Could you elaborate, please? and then thread one adds one, and then thread two adds one, they add one to the old Z, so we call it Z plus one. So absolutely, I think you're giving a really good description of the threads interleaving in a manner that's going to mean that they both access Z concurrently. "
+  },
+  {
+    "start": 584.468,
+    "end": 613.296,
+    "speaker": "SPEAKER_02",
+    "text": "Okay, so that's a good explanation of that concept. However, I asked a different question, which is how many of the executions of this program will lead to a database occurring? It's non-deterministic, so it's hard to say. Non-deterministic is hard to say. "
+  },
+  {
+    "start": 623.734,
+    "end": 665.352,
+    "speaker": "SPEAKER_02",
+    "text": "Good answer, but it's the wrong answer. There's no control flow in this program. In any execution of this program, there will be a pair of accesses by distinct threads. to a common memory location, such that at least one of the accesses is right, and that no synchronization separates the accesses. So it doesn't matter whether the accesses to Z are microseconds apart or years apart, every execution of this program will have a data race. "
+  },
+  {
+    "start": 666.733,
+    "end": 703.876,
+    "speaker": "SPEAKER_02",
+    "text": "Now, if we run this program thousands and thousands of times in a row, by the following, so we have a main where we set x, y, and z to zero, we launch our two threads, t1 and t2, we join them, and then we print the final results of x, y, and z. And we run this program a huge number of times. We will find in practice it always prints two, two, two. Okay, so the program at the end is gonna print the value of x, the value of y, and the value of z. Now, if we look at this code here, there is no room for the compiler do optimizations that would exploit data race freedom here. "
+  },
+  {
+    "start": 704.196,
+    "end": 736.481,
+    "speaker": "SPEAKER_02",
+    "text": "It's not like the compiler thinks, oh, you obviously didn't want to write a value to z at all, because we've got z as a reference parameter to the function. The code that called this function might depend on the write to z. So there's no scope for this write to z being removed or manipulated. There's going to be a faithful read of z and write of the value one higher than z. So the compiler is going to compile this code just as you've written it. There's not scope for the kinds of optimizations that exploit freedom from undefined behavior, as we saw earlier. "
+  },
+  {
+    "start": 736.501,
+    "end": 768.509,
+    "speaker": "SPEAKER_02",
+    "text": "Furthermore, if we launch two threads and join them, the probability, because of the expense associated with acquiring and erasing new texts, the probability that the threads are going to end up actually concurrently doing the assembler instructions corresponding to the load from Z and the write to Z in an interleaved fashion, is really, really small. If we run the program enough times, we might see it, and we might end up losing an increment to z. But in practice, we could run this program a huge number of times and just see 2, 2, 2. "
+  },
+  {
+    "start": 770.069,
+    "end": 808.408,
+    "speaker": "SPEAKER_02",
+    "text": "However, the program does have a data race, and under high enough contention, if we had loads more threads, or if this was part of a bigger program where there was a data race that's very unlikely to lead to nondeterminism, we might find that under certain pressure conditions, certain load on the scheduler, we do actually get an interleaving that triggers the effects of the data race. Nevertheless, the data race has happened on every single execution of this program. So the clear point I want to distinguish between is the data race occurring, which is every execution, and the data race leading to a different result from the one we would see on a typical execution. "
+  },
+  {
+    "start": 808.528,
+    "end": 839.918,
+    "speaker": "SPEAKER_02",
+    "text": "So in this case, data race occurs on every execution, but we will barely ever see the ill effects of that data race in practice. Nevertheless, we could. And this is really frustrating because it means if we just do regular testing of our application, we'd be very unlikely to find a data race that's this subtle. However, ThreadSanitizer will find this data race on every single run of the program. If you compile this program with ThreadSanitizer enabled, ThreadSanitizer will find the race on every single execution of the program. "
+  },
+  {
+    "start": 839.938,
+    "end": 870.986,
+    "speaker": "SPEAKER_02",
+    "text": "So what I want to do in this lecture is give you some intuition for how that works. Why is it ThreadSanitizer was able to detect this data race on every execution, despite the fact that actually the conditions required for threads to really be accessing this variable truly concurrently are very, very tight. It's very unlikely to happen. Okay? So before I go on, any clarification questions about this difference between the data race occurring versus the effects of the data race leading to non-deterministic behavior? "
+  },
+  {
+    "start": 872.926,
+    "end": 905.848,
+    "speaker": "SPEAKER_02",
+    "text": "The reason I've had it at home a lot of times is that I remember for a long time before I started getting into concurrency, but, you know, a bit about concurrency, not thinking there's a data race is when you actually have the program change its behavior due to a race condition. I think it's mainly a layperson's view of what a data race is, but it's not accurate. Okay, so I'm going to talk to you about the workflow for dynamic data race detection. The idea is, in the context of thread sanitizers specifically, you compile the program with a special instrumentation flag. "
+  },
+  {
+    "start": 906.748,
+    "end": 940.593,
+    "speaker": "SPEAKER_02",
+    "text": "So when your compiler is compiling all the functions of a given source file, it instruments... huge number of operations with calls into a race detection library. Every thread launch is compiled specially. Every thread join is compiled specially. Mutex acquires and releases are treated specially. And quite critically, every read from a location that might be shared is prepended with a call into an instrumentation library. And every write to a location that might be shared is prepended with a call into an instrumentation library. "
+  },
+  {
+    "start": 940.613,
+    "end": 979.142,
+    "speaker": "SPEAKER_02",
+    "text": "Furthermore, atomic operations are also treated specially. The idea is that if the race detection algorithm is going to be able to detect races between writes and writes, or writes and reads, it's going to have to record metadata about writes and reads. And it can't know in advance which ones to focus on, because it doesn't know what your program's going to do. The compiler's got very limited insight into the dynamic behavior of your program. So to be able to make sure all possible races have a chance of being detected, the compiler needs to instrument every single read and write unless it can prove that the read or write will not be to shared memory. "
+  },
+  {
+    "start": 980.003,
+    "end": 1015.047,
+    "speaker": "SPEAKER_02",
+    "text": "How can it prove that something's not to shared memory? Well, not very often. So if you had a function that declared a local variable, then if you don't leak the address of that variable, then that write would be, writes that variable would be guaranteed to not be shared. So if we've got a function f, B equals the address of A. "
+  },
+  {
+    "start": 1015.767,
+    "end": 1052.85,
+    "speaker": "SPEAKER_02",
+    "text": "And then we do something like B reference P becomes equal to 42. Well here, it's trivial to see that A is declared inside the function. It will be on the stack of a thread. We can see by trivial alias analysis that p is going to be addressed in A, and then we can see that writing to p is not going to affect anything shared with another thread. There's no way that another thread could be accessing this memory referred to by p, unless it does some awful pointer arithmetic, like just using some raw pointer value and by chance hacking into the stack of this thread, which is not in the scope of this analysis. "
+  },
+  {
+    "start": 1054.063,
+    "end": 1084.503,
+    "speaker": "SPEAKER_02",
+    "text": "Whereas if, for example, we would say something like, now, let's say we do something like call G with the address of P. And now I do star P becomes 42. So this local variable P, which is a pointer, Now we've leaked its address. We've called another function g, writing the address of the pointer. "
+  },
+  {
+    "start": 1084.903,
+    "end": 1127.135,
+    "speaker": "SPEAKER_02",
+    "text": "And it's possible that that function g could cause p to point somewhere completely different. So unless the compiler has got access to the code of g and can do an analysis to prove that g doesn't do anything like that, the compiler must assume the worst and assume this is a possibly shared access. So remember, compilers are efficient tools that only do very limited work. analysis on your program looking for quick opportunities for optimization. Generally, they have to assume that your program might do anything they can't prove it doesn't do. Okay, so anything the compiler can't prove to be non-shared has got to be instrumented in case it accesses shared memory, in which case there's going to be a call into a dynamic database detection library. "
+  },
+  {
+    "start": 1129.037,
+    "end": 1159.384,
+    "speaker": "SPEAKER_02",
+    "text": "What do these library functions do? Well, they update dynamic race detection states and the vector clock algorithm I'm gonna show you is the basis for the way the dynamic data race detection state operates and how it's updated. And the key thing is that this dynamic data race detection state is what allows the conditions for a data race to be checked as the program runs. These library functions have got to be mutually exclusive, otherwise we'd get data races in the data race detector. "
+  },
+  {
+    "start": 1159.824,
+    "end": 1190.448,
+    "speaker": "SPEAKER_02",
+    "text": "So we've got a bunch of state, which is the data race analysis state, And every read or write to a possibly shared location is causing that state to get updated. And obviously in a concurrent program, a bunch of those accesses will genuinely be from multiple threads that are executing concurrently. So the data race detection state itself has got to be protected behind the scenes by synchronization. And I'm not going to go into details of how that works, but it's going to involve read-modify-write operations in very carefully engineered use of Atomics. "
+  },
+  {
+    "start": 1192.267,
+    "end": 1231.578,
+    "speaker": "SPEAKER_02",
+    "text": "But what this means is this instrumentation leads to a very significant runtime slowdown. You might have seen this in practice during your coursework if you compiled your hash set implementations with ThreadSanitizer and ran them under heavy workload. You'll probably have seen that the performance with ThreadSanitizer is much worse than the performance when you're compiling your release mode with optimizations. And that's because there are a huge number of calls into little library functions that have to do mutual exclusion, they have to acquire very cheap but still involving remodifier out operations locks to make sure there's not data races on the state of the dynamic data race detector. "
+  },
+  {
+    "start": 1234.32,
+    "end": 1280.882,
+    "speaker": "SPEAKER_02",
+    "text": "And there's a nice paper about thread sanitizer I encourage you to have a look at that describes various different optimizations that are made by the tool But the authors note that no matter what they do, this is going to be slow because we replace a memory access instruction with a call to a quite sophisticated function that usually runs for a few hundreds of CPU cycles. So the race detection algorithm is optimized in many clever ways, but nevertheless, it's going to be a lot slower than running natively. Okay, so with that kind of practical spiel out of the way, And I want to get probably the most theoretical I'm going to get in the practice part of this theory and practice course, and go through the vector clock based database detection algorithm. "
+  },
+  {
+    "start": 1281.102,
+    "end": 1313.153,
+    "speaker": "SPEAKER_02",
+    "text": "It's quite some notation coming up, so brace yourselves. First of all, in the presentation I give you here, I'm not going to deal with the spawning and joining of threads. It's very easy to adapt the algorithm. code with launching new threads and joining old threads. But for simplicity, I'm not going to go there. I'm just going to assume that there are n threads that the algorithm is tracking. So n is the maximum number of threads tracked by the algorithm. And I'm actually just going to assume there are n threads executing at any one time. "
+  },
+  {
+    "start": 1314.054,
+    "end": 1347.722,
+    "speaker": "SPEAKER_02",
+    "text": "And those threads have got identifiers starting at 0. And by threads in italics, I denote the set of thread IDs, so the set of integers from 0 up to but not including n. I'm then going to assume that synchronization is done purely using locks, where a lock can be locked or unlocked. And let's say that locks in italics is the set of all locks that the program will use. It's quite easy to adapt the algorithm to incorporate atomic operations, which as we know can be used for synchronization. "
+  },
+  {
+    "start": 1348.062,
+    "end": 1378.258,
+    "speaker": "SPEAKER_02",
+    "text": "That's the basis of building blocks, atomic read-modify-write operations. So have a look at the tutorial sheet on dynamic data race detection, which I will issue later today, for a question on how to adapt the algorithm to make use of atomics. Furthermore, I'm going to assume that locations is a set of possibly shared memory locations. So all the locations on which we might want to track metadata about accesses in order to be able to report data races. "
+  },
+  {
+    "start": 1379.418,
+    "end": 1415.153,
+    "speaker": "SPEAKER_02",
+    "text": "So these locations are where races could occur. So we've got N threads, we've got a bunch of locks, and we've got a bunch of locations that we're going to be tracking for possible data races. Next concept I want to introduce you to is that of a logical clock. As a thread executes, it keeps track of a logical clock, which is time from the perspective of that thread. This is a non-negative integer, so a thread's logical clock starts at 1, and it's going to tick up occasionally when the thread performs certain actions. "
+  },
+  {
+    "start": 1416.253,
+    "end": 1452.835,
+    "speaker": "SPEAKER_02",
+    "text": "In particular, it's going to tick up every time the thread releases a mutex. So if I'm a thread, my logical clock starts at 1, it stays at 1 until I release a mutex, then it becomes 2. things that do until I release another mutex, and then it becomes three. Of course, to release those mutexes, I need to acquire them, but that doesn't affect my logical clock. My logical clock starts at one and goes up every time I release a mutex. And to give you a bit of intuition for why this is, releasing a mutex, you can think of as indicating the transition into the next phase of execution in a concurrent program. "
+  },
+  {
+    "start": 1453.393,
+    "end": 1485.702,
+    "speaker": "SPEAKER_02",
+    "text": "Let's say I'm a threat, and I have acquired a mutex to update a data structure. When I release the mutex, that's me sort of indicating to the world, just by virtue of the mutex now being available, I'm done with something. I've moved on from that thing I was doing, so I've moved on in my time frame, in my local block, my logical block is increased by one. And we'll look into the details of exactly how this increasing works as we go along. So a logical clock is a single integer. "
+  },
+  {
+    "start": 1487.043,
+    "end": 1520.077,
+    "speaker": "SPEAKER_02",
+    "text": "And a vector clock is an n-tuple of logical clocks, where there's one logical clock for every thread. So a vector clock is a vector of the form c0 up to cn-1, n entries in the vector. And you can equivalently think of a vector clock as a mapping from threads, which is the set of all thread IDs, to natural numbers. So vector clock maps a thread ID to a logical clock value. And we'll use that mapping notation. "
+  },
+  {
+    "start": 1520.117,
+    "end": 1554.343,
+    "speaker": "SPEAKER_02",
+    "text": "So if v is a vector clock, then v of t is going to denote the logical clock of thread t according to that vector clock. So the vector clock has got a logical clock for every thread. and V is going to give the clock value for a given thread T. And we'll use VC to denote the set of all vector clocks. Now we've got a special clock, a special vector clock called a bottom clock, used by the bottom symbol. "
+  },
+  {
+    "start": 1554.363,
+    "end": 1590.567,
+    "speaker": "SPEAKER_02",
+    "text": "And the bottom clock is the clock where all the logical clocks are zero. So this is a special clock we're going to use in some of the examples as we go through. And we also have a partial order on vector clocks. If we've got two clocks, V1 and V2, we say that V1 is less than or equal to V2 in this partial order, which I've indicated by this square less than notation. If and only if, for every thread, T, the vector clock V1 has a smaller or equal logical value to T than V2 does. "
+  },
+  {
+    "start": 1591.848,
+    "end": 1623.017,
+    "speaker": "SPEAKER_02",
+    "text": "So two vector clocks might be incomparable according to this partial order. And a vector clock V1 will only be smaller than V2 if it's at least as small on every entry. Next up, if we've got two vector clocks, V1 and V2, we can join them, which is indicated by this join operator, which looks like a union, right, that square union. It's a common way to write join operators in lattice theory. And this is the pointwise maximum of V1 and V2. "
+  },
+  {
+    "start": 1625.347,
+    "end": 1655.735,
+    "speaker": "SPEAKER_02",
+    "text": "and final bit of notation for this slide, a little function called incT that we can apply to the vector called v1 is going to give back exactly the same, sorry, incT can be applied to v, and it's going to give back exactly the same vector called v, except that the thread T now maps to one more than what it did previously. So if we do incT, if we do inc2 of v, we'll get back a clock where thread 2's logical clock has gone up by 1, and all the other logical clocks remain unchanged. "
+  },
+  {
+    "start": 1658.735,
+    "end": 1703.866,
+    "speaker": "SPEAKER_02",
+    "text": "So I always think examples help. I think that's going through a couple of these. I won't go through them all, but hopefully these will be useful to you when you come to revise. So the vector clock 1, 2, 7 is less than or equal to 2, 2, 9, because 1 is less than or equal to 2, 2 is less than or equal to 2, 7 is less than or equal to 9. OK? If we take 127 and join it with 10, 1, 4, we take the maximum of 1 and 10, 10, the maximum of 2 and 1, 2, and the maximum of 7 and 4, 7. And as an example of inc, if we take bottom, which is the clock 0, 0, 0, then if we do inc 0 of bottom, that's inc 0 of 0, 0, 0, which causes this component to go up by 1. "
+  },
+  {
+    "start": 1704.326,
+    "end": 1740.189,
+    "speaker": "SPEAKER_02",
+    "text": "It gives us back 1, 0, 0. So any questions about this notation before I go on? We're going to use this extensively, so any doubts, please raise them now. Now we're going to look at the state that is going to be tracked by the vector clock algorithm. First of all, remember we've got n threads that start from zero. We've got a set of locks that are available for threads to use to synchronize with one another. And we've got a set of locations which are the possibly shared locations on which data races could occur. "
+  },
+  {
+    "start": 1740.589,
+    "end": 1778.76,
+    "speaker": "SPEAKER_02",
+    "text": "And we therefore need to track accesses to those locations. Based on this, the algorithm will maintain the following state. A vector C, L, R, and W. Now, L, R, and W stand for locks, reads, and writes. And C That's clocks, I suppose, but they're all clocks. So C is threads. The algorithm states that C is going to map every thread to a complete vector clock. "
+  },
+  {
+    "start": 1779.861,
+    "end": 1810.488,
+    "speaker": "SPEAKER_02",
+    "text": "I just want to be clear about this. A vector clock is n-dimensional. So a single vector clock already has n entries. And this C provides every thread with a vector clock. So there are n squared logical clocks going on here. Every thread maps to a vector clock. The idea is that if I'm a thread, my entry in C contains what I know about the other threads. And their entries in C will include what they know about me. "
+  },
+  {
+    "start": 1812.589,
+    "end": 1843.412,
+    "speaker": "SPEAKER_02",
+    "text": "Then every lock has got its own vector clock. So L is a mapping from locks to vector clocks. Every shared location has got two clocks, a read clock and a write clock. And I want to pause for a moment and just go back to the remark I made earlier about how thread sanitizer doesn't implement the vector clock algorithm faithfully. I hope the reason for this might be becoming clear. First of all, it's quite reasonable for a concurrent program to have tens or hundreds of threads. "
+  },
+  {
+    "start": 1844.866,
+    "end": 1880.81,
+    "speaker": "SPEAKER_02",
+    "text": "So individual vector clocks can get pretty big. Second, it's reasonable for a concurrent program to have megabytes or gigabytes of possibly shared locations. And if every one of those locations, we need a large amount of space to store vector clocks, this is going to be prohibitive in space. And it's also going to be very time consuming to manipulate all that state. So I'm giving you the idealized version of the vector clock algorithm here. And I'll say a few words at the end about resources you can look at if you want to see the kinds of practical trade-offs one has to make to get this to work in practice. "
+  },
+  {
+    "start": 1883.411,
+    "end": 1920.02,
+    "speaker": "SPEAKER_02",
+    "text": "So let's go through the point of these various components of the algorithm state, and then we'll move on to actually looking at the rules behind the vector clock algorithm. So first of all, we've got this mapping C that runs every thread to a vector clock. And I'm going to use some shorthand, C underscore T. That's shorthand for looking up the thread T in the mapping. So C is a mapping from threads to vector clocks, and therefore CT is a vector clock, the vector clock for thread T. "
+  },
+  {
+    "start": 1920.08,
+    "end": 1957.022,
+    "speaker": "SPEAKER_02",
+    "text": "And we're going to note that C underscore T. So CT represents what thread T knows about the logical clocks of other threads. How does it get information about other threads? By synchronizing with them. By acquiring mutexes they previously released. That's how a thread learns about the logical got of other threads. So as long as I'm a thread T, then CTT is my logical got. "
+  },
+  {
+    "start": 1957.698,
+    "end": 1992.566,
+    "speaker": "SPEAKER_02",
+    "text": "Okay, so C underscore T is my vector clock, and then C underscore T brackets T is my entry in the vector clock. So that is the source of truth about my logical clock. That really represents my logical clock. I know my own logical clock, and it's stored in CTT. And this is always gonna be positive. Remember, logical clocks have to be non-negative, but a thread's logical clock that it knows about itself is always gonna be positive. And let's suppose that u is another thread, so u is different from t. "
+  },
+  {
+    "start": 1994.307,
+    "end": 2025.431,
+    "speaker": "SPEAKER_02",
+    "text": "In that case, if I thread t and my vector clock says that thread u has logical clock z, what that means is I know that thread u's logical clock is at least z. So I thread t know exactly my vector clock, and I know something about the other thread's vector clock, which is just I know that their real logical clock is at least the value I call for them. "
+  },
+  {
+    "start": 2026.611,
+    "end": 2059.593,
+    "speaker": "SPEAKER_02",
+    "text": "I'm just going to repeat that last thing again because I realize I said vector clock all the time when I said logical clock, so just for the avoidance of doubt. If I'm a thread, I've got a vector clock, and one entry in that vector clock is genuinely my logical clock. That's totally accurate information. The other entries represent my... most up-to-date information about the logical clocks of other threads. And those threads' true logical clocks will be at least as high as the value I know them to be. And as we shall see, they're actually guaranteed to be higher than the value that I know. "
+  },
+  {
+    "start": 2060.113,
+    "end": 2090.557,
+    "speaker": "SPEAKER_02",
+    "text": "A thread is always going to be one step ahead of every other thread in knowing its own logical clock. And as we'll see when we go through rules about the algorithm, when a thread acquires a clock, gets information about the logical clocks of other threads that previously held the lock. This is how information about logical clocks gets transferred between threads. What does it mean by it's always positive? Always positive means always larger than zero. "
+  },
+  {
+    "start": 2091.217,
+    "end": 2123.331,
+    "speaker": "SPEAKER_02",
+    "text": "It always started with one or something? One or higher. So negative would be minus one, minus two, minus three. So these logical clocks are always non-negative. Non-negative means zero or higher. I thought it started with zero, like everything's zero. No. So let me just go back. Okay. So a thread's logical clock is a non-negative integer. So I'm just saying here that a logical clock can't be negative. "
+  },
+  {
+    "start": 2123.471,
+    "end": 2158.403,
+    "speaker": "SPEAKER_02",
+    "text": "I'm not saying it is anything. I'm just saying it's not negative. Okay. I'm saying that I've defined the bottom clock, which is the clock of all zeros, but I've not told you what we're going to use that for yet. This is just a definition. The bottom clock is just the clock containing all zeros, but I've not said what we're going to use this for yet, so maybe that's the point of confusion, right? And in particular, I'm not saying that at threads, the vector clock is initially bottom. Yeah, okay. "
+  },
+  {
+    "start": 2158.423,
+    "end": 2201.191,
+    "speaker": "SPEAKER_02",
+    "text": "Okay. And what I have said here is that, so yeah, okay, if I'm a thread T, then my entry in my vector clock will always be positive from the beginning of time. It's going to be positive . Any other questions at this point? I really appreciate questions about because, you know, this is the driest, most theoretical part of what I've shown you, and it just, well, a bit of just, let's define this, let's define that, let's build this, let's build that. I know what it's like. So, next up we've got L, which is a mapping from locks to vector clocks. "
+  },
+  {
+    "start": 2201.931,
+    "end": 2237.341,
+    "speaker": "SPEAKER_02",
+    "text": "Every lock has got an associated vector clock. And if M is a lock, M for mutex here, then L underscore M is going to be the shorthand for the entry for M in this L mapping. Okay, so what does LM mean? It represents the value of the vector clock associated with the last thread that released the mutex when the release occurred. So when a thread releases a mutex, it's going to write its vector clock into LM. "
+  },
+  {
+    "start": 2239.362,
+    "end": 2277.37,
+    "speaker": "SPEAKER_02",
+    "text": "So if we've got a lock M and a thread T, if the lock mapping for M says that thread T maps to Z, that means the last time the last thread that released M knew that thread T's logical clock was at least Z when it released the mutex. So the last time this mutex was released, whoever did the release knew that thread T's logical clock was at least Z. "
+  },
+  {
+    "start": 2281.393,
+    "end": 2319.749,
+    "speaker": "SPEAKER_02",
+    "text": "And then the read and write vector clocks are what are going to ultimately allow data races to be detected. These are mappings from locations to vector clocks, where Rx is going to be shorthand for the vector clock associated with location x. So if x is a location, think about it as a shared variable, R underscore x is going to be the vector clock associated with that location. And as a result, RX is going to have an entry for every thread, and RXT represents the value of thread T's logical clock when it last read from X. "
+  },
+  {
+    "start": 2320.729,
+    "end": 2352.96,
+    "speaker": "SPEAKER_02",
+    "text": "So every time a thread reads from a location, it's going to write its logical clock into the corresponding position of that location spectacle to mark that it did read. If we've got for a thread in a location that the read clock for the location at thread T is zero, that's going to indicate that T has never read from X. So if T has not ever read from the location X, then that location will have zero as the logical clock value for thread T. "
+  },
+  {
+    "start": 2354.2,
+    "end": 2388.278,
+    "speaker": "SPEAKER_02",
+    "text": "Otherwise, RXT was T's logical clock the last time T read from X. So if I'm a thread, every time I read from a location, I'm going to store my logical clock into that locationSpectreClock to indicate that I took this action. And then writeClocks, just to annoy the Panopto people, we'll just do that for a bit, writeClocks are the same, all right? So the writeClocks just track the thread's logical clock last time it wrote to a location, so just swapping R and W here. "
+  },
+  {
+    "start": 2391.681,
+    "end": 2425.994,
+    "speaker": "SPEAKER_02",
+    "text": "Okay, so what I want to do before I go on to actually go through the algorithm, is give you a spoiler about how a race is detected, and hopefully the algorithm with that spoiler in mind will make more sense than it would otherwise. Let's suppose we've got a thread t, and it issues a read from location x. So in your program, you'd have some sort of temporary becomes equal to x, or reading from location x. And we're going to take this operation as rd , meaning thread t has performed a read from location x. "
+  },
+  {
+    "start": 2428.144,
+    "end": 2462.212,
+    "speaker": "SPEAKER_02",
+    "text": "Remember that we've got this partial order on vector clocks, that one vector called v1 is less than or equal to another vector called v2, if and only if v1 is pointwise less than or equal to v2. At every entry of v1, you find something that's less than or equal to the corresponding entry of v2. So if we find, remember we've got this read from x by break t. Let's say the right clock for x is not smaller or equal to t's vector clock. "
+  },
+  {
+    "start": 2463.833,
+    "end": 2500.506,
+    "speaker": "SPEAKER_02",
+    "text": "What does that mean? So it means there is some thread u such that the right clock for x at u is bigger than the logical clock for u known by thread t. And this only happens if u and t have not synchronized adequately. And this indicates that a read-write race has occurred. So I've not shown you why that's true yet, but that is what the rules I'm going to show you now are designed to enable. "
+  },
+  {
+    "start": 2501.446,
+    "end": 2540.264,
+    "speaker": "SPEAKER_02",
+    "text": "That when we have a read operation by thread t from location x, we can ask how x's write clock compares with the vector clock for t. And if we find that X's write clock has got more recent information than T's vector clock, then we know that T has not adequately synchronized with one of the threads that's previously written to X, and therefore we would have a read-write data race, or a write-read data race, because the write occurred previously, and then this read has occurred. "
+  },
+  {
+    "start": 2540.724,
+    "end": 2582.657,
+    "speaker": "SPEAKER_02",
+    "text": "And there are similar conditions for write-write data races and for read-write data races. Yeah. It's only for non-atomic read and writes. That's right. So in this lecture, I'm just dealing with non-atomic read and writes and lock and unlock operations. As I mentioned in the tutorial sheet, there's a question about how you would update rules I'm about to show you to include rules related to atomic operations. Okay. Now, remember I said that the compiler instruments the program at compile time with calls into this runtime library function. "
+  },
+  {
+    "start": 2583.678,
+    "end": 2618.01,
+    "speaker": "SPEAKER_02",
+    "text": "And those calls really get executed live as the program runs. They get called in some sequence because they're mutually exclusive, but the data race detection algorithm is processing read, write, lock, unlock events as the program runs. But conceptually, that doesn't matter. Conceptually, we can think that the program runs and a sequence of read, write, unlock, and lock events are generated. And we can think of the algorithm as then, in its own time, processing that sequence to check whether it was OK or whether there was a data race. "
+  },
+  {
+    "start": 2618.27,
+    "end": 2660.575,
+    "speaker": "SPEAKER_02",
+    "text": "So in reality, this process is happening on the fly as the program runs. But from the point of view of describing the algorithm, we can just think there's a sequence of read, write, lock, and unlock operations that are in some order. And the algorithm is going through that sequence and checking to see whether there are a pair of accesses that are not properly synchronized. So, the notation I'm going to use here, which I already showed you in the spoiler, is that Rd is the interception of thread T reading from shared location X, and Rt is the interception of thread T writing to shared location X. "
+  },
+  {
+    "start": 2662.322,
+    "end": 2697.385,
+    "speaker": "SPEAKER_02",
+    "text": "And then every lock and unlock operation is also intercepted, and pack acquire tm denotes the interception of thread t acquiring mutex m, and rel tm is the interception of thread t releasing mutex m. So these are the four kinds of operations we're going to consider in this exposition of vector clock-based data race detection algorithm. And what I've not covered here is the rules for forking and joining threads. "
+  },
+  {
+    "start": 2697.945,
+    "end": 2730.482,
+    "speaker": "SPEAKER_02",
+    "text": "If you're interested, there's a really nice paper called Fast Track, which is about dynamic data race detection for Java programs, but it's based on the same more generic vector-based race detection algorithm I'm showing you here. And I took the notation used in this lecture from that Fast Track paper, and it also has rules for the spawning of threads and the joining of threads, if you're interested. Okay, so let's get going with how the dynamic trace detection algorithm actually works. First of all, what's the initial analysis state? "
+  },
+  {
+    "start": 2732.103,
+    "end": 2784.872,
+    "speaker": "SPEAKER_02",
+    "text": "Well, remember, C is a mapping from thread ID to vector clock. So every thread is gonna have its own vector clock. And initially, a thread's vector clock is gonna be zero everywhere except at the thread's ID, where it's gonna be one. So, C is going to be 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 Is this a perennial thing? "
+  },
+  {
+    "start": 2784.892,
+    "end": 2819.286,
+    "speaker": "SPEAKER_02",
+    "text": "Do you have other lectures in the room? Does anyone want to show them? Those of you who are lecturers couldn't read open and close. That's the problem. Okay. So the initial analysis state. Every thread's vector clock is zero everywhere except at the thread's position where it's one. So the thread knows my logical clock is 1, and I don't know anything about the other threads. "
+  },
+  {
+    "start": 2819.306,
+    "end": 2857.248,
+    "speaker": "SPEAKER_02",
+    "text": "I don't know that they've done anything yet. And remember I said that a thread's logical clock is always going to be one step ahead of the game of what any other thread knows for that thread. And we've established this at the beginning of time. So at the beginning of the time, I know my clock's 1, you know my clock's 0. And we're going to maintain that invariant that my clock is always going to be bigger than any of you know. Yeah. If all clocks are initially 1 for every thread, why would we not just set every thread to think that everything is 1? All clocks are not 1 everywhere. They're 1 for that thread. "
+  },
+  {
+    "start": 2857.268,
+    "end": 2868.531,
+    "speaker": "SPEAKER_01",
+    "text": "So let me actually just use the board to illustrate this. But why would we not assume at the start that all are just 1? Why would we assume that every other thread is 0? "
+  },
+  {
+    "start": 2870.964,
+    "end": 2908.89,
+    "speaker": "SPEAKER_02",
+    "text": "Let me just write this down so I can better understand your question. So you just, I think you get this, but just for the avoidance of doubt, so I've got the lawyer here, for the avoidance of doubt, we've got one, if we've got three threads, then C would be 1, 0, 0, 0, 1, 0, 0, 0, 1. Yeah? And I think what you're asking is why not just make it be 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, is that right? Yeah. Yeah. So... c is not equal to this. "
+  },
+  {
+    "start": 2908.91,
+    "end": 2943.443,
+    "speaker": "SPEAKER_02",
+    "text": "So a really important property of the algorithm is that we need our thread's genuine logical clock to be larger than what any other thread thinks it is. So here thread 0 knows its logical clock is 1. Thread 1 thinks thread 0 is logical because 0. Thread 2 thinks thread 0 is logical because 0. And symmetric for the other threads. And that's really important. We'll see why, but that's critically important. So this wouldn't do at all. Okay, then what about the locks? "
+  },
+  {
+    "start": 2943.863,
+    "end": 2975.46,
+    "speaker": "SPEAKER_02",
+    "text": "Well, every lock is initially going to have its vector clock set to bottom. So remember, the locks are going to get updated when they get released by threads. And initially, no lock's been released. So the locks are all zeros everywhere. And also, no thread has read from or written to any location. So the read and write clocks for all locations are going to be set to zeros everywhere. So the beginning of time, it's a very boring state of affairs. You've got zeros everywhere in all of the lock blocks, zeros in all of the location plots. "
+  },
+  {
+    "start": 2975.933,
+    "end": 3019.207,
+    "speaker": "SPEAKER_02",
+    "text": "And the thread clocks all zeros everywhere, except that every thread knows its logical clock is one. Okay. And we're going to now go through the rules of the algorithm, and I'm going to do them with recourse to this running example. So before we take a break, let me just set the scene for the example, and then when we come back, we can start working on the example. So this is the example I motivated the lecture with, not saying this is a real example that you'd love to do race detection on, but to showcase why we would always find races on this misuse of Z using this algorithm. "
+  },
+  {
+    "start": 3019.867,
+    "end": 3055.048,
+    "speaker": "SPEAKER_02",
+    "text": "So this is the code I showed you earlier. We've got two threads executing this program. Initially, I've sort of used this dotted line to indicate that they're both poised, ready to execute their bodies, but neither thread has taken a step. And up here, we've got the analysis state. which is the beginning of time states. So you can see that the read and write clocks for x, y, and z are all set to zero for both threads. We've only got one mutex here, and its clock is 00. And then the C mapping, which gives a vector clock for every thread, has got the clock 10 for thread 0 and 01 for thread 1. "
+  },
+  {
+    "start": 3060.088,
+    "end": 3065.965,
+    "speaker": "SPEAKER_02",
+    "text": "So let's take a 10-minute break, and then we'll come back, and we will go through this algorithm step by step, introducing the rules of the vector code. "
+  },
+  {
+    "start": 3073.383,
+    "end": 3086.108,
+    "speaker": "SPEAKER_03",
+    "text": "Is this similar in concept to the way that vector clocks work in distributed systems? I saw vector clocks somewhere. I can't remember exactly where. In this case, it's less. I feel like I just lost people. I mean, you know. "
+  },
+  {
+    "start": 3118.99,
+    "end": 3120.79,
+    "speaker": "SPEAKER_03",
+    "text": "The initials. Exactly the same thing. "
+  },
+  {
+    "start": 3149.477,
+    "end": 3158.543,
+    "speaker": "SPEAKER_03",
+    "text": "I don't know, Jeffrey told me to come to Jesus. I thought he made you come to him. He's just like jacking it like he's going. He's really cool. He's really cool. "
+  },
+  {
+    "start": 3174.212,
+    "end": 3176.973,
+    "speaker": "SPEAKER_03",
+    "text": "I don't know. I don't know. I don't know. "
+  },
+  {
+    "start": 3202.315,
+    "end": 3203.756,
+    "speaker": "SPEAKER_03",
+    "text": "Because now what are you doing? "
+  },
+  {
+    "start": 3218.344,
+    "end": 3221.085,
+    "speaker": "SPEAKER_03",
+    "text": "Fix the errors you need to manually fix your version. "
+  },
+  {
+    "start": 3244.998,
+    "end": 3247.02,
+    "speaker": "SPEAKER_00",
+    "text": "Why is that better than simple? "
+  },
+  {
+    "start": 3262.152,
+    "end": 3266.135,
+    "speaker": "SPEAKER_03",
+    "text": "I don't understand. He's like, okay, penta. This is so rude. I respect that. "
+  },
+  {
+    "start": 3291.115,
+    "end": 3320.379,
+    "speaker": "SPEAKER_03",
+    "text": "I missed the first half I don't think he knows. I don't think he knows. "
+  },
+  {
+    "start": 3341.676,
+    "end": 3347.56,
+    "speaker": "SPEAKER_03",
+    "text": "Is Darius going to show up to the interview? He knows all the buttons. Also, Sarius is in turn, which is cool. "
+  },
+  {
+    "start": 3369.532,
+    "end": 3376.834,
+    "speaker": "SPEAKER_03",
+    "text": "Yeah, but then, like, it's, like, in the beginning. Yeah. Or it's good. Or it's good. Or it's good. Or it's good. "
+  },
+  {
+    "start": 3391.035,
+    "end": 3393.636,
+    "speaker": "SPEAKER_03",
+    "text": "I don't know. I don't know. I don't know. "
+  },
+  {
+    "start": 3421.422,
+    "end": 3423.704,
+    "speaker": "SPEAKER_02",
+    "text": "This one is on the way. Can I just power that one? "
+  },
+  {
+    "start": 3423.804,
+    "end": 3436.895,
+    "speaker": "SPEAKER_03",
+    "text": "I think you guys have a different one. This is a good one. I think it will get a whole point. He's cooking. "
+  },
+  {
+    "start": 3492.779,
+    "end": 3494.14,
+    "speaker": "SPEAKER_03",
+    "text": "Yes, I have an amount. "
+  },
+  {
+    "start": 3494.18,
+    "end": 3497.501,
+    "speaker": "SPEAKER_02",
+    "text": "Very ridiculous. Sure. If they haven't been vaccinated. So you know when... "
+  },
+  {
+    "start": 3518.389,
+    "end": 3526.155,
+    "speaker": "SPEAKER_03",
+    "text": "I don't think we're going to have to do that. Interpretation, then. All again. Interact the voice. No, no, I don't want to do that. "
+  },
+  {
+    "start": 3526.255,
+    "end": 3528.677,
+    "speaker": "SPEAKER_02",
+    "text": "I don't want to do that. I don't want to do that. "
+  },
+  {
+    "start": 3549.312,
+    "end": 3550.373,
+    "speaker": "SPEAKER_00",
+    "text": "You don't just pass in strings. "
+  },
+  {
+    "start": 3550.733,
+    "end": 3591.712,
+    "speaker": "SPEAKER_03",
+    "text": "How many levels of hidden layers are you going to do? How many layers do you want to pass in? We're going to re-stick it. And you can do that. It's just strings, I don't get the point behind it. This is what I thought, but then I was like, I'm not sure if it works. There's no harm in doing it, because I'm anyway taking the stuff in anyway. If we don't use it, we don't use it. You don't use it, but I'll put default as ReLU, sure. If you don't give anything to ReLU. I don't know, this was the other question I was going to ask you. I know this is not here. You want to answer it? I don't know. Fell asleep over lunch. Oh yeah, probably. Otto Rambler is crazy. Just walk. "
+  },
+  {
+    "start": 3604.04,
+    "end": 3607.803,
+    "speaker": "SPEAKER_03",
+    "text": "I've had more requests for the B6 thing. "
+  },
+  {
+    "start": 3620.911,
+    "end": 3657.559,
+    "speaker": "SPEAKER_02",
+    "text": "He managed to just ask me to do it. I'm going to finish everything. So to remind you, We've got four different kinds of mapping from thread ID to vector clock. "
+  },
+  {
+    "start": 3658.579,
+    "end": 3690.212,
+    "speaker": "SPEAKER_02",
+    "text": "The first mapping, called C, gives every... Excuse me, let me revisit. We've got four kinds of mapping from something to vector clock. The first mapping, C, maps a thread ID like zero to a vector clock for that thread. Then we've got read clocks, which map a shared location to a vector clock, like we've got for x here. We've got right clocks, like the right clock for y. So w maps every shared location to a vector clock. "
+  },
+  {
+    "start": 3690.872,
+    "end": 3738.138,
+    "speaker": "SPEAKER_02",
+    "text": "And then we've got lock clocks, which map a lock, like m, to a vector clock. And remember, every vector clock has got length n, where n is the number of threads. And it contains a logical clock for each thread. At the beginning of time, the C mapping assigns every thread to a vector clock that is one at that thread's position and zero everywhere else, and all of the other vector clocks are zero everywhere. And we're gonna have this invariant that a thread's logical clock will be faithfully encoded in its vector clock at its ID, but other threads are never gonna learn the true logical clock of a different thread. "
+  },
+  {
+    "start": 3738.959,
+    "end": 3771.674,
+    "speaker": "SPEAKER_02",
+    "text": "So logical clock information will be passed around through locks, and it will be written directly to read and write clocks, but it will never, by the time a thread's logical clock gets communicated to another thread, that thread's logical clock locally would have increased by one. First of all, I want to show you the acquire rule. Let's say we've got an operation acquire T , meaning thread T acquires mutex M. "
+  },
+  {
+    "start": 3771.734,
+    "end": 3803.232,
+    "speaker": "SPEAKER_02",
+    "text": "What we're going to build up here is a rule that says how the analysis stage should be updated. So C is the mapping from threads to vector clocks, L is from locks to vector clocks, R from locations to read clocks, and W from locations to write clocks. And we've got this acquisition of mutex M by thread T. Which, if any, of these components do you think should change thanks to processing and acquire? "
+  },
+  {
+    "start": 3804.473,
+    "end": 3870.871,
+    "speaker": "SPEAKER_02",
+    "text": "So, any ideas here? Yeah? C and L. C and L. Can you elaborate a bit more on your answer? Because you're acquiring a lot, so the power needs to change. You know, just L. Just L. Any other thoughts? the clocks only update on the release of the clock, so none of them change, there's nothing to see. They don't thread update only on release. Rather than what they do and don't do, can we talk in terms of reasoning? What should they do? What do we want here? We ultimately want it to be the case that you can detect races by comparing a threads clock with the read and write clocks of locations. That's what we ultimately want. So let's try to derive what we'd like how we'd like the algorithm to be updated. Was there, yeah? So when the thread doesn't update, it learns from the lock, right? "
+  },
+  {
+    "start": 3871.752,
+    "end": 3905.008,
+    "speaker": "SPEAKER_02",
+    "text": "So the lock doesn't actually change. So when you acquire a lock, you're not synchronizing with anyone. You're synchronizing when you release a lock. Or rather, when you acquire a lock, you're synchronizing with people that previously released the lock, You're not broadcasting any information to the outside world about your state. So when we acquire a lock, then the thread mapping changes. So C's will become C prime. But L, R, and W are all going to be left unchanged. And how is C prime going to be updated? "
+  },
+  {
+    "start": 3906.349,
+    "end": 3966.742,
+    "speaker": "SPEAKER_02",
+    "text": "Well, C prime, which is the mapping from threads to vector clocks, is going to be the same as it was before for all threads apart from thread T. But thread T's learned something by acquiring the lock. It's learned whatever the lock knew about other threads. So we need to update, in C prime, we need to update thread T to what? The union of C, T, and L. The union of C, T, and L, or rather the join value. So we've got whatever the thread knew before, it still knows. And also, by acquiring the lock, it's learned something. about the logical clocks that other threads had when they released the lock. So it's going to learn that information that's going to be joined into what this thread knows. The lock doesn't get to learn that. The lock's not going to get to learn that until this thread releases the lock. And remember, the join of x equals v1 and v2 is the point-wise maximum of v1 and v2. "
+  },
+  {
+    "start": 3969.564,
+    "end": 4000.633,
+    "speaker": "SPEAKER_02",
+    "text": "So let's go to our running example then. We've got our thread T0, and let's say T0 acquires this lock. So this involves the acquire rule. So what's going to happen? Well, T0 is obviously going to be updated. So C0 is going to be updated to be what it was before, joined with LM. So what's the new value of C0 going to be? Same as before. "
+  },
+  {
+    "start": 4000.654,
+    "end": 4031.494,
+    "speaker": "SPEAKER_02",
+    "text": "Same as before, 1, 0, right? So no one yet used M. This thread is the first thread to use M during this execution. So it doesn't actually learn anything by acquiring M's rule. Okay. So now, let's have a look at the read rule. We've got our algorithm state, which is the thread clocks, the lock clocks, the read clocks, the write clocks. And let's say we're processing a read from a shared location X by thread T. What do you think is going to get updated here? "
+  },
+  {
+    "start": 4031.835,
+    "end": 4067.13,
+    "speaker": "SPEAKER_02",
+    "text": "Which part of the algorithm state? Do you think the thread clocks, the lock clocks, the read clocks, the write clocks, all of the above, any of the above? Read, yeah? So clearly, the thread reading from the location is going to have the signal that it read from that location. So the read clocks are going to get updated. And first of all, we actually need to ask, has a data race occurred? So we need to ask, Is it the case that the right clock for X is less than or equal to the vector clock for thread T? "
+  },
+  {
+    "start": 4067.611,
+    "end": 4113.898,
+    "speaker": "SPEAKER_02",
+    "text": "If this isn't the case, then thread T is reading from a location that was written to by threads that T is not synchronized with. Those threads have got logical clocks, or each one of those threads has got a logical clock larger than T is aware of, which are the conditions for a data race. So for this rule to fire, first of all have to check that there's not a data race. And if there's not a data race, then the read clock could be updated. They get updated at variable x, that's the variable being read from, and the read clock for x is going to be whatever it was before, except that the entry for t is going to be updated to t's true logical clock. "
+  },
+  {
+    "start": 4114.798,
+    "end": 4145.645,
+    "speaker": "SPEAKER_02",
+    "text": "So this notation is a little bit cumbersome. I think it will be clearer when we go through the example. But let me just spell out a few one more time. The overall analysis state, CLRW, is transitioning to CLR'W. So R is what's changing, the read box. R' is exactly the same as R everywhere apart from with respect to location X. So variables Y, Z, any other locations, the entries in R for those are unchanged. "
+  },
+  {
+    "start": 4146.391,
+    "end": 4178.35,
+    "speaker": "SPEAKER_02",
+    "text": "that at x, we're going to update that vector clock to be whatever it was before, except t's logical clock will reflect t's true logical clock. So essentially, this is a sort of rather long-winded way of saying that t writes its true logical clock into its position of the reclock for x. So you might recall I said that a thread's logical clock is always one step ahead of what any other thread knows. "
+  },
+  {
+    "start": 4178.991,
+    "end": 4209.969,
+    "speaker": "SPEAKER_02",
+    "text": "And yet here we're revealing the true logical clock of t. But we're revealing it into one of these read clocks. We're not revealing it to any other thread. We're pushing it in to the vector clock associated with reads from variable x. Let's have a look at this example then. So now we're in a situation where Oh, right. "
+  },
+  {
+    "start": 4210.069,
+    "end": 4262.971,
+    "speaker": "SPEAKER_02",
+    "text": "I think my, just bear with me a second. I think something's happened with Google Slides. All of these animations are off slightly, which is really annoying. Let me just have a quick look. These look any different in your PDF. They do look different in the PDF. So in particular... Tell you what, this is actually going to be really terrible if I go through it with all the animations. I've got a long time getting these animations made for you. So let's just take a short break and I'll fix them rather than you trying to say, oh, it should be here, it should be here. So just take a few minutes break, I'll unplug, I'll just get these fixed. "
+  },
+  {
+    "start": 4286.137,
+    "end": 4288.279,
+    "speaker": "SPEAKER_01",
+    "text": "Actually, I can't resist showing you what the problem is. "
+  },
+  {
+    "start": 4288.419,
+    "end": 4298.106,
+    "speaker": "SPEAKER_03",
+    "text": "I've discovered what the problem is. And it's one of these annoying days. So, let me go to the running example. Okay, it turns out that something's happened, which means that if I make this text box a tiny bit longer, that curly brace goes into the line before. "
+  },
+  {
+    "start": 4315.363,
+    "end": 4361.232,
+    "speaker": "SPEAKER_02",
+    "text": "And now everything works. And if I make this one just a tiny bit longer. Just drag it out here. And the curly brace goes up and now the arrow's at the right place. So I think let's go through and I'll adapt the slides as we get to them. So rather than adjusting them all at a time. Okay, so just to go back to the beginning there. You've got this thread that is about to execute this lock. And the acquire rule is what we need here, which we went through. And it does this block acquisition. And now, this is the situation we're in. "
+  },
+  {
+    "start": 4361.612,
+    "end": 4395.216,
+    "speaker": "SPEAKER_02",
+    "text": "And there's no change to the analysis state. Okay, now the read rule we just went through. And now, we're in this situation. And you can see, so thread 0 wants to read from x. So first of all, we have to check, is there going to be a data race on x? So we compare the write clock for x with the read clock for the associated thread. "
+  },
+  {
+    "start": 4395.616,
+    "end": 4455.964,
+    "speaker": "SPEAKER_02",
+    "text": "So the write clock for x is 0, 0. We compare it with the read clock, excuse me, with the clock for thread 0. And we find that that clock is less than or equal to this clock. So that's fine. There's no data race. If that right condition isn't met, do we just say there's a data race? Yeah, there's another rule, which I'm sure, which is there are various rules for data races. At the moment, there's not a data race. So now what we need to do is update the read clock for variable x at position t with the logical clock of thread t. So what does that involve doing? Okay, so we were here, we just checked there was no date trace, and now what we're doing is updating the read clock at x with thread zero's logical clock into this update here. "
+  },
+  {
+    "start": 4458.025,
+    "end": 4493.905,
+    "speaker": "SPEAKER_02",
+    "text": "Okay, next up, let's look at the write rule. So this is for processing a write to shared location x by thread t. And this is pretty similar to the read rule. We're going to be updating the write clocks from w to w prime. But this time we have to check both for write traces by comparing the write clock for the variable we're updating with the thread's vector clock. and for read-write basis by comparing the read clock for the variable we're updating with the thread-text clock. "
+  },
+  {
+    "start": 4494.866,
+    "end": 4534.283,
+    "speaker": "SPEAKER_02",
+    "text": "And then updating the write clocks is analogous to updating the read clocks when processing read operations. So the clock for variable X gets updated to be what it was before, but with the mapping for thread T being set to T's true logical clock. So if I go to the example, and move this along, then first of all, we're okay on the right-right race front, because we're writing to x, and it's thread 0 doing the write. "
+  },
+  {
+    "start": 4534.744,
+    "end": 4564.916,
+    "speaker": "SPEAKER_02",
+    "text": "So we compare the write clock for x, which is 0, 0, with thread 0's logical clock, which is 1, 0, and we find that this inequality holds. So we're good on the right-right race front, And we're also good on the read right-based front for similar reasons, okay? So, we compare the read block for X with the clock for the reading thread, and we find that there is an inequality opening, right? So, the read block is less than or equal to that thread's clock. "
+  },
+  {
+    "start": 4565.216,
+    "end": 4601.579,
+    "speaker": "SPEAKER_02",
+    "text": "So, that thread is not out of date with respect to accesses to that location. Okay, so now, the other thread is going to get... Yeah, okay. So now this thread is going to do a release. Let's look at the release rule. So the operation we've got is releasing the mutex M, and thread T is doing the releasing. "
+  },
+  {
+    "start": 4602.36,
+    "end": 4633.785,
+    "speaker": "SPEAKER_02",
+    "text": "And this is the most interesting rule. This is where a thread... actually now finally broadcasts information it knows about other threads to this mutex and also increments its own logical block. So to release a mutex, a thread makes the world aware of its logical block value and also the latest values it knows for all other threads logical block. So the lock mapping gets updated at position M. "
+  },
+  {
+    "start": 4634.326,
+    "end": 4665.753,
+    "speaker": "SPEAKER_02",
+    "text": "For B, thread T's full vector clock. So by releasing the mutex, thread T is saying, here's my logical clock, and here are all the logical clocks I know about from the other threads. And as well as that, thread T sneakily increments its own logical clock. So the thread clock mapping is updated at T to be whatever the clock was before, but incremented at position T. "
+  },
+  {
+    "start": 4666.377,
+    "end": 4697.007,
+    "speaker": "SPEAKER_02",
+    "text": "So remember that ink t is going to take that clock, which is an n-dimensional tuple, and it's going to give back something that's exactly the same as its argument, except at position t, where it's going to be incremented by 1. So you can think of that for nt as saying, here you go, mutex. Here's everything I know, except I'm just going to quickly increment my clock and not tell you about it. So this way, thread T is staying one step ahead of all the other threads in terms of its own logical clock. "
+  },
+  {
+    "start": 4698.288,
+    "end": 4729.404,
+    "speaker": "SPEAKER_02",
+    "text": "So that's the rule for releasing the mutex. And if you go back to our running example, and we can see here that we're in a position now where T0 is about to do this unlock operation. So let's look at what this should do. It should cause M... the new text being released, its clock, which is currently 00, to be overwritten with 10, which is the clock of the releasing thread. "
+  },
+  {
+    "start": 4730.344,
+    "end": 4762.783,
+    "speaker": "SPEAKER_02",
+    "text": "And furthermore, it should cause this vector clock to be updated to be 20, because this clock is staying ahead of the game. It's released a new text, so it's stepping on one tick in logical time. So, first of all, we get this propagation. of the thread's vector clock to the mutex's clock, and then we get the uptick of the thread's logical clock, one to two. Okay. "
+  },
+  {
+    "start": 4765.884,
+    "end": 4808.42,
+    "speaker": "SPEAKER_02",
+    "text": "Now, I'll let you go through these in your own time, but this is just thread two taking various steps, and I'm showing what rules are applied. and you can work through the rules, and you can have a look at how the algorithm state gets updated in the process. I apologize for this laborious process of updating the slides. I must say, I used to work at Google, and when I developed this course for the first time, I was still a, I just come back from being, I used to be a part-time Google adhering employee, and when I was at Google, I got a bit brainwashed into Google Docs. "
+  },
+  {
+    "start": 4808.869,
+    "end": 4840.384,
+    "speaker": "SPEAKER_02",
+    "text": "Well, I don't really have a choice. I actually like Google Docs. And I actually hate Google Docs. No, sorry. I like Google Docs. I hate Google Slides. And I actually just realized I just love PowerPoint. I think PowerPoint's really good. I'm not sure. I developed a copy course for you guys a couple years ago. Oh, back in love with PowerPoint. So much nicer than Google Slides. Just don't find that PowerPoint changes beneath your feet. Have you ever thought with Google Slides, you can't save Google Slides. There's no nature format. You can explore it as Keynote, you can explore it as PowerPoint, but that doesn't really work. "
+  },
+  {
+    "start": 4841.044,
+    "end": 4886.099,
+    "speaker": "SPEAKER_02",
+    "text": "There isn't a way of saving my Google site presentation as far as I know. It doesn't have an interchange format. So, I think now that I've fixed up those things, let's just go back a bit. So, this was the thread release. So then we've got T1 acquiring a mutex, so if I go back, T1 is going to acquire M, so it's going to learn everything that M has to offer. So what's happening then is that by doing this acquisition, T1 learned from LM that the logical clock of probe 1 is at least 1. "
+  },
+  {
+    "start": 4887.065,
+    "end": 4928.157,
+    "speaker": "SPEAKER_02",
+    "text": "which is true, it's actually two, because remember thread zero's logical clock is always going to be ahead of what any other thread knows. Okay, and then there's the read and write rules applied, the release rule applied, the acquire rule applied, read and write rules applied, and now we're getting to the point where we're ready for a race to be detected. So now, we've got a situation where thread zero is reading from Z, and we're trying to apply the read rule, But it doesn't apply because the condition of the read rule is that the right clock for the variable being read from has to be smaller than or equal to the vector clock from the threads doing the reading. "
+  },
+  {
+    "start": 4928.897,
+    "end": 4981.989,
+    "speaker": "SPEAKER_02",
+    "text": "Well, what's happening here is thread 0 is doing the reading, and thread 0's clock is 3, 2. But the right clock for z is 0, 3. So we don't have 0, 3 is not less than 3, 2, because 3 is not less than or equal to 2. So this is not meeting the conditions for the read rule to be applied. Instead, there's a different rule, which is the write-read race rule. So this rule says, if we're processing a read operation from shared location x by thread t, and if there exists a thread u such that the write clock for the variable being read from at u is bigger than what the reading thread t knows of that thread u. "
+  },
+  {
+    "start": 4982.269,
+    "end": 5015.608,
+    "speaker": "SPEAKER_02",
+    "text": "So this is the inversion of that condition here. The way we can invert that condition is like this, but I've decided to explicitly write it out to the point that there is some thread where that thread wrote to variable x with a more recent logical clock than the reading thread knows. In this case, we report a write-read race. We've got the situation that we had a write in the past, and now we've got a read, and that read is racing with that previous write. "
+  },
+  {
+    "start": 5017.329,
+    "end": 5081.458,
+    "speaker": "SPEAKER_02",
+    "text": "There's not been any intervening synchronization, because if there had been, we had acquired a mutex that the writing thread had previously released. We would have learned the logical clock that that thread had when it did the write to the variable. So, in this case, because we've got an out-of-date logical plot for the thread that previously was right, we clearly haven't synchronized it. Is there a question up here? I guess, is this only caught because each thread is always plus one for every other thread? That's right. So, this depends on threads always being ahead of the game, like when they release a mutex. So, when I release a mutex, I tell the world, what my logical coq was right before I read the mutex. Any writes or reads I did previously will have that logical coq or a lower value associated with them. So if a thread then acquires the mutex before working with any of those variables, they will know what my logical coq was when it did those accesses, and no race will be detected. But if they don't acquire that mutex, then they won't, and one of these race rules, this is the first one of a few, will apply. "
+  },
+  {
+    "start": 5083.019,
+    "end": 5127.231,
+    "speaker": "SPEAKER_02",
+    "text": "Okay. And now, if I just do the good old box fixing thing here. Here, we've got a situation where thread zero is writing to, yeah, so we've got this write read race occurring here, yeah, okay. And then what I want to show you is that we've also got a write write race rule. So if a thread T is writing to a variable X, then we need to check whether there is some thread that we previously wrote to x so that the write clock for x at position u will have the logical clock that that thread exposed when it wrote. "
+  },
+  {
+    "start": 5128.431,
+    "end": 5164.706,
+    "speaker": "SPEAKER_02",
+    "text": "If that logical clock is bigger than the logical clock we, the currently writing thread, know for u, then this is a write-write race. That thread previously wrote to x So thread U previously wrote to X, thread T is now writing to X, and there was no intervening synchronization, because if there'd been intervening synchronization, we wouldn't have a solution. By synchronizing with that thread, from acquiring a mutex it had released, we wouldn't know what its logical clock was when it did the write. And then there's also a re-variable, which is similar, so no conceptual differences here. "
+  },
+  {
+    "start": 5168.026,
+    "end": 5198.796,
+    "speaker": "SPEAKER_02",
+    "text": "Okay, so that is an overview of the vector clock algorithm for dynamic interrace detection. And in the tutorial sheet on this topic, which I will issue, there are various examples you can work through drawing up a table of different operations. So, you know, you've got a sequence of operations from threads to process at a table, giving you the analysis state at the start of time. for you to then update with all the various changes to the vector clocks. So I would encourage you to work through all those examples once I post them. "
+  },
+  {
+    "start": 5201.078,
+    "end": 5235.397,
+    "speaker": "SPEAKER_02",
+    "text": "What I want to spend a little bit of time on now is to help further convince you that this algorithm really works, it really does detect nature races. But before I do that, I wonder if there are any questions about what I presented so far. I have to go through some more examples here if you've got cases where, a scenario where you wonder whether a race really would be detected. Okay, so does this algorithm really detect races? Well, let's just recap for the eighth time the definition of the data race. "
+  },
+  {
+    "start": 5236.258,
+    "end": 5266.787,
+    "speaker": "SPEAKER_02",
+    "text": "We've got distinct accesses to a common memory location, at least one of them modifies the location, at least one of those accesses is non-atomic, and the accesses are not ordered by synchronization. And here, because we're just looking at a simple model of computation where we just have mutexes, we're not worried about atomics. Here, by synchronization, I mean that between the accesses, the first thread to do the access would have unlocked a mutex, and the thread to do the second access would have locked that same mutex. "
+  },
+  {
+    "start": 5268.308,
+    "end": 5301.942,
+    "speaker": "SPEAKER_02",
+    "text": "So this is the key property that the vector clock algorithm detects when accesses are not ordered by synchronization. So I want to go through an argument for the correctness of the back-to-clock algorithm. I made this point a few times already in going through this material. But the key observation is that only thread T is aware of its current logical clock. Because at the beginning of time, the thread clocks all initialize to ink of thread ID. "
+  },
+  {
+    "start": 5302.582,
+    "end": 5337.222,
+    "speaker": "SPEAKER_02",
+    "text": "So thread 0 knows its logical clock is 1. Thread 1 knows its logical clock is 1, et cetera. but a thread thinks that all the other threads have logical clock zero. So at the beginning of time, a thread knows its logical clock is one, and it thinks all other threads' logical clocks are zero. And then subsequently, the only way a thread reveals its logical clock to other threads is via the release rule, where it updates the lock mapping so that lock M now maps to the vector clock of the releasing thread. "
+  },
+  {
+    "start": 5337.6,
+    "end": 5368.733,
+    "speaker": "SPEAKER_02",
+    "text": "That reveals the thread's logical clock. However, just as it does that, it also updates the thread clock mapping to increment its vector clock at its logical clock. So in revealing its logical clock to the world, it also increments the logical clock so that that new value has not been revealed to the world. So I hope it's clear that there's no way another thread can ever know the current value of a given thread's logical form. "
+  },
+  {
+    "start": 5369.393,
+    "end": 5402.807,
+    "speaker": "SPEAKER_02",
+    "text": "Only ever knows slightly out of date or very out of date information. Do I need to convince any of you on that point? Is that clear enough? Yeah? Okay. So, I want to give you the sketch of a proof by contradiction for the correctness of the right-right race rule. Let's suppose that this right-right race rule reports a race. So, in processing, the operations, we come to a write operation where thread T is writing to location X. "
+  },
+  {
+    "start": 5403.267,
+    "end": 5434.31,
+    "speaker": "SPEAKER_02",
+    "text": "And we find there exists a thread U such that the write clock for X at position U is bigger than the vector clock for thread T at position U. So let's suppose that this rule has triggered, this preconditioned rule. But by way of contradiction, suppose that has not been a right-right race. So how could there not be a right-right race? "
+  },
+  {
+    "start": 5435.57,
+    "end": 5469.058,
+    "speaker": "SPEAKER_02",
+    "text": "So certainly, we've got a previous right to x, and this is a right to x. So we've got a common memory location, and at least one of the accesses involved is a right. So how could this not be a right-right race? Well, one possibility would be that both these axes are bi-locating threads. So if u and t were the same thread here, then we would have a race. And the other possibility is the axes are ordered by synchronization. "
+  },
+  {
+    "start": 5469.478,
+    "end": 5499.936,
+    "speaker": "SPEAKER_02",
+    "text": "Actually, when there was a write to x by thread u, thread u subsequently released a mutex, and thread t subsequently acquired that mutex, and then did that, did this right operation. So those are only two possibilities for a right-right race not to have occurred. So we'll take them one by one and show that they're impossible. They're for driving a contradiction. Okay. "
+  },
+  {
+    "start": 5499.956,
+    "end": 5542.768,
+    "speaker": "SPEAKER_02",
+    "text": "So we've got the case that the right clock for x at position u is bigger than the vector clock thread t at position u. So let's suppose that u equals t, that the two rights are by the same thread. That means that the right clock for x holds a newer logical clock value for t than t's actual logical clock. Well, that's impossible, because if you go back through the rules, then the right clock for x at t is only updated by the right rule and it takes its value from ctt. "
+  },
+  {
+    "start": 5543.469,
+    "end": 5580.432,
+    "speaker": "SPEAKER_02",
+    "text": "So it's not going to be possible for ctt, if u is equal to t, to be less than the right plot x at t, because only the right rule actually updates w . So this situation is clearly impossible. So the axis can't come from the same thread. Okay, so let's suppose instead that the accesses are not, sorry, that the accesses are ordered by synchronization. So we've got this right to x by thread t that we're just processing now, where the right-right race rule has said there's a race. "
+  },
+  {
+    "start": 5580.993,
+    "end": 5612.956,
+    "speaker": "SPEAKER_02",
+    "text": "And we're assuming there's not really a race. And we're assuming now there's not a race because before, between the right to x by thread q, different from t, there was a release of some mutex by u, and then an acquire of that mutex by t. So, this is what it means for there to be synchronization separating the axioms. So, let's assume that's the case. Okay, well, let's work through this situation. "
+  },
+  {
+    "start": 5612.976,
+    "end": 5643.431,
+    "speaker": "SPEAKER_02",
+    "text": "So, we've got this right to x by u, a release of m by u, an acquire of m by t, and a write to X by T. So, consider the analysis state right before this write to X by U. Well, the thread mapping for T and the thread mapping for U are both gonna have an entry for thread U. "
+  },
+  {
+    "start": 5644.732,
+    "end": 5675.081,
+    "speaker": "SPEAKER_02",
+    "text": "One of them's gonna map U to A, and one of them's gonna map U to B. Okay? that B has got to be larger than A here because the mapping for thread U has got the truly up-to-date version of U's logical clock. Remember that a thread's logical clock is always greater, strictly greater, than that known by any other thread. So thread U knows its logical clock is B. Thread T thinks U's logical clock is A. "
+  },
+  {
+    "start": 5675.601,
+    "end": 5723.933,
+    "speaker": "SPEAKER_02",
+    "text": "We must therefore have that A Now, let's say we do this write operation. The analysis is going to update the write clock for x with a record that when u wrote to x, it had logical clock b. That's what the write rule says. Now, there's the release rule where thread u releases the mutex m. So, what happens here I just want to check if I've got some dodgy formatting going on here as well. "
+  },
+  {
+    "start": 5724.713,
+    "end": 5757.11,
+    "speaker": "SPEAKER_02",
+    "text": "So what happens here, then, is that... Okay, so... Thread U has released the mutex M. So what that does is it causes thread U's logical clock to be written to LM. Sorry, thread U's vector clock to be written to LM. So in particular, LM now knows that thread U had logical clock B. "
+  },
+  {
+    "start": 5758.07,
+    "end": 5790.044,
+    "speaker": "SPEAKER_02",
+    "text": "So thread U had logical clock B before the release, and the release means that now the vector clock for mutex M knows that thread U had logical clock B. But thread use logical clock, it gets back to clock, goes up by one. Remember, the release rule increments the thread's logical clock. I did wonder if I should redo this whole course in PowerPoint over the summer, but I didn't. I'm just going to see if there's any more of these. "
+  },
+  {
+    "start": 5808.207,
+    "end": 5842.418,
+    "speaker": "SPEAKER_02",
+    "text": "So the release rule has caused, as I already said, the release rule has caused the vector got for mutex m to learn that u had logical got b when it did the release, but in the meantime, u's logical got increments to b plus one. Okay, now thread t acquires the mutex. So as a result, thread t learns anything that l, m had to offer. In particular, thread T learns that thread U has logical clock at least B. "
+  },
+  {
+    "start": 5843.599,
+    "end": 5882.204,
+    "speaker": "SPEAKER_02",
+    "text": "So thread T now knows that U's logical clock is at least B. And now, thread T tries to write to X. And remember, the right-right race rule applied. And the right-right race rule said that T has got out-of-date information about U's vector clock. In particular, we had the situation that the right clock for x at index u was bigger than what thread t knew of u. Well, let's have a look at that then. So the right clock for x at u is b, and what does thread t know about u? "
+  },
+  {
+    "start": 5882.744,
+    "end": 5913.937,
+    "speaker": "SPEAKER_02",
+    "text": "It knows b. Okay? So this is a contradiction. So the key thing is that this release and this acquire has meant that information about thread u's logical clock when it wrote to X has been propagated through to thread T, and therefore when thread T does a write to X, there's no way it can have out-of-date information. So just to recap, we said suppose the write-write rule has said there's a race. "
+  },
+  {
+    "start": 5915.398,
+    "end": 5945.975,
+    "speaker": "SPEAKER_02",
+    "text": "But there's not really a race. There are only two possibilities. The two threads associated with that rule are the same, but we quickly dismiss that possibility. Or, there actually was intervening synchronization, and through this argument we show that that leads to a contradiction. Therefore, it must be the case that there indeed was a race. So, you can use similar reasoning to go through the right-read race rule and the read-write race rule to convince yourself that they truly do detect age races. "
+  },
+  {
+    "start": 5949.369,
+    "end": 5988.45,
+    "speaker": "SPEAKER_02",
+    "text": "Okay, so that's the kind of theory part of explaining this dynamic data race detection algorithm. And I've got a few words to say before the end of the lecture about the algorithm in practice, but any questions about the whole idea before I go into that? Yeah? Can we say this algorithm has reasons about every possibility of leaving a thread? Can we say this algorithm reasons about every possibility of leaving a thread? No. This algorithm analyzes one execution of the program, and it will not detect races that are not exposed by that execution of the program. "
+  },
+  {
+    "start": 5989.43,
+    "end": 6021.521,
+    "speaker": "SPEAKER_02",
+    "text": "So I think it might be quite instructive to go through a quick Right. Let's say we do something like this, where we've got T1 and T2. "
+  },
+  {
+    "start": 6021.541,
+    "end": 6054.756,
+    "speaker": "SPEAKER_02",
+    "text": "A couple of threads. And let's say we've got something like M dot log. And then x becomes equal to 1 and .unlock. And here? "
+  },
+  {
+    "start": 6078.072,
+    "end": 6115.542,
+    "speaker": "SPEAKER_02",
+    "text": "Okay, so we have m.lock here, m.unlock, and x gets set to 1 there. And here we've got m.lock, m.unlock, and x gets set to 2 here. Okay, and now here I'm going to say m.lock, and I'm going to say... T1 becomes equal to x, m dot unlock. "
+  },
+  {
+    "start": 6117.963,
+    "end": 6149.56,
+    "speaker": "SPEAKER_02",
+    "text": "And I hear m dot lock. T2 becomes equal to x, m dot unlock. So there's going to be a non-deterministic value assigned to x depending on which thread is the, which order of the thread's interleaved, but no J-terrace. And then a thread will read x, so this thread might read the value it just wrote to x, or it might read the value that the other thread wrote to x. "
+  },
+  {
+    "start": 6151.381,
+    "end": 6181.698,
+    "speaker": "SPEAKER_02",
+    "text": "And then we could have something like, if x equals one, then algorithm one, else, algorithm 2. So this thread is going to go and execute one algorithm or a completely different algorithm, depending on the value of x that it saw. And similarly for this thread, right? "
+  },
+  {
+    "start": 6181.718,
+    "end": 6220.571,
+    "speaker": "SPEAKER_02",
+    "text": "So if x equals 1, it's going to execute algorithm 3 otherwise. So what I hope you can see is that there may be data races between algorithm one and algorithm three, algorithm two and algorithm three, algorithm one and algorithm four. A combination of algorithms gets executed on a given run of the program will depend on how the data race free race conditions between threads one and two worked out. "
+  },
+  {
+    "start": 6221.691,
+    "end": 6253.973,
+    "speaker": "SPEAKER_02",
+    "text": "So there will be some interleavings where Both of them will think that X is a certain value and will execute particular algorithms. There'll be other interleavings where they'll think X is different values and execute different algorithms. And let's suppose that this algorithm and this algorithm, if executed together, are going to lead to data races. In an execution where instead that algorithm and that algorithm get executed, thread sanitizer wouldn't find a race because a race would not occur. So it doesn't go and explore interleavings that the program didn't actually execute. "
+  },
+  {
+    "start": 6254.273,
+    "end": 6287.94,
+    "speaker": "SPEAKER_02",
+    "text": "It only finds races on the interleaving that was executed. Do you have a follow-up on that? Did you mean to put T1 and T2 in there? I did, yeah, sorry. T1. T1 and T2. Sorry about that. Essentially, the values of T1 and T2 are non-deterministic. They're based on the way the threads happen to interleave. They're race-free because the threads don't race with each other. They don't participate in a data race in writing to X. "
+  },
+  {
+    "start": 6288.48,
+    "end": 6360.853,
+    "speaker": "SPEAKER_02",
+    "text": "But there is a race condition on the values that X ends up having, which influences the value of T1 and T2. And therefore, which combination of these algorithms really gets executed depends on how that data race-free but non-deterministic execution worked out. and then which data races between the algorithms thread sanitizer would find will depend on the way that the scheduler schedule the threads. Yeah. The program is really hard to reason about. Is it robust enough, run a whole bunch of T-SAN runs of the program and then see if one of them fails? If programs are really hard to reason by, is it robust enough to run a bunch of T-SAN approaches, run the program lots of times using T-SAN and see if one of them fails? I would say that that's a minimum requirement. I wouldn't say it's enough. So when you write concurrent programs, you need to think really carefully about what's going on and actually in your mind have a strong idea of what the threads are doing and why, who's responsible for what memory, how they're sending messages to each other via synchronization. and you need to architect your program appropriately, and Thread Sanitizer can help you find gaps in your own mental reasoning, and it can be a super useful tool there. "
+  },
+  {
+    "start": 6361.173,
+    "end": 6396.256,
+    "speaker": "SPEAKER_02",
+    "text": "What you can't do is be like, well, it doesn't really matter too much about my design, because if I run the T sign lots of times and it doesn't find any races, then the program's fine. First of all, Thread Sanitizer misses races, as you've probably seen already in some of the exercises, and maybe found in the coursework, it doesn't always find races. And second, as I've sketched here, whether it finds a race will depend on whether a given execution had a race, and if your program has lots of different things it can do, if a particular test scenario doesn't send it into one of those areas, then because that code's not executed, races that code would exhibit won't be detected. "
+  },
+  {
+    "start": 6396.756,
+    "end": 6428.52,
+    "speaker": "SPEAKER_02",
+    "text": "So, I would say that ThreadSanitizer is a very, because concurrency's very hard, ThreadSanitizer's a super useful tool, but you shouldn't kind of use it instead of your brain. Yeah. At Fortisworth, I've also found that Chatbots aren't very good for concurrent programs. I don't know if you've tried that. I presume some of you have tried them in relation to this course. When I ask the questions about concurrency, I find the answers sound as convincing as ever and are often less convincing, which is generally pretty convincing. Were there a couple more questions? "
+  },
+  {
+    "start": 6432.301,
+    "end": 6464.417,
+    "speaker": "SPEAKER_02",
+    "text": "Okay. So, in the remaining minutes, we won't have time to go through the hassle, I'm afraid, but it will make sense if you watch the slides carefully. I prepared the Haskell example. I prepared the slides earlier today. I looked through them very carefully, but if you find mistakes in them, then please let me know as soon as possible, and I'll get them fixed. Whenever one prepares a new example with lots of arrows and curves and things, there's always a high chance of there being key improvements, so please do let me know. Okay, the problem with the vector clock algorithm is really space inefficient. "
+  },
+  {
+    "start": 6464.737,
+    "end": 6494.819,
+    "speaker": "SPEAKER_02",
+    "text": "It requires a vector clock for every possible shared memory location, And remember, as I sketched to you earlier on the board, the compiler is going to be very conservative in figuring out which locations are possibly shared. It will only be able to deem a location as not possibly shared if it can prove it will definitely not be shared between threads. In the fast track paper I mentioned earlier, there are some really nice optimizations. So one optimization is to only track the latest writes to a location. "
+  },
+  {
+    "start": 6495.343,
+    "end": 6535.021,
+    "speaker": "SPEAKER_02",
+    "text": "The idea here is that instead of every location storing a full vector clock, instead just store information about the last thread to write to that location. And it turns out that that is enough to detect races on that location. And also, it's fine to only detect the latest read from a location until it's detected that multiple threads have read from a location. If only one thread is read from a location, and we only track the latest read from that thread, then any other thread that writes to that location in an unsynchronized way will detect a race. "
+  },
+  {
+    "start": 6535.641,
+    "end": 6574.454,
+    "speaker": "SPEAKER_02",
+    "text": "The trouble is if we've got multiple threads reading from a location, because reads don't always participate in data races, and reads don't read over each other in the way that writes write over each other, we can miss data races there. So the idea of the fast track algorithm for writes is to, instead of storing the full clock, just store information about the last thread to have written to a location. And then for reads, initially just store information about the last thread to have read from a location until you observe a second thread reading from the location and then start tracking the full vector clock, which is kind of fiddly. "
+  },
+  {
+    "start": 6577.125,
+    "end": 6616.354,
+    "speaker": "SPEAKER_02",
+    "text": "Another situation is that you can have a case where the same thread is reading from a location exclusively very often. And in this case, you can have a lot of possibly shared memory that's not actually shared, right? So you often get cases where you've got memory that looks like it might be shared, but in reality, it's not shared. It's just that the compiler can't prove this is shared. So only one thread will ever read from it, in which case this optimization of initially just storing a single piece of data about the latest thread to a regretful location works fine because no other thread ever will reach from that location. "
+  },
+  {
+    "start": 6618.355,
+    "end": 6679.043,
+    "speaker": "SPEAKER_02",
+    "text": "However, being able to dynamically switch between tracking a full vector clock or just tracking a single reach from a location is problematic in really efficient implementations. And as a result, the thread sanitizer approach takes a more practical way forward, which is just track a small number of reads and accept that some data races will be lost in the mix. And if you're interested in knowing more about how thread sanitizer works in practice, there is And now, somewhat out-of-date paper about Thread Sanitizer, the tool has been completely re-implemented since this paper, but the same principles for optimization still apply, and it tells interesting details, for example, about a fixed upper limit of the number of threads that we attract, it gives details about the way atomics are operated on, and it gives information about the shadow memory that is used to associate with every address in memory that might be shared, some bits of information to store vector clock information. "
+  },
+  {
+    "start": 6679.063,
+    "end": 6683.226,
+    "speaker": "SPEAKER_02",
+    "text": "So, if you're into low-level details, this is a really nice feature. Yeah. "
+  },
+  {
+    "start": 6683.786,
+    "end": 6699.798,
+    "speaker": "SPEAKER_03",
+    "text": "So, when we have to implement the vector clock algorithm, we have to synchronize them internally. So, wouldn't that incidentally synchronize operations so that they do not call support? "
+  },
+  {
+    "start": 6700.218,
+    "end": 6739.254,
+    "speaker": "SPEAKER_02",
+    "text": "The vector clock algorithm is not able to detect So your question is that if the vector clock algorithm is using synchronization to protect itself, will that synchronization hide real data risks in the program? It's a really great question. The answer is no, because the vector clock race detection algorithm isn't used on the synchronization inside the library. So we don't, like the vector clocks we're going to track with threads and locks and shared locations, They all want to determine where the races have occurred. There are then going to be secret locks inside the library that are going to be used to protect the library state from being corrupted, but there's not going to be any vector clocks associated with those locks. "
+  },
+  {
+    "start": 6739.774,
+    "end": 6757.654,
+    "speaker": "SPEAKER_02",
+    "text": "Acquire and release rule won't be applied when the internal locks are used. So, yes, synchronization inside the library is not going to influence apparent synchronization. That will be applied as well. Okay, that's it for today. And on Friday, we will do some work on... "
+  },
+  {
+    "start": 6788.768,
+    "end": 6795.715,
+    "speaker": "SPEAKER_03",
+    "text": "I'm going to go swap with a particular seat. I think that's fine, just because they're just like, I don't know who they are. "
+  },
+  {
+    "start": 6810.048,
+    "end": 6811.769,
+    "speaker": "SPEAKER_03",
+    "text": "What would be a better example? "
+  },
+  {
+    "start": 6854.713,
+    "end": 6859.856,
+    "speaker": "SPEAKER_03",
+    "text": "Sorry, sorry, sorry. I thought it was the part of the game. Like, that, that, that, that, that, that, that, that, that, that. "
+  },
+  {
+    "start": 6882.152,
+    "end": 6883.552,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah, I just sent the file. "
+  },
+  {
+    "start": 6911.038,
+    "end": 6942.313,
+    "speaker": "SPEAKER_03",
+    "text": "and then let's get the output and you just you can do it by deviation That's fine. That's not the issue. The thing is, the value is actually smaller. The values are smaller. "
+  },
+  {
+    "start": 6942.553,
+    "end": 6992.456,
+    "speaker": "SPEAKER_03",
+    "text": "The values we know will be standard. It's not limited. You wouldn't be limiting it. It's not like it would be wrong. It's just that the weights will be bumped up then. The weights will be bumped up. Inside of your network. We're in the way. You can't have values that... We know this defensively. So you're doing Phi Sigma. You don't want to apply Sigma to the layer. How could there still be a linear activity? If everywhere along the way, you might have that, because everyone before you hit a 1. The final layer has to be weight. We get a final output. Again, how high the weight will actually end up being depends on . I don't know if that was a good idea. "
+  },
+  {
+    "start": 6992.516,
+    "end": 7024.14,
+    "speaker": "SPEAKER_02",
+    "text": "I don't think we need to change what And ThreadSenders is definitely the best map. More activation layer we pass to each hidden layer. We'll just keep it one for now. We can implement it either way. I'm sure there's like a different... We have to look at how... We already have enough things to... "
+  },
+  {
+    "start": 7027.965,
+    "end": 7065.625,
+    "speaker": "SPEAKER_03",
+    "text": "It doesn't take any time. I think we can still tune the one activation on the layer. Yeah, certainly. So we also then have to tune the number of layers. We have to tune the number of layers and the neural network. Sure, there's a smarter way to do it than a grid search. That's probably because it's not just the MML. If you're a grid search. Yes, but in terms of the... Fix one of the things and change the name. Yeah, and the number of players. And like 100. Sure. The alternate way of doing that. The alternate way of doing that. Oh, no. Oh, my wife's going to like this. I'm sorry. "
+  },
+  {
+    "start": 7079.735,
+    "end": 7111.296,
+    "speaker": "SPEAKER_03",
+    "text": "not shooting I don't know where your shirt is I think you are normal No, I think you are normal I didn't kill him So I just kind of like, brushed up on some stuff. Basically, because they want, which I was there for a second time, which I was there for a second time. And then they worked on it without me a third time. And I don't know if they did it or not, but they probably did. "
+  }
+]

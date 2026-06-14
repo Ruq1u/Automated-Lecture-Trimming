@@ -1,0 +1,1022 @@
+[
+  {
+    "start": 0.151,
+    "end": 35.178,
+    "speaker": "SPEAKER_01",
+    "text": "There are some seats here. If you could all settle down, please. Manik. I need an actual mic. I don't think this is... No. That's what I'm... I'm not sure if I'm reaching out everyone. "
+  },
+  {
+    "start": 83.179,
+    "end": 119.62,
+    "speaker": "SPEAKER_01",
+    "text": "Hello and welcome. For those of you who want seats, there are some seats here in the gap, or if you're brave enough, you don't bite, you can come and sit at the front. Right. Hello and welcome to the theory and practice of concurrent programming. I already don't know where I put my speaker. Here it is. Can you all hear me in the back? I think I need to shout, but I don't know why this microphone... Oh, it is working. I think it needs to be way closer than this, so for now I'll hold it like this. So as you know, probably from your calendars, this is a course run by myself and Ali Donaldson, who is here to say hi to you today. "
+  },
+  {
+    "start": 121.522,
+    "end": 175.412,
+    "speaker": "SPEAKER_01",
+    "text": "It's an optional course, so I'm delighted that there's so many of you here. But now you've built up my expectations, so please don't drop out and turn up online. So what happens with this course is it usually has a very high attendance. But we only find out that attendance during the exam because a lot of you tend to stay home and watch these online. Don't do that. That's a very Gen Z thing. You know, doing things old fashioned. Specifically, we will keep the lectures interactive. I like getting to know you. I will be asking your names. I will be asking lots of questions. And you will be missing out on all of that experience if you just decide to watch the videos online. If you're late, I don't mind. Please come through the back so that you don't interrupt the flow of the lecture. But I would much rather you came in even if it's for 10 minutes and caught some of the lecture than you didn't turn up at all. I promise I won't give you any heat. No grief. Just come. I'll ignore and I'll continue. So as you know, timetable-wise, we have two... "
+  },
+  {
+    "start": 176.097,
+    "end": 209.597,
+    "speaker": "SPEAKER_01",
+    "text": "times two hours per week on Tuesdays and Fridays. The materials, as usual, are sent here, questions and answers, and anything, thoughts, musings, opinions, comments, anything you have on EdStem, and the videos will be on Panopto. Because of our various time-tabling constraints, me and Ali and the travel arrangements that we have, means that this year it won't be one continuous block theory and then practice or vice versa, but it's a little bit of interleaving. You would get the pun if you'd attended the lecture, but I guess you know all about concurrency anyway. "
+  },
+  {
+    "start": 210.297,
+    "end": 242.505,
+    "speaker": "SPEAKER_01",
+    "text": "The first two weeks will be myself going through some theory. Then for the next four weeks, Ali will be taking over going through the practical part of the course. And the last two weeks, yours truly will come back and finish the theory part of the course. As for material, for the theoretical part, so these are the topics I'll cover. I won't go through all of them, but just to give you an overview, this first two hours is going to be very straightforward baby stuff. So don't judge this class by these two hours. It's like an introduction. Things get significantly harder after that. "
+  },
+  {
+    "start": 242.525,
+    "end": 275.081,
+    "speaker": "SPEAKER_01",
+    "text": "We will do a deep dive into operational semantics. Any models of computation found in the audience? Good. That's quite a few. So we will be going back to operational semantics, and this time studying it from a concurrent perspective, both in terms of idealistic symbol model as well as an actual realistic hardware model. Then we will study another style of semantics that we haven't seen before, and we will look at, again, idealized stuff, hardware stuff, as well as a language model that specifically helps C. Now, this I cannot emphasize enough. "
+  },
+  {
+    "start": 276.001,
+    "end": 311.894,
+    "speaker": "SPEAKER_01",
+    "text": "Historically, that third set of lectures, the declarative semantics, has been known to be the most difficult, and students struggle with it. Now, it's not as difficult as I'm making it sound, especially if you come to the lectures, because first, the material is very unfamiliar. You've never seen anything like it, and it's very counterintuitive. the model. But as we go through the exercises, specifically during the tutorial hour, when I go through the questions, things become much more clear. And students typically by the end of the three, four hours of that week have a very good understanding of that material. But if you don't come to those lectures and tutorials, I can't guarantee that you'll have the same level of understanding as students that do. "
+  },
+  {
+    "start": 312.495,
+    "end": 343.5,
+    "speaker": "SPEAKER_01",
+    "text": "Please come hello high water with that week of lectures. Make sure that you're here. Historically, that lecture coincides with Halloween. I usually bring in sweets. This year, because of the interleaving that we're doing, it won't be on Halloween, although you're welcome to still turn up in costumes on the Friday 31st that Ali will be teaching. But I won't shortchange you. I'll still bring some sweets just to cushion the blow of the difficult material that we will have to cover. So do come. Not only you need to be here for the material, But you will be missing out on the sweets if you don't. "
+  },
+  {
+    "start": 344.481,
+    "end": 388.474,
+    "speaker": "SPEAKER_01",
+    "text": "On the treats, as it were. And finally, we will go on the abstraction stack. We will have looked at the hardware stuff, some language stuff. And then we'll look at what it means for concurrent libraries to be correct. And that's the final week of lectures. In terms of material, there is about 50% of the material. The first one, synchronization, and the high-level concurrent objects, the last part, are from this book. The rest is the lecture slides that you have, tutorials, and the coursework, and of course the internet. Now, anything that is not on the slides, like the book is massive, it's really there for your entertainment, it's really there to teach you more, so I will be giving you pointers saying, if you want to learn more about this, go read here, if you want to learn more about that, go read there. "
+  },
+  {
+    "start": 388.854,
+    "end": 418.856,
+    "speaker": "SPEAKER_01",
+    "text": "But if it's not in the slides, if you don't go through them in the lecture, it's not going to be in the exam. Should you be worrying about that? As for our material, the declarative semantics, specifically the hard stuff, this is cutting-edge research. There is no textbook for it, so even if you wanted to, there is nothing in the library that you can check out. We're hoping to remedy that problem. We are in the process of writing a textbook, and that will become, at some point, material for you. But, again, there is material on the internet. There is, of course, our stuff. Do come to the lecture. "
+  },
+  {
+    "start": 419.137,
+    "end": 426.39,
+    "speaker": "SPEAKER_01",
+    "text": "And also, don't trust everything you read on the internet. There's a lot of bad information out there. And now on to Alice for the course. "
+  },
+  {
+    "start": 435.443,
+    "end": 467.783,
+    "speaker": "SPEAKER_00",
+    "text": "Hi everyone, it's good to see you again. In this part of the course, the practice part, which like Azalea said, is going to be sandwiched in the middle, we're going to focus mainly on concurrent programming in the C++ programming language. We're going to pick up where we left off in first year, having done some concurrency in Kotlin and Java, and we're going to look at practical issues such as threads, locks, atomics, and synchronization in C++. You haven't formally studied C++. You've done some C, but not C++. So I've prepared a C++ crash course for you to watch in advance. "
+  },
+  {
+    "start": 468.103,
+    "end": 498.542,
+    "speaker": "SPEAKER_00",
+    "text": "The slides are already released by Ascentia. And sometime this week, maybe later in the day if I'm organized enough, I will upload Conocto videos for you to watch. You need to watch those in advance of my part of the course starting. It's not a very long crash course and I'll go through lots of C++ as the course progresses, but do make sure you watch it before we get going. Once you've gone through threads, locks, and atomics in C++, we're going to look at material on how you go and implement spin locks from first principles using atomics in the C++ programming language. "
+  },
+  {
+    "start": 499.222,
+    "end": 531.69,
+    "speaker": "SPEAKER_00",
+    "text": "And then we're also going to look at how you implement hybrid locks that use a combination of spinning and operating system support via the FUTEX system call in Linux, which is a really interesting topic. That is going to be the bulk of the course, but then in the end of my part, there's going to be some material on concurrent programming in Haskell, which we'll see is not so different actually from concurrent programming in Kotlin or Java or C++. We maybe work in the IOMonad, but we use Haskell's mVar data type for communication. "
+  },
+  {
+    "start": 532.07,
+    "end": 577.415,
+    "speaker": "SPEAKER_00",
+    "text": "So that's interesting to get a glimpse of concurrent programming in another model. We're also going to look a little bit at concurrent programming in the Rust programming language. which has some similar things to programming in C++ and some differences. There are some aspects of the language that make programming much safer, but there are cases where those language features get in the way of expressing what you want to express. So, there's a trade-off there between safety and expressiveness. and then we'll finish off with some material on dynamic data race detection which is a technique we're going to use throughout the course to find bugs in our concurrent programs but at the end of the course we'll look a little bit into the algorithms behind those dynamic data race detection techniques I want to emphasize that the course is not a course about C++ software engineering. "
+  },
+  {
+    "start": 577.815,
+    "end": 611.198,
+    "speaker": "SPEAKER_00",
+    "text": "So for the coursework, for the exam, and for the tutorials, I don't mind if you're a hacky C++ programmer. So I'm not going to be assessing you on how good your C++ is. But as we will go into when I start my part of the course, it's a very useful language to be a vehicle for concurrent programming. The Art of Multi-Processor Programming is going to be the main book I'll draw on from my material. I've also, in my tutorial sheets, got some examples that come from this other book on shared memory synchronization. And like Azalea said, the material in the lectures is all going to be examinable. "
+  },
+  {
+    "start": 611.618,
+    "end": 684.06,
+    "speaker": "SPEAKER_00",
+    "text": "I'll also provide you with tutorial sheets each week. And that material will all be examinable too. And I think that goes for yours as well, right? So anything you see in the lectures, anything you see on the slides, plus everything in the tutorial sheets. And the coursework. And the coursework too. All of that will be examinable. And as Azalea said, there's also tons of good material out there on the Internet that can help you, but that's not in itself examinable. Any quick questions about my part of the course that will help you decide whether to take this course before I disappear? Yeah. So if I want to exchange, must I know like how to code in Pascal and Rust? Yeah. Oh, sorry, I thought. Can you just repeat that? I think I misheard what you said. Like, must I be fluent in writing Haskell? Do you need to be fluent in Haskell and Rust? You absolutely don't need to be fluent in Rust. We're going to very, very briefly touch on Rust, and I'm going to care about the concepts. No fluency in Rust needed. Haskell, some fluency. You already are all fluent in programming Haskell because you've used it in at least the first year of your degree. Oh, so you're an exchange student. You will need some Haskell fluency, but it will really be the future of Haskell that focuses on concurrency rather than implementing interesting data structures in Haskell. So the actual kind of algorithmic Haskell, for my part, will be really trivial. "
+  },
+  {
+    "start": 684.4,
+    "end": 716.291,
+    "speaker": "SPEAKER_00",
+    "text": "What I'm interested in is the way you use features of Haskell to communicate between threads, which is not that tough, but you do need to get your head around Haskell's type system to some extent. Good question. Anything else before I hand back over to Xavier? Yeah. We're not going to look at message-passing concurrency except that Haskell's mVars have a message-passing feel about them. So, in Haskell, the shared memory concurrency has a message-passing flavor to it. But we're not, for example, going to look at concurrency in Go, which is much more classic message-passing. "
+  },
+  {
+    "start": 717.991,
+    "end": 719.792,
+    "speaker": "SPEAKER_03",
+    "text": "Are we going to look at multiple tree options? "
+  },
+  {
+    "start": 720.735,
+    "end": 743.438,
+    "speaker": "SPEAKER_00",
+    "text": "Are we going to look at lock-free algorithms? Not in any detail, right? So we're going to use atomic operations that are the basis of lock-free algorithms, but we're not going to go into lock-free algorithms in any detail. Are we going to touch on real-time operating systems? Are we going to touch on real-time operating systems? No. Okay, thanks so much. Looking forward to seeing you in a few weeks. "
+  },
+  {
+    "start": 752.101,
+    "end": 784.255,
+    "speaker": "SPEAKER_01",
+    "text": "OK, so where were we? Right, coursework. This also applies to Alice's part of the course, the module. So as usual, you'll get two courseworks, one for the theory part, one for the practice part. The date is as follows. We haven't put them on CMTR, wherever it is we have to put it on. But roughly, you have two weeks to complete the coursework, and we'll make sure that you've covered all the material that you need beforehand. Specifically for my part, it will be due at the end of week nine, which is when your lectures end, so we will do our very best to get them marked and returned to you before your exams in a couple of weeks later. "
+  },
+  {
+    "start": 785.095,
+    "end": 816.884,
+    "speaker": "SPEAKER_01",
+    "text": "For the coursework, the good news is that it can be done in groups. Groups are up to four, so you can work together, which means also there's less marking for us. That's the main reason we really do it that way. One submission per group, and of course you can, you know, if you decide you don't like each other in the first coursework, you can always change groups and jump ship. And finally, that's all. So let's get started with some, as I said, baby material. This is just a gentle introduction to concurrency. A lot of this will be familiar with you, and there will also be a lot of history here. "
+  },
+  {
+    "start": 817.805,
+    "end": 887.09,
+    "speaker": "SPEAKER_01",
+    "text": "If you want a seat, there is a seat at the front. I assume you're there because of the plug, but there are lots of seats here. It might be easier for you. Did I make you shy? Are you hiding now? Okay. All right. So... Let's get started. Is anyone familiar with Moore's Law? Yes. What is it? The performance doubles every 12 to 14 months. Every two years. So, yes, that's roughly accurate. Moore's Law says essentially the power of computation that we have every two years, precisely every 1.8 years, the power of computation that you have, the speed of your computation roughly doubles. Now, if you look at this graph, you're measuring two things. These blue dots here are measuring the clock speed, and the green stuff are measuring the number of transistors on your chip. Now, the graph looks linear, but if you look at the y-axis, you will see that it's exponential. So it's going up logarithmically. So you can see that every roughly two years, even though the graph is linear, essentially it's going up exponentially, but the number of transistors and the clock speed is doubling. "
+  },
+  {
+    "start": 887.13,
+    "end": 944.973,
+    "speaker": "SPEAKER_01",
+    "text": "So now why is this important? So what did the number of transistors tell us? Anyone? Class? Anyway, this is not going to fly, by the way. I am very good at selling compositions. So if you don't answer, I'll just stay here. We'll have to speed up. Someone needs to have something. Even I don't know is OK. But number of transistors, why is that significant? Is it getting smaller? Sure, but I mean, what? So essentially, what do number of transistors tell me? Yeah, it more computes. It's compositional power. And as you can see, the numbers are increasing. But in the old days, I think these days, you guys are all very abstract. We used to be able to open up our computers. I personally have killed a number of CPUs that way. Actually play around with the motherboard, take the CPU out, and just look at it. These days, you have these gels that hold them in place. You can't do that anymore. But essentially, on your motherboard, on your CPU chip, you have a very finite amount of real estate. "
+  },
+  {
+    "start": 945.673,
+    "end": 975.81,
+    "speaker": "SPEAKER_01",
+    "text": "And if anything, the trend has been going towards getting things smaller and smaller. So it was important, if we wanted more computers and more transistors, Correspondingly, we had to reduce the size of the transistors as well to be able to fit more of them. But there is a limit to what we can do, how small we can make these transistors. So first thing you will notice that this graph is actually plateauing. So the Moore's law was accurate up until about the late 2000s, the noughties, as you call them. "
+  },
+  {
+    "start": 975.85,
+    "end": 1014.065,
+    "speaker": "SPEAKER_01",
+    "text": "I'm not even sure if you were alive then. People, to be honest, you're frustrating the young these days, or getting frustrated in the old. But in the early noughties, essentially, this graph plateaued. And it's because, I mean, they used to be very trendy. You would get all these technology magazines having, like, a transistor fitting on the tip of a needle. You know, everyone just bursting about how small the transistors are. But there is a limit to how small we can make those transistors. Do you know why? So we can't keep shrinking them. Yes? What goes wrong if it's too small? "
+  },
+  {
+    "start": 1018.558,
+    "end": 1050.076,
+    "speaker": "SPEAKER_01",
+    "text": "Quantum tunneling, exactly. So there is a literal physical limit, and that's one nanometer, and that's the size of a transistor. If you go any smaller than that, you'll observe this weird quantum phenomenon called quantum tunneling. I'm no physicist, but roughly speaking, if it's small enough, the electrons start leaking through your transistor. So it does exhibit weird behavior that you didn't expect. So we have a physical limit of how small we can make transistors. So the free lunch that we had in making things smaller and smaller and getting more compute has now ended. Now, the other thing we measure here is the clock speed. "
+  },
+  {
+    "start": 1050.116,
+    "end": 1089.979,
+    "speaker": "SPEAKER_01",
+    "text": "What does the clock speed mean? Knowing history. Yes. Number of instructions. Execute per second. Exactly. What's your name? Joseph. Joseph. You need to speak louder. Joseph. Again, TOSIP. Is that correct? OK. I'm sorry if I'm butchering it. TOSIP is absolutely right. The clock speed indicates the number of instructions you can execute per second. So when I tell you that my now old M3 MacBook has 12 cores of 4.05 gigahertz, It means, now pause to think about how impressive this is for a second. "
+  },
+  {
+    "start": 1090.079,
+    "end": 1120.648,
+    "speaker": "SPEAKER_01",
+    "text": "I know, again, you guys take all of this for granted. It means per second, each one of these cores, of which I have 12, can execute four billion instructions. Amazing. Now, as a person, I would be very happy with myself if I could execute one instruction per second, but four billion instructions. So the machines that we have already are miraculously fast. But of course, these days, especially with all those annoying AI bros, we need even more computers by our right. But the free launch stopped. "
+  },
+  {
+    "start": 1121.088,
+    "end": 1139.517,
+    "speaker": "SPEAKER_01",
+    "text": "We can't do this anymore. We can't increase the number of transistors. But can we increase the clock speed? I mean, we have been doing it to some extent. The CPUs have, again, according to that graph, gotten faster and faster in terms of their clock speed. but is there a limit? "
+  },
+  {
+    "start": 1142.34,
+    "end": 1152.35,
+    "speaker": "SPEAKER_03",
+    "text": "Yes, you. Okay, but I'm looking for something even more drastic than that, yes. "
+  },
+  {
+    "start": 1154.402,
+    "end": 1184.77,
+    "speaker": "SPEAKER_01",
+    "text": "Heat generation, exactly. So this is where we hit another physical limitation. If you overclock your CPU, which actually some gamers do, and these days people still do it, there is another physical limitation that you will hit. Because what's the byproduct of energy? Heat. So the more you execute, the more heat you generate. So what's going to happen if you, I think it's somewhere around 4.3, 4.4, the absolute safe physical limit of your clock speed, after which things will literally halt and catch fire. You can't do that. "
+  },
+  {
+    "start": 1184.81,
+    "end": 1219.602,
+    "speaker": "SPEAKER_01",
+    "text": "Of course, these days, you have very fancy cooling technologies. You know, all these, like, the data centers, people use liquid nitrogen, et cetera. But even then, you need to be able to dissipate all this heat quickly. Now, does anyone know the origin of the halt and catch fire phrase? I'm not talking about a TV show. I guess you haven't seen it. Has anyone seen the TV show? It's a good show. You should watch it. Now, what's the origin of halt and catch fire? You guys need to know your history. OK. I'm embarrassed to be. So hold and catch fire, essentially, in the old days, I think it was a Motorola CPU. "
+  },
+  {
+    "start": 1220.122,
+    "end": 1251.69,
+    "speaker": "SPEAKER_01",
+    "text": "What happened was every instruction had an opcode. So you had a certain number of bytes to represent each instruction, each opcode. And I think there were two of these opcodes that were not used. So essentially, no instruction mapped onto it. Now, due to a bug in their development, that's why correctness is important, it meant that there could be situations in which you would trigger one of these opcodes, which wasn't defined, so the computer would get stuck in this infinite loop of trying increments in the PC, the program counter, but not doing anything, because there was no instruction for it to execute. "
+  },
+  {
+    "start": 1252.13,
+    "end": 1285.408,
+    "speaker": "SPEAKER_01",
+    "text": "So it would sit in that state until somebody tried switching the machine on and off again. Any IT crowdfans in the room? Not only you don't know your history, you don't know your pop culture either. We need to watch IT crap. You have to restart your machine to get it out of this infinite loop. And essentially, jokingly, this becomes halt and catch fire, because anything goes. The computer is doing whatever it wants, including catching fire. Now, these days, halt and catch fire has become synonymous with the computer doing something wacky and unexpected. "
+  },
+  {
+    "start": 1285.849,
+    "end": 1330.528,
+    "speaker": "SPEAKER_01",
+    "text": "For instance, in C, they say it has a catch fire semantics in the language C, meaning that if you do anything that has undefined behavior, including races or accessing uninitialized memory and so on, According to the specification, the behavior is undefined, which means it gives the implementers of your compilers, let's say whatever, the ability to do whatever they want in these scenarios, including catching fire. So these days, catch fire essentially means something wrong, something bad, something unexpected. OK, so since the free lunch is over, and we can't increase our clock speed, and we can't increase the number of transistors, and we still have a finite amount of space on our motherboards for our CPUs, we need to do something else. "
+  },
+  {
+    "start": 1331.449,
+    "end": 1361.748,
+    "speaker": "SPEAKER_01",
+    "text": "We need to write programs concurrently, which means that have more than one CPU, essentially. So again, this is even before my time, not that I'm that old. So essentially, this is the Von Neumann architecture. We have our CPU, which is the brain of your machine. This is how I was taught, and it has the memory. It talks to it. And here, I have a single CPU. This is how computation is actually started. But as my wooly friend here suggests, the wooly mammoth, this style of computation is now extinct. "
+  },
+  {
+    "start": 1362.008,
+    "end": 1392.97,
+    "speaker": "SPEAKER_01",
+    "text": "No one in their right mind develops, let alone uses, a single CPU machine. So we realized that, OK, we can't increase the number of transistors here. We can't overclock our CPUs. So let's switch to another more interesting model of computation. What if instead of one brain, one CPU, we had multiple CPUs? Because what could be better than multiple brains? So this was the concurrency model that we came up with. We had multiple CPUs. We have the memory here. "
+  },
+  {
+    "start": 1393.03,
+    "end": 1429.621,
+    "speaker": "SPEAKER_01",
+    "text": "And each one of them have their own caches. What is a cache? Why is it fast? Because? No, it's not to do with the size. It's close. It's on the chip. So every time I want to read something from memory, I have to go through this bus for the data to travel all the way down the bus and back to do this round trip. And of course, I'm also limited by the bandwidth of the bus. But if I have my own selfish memory close to the chip, on the chip impact close to the CPU, Then, of course, things will be much faster. "
+  },
+  {
+    "start": 1430.881,
+    "end": 1463.842,
+    "speaker": "SPEAKER_01",
+    "text": "And of course, you will have learned in your operating systems about different hierarchies of caches and different styles. There are cases in which one cache, one level of cache, depending on your level of privilege, is owned literally by one core. So it has complete access to it. So it doesn't even have to worry about things like cache coherence, if you know what that is. The hints that you need is in this lovely bed down here. What's this bed? Dodo. Dodo, good. Actually, you're one of the classes who knows what this bed is. So pop culture and your history are not so good, but natural sciences, you're doing better. "
+  },
+  {
+    "start": 1464.343,
+    "end": 1497.281,
+    "speaker": "SPEAKER_01",
+    "text": "So this is Dodo, and dodos are now extinct, thanks to us. This model of concurrency is also now extinct because, again, if you had multiple CPUs, it meant a lot of space on the motherboard, and we couldn't afford to increase the amount of footprint that you have on the motherboard. So what did we do? We essentially did the same thing and said, rather than having a single separate chips for each CPU, what if we made them smaller and actually just extracted that unit of computation that we now know as a core and fit multiple cores on a single chip? "
+  },
+  {
+    "start": 1497.801,
+    "end": 1528.389,
+    "speaker": "SPEAKER_01",
+    "text": "So, it's exactly the same principle as far as we're concerned, but in terms of the physical design, it's different. So, we have one chip, but with multiple cores on it. Like I said, my now old laptop, which I will be replacing this year, has either 12 or 14 cores. I can't remember. So what we do is essentially have multiple cores. And this is, for the last few decades, been the model that we've been dealing with when we talk about multiple processors, closing the name. The very first one that we need to worry about was this particular, what's it called, T2000 Niagara by Sun Microsystems. "
+  },
+  {
+    "start": 1528.409,
+    "end": 1561.238,
+    "speaker": "SPEAKER_01",
+    "text": "Does anyone know who Sun were? They were behind things like Java, and at some point they were bought out by Oracle. So, if you needed any motivation, this was a very long prelude to say that the free lunch is over, we cannot cure software bloat by waiting, because what used to happen, potentially, was that you would write code, and then you could claim things like, My code is so ahead of its time that no computer can deal with it. I just have to wait two years until computation power catches up with it and my code will be fast enough. "
+  },
+  {
+    "start": 1561.799,
+    "end": 1592.874,
+    "speaker": "SPEAKER_01",
+    "text": "Now that free ride is over, you can't do that anymore. Because of course, the computation power is actually very good, so if your code is slow, it's not your fault. And yes, like I said, we have to be able to exploit as much concurrency as we can by having parallel or concurrent computation. So traditionally, excuse me, I'm not frustrated or anything. It wasn't a sigh of, ah. So traditionally, this is the graph that we had. Now, these are not my slides. It always annoys me, because I inherited them from someone else. "
+  },
+  {
+    "start": 1592.914,
+    "end": 1625.42,
+    "speaker": "SPEAKER_01",
+    "text": "And the maps here doesn't add up. It used to be 7.2. But forgive that. I couldn't be bothered to update it. So the speedup that we had, remember, every 1.8 years or so, by current computation, we dropped 3,000 again here by a factor of 1.8. So this is the kind of speedup we're used to getting under Moore's law. And now we want to replicate that effect, but by concurrency, by using more cores. So if this is the same code, and I have a single unit processor, and I increase the number of processors that I have, will I be able to get the same kind of speedup? "
+  },
+  {
+    "start": 1627.242,
+    "end": 1681.947,
+    "speaker": "SPEAKER_01",
+    "text": "What do you think? The answer is on the slide. Or do you think that's not going to happen? So why is concurrency not as effective as we think? Overhead. Okay, sure, but what does overhead mean? Uh-huh, right. Very good. So yes, there is some overhead associated with concurrency, and that's because when you have more than one cook in the kitchen, they need to talk to each other. They need to synchronize. They need to essentially cooperate towards the same goal. and make sure they're not undoing each other's work, they're not overwriting each other's work, they're not duplicating effort, and that's what our friend was referring to as overhead. So this communication or synchronization is important. Specifically, there are two kinds of synchronization that we're often talking about. The first one is actually timing. "
+  },
+  {
+    "start": 1682.367,
+    "end": 1715.457,
+    "speaker": "SPEAKER_01",
+    "text": "Specifically, if you've done any graphics programming on GPUs and whatnot, or even things like when you do parallel metric simplification for a lot of your machine learning algorithms, there are points in your computation that they need to catch up with each other. So you have these barrier instructions saying, by the time I get to this program point, every thread needs to be at this point. So these are called barrier instructions. So even if one of them was fast enough and the other was slower, they still have to wait for each other, and that's part of the overhead. The analogy that they always give is, imagine you're on TikTok, you see the latest, Gen Z still uses TikTok, right? "
+  },
+  {
+    "start": 1715.537,
+    "end": 1755.829,
+    "speaker": "SPEAKER_01",
+    "text": "I don't even know what it is. So you've seen the latest restaurant trend and you decide to go out, all of you, just to this fancy restaurant and try. Now, this is one of those very fancy restaurants and they have this policy that they can't seat you until all members of your party are there. So you always have this one eager friend who arrives 15 minutes earlier, let's say your reservation was at 7 o'clock, he arrives at 6.45, and because of the restaurant policy, they can't go in until everyone gets in. Now everyone else, almost everyone else, gets there on time at 7 o'clock, but there's one person missing, that pathologically late friend that is never on time, and you always have to tell them to time half an hour earlier, and even then, they somehow manage to be late. "
+  },
+  {
+    "start": 1757.03,
+    "end": 1792.039,
+    "speaker": "SPEAKER_01",
+    "text": "You're all looking at each other and I'm guessing every group has one of those friends. Mine definitely do. So let's say that late friend arrives at 7.15. Even though that guy, that poor first service there at 6.45, he still has to wait half an hour for everyone else to arrive so they can go in. And this is what happens sometimes during your parallel computation. If you don't organize things, if you don't divide your workloads carefully, they end up waiting for each other. So you're essentially throwing away a lot of the goodness, a lot of the benefits that you would get from comparison. So that's one. The second problem that we have is Things like mutual exclusions. "
+  },
+  {
+    "start": 1792.099,
+    "end": 1827.34,
+    "speaker": "SPEAKER_01",
+    "text": "Sometimes, you know, there is, even though a lot of the code can be run in parallel, there are parts of the code that only one thread can execute at a time, so there's access in some shared data, and over those things, they have to, again, synchronize by using things like retexts, Ali will talk all about, and that essentially sequentializes your code, as we will say in a minute. So that's another over here. So if, that's why things like... In machine learning, the benefits that we get from distributed computing or parallel computing is great because, for instance, as you may know, matrix multiplication is one of those operations that can be done very efficiently in parallel. "
+  },
+  {
+    "start": 1827.74,
+    "end": 1859.021,
+    "speaker": "SPEAKER_01",
+    "text": "They can do distinct things without stepping on each other's toes. So you can divide the workload fairly evenly without them getting on each other's toes and having to use any synchronization. But if you don't, and if they do need to access data, essentially as part of a mutual exclusion block in a critical section, then you are sequentializing your code. And that's another bottleneck that we have. So in reality, that 7.2 or 7 times speedup is a pipe dream. What you end up getting is not even a two-factor fold-up. So concurrency is hard. "
+  },
+  {
+    "start": 1859.241,
+    "end": 1889.668,
+    "speaker": "SPEAKER_01",
+    "text": "It's worth it, but it can be hard, and it needs to be designed carefully. So in this part of the course, we will not go anywhere near algorithm design, what it means to write good concurrent programs, what it means to write efficient concurrent programs, what it means to write, one of you asked, lock-free or weight-free algorithms, which was for a long time an active area of research. We won't go anywhere near that. We want to think about the foundations, the meaning of concurrent programs, how to model them, and how to understand them. Because without that understanding, We're all doomed. "
+  },
+  {
+    "start": 1889.848,
+    "end": 1953.454,
+    "speaker": "SPEAKER_01",
+    "text": "Concurrency is hard. Catching concurrent bugs really hard, even harder. Has anyone heard the term Heisenberg? This was a sigh of frustration. You did not know your history. So who's Heisenberg? Do you know who Heisenberg is? You all know the physicists, but you don't know who Heisenberg is. Who's Heisenberg? Yes? Quantum mechanics person, a physicist. Essentially, through this uncertainty principle, it said that, I am going to butcher this because I'm not a physicist, nor do I wish to be. Essentially, you cannot measure two properties of some phenomena all at once. In this case, it was momentum and position. The more you know about one, the less you know about the other. And knowing more about one thing will actually affect the data that we have from the other thing. So they're inversely correlated. Now, computer scientists, being the nerds that they are, did a word play on this and called the class of bugs, class of bugs in concurrency, Heisenbugs, because of this uncertainty. "
+  },
+  {
+    "start": 1953.914,
+    "end": 1984.909,
+    "speaker": "SPEAKER_01",
+    "text": "So concurrency bugs are notorious to catch because A lot of the times, the bugs are not predictable. They only occur on the Saturn intermoving. So I hope you know what intermoving is in this case. So you can't always observe it. So you can't just execute your program every time and expect to see that bug. So that's one difficulty. But actually, the act of trying to observe a concurrency bug affects the bug. So if you try to observe it, for instance, what is your go-to debugging tool? Like a very cheap undergraduate level. Print statements, thank you. "
+  },
+  {
+    "start": 1984.929,
+    "end": 2021.319,
+    "speaker": "SPEAKER_01",
+    "text": "So you would say, okay, print this, print this, print that, right? So you just want to see what your stack is in the moment. And as you insert more of these print statements, you're affecting the scheduling, the scheduler. So you're affecting the interleavings, which means that the bug suddenly disappears. You know how when you have, hopefully you've never been ill, but you have an ailment and you go to the doctor and suddenly the ailment disappears? It's like that. As soon as you try to observe it, it goes away. So that's why concurrency bugs are really hard. And unfortunately, even today, despite all the research that we've done and all the things that Ali is going to show you, we have, in terms of automated tools, we have very primitive support for detecting these bugs. "
+  },
+  {
+    "start": 2021.959,
+    "end": 2054.328,
+    "speaker": "SPEAKER_01",
+    "text": "This is why, and this is not me bragging, I promise, People like me are paid a lot of money by big companies like Meta or Bloomberg, so I can go and do consultancy for them, which means that I just build bespoke tools and just lend my expertise. This is my CV line, by the way. So actually, we take this concurrency box for them. And before the boom in all these LLMs and all that, there was actually a very lucrative career path for students to do a PhD in formal methods, specifically concurrency, and then go and become the in-house concurrency express at one of these big tech companies, and he paid a lot of money. "
+  },
+  {
+    "start": 2054.869,
+    "end": 2086.333,
+    "speaker": "SPEAKER_01",
+    "text": "So, fruitful thought. In case you weren't already motivated enough to understand the purpose of that. Okay, so what is the mental model that we have? As one of you asked, when it comes to concurrency, we have two main schools of thought. We have shared memory concurrency, and we have, sorry, I'm just checking the time to make sure, yes, and we have message passing concurrency. In this course, we will not go anywhere near message passing concurrency in terms of the theory. We will focus on shared memory. Just to say that shared memory is the winner anyway. Shared memory is more general than message passing concurrency. "
+  },
+  {
+    "start": 2086.353,
+    "end": 2121.203,
+    "speaker": "SPEAKER_01",
+    "text": "There are simple things like mutual exclusion that you can't actually achieve with message passing concurrency. or at least not efficiently. So we will focus on shared memory concurrency. At least in the past, there was a fourth year course on message passing concurrency. I don't know if it's still alive these days, but if you wanted to, you could always read about it. So we will focus on shared memory, meaning that concurrent threads communicate via class. The shared memory. Thank you. So that's the clues in the name. So if the threads want to talk to each other, they will be using the shared medium of the memory to talk to each other and synchronize and coordinate. "
+  },
+  {
+    "start": 2122.564,
+    "end": 2180.555,
+    "speaker": "SPEAKER_01",
+    "text": "Now, so this is one of my threads. These things that look like a bug are supposed to look like a CPU. They are pictorially represented threads. I have my objects in memory that they access. So what's an object? What do I mean by that? This is a trick question. Do I even have to answer a trick question? Go on. Just like a random location. OK, so almost. Basically, the medium through which they communicate, their representation in memory, depends very much on the level of abstraction that we're working in. There is joke, this joke in software engineering and computer science circles that every problem in computer science can be solved by one degree of indirection, by one degree of abstraction. Go up a level and the problem disappears. This is what we're doing here. So depending on, let's say, In this course, we won't go anywhere below assembly language. That's the lowest level of the stack that we will consider. "
+  },
+  {
+    "start": 2180.615,
+    "end": 2216.609,
+    "speaker": "SPEAKER_01",
+    "text": "We won't go anywhere near the register transfer layer or the logical gates. But if you're thinking at the assembly level, for instance, the objects that we're thinking is the representation of the memory that we have in mind is just a bag of locations, single locations in memory, like maybe bytes, words, whatever. So don't worry about that. But if I go up the abstraction tower, and I'm thinking in language like Java, then the things in memory through which the threads communicate are objects. So this is a more coarse grain. It could be a set object. It could be a queue object. So the mechanism through which threads talk to each other, that granularity very much depends on where you are in the abstraction tower. "
+  },
+  {
+    "start": 2217.742,
+    "end": 2249.614,
+    "speaker": "SPEAKER_01",
+    "text": "So for some notion of objects, we have objects, we have threads accessing them, and these objects may overlap, and multiple threads may be accessing the same object. So that's why it's important for them to synchronize with each other. Now, concurrency is hard for other reasons, because it's great there is power in numbers, as they say. It's good to divide and conquer and do things in parallel. But you also need to make sure your teammates are reliable. If a thread dies, Okay, it's bad because obviously you lost some of your work power. "
+  },
+  {
+    "start": 2250.555,
+    "end": 2288.34,
+    "speaker": "SPEAKER_01",
+    "text": "But it's also bad because it could be that someone else, this poor chap here, this blue thread, was waiting on this yellow guy who is now extinct for some computation. So not only does he die, he's also essentially rendered this other thread defunct because he was waiting on it. And things can go wrong, so if one of the threads, in this course, again, we will not be worrying about things like threads dying, the crash mechanisms, the recovery mechanisms, exception handling, and so on. But these are the things to bear in mind, that asynchronous computation, as it were, when you're waiting on the result of something, or you need to be working up in concurrency, get much more complicated. "
+  },
+  {
+    "start": 2289.648,
+    "end": 2321.078,
+    "speaker": "SPEAKER_01",
+    "text": "We will also not be making any assumptions about timing. We cannot. If you want to reason generally and understand generally the behavior of our concurrent programs, we need to think generally, which means that we cannot make specific assumptions about delays. So common sources of delays, cache misses. What is a cache miss? Yes. What's your name? Toby. Colby, yes, Colby is right. "
+  },
+  {
+    "start": 2321.399,
+    "end": 2352.073,
+    "speaker": "SPEAKER_01",
+    "text": "So cache misremember, he essentially said you have the cache, which is near to your CPU, it's on the same chip, it's close. You keep things there, but you have finite space, so sometimes you try to access something that's not in the cache, you get a cache miss. So as far as delays are concerned, that's considered short. You have to go and fetch it from memory. What happens when something's not in memory that you wanted to, can that happen? Yes, what happens? Yeah, so what's the phenomenon called when something's not in memory? You get a page fault, right? That's what you get. "
+  },
+  {
+    "start": 2352.093,
+    "end": 2382.703,
+    "speaker": "SPEAKER_01",
+    "text": "So you try to read something. It's not in the cache. You go to memory. It's not in memory. You get a page fault. For instance, it could be that your code base was so massive that to execute it, you totally page some of it at the time into a memory, and the rest is living on the disk. So when you run out of code to run, and it's no longer in memory, you have to then go to the disk, fetch it, put it into memory, and then return. So that's a much longer delay than, let's say, a cache miss. And the worst of all, the worst time and delay that you can have is when your scheduling quantum is used up. "
+  },
+  {
+    "start": 2382.723,
+    "end": 2417.621,
+    "speaker": "SPEAKER_01",
+    "text": "What does that mean? Yeah, because again, you can't be selfish, me, me, me, me, me, as a threat. You all have to share the same resource sometimes. You're running on the same core, which means that if you have your scheduling number, then it could be round robin, it could be something else. The OS decides who gets to execute when and for how long. That's your scheduling quantum. And if you run out of there, you need to wait your turn until, you know, depending on your level of privilege, depending on your priorities, you return again and you can go, and that can be quite long in terms of computation. "
+  },
+  {
+    "start": 2418.141,
+    "end": 2452.94,
+    "speaker": "SPEAKER_01",
+    "text": "Again, these are things that you need to be familiar with, but you don't need them in this course because you will not make any specific assumptions. And when I say you need to be familiar with, I mean as educated computer scientists. I'm not always talking in terms of exams. When you go out there as graduates of Imperial College of Computer Science, there are certain things that I expect you to know. That's all. Right, so some terminology. So we've been talking about threads, processes, processors. What's the difference between all of them? Now, in this course, as you will see, I won't make the distinction after today, but it's good to know the difference between them. "
+  },
+  {
+    "start": 2453.0,
+    "end": 2491.608,
+    "speaker": "SPEAKER_01",
+    "text": "Specifically, my general area of research is called programming languages research. It's more on the verification side. But if you talk to anyone who does systems, including people like Peter Pietzuch, love him, amazing guy, they get very picky about this terminology. They will read you the last rights if you don't use the correct terminology. That's because they are operating at a level of abstraction where this distinction matters, whereas people like me in my happy abstract world, I don't need to worry about this distinction. So what's the difference? I have my multiple cores, and each one of these also potentially got processors. "
+  },
+  {
+    "start": 2492.98,
+    "end": 2528.576,
+    "speaker": "SPEAKER_01",
+    "text": "And within my program, or within the environment of execution, I have processes. So each process, you can think of it roughly as one application. For instance, the mail client that you're running is one process. For those of you who are watching TikTok right now instead of paying attention to me, that's a separate process, probably, on your phone. So each process roughly corresponds to one application. Now, within each one of these processes, you then have multiple threads. So for instance, your mail client, there is a daemon thread that's sitting there in the background appalling to see if you have any email. "
+  },
+  {
+    "start": 2529.377,
+    "end": 2567.228,
+    "speaker": "SPEAKER_01",
+    "text": "That's one thread. Now, if you hit Compose to try and write an email while I'm lecturing, which you shouldn't be doing, then that's a separate thread. So each process itself can have multiple threads. Now, each process or each application as it were, has its own designated area in memory. So different processes usually don't step on each other's toes. They access distinct parts of the memory because they don't need to communicate with other processes. If they need to, the OS will take care of that. They don't directly talk to each other. Whereas the threads within the same process are operating in the same sound bit, in the same designated area, So, they are accessing the same part of the memory. "
+  },
+  {
+    "start": 2567.248,
+    "end": 2616.753,
+    "speaker": "SPEAKER_01",
+    "text": "It is important for them to communicate and make sure they don't step on each other's toes. Right. So, we have processes, multiple threads within them. Sometimes you also, just to keep you on your toes, call them processes because like I said, this distinction doesn't always matter. We have a single shared memory, the objects or locations, whatever you want to call them, live in memory and we have asynchronous unpredictable delays. and like i said because we will be we will not be making any assumptions on the number of cores that you have or what applications you're running we will be thinking at an abstract level where we don't need to make a distinction between threads and processes and so on so i will probably mostly refer to them as threads because that distinction doesn't matter Right, so this is all the theory part of the course. "
+  },
+  {
+    "start": 2616.773,
+    "end": 2647.668,
+    "speaker": "SPEAKER_01",
+    "text": "So what we're going to do, like I said, this is not about writing good concurrent programs in terms of efficiency or performance. We are concerned with writing correct concurrent programs, because correctness comes absolutely first. This is why I've always insisted that the course is called Theory and Practice, because theory needs to come first. and then you go into practice. Before becoming a medical doctor, you usually learn the theory, the textbooks, and then go and operate on people, and then directly go operate on people. Now, unfortunately, there's no checks and balances such as that for our engineers. "
+  },
+  {
+    "start": 2647.688,
+    "end": 2681.28,
+    "speaker": "SPEAKER_01",
+    "text": "They go into the world and write the wildest code, but that's another discussion. So as a result, because we are concerned with theory, we are going to focus on idealized models. They're not necessarily the most practical in the same sense that when you study models of computation, we looked at Turing machines, not because they're practical, not because we're expecting you to have one built in your garage ready for execution, but because they're simple and they convey the idea in a clean way. So we are going to look at idealized rather than pragmatic models of computation, look at simplistic problems and focus on correctness. "
+  },
+  {
+    "start": 2682.06,
+    "end": 2718.466,
+    "speaker": "SPEAKER_01",
+    "text": "This is my favorite quote from that book that I recommended. It's by a guy called ,, one of the authors of the book. He is a big deal in the concurrent and distributed systems world. And he's actually a very practical guy. So he's more in the practice world than in the theory world. Nevertheless, he said, correctness may be theoretical, but incorrectness has a practical impact. As I said, concurrency bugs, difficult. Consultancy pays a lot of money. These bugs are hard to catch. Yada, yada, yada. So that's why I'm hoping by the end of these lectures, you all become bona fide theoreticians in computer programming. "
+  },
+  {
+    "start": 2720.949,
+    "end": 2752.301,
+    "speaker": "SPEAKER_01",
+    "text": "Okay, so we talked about this at the level of hardware. We typically talk about processors, of course. Software, we talk about threads and processes, but we won't be making a distinction. It is okay in this case, this is a safe space to conflate the two and use the wrong term, but be careful who you talk to. That distinction sometimes does matter. There are so many messages today. Sorry. I'm not looking. I'm just trying to check the sign. Right. Designing concurrent programs. Yes. Oh, there's another question. "
+  },
+  {
+    "start": 2752.341,
+    "end": 2871.7,
+    "speaker": "SPEAKER_01",
+    "text": "Sorry. They're just yawning. You had your hand up. Good. It goes without saying, if I haven't, I think I haven't already said. So if you have any questions at any point, interrupt me, ask questions. Are there any questions? Non-stretch related questions. okay okay so we have four more minutes let's go through our first example this is very easy stuff you will have all you will all know how to do it but we'll go through it to make your point so in your first year when you taught your haskell one of the first things that you write is hey can you check if this number is prime or not or give me all the prime numbers between x and y we're going to try and do that but we're going to try and do it in a parallel way By the way, what's the technical difference between concurrent and parallel? Yes? . But you're defining one in terms of other, then what does parallel mean? . Simultaneously, okay. Yeah, you're right. I would say absolutely, but yes, it needs a bit more explanation. So when we talk about parallel computation, we mean true concurrency in a sense that they are literally executing at the same time. I have independent cores and within the same period of time, they're both executed because they don't rely on the same data, they don't need to access the same data, and they are separate computation units. concurrency could be parallelism it's more general but it could be also the illusion of concurrency so sometimes for instance in the old days when i had one core i could still achieve concurrency by having multiple threads as a human being i'm a uni processor i only have one brain but i often tend to multitask and the way i do it like every other good human being is by context switching i do one then i do the other not very well but I can interleave between tasks and give the illusion of doing multiple things at the same time. "
+  },
+  {
+    "start": 2872.04,
+    "end": 2907.095,
+    "speaker": "SPEAKER_01",
+    "text": "So concurrency could be either the illusion of concurrency in that sense or actually true concurrency, which is what we call parallelism. So that's why when we talk about things like matrix multiplication, again, in the machine learning context, that's true parallelism because you can actually divide and conquer. You can divide your workload evenly and do things in parallel because they don't rely on each other. So back to our challenge. We want to print all the primes between 1 and a million, 10 to the 6. We have 10 processors, or 10 cores, or 10 processor, 10 core multiprocessor, and one thread per processor. "
+  },
+  {
+    "start": 2908.176,
+    "end": 2946.723,
+    "speaker": "SPEAKER_01",
+    "text": "And our goal is to get a 10-fold speedup. So the first thing that I would do, remember I just said parallelism is often better than concurrency. I can divide the workloads in a disjoint way so they don't step on each other's toes, so that they can do their own thing. And I don't care about the order the numbers are printed. So what I can do, given I have 10 threads, is I can divide my range into equal chunks of 100,000, pass the first interval to the first thread, the second one to the second thread, and so on, and ask them to compute each of the primes. "
+  },
+  {
+    "start": 2948.308,
+    "end": 2986.701,
+    "speaker": "SPEAKER_01",
+    "text": "So this is Java-like, but it's actually Scala. Again, don't ask me, this isn't my choice. These slides are actually inherited from the great Morris Hallehy, so you have him to blame. So this is my program. Each thread has a thread ID, so thread ID between 0 to 9. And here, I'm calculating the 100,000 block for each of the threads. So for instance, the very first thread, block 0, will get numbers between 1 and 10 to the power of 5. The second one will check numbers between 10 to the power of 5 plus 1, 2, 2 times 10 to the power of 5, and so on. "
+  },
+  {
+    "start": 2987.181,
+    "end": 3053.006,
+    "speaker": "SPEAKER_01",
+    "text": "And I check if it's prime, and then I print it. So first things first, is this algorithm correct? Does it print all primes? It's not a trick question. Yes. I'll take a physical note. It is correct. It does exactly what I asked it to do. But can you see any problems with it in terms of performance or otherwise? Yes? Why? Because there are more numbers or the calculations are harder? Yes. So remember when I said parallel computing is great, but provided that they have even workloads so they don't end up waiting for each other, not undoing, but undoing the goodness of concurrency. One of the problems that we have in this example is that the workload is not even. First, you have fewer numbers as the numbers get bigger, fewer prime numbers as the range gets bigger. But conversely, the work gets harder. Checking if a six-digit number is prime is much harder than checking if seven is prime. "
+  },
+  {
+    "start": 3053.226,
+    "end": 3072.363,
+    "speaker": "SPEAKER_01",
+    "text": "Because as you know, you have to check the visibility by primes of the square root. So there's more work to be done the bigger the numbers are. So you don't have an even workload. As a result, this is not an ideal parallelization scenario. Nevertheless, it is correct. So yes. "
+  },
+  {
+    "start": 3087.8,
+    "end": 3147.965,
+    "speaker": "SPEAKER_01",
+    "text": "IsPrime is given a number and just checks if it is prime or not. I give you 7 to 1, and I ask you to check primality. It just means that you check the visibility of prime numbers from 2 to square root of 7 to 1. That's all it means. And I have literally 10 separate cores, so they can do this in parallel. Right, so not good enough. What's another solution? Someone else. What's your name, by the way? Lauen. Lauen. Not Lauen. Someone else? Yes. Are you saying that literally everyone just comes in and checks them one by one? So you basically still have this range idea. You have a different range for each thread, but smaller ranges. "
+  },
+  {
+    "start": 3151.528,
+    "end": 3170.611,
+    "speaker": "SPEAKER_03",
+    "text": "OK, what I'm trying to get with this question is, there are other ways to parallelize this. "
+  },
+  {
+    "start": 3170.711,
+    "end": 3206.619,
+    "speaker": "SPEAKER_01",
+    "text": "Forget about that. What if I wanted to do this in a way that they can essentially access the same, try to do the same work, but they had a way of talking to each other? How would I make this concurrent? Okay, so that's what we want to do. We want to have a shared counter, essentially, the next number to be checked in, and first comes first serve. Anyone who is free will come along next, check that number, and we want the next person to check the next one. If you've ever been, like, all-time bakeries, or block tests on the NHS if you've ever done it. "
+  },
+  {
+    "start": 3206.639,
+    "end": 3252.004,
+    "speaker": "SPEAKER_01",
+    "text": "You go in, you pick a number, you wait your time. So that's your number. So here a thread comes in, picks a number, checks the probability for that, and as soon as it's over, it will go back and pick another number. So this is what we want to do, and here's our implementation. Again, the limit is check everything between 1 and 10 to the power of 6 or 2 and 10 to the power of 6. So my shared counter, which is initially, let's say, set to 2, I get that counter. I get the next number and increment it. I check the primality for that, and I go back. So each thread will be executed in this program. This is truly concurrent in the sense that they can be essentially stepping on each other's toes, competing for the next number and the next number. Is this correct? "
+  },
+  {
+    "start": 3254.165,
+    "end": 3308.405,
+    "speaker": "SPEAKER_01",
+    "text": "This is a trick question. And on the implementation of the counter. Elaborate. So if the counter is not stressed, then you will get- Yeah, what does that mean? Can you focus on something else that I'm doing here? So you don't get to do get an increment in one clock. Exactly. In one cycle. Very good. What's your name? Binshi. Binshi. So Binshi is absolutely correct. It depends on your implementation. We're doing things now concurrently, and they could be competing for the same number. If I write this in C and give this to the compiler, it will essentially Ignore that. We talked about that. Translate this count++, which is what I'm doing, into three instructions. First puts the old value in something called temp, then increments it, and then returns the old value. "
+  },
+  {
+    "start": 3309.512,
+    "end": 3341.691,
+    "speaker": "SPEAKER_01",
+    "text": "Now, the problem is that because things are running concurrently with each other, threads can interleave and come in between. So what happens, for instance, this red thread, imagine the value is initially 0. It reads 0, and it then writes 1. And this one also tries to read it. It reads 0. And then for some twisted luck, it gets preempted. It can't do the increments, so it has to wait. In the meantime, the red thread goes on, increments it by one, then reads it one again, increments it by two. "
+  },
+  {
+    "start": 3342.311,
+    "end": 3376.594,
+    "speaker": "SPEAKER_01",
+    "text": "Then the sleepy guy wakes up and decides to increment it from 0 to 1. So it's essentially undone some of the work that's already been done by the other thread. So you end up checking the same numbers more than once, essentially, and undoing each other's work. So this get an increment needs to be class, atomic or indivisible. Now, the word atomic in the concurrency circles is so overloaded that I'm not a fan of it. So here, what we mean by atomic is that it needs to be indivisible, meaning that these read phase and the write phase need to be glued together so that no thread can come in between. "
+  },
+  {
+    "start": 3377.895,
+    "end": 3415.599,
+    "speaker": "SPEAKER_01",
+    "text": "Now, how would I do that usually? Hm? We've all done Java programming. Do we not have such instruction already on our machines? From parent swap, right. So there is a class of instructions we will see maybe later today called read, modify, write instructions. An example of that being CAS. Literally an atomic instruction on your hardware, more or less in any decent language. Even if the language doesn't have it, you can use inline assembly to call that instruction. "
+  },
+  {
+    "start": 3415.619,
+    "end": 3448.752,
+    "speaker": "SPEAKER_01",
+    "text": "Now, it's not always encouraged, but you can do it. You can call the CAS directly. In C, you can always use inline assembly, but C has its own atomics. But we will not worry about that. So that's one way of doing it. But of course, if you were in Java, another way to do it was to protect this bit of code by a synchronized block. Synchronized means exclusive, yes. So it means that this block of code, at most, one thread could be executed at the time. "
+  },
+  {
+    "start": 3448.972,
+    "end": 3468.26,
+    "speaker": "SPEAKER_01",
+    "text": "So essentially, it puts a lock around it and makes it thread-safe, as you were saying, Vinci. So... That was a problem, so we need to make this synchronized to achieve mutual exclusion, which tells me it's time to take a break. So let's take a 10-minute break, and then we will come back. "
+  },
+  {
+    "start": 3608.467,
+    "end": 3647.657,
+    "speaker": "SPEAKER_03",
+    "text": "I would expect that. I thought it sounded like a... It's on max, more or less. Yeah, it's on max. It doesn't go up. And, I mean, it's switched off now. I think unless I talk like this, which is very awkward. Is the string, like, contractible? So maybe you can pull it off a little bit. I think it's going to be worse because then it's going to be in your neck. Exactly. It's not an accessory I signed up for, but I'll try. Yeah, I hear you. I'll do my best. This one is the main... "
+  },
+  {
+    "start": 3662.149,
+    "end": 4028.101,
+    "speaker": "SPEAKER_01",
+    "text": "It's not, that's the point. We want it to be atomic, but as it's implemented, it's just plus plus. Okay, so are we going to cover that now? I mean, I said how to do it, right? You either put it in a synchronized lock, that's one way of making it atomic, or you use something like a cast. Oh, so how do you do that? There's already a few more further. Thank you. here we say make it atomic so either you're going to read my highlight which is a cast or you could do something but it would ask whether you could turn the mic volume up a little bit yeah everyone it's on max here and here and i think unless i talk like this which is very awkward i'll try my best to hold it close thank you anyway i'm sorry Thank you. "
+  },
+  {
+    "start": 4028.541,
+    "end": 4063.37,
+    "speaker": "SPEAKER_01",
+    "text": "Okay, so let's continue. I'm about to tell you a story. I'm in a privileged position to tell you that story because it's not a very mysterious example or story, but it is one of the most influential people in the field of concurrency systems distributed program. If you haven't heard of Leslie Lamport, look him up. He is a Turing Award winner. He is responsible for many things, including your beloved text editing system of LaTeX. So that's the guy. He is behind this story. He told this story of mutual exclusion the very first time through this fable of Alice and Bob. "
+  },
+  {
+    "start": 4064.25,
+    "end": 4096.102,
+    "speaker": "SPEAKER_01",
+    "text": "Alice and Bob are neighbors. They both have pets. Alice has a pet dragon. It's red. Bob has a pet dragon. It's blue. The pond is shared, but the pets don't get along. So only one of them at a time can be in this pond. So we need to find a way of enabling both pets to have access to the pond, because otherwise they'll go crazy and attack Alice and Bob. They don't want that. But we need to make sure that at most one of them is in the pond at any one time. "
+  },
+  {
+    "start": 4096.402,
+    "end": 4131.748,
+    "speaker": "SPEAKER_01",
+    "text": "So you can see where this is going. The problem is, of course, of mutual exclusion. Class, repeat after me. The problem is? Thank you. So you're all awake. So mutual exclusion, Alice and Bob and their pets. So, this brings me, and we will discuss how, and you will all know it, how we can implement virtual exclusion. This brings me to this notion of the properties that we want when we design concurrent programs. Generally speaking, there are two categories of properties, safety properties and lightness properties. "
+  },
+  {
+    "start": 4132.108,
+    "end": 4167.1,
+    "speaker": "SPEAKER_01",
+    "text": "Now, in case you were sleeping until now, pay attention because there's typically an exam question about this. So, look at him sitting up. Right. Safety property. Safety property means that we don't want anything bad to happen. Nothing bad happens ever. So the notion of bad obviously varies from problem to problem in the context of what your objective is. But safety is safety against bad things. We don't want bad things to happen. And typically, we can check whether or not something is a safety property by checking if we can violate it in finite time by finite computation. "
+  },
+  {
+    "start": 4167.601,
+    "end": 4200.684,
+    "speaker": "SPEAKER_01",
+    "text": "If we can, then that is a safety property. An example of safety property that is very hot these days because of things like the Rust language is having no memory safety violations, meaning that you don't have a double free error. You don't free a location twice, or you don't use after free. Once it has been freed, then you don't try and access it. So that's an example of something bad happening, and you can always check it because you can try and do a double-free and see if you can violate it or not. If the type system says no, which Rust does, then you know you can't violate it. "
+  },
+  {
+    "start": 4200.704,
+    "end": 4238.873,
+    "speaker": "SPEAKER_01",
+    "text": "The flip side of that is something we call liveness properties. Liveness properties is saying, not only is nothing bad should happen, but something good eventually should happen. Because a very trivial program that does nothing literally the skip is a safe program. It doesn't do anything bad. But it doesn't do anything meaningful either. So we also want to have some guarantees in terms of the progress of the program that we have. We wanted to have lightness properties, meaning that something good eventually will happen. So unlike safety properties that can be violated in finite time, libelous properties cannot be violated. "
+  },
+  {
+    "start": 4238.913,
+    "end": 4271.118,
+    "speaker": "SPEAKER_01",
+    "text": "We can't check if they are violated in finite time or not. For instance, when I say this program does not have deadlocks, or this program, actually, this program does not terminate. Can I violate it? No, this program terminates. This program terminates. Can I violate that in finite time? No, because I keep running it. If it hasn't terminated yet, it might still terminate at some point. So I have to run it indefinitely. And even then, I won't be able to say whether or not it terminates. "
+  },
+  {
+    "start": 4271.518,
+    "end": 4302.141,
+    "speaker": "SPEAKER_01",
+    "text": "The halting problem. So that's aliveness. That is an example of a aliveness problem. So in the case of our Alice and Bob neighbors, the safety property that we want is that the two pets are never in the pond at the same time. The lightness property that we want, as we will see, is that there's no deadlock, for instance, or that if one of the pets wants access, as we will see, they will always be able to get in. If both want in, at least one of them will get in, or at least exactly in this case, one of them will get in. "
+  },
+  {
+    "start": 4302.441,
+    "end": 4334.766,
+    "speaker": "SPEAKER_01",
+    "text": "So they're not both sitting there, twiddling their thumb, waiting for each other. Someone is making progress. This is a lightness policy. Now, in the tutorial sheet that we will cover at some point, probably on Friday, there will be some examples and we will check together whether something is a safety or a lightness policy. So back to Alice and Bob. How do we solve the dilemma of mutual exclusion? In the book, there is a series of fables. We will only cover one of them through this flag protocol. It discusses several different protocols through using cans and telephones and why they're not good and not. "
+  },
+  {
+    "start": 4335.106,
+    "end": 4366.829,
+    "speaker": "SPEAKER_01",
+    "text": "And then there are situations where Alice and Bob fall in love, they get married, and then they get divorced, which is heartbreaking. We're not going to go through the drama of these two. We're just going to focus on the flag protocol. But if you're interested, read the book. And these are all by Lesley Youngport. So the flag protocol goes something like this. Alice has a flag. It is a red flag. Bob has a flag. It's a blue flag. Every time they want to let their pet into the pond, they essentially need to communicate with each other to make sure they don't both release their pets. "
+  },
+  {
+    "start": 4367.61,
+    "end": 4397.969,
+    "speaker": "SPEAKER_01",
+    "text": "So what's going to happen when Alice wants to let her pet in, she will first raise her flag to communicate her intent for releasing the pet, and then will look at Bob's flag. If Bob's flag is raised, she does nothing. She waits until Bob's flag is down. If Bob's flag is not raised, then she will release the pet. So you see, she puts the flag up, Bob's flag is not up, lets the pet out. "
+  },
+  {
+    "start": 4398.689,
+    "end": 4429.479,
+    "speaker": "SPEAKER_01",
+    "text": "Similarly for Bob, if he wants to, it's exactly the same. If he wants to release his pet, he would raise his flag, look at Alice's flag. If it's down, then he would release the pet. Otherwise, he would wait and do nothing. this is what we've done, wait until Bob's flag is down, unleash, and lower the flag when the pet returns, and the same with Bob's protocol. Do you see any problems with this? Is it safe? Can they ever have both pets in the pond at the same time? "
+  },
+  {
+    "start": 4429.519,
+    "end": 4432.04,
+    "speaker": "SPEAKER_01",
+    "text": "Who said no? Why? "
+  },
+  {
+    "start": 4433.08,
+    "end": 4447.301,
+    "speaker": "SPEAKER_02",
+    "text": "Because they will not be able to access the pond if So essentially, every time you want to release your pet, you need to communicate your intent. "
+  },
+  {
+    "start": 4447.961,
+    "end": 4506.051,
+    "speaker": "SPEAKER_01",
+    "text": "So if the flag is up by the other person, if they had the intent to release their pet, they would have also put the flag up. So you will look at it and you register it, of course you'll do the right thing and you won't release your pet. So it is safe. Does it have any other problems? Yes, did you have a question? You. Exactly. Otherwise known as? Deadlock. Deadlock. So they can deadlock because let's say they both want to release their pets. Alice raises the red flag, then Bob raises the blue flag before Alice looks. They both look at each other's flags then and realize, ah, I can't do anything. I have to wait for the other person. So they could wait indefinitely for each other to roll the flag. They want the pets mold them to death, and that's that. So this suffers from a deadlock problem, as we have seen, because of this symmetric protocol. "
+  },
+  {
+    "start": 4506.331,
+    "end": 4551.654,
+    "speaker": "SPEAKER_01",
+    "text": "And in fact, most well-known deadlock avoidance mechanisms are either by some hierarchy of ordering, prioritizing someone over the other, or by back-off mechanisms. If they both get there and beat each other, one person has to be the bigger person and back off. And this is how we're going to fix our protocol here. So Alice's flag, we will keep it exactly the same. Alice's protocol, but for Bob, we will say, okay, raise your flag, but if Alice's flag is up, this is a while loop, while the flag is up, you lower your flag, be the bigger person, defer to Alice always, ladies first, let Alice release the pet, the pet come back, and once Alice's flag is down, then you can try again. "
+  },
+  {
+    "start": 4552.314,
+    "end": 4584.548,
+    "speaker": "SPEAKER_01",
+    "text": "So now we have this back off mechanism. Now, is it safe? Right. It's more or less the same one with the same reasons to say. Does it avoid the deadlock problem that we had? It's going to get some words out. Yes? Does it have deadlock? Okay. Does it deadlock? Now when? Does it deadlock? "
+  },
+  {
+    "start": 4585.388,
+    "end": 4651.395,
+    "speaker": "SPEAKER_01",
+    "text": "There is a deadlock. No, I mean, they have a gentleman's agreement, sexist excuse, that once the pet comes back, they lower it. And let's assume the pets are not greedy and they don't stay in the pond indefinitely. That's the protocol. And the protocol is that when the pet returns, you lower your flag. Then there is no deadlock. I agree. I concur. Question? No, there's no deadlock because they're both going to be doing something all the time. So there's no deadlock. Yes, there is no deadlock because essentially if Alice wants to get in, she can always get in because Bob will back out. And if Bob wants to get in, then what happens? Is there a problem then? It doesn't deadlock, but what's the problem with it? Right, a problem otherwise known as? Starvation, exactly. So our algorithm now suffers from starvation. It's unfair because Bob is waiting for Alice constantly. And even though Alice may lower her flag every time, it might be a very temperamental pet who is constantly like my cat meowing to get outside and wants to go to the pond all the time. "
+  },
+  {
+    "start": 4651.815,
+    "end": 4685.768,
+    "speaker": "SPEAKER_01",
+    "text": "So if the scheduling is unfortunate enough that Bob always catches these moments, he could starve and be mauled by his pet because the pet may not be able to go to the pond. In other words, generally speaking, this protocol uses waiting in that Bob is constantly waiting if he wants to go out and Alice's flag is up for Alice to lower her flag. And waiting is usually a bad thing. Now, before the age of AI and all the cool things that you guys now do, one of the coolest things that we were taught to do in algorithms and in concurrency was writing weight-free algorithms. "
+  },
+  {
+    "start": 4686.028,
+    "end": 4719.038,
+    "speaker": "SPEAKER_01",
+    "text": "That's the golden standard of concurrent algorithms. You know, I remember my internship with Google interview, and the guy was like, can you just write me such and such weight-free algorithm? They were all trying that. It's still an activator of research. It's still a very important problem. But of course, we don't get all the attention that AI does. I'm not bitter or anything, just saying. So weight-free algorithms, as we will see at some points, are the golden standard of concurrent algorithms. There are other classes such as lock-free algorithms that someone mentioned, but weight-free is even better than lock-free. "
+  },
+  {
+    "start": 4719.439,
+    "end": 4756.288,
+    "speaker": "SPEAKER_01",
+    "text": "So concurrency and mutual exclusion. As we saw, mutual exclusion by definition means you have a block of code, otherwise known as a critical section, that at most one thread should be executed at that time, which means, that mutual exclusion really means sequential execution. Even if you have multiple threads, for that bit of code, you can only execute it sequentially. You can't have it executed concurrently. And this is taking us back to the bottleneck that we were talking about. As soon as you have mutual exclusion, regardless of your fancy computers and how many threads that you can have, you're doomed, because only one thread can execute it at a time. "
+  },
+  {
+    "start": 4757.329,
+    "end": 4790.158,
+    "speaker": "SPEAKER_01",
+    "text": "So this is one of the reasons that we won't be able to get the kind of speedup that we want with the 7 or 12 or 14 cores that we have if we heavily rely on mutual exclusion. So if you want speedup, if you want to utilize the maximum amount of compute that you can on your machine, you need to ideally be able to parallelize your algorithm so that you can execute as much of your code as you can in parallel without using virtual exclusion. Now, often, virtual exclusion is unavoidable. "
+  },
+  {
+    "start": 4790.638,
+    "end": 4820.64,
+    "speaker": "SPEAKER_01",
+    "text": "But the trick is to minimize it and try and use it as little as possible if you can get away with it. Because if you have a large sequential part in your code, a large critical section, a large virtual exclusion, then, of course, you reduce your performance. Now, this brings me to this principle called Amdahl's Law that actually tells you exactly how much speedup you can get, depending on the number of threads that you have. In the early days, anyone could come along and observe something very simple and put their name on it. "
+  },
+  {
+    "start": 4820.7,
+    "end": 4851.371,
+    "speaker": "SPEAKER_01",
+    "text": "Bam, Amdahl's Law. As you will see, it's not as complicated as it may sound. So literally, that's the definition of Amdahl's law. It says the kind of speed of that you have when you have n threads of execution is the ratio of the time it takes one thread to execute the whole program over the time it takes for n threads to execute the program. So if your two threads execute the code 10 times faster, then, of course, you have a 10 times speedup, more or less. "
+  },
+  {
+    "start": 4853.861,
+    "end": 4885.286,
+    "speaker": "SPEAKER_01",
+    "text": "So let's unwrap that and see exactly what that means, because, sure, this is easy. But we've seen that more or less depends on the amount of code that you can actually execute in parallel, which looks something like this. Let's say I've normalized everything. So the time it takes me to execute the program by one thread is one second. It's just normalized because I'm calculating the speed up. And I have n threads. And the fraction of the code that can be executed in parallel is p. "
+  },
+  {
+    "start": 4885.806,
+    "end": 4918.47,
+    "speaker": "SPEAKER_01",
+    "text": "So I have a program where 60% of the code could be very well parallelized with no bottleneck. The rest of it requires some complicated synchronization, mutual exclusion, and so on. So this p is that fraction. So remember the bottom was calculating the amount of time it takes n threads to execute the program. So the amount of time it takes for n threads to execute the program is the parallel part. over n, because that part can be executed in parallel. And since you have n thread, you divide it by n. "
+  },
+  {
+    "start": 4919.13,
+    "end": 4949.426,
+    "speaker": "SPEAKER_01",
+    "text": "And then there is the sequential fraction. So if p is the parallelizable fraction, then 1 minus p is this fragment that you have to execute sequentially. So this is the fragment of the program that gets this. This is the time it takes to execute the program sequentially, plus the time that it takes to execute the program in parallel. So that's the kind of speedup that you get. Now, for me, the equation itself is not that amazing or anything, but it's very counterintuitive in terms of the numbers that you get. "
+  },
+  {
+    "start": 4950.306,
+    "end": 4982.45,
+    "speaker": "SPEAKER_01",
+    "text": "For instance, let's say this is technically Amdahl's law in practice. Anyway, that's bad synchronization. When I have 10 processes, and let's say I have 60% of my program, PB0.6, can be executed in parallel and only 40% is sequential. You will see if you plug these numbers in, the speedup that you get is only twofold. Even though more than half of your program can be executed fully in parallel, you only get a twofold speedup. "
+  },
+  {
+    "start": 4984.067,
+    "end": 5018.117,
+    "speaker": "SPEAKER_01",
+    "text": "Again, if I go up to 80% in parallel, the number that I get is only 3.5. It's still nowhere near the tenfold speedup I would expect. Same for 90%. 90% of the code can run in parallel, and only a five-time speedup, even though I have 10 cores, 10 processes. And it's really only when I go up to something ridiculous like 99% of my code being parallelizable that I get the kind of speedup that I was hoping for. Again, this goes back to the example that I mentioned with matrix multiplication and algorithms that lend themselves very well to parallelization. "
+  },
+  {
+    "start": 5018.617,
+    "end": 5050.065,
+    "speaker": "SPEAKER_01",
+    "text": "So if you have that sort of algorithm, parallelization is your friend, great. But this is not to bash new currency. You still get the speedup. Even in the worst case, two times speedup is better than nothing. but there's not the silver bullet that you would have potentially expected. Right, so things that we didn't cover here in terms of synchronization paradigms, we only covered mutual exclusion. I'm sure you've seen many similar things in your operating systems course, the old way of thinking of semaphores and whatnot. "
+  },
+  {
+    "start": 5050.425,
+    "end": 5083.357,
+    "speaker": "SPEAKER_01",
+    "text": "There is more in the Art of Multiprocessor Programming book on reader-writers, producer-consumers, when you have these patterns when, for instance, only one thread needs to write to the data and you have several readers and so on. And you can have bespoke kind of synchronization that is better than mutual exclusion. So if you're interested, look at the book. And finally, I think this is my last, yeah, more or less the last slide. We're not done of this set of notes. Don't get too excited. So does everyone know who Dijkstra is? "
+  },
+  {
+    "start": 5085.417,
+    "end": 5118.355,
+    "speaker": "SPEAKER_01",
+    "text": "Who's Dijkstra? He's a Dutch computer scientist. You probably know him from all the graph algorithms in the . He was an amazing computer scientist. And this quote is here just to remind you how far we've come and how much we take things for granted these days. The problem of mutual exclusion and how to implement it was open for three years. We didn't know how to implement mutual exclusion properly for three years. And it took someone like Dirkstra to come along and propose the first synchronization mechanism, essentially. "
+  },
+  {
+    "start": 5118.935,
+    "end": 5161.427,
+    "speaker": "SPEAKER_01",
+    "text": "And I like this quote because as a researcher, we often obviously publish papers, and we submit papers, and one of the reviewers that we get, this is not a very practical problem. We don't have a hardware that can do this. Quantum computing people often get this. We don't have a quantum computer. Why do we care about this? And Dijkstra, I'm assuming, judging by this quote, had the same problem, because it says, this paper is a solution to a problem which to the knowledge of the author, Dijkstra has been an open question since at least 1962. This was published in 1965. Now, although the setting of the problem might seem somewhat academic, as in parallel computation, something that we just completely take for granted today, the author trusted anyone familiar with illogical problems, will appreciate the significance of the fact. "
+  },
+  {
+    "start": 5161.447,
+    "end": 5196.777,
+    "speaker": "SPEAKER_01",
+    "text": "So what I'm saying is, if you ever see work like that that you're going to appreciate because you don't think it's practical, just pinch yourself and remind yourself that blue sky research is important. We don't always have to work on problems that can be practically realized. Otherwise, we would have no theoretical physicists in the world. That's all. So just to wrap up this part of the lecture, concurrency is hard. And I'm sure you all have first-hand experience of this. Let's say if you wanted to prepare a seven-course meal or even something simpler with your flatmate, with your partner, whatnot, it's great. "
+  },
+  {
+    "start": 5196.917,
+    "end": 5249.135,
+    "speaker": "SPEAKER_01",
+    "text": "You have twice the labor. But you need to communicate, because you will be competing over resources in the kitchen. You will be competing over the worktop. You will be competing over the chopping board. Even though most of the time you can parallelize and do things separately with different ingredients, there are bottom legs. So be nice to each other. And if you can, back off. That's all. Right. So this is the end of the intro with all this. I just wanted to get the terminology there. I wanted to very briefly tell you about safety and lightness properties, processes, threads, and whatnot. From Friday, the kid's gloves come off. We delve into very formal stuff. That's why you need the models of computation. But before that, I want to also tell you a little bit about when we start writing operational semantics, we'll be making certain assumptions. So we want to talk about those assumptions a little bit so that when we come back on Friday, we could just Dive in. "
+  },
+  {
+    "start": 5250.719,
+    "end": 5288.326,
+    "speaker": "SPEAKER_01",
+    "text": "And I think I have shared these slides with you on Snapchat, so you should all have it. okay so remember when you were doing models of computation and we talked about turing machines and like i said earlier in the previous hour it's not because they're realistic or pragmatic it's because it's a very simple model of computation that more or less anyone can understand we want to do something similar for concurrency As you know, Turing machines are still one of the devices that we use for showing whether or not something is computable. "
+  },
+  {
+    "start": 5288.787,
+    "end": 5328.93,
+    "speaker": "SPEAKER_01",
+    "text": "Do you all remember the computability theorem? What does it mean for something to be computable or decidable? Come on. Yes. Exactly. That's Turing's thesis, essentially. Something is computable, decidable, if and only if it can be computed or achieved through a Turing machine. Now, you would remember that a guy called Church, Alonzo Church, at the same time in the US, came up with an alternative theory of computation. What was it? Lambda calculus. Lambda calculus. So that's a functional view. I love Turing because their functional programming is great, but he had a very practical spin on things. "
+  },
+  {
+    "start": 5328.97,
+    "end": 5361.267,
+    "speaker": "SPEAKER_01",
+    "text": "This is an imperative way of showing computability. Church came along and gave a functional notion of computability. And of course, we know they're equally expressive and equivalent. Right, so what does that mean in the, we already have talked about that, in the concurrent setting, what essentially what we want to do is we can, we won't go near children's machines in this course, we will be working with operational semantics, some things you're familiar with. So we have a sequential model of computation, which is our operational semantics from last year, but we have multiple of them essentially running in parallel with each other. "
+  },
+  {
+    "start": 5361.912,
+    "end": 5397.419,
+    "speaker": "SPEAKER_01",
+    "text": "And the medium through which they're communicating in class, we had this in the last hour, is shared memory. Thank you. Such an enthusiasm. It's infectious. All right, so they have multiple Turing machines or operational semantics, and they're communicating through their shared memory. We don't care about efficiency. We care about correctness. Now, the question is, and again, something even I take for granted, what should be our shared memory? What are the principles of memory for communication? This question might sound ridiculous to you, but when I write a value and then read immediately, what value should I read? "
+  },
+  {
+    "start": 5397.499,
+    "end": 5428.691,
+    "speaker": "SPEAKER_01",
+    "text": "Questions like that. This was an active design space for a while, and actually at the beginning, as we will see, we got things a little wrong. But we just want to say these are the assumptions, and a lot of work has gone towards getting these assumptions right. So we want to see what is the simplest model of memory that we can have that will be enough for us to do our computations. When I say simple, I don't mean it's because we're cheap. We want to cut costs, although some people in the industry do. But we want to approach things from first principles. "
+  },
+  {
+    "start": 5428.711,
+    "end": 5459.976,
+    "speaker": "SPEAKER_01",
+    "text": "So we want to have a very simple model. And what is the weakest one? What is it that we can get away with? Usually, with your specifications, with your design, the weaker it is, the easier it is to implement because you have freedom. If you put more and more constraints on it, then, of course, it's harder to implement. And what can it do? So a memory location in a shared memory is a fragment of memory, if you like. It could be a byte. It could be a word. We don't care about it. That holds a value. The first question is, what kind of value should it hold? "
+  },
+  {
+    "start": 5460.636,
+    "end": 5492.466,
+    "speaker": "SPEAKER_01",
+    "text": "Now, for instance, it could be holding only 0 or 1. I'm not talking about the bits. I'm talking about an abstract notion of like in a byte. If I could only represent 0 and 1 in a whole byte, that wouldn't be very useful, right? So I want to be able to represent an arbitrary value. So that's the first thing that I have to design. I think I did. By the way, there's a bit of confusing terminology in the AMP book. They refer to memory locations as registers. This is an archaic way of saying it. "
+  },
+  {
+    "start": 5492.626,
+    "end": 5523.392,
+    "speaker": "SPEAKER_01",
+    "text": "I don't like the term register because they have a specific meaning, especially when we move to CPUs and talking about their semantics. So we talk about memory locations rather than registers. But if you see the term register in the book, they really mean memory locations. And of course, what else, what should we be able, okay, we have a memory location, we can have an arbitrary value. What should I, what instructions should I have? What should I be able to do to that memory location? I should be able to read it. I should be able to write to it. What else? "
+  },
+  {
+    "start": 5523.792,
+    "end": 5583.261,
+    "speaker": "SPEAKER_01",
+    "text": "Is that enough? No? Why? What else do I need? The atomic thing, yes, absolutely. What's your name? Lei. Lei is right. We need the atomic thing. Let's see what that means. So, as I said, we can have, for instance, okay, okay, we'll get there. I got ahead of myself. so two things we've talked about what values can we take and what should i be able to do read write and potentially other things that we'll come back to and the third thing that we're interested in is how many readers and writers for instance i could say that each location can have at most one writer and multiple readers that's actually the design principle behind rust that's why it has a very draconian but safe type system any pointer at any one point one of these it can be either owned exclusively you can have a single writer Or you can have a shared pointer that can have multiple readers. "
+  },
+  {
+    "start": 5583.521,
+    "end": 5615.039,
+    "speaker": "SPEAKER_01",
+    "text": "But you can't have readers and writers in the same pointer at the same time in Rust, if you're familiar with Rust. It's a safe pointer. So the question is here, what is the most general thing that we want for a given memory location? How many readers, how many writers? Which brings me to this graph. That's a rocket ship. It's not my drawing, although I couldn't probably do a better job anyway. So for our memory location, we have three things that we want. One is what kind of values can it have? The most general thing is m value as in multivalued. We can have arbitrary values. What kind, how many readers and writers? "
+  },
+  {
+    "start": 5615.059,
+    "end": 5647.348,
+    "speaker": "SPEAKER_01",
+    "text": "The simple thing is single reader, single writer, or multiple reader, single writer, or multiple reader, multiple writer. The most general thing of course being multiple readers and multiple writers. And finally, what guarantees do I want from my memory location? For instance, if I write a value to it and I immediately read, what should I observe? Now, you take this for granted. You expect to read the latest value. But when we come to concurrency, as you will see, especially in the CPU world, the notion of latest very much depends on the notion of time, and the notion of time is completely warped. "
+  },
+  {
+    "start": 5648.129,
+    "end": 5679.745,
+    "speaker": "SPEAKER_01",
+    "text": "Because things are executing in parallel. What does that mean, latest, if they're executed at the same time? So the guarantees that we want at these memory locations vary from the weakest to the strongest. To give you an example, there was an esoteric design, a real design, at some point that actually created a snapshot, meaning that Every time you wrote to a memory location, you recorded that value amongst all the other values that had ever been written to it. And if you ever tried to read from it, it would return an arbitrary value that had been written before. "
+  },
+  {
+    "start": 5680.205,
+    "end": 5710.499,
+    "speaker": "SPEAKER_01",
+    "text": "So one of these values. There was no guarantee. And this is good because it meant no contention. You didn't have to guarantee the latest value. As long as it was a real value that at some point had been written to that memory location, that was a valid choice. We now know that was a bad design for obvious reasons. But we did play around with these ideas for a while. I'm more interested in that, in all of these designs, chapter four of the book. But just to say that here, we could see it in a very general form of memory. It's strong guarantees, arbitrary values, and multiple readers of multiple writers. OK. "
+  },
+  {
+    "start": 5711.519,
+    "end": 5749.6,
+    "speaker": "SPEAKER_01",
+    "text": "So now that we have these memories, with this general superpower memory, we talked about what instructions, what should we be able to do with this memory. We said memory read, memory write. And Lei said, is that correct, Lei? Yeah. That we also need the atomic thing. I think that was you, right? I don't know. One of you said atomic thing, sorry. And we know that that's not enough. But for a long time, we didn't know that that's not enough. There were IBM chips without these atomic things in production, or with some former of these atomic things that were not strong enough. "
+  },
+  {
+    "start": 5750.401,
+    "end": 5781.548,
+    "speaker": "SPEAKER_01",
+    "text": "So let's see what that means. We need these read, modify, write solutions. So the atomic things are typically referred to as read, modify, write instructions. So read, modify, write instruction, like the CAS or a fetch and add, if you're familiar with, it does three things. You can think of it as an object that has some value x. And with this method, get and mumble, what it does is returns the object's current value. But then it replaces its current value with some function called mumble. It could be an increment of it. "
+  },
+  {
+    "start": 5781.588,
+    "end": 5813.288,
+    "speaker": "SPEAKER_01",
+    "text": "It could be a new value. Plus two, it could be anything. Read, modify, write essentially says, replace the old value with this other value. And the other value could be defined with this mumble function. And it does so atomically. And I put that in an indivisible way. It cannot be interleaved. These two steps of reading and writing, modifying, cannot be interleaved by another thread. So this is what it would look like. I won't go through it. And in fact, everything else, a read or a write, can be implemented in terms of an RMW. "
+  },
+  {
+    "start": 5813.308,
+    "end": 5846.777,
+    "speaker": "SPEAKER_01",
+    "text": "If you have RMW, essentially, a read is a defunct RMW that essentially replaces the value with itself. It doesn't do anything. A write, similarly, doesn't really Sorry, my clicker is not working. Similarly, it just writes the value, and it doesn't really care about the old value. So replace it with the value that it wanted. And things like fetch and add or fetch and increment, what they do is increment it by 1. So again, or by a factor a in this case, in the general case, we increment it by a. "
+  },
+  {
+    "start": 5846.857,
+    "end": 5880.897,
+    "speaker": "SPEAKER_01",
+    "text": "So we replace the old value by value plus a. So you can see I can implement any instruction using these RMW instructions. Now, you would see that the slide says weak RMW instructions. So fetch and increments, atomic exchange, if you're familiar with it. These are all, I think we have atomic exchange here. Now, these are all examples of weak RMW instructions. So let me tell you what I mean by that. It is weak because it can be used at most to synchronize between two threads. "
+  },
+  {
+    "start": 5881.677,
+    "end": 5916.811,
+    "speaker": "SPEAKER_01",
+    "text": "If you wanted two threads to agree on something, they can do it with these weak instructions, fetch an ad or something. If you had any more threads, then you couldn't. A classic example, if you're familiar with the distributed systems world, is a consensus algorithm. Do you know what a consensus algorithm is? Leader election? So let's say I have n threads, and we all have to agree on a value, a leader. So we have ideas between 1 and n, and we want to see who's the leader. Now try and write an algorithm that doesn't use CAS, but uses any other form of RMW that you want, you couldn't. "
+  },
+  {
+    "start": 5917.152,
+    "end": 5956.513,
+    "speaker": "SPEAKER_01",
+    "text": "You couldn't write an algorithm that elects a leader just using these weak notions of RMWs. And for a long time, we didn't know this. There are IBM systems that gave us these weak RMWs, and we realized this is really only good for two-threaded concurrency, not more. The real boss is what we call a strong RMW, which is a conditional RMW. that does something only if a certain condition holds. That's what a CAS is. So for instance, a conference set tells you what to replace it with, but it only does so if the current value of the location matches what you expected. "
+  },
+  {
+    "start": 5956.673,
+    "end": 5991.229,
+    "speaker": "SPEAKER_01",
+    "text": "So you see the implementation says, if the value is what you expect, then update it. Otherwise, do nothing. So there's this conditionality that allows this CAS to be the strong RMW that can allow us to synchronize between many threads, an arbitrary number of threads. And as far as we're concerned, this is the only strong RMW. I mean, everything else out there, there are, of course, various notions of CASes on architectures, ISAs, but they all more or less amount to a CAS. They're very similar. And as I said, they allow you to synchronize between an arbitrary number of threads. "
+  },
+  {
+    "start": 5991.569,
+    "end": 6022.837,
+    "speaker": "SPEAKER_01",
+    "text": "So this is the real boss. Okay, yeah, we talked about this. Right. On real hardware, as I said, there were these IBM architectures that only gave you the test and sets. Well, these days, they are. And as in, the test and set sounds like a comprehensive, but it wasn't. It was a big one. And the fetch and add on the NYU ultra computer. So for a while, we didn't actually have machines with these strong RMWs. "
+  },
+  {
+    "start": 6023.257,
+    "end": 6053.958,
+    "speaker": "SPEAKER_01",
+    "text": "These days, you will know. A lot of you now have Macs, which I assume is M1 or above chips, so they're not any longer Intel chips, but more or less every other computer, if it's not a Mac these days, every other desktop machine runs an x86 architecture, AMD or Intel. And on those machines, you have CAS natively. This is what I was telling you, that you can always call in line assembly and call CAS directly. Now, if you're running, who's the other CPU boss besides Intel? "
+  },
+  {
+    "start": 6055.151,
+    "end": 6100.299,
+    "speaker": "SPEAKER_01",
+    "text": "on AMD, the thing that your machines run, your Apples? ARM. ARM is the other boss. It was a very ballsy move by Apple to move to these ML machines, but it was a good move. So they run the ARM architecture. They don't have CAS natively. Rather, they achieve CASing through two separate instructions, if you're interested. They do it through load linked and store conditional, but using the combination before machine with CAS. again not particularly relevant but it's good for you to know that so every machine including your measly phones have a mechanism these days to do a strong rmw because it's absolutely essential And with that, yeah, we finished early. "
+  },
+  {
+    "start": 6100.459,
+    "end": 6145.296,
+    "speaker": "SPEAKER_01",
+    "text": "That's all I have to say. So come Friday, we will be looking at operational semantics. Our starting point will be we're doing concurrency. We don't care about the distinction between threads, cores, and whatever. We just talk about threads. We will be using this very strong form of memory. We will assume the existence of strong RMWs. And what we're going to do is we're going to start with an idealized model of concurrency, which is easy but unrealistic. And then... We are going to, honest to God, probably on Tuesday, actually write the semantics of a subset of the Intel instruction set and understand its semantics and what happens. Yay! Okay, that's all. Thank you and see you on Friday. Do come in person. "
+  },
+  {
+    "start": 6181.312,
+    "end": 6194.138,
+    "speaker": "SPEAKER_02",
+    "text": "Sorry, I have a comment to make on the lecture today. I'm not sure because I was sitting at the front, but I found it hard to follow your lecture when the mic is so far from... "
+  },
+  {
+    "start": 6194.658,
+    "end": 6206.703,
+    "speaker": "SPEAKER_01",
+    "text": "Yeah, it's really awkward. I have to hold it so close the whole time. They've replaced his wrist and they're like, oh, I'm doing my best. If that happens, just tell me because it's hard to keep track of it. If you tell me, then I'll try and correct it. "
+  },
+  {
+    "start": 6209.004,
+    "end": 6214.687,
+    "speaker": "SPEAKER_03",
+    "text": "Try and write a code that allows them to decide not to use it. "
+  },
+  {
+    "start": 6229.673,
+    "end": 6257.244,
+    "speaker": "SPEAKER_03",
+    "text": "And the only way that you can understand each other is through a sentence. Because, say if you were two, there's a right or a left. Whoever writes the sentence, either. If there's three of us, and I say... And each one wants the right, like it's all bad. Exactly. And you can't expect it. Because if whoever comes first, the first two are leaving. Even if it's two of us. "
+  },
+  {
+    "start": 6258.064,
+    "end": 6273.613,
+    "speaker": "SPEAKER_01",
+    "text": "Because these are without a condition. Always write. I can't see if someone is already beat me there or not. I need to see what is the value there, and if I'm the first then also. If I just blindly write without checking the pass, then I won't know what's there. "
+  },
+  {
+    "start": 6274.093,
+    "end": 6277.215,
+    "speaker": "SPEAKER_03",
+    "text": "I won't know if someone's beat me. So I just always write. "
+  },
+  {
+    "start": 6277.235,
+    "end": 6279.236,
+    "speaker": "SPEAKER_00",
+    "text": "Let's say they only do this one. Let's say they... "
+  },
+  {
+    "start": 6287.121,
+    "end": 6291.103,
+    "speaker": "SPEAKER_01",
+    "text": "Now, if it was to be dressed, you saw the customers in the evening. "
+  },
+  {
+    "start": 6291.163,
+    "end": 6293.763,
+    "speaker": "SPEAKER_03",
+    "text": "If they came along, they would be... "
+  },
+  {
+    "start": 6306.628,
+    "end": 6327.939,
+    "speaker": "SPEAKER_01",
+    "text": "one, and then we'll write it back to them and do the two small numbers. If it was three of them, it was four of them. You have to be able, in the general case, to do this communication. If it was two, it was too valued, you can always write it back because the other person won't check anymore. But if it was three of them, then you would write your own values to them. If you undo it, then someone else might have written it out for their students. "
+  },
+  {
+    "start": 6329.373,
+    "end": 6333.136,
+    "speaker": "SPEAKER_00",
+    "text": "Oh, they might undo that by putting you about it, or it just keeps going. "
+  },
+  {
+    "start": 6333.156,
+    "end": 6407.087,
+    "speaker": "SPEAKER_03",
+    "text": "So you never come back to me. Everyone needs to add an end print because this is the leader. So how do they know if they've read the original value or somebody else's? They need this condition. Okay, thank you so much. I promise I'll bring my own the next time. could you give an example of like can only be used to synchronize. "
+  },
+  {
+    "start": 6407.127,
+    "end": 6424.695,
+    "speaker": "SPEAKER_03",
+    "text": "They have two threads, and the cap instructions can work for a lot of data. I don't quite get why this is a big problem. So this is the homework. So what is the homework? We have two threads. We have two threads. We have two threads. We have two threads. We have two threads. We have two threads. We have two threads. "
+  },
+  {
+    "start": 6503.684,
+    "end": 6508.611,
+    "speaker": "SPEAKER_03",
+    "text": "Here I have to say, if it's zero, I'm going to switch it up. So if you want, I'm going to switch this. "
+  },
+  {
+    "start": 6546.872,
+    "end": 6562.486,
+    "speaker": "SPEAKER_03",
+    "text": "You don't realize you've been saved until the operation took place. So there was violence and starvation. I would like to see a starvation, but I don't know. I mean, the flag, everyone wants to have the same number. What if you had a flag? Would that change the condition? "
+  },
+  {
+    "start": 6562.526,
+    "end": 6608.793,
+    "speaker": "SPEAKER_01",
+    "text": "No. But I'm saying that you only have to flash through. In that case, maybe if you have extra bits, let's say there was an extra bit that said who was the last person to back up the last time. Exactly. So then it's on the flag. The flag is just in one place. Thank you. Also, I use one. I know, I get that a lot. Really, where are you from? Complicated heritage. Born to Russian mother, Iranian father in Iran, but grew up in London. Very complex. Thank you. "
+  },
+  {
+    "start": 6622.555,
+    "end": 6628.289,
+    "speaker": "SPEAKER_03",
+    "text": "I know. I think that's . I think that's . "
+  }
+]

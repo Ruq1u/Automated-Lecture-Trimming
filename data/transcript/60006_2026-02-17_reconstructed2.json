@@ -1,0 +1,1130 @@
+[
+  {
+    "start": 0.031,
+    "end": 4.593,
+    "speaker": "SPEAKER_01",
+    "text": "You guys gave me a question, where do I sit? I sit here, I sit here, I sit here. "
+  },
+  {
+    "start": 37.963,
+    "end": 69.566,
+    "speaker": "SPEAKER_00",
+    "text": "So previously, we described that how we can build different kind of computer vision models to perform different kind of tasks, such as to perform image classification, to perform object detection, to perform segmentation, et cetera. And for majority of these cases, we need to define a loss function. using our training data. The training data normally contains some images with some human annotation for these images. We use these human annotations to define the loss function so that we can train these machine learning models. "
+  },
+  {
+    "start": 70.526,
+    "end": 109.265,
+    "speaker": "SPEAKER_00",
+    "text": "In today's lecture, we're going to describe different kinds of ideas that how can we train these machine learning models without any human annotation. And this is normally called self-supervised learning. So although that we no longer need any labels provided by humans, we still need to design some signals to supervise the training of the model. Because you can see that all these models, they are driven by the loss function. So the loss function describes maybe the difference between some model prediction and human annotation. "
+  },
+  {
+    "start": 109.465,
+    "end": 142.787,
+    "speaker": "SPEAKER_00",
+    "text": "It can also be describing some prediction model to signals not defined by human, but from the data itself. And we're going to introduce three ways how we can design the required supervisory signals. And these three types of self-supervised learning methods are called either pretext-task-based methods, or contrast-learning-based methods, and the generative model-based methods. "
+  },
+  {
+    "start": 144.825,
+    "end": 188.335,
+    "speaker": "SPEAKER_00",
+    "text": "So for the first category, pretext task-based methods, we need to define a task for the model to learn something. And there are different ways you can design these tasks. And the most easy way is to ask the model to predict relative positions in the images. For example, that if we provide two image patches to the model, patch one and patch two here, whether the model can tell us that the relative position of patch two compared to patch one, which means that if we put patch one in the center of this grid, where should we put patch two? "
+  },
+  {
+    "start": 188.515,
+    "end": 218.786,
+    "speaker": "SPEAKER_00",
+    "text": "So it's a bit like you are playing some jigsaw game that how can you figure out where to put different jigsaw pieces. And for this, maybe this patch two represents one of the ears of the cat and that the model would need to figure out which would put patch two at the top left corner. And this is called the relative position between two patches, and this can be used to train the machine learning model. "
+  },
+  {
+    "start": 220.547,
+    "end": 293.384,
+    "speaker": "SPEAKER_00",
+    "text": "And if we draw these nine different positions on the 2D space, you can see when we put patch one in the middle, there are eight possible positions for patch two. And that means that when you ask the network to predict this relative position, it can be formulated as a classification problem where you have eight labels. Each label corresponds to one of these locations. And here that when we define this task that the each of these labels or the location patch two compared to patch one does not require any human annotations input basically so we just need to take a full image and from the full image you can write a few lines of code to extract patch two and patch one and also to determine the location the relative position of patch one compared to patch relative position of patch two compared to patch one And learning such a task would force the model to understand, first, to understand some features for this cat. "
+  },
+  {
+    "start": 293.525,
+    "end": 326.509,
+    "speaker": "SPEAKER_00",
+    "text": "Second, to understand that for different parts of the cat, how should these different parts relate to each other. So we hope that although this is a very simple task, this can force the model to learn some useful features to perform image classification. So when we formulate this as a machine learning problem, the input to the machine learning model X contains the patch one and patch two. And output of this machine learning model is denoted as Y here. "
+  },
+  {
+    "start": 327.189,
+    "end": 368.141,
+    "speaker": "SPEAKER_00",
+    "text": "Y is one of the eight possible positions. And in terms of machine learning model, to perform this task, it can be any model. For example, we can use this AlexNet model. And when we look at the different layers of AlexNet model, it starts with some convolution layers, some max pooling layers. And at the end, there are a few fully connected layers, which reduce all the information to certain neurons, such as 1,000 neurons. And when we analyze this network, we assume that the majority part of this network is focused on extracting features from the input image. "
+  },
+  {
+    "start": 369.121,
+    "end": 403.822,
+    "speaker": "SPEAKER_00",
+    "text": "And the last few layers of this network is focused on performing certain tasks. And for this case, the original task is to perform image classification for 1,000 different classes. So that is why at the end, we need to design these 1,000 neurons here. And for the previous layer, they are just used for extracting features for the input image. And we want to see whether we can use this relative position as a task to pre-train all these layers within the red box. "
+  },
+  {
+    "start": 407.624,
+    "end": 449.694,
+    "speaker": "SPEAKER_00",
+    "text": "For example, we just move all the layers in this red box to the same red box in this diagram. And here that we still that within the red box, everything is the same. It's just we need to modify the input and output of this red box. So for the input, now we have two input, patch one and patch two. So both of these patches can go through these convolution layers to generate some features. And although there are two inputs, but we still want to use just one convolution network, which means that on the left, this red box on the left is the same of all the layers on the right. "
+  },
+  {
+    "start": 450.234,
+    "end": 480.858,
+    "speaker": "SPEAKER_00",
+    "text": "This is also called as weight sharing. So when you use PyTorch to develop some networks, even if you develop two branches of convolution layers, you can set these two branches to share the same weight or same parameters. And that is how we modify the input. Now the input becomes two patches. And we also need to modify the output. So previously, we were using the output to perform a classification for 1,000 different classes. "
+  },
+  {
+    "start": 481.439,
+    "end": 527.547,
+    "speaker": "SPEAKER_00",
+    "text": "And this time, we just need to perform a classification for eight different positions. So you can see for the last layer here, we put eight neurons over there to perform this eight-way classification task. And then between the red box and to that eight neurons, we put some fully connect layers, which are these FC7 and FC8 layers. And after you build a network like this, then you can provide, you can just like take an input image, extract two patches, provide them input, and also ask this network to predict the relative position as output. "
+  },
+  {
+    "start": 527.567,
+    "end": 567.919,
+    "speaker": "SPEAKER_00",
+    "text": "And all of these networks can be trained without any human annotation. So this part within the red box can be trained using self-supervised learning or using this relative position prediction task. At the end, how can we use this pre-trained network It depends on what kind of task you want to perform. If your task is still to perform classification for 1,000 different classes, that means that although everything within the red box is pre-trained, we still need to add these two last layers. "
+  },
+  {
+    "start": 568.119,
+    "end": 599.891,
+    "speaker": "SPEAKER_00",
+    "text": "And for the last layer, we need to put 1,000 neurons there. And also for these two last layers, we don't know their parameter because they have not been pre-trained. And when we combine everything pre-trained within Redbox with the last two layers, we need to do some further training to make sure that these two last layers also get some good parameters to perform these image classification tasks for 1,000 different classes. And this part will be trained later. "
+  },
+  {
+    "start": 602.309,
+    "end": 641.05,
+    "speaker": "SPEAKER_00",
+    "text": "And when we train the last two layers, because we need to define the loss function for these 1,000 neurons, that means we still need to use some training set. And this training set still needs some human annotation. So why do we still bother to do this if at the end we still need to use some human annotation? The advantage is that for the majority part of this network, we already get good parameters. We only need to, like, optimize the parameter for these last two layers, and that may mean that we don't need many human annotations. "
+  },
+  {
+    "start": 641.711,
+    "end": 672.525,
+    "speaker": "SPEAKER_00",
+    "text": "To train these two layers, we can just use a relatively small data set, and maybe you just ask some human annotators to annotate one hour, you can create all the training data for these last two layers, and this can reduce the cost of human annotation. So this is one way we can pre-train the network using a relative position prediction as a task. And we're going to introduce another task. Any questions? "
+  },
+  {
+    "start": 673.105,
+    "end": 678.009,
+    "speaker": "SPEAKER_01",
+    "text": "Yes. So at the end, when we... "
+  },
+  {
+    "start": 690.731,
+    "end": 721.928,
+    "speaker": "SPEAKER_00",
+    "text": "When we want to apply this pre-trained network to some new tasks, there are two ways we can do the training. One way is keep the red box frozen, freeze all the primates over there, just to train the last two layers. And this is called linear probing because the last layers, they are linear layers. We just need to probe some good primates for those two layers, linear probing. The other way is... train all the layers. "
+  },
+  {
+    "start": 722.408,
+    "end": 738.652,
+    "speaker": "SPEAKER_00",
+    "text": "This is called fine-tuning, because we already get some good parameters, we just need to move them a little bit, so that's why it's called fine-tuning. How do we decide how fit we have this, should we? "
+  },
+  {
+    "start": 738.732,
+    "end": 754.364,
+    "speaker": "SPEAKER_01",
+    "text": "Because let's say we want to create And if you want it to, you know, yeah, so basically the scale of the pattern has to be different? "
+  },
+  {
+    "start": 756.945,
+    "end": 787.695,
+    "speaker": "SPEAKER_00",
+    "text": "Yes. So there are different ways to determine what will be the best patch size. Of course, the most easiest way is you just run a few different experiments with different patch size to see which one performs better. So in this way, you get some... good patch size by empirical experiments. The other way is that you can think about what your convolution network looks like. "
+  },
+  {
+    "start": 788.275,
+    "end": 819.347,
+    "speaker": "SPEAKER_00",
+    "text": "Here we have all the layers within the red box, and there are certain layers that will perform down sampling for your input image or input patches. For example, that here, these convolution layer 1, it comes with stride equals 4, performs downsampling by a factor of 4. We also have the pooling layer 1, pooling layer 2, pooling layer 3. Each of these pooling layer will also downsample the image by a factor of 2. "
+  },
+  {
+    "start": 820.148,
+    "end": 850.472,
+    "speaker": "SPEAKER_00",
+    "text": "So at the end, in total, this will be downsampled by a factor of 32. That means that if you use any patch which is smaller than 32 by 32, the final feature you get is just one feature bracket describing everything. So we want to use some patch which may be bigger than 32 by 32. So at the end, you still get some reasonable features from these input patches. "
+  },
+  {
+    "start": 855.903,
+    "end": 889.12,
+    "speaker": "SPEAKER_00",
+    "text": "So we call all of these human design tasks as a pretext task. And apart from relative position prediction, another common way to define the pretext task is to use examples or exemplars. And here that we regard each input image in our dataset as one exemplar. And each one exemplar is one class. And then we apply augmentation to this example image to create image for the same class. "
+  },
+  {
+    "start": 889.981,
+    "end": 925.422,
+    "speaker": "SPEAKER_00",
+    "text": "Suppose that we start from some data set where we don't have any human annotations. And this is our data set. You can see there are 24 images. And we just pick one of these images within this red box. And then we perform data augmentation. You can add some intensity noise, or you can rotate this image. You can change some color of this image, but we assume that after augmentation, all of this image still belong to the same class. "
+  },
+  {
+    "start": 925.822,
+    "end": 956.837,
+    "speaker": "SPEAKER_00",
+    "text": "And in this case, this is a class for the deer. And if we perform augmentation for k times, then we'll generate one class that contains K different training images. This is just for one input image in our original data set. And in our original data set, we can do the same for every of these individual image. For example, we take another image, which is within this green box. "
+  },
+  {
+    "start": 957.804,
+    "end": 1005.768,
+    "speaker": "SPEAKER_00",
+    "text": "and we perform augmentation to generate big K versions of the same image, they all belong to the same class. And if the original data set contains 24 images, that means at the end, we can create 24 different classes. and that will give us the label so at the end we can still uh take some alex net and ask some we take the majority of the alex net add a few more fully connected layers and for the last fully connected layers we put 24 neurons over there to perform this 24-way classification task okay And so this is a very interesting idea, but it also comes with limitations. "
+  },
+  {
+    "start": 1006.389,
+    "end": 1037.435,
+    "speaker": "SPEAKER_00",
+    "text": "You can see that if our original dataset already contains one million images, at the end, we need to create one million different classes. And that means that for your final layer in your neural network, it can be very heavy and expensive. But it also provides some useful insights to our problem. So here, the reason we thought we can create different classes from the data is because there is a difference in the data. "
+  },
+  {
+    "start": 1038.076,
+    "end": 1068.287,
+    "speaker": "SPEAKER_00",
+    "text": "So each image is different from the other. This difference is also called contrast. And we can leverage this kind of difference, contrast, or similarities within the data to design some task. And so using example as a pretext task was developed in year 2014. "
+  },
+  {
+    "start": 1068.948,
+    "end": 1100.058,
+    "speaker": "SPEAKER_00",
+    "text": "And a few years after that, contrastive learning, or using the contrast to design these tasks becomes more popular. And in year 2020, there was a paper published, which is called SimCLR. And it is one of the first few works exploring this contrast for learning ideas. Basically, we just need to define the contrast or difference in the data. And the contrast will become our last function. "
+  },
+  {
+    "start": 1101.98,
+    "end": 1135.376,
+    "speaker": "SPEAKER_00",
+    "text": "So how do we define the contrast in our data? So we assume that we can take some sample X from our data set. Then we can create two versions or two views of the same data. And this is similar to what we do data augmentation in the previous method. So take this input image. We create, maybe we rotate it by five degrees, create the first view of the image, denoted XI. "
+  },
+  {
+    "start": 1136.357,
+    "end": 1168.205,
+    "speaker": "SPEAKER_00",
+    "text": "Then we translate the same input image by 10 pixel. We create another view of the same input image, denoted as XJ. Because they come from the same input image, they should be quite similar to each other. So we can define some loss function to encourage xi and xj to generate similar features. So what we do is that we just put some network here. "
+  },
+  {
+    "start": 1169.386,
+    "end": 1200.355,
+    "speaker": "SPEAKER_00",
+    "text": "This red network can take xi as input, then generate zi as a feature for xi. And on the right hand side, we apply the same network, generate the feature Zj for input image Xj. And then we define some loss function to maximize the similarity between Zi and Zj. Yeah, so that is a high level idea. "
+  },
+  {
+    "start": 1200.735,
+    "end": 1249.517,
+    "speaker": "SPEAKER_00",
+    "text": "And in engineering implementation, it is quite often this red box is split into two parts. The first part is called this uh function f this is called the encoder this function f can be alexnet or some other network it extract image feature and then there is also a very small projection head which is this function g essentially it is just a two layered fully connect layer or two layered multi-layer perception so this function uh So basically, maybe this part is F, and then you also have two more layers as G. "
+  },
+  {
+    "start": 1252.979,
+    "end": 1284.367,
+    "speaker": "SPEAKER_00",
+    "text": "And the reason that this red box is split in two parts is that just in experiments, researchers have found out that adding these two layers projection head make everything perform better. OK. You may wonder, OK, here that we are only utilizing the similarity between images. We're only using one data sample. So where does the difference or contrast come from? "
+  },
+  {
+    "start": 1286.148,
+    "end": 1325.362,
+    "speaker": "SPEAKER_00",
+    "text": "So we can, to define the difference, we can take another sample. So here that X and Y denotes two images drawn from the data set. They are different. And for this image Y, we also apply some maybe AlexNet or some other network to generate this feature z. And between the features z coming from image y and the features maybe zj or zi coming from this image x, they should be different. "
+  },
+  {
+    "start": 1325.902,
+    "end": 1374.95,
+    "speaker": "SPEAKER_00",
+    "text": "So we want to define the loss function to minimize the similarity between z and zj here. So here you can see that when we define loss function, there are two parts we need to consider. One part is this blue part. It's about similarity. And the other part is this brown part. It is about the contrast. And just to show a more intuitive idea that we can use this diagram to show what contrastive learning looks like, we can take the image of a dog and then create two versions of the dog, put them into some convolution network, then ask the features generated by this convolution network to be similar. "
+  },
+  {
+    "start": 1375.91,
+    "end": 1386.755,
+    "speaker": "SPEAKER_00",
+    "text": "And then we take another image, which is this sofa. And when the sofa goes through the convolution network, its features should be different from the features from the dog. Yes? "
+  },
+  {
+    "start": 1400.321,
+    "end": 1443.52,
+    "speaker": "SPEAKER_00",
+    "text": "Yes, that's a good question. So the first question is that for although that in this diagram we draw this convolution network four times, but actually it's the same convolution network. The second question is that, yes, so we assume that when we draw two images, they belong to different classes. But actually, this is not always true. So we just assume that maybe when you define your problem in this way, there is some noise in your definition. Yeah. Okay, so then we know that what the high level idea is, we need to work out some math, that is how to write down this loss function. "
+  },
+  {
+    "start": 1444.36,
+    "end": 1483.148,
+    "speaker": "SPEAKER_00",
+    "text": "We know that we want to maximize the similarity between z i and z j, because they come from the same image. And we also want to minimize the similarity between z i and other z, because they come from two different images. So a very natural idea is that we just write down a fraction. At the top, it's a similarity between zi and zj. And at the bottom, it's a similarity between zi and some other z. So of course, when you want to maximize this fraction, the numerator will encourage zi to be very similar to zj. "
+  },
+  {
+    "start": 1484.516,
+    "end": 1516.908,
+    "speaker": "SPEAKER_00",
+    "text": "and this denominator will discourage you or force Zi to be moved away from that. So this is the rough idea, but also that when we implement it, it's slightly more complicated. Remember that here that we want to learn features from unannotated images and maybe that our dataset is quite large. "
+  },
+  {
+    "start": 1517.308,
+    "end": 1553.788,
+    "speaker": "SPEAKER_00",
+    "text": "We can crawl one million images from the internet. That will be our dataset to for this contrastive learning. And it's difficult to define this loss function for all these one-millimeter images just in one path. So we still use some stochastic approach. So we do many iterations. In each iteration, we draw a random batch of n samples. And in the diagram here, we draw four samples, one, two, three, four. "
+  },
+  {
+    "start": 1556.253,
+    "end": 1602.134,
+    "speaker": "SPEAKER_00",
+    "text": "And then we perform augmentation. For each original samples, we augment it twice. So for the first sample, we can generate sample one and sample two. For the second sample, we can generate sample three, sample four here in this diagram. And now that we have generated two times four, eight samples, we want to write down some equation or loss functions. And here that for each sample that we can see that we can find, if we're looking at sample three, it has another sample, sample four, which come from the same original input as sample three. "
+  },
+  {
+    "start": 1602.695,
+    "end": 1637.84,
+    "speaker": "SPEAKER_00",
+    "text": "So we would regard the pairs of three and four as a positive pair. They should be similar. And we also use the sample 3 to form other pairs, such as we form a pair between 2 and 3. This should be different. And we regard the pair 2, 3 as a negative pair. And when you look at this table, you can see that there is only a single positive pair, which is between 3 and 4. And when you use 3 to form a pair with all the other numbers here, they are all negative pairs. "
+  },
+  {
+    "start": 1638.822,
+    "end": 1671.836,
+    "speaker": "SPEAKER_00",
+    "text": "So here that we can define one positive pair and many negative pairs. And given these positive pairs and negative pairs, because there are two classes here, positive versus negative, then we can define a binary classification problem. And for binary classification problem, we can define the cross entropy loss. And the loss function for one positive pair, i and j, is defined in this way. "
+  },
+  {
+    "start": 1672.857,
+    "end": 1735.081,
+    "speaker": "SPEAKER_00",
+    "text": "So you can see that it's quite similar to the cross entropy loss. So in cross entropy loss, if we have some probability p and probability q, and maybe that they are defined for number classes, then when you write down negative the sum of pi times the logarithm qi you can define this cross entropy and here that at the bottom is quite similar and for for this term within the logarithm it's also related to our similarity so if we generate some feature vectors for two samples denoting u and v, then we can use the inner product or this equation here to define that similarity. "
+  },
+  {
+    "start": 1736.542,
+    "end": 1769.117,
+    "speaker": "SPEAKER_00",
+    "text": "So the inner product is if we have some if we live on the 2D space and we have two vectors, u and v, if both of these vectors have been normalized to become a unit vector, which means the length of this vector is one, then when you calculate that in the product, the inner product is equal to cosine theta. "
+  },
+  {
+    "start": 1769.637,
+    "end": 1799.84,
+    "speaker": "SPEAKER_00",
+    "text": "Theta is the angle between u and v. And when you look at the definition for the similarity here, that for this part, we normalize u. And for this part, we normalize v so that they become unit vector. And then we just calculate the inner product. And these tell us how similar u is to v. And there are also some other terms here, which we'll describe later. "
+  },
+  {
+    "start": 1800.821,
+    "end": 1832.36,
+    "speaker": "SPEAKER_00",
+    "text": "And at the bottom, we take the sum for all the negative pairs. So here, this index k goes from 1 to 2n. And there is some part that, if k is equal to i, then it means that it's the same sample. So here, there is an indicator function here. Basically means that we exclude the positive pair. We only have one positive pair. "
+  },
+  {
+    "start": 1833.321,
+    "end": 1866.554,
+    "speaker": "SPEAKER_00",
+    "text": "And when we exclude it, then all the other pairs are negative pairs at the bottom. And for this part, when you define some exponential for something and write down this kind of fraction, it is essentially the softmax function. So remember that if I use a different notation, sorry, I need to reuse this notation z. "
+  },
+  {
+    "start": 1867.074,
+    "end": 1904.397,
+    "speaker": "SPEAKER_00",
+    "text": "So previously, when we talk about the neural network, we assume that for the last layer of the neural network, we can put a number of neurons. And these neurons would generate output z1, z2, z3. So the z notation height is different from those z. And we mentioned that in order to make sure that z1, z2, z3 form a probability vector, we can introduce the softmax function. "
+  },
+  {
+    "start": 1909.663,
+    "end": 1941.0,
+    "speaker": "SPEAKER_00",
+    "text": "which looks like this. So we first do exponential to make all of those three numbers non-negative, then we write down this fraction, we normalize the exponential to make sure that the sum of all the numbers is equal to one. And for this part, it's the same softmax function, but the power for the exponential is the similarity between zi and zj. And there is also a parameter tau here. "
+  },
+  {
+    "start": 1941.56,
+    "end": 2006.516,
+    "speaker": "SPEAKER_00",
+    "text": "Tau represents the temperature. So basically, when you have an exponential function, so exponential function looks like this. And you can adjust this tau to adjust how steep or how quickly Increasing this exponential can be so that is a the impact of tau is called the temperature So for with this by using this softmax function we can create some probability vector and Then when when we have this minus logarithm will create the cross entropy loss function so for this sample I that I that J this is a positive sample and And this is a binary classification problem. "
+  },
+  {
+    "start": 2006.676,
+    "end": 2041.379,
+    "speaker": "SPEAKER_00",
+    "text": "Let's write down the cross entropy loss function So if P1 denotes the probability belonging to the positive class. And for this case, P1 equals 1. And when P1 equals 1, P2 equals 0. "
+  },
+  {
+    "start": 2042.619,
+    "end": 2078.249,
+    "speaker": "SPEAKER_00",
+    "text": "So because P2 equals 0, we don't have this part. We only have the one term here. So this is a... this equation we are writing down here. So we just calculate minus 1 times logarithm of some probability. And in this way, we define the cross entropy for this positive sample. It's also have a name, it's called normalized temperature scaled cross entropy. "
+  },
+  {
+    "start": 2078.469,
+    "end": 2118.953,
+    "speaker": "SPEAKER_00",
+    "text": "You can see that the difference between this and the standard cross entropy is that here we have this temperature, tau, in the equation. A question? Okay, so basically that if we have So when we look at the definition of similarity, it is equal to the cosine theta, where theta is the angle between u and v. "
+  },
+  {
+    "start": 2119.673,
+    "end": 2151.049,
+    "speaker": "SPEAKER_00",
+    "text": "And that means that this similarity is the value between minus 1 and 1. And then we look at here. So if zi is identical to zj at the top, the similarity between zi and zj will be equal to 1. Then this 1 will be divided by tau. "
+  },
+  {
+    "start": 2151.549,
+    "end": 2189.544,
+    "speaker": "SPEAKER_00",
+    "text": "Then we calculate this exponential. being normalized by something to define its probability. And that means that if tau is very small, if tau is very small, then it will create a very strong force to encourage the top, to encourage this similarity to be 1. "
+  },
+  {
+    "start": 2193.085,
+    "end": 2226.62,
+    "speaker": "SPEAKER_00",
+    "text": "If tau is very large, let's say tau is 1,000, when tau is very large, this means that no matter how your similarity metric is, when this similarity is divided by a large number, the power of this potential becomes very small, and the probability for all these positive pairs, negative pairs, they become equal to each other. "
+  },
+  {
+    "start": 2228.061,
+    "end": 2269.22,
+    "speaker": "SPEAKER_00",
+    "text": "So you can see that this is the impact of the temperature on the contrastive loss. So if you want to have a very high contrast, you use a small temperature. But if you want to smooth out the effect, use a large temperature. That is how it happens theoretically. Reality is that you just try this. OK, so this loss function is just defined for one sample for this positive pair i and j. "
+  },
+  {
+    "start": 2272.281,
+    "end": 2306.612,
+    "speaker": "SPEAKER_00",
+    "text": "And we can define similar loss functions for many of these pairs. So maybe that for this diagram, we have three and four of the positive pair. And we can write down. all the positive and negative pairs we have in the middle here. And for each of these pairs, we can define the similarity between the feature vectors divided by this temperature tau. "
+  },
+  {
+    "start": 2307.885,
+    "end": 2343.696,
+    "speaker": "SPEAKER_00",
+    "text": "And also for each pair, we can define whether it belongs to class one, which means positive pair, or class zero, which means negative pair. So when you write down this, you can implement the loss function for one of these positive pairs. So if you look at the cross entropy loss function in PyTorch, you will see that it requires two input. One input is called logits, the other input is called labels. "
+  },
+  {
+    "start": 2344.376,
+    "end": 2382.149,
+    "speaker": "SPEAKER_00",
+    "text": "And logits is essentially this part. So if you have some, so normally for the last layer of the network, you define some softmax function. The power in the exponential in that softmax function is called the logits. They are the original output of these neurons, and they have not been applied the softmax function yet, and these are called logits. "
+  },
+  {
+    "start": 2386.791,
+    "end": 2428.318,
+    "speaker": "SPEAKER_00",
+    "text": "And so if you can write down the logits and the labels, then you can just call this cross entropy function to calculate the loss for this pair. And after calculating the loss for this pair, we can also move on to other pairs. For example, here we are looking at positive pair 3 and 4 and negative pair 3 and 2, 3 and 1. But we can also look at positive pair 4 and 3 and negative pair 4 and 2, 4 and 1. And we can do this for all the positive pairs and negative pairs here. "
+  },
+  {
+    "start": 2430.179,
+    "end": 2474.304,
+    "speaker": "SPEAKER_00",
+    "text": "So at the end that we can put all these loss function together and this define our overall loss function for training this model. And this big L basically sums up all the loss function for different positive pairs. And if we start with four samples, which means k goes from one to four, then for each of these k, if we start from four samples, one, two, three, four, these are called k. "
+  },
+  {
+    "start": 2476.626,
+    "end": 2506.842,
+    "speaker": "SPEAKER_00",
+    "text": "And after we perform data augmentation, two k minus one and two k will form one positive pair just like here that uh... Maybe when we start from k equals 2, we can generate 3 and 4 as a positive pair. So in this equation, you can see that it could 2k minus 1 and 2k, which is just like 3 and 4 is a positive pair. And 4 and 3 is also a positive pair. "
+  },
+  {
+    "start": 2506.982,
+    "end": 2546.623,
+    "speaker": "SPEAKER_00",
+    "text": "So for the second part of this loss function, we compare 2k to 2k minus 1. And so this is a loss function for contrast loss. And we can optimize this loss function basically to optimize this cross entropy for many pairs so that we can get some good parameter for our image encoder. And the next question is that how can we evaluate these pre-trained image encoder. "
+  },
+  {
+    "start": 2547.444,
+    "end": 2584.442,
+    "speaker": "SPEAKER_00",
+    "text": "And I think one of the students asked the question that, how can we use this encoder? Do we still need to pre-train? Do we still need to fine tune some of these parameters? And there are two ways that we can use this encoder. One way is called linear probing. In linear probing, we phrase the encoder parameters. Then we add a linear classification head. which essentially is just one or two fully connected layers. And then we only train these last two layers on some training set to evaluate its performance on the test set. "
+  },
+  {
+    "start": 2586.344,
+    "end": 2622.724,
+    "speaker": "SPEAKER_00",
+    "text": "And if we do this for this contrasting method, this figure reports its image classification accuracy for this linear probing process. So you can see that it's comparing the SimCLR method to many other self-supervised learning methods. And at least in this plot, it shows that SimCLR can achieve very good pre-trained image encoder. The other way that we don't freeze anything, we still add a classification head. "
+  },
+  {
+    "start": 2623.284,
+    "end": 2656.306,
+    "speaker": "SPEAKER_00",
+    "text": "And this time, we train all the layers in this network. This is called fine tuning. You can imagine that in fine tuning, we have more freedom or flexibility to adjust these network parameters. So normally after fine tuning, the performance is higher than just linear probing. And this table reports on performance after fine tuning. "
+  },
+  {
+    "start": 2658.278,
+    "end": 2691.718,
+    "speaker": "SPEAKER_00",
+    "text": "And in fine-tuning, for both linear probing and fine-tuning, we need to introduce some human annotation. But we hope that the cost for this human annotation is small. And in this table, you can see that compared to perform supervised learning using a very large annotated dataset, here using contrast learning or self-supervised learning, at the end, you only need to use maybe 1% of the annotation data set. "
+  },
+  {
+    "start": 2693.079,
+    "end": 2723.764,
+    "speaker": "SPEAKER_00",
+    "text": "And you can still achieve a very high classification accuracy. So this is one of the first papers on contrast learning. And after that paper was published, there are also many other papers, the follow-up work, try to improve this framework. And I think the recent one is called Dino V3, which was released by Meta last year. "
+  },
+  {
+    "start": 2724.564,
+    "end": 2756.542,
+    "speaker": "SPEAKER_00",
+    "text": "And it is not a pure contrast learning method. Actually, it combines this idea of contrast learning and some other ideas. And so most of these approaches follow the same framework, which is this diagram shown here. But maybe there are some different components that they have been improved. "
+  },
+  {
+    "start": 2757.243,
+    "end": 2787.624,
+    "speaker": "SPEAKER_00",
+    "text": "For example, how can we perform, what is the best way to perform data augmentation, or Apart from defining positive pairs and negative pairs, is there any other way to define the loss function? At the moment, when we look at our loss function, we only define one positive pair and there are many other negative pairs. Would this create an imbalance between the positive class and negative class? "
+  },
+  {
+    "start": 2790.885,
+    "end": 2829.45,
+    "speaker": "SPEAKER_00",
+    "text": "And some other follow-up work like address these limitations. Some of these works, they only use one positive pair without any negative pairs. Or they use some moving average filters to smooth out the learned parameters. Or they combine the loss of the contrast learning with some other loss functions. So this is a contrast loss. And we'll move on to the next category of self-supervised learning, which is called genitive model-based methods. "
+  },
+  {
+    "start": 2831.61,
+    "end": 2865.05,
+    "speaker": "SPEAKER_00",
+    "text": "So genitive model, these ideas actually come from natural language processing. And in natural language processing, one famous example is called GPT, standing for Genitive Pre-trained Transformer. So you can see the first term means that this is a generative method. The second term means that this is a way to pre-training a method or perform self-supervised learning. So how does the GPT perform the pre-training? "
+  },
+  {
+    "start": 2866.571,
+    "end": 2896.87,
+    "speaker": "SPEAKER_00",
+    "text": "So it's basically define the task as this. which is to predict the next code token. So this is pre-training stage for GPT or other large language model. And after pre-training, after you get some good parameters, you can apply or fine tune your model to some other task. And the fine tuning process may use some other techniques, which is called reinforced learning, which we don't cover in this module. "
+  },
+  {
+    "start": 2898.271,
+    "end": 2928.94,
+    "speaker": "SPEAKER_00",
+    "text": "So we'll only talk about how GPT performs pre-training. So it defined a task called predict the next token. So here, in this diagram, the bottom shows the input and the top shows the output. So we assume that we have some input tokens or input words, A, B, C. And then after C, there is another special token, which is called end of sentence. "
+  },
+  {
+    "start": 2930.053,
+    "end": 2967.109,
+    "speaker": "SPEAKER_00",
+    "text": "And what it does, it's telling this language model, when you see me, you can start predicting the next token. And the language model would predict W. And afterwards, that W, this predict token, will also move on to the input side and then provide more information to the model. The model predicts the next token, which is X. And so here, when we define this predict the next token task, it does not involve any human annotation. "
+  },
+  {
+    "start": 2968.69,
+    "end": 3004.267,
+    "speaker": "SPEAKER_00",
+    "text": "We just need to take a sentence from any book. Maybe in this book, it says that here we define a self-supervised learning task. And we just provide these words to the input to this model. And then we ask the model to predict the next word, which is predicting. And after predicting this word, predicting the, after predicting the, predict the next. "
+  },
+  {
+    "start": 3004.967,
+    "end": 3042.775,
+    "speaker": "SPEAKER_00",
+    "text": "So here, no human annotation is involved. Because you just need to get a sequence of words, then you can ask the model to predict the next word, predict the next word. And so that is why this allows the language model to learn a lot of features without any annotation. And while the language people develop this model, they also think about some other ideas, which is, would this model lead to intelligence? "
+  },
+  {
+    "start": 3043.815,
+    "end": 3091.066,
+    "speaker": "SPEAKER_00",
+    "text": "Because you can consider here ABC is a question. So if we replace C by a special token, which is question mark, and then we can go to internet to find a lot of question answers from the dataset. then to train such model so after the training each time this model sees a new question uh with the question mark to be last character then it will start giving you answers so an interesting question is that if we find all the questions and answers on this world on this planet and train a model how would the model being able to learn. "
+  },
+  {
+    "start": 3092.087,
+    "end": 3124.181,
+    "speaker": "SPEAKER_00",
+    "text": "So what kind of response would model be when we ask it new questions? And so this has been tried over 10 years ago. So over 10 years ago, researchers combined a lot of text, crawled a lot of text from Wikipedia because we thought that Wikipedia is the center of human knowledge. "
+  },
+  {
+    "start": 3125.441,
+    "end": 3159.862,
+    "speaker": "SPEAKER_00",
+    "text": "And then to train this model using prediction next token as a path. And then we can ask the model the meaning of life is with a question mark. And the model will give us some answers, which seems quite interesting, but not very accurate at the time. And without changing the overall idea, In year 2026, if you still ask the language model, what's the meaning of life, it'll give you a more complete answer. "
+  },
+  {
+    "start": 3160.623,
+    "end": 3197.002,
+    "speaker": "SPEAKER_00",
+    "text": "And what has been changed between year 2011 and year 2026 is just we have more data that can fit to the model, to train the model, but the task is still the same. We just use very simple task, which is predicting the next token. OK, so that is how we use predicting next token in natural language processing. And we will take a 10 minute break here. And after a 10 minute break, we'll talk about how we can apply this idea to computer vision tasks. "
+  },
+  {
+    "start": 3197.762,
+    "end": 3203.285,
+    "speaker": "SPEAKER_00",
+    "text": "So we'll restart at three minutes after 3. "
+  },
+  {
+    "start": 3249.542,
+    "end": 3251.824,
+    "speaker": "SPEAKER_00",
+    "text": "Could you close the windows? It's a bit cold. "
+  },
+  {
+    "start": 3251.844,
+    "end": 3252.905,
+    "speaker": "SPEAKER_01",
+    "text": "Those ones are open. Thank you. "
+  },
+  {
+    "start": 3278.701,
+    "end": 3279.701,
+    "speaker": "SPEAKER_02",
+    "text": "You can't just remove her. "
+  },
+  {
+    "start": 3279.741,
+    "end": 3281.022,
+    "speaker": "SPEAKER_01",
+    "text": "You gotta remove her. "
+  },
+  {
+    "start": 3309.751,
+    "end": 3312.254,
+    "speaker": "SPEAKER_01",
+    "text": "I'm getting a decal. I'm getting a decal. I'm getting a decal. "
+  },
+  {
+    "start": 3328.533,
+    "end": 3333.774,
+    "speaker": "SPEAKER_01",
+    "text": "Do you want him to learn this? No, I don't think so. No, I don't think so. I don't think so. "
+  },
+  {
+    "start": 3398.075,
+    "end": 3403.698,
+    "speaker": "SPEAKER_01",
+    "text": "Oh, it's called FIM. I used to play Deep Seek, but I don't know what it is. Deep Seek is not official, but Deep Seek is. "
+  },
+  {
+    "start": 3403.718,
+    "end": 3404.858,
+    "speaker": "SPEAKER_00",
+    "text": "So you type this tag. "
+  },
+  {
+    "start": 3452.277,
+    "end": 3460.182,
+    "speaker": "SPEAKER_01",
+    "text": "I don't know how to explain this. This is a roundabout window. Isn't this a roundabout window? But it's still a next-door window. It's not a next-door window. It's actually an entrance. "
+  },
+  {
+    "start": 3473.873,
+    "end": 3488.579,
+    "speaker": "SPEAKER_01",
+    "text": "Yes, but from a physical point of view, this is still the next token. Even if you say it's the next token, it can actually be used. I don't think so. In the training, you also used it. It's equivalent to making a data organ, but you also used it. "
+  },
+  {
+    "start": 3549.336,
+    "end": 3551.158,
+    "speaker": "SPEAKER_00",
+    "text": "So this is the most recent. "
+  },
+  {
+    "start": 3573.265,
+    "end": 3578.129,
+    "speaker": "SPEAKER_00",
+    "text": "Imaging coder and trained by Meta is called Dinov3. "
+  },
+  {
+    "start": 3593.118,
+    "end": 3631.875,
+    "speaker": "SPEAKER_00",
+    "text": "And at the end, it shows with this pre-trained image encoder, you can perform different tasks. You can add some maybe segmentation tag onto the pre-trained encoder. You can also add maybe depth prediction tag to the encoder. It can be some foundation to perform many different tasks. OK. For example, I don't create any layers, and then I just put my mobile as far as I can, and it navigates like brilliant. "
+  },
+  {
+    "start": 3632.095,
+    "end": 3633.376,
+    "speaker": "SPEAKER_00",
+    "text": "It gets any image across. "
+  },
+  {
+    "start": 3633.736,
+    "end": 3643.698,
+    "speaker": "SPEAKER_01",
+    "text": "What if it gets the image and ultimately improves the class of the image? It won't get that. "
+  },
+  {
+    "start": 3701.26,
+    "end": 3714.49,
+    "speaker": "SPEAKER_00",
+    "text": "Although it does not know what bird is or what boat is, it's able to recognize this is one subject, one subject, this is what we speak. But it does not know the name. "
+  },
+  {
+    "start": 3744.482,
+    "end": 3748.005,
+    "speaker": "SPEAKER_00",
+    "text": "So then I asked other people, and they recommended me to do it. "
+  },
+  {
+    "start": 3748.025,
+    "end": 3755.93,
+    "speaker": "SPEAKER_01",
+    "text": "But they said that the photos they had of me weren't good enough. So they did recommend me to do it. But I couldn't do it. "
+  },
+  {
+    "start": 3792.413,
+    "end": 3834.56,
+    "speaker": "SPEAKER_00",
+    "text": "So we introduced this path, which is called predicting the next token. And this task was originally proposed by those language people. And for language, maybe predicting the next token is quite natural because the data itself is organized in the sequential order from left to right. And when we speak, our current sentence is followed by the next word. However, when we apply it to images, maybe it's slightly different because in image, how can we tell that one patch is after the other patch? "
+  },
+  {
+    "start": 3835.161,
+    "end": 3868.762,
+    "speaker": "SPEAKER_00",
+    "text": "In images, we have at least two dimensional and also that we have no strict order that which image patch should be in the front and which is in the back. In language, sometimes those people from just predicting the next word, can we also try some other ways to pre-chain the model? And in that way that we can discard the sequential order in original data, maybe we can find more complicated relationship between the current word and the previous word. "
+  },
+  {
+    "start": 3870.375,
+    "end": 3923.213,
+    "speaker": "SPEAKER_00",
+    "text": "And one idea which was being explored is called BERT, standing for bidirectional encoder representation from transformer. And using more straightforward words, BERT is essentially predicting the missing token. if we have some input I like playing something in the something and there are two missing tokens here we put special tokens here called mask mask and then we assume that we can develop some model to pre to take the features of the input words and also the mask token After some processing, after maybe some transformer models, self-attention layers, it can predict these missing tokens to be football and field. "
+  },
+  {
+    "start": 3924.963,
+    "end": 3964.776,
+    "speaker": "SPEAKER_00",
+    "text": "So when we formulate this task, again, it does not involve any human annotation. We can just take any sentence from a book, and then we randomly mask two words or three words out. Then we know the ground truth for those masked words. We can use this as task to pre-train a language model. And similar ideas can be applied to pre-training a vision model. So when we apply this idea of predicting the missing token to images, it's becoming predicting the missing patches. "
+  },
+  {
+    "start": 3966.396,
+    "end": 3996.988,
+    "speaker": "SPEAKER_00",
+    "text": "And the most popular method here is called MAE, or masked auto-encoding. So here we assume we need to process input images. We want to learn some good features from these images. What we do is that we mask out some random patches from input image, then ask the model to reconstruct these missing patches in the output image. And by formulating this task, we can pre-train this computer vision model. "
+  },
+  {
+    "start": 4000.32,
+    "end": 4037.283,
+    "speaker": "SPEAKER_00",
+    "text": "For example, that here we have some input image. So we first need to split this image into a number of patches. Suppose we split it into 14 by 14 equals 196 patches. Then for these 196 patches, we need to mask out some of the patches. We get some image which are shown here on the right hand side. You can see that if It may be even challenging for human to recognize what this object is, but we hope that it still contains some useful features in the input data. "
+  },
+  {
+    "start": 4037.924,
+    "end": 4075.318,
+    "speaker": "SPEAKER_00",
+    "text": "And then we can use this as a very difficult task for the model to learn something. And in technical detail, the master autoencoder follows an encoder-decoder structure. The last time we mentioned about this was about U-Net. We mentioned in U-Net, it follows this symmetric U-shape. On the left-hand side, it's encoder. On the right-hand side, it's decoder. And here, we also use encoder-decoder structure to perform this image reconstruction task. "
+  },
+  {
+    "start": 4076.382,
+    "end": 4111.141,
+    "speaker": "SPEAKER_00",
+    "text": "And we're not using Unet, we're using Vision Transformer. So we assume that the input image, which contains some missing patches, can go through some Vision Transformer. So Vision Transformer can regard the input image as a sequence of tokens, then extract features for each token. And here that for these... This light blue patches mean that the features we learn for each of these visible patches. "
+  },
+  {
+    "start": 4112.281,
+    "end": 4144.422,
+    "speaker": "SPEAKER_00",
+    "text": "And there are also some master patches which are colored using this light gray color. And then we can put all these the features for the visible patches, which are light blue, and the features for the masked patches, which are brown, together as inputs to some decoder, then ask the decoder to generate the correct image patches for each of these positions. "
+  },
+  {
+    "start": 4146.323,
+    "end": 4182.703,
+    "speaker": "SPEAKER_00",
+    "text": "And here, for each of these grayscale patches, it is represented by a special token, which is called the mask tokens. So the features for these light blue patches, they are essentially the features for a patch. So they look like a vector. And for the mask token, we also use a vector to represent the feature. "
+  },
+  {
+    "start": 4183.718,
+    "end": 4220.585,
+    "speaker": "SPEAKER_00",
+    "text": "but we don't know what numbers we should put for this mask token. And maybe if it's like, if we always use 128 dimension for these feature vectors, then for the mask token, there are 128 unknown parameters over there. And these unknown parameters can actually be trained during this process. So basically, we can adjust the numbers here to see what number at the end can allow us to perform the best reconstruction task. "
+  },
+  {
+    "start": 4224.029,
+    "end": 4257.314,
+    "speaker": "SPEAKER_00",
+    "text": "So here that we have this encoder, And it contains some parameter, maybe parameter theta denotes a parameter for this machine learning model. And there are also some other parameters. Let's just use another Greek letter, Psi, to denote the parameter for this mask token, which are these 128 unknown parameters. And they can be put together in this optimization problem. "
+  },
+  {
+    "start": 4263.178,
+    "end": 4298.126,
+    "speaker": "SPEAKER_00",
+    "text": "And in terms of the loss function, here we are performing a reconstruction loss, which means that for all these missing patches, we perform reconstruction for them. For example, that for This patch, after reconstruction, is shown within the red box. And we also have the ground truth for this patch. Then we can compare this reconstructed patch to the ground truth patch, define the mean squared error as a loss function. "
+  },
+  {
+    "start": 4298.867,
+    "end": 4353.796,
+    "speaker": "SPEAKER_00",
+    "text": "And then we can perform optimization using this loss function. And after pre-training, we can get these vision encoder pre-trained. And for this case, we're using a vision transformer as encoder. And then we can add some layers onto these vision transformer to test whether it can perform a good task for maybe for some image classification task. Again, to perform this evaluation, we can use both linear probing, which means that the parameter of the vision transformer are frozen, we just train the last one or two layers, or using fine tuning, which means that for both the last layers, and also for these other layers in this vision transformer, they are going to be fine tuned in this process. "
+  },
+  {
+    "start": 4355.763,
+    "end": 4385.774,
+    "speaker": "SPEAKER_00",
+    "text": "And these are just some plots that the exact numbers don't provide any meaning, essentially just telling you that with mass autoencoder, we can also pre-train and get good parameters for some vision models. So these parameters or these numbers are basically comparing different kinds of self-supervised learning methods. For example, that here, This row shows these must auto-encoding approach. "
+  },
+  {
+    "start": 4386.455,
+    "end": 4429.925,
+    "speaker": "SPEAKER_00",
+    "text": "And there are also some other rows shows some contrast learning or some other ways of self-supervised learning methods. And these numbers compares the classification accuracy after fine tuning. So when we compare these two approaches, there is some difference between the two approach. So when we were developing the contrast learning methods, you can see that at the end, for this input image X, we get its features, ZI and ZJ, and they represent the global level feature for the input image. "
+  },
+  {
+    "start": 4431.325,
+    "end": 4461.673,
+    "speaker": "SPEAKER_00",
+    "text": "And on the right-hand side, when we develop these mass autoencoder to predict the missing patches, we're not utilizing the global level features, but instead that we just, the objective is just to reconstruct these small patches to be very realistic, very close to the ground truth. And in this case that we focus more on the pixel level or patch level features. "
+  },
+  {
+    "start": 4462.887,
+    "end": 4510.706,
+    "speaker": "SPEAKER_00",
+    "text": "So this can be a difference that can, this can lead to difference in two type of approaches. So after you pre-train these image encoders, if your final task is to perform maybe image classification, which relies more on the global features, maybe contrast learning would perform better. If your final aim is to apply this pre-trained model to some other task, such as just to generate good images, I don't care what this entire image is, I only care about whether each local region looks realistic, maybe this kind of must autoencoder will perform better. "
+  },
+  {
+    "start": 4511.626,
+    "end": 4545.43,
+    "speaker": "SPEAKER_00",
+    "text": "And that is determined by how we define the original learning task for these two approaches. OK. And I just mentioned, so we described three different ways to perform self-supervised learning. The pretext task-based method, and the famous example is predicting the relative position of two patches. The contrast learning method, we introduce the same CLR method. "
+  },
+  {
+    "start": 4546.151,
+    "end": 4581.658,
+    "speaker": "SPEAKER_00",
+    "text": "And generative model-based methods, we introduce the mass auto-encoding. And for the recent years, if you look at how the research community is advancing, actually we need to combine several ideas together. So the most recent model released by Meta a few months ago. It's called DinoBase3, and it combines ideas from both contrast learning and the generative models, which means that you have a loss function containing several terms. "
+  },
+  {
+    "start": 4582.319,
+    "end": 4613.137,
+    "speaker": "SPEAKER_00",
+    "text": "One term is suggesting the model to learn good contrast between two different images, and the other loss term is asking the model to reconstruct the missing patches really well. And they have found this kind of combined loss function performed better than just using a single loss term. And during the break, one student asked me, why are we interested in self-supervised learning? "
+  },
+  {
+    "start": 4614.318,
+    "end": 4657.302,
+    "speaker": "SPEAKER_00",
+    "text": "And there are different reasons that drive people to look into this problem. One reason is that it allows us to utilize more data. For example, if we only work on a small task, a very narrow domain task such as human face detection, maybe we can only collect a dataset with 10,000 different human faces and use that as a dataset to train your machine learning model. However, when we think about how human analyze image features, the way our brain works is not limited the features just to one classes, not just using these features to recognize human. "
+  },
+  {
+    "start": 4657.882,
+    "end": 4693.006,
+    "speaker": "SPEAKER_00",
+    "text": "We use our brain to do everything. We use our brain to recognize cat, recognize dog, recognize human. So perhaps some of these features are transferable So if we can find a good way to pre-train a model using billions of images to get a good encoder, which means get a good model that can extract image features, we can then apply this encoder to the human face detection task, and maybe it can perform better than you only have 10,000 faces to pre-train a single narrative model. "
+  },
+  {
+    "start": 4695.848,
+    "end": 4726.157,
+    "speaker": "SPEAKER_00",
+    "text": "This is one motivation. The other motivation is to save annotation cost. And the third motivation is that we want to see what is the limit of the computer vision model. If you look at the large language models that maybe 10 years ago that it was still like a baby, that it gave you some answers but not very perfect. And nowadays, a large language model can give you very good answers almost for everything. "
+  },
+  {
+    "start": 4727.068,
+    "end": 4763.504,
+    "speaker": "SPEAKER_00",
+    "text": "And that is because it has learned from all the language data coming from this planet, coming from our civilization. And a very natural idea is that would this also apply to computer vision? How do we define all the vision data for our civilization? Can we also train some model from a data set at this scale? And if we do that, what would the performance be for those models? And when we move on to large and large dataset, the scaling law comes in. "
+  },
+  {
+    "start": 4764.624,
+    "end": 4795.008,
+    "speaker": "SPEAKER_00",
+    "text": "So scaling law basically assess the performance of some large models with respect to different parameters. And here, for large language models, its success relies on several reasons. The first reason is that the model is very large. So it uses a transformer. We already introduced what a transformer is. But large language model uses a very deep transformer. "
+  },
+  {
+    "start": 4795.528,
+    "end": 4828.189,
+    "speaker": "SPEAKER_00",
+    "text": "It contains many, many layers. And for each layer, maybe it has many more feature channels. And that allows it to have a very high learning capacity. And also, it relies on a very large dataset, covers all the data from the civilization. The large model and large dataset makes the large language model to improve its performance in the past 10 years, giving us answers for the meaning of life from left to the right. "
+  },
+  {
+    "start": 4831.936,
+    "end": 4869.574,
+    "speaker": "SPEAKER_00",
+    "text": "And if we want to evaluate this kind of breakthrough numerically, we can use scaling laws to evaluate it. So here we assume that the performance of some large language model can be described by its loss function, big L. And the success of this model depends on several factors. The model size, big N, which means the number of parameters. the size of the data set, big D, which means the number of word tokens in the training set, and also the amount of compute C we can use for training. "
+  },
+  {
+    "start": 4870.214,
+    "end": 4901.02,
+    "speaker": "SPEAKER_00",
+    "text": "And it is often measured using this petafloat bay as the unit, which means that we run 10 to the power of 15 full loading point operations times one day. And these are the three main factors that can influence the loss or the performance of this language model. And it's just from empirically, we don't have mathematical proof for this. "
+  },
+  {
+    "start": 4901.34,
+    "end": 4935.798,
+    "speaker": "SPEAKER_00",
+    "text": "It's just like you do a lot of experiments, you'll find out the performance of the model follows a power-law relationship with respect to these three factors. And here that each plot shows one of the factor and the x and y axis is shown using the logarithm scale. So the x axis denotes either the the resource of the compute, the size of the data set, or the number of parameters for your large model. "
+  },
+  {
+    "start": 4936.659,
+    "end": 4969.785,
+    "speaker": "SPEAKER_00",
+    "text": "And the y-axis denotes the loss function or the loss value for this model. So you can see that when you run a lot of experiments, if you put all these data points here, then you can fit a equation onto this data point. And if we only look at one of these equations, it's here. The loss function is equal to big D divided by some constant number and then to the power of minus 0.095. "
+  },
+  {
+    "start": 4971.206,
+    "end": 5025.761,
+    "speaker": "SPEAKER_00",
+    "text": "So this is the power, the scaling law for data set size and for compute and for the model size. It's just empirically we also find that they follow this power-law relationship. Yes? How do you even define performance? So performance is... So you have your training set for a large length model. You also have test set. And... If the model for image classification path, we use this cross entropy loss. So for language model, they can also define similar loss, how well it predicts the next token. And that loss on the test set is regarded as a performance of the model. OK. "
+  },
+  {
+    "start": 5025.781,
+    "end": 5058.623,
+    "speaker": "SPEAKER_00",
+    "text": "What about algorithmic improvements? Algorithmic improvement. I would say that in the past few years, maybe that how much we have the performance gain attribute algorithm improvement is less compared to these three factors. "
+  },
+  {
+    "start": 5065.914,
+    "end": 5100.266,
+    "speaker": "SPEAKER_00",
+    "text": "And so if the scaling laws hold for model, it means that we can do planning before training. For example, that maybe you you can first do some small experiments. You can run some small models with some small dataset with limited GPU resources and then fit this line. Then this can give you some estimate when you have more computational resources or more data, what kind of performance you can achieve. "
+  },
+  {
+    "start": 5101.133,
+    "end": 5131.566,
+    "speaker": "SPEAKER_00",
+    "text": "And this is a plot generated by OpenAI in year 2024. So basically, all these great dots are some small experiments. And for each experiment, they assessed the x-axis, which is the computing resource, and the y-axis denotes some lost function defined on the test set. And then you can fit this dashed line onto this dot. "
+  },
+  {
+    "start": 5132.747,
+    "end": 5163.648,
+    "speaker": "SPEAKER_00",
+    "text": "And by the way, here, the dashed line looks like exponential. And previously, it looks like a straight line. That is because for this plot, we use the logarithm scale. but here that for the y-axis, we don't use logarithm scale. So anyway, we fit and get this exponential function, and then we can predict that now we have more computing resources. Maybe that the performance model should be here. "
+  },
+  {
+    "start": 5164.869,
+    "end": 5195.389,
+    "speaker": "SPEAKER_00",
+    "text": "And the green dot shows that the the real performance when they run these experiments and the dash line shows the predicted performance. You can see that the green dot is very closely aligning with the dash line. And I think that it's very important for these industry companies because to create this green dot, maybe it will cost you a few million dollars. So that's why that is so important to do some planning beforehand. "
+  },
+  {
+    "start": 5198.981,
+    "end": 5235.555,
+    "speaker": "SPEAKER_00",
+    "text": "And that is what happens for a language model. And does that scaling law also apply to the computer vision models, that when we have more images, when we have more GPUs, when we have large models, do we also observe that performance would drop? And two years ago, there were some researchers investigating this, that the model they use is a masked autoencoder. And then here they also do the same three plots. The x-axis denotes the computing resource, the size of the training set, and the size of the model. "
+  },
+  {
+    "start": 5236.215,
+    "end": 5271.715,
+    "speaker": "SPEAKER_00",
+    "text": "And the y-axis denotes the loss function defined on the test set. What he found was that for... for compute and for model size, the scaling laws still hold. However, at least in this paper, they didn't notice that the scaling law for the dataset size, which means that when they have more data, that the performance does not improve proportional to the dataset size. "
+  },
+  {
+    "start": 5275.037,
+    "end": 5306.31,
+    "speaker": "SPEAKER_00",
+    "text": "And so that was a finding in year 2023. And one year later, another research group from Meta, where they have more resources, they did similar kind of experiments again. And this time they found out actually that the scaling laws for data also hold. I think that sometimes that These three factors can limit each other. "
+  },
+  {
+    "start": 5306.37,
+    "end": 5339.69,
+    "speaker": "SPEAKER_00",
+    "text": "For example, if you are only working on a very small model with a very small number of parameters, and if you only have one GPU, very small GPUs, then it's difficult to observe the scaling laws for dataset, which means that on these very few GPUs, using this very small model, no matter how many data you throw in, the performance will not improve because you basically don't have enough capacity for the model to learn everything from large dataset. "
+  },
+  {
+    "start": 5340.51,
+    "end": 5373.755,
+    "speaker": "SPEAKER_00",
+    "text": "And that may be one possible reason that limits this paper so that they didn't find the scaling law for data. And in year 2024, if you have more GPUs and also if you're able to develop a much larger computer vision model, what he found was that scaling law also holds that when you have, there are two, how to read this plot, there are two colors in the plot. One is the blue. "
+  },
+  {
+    "start": 5377.077,
+    "end": 5415.238,
+    "speaker": "SPEAKER_00",
+    "text": "Blue curve shows the performance when you train it using a much larger set with 142 million images. And the orange curve shows a smaller training set which only had 14 million images. So what we found is that for majority of the case, like for here, here, here, here, that the blue curve is above the orange curve, which means that when you have more data, it can also improve the model performance. "
+  },
+  {
+    "start": 5416.599,
+    "end": 5452.487,
+    "speaker": "SPEAKER_00",
+    "text": "So it seems that if the scaling laws still hold, it means that maybe for the next few years, we can still further improve the performance of these computer vision models using self-supervised learning, and we need to curate larger data set, maybe also better data set, and also developing a better algorithm. And also there are new challenges, which is now that the world is full of AI-generated images, would learning from these AI-generated images be similar to learning from real images? "
+  },
+  {
+    "start": 5453.147,
+    "end": 5486.128,
+    "speaker": "SPEAKER_00",
+    "text": "Because AI-generated images, in terms of diversity, maybe it's already limited by the kind of model that generates these images. But I think that we'll see what will happen in the next few years. And on the right, you can see this was also from a recent paper, again from Meta. So when they published their recent model called DinoBase3, which is a vision transformer model trained using self-supervised learning. "
+  },
+  {
+    "start": 5486.989,
+    "end": 5522.567,
+    "speaker": "SPEAKER_00",
+    "text": "And they also assessed the performance of different vision models when they are trained using supervised learning, using weekly supervised learning, and using self-supervised learning. So if we use supervised learning, we use this orange color as a data point. If we use self-supervised learning, we use the blue color as a data point. And here the plot, all the experiments that are happening in the past 10 years, and into different curves. "
+  },
+  {
+    "start": 5523.328,
+    "end": 5557.121,
+    "speaker": "SPEAKER_00",
+    "text": "And you can see that before year 2020, that the majority of the algorithm improvement comes from this orange line, which means that it's because we have better ways to do the supervised learning. But since year 2020, which was when the SIMCOR method was introduced, until now, we can also see that this blue curve, this self-supervised learning curve, the performance is catching up. "
+  },
+  {
+    "start": 5557.741,
+    "end": 5621.285,
+    "speaker": "SPEAKER_00",
+    "text": "And we are already at a point that the self-supervised method can give you a very good vision encoder that is as good as an encoder generated using supervised learning. And with the scaling law, that means that maybe in the next few years, we can still improve the performance of these blue dots that maybe will have another dot even higher. OK. So that's everything about self-supervised learning. Is there any questions here? OK. So if there is no question, we'll move on to the next lecture. The next lecture is about vision language models. So here in this plot, you can see there is also a purple curve. which is called weakly supervised learning. So what does this mean? So this means that you still need to provide some information to the model, but it is not very strict label defined by human. "
+  },
+  {
+    "start": 5622.226,
+    "end": 5653.862,
+    "speaker": "SPEAKER_00",
+    "text": "So like if we want to perform image classification task for supervised learning, it means that human need to define the correct label for each image. But sometimes maybe we don't have human to provide those ground truth labels. We can still find some maybe pseudo ground truth labels coming from somewhere else. Like we have an image here. We don't have the ground truth label for this image. "
+  },
+  {
+    "start": 5654.443,
+    "end": 5692.062,
+    "speaker": "SPEAKER_00",
+    "text": "But at the bottom of this image, we have the caption for this figure here. So with this kind of figure caption providing us with some super virus signal to train our vision encoder so it can also learn some features from these images. And if you do that, it's called weekly supervised learning. This is just one way to do weekly supervised learning, but there are other ways. And when we do weekly supervised learning, you can see that sometimes we can use both the imaging data and language data. "
+  },
+  {
+    "start": 5697.05,
+    "end": 5727.391,
+    "speaker": "SPEAKER_00",
+    "text": "And we're interested in linking the images to language for many reasons. Maybe that you want to develop a new weekly supervised learning method using the caption of a figure to pre-train the encoder for that figure image. But there are also other reasons. That is about how we understand this world. That when we understand this world, we define different concepts. Actually, that's because all these concepts, they are related to each other. "
+  },
+  {
+    "start": 5727.731,
+    "end": 5771.162,
+    "speaker": "SPEAKER_00",
+    "text": "For the same concept, we can use vision data to define it. We can also use language data to define it. For example, if the concept is a human, we can take a picture of the human using millions of pixels to define this concept. We can also use language to define the concept of human, just using one word, which is human. And there are differences in these two data representations. So for images, it is more like a low level representation. Because if you think about what these pixel intensity means, each pixel only means that whether they are bright or dark, they don't directly tell you that these pixel belong to a human. "
+  },
+  {
+    "start": 5772.103,
+    "end": 5808.59,
+    "speaker": "SPEAKER_00",
+    "text": "But language is different. Language is a much higher level representation. In language, we use words, and words are invented by humans. And when we invent these words, actually, we already assign some high-level meaning to the word. So there are differences in the two types of data, but also that they can all be linked together by the concept. And if we can describe the same concept on this planet, Maybe that we can also find some feature space that align the vision data with language data. "
+  },
+  {
+    "start": 5809.43,
+    "end": 5847.057,
+    "speaker": "SPEAKER_00",
+    "text": "So when we develop either the language models or the computer vision models, we also talk about encoders. So what these encoders do is they take some images or some words as the input, then extract the feature for that image or the features for that sentence. So you can see there is one space which is called the feature space or representation space. Maybe the image representation space can be aligned with the language representation space. So that's the first aim we want to achieve in this lecture, in today's lecture, that how can we align vision with language. "
+  },
+  {
+    "start": 5848.541,
+    "end": 5885.602,
+    "speaker": "SPEAKER_00",
+    "text": "And also after we can align these two types of representation, it can also open new avenues for some interesting applications, such as maybe weekly supervised learning using figcaption to train image encoder or text to image generation or something else. So I think we already discussed this, In the past, maybe 10 years ago, computer vision and natural language processing are developed in parallel, but now that the boundary become less distinct. "
+  },
+  {
+    "start": 5887.003,
+    "end": 5918.835,
+    "speaker": "SPEAKER_00",
+    "text": "And for example, we can borrow this idea of transformer from natural language processing, apply them to some image classification tasks. We can also use the residual learning developed in computer vision and use the residual learning to develop the transformer for language processing. And so for the next maybe 10 minutes, we are going to introduce the idea of how we can align the vision and language representations. "
+  },
+  {
+    "start": 5918.975,
+    "end": 5949.981,
+    "speaker": "SPEAKER_00",
+    "text": "And for some other topics, such as text-to-image generation, we'll leave to Friday's lecture. So here, we're going to see the old friend again, which is contrast learning. But instead of using contrast learning for image, we used contrast learning for both image and language. And this method is called CLIP, proposed by OpenAI a few years ago, standing for contrast language and image pre-training. "
+  },
+  {
+    "start": 5952.224,
+    "end": 5983.652,
+    "speaker": "SPEAKER_00",
+    "text": "So previously for the contrast learning method, we draw a framework like this. We mentioned we can take one data sample X, then we create two views for the same data sample. When we do that, we normally perform some kind of augmentation for the original input, but with different parameters. after we generate two views, XI and XJ, we can throw them into some encoder, then ask the encoder to generate similar features for these two views. "
+  },
+  {
+    "start": 5985.033,
+    "end": 6021.137,
+    "speaker": "SPEAKER_00",
+    "text": "And for when we align the image feature with language features, actually quite similar. And we start from maybe one concept. Maybe this concept is a dog. And for the dog, we can have two views for the dog. We can have a view Xi, which is the image of the dog, and the view Xj, which is the word for the dog. Then the image Xj, sorry, image, the dog image Xi will go through some image encoder, generates the feature Zi. "
+  },
+  {
+    "start": 6022.218,
+    "end": 6079.677,
+    "speaker": "SPEAKER_00",
+    "text": "Then the dog word will go through some language encoder generate its feature Zj. Because they come from the same concept, the dog, then we can also ask the model to generate Zi to be very similar to Zj. And this can allow us to define the loss function for this contrast learning process. I assume now it's impossible to use shared weights though, right? yes that's that's correct so now that these two branches they are not sharing ways they can be completed two different kind of architecture two different models one for image feature extraction the other for language feature extraction okay so uh here you can see that how we can uh create these two views. So first, we need to collect some data set. "
+  },
+  {
+    "start": 6081.439,
+    "end": 6113.456,
+    "speaker": "SPEAKER_00",
+    "text": "And the data set contains a number of images. For each image, we also get some text paired with that image. For example, for this first image, it is a puppy. And then the paired text is a pepper, the Aussie puppy. Then they represent the same concept. We can ask the image of the puppy to go through the image encoder, generate some features. Let's say it's a feature I1. "
+  },
+  {
+    "start": 6114.257,
+    "end": 6147.446,
+    "speaker": "SPEAKER_00",
+    "text": "I stands for image. And the text for that puppy goes through some text encoder. generate some features for the text T1. The image encoder and text encoder, they are different. So I use different colors here, green and the purple for these two encoders. And the dimensionality for I1 and T1 is the same. Maybe they are both 128 dimensional. And the next step is that we can define the similarity between I1 and T1. "
+  },
+  {
+    "start": 6147.947,
+    "end": 6183.801,
+    "speaker": "SPEAKER_00",
+    "text": "So we just calculate the inner product between these two feature vectors. Maybe it also involves some normalization. We normalize each feature vector by its L2 norm, so it becomes a unit vector. And that is between image one and text one. And maybe in our dataset, in this small batch, text two is completely different. Text two is describing maybe a car. And from text two, we can get the features for text 2, T2. "
+  },
+  {
+    "start": 6184.801,
+    "end": 6216.062,
+    "speaker": "SPEAKER_00",
+    "text": "And this time, if we assess the similarity between I1 and T2, which means for this part, the similarity should be low because they are coming from two different concepts. And if we take a batch of images with their pad text, then you can create these similarity matrix here, which contains n rows and denotes the number of images and n columns and is the number of images or the number of paired text. "
+  },
+  {
+    "start": 6217.183,
+    "end": 6249.374,
+    "speaker": "SPEAKER_00",
+    "text": "And for these similarity matrix, for the diagonal elements, for these blue elements, we should expect high similarity. And for these off diagonal elements, these white elements, there should be low similarity. So this will be like the similarity and the contrast we're using. And in terms of detail architecture, you can try different architects for these encoders. "
+  },
+  {
+    "start": 6249.995,
+    "end": 6287.604,
+    "speaker": "SPEAKER_00",
+    "text": "Maybe for the image encoder, you can try convolution network or vision transformer. For the text encoder, a common choice is to use the transformer. As long as you make sure at the end that this feature vector I1 and feature vector T1, they can go to the same dimensionality, it is fine. Okay, so after we build these similarity metrics, which contains all the similarity between image features and text features, we can write down some loss function. "
+  },
+  {
+    "start": 6288.848,
+    "end": 6322.297,
+    "speaker": "SPEAKER_00",
+    "text": "And they would look like this. I think it's quite familiar that you can see, first, it looks like some cross entropy. And second, within the logarithm, it looks like a softmax function. And the power for the softmax function is the similarity between two feature vectors, one feature vector i coming from the image, the other feature vector t coming from the text. And if i and t share the same subscript, it means they are paired. "
+  },
+  {
+    "start": 6322.998,
+    "end": 6344.228,
+    "speaker": "SPEAKER_00",
+    "text": "So i, i, and ti, they are paired image and text. So we want their similarity to be high. And if i, i, and t, k, if they have different subscript, then they are not paired. We want their similarity to be low. No question? "
+  },
+  {
+    "start": 6367.73,
+    "end": 6400.722,
+    "speaker": "SPEAKER_00",
+    "text": "Okay, so here that the input to the text encoder is a sequence of tokens and output of text encoder is just a single feature vector. which summarize the entire sentence, the entire input sentence. And for the imaging code, it's the same, that the input is one image, the output of the imaging code is one vector summarizing the information within the entire image. "
+  },
+  {
+    "start": 6401.623,
+    "end": 6432.162,
+    "speaker": "SPEAKER_00",
+    "text": "So that if both i and t are just one feature vector, then we can calculate that similarity. OK. And when we define this cross entropy loss term, there are two ways to define it. One way is to along the row. The other is to along the column. So what does this mean? "
+  },
+  {
+    "start": 6432.322,
+    "end": 6472.255,
+    "speaker": "SPEAKER_00",
+    "text": "That if we define it along the row, when we look at the top, we're assessing the similarity between ii and ti. For the denominator, we are assessing the similarity between the same ii against all the other text tk. So that means that along this row, we have one positive pair, which is i2 t2 in this case, and then many negative pairs, which are i2 t1, i2 t3, i2 tn. "
+  },
+  {
+    "start": 6472.675,
+    "end": 6509.34,
+    "speaker": "SPEAKER_00",
+    "text": "So this is the similarity from image to text or contrastive loss from image to text. And we can also define these contrastive loss from text to image, which means that we look at for each column and here that at the top of the loss term, we calculate the similarity between Ti and Ii And at the bottom, we keep the text feature unchanged. "
+  },
+  {
+    "start": 6509.52,
+    "end": 6541.108,
+    "speaker": "SPEAKER_00",
+    "text": "The text feature is still TI, but we use different image features, IK, to calculate their similarity. And then after you write down these image-to-text contrast laws and text-to-image contrast laws, you can add them together, which form this total loss term at the bottom of this slide. Any question here? Okay. Because of the time, maybe we'll stop here. "
+  },
+  {
+    "start": 6541.728,
+    "end": 6545.51,
+    "speaker": "SPEAKER_00",
+    "text": "And on Friday, we'll carry on with visual language modeling. Thank you. "
+  },
+  {
+    "start": 6660.716,
+    "end": 6668.338,
+    "speaker": "SPEAKER_01",
+    "text": "I don't know what jacket is on. I gotta return this to the company. Yeah, I can take my cards. "
+  },
+  {
+    "start": 6742.024,
+    "end": 6743.785,
+    "speaker": "SPEAKER_01",
+    "text": "You're not going to drive a license? "
+  },
+  {
+    "start": 6758.456,
+    "end": 6761.058,
+    "speaker": "SPEAKER_01",
+    "text": "Would you be like, it's okay for this to happen? "
+  },
+  {
+    "start": 6778.363,
+    "end": 6784.09,
+    "speaker": "SPEAKER_01",
+    "text": "He pulls the trigger and he starts walking in game. He changes the map and starts punching. "
+  },
+  {
+    "start": 6794.907,
+    "end": 6812.627,
+    "speaker": "SPEAKER_01",
+    "text": "I mean, I don't know. Actually, no. I wouldn't. Yeah, I don't know. Actually, I would kind of like a. Yeah, same. Yeah. Yeah, that's what I mean. It's not just me. "
+  },
+  {
+    "start": 6812.647,
+    "end": 6814.768,
+    "speaker": "SPEAKER_00",
+    "text": "You've literally dragged me to this one. "
+  },
+  {
+    "start": 7009.295,
+    "end": 7013.998,
+    "speaker": "SPEAKER_01",
+    "text": "The coursework, the LP coursework. Oh, you're not taking credit for that. Oh, right, OK. "
+  },
+  {
+    "start": 7096.827,
+    "end": 7111.484,
+    "speaker": "SPEAKER_02",
+    "text": "I want to ask if today's lecture is going to be the full slides, because there are many, many topics. I went through them. It's for today and on Thursday. Okay, amazing. What are we going to finish today? "
+  },
+  {
+    "start": 7111.765,
+    "end": 7113.947,
+    "speaker": "SPEAKER_01",
+    "text": "The plan is to do encoders and decoders. "
+  }
+]

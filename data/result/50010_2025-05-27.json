@@ -1,0 +1,1241 @@
+[
+  {
+    "start": 4.14,
+    "end": 35.53,
+    "speaker": 4,
+    "text": "Well, I know that the... Stream has sort of dropped off to a trickle. We should get started. So hello, my name's David Hamm. Those of you with the good taste to be doing JMC will know who I am because I'm the last person responsible for the JMC program. But that's not what I'm doing here today. The reason I'm here today and the reason that I have unusually put all my degrees up on the board is because I get to teach the law because I'm about the only academic in the building He's got a law degree. ",
+    "model_probability": 0.9701
+  },
+  {
+    "start": 37.07,
+    "end": 91.66,
+    "speaker": 4,
+    "text": "That's the easy answer to the question. But a slightly more interesting question is, what the hell are you guys doing here? Given that most of you presumably think you signed up for computer science. Or, as I said, if you have taste, mathematics and computer science. And the answer to that, well, there's a good answer and a bad answer to that question. The bad and slightly proximate answer to that question is because it's an accreditation requirement of your degree that you learn some law. The slightly better, and I'll come back to that in a second, the slightly better answer to that question is because actually it turns out that being a computer scientist does butt up against the law in a number of interesting ways, and it is helpful to your future avoiding getting into significant legal trouble during your career, to know something about those areas. ",
+    "model_probability": 0.9921
+  },
+  {
+    "start": 92.4,
+    "end": 145.42,
+    "speaker": 4,
+    "text": "And so that's what we're going to do. So we don't have very much here. So we have six hours of lectures, followed by the most minimal assessment exercise we could dream up. This has to be assessed, otherwise it doesn't qualify as an accreditation requirement. So we are like skating on the inside of... what will satisfy the British Computer Society as being an assessment. So that is, the thing is happening in a week's time, in the morning next Tuesday, I think, where you will have a quiz for my part of the course and a quiz for Eve Alexander's part of the course, and you will do those in your DRP, respectively, M2R groups, and so you do it in those two hours, and then it's over, and then it's done with, and It should be easy. ",
+    "model_probability": 0.9967
+  },
+  {
+    "start": 146.08,
+    "end": 178.16,
+    "speaker": 4,
+    "text": "If you turn up, so well done, pay attention, read the notes, the assessment will be fine. Okay, so what are we actually going to do? We're going to compete with the great hallworks is what we're going to do. All that just adds to the entertainment. So we're going to cover in those six hours three bits of law. I'm going to do two of them and Eva-Alexandra is going to do another one. So two of them are areas of law which are, in some sense, special to computer science. ",
+    "model_probability": 0.9976
+  },
+  {
+    "start": 179.17,
+    "end": 227.47,
+    "speaker": 4,
+    "text": "So the first one is copyright, and specifically copyright in software, because copyright in software is not the same as copyright in other things, exactly. The other one, which is specific to computer science, is the whole world of data protection, which is what Yves Alexandre is going to talk about, which is relatively new law, which has sprung up and is still struggling to deal with realities of the internet. And then the generic piece of law that we're going to deal with tomorrow, in the one hour I have with you tomorrow, is on the subject of contracts, which is not particularly IT specific, but totally pervades absolutely everything that you do in most areas of computer science, because it's the thing that regulates how all of commerce works. ",
+    "model_probability": 0.9984
+  },
+  {
+    "start": 227.73,
+    "end": 262.4,
+    "speaker": 4,
+    "text": "And there are some interesting computer science wrinkles like how does a contract work with a web shop, for example. And so we will do that then. But today, for two hours, we're going to talk copyright. And the reason we're going to talk about copyright, obviously, is because you write software and software is covered by copyright. And what you can and cannot do in the process of writing software is primarily legally regulated by the law of copyright. And so if you don't care about this, then you're liable to get yourself into quite a lot of trouble during your professional career. ",
+    "model_probability": 0.9986
+  },
+  {
+    "start": 263.59,
+    "end": 293.69,
+    "speaker": 4,
+    "text": "Actually, it's quite good news as well, because it turns out there's quite a lot of things that you might not have realized you are allowed to do that are, in fact, protected by copyright. So what is copyright? Copyright is a set of legal property rights, and we're going to come back in a second to what a property right is, because it's relevant here, in which the author of work, or maybe their employer, is granted by statute, by a piece of legislation that we'll talk about in a second. ",
+    "model_probability": 0.9986
+  },
+  {
+    "start": 294.51,
+    "end": 330.36,
+    "speaker": 4,
+    "text": "And what it does is they allow the copyright owner to control certain acts with relation to that work, to that computer program, in the case we care about. And the original intent of copyright law, so copyright law basically goes back to the invention of the printing press. And the original intent of copyright law was to enable authors to make money from the printing press. It's very obvious how somebody with a printing press can make money from a printing press. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 330.82,
+    "end": 362.5,
+    "speaker": 4,
+    "text": "You print documents and you sell them. But all of a sudden, for the first time in human history, copying stuff is cheap. So that means that it's not very obvious how you make money out of the printing press as an author. Because... You can write a document and you can start printing and selling copies and anyone can take one of those copies and if they have a printing press, they can typeset it and start selling versions for you, which is pretty much exactly what happened. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 362.82,
+    "end": 405.74,
+    "speaker": 4,
+    "text": "In fact, the first... printed books were in fact already existing manuscripts that were reprinted. Contrary to popular belief, the first printed book in the Western world was not the Bible, because Bibles don't sell as well. And didn't even in the 16th century. So that's the big zoomed out picture, and at this point you haven't really understood anything. So now let's go into the detail a little bit of what I've just said. So the first interesting thing about copyright that will be quite different from the law of contracts tomorrow is copyright is surprisingly international. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 406.78,
+    "end": 437.41,
+    "speaker": 4,
+    "text": "So law is the archetypal national thing, right? You have a national government. The national government, in one way or another, specifies what the law is. And so maybe here we would talk about the law of the UK, or in some cases, England or Wales, because Scotland is a different legal system. But you might think, well, that's a slightly limited utility in a global institution like Imperial, where your next job might be somewhere else. But actually, when it comes to copyright law, there's quite a lot of international standardization. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 437.87,
+    "end": 475.43,
+    "speaker": 4,
+    "text": "And it's partly because modern copyright law is kind of pretty new by the standards of law. So there is an international convention which sets out most of it, which is the Convention for the Protection of Literary and Artistic Works, but everyone calls it the Bound Convention because it was signed in Bound in Switzerland, in 1886. and it does things like set out the minimum term of copyright and some of the coverage of copyright. You might notice that 1886 is an era in which there are a lot of computer programs, and we will come back to that in just a second. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 476.54,
+    "end": 507.14,
+    "speaker": 4,
+    "text": "Much more significantly, there is a... significant piece of European Union legislation, which is still British law under the provisions of the Withdrawal Act, which is the Directive on Legal Protection of Computer Programs of 2009. That's called the Software Directive. We're going to keep coming back and back and back again to the Software Directive, because for Europe, that basically sets what software copywriters. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 507.58,
+    "end": 542.07,
+    "speaker": 4,
+    "text": "Situation outside Europe can be a little bit different and in one important case we will actually see that it is different. Although even then the authorities are like roughly similar and certainly in most areas there isn't a huge gulf between Europe and the US which are the two biggest markets. So that really matters there. Okay, so that's where it comes from. Let's go right back to the beginning. So I said copyright is a legal property right. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 543.51,
+    "end": 574.76,
+    "speaker": 4,
+    "text": "So what on earth does that mean? So a property right is something that the law sets up. So it's something invented by the law. It's not a thing that you can find sitting out in nature. And it's not something that people made as a physical object. It's an idea. an idea created by law, and it has three distinctive characteristics. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 574.78,
+    "end": 611.98,
+    "speaker": 4,
+    "text": "And in fact, probably the one biggest distinctive characteristic of a property right is that a property right is enforceable against everyone. So what does that mean? Well, let's take a look at the most obvious case of a property right, which is not copyright. It's ownership of an actual thing. And ownership of land is one of the most obvious ones. So I, subject to my bank's mortgage, own a house. And what that means is that I have the legal right to exclude all of you from my house. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 614.22,
+    "end": 645.53,
+    "speaker": 4,
+    "text": "None of you agreed to that. We didn't have a contract where we agreed that you would stay out of my house. It flows from the property right. And the interesting thing about this is that that right is then amiable. That's the second characteristic of property law. That means it's transferable. So this gentleman here offers me a suitable amount of money. I might sell him my house. I transfer the property right. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 645.57,
+    "end": 682.24,
+    "speaker": 4,
+    "text": "And now magically, this gentleman here has acquired the right to exclude all of you and me from that property. So the key feature of property rights is that it's a right to exclude other people. The third important thing about property rights, which is critical to then actually using them in the economy, is that I can then waive them. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 683.12,
+    "end": 723.47,
+    "speaker": 4,
+    "text": "And an important point of waiving it is I can license them. So I could allow you to enter my house. And if I allow you to enter my house, I can't sue you for trespass for having entered my house, right? So by giving you permission to do something, I've changed the legal relationship between us. And all three of those things, so the applying to everyone, being allowable and being waivable, possibly via something called a license, so a license is the permission I give you to come onto my land, all of those things transfer over onto copyright. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 725.69,
+    "end": 774.13,
+    "speaker": 4,
+    "text": "And we'll see that in a second. Before I do that, I should flag the things we're not going to talk about. So people will talk a lot about the term IP, intellectual property. And copyright is an intellectual property right, right? So what lawyers mean when they say an intellectual property right is a property right which attaches to something immaterial, something that is a idea or a computer program which is, okay, a computer program is written down somewhere, a book is written down somewhere, but actually it isn't the physical artifact we're talking about protecting here, right? ",
+    "model_probability": 0.9984
+  },
+  {
+    "start": 774.17,
+    "end": 810.58,
+    "speaker": 4,
+    "text": "It's that string of characters, however recorded. So it isn't the physical object, right? Owning a book is a different thing from owning copyright in that book. And so that is one form of intellectual property. People who aren't lawyers quite often use the term intellectual property in a really sloppy way, including to attempt to protect all sorts of things that aren't actually protected by the law. They claim they have intellectual property in something without actually grounding that in an actual property right. ",
+    "model_probability": 0.9985
+  },
+  {
+    "start": 810.96,
+    "end": 841.99,
+    "speaker": 4,
+    "text": "And sometimes people will try and grab you into doing things because they claim intellectual property without really establishing what it is. Someone does waive intellectual property at you. You should always ask them which one. And often they'll shut up at that point. So the ones we're not going to talk about, we're not going to talk about trademark. So trademark is an intellectual copyright that protects a name or a mark, a logo. And the idea of trademark is it's to prevent passing off. ",
+    "model_probability": 0.9981
+  },
+  {
+    "start": 842.81,
+    "end": 876.5,
+    "speaker": 4,
+    "text": "So it's to protect your goods or services from other people who would like to sell goods and services that they are claiming are your goods and services. This logo here indicates that Imperial College sent rather too much money to California for this laptop. And the trademark in that logo protects the Apple Corporation from other companies selling laptops and other goods that they pretend are from the Apple Corporation. ",
+    "model_probability": 0.998
+  },
+  {
+    "start": 877.16,
+    "end": 909.44,
+    "speaker": 4,
+    "text": "So that's trademark. We're not doing that one. This patent... So patent protects ideas. That's important because in a second we'll learn that copyright doesn't. So patent is about protecting ideas in inventions. Importantly, at least in Europe, and actually probably to a large extent in the US, although it is fuzzier in the US, this doesn't really hit us in straight-up computer science because you can't patent maths. ",
+    "model_probability": 0.9986
+  },
+  {
+    "start": 910.23,
+    "end": 977.76,
+    "speaker": 4,
+    "text": "And computer science is just the embodiment of maths. So you might bump into patents if you are right at the hardware end and you can have mixtures of hardware and software that can somehow hit patent law. But as long as we're talking about software on its own, at least in Europe, no patents. There are also database... Yeah? Don't each country have its own patent office? Each country does have its own patent office, but Europe has a basically unified patent law. So how do, essentially, like, when you make patents, do you have to apply to essentially? You have to apply. So you can register. There are community patents in Europe. Otherwise, you have to register in every country. So yeah, patent law is tricky because you actually have to register. So trademark, you may or may not need to register. Copyright, you don't need to register. So it's easy. And yeah, so, but as I said, we're just not doing patents. This is not a patent law course. Did you say that You may or may not have to register a trademark. It's a bit complicated in trademark territory. You can also acquire trademarks by usage. So it's complicated. ",
+    "model_probability": 0.9981
+  },
+  {
+    "start": 978.59,
+    "end": 1019.99,
+    "speaker": 4,
+    "text": "And we're not doing trademarks, right? So there's also some of the database rights, which are an attempt to kind of adapt the concepts of copyright that don't really apply to databases to databases. And there are design rights. So if you're right at the hardware level, design rights are a special right that apply to the layout of computer chips. So if you are a polygon pusher, then you will bump into those ones. We're not going to do those ever, either. So what we are going to do is copyright. And I mentioned, right, so the starting point for this in modern copyright law, Brown Convention, 1886, and Ada Lovelace aside, not a lot of computer programming going on in the 19th century. ",
+    "model_probability": 0.9986
+  },
+  {
+    "start": 1021.99,
+    "end": 1057.11,
+    "speaker": 4,
+    "text": "So what? Well, the answer... is, is this already on my next slide? Whoa, what's happened here? I'm in the wrong mode. Okay. No, it's not the next slide. Okay. So, well, it will be in a second. So, the answer is your computer program, as far as copyright law is concerned, is a book. ",
+    "model_probability": 0.9977
+  },
+  {
+    "start": 1059.73,
+    "end": 1101.86,
+    "speaker": 4,
+    "text": "So there are different forms of work that are protected by copyright. So there are books, and plays are slightly different, and poems are slightly different again. And then there is music, which is protected by copyright. in both its written and recorded form. And all of those have different rights associated with them. And the way that copyright was shoehorned onto computer software is by court cases that ruled that essentially your computer program, initially the source listing, and then we'll worry about compilation and things in a minute, that is a book. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 1102.5,
+    "end": 1135.44,
+    "speaker": 4,
+    "text": "So the rules that apply to a computer programmer basically the rules that are applied to a book. Software directive then modifies that slightly, but it does feel slightly odd when we do that. And in fact, a while before the software directive, back in the 1980s, 90s, I apologize, there's a US case in which Judge Burden in a case between Lotus and Corlin. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 1135.46,
+    "end": 1171.46,
+    "speaker": 4,
+    "text": "So Lotus wrote the first spreadsheet. Lotus 1, 2, 3, and Lotus and Borland were slugging it out over copyright in spreadsheets. And the judge got quite frustrated in his judgment and wrote, the applying copyright law to computer programs is like assembling a jigsaw puzzle whose pieces do not quite fit. And that's quite true. Because the stuff that it is natural to do to a computer program where there isn't a plot There isn't a linear begin and end. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 1172.14,
+    "end": 1205.73,
+    "speaker": 4,
+    "text": "You can take the bits out and reuse them. In many respects, nothing about this is like a book. But the rules are books, right? So somehow we've got to make that work. And that causes an awful lot of confusion and difficulty and has done over time. But the starting points, the basic rights that you get under copyright are the ones for books. So the obvious one and the reason why it's called copyright is the right to make copies, whether permanent or temporary. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 1206.29,
+    "end": 1237.67,
+    "speaker": 4,
+    "text": "In particular, that includes the copies required to load, display, and run your program. So that means, so the original version of that is, you can't print my book without my permission. That's the basic original version of copyright. So you can't copy my program without permission. And the obvious version of that is, Particularly if you go back, say, 20 years or so to when computer programs were distributed on physical media, so on discs, CDs, or DVDs, or even floppy disks. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 1238.42,
+    "end": 1274.22,
+    "speaker": 4,
+    "text": "then you can't copy it onto the disk, and you can't copy it from the disk onto the new computer without permission. That's the basic idea. So you can't make copies to sell, and if you've bought a copy, you can only install it with permission, which basically might mean you can only install it on one machine, for example. And that's the original meaning. But interestingly, it also, so you can't run a piece of computer software without copying. Because it's sitting in whatever persistent storage your system has, and your processor is not in the persistent storage. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 1275.32,
+    "end": 1308.93,
+    "speaker": 4,
+    "text": "You have to copy all of those instructions onto the processor before they do anything. So actually, that original, you can't use your printing press on my book, also says you can't run the program without my permission. Now that's going to get more complicated, but that's the basic rule. The basic rule is the copyright holder has the right to control you copying the work and no displaying money. It has also the right to translate, adapt, arrange, or otherwise alter the program. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 1309.31,
+    "end": 1340.09,
+    "speaker": 4,
+    "text": "So the original meaning of that was slightly more obvious, right? So if I write a book in English, I also get to control whether or not you can translate that book into French or produce the play. or the film, or whatever. So that's translation and adaption. What that means for a computer program is, well, a compilation is basically automated translation. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 1340.11,
+    "end": 1374.11,
+    "speaker": 4,
+    "text": "A compiler takes a computer program written in one computer language and speeds you back a computer program written in another computer language, which in some respects is the same program as the original one. So it's kind of like the compiled program is the program translated into your choice of language you don't speak, unless anyone here is really good at Assembler. So that's actually kind of a pretty straightforward outcome of what we're doing, right? ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 1374.26,
+    "end": 1405.44,
+    "speaker": 4,
+    "text": "Also applies to decompiling. We will come back to decompiling shortly. And then the right to distribute to the public, including rented copies of the program. That one is getting pretty close to dead letter now. So that was a deal when you were distributing physical copies. Because then the act of making the physical copies and the act of installing the physical copies is different from the act of, for example, transporting the digital copies into another market, putting them on sale and so on. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 1405.46,
+    "end": 1437.24,
+    "speaker": 4,
+    "text": "Because you can move around and sell the CD without making additional copies. So there are additional rights restricting that. That has pretty much gone now because... To all intents and purposes, all the software is distributed over the wire, and distributing over the wire necessarily involves copying, so it's already caught under number one. One might affect you in cases where you're shipping devices with embedded software. That would be the case where you would hit that one. So that's what copyright does for you. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 1437.26,
+    "end": 1468.32,
+    "speaker": 4,
+    "text": "So basically, that's actually most of the things you can do with a computer program. So owning the copyright in a computer program pretty much gets you there. That was problematic, not least because it means that in a whole bunch of circumstances, just doing stuff that you would naturally expect you can do, like run a piece of software that you have legally acquired, isn't possible without law permissions. And so that was legally inconvenient. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 1468.42,
+    "end": 1502.48,
+    "speaker": 4,
+    "text": "And legislators, when they're being good, attempts to write the law so that it actually works in the way that works for society and especially for the economy. And so in 2009, the European Union caught up with this and attempted to modernize software copyright basically in line with the way that the digital economy really works, and in some cases, the way that they would like it to work, which we'll come to in a second. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 1503.02,
+    "end": 1542.56,
+    "speaker": 4,
+    "text": "So the first one is under the software directive, the defaults changes. So under the software directive, if you have a copy of a piece of software which you have legally acquired, then the default position is whatever copies are required in order for you to actually run the software are completely okay. Now, that is subject to license, which means that the license terms can still take it away from you, and in particular, license terms that are restrictive of the purpose or who can run something do typically apply. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 1542.62,
+    "end": 1576.31,
+    "speaker": 4,
+    "text": "So if you have licenses that restrict something to non-commercial use, That is typically an actual restriction which applies. If you have licenses which only apply to you while you're a student, that also applies as well. But those have to then be specifically written in, right? The default position is you're allowed to run stuff, which is sensible and nice. The next one was more real in 2009 than it is now. The right to make a backup where necessary. So when is it necessary to make a backup? ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 1578.09,
+    "end": 1622.96,
+    "speaker": 4,
+    "text": "Well, when software came on media that was quite degradable, the answer was if you wanted to keep using the software, you need to have backups. And so that was kind of what that was there for. What it means now is that merely the fact that your storage systems may be backed up probably doesn't infringe copyright. So many of the computer systems that you work on, you have network drives, those network drives are all automatically backed up. You can imagine that it would be spectacularly inconvenient if automated backup systems for massive network file systems had to worry about whether each file on there in its license permitted backups or not. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 1623.48,
+    "end": 1657.06,
+    "speaker": 4,
+    "text": "So it seems like the effect of that is that systems that are just backed up are going to be protected by that. And those backups are necessary in the sense that you couldn't use the software on that class of computer if you weren't allowed to backup. So that does what that one. The next ones are much, much, much more fun. So the right to observe, study, and test. So this one says, the person having a right to use a copy of a computer program shall be entitled, without authorization of the right holder... ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 1658.16,
+    "end": 1693.44,
+    "speaker": 4,
+    "text": "to observe, study, or test the functioning of the program in order to determine the ideas and principles which underlie any element of the program. If he does so, while performing any of the acts of loading, displaying, running, transmitting, or storing the program, which he's entitled to do. So what that means is that if you've got legally a piece of software, you are entitled, no matter what it says, which is interesting because quite often the licenses will say you can't do this. you're entitled to, in the course of running it, observe anything you like in order to work out how it works. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 1694.26,
+    "end": 1728.66,
+    "speaker": 4,
+    "text": "So in particular, you can run it under a debugger. You can packet sniff all the packets that come in and out of the piece of software. You can do absolutely anything you like as long as what you're doing is just running the software and observing what it does in any way. And that is a really strong right. It applies basically in all circumstances. We're going to see a case in a bit where that had a really big impact. And then there's another one which is much, much, much more tight. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 1729.18,
+    "end": 1767.52,
+    "speaker": 4,
+    "text": "So there's also a right to decompile, but this one is really now. So the right to decompile. And decompiling is a painful and horrible thing to do anyway, because if you're... Playing your attention to Paul Kelly when he taught you compilers, what a compiler does is takes a higher level of abstraction and loads it to a lower level of abstraction. And a decompiler tries to go the other way. It doesn't work very well. And what you end up with is a complete mess. But it can be useful. It can help you to extract what the sequence of instructions in a program is in a readable way if you're prepared to work hard enough. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 1768.74,
+    "end": 1817.4,
+    "speaker": 4,
+    "text": "And you can do this, but it's only permitted in order to achieve interoperability and only if necessary. So the examples that kind of come up are if there is a server or a client and you want to write a corresponding work-alike client or a server, and, for example, they're trying to do the thing that's actually impossible, and they're trying to encrypt the connections by just leaving a key inside, well, you might need to extract that key in order to write a client that can interoperate, and that would be a circumstance where you might be able to decompile. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 1818.08,
+    "end": 1850.69,
+    "speaker": 4,
+    "text": "That one is a very, very narrow write. I would basically suggest that if you ever think that you're going to need to use that one, you need to get an IP lawyer first. because it's very, very narrow. Whereas the other one, observing, running debuggers, packet sniffers, all that, it's a really strong right. Go do it, have fun, it's fine. It's a very, very safe thing to do. The important thing about those last three, as I keep saying, is the first one is subject to license. The last three are always true. ",
+    "model_probability": 0.9985
+  },
+  {
+    "start": 1852.5,
+    "end": 1886.9,
+    "speaker": 4,
+    "text": "And that's really important because especially the last two are ones that the copyright holder very, very often does not want you to do. There's a balance going on here. So on the one hand, copyright law wants to restrict to the person who wrote it the right to make copies. On the other hand, the legal system in general really dislikes anti-competitive behavior. And they don't want people using copyright to shut down whole areas and say, no, you can't build something which either interoperates with mine or competes with mine. ",
+    "model_probability": 0.9985
+  },
+  {
+    "start": 1887.12,
+    "end": 1901.4,
+    "speaker": 4,
+    "text": "And so that's where that line's coming from. That's why those are in there. Okay, so a couple of other quick ones before we go forward. So the first one is how long is copyright? Yeah? ",
+    "model_probability": 0.9966
+  },
+  {
+    "start": 1903.0,
+    "end": 1913.77,
+    "speaker": 0,
+    "text": "Let's say you write a piece of software and Is there a way to detect if people are decompiling? ",
+    "model_probability": 0.9719
+  },
+  {
+    "start": 1913.79,
+    "end": 1949.96,
+    "speaker": 4,
+    "text": "Basically, no, but that's not a law question. That's a physics question. But you can do the thought experiment. I have your piece of software. I air gap the machine and decompile it. How are you going to know? Right, so no. You can attempt to bug your software so that it calls home when people start doing things, and their packet sniffer will go, oh, why is this thing suddenly opening network connections to the vendor's servers? And by the way, bugging your software is likely to get you into GDPR trouble, but I will leave that to Eve Alexander and his... ",
+    "model_probability": 0.9942
+  },
+  {
+    "start": 1951.3,
+    "end": 1998.25,
+    "speaker": 4,
+    "text": "sanction. OK. So term of copyright. So original copyright terms were relatively short. So 14 years, 28 years when it was first done. Because, once again, of this trade-off. you want to incentivize authors to write works. On the other hand, if you shut down entire areas of work forever, then you shut out people building on other people. So if you want to look back at, say, West Side Story, which is Leonard Bernstein retelling Romeo and Juliet, should the estates of William Shakespeare, died in the 17th century, be able to stop Leonard Bernstein in the 20th century from writing stories based on the old ones. ",
+    "model_probability": 0.9975
+  },
+  {
+    "start": 1998.27,
+    "end": 2029.76,
+    "speaker": 4,
+    "text": "That would be not in the interests of human culture as a whole, right? So the original idea is you get this for a while. And in some areas of intellectual property law, like patents, patents are by default 20 years, right? It's not actually all that long. So if you think about many of the things you use today, so any of the patents that might exist on USBA will be gone by now. Because USBA came out in the 90s. We're 30 years on. So, I mean, that hopefully was open license. ",
+    "model_probability": 0.9976
+  },
+  {
+    "start": 2029.78,
+    "end": 2072.58,
+    "speaker": 4,
+    "text": "But you can see that that's the pace which things go. Copyright, on the other hand, has been subject to really extensive lobbying by rights holders to lengthen it. And we are now in both now the European Union and the US at life of the author plus 70 years. which is a very, very long time indeed, particularly if you are computer science. So this has become such a notorious act by copyright holders that, in fact, the US Copyright Term Extension Act of 1998 which is when they caught up with Europe at 5 plus 70 years, was widely termed the Mickey Mouse Protection Act. ",
+    "model_probability": 0.9984
+  },
+  {
+    "start": 2073.41,
+    "end": 2105.59,
+    "speaker": 4,
+    "text": "Because it stopped Steamboat Willie, which is the first Mickey Mouse film from going out of copyright. Steamboat Willie did in fact go out of copyright last year. So if you want to do something based on Steamboat Willie, you now can. You have to be really careful, though, because the original Mickey Mouse character looks a bit different from the current one. And the current one is definitely still protected by trademark. But what that effectively means for software is copyright is forever. ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 2105.67,
+    "end": 2136.61,
+    "speaker": 4,
+    "text": "So if you can find a piece of software written by Alan Turing, that piece of software came out of copyrights on, I did look this up, It was last year, June 7th, 2024. So almost exactly a year ago, right? So effectively that means everything that has ever been written in computer software is still in copyright and basically will be forever. Okay, the next one is who's working? ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 2136.83,
+    "end": 2170.07,
+    "speaker": 4,
+    "text": "Who owns the copyright? So, well, we've already talked about the fact that property rights are only available, so you can sell them, but who owns the corporate right to start with? Well, in the UK, the legislation that sets up copyright is the Copyright Designs and Paintings Act 1988, and the line on ownership is really easy, so we can just write it out. There is actually a term three to this, but it only applies if you're a government employee, so I left that off. So first ownership of copyright. The author of the work is the first owner of any copyright in it subject to the following provisions. ",
+    "model_probability": 0.9986
+  },
+  {
+    "start": 2170.67,
+    "end": 2203.07,
+    "speaker": 4,
+    "text": "Two, where literally dramatic musical or artistic work or a film, so remember, software is a literary work, it's a book, is made by an employee in the course of his employment. His employer is the first owner of the copyright in the work subject to any agreements to the contrary. So frequently asked question at this point, of course, is always by students. You guys employees of Imperial College? No. Even if you are a UCA or something, anything you write, software you write, is not going to be in the course of that employment. ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 2204.51,
+    "end": 2235.47,
+    "speaker": 4,
+    "text": "So you wrote it, you own it. You wrote it, you own it, except unless you did it as an employee. Notice as an employee. So actually, if you're working as a contractor... This is one of the areas where you need to make sure that, or more importantly, probably the person who is contracting you, needs to make sure that you actually have an intellectual property agreement in place. Otherwise, you get into a complete mess where all the contractors who worked on a piece of software individually own the copyright in their contributions to the software. ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 2236.44,
+    "end": 2277.22,
+    "speaker": 4,
+    "text": "So, and similar, yeah. Yes. Anyone want to answer this question? Correct. I told you it's weird, right? The software is a book. So software is a literary work for the purposes of copywriting. Doesn't have to make sense. It's just true. Right. Something else that kicks around and is a confusion, especially with patent, which came up earlier, is people will talk about whether something is copyrighted, or they don't even say that someone copyrighted something. ",
+    "model_probability": 0.9984
+  },
+  {
+    "start": 2277.84,
+    "end": 2310.78,
+    "speaker": 4,
+    "text": "Not a thing. Copyright applies automatically. Copyright applies as soon as the work is fixed, which historically meant as soon as you set pen to paper. These days it means as soon as you type it into your editor. Because as soon as you type it into your editor, a copy of that exists in the computer's memory. There's not really a difference between the computer's RAM and anything more persistent. On some of your current devices, there may well really not be a difference between those two things. So as soon as you write it down, it's automatically covered. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 2312.78,
+    "end": 2344.44,
+    "speaker": 4,
+    "text": "Similarly, as soon as you compile something, copyright exists in the compiled work. And the copyright in the compiled work belongs to the author of the source code. It doesn't, in general, belong to the author of the compiler. It's an important point there. Okay. So that's the really basic stuff. Now we get into the bit where you have to start doing some thinking. It's all about the scope of copyright in software. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 2344.46,
+    "end": 2378.87,
+    "speaker": 4,
+    "text": "So which things are covered and which things aren't. What are you allowed to do? What are you not allowed to do? And now, this is where you bump into the limits of statute law. So statute law writes down various things you can and can't do, largely with reference to books. And when we come to working out what that means for a computer program, what we need to do is look to what the courts have said in these cases. In English law, that actually has a formal legal status that we'll discuss tomorrow when I do contracts. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 2380.05,
+    "end": 2419.2,
+    "speaker": 4,
+    "text": "But for current purposes, we can just accept that what we do is we look at the legal cases. So the first one is, okay, so how much copying is going to infringe copyright? So there are some really obvious ones, right? So there are some very, very minimal pieces of software where if you wrote a... If I sent you the task of writing, say, a recursive depth-first tree visitor in Python, and I told you all to do it, I would probably get a large number of essentially identical submissions. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 2421.16,
+    "end": 2462.37,
+    "speaker": 4,
+    "text": "Because there isn't actually very many ways of doing it. And this is where we bump immediately into a core idea of copyright in software. Rotation in accordance with this directive, so this is from the software directive rather than the Copyright Science and Patents Act, but there's an equivalent clause in the CPDA. Rotation in accordance with this directive shall apply to the expression in any form of a computer program, ideas and principles which underlie any element of the computer program, including those which underlies interfaces and not protected by copyright under this directive. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 2462.81,
+    "end": 2494.14,
+    "speaker": 4,
+    "text": "Right, so what that means is that somehow it must be your expression in the code and not merely the functionality. So if the piece of code is so small that there's more or less only one way to do it or only a limited number of ways of doing it, it just won't attract protection. Importantly, also, in the exercise I just sent you, none of you will have actually copied. So that's another reason why. Well, I assume that none of you would have copied. So that's another reason why. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 2494.52,
+    "end": 2525.66,
+    "speaker": 4,
+    "text": "But even if you did actually copy from each other, because there's no expression there, that wouldn't enable you to do it. But if I have a significant body of work, and I copy it, well, that's not the same case, right? Because another person wouldn't come up with the same thing. There is only one way of doing it. It is legitimately somebody's expression that they wrote down that piece of software. How much? Hello? Lots? No? Okay, so there's a case on this. The case is Cantor Fitzgerald and Tradition. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 2525.68,
+    "end": 2557.1,
+    "speaker": 4,
+    "text": "It's an English case. And, oh yeah, so if you see cases written down, right, so it'll be party one, V, party two. The V, which is Latin verses, is pronounced V or verses if you are talking about an American case. If you are talking about an English case, it's pronounced and for a civil case or against for a criminal case. The law is like this. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 2558.78,
+    "end": 2598.59,
+    "speaker": 4,
+    "text": "And so Cantor, Fitzgerald, and Tradition. This was about some broking software. So this was FinTech. I mean, they didn't call it FinTech because the case was in the year 2000. The stuff happened in the 1990s. It was bond trading software. Basically what happened was it was a company that did automated bond trading and some of the developers from that company went off, formed their own company and launched their own bond trading software. And the original company sued them and said, hang on a second, clearly what has happened here is you guys walked off with the code and you're just now selling our code to other people. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 2600.38,
+    "end": 2648.33,
+    "speaker": 4,
+    "text": "And actually, when they looked at the code, so when you sue someone like that, you get to do discovery, which means you get to, say, produce all the documentation, such as all the source code. The vast majority of it had been rewritten. Mostly it was not literal copying. We'll come on to non-literal copying in a second. But there was a bit that was clearly actually copied. It was about 2% to 4% of the whole code. It was about 2,000 to 4,000 lines. So not huge, but on the evidence in front of the court, the judge ruled that the test is whether the copy code represented a substantial part of the skill and labor of the author. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 2648.93,
+    "end": 2683.25,
+    "speaker": 4,
+    "text": "So it's going to be skill and labor. So just labor doesn't qualify. So you're going to be making actual intellectual decisions about what to write down there. And in this case, there was evidence that the new company probably got to market months earlier than they would have done had they actually written their own code for that part. So even though it was only a few percentage, only a couple of thousand lines of code, two to four thousand lines of code, that was sufficient to establish copyright infringement. So literal copying, you're going to trigger that one really, really, really quickly. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 2684.69,
+    "end": 2716.51,
+    "speaker": 4,
+    "text": "And that's kind of the obvious one. That's the one I think you probably thought you knew about copyright. You literally copy stuff, you infringe copyright, you do it really quickly. What about the rest of the code? Well, based on that, well, not actually that because it was earlier than that, but this was basically codifying what was established law. rest of the code is a bit slippery. So in the case of Cantor Fitzgerald, the layout of the code was pretty similar. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 2717.43,
+    "end": 2749.85,
+    "speaker": 4,
+    "text": "Like the structure, where the functions, it's facts basic, so there's no classes or anything. The structural layout of the code was pretty similar. And Pumphrey basically just said, no, well that is the consequence of the same people having written it. It's not copied. And what we'll see again and again is that courts are really, really reticent to rule that you'll ever infringe copyright by non-literal copy. So actually CP the stuff across, you'll violate. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 2749.93,
+    "end": 2781.33,
+    "speaker": 4,
+    "text": "And usually, if you're not doing that, then you won't. And there's an even more clear case on this one, which is Navitare Incorporated and EasyJet Airline and another. Yes, that EasyJet. So what happened in this case was EasyJet had a computer booking system that all of their agents and things used, and it was like old computer interface stuff, so ASCII art. So it's graphical interfaces, but not really graphical, like screen layout and commands, things like that. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 2782.43,
+    "end": 2818.43,
+    "speaker": 4,
+    "text": "And that was provided by Navitare and EasyJet to Budget Airline. They were into value engineering. They were not happy about the amount of money they were paying to Navitare. So they decided that what they were going to do was they were going to just junk Navitare and get a new one. But they have all of these agents and all of these staff who are trained to use Navitare's system. And they definitely do not want to retrain their entire workforce in order to do this right. So what they do is they commission another company, a company called Bulletproof Software, I think. ",
+    "model_probability": 0.9984
+  },
+  {
+    "start": 2819.47,
+    "end": 2849.96,
+    "speaker": 4,
+    "text": "Yeah, Bulletproof Software, to make a work-alike. So we want you to make a booking system, and we want it to look like the one from Navatea so that our staff can continue to use it. And they do, and Navatea sues. And in this case, it was... clear like Bulletproof had no access to source code. ",
+    "model_probability": 0.9977
+  },
+  {
+    "start": 2850.32,
+    "end": 2883.74,
+    "speaker": 4,
+    "text": "Nothing inside the software was the same at all. It just had the same interface. And same Justice Pumphrey, this happens a lot because high court judges specialize in areas of work. So you get the same ones coming back again and again in some area. Said, copyright protection for computer software is a given, but I do not feel the court should be astute to extend that protection into a region where only the functional effects of a program are an issue. There is a respectable case for saying that copyright is not in general concerned with functional effects. ",
+    "model_probability": 0.9963
+  },
+  {
+    "start": 2884.26,
+    "end": 2915.27,
+    "speaker": 4,
+    "text": "There is some advantage in a bright line rule protecting only the claimant's embodiment of the function in software and not some superset of the software. The case is not truly analogous to the plot of a novel, because the plot is part of the work itself. The user interface is not part of the work itself. One could commute all the letters and other code in the command names, and it would still work in the same way. All that would be lost is a modest mnemonic advantage. I think possibly more than modest, but you know. ",
+    "model_probability": 0.9932
+  },
+  {
+    "start": 2916.83,
+    "end": 2949.21,
+    "speaker": 4,
+    "text": "To approach the problem in this way may at least be consistent with the distinction between idea and expression that finds its way in the software directive. But of course, it draws a line between idea and expression in a particular place where some would say it lies too far inside expression. I think, however, such as the independence of a particular form, the actual codes used in the overall function of the software that's legitimate to separate them in this way and not to afford them separate protection when the underlying software is not even arguably copied. So really, really, really clear. ",
+    "model_probability": 0.9837
+  },
+  {
+    "start": 2949.25,
+    "end": 2981.96,
+    "speaker": 4,
+    "text": "You can make a workload, you can make it look exactly the same, at least as far as text interfaces goes, and you're just fine. Okay, it is now five to five, so I'm actually slightly over where I should have been. So we'll stop now until, well, it's actually seven minutes to, so we'll stop now until three minutes past, and then I will keep going. I'm happy to hang around down here and answer people's questions in the break, and then we'll do another hour, and then we'll be done with copyright. ",
+    "model_probability": 0.9166
+  },
+  {
+    "start": 3004.3,
+    "end": 3094.2,
+    "speaker": 4,
+    "text": "I was thinking about the debuggers, because the debuggers typically modify the program They do, but I think that it's very unlikely to get overly literal in that because it's also the case, for example, that your processor rewrites stuff all the time as well, right? So, yeah. So, I mean, you have to think book, right? So is it changing the thing in the sense of changing the level of the book? And the answer is, I guess, probably not, right? Also, actually, I guess another answer is that inserting instructions is not copying. Right? So you might argue that it's adapting, but I think that that... So... Courts are, various copyright holders have tried arguments at various points to try to leverage technicalities to shut down the main rights that are listed, and courts really don't like it. Right, so that's the, yeah. ",
+    "model_probability": 0.1508
+  },
+  {
+    "start": 3094.34,
+    "end": 3120.65,
+    "speaker": 3,
+    "text": "Hello, hi, I was wondering, Where's like the line between like, how many words constitutes, like how large does the code have to be to actually be protected? Does it really protect like a line of code? ",
+    "model_probability": 0.0185
+  },
+  {
+    "start": 3120.71,
+    "end": 3154.87,
+    "speaker": 4,
+    "text": "Right, so the answer is nobody really knows. And one of the reasons that nobody's ever going to really know is because You only ever really find out something useful from the court system from appeal cases. And so you are talking about, in most cases, people spending millions on the litigation. And they're exceptionally unlikely to actually do that for a very small piece of culture. ",
+    "model_probability": 0.0338
+  },
+  {
+    "start": 3156.01,
+    "end": 3187.55,
+    "speaker": 4,
+    "text": "And so it's one of these areas where it can be hard to find out because that sort of thing is never going to be litigated in a way that you... But I mean, I think that the Navajo example says the answer is kind of not much. So in any kind of commercially real... two to four thousand lines of code is nothing. So basically you're gonna get tripped really fast. So where it becomes relevant is the other way around. ",
+    "model_probability": 0.0384
+  },
+  {
+    "start": 3187.57,
+    "end": 3222.34,
+    "speaker": 4,
+    "text": "So sometimes people try to run spurious litigation on the basis of tiny fragments of code. copied and reused, and they just don't stack up. There was an infamous case about 20 years ago where a company called SCO, the Santa Cruz organization, had bought the copyrights to one version of Unix and tried to claim that Linux was infringing, in some cases on the basis of some really rather small code fragments that were in there, and it did not end up well for them. ",
+    "model_probability": 0.0749
+  },
+  {
+    "start": 3222.58,
+    "end": 3224.51,
+    "speaker": 3,
+    "text": "So if all the copies are gone, no one can copy? ",
+    "model_probability": 0.0348
+  },
+  {
+    "start": 3246.14,
+    "end": 3279.42,
+    "speaker": 3,
+    "text": "Any other instances which might look exactly the same? Copyright protects copy. I can write a piece of software. I can have had that software for like 20 years, and someone else could have written the exact same piece of software. If they do not have access, they're not infringed. Yeah, okay. We're going to come back to some variance on that in a second. Yeah, I can prove that someone has copied something. Can't you always just claim that, oh, I just... Well, you can always claim, but you're suing... ",
+    "model_probability": 0.0135
+  },
+  {
+    "start": 3281.44,
+    "end": 3315.26,
+    "speaker": 4,
+    "text": "Berman proof is on you. But it's only a balance of probabilities, right? So the question is, did this piece of software probably or probably not result from copying? Yeah, at large scales. At very large scales, it's vanishingly unlikely that it wasn't copied. And once again, it's similar litigation. It's balanced probabilities. You need 50 plus epsilon percent. It's not the unreasonable doubt. We're not talking about criminal prosecution here. ",
+    "model_probability": 0.0181
+  },
+  {
+    "start": 3317.7,
+    "end": 3319.48,
+    "speaker": 3,
+    "text": "Okay. ",
+    "model_probability": 0.0166
+  },
+  {
+    "start": 3320.86,
+    "end": 3333.99,
+    "speaker": 2,
+    "text": "Thank you. So, for instance, in the EasyJet, is it just a fact that, like, we discussed that, like, it's the expression of the idea that's protected, but not the idea itself? That's right. Is that the kind of... That's exactly, yeah. ",
+    "model_probability": 0.0049
+  },
+  {
+    "start": 3334.59,
+    "end": 3348.97,
+    "speaker": 4,
+    "text": "That's exactly right. So, like, a piece of software that does this and where the output looks exactly the same... Yeah. that by itself is not protected. What is protected is the actual code that implements that. So if you can achieve the same effect without copying the code, you're good. ",
+    "model_probability": 0.012
+  },
+  {
+    "start": 3350.21,
+    "end": 3359.1,
+    "speaker": 2,
+    "text": "And I'm saying, so like, it's the word of the proof. Like as you were saying, the word of the proof is on there to show that you didn't actually copy my code. That's fine. No, no, no, no, no. ",
+    "model_probability": 0.017
+  },
+  {
+    "start": 3359.14,
+    "end": 3362.16,
+    "speaker": 0,
+    "text": "Other way around. ",
+    "model_probability": 0.0287
+  },
+  {
+    "start": 3362.18,
+    "end": 3394.11,
+    "speaker": 4,
+    "text": "But isn't the word of the proof to show that they copied the code? That's right. Yeah, so like, so you're suing for copyright infringement. Yeah. You have the evidentiary burden to demonstrate the copying. But once again, you don't have to demonstrate that it was probably copied. So right after the break, we're going to do an example where somebody tried to play that game. It didn't work out for them, but it was very much the name of the game was to achieve that position where people would probably be copied. ",
+    "model_probability": 0.0306
+  },
+  {
+    "start": 3394.77,
+    "end": 3437.76,
+    "speaker": 4,
+    "text": "So usually, the thing is, usually if it's literal copying, then proving the copying is not the issue. Right. So the more important thing is that The one that's kind of unobvious and the more important one is non-literal copying, so merely achieving the same effects without actually copying stuff, is basically always okay. And that's counterintuitive because I think people, particularly because patents are the opposite. Patents actually protect ideas. And so people are not aware that copyright doesn't do that. And in software, copyright is usually what we have, right? ",
+    "model_probability": 0.1038
+  },
+  {
+    "start": 3438.95,
+    "end": 3465.93,
+    "speaker": 4,
+    "text": "I mean, the official European position is that there are no software patents in Europe. The limitations of the way that patent grants work means that there are some things on the book that look at all four, like software patents, and you might need to litigate them out of existence, which you probably can't afford to do. So there are problems there. There are great things at the edge, but the basic position is you don't have to care about patent. You absolutely do have to care about copyright. But copyright doesn't go as far as... Yeah. ",
+    "model_probability": 0.3074
+  },
+  {
+    "start": 3551.28,
+    "end": 3590.85,
+    "speaker": 4,
+    "text": "So we got up to now with Terran EasyJet. So text interfaces. This is 2025. What about graphical interfaces? So it turns out there's a case on that as well. And this one is Novo Production Limited, and Mizuma Games Limited, and others, and Bell Fruit Games Limited. So these were companies that made arcade games, like the physical ones you find in pubs. And the actual games in question were arcade games for pool, like the game with the green table and the bigs and small balls and queues and so on. ",
+    "model_probability": 0.8921
+  },
+  {
+    "start": 3591.33,
+    "end": 3622.47,
+    "speaker": 4,
+    "text": "And so they were making arcade games where you played a computer game based on pool. And essentially what happened is that, from now we'll remember which way round it goes, it was Mizuma Games had essentially outrageously ripped off a Nova Games. fruit machines. It was basically the same game, even down to things that happened when you won, coins went rolling across the screen, and things like that. ",
+    "model_probability": 0.9759
+  },
+  {
+    "start": 3622.71,
+    "end": 3659.04,
+    "speaker": 4,
+    "text": "It was incredibly similar. It was clear there was no literal copying, right? So these are closed source machines where the respondents, the people who made the copy, definitely had the arcade machines that they were working from, but the arcade machines only contain object codes. They didn't have source code. There's definitely no literal copying going on. The fun question now is, but what about the graphics being the same? And the reason that's interesting is because you can think about the artistic work of the graphics. ",
+    "model_probability": 0.99
+  },
+  {
+    "start": 3660.53,
+    "end": 3691.96,
+    "speaker": 4,
+    "text": "And are they going to be the same? Now, there's no plot, which means that protection for film doesn't apply. And so basically, I think because of this policy argument, this argument that the courts have that they really do not want to protect non-literal copying because it's anti-competitive, the court in that case ruled. Is it the same judge again? I'm trying to remember. I think I haven't written down who the judge was. ",
+    "model_probability": 0.9952
+  },
+  {
+    "start": 3693.48,
+    "end": 3735.39,
+    "speaker": 4,
+    "text": "No, it was. It's Justice Pumphrey again. So he ruled very, very narrowly that in order to establish infringement on the graphical interface, you'd have to actually find screenshots that were the same. So an interface that is clearly based off the other one uses the same sorts of graphical elements. As long as you don't actually physically copy the bitmaps of the artwork, And that's actually probably quite an important link because there are really clear conventions that are followed about how you write a graphical interface. ",
+    "model_probability": 0.997
+  },
+  {
+    "start": 3735.87,
+    "end": 3770.31,
+    "speaker": 4,
+    "text": "And by following those graphical interface conventions, you make your software usable to your users. And so you really don't want it to be the case that every piece of software has to have different arrangements of how the screen works in order to avoid copyright infringement with each other. That would be an overall negative. So that is those sorts of games. Now, another really key area here, and the last thing we'll talk about before we start talking about licensing, is what about the languages themselves and APIs? ",
+    "model_probability": 0.9982
+  },
+  {
+    "start": 3770.69,
+    "end": 3804.26,
+    "speaker": 4,
+    "text": "Can you copyright, to come up with an example, Java? So that one is highly relevant because Oracle, which owns Java, and Google spent over a decade slugging it out through the US court system on the subject of the fact that Google had made their own Java work alike. And that concluded in the last few years and approximately Google won. Google won on fair use, which is a US copyright doctrine which is not so useful here. ",
+    "model_probability": 0.9983
+  },
+  {
+    "start": 3804.98,
+    "end": 3835.68,
+    "speaker": 4,
+    "text": "Happily, For us on this side of the pond, essentially the same thing happened here in a different field of the economy, still in computer programming, well over a decade earlier. So the case here, it's a European Court of Justice case, but it came from the UK. It's a UK case going up, which is SAS Institutes Incorporated and World Programming Limited. So SAS, which is actually a German company, but they were suing in the UK. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 3835.7,
+    "end": 3865.84,
+    "speaker": 4,
+    "text": "It's complicated. SAS makes business analytics software. So they write software which makes it possible for a company to interrogate its own financial records and work out things like which bits of the company are the ones that make the money, and where the costs are, and that sort of thing, and what flows of cash, of money inside their company. And that's a big deal. Lots of managers in companies really, really, really want to know how their company financially operates. And so it's a big market. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 3866.92,
+    "end": 3899.24,
+    "speaker": 4,
+    "text": "And it works by essentially a specialized single-purpose language. You write scripts in the SAS language, and those scripts run on your financial database, and you get answers out the other end. And World Programming, which is a smaller company, decided that they would like a chunk of that market. Of course, ASAS owns the market. So we're pretty much in an EasyJet Navitare situation, right? It isn't one customer who's going after it. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 3899.66,
+    "end": 3934.49,
+    "speaker": 4,
+    "text": "But if you want to break into this market, it's going to be massively advantageous if the product that you are presenting presents the same programming interface as all of your finance staff are already trained to use. And so this is what they did. They made a work alike. And once again, absolutely no question, they did not have access to source code. But they made a language that worked pretty much exactly the same. And they did it by buying, because SAS is really expensive, and this was a startup. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 3934.93,
+    "end": 3967.43,
+    "speaker": 4,
+    "text": "So they bought learning edition versions of the software. So ones that you're allowed to use in order to learn how to use SAS. Which is, this is, by the way, there are only two industries that refer to their customers as users. One of them is software. And so software companies quite often have learning additions. They quite often make the software available to institutions like universities very, very cheaply so that people can learn how to use their software. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 3967.87,
+    "end": 4005.09,
+    "speaker": 4,
+    "text": "And they do that for essentially the same reasons that the other industry that uses the term users also likes to hand out free samples in order to get people hooked. And so you could get learning editions of SAS. And so they got them. And they used them to work out what the SAS language was and what the functionality was. So when you use particular script commands, what that will do. So they could make their work alike. Of course, those learning editions come with license conditions that say you are only allowed to run this for the purposes of learning how to use SAS. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 4006.29,
+    "end": 4044.43,
+    "speaker": 4,
+    "text": "You're definitely not, according to the license, allowed to run these in order to make your own work-alike version of the software. The court, so World Programming won. So the startup won. By this point, they were more than a startup. And the court came out really clearly on this. They said, neither the functionality of a computer program, nor the programming language, nor the format of the data files used in a computer program in order to exploit certain of its functions constitute a formal expression of that program, and as such are not protected by copyright and computer programs for the purposes of the software directive. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 4044.61,
+    "end": 4075.14,
+    "speaker": 4,
+    "text": "The same argument would apply to APIs. there isn't really a difference in this respect between a language and an API. In fact, if you write an embedded DSL in a language like Python, what you're doing is writing API in order to create a language. There really isn't a meaningful distinction in there at all. So the whole work-alike thing applies there as well. So that effectively means that you can own the implementation of a language, but you cannot own the language. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 4076.02,
+    "end": 4117.45,
+    "speaker": 4,
+    "text": "Somebody else can always write an interpreter or a compiler for your language and you're going to just have to wear that. The court also came down really clearly on that stuff that we looked at earlier. This stuff. This stuff. Right to observe, study and test. The owner of a copyrighted computer program may not prevent by relying on the license agreement the person who has obtained that license from determining the ideas and principles which underlie all the elements of that program in the case where the program carries out the acts which the license permits him to perform and the acts of loading and running necessary for the use of the computer program. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 4117.73,
+    "end": 4149.43,
+    "speaker": 4,
+    "text": "So importantly here, they didn't need to and they didn't try to decompile the program. Because remember, decompilation is only permitted for interoperability, and they weren't trying to interoperate, they were trying to replace. That's not the same thing. Interoperability means I write a piece of software that talks to your piece of software. It's not the same thing as writing a piece of software that replaces it. So as I said, interoperability, the clearest and most obvious case is servers and clients. If you've got a server and I'm writing a client, we're doing interoperability. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 4149.53,
+    "end": 4237.48,
+    "speaker": 4,
+    "text": "Similarly, being able to read your file formats is an interoperability thing rather than a replacement thing. One last thing, and then I'm going to go on to licensing. And this is clean rooming. Yeah? You can write whatever you like in your terms and conditions. However, the owner of the copyrighted computer program may not prevent by relying on the license agreement... Right? So you can write whatever you like in that license agreement. It has no effect because statute will override a license agreement every single time. So what's to stop companies with, like, better resources from just, like, ripping off? It's not ripping off. Right? What's to stop another company from writing a competing product with yours? Nothing. Welcome to capitalism. Oh. Okay, so the last case here is, which comes to something someone asked me about in the break. So, re-implementation to make it even clearer how to do re-implementation, right? ",
+    "model_probability": 0.9984
+  },
+  {
+    "start": 4237.5,
+    "end": 4269.11,
+    "speaker": 4,
+    "text": "So, one of the most celebrated instances of this is the original IBM PC BIOS. So the IBM PC was kind of funny. The IBM PC is the ancestor of all of the Intel and AMD and ARM machines that are running things like Windows. So the X86, not ARM, the Intel and AMD ones, the X86 instruction set. And IBM, this is like massive mainframe company, An essentially renegade little bit of IBM made the IBM PC. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 4269.47,
+    "end": 4300.6,
+    "speaker": 4,
+    "text": "And they did it by picking up basically off-the-shelf components and ramming them together into a piece of software, a piece of hardware. And unlike, say, Apple, who were also around at the same time, this is the late 70s, Their plan was, we want to sell the PC, but we want to have a whole ecosystem of other peripherals that are out there. So hard disks, floppy drives, printers, joysticks, everything else that goes out there. And so we're going to have essentially an open platform. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 4301.02,
+    "end": 4335.68,
+    "speaker": 4,
+    "text": "The one thing we don't want is other people making the computer. Our computers, everybody else in the ecosystem. That's their plan. So how do you, given that you're basically using commercial off-the-shelf parts, stop the next company along from going, here, I'm going to make one of these things too, and it'll work with the IBM one? Well, the answer is that the BIOS, the thing that enables the hardware to talk to, the processors to talk to the peripheral hardware, that thing is software. We can protect that with copyright. You also, this is really low-level interoperability, right? ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 4335.7,
+    "end": 4366.29,
+    "speaker": 4,
+    "text": "You basically got to show the source code to this thing to the people writing the preference. So what they did was a tactic known as poisoning the well. What they did was they published their source code, but the published source code did not come with a license that enabled anyone to run it. You could buy licenses to run the object code. We bought the computer and it came with a license to run the object code. But you could buy this book. It was at that point a book. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 4366.61,
+    "end": 4400.0,
+    "speaker": 4,
+    "text": "It would have all the source code in it. And their plan was, well, A, people are going to build all these peripherals and have access to the source code. B, if somebody comes along and produces a rival machine, then we will just sue them and we'll say, well, in all probability, that BIOS code must have been copied from the book. How else would you get that? And so a company called Phoenix, I think. No, it was Compaq the first time around, and Phoenix was the second company to this. So Compaq, a company that eventually got swallowed up by Oracle. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 4402.32,
+    "end": 4433.79,
+    "speaker": 4,
+    "text": "Compaq worked out how you deal with this. What they did was they hired a bunch of programmers from other bits of the computer industry who were unlikely to have looked at IBM's work. And these guys formed the clean room. So they literally sit in a room and write the BIOS code. Then you have the dirty room. The dirty room contains computer scientists, programmers, who have access to the book. They use the book to write a specification, which they pass to the clean room. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 4434.62,
+    "end": 4465.02,
+    "speaker": 4,
+    "text": "The clean room implements that specification, which they hand back to the dirty room, and the dirty room works out what's not actually compatible, updates the specification, and hands the specification back to the clean room. So now you've got a mechanism whereby these guys, in all probability, are not actually copying the code. And remember, it's on IBM to prove that they are. But you've got an effective mechanism for getting to the point where you have an interoperating system. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 4465.44,
+    "end": 4500.14,
+    "speaker": 4,
+    "text": "That's called clean rooming. And it is standard industry practice. And that is, as a consequence of that court case not going anywhere, completely legal. OK, so that's limitations of where copyright gets to. If copyright always stops you from copying software, that would be the software industry stone dead. So actually, the key point of copyright in general, but especially copyright in software, is, OK, you've got your copyright. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 4501.2,
+    "end": 4535.57,
+    "speaker": 4,
+    "text": "Now how are you going to let people off the copyright? Under what circumstances are you going to allow people to make copies such that they run your software? And essentially, that's a matter of, mostly it's a matter of contract law, and we'll go tomorrow into what contract law does. And the simple versions of this are proprietary software licenses. A typical proprietary software license is you give me money, I give you object code, what you're allowed to do is run this code, you're not allowed to do anything else. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 4537.27,
+    "end": 4573.3,
+    "speaker": 4,
+    "text": "And as we've just seen, there are a few things you are still allowed to do, but what you can't do is you can't pass on more copies, You can't use this as the basis of your future code. Basically, this is the traditional mechanism by which commercial software works. You write the software, you sell to people effectively the right to use your software. Okay, now we can go home. Actually, no, we can't because then there's a whole other half to the way that copyright and software licensing is used. ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 4574.24,
+    "end": 4612.7,
+    "speaker": 4,
+    "text": "And this also comes out of the 70s. All the best things come out of the 70s. And in this case, there was the MIT AI lab. And in the 70s, you basically don't really have a software industry. You have hardware industries, and basically the software comes with the hardware. And especially at this point, this is the dawn of small computers. So basically you buy some massive VAX machine or PDP or IBM machine, and you pay millions and millions of pounds, first of all, to build the room with the massive air conditioning where you're putting the thing. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 4613.08,
+    "end": 4645.31,
+    "speaker": 4,
+    "text": "Then you pay even more millions of pounds to the company that's supplying it. And the software just sort of comes along. And this was the way the world worked until in the late 70s or the early 80s, the MIT AI lab brought a new printer. And the new printer didn't work with their existing minicomputer. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 4646.69,
+    "end": 4679.23,
+    "speaker": 4,
+    "text": "And so a guy called Richard M. Storman, whose name will come back from now on again, who was a programmer there, asked the printer manufacturer, can we have your source code, please, so we can sort this out and make it work with our minicomputer? And the company said, no. We don't do that. We sell for particular sorts of machines, and we don't just give out software. And two things happened out of that. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 4679.25,
+    "end": 4710.48,
+    "speaker": 4,
+    "text": "First of all, Richard Stallman wrote The Princeton Driver because he was quite a good programmer. But more particularly, he had one of the larger hissy fits in the history of computer science because people weren't sharing. And Richard Stallman was very, very unhappy. And Richard Stallman is still around. He's still very, very unhappy about people who don't share. And so he actually did a couple of things. The first one, he said, okay, we're going to have a completely free operating system. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 4712.12,
+    "end": 4742.73,
+    "speaker": 4,
+    "text": "And he, so the dominant, the end of the 70s, dominant operating systems are various forms of Unix. And this is kind of before BSD emerges. So they're all proprietary Unixes. And so the new operating system was going to be called GNU. Because GNU stands for GNU's, not Unix. And over time, Richard Stallman's outfit, which he called the Free Software Foundation, did actually build all the bits of an operating system. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 4742.77,
+    "end": 4774.02,
+    "speaker": 4,
+    "text": "Now actually, the bit that they were not very good at was the kernel. And they turned out to be very, very good at the C compiler and the C library. And so GCC is incredibly important, what everybody uses, and huge amounts of the tool chain on many Unix systems now, especially all the Linux systems, is GNU. And then in the 1990s, some Finnish master student wrote a kernel. His name was Linus Torvalds, and you got Linux on it. Okay, that was the computer side of what he was doing. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 4774.58,
+    "end": 4804.6,
+    "speaker": 4,
+    "text": "This is a knowledge. Richard Stallman had a very deep idea. And that idea was what he called free software. And he called it free software because he was into freedom. So free has two meanings in English. In the free software world, they talk about free as in beer and free as in speech. Free beer means you get free stuff. And free speech means you're allowed to say whatever you want. It's complicated because in many languages, those are two different words. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 4804.62,
+    "end": 4836.23,
+    "speaker": 4,
+    "text": "If you speak German, Free as in speech is frei and free as in you don't have to pay for it, it's gratis. Similar distinctions occur in many languages, but not so conveniently in English. The Free Software Foundation came up with these principles that said, in order for software to be free, you've got to be able to do these things with it. You've got to be able to always run it for any purpose. You've got to be able to study it and change it how you like. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 4836.29,
+    "end": 4867.22,
+    "speaker": 4,
+    "text": "And here they mean something stronger than the software directive. What they mean is you can get into the source code and do whatever you like with it. Two and three between them. Two and three there is the original Richard Stallman, my printer doesn't work, strop, written down as a philosophical principle. And then you've got to be able to give out your freedom. So Richard Stallman's idea of the world was a world in which computer software, because the copying cost is zero, everybody shares each other's software. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 4867.24,
+    "end": 4897.27,
+    "speaker": 4,
+    "text": "And Then, actually, much later in the 1990s, essentially for political rather than technical reasons, another organization called the Open Source Initiative was founded. The ideologically based Free Software Foundation was slightly scary to a bunch of companies. The Open Source Initiative was founded by some people who also thought this was a good idea, but thought that there was a good business case for doing it. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 4898.26,
+    "end": 4929.89,
+    "speaker": 4,
+    "text": "And it turns out that's also true. So commercial Unixes are now dead because companies like IBM are looking at this going, okay, we make money selling services and hardware. Do we want to have an entire division writing AX? Or do we want to have a much smaller division which makes sure that Linux always works on IBM machines? And so that happened as well. The open source initiative's definition of open source software goes for several pages. And in going for several pages, it still basically just says that. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 4930.63,
+    "end": 4961.21,
+    "speaker": 4,
+    "text": "So we're going to stick with the Free Software Foundation one because it's shorter and easier to understand. This is the core of what's going on. So that results in a whole load of software where the code is out there and you can just grab it and use it. The internet is full of this stuff, right? This is kind of what GitHub is there for. So, ergo, if the source code is published out there on GitHub or someone's website, we're good. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 4962.19,
+    "end": 4994.08,
+    "speaker": 4,
+    "text": "You can just go get that. You can do whatever you like with it, right? So... That's actually relatively commonly understood position. And there's some important open source software out there. So there is a British company that makes a piece of simulation software that's used by most of the Formula One teams, for example. And when you write fluid simulation software or scientific simulation software, what you do is you can't represent all the flow past a vehicle because that's an infinite number of points and your computer's finite. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 4995.21,
+    "end": 5027.26,
+    "speaker": 4,
+    "text": "So what you do is you represent a finite number of points, and you join them all up. So you make a mesh made up of little tetrahedra. And that mesh might have millions or billions of entities. And you compute on that mesh, but it's still only finitely sized. And because these are big problems, you have a whole bunch of processes working on it. And the way you do that is you carve up that mesh into little chunks for different processes. It turns out that carving up an enormous graph in such a way that you get a high-quality partition is hard. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 5028.04,
+    "end": 5060.81,
+    "speaker": 4,
+    "text": "There is maybe a handful of pieces of software in the world that exist that can do this problem. And this company were using one of them that came from an American university. It sounds really good. It was called Parmetis. And this is the license that's on Parmetis. Palmatis is copyrighted by the copyrighted, I wish people wouldn't do this, it's not true, but the copyright is owned by the Regents of the University of Minnesota. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 5061.01,
+    "end": 5101.56,
+    "speaker": 4,
+    "text": "Fine. It can be freely used for educational and research purposes by non-profit institutions and US government agencies only. Small UK CFD company is a for-profit company that's not part of the US government. Oh dear. Other organisations, i.e. company, are allowed to be promised only for valuation purposes and any further uses will require prior approval. Software may not be sold or will be disputed without prior approval. So on and so on. So, a small company gets a... email from University of Minnesota's lawyers saying, you owe us quite a lot of money, and by the way, please tell us who all your customers are so we can sue them as well. ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 5104.06,
+    "end": 5134.81,
+    "speaker": 4,
+    "text": "which is really, really bad news if you're a small company. What the small company in question actually did was said, fortunately, there was a French piece of software that can also do this, which is confusingly called Scotch. And they switched literally overnight to PT Scotch. If you know which piece of software this is, you can go back through their version control records and find the really bad weekend the programmer had, getting off one onto the other. And then they just stopped using parmeters, right? That's not a legal defense. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 5136.32,
+    "end": 5167.12,
+    "speaker": 4,
+    "text": "They were relying on the fact that there was an ocean between them and the University of Minnesota and they probably weren't worth suing in another country because really they were completely in the wrong. They were absolutely on the hook for an awful lot of money. So the fact that you find the source code out there on GitHub or wherever does not mean you're allowed to use it. You need to read the license. And if there isn't an explicit license, then you're probably just about allowed to run it. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 5167.19,
+    "end": 5198.66,
+    "speaker": 4,
+    "text": "You're definitely not allowed to redistribute, which is kind of important. So if you're not going to be that, so there are a bazillion and one weird combinations of licenses that people write out there. On Tuesday, you'll be examining one. That's what we do. Back in the free software world, back in the world that Richard Stallman actually likes, There are a bunch of licenses. ",
+    "model_probability": 0.9986
+  },
+  {
+    "start": 5198.68,
+    "end": 5230.06,
+    "speaker": 4,
+    "text": "There are actually also an awful lot of licenses out there that conform to this because people decide that they don't like some minor aspect of one of the licenses and they write another one. So if you go to Open Free Software Foundation or the Open Source Initiative, you'll find page after page after page of licenses that comply with this. They all differ in mostly fairly unimportant ways from each other. You should make it an aspiration of your life as a computer scientist never, ever, ever to write a new open source license. The world has enough. Pick one of the ones that's there. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 5230.08,
+    "end": 5262.59,
+    "speaker": 4,
+    "text": "In fact, I'm going to make the case to you that you should pick one of three and that actually on modern software it probably doesn't matter which one of those you choose. So the clearest one, which is called the BSD license, also minor variants of this are called the MIT license, the license of X. There are also a couple of different variants of the BSD license. They say this. Redistribution and use in source or binary forms with or without modification are permitted, provided that the following conditions are met. Redistribution in the source game must retain the above copyright notice. ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 5264.41,
+    "end": 5297.27,
+    "speaker": 4,
+    "text": "Redistributions in binary form must reproduce the above copyright notice, this list of conditions, and the following disclaimer. The following disclaimer is a we don't give you a warranty disclaimer in the documentation or materials provided. So what that says is you can do anything you like with this other than remove the copyright notices, which is basically other than file off the things that said somebody else wrote it. which is what is in the copyright notice. So you basically do whatever you like as long as you don't remove the evidence that the original people wrote this. And so this satisfies the Free Software Foundation. ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 5297.29,
+    "end": 5337.22,
+    "speaker": 4,
+    "text": "So the Free Software Foundation wants you to be able to run it for whatever purpose you like, modify it however you like, redistribute it. And when they're talking about modifying it however they like, they're talking about functional modifications. So the fact that you have to keep the copyright notices on there doesn't mean that it's not free software. In fact, the licenses the Free Software Foundation published themselves all have clauses in them about keeping the copyright headers on there because the Free Software Foundation also believes in giving people credit in the sense of citing them. ",
+    "model_probability": 0.9985
+  },
+  {
+    "start": 5337.88,
+    "end": 5402.88,
+    "speaker": 4,
+    "text": "They don't even have an objection to you selling them. Red Hat make a lot of money selling open source software. It's just you have to then allow people to continue to redistribute on from you. So that's BSD. Then the clever bit, which is the big idea that Richard Stallman had, was to go beyond this, because this one, so if I write, for the sake of argument, a network stack, which is a TCP IP stack, and it's BSD licensed, and you are a prominent proprietary operating system based in Redwood in Washington state, and you, in the year 2000, and you want to release Windows XP, and you need a decent network stack, you could take that code, and put it into Windows XP, and just sell licenses to the binaries for Windows XP, and not allow anyone to do anything with it. ",
+    "model_probability": 0.9986
+  },
+  {
+    "start": 5403.82,
+    "end": 5469.48,
+    "speaker": 4,
+    "text": "And that's allowed. BSD license enables you to do that. You can take this code and do anything you like with it, including folding it into your own proprietary code, as long as you keep the copyright notices intact. And Microsoft did exactly that, and they're allowed to. That was absolutely fine. The regents of the University of California, while they were putting the software out, to get it used. doesn't fit with Richard Stallman's view of the world. Richard, yeah? What does key variables, copyright, actually look like? Does that mean like, looking in Windows, there might be a... Yeah, if you go into somewhere, you'll find it. Quite often, when you buy, so one of the classic examples of this is actually, if you buy something like a network router, almost all of those things have a processor in them. Almost all of them are running Linux. And you will usually find, when you get one of these things in the box, there's a whole load of printed bump that you don't actually bother to read. And some of that printed bump in it will have the copyright headers for the Linux code. because that's what's going on, right? ",
+    "model_probability": 0.9983
+  },
+  {
+    "start": 5469.84,
+    "end": 5508.67,
+    "speaker": 4,
+    "text": "So, actually, Linux is a little bit more complicated, but in terms of copyright headers, that's what you do. You put a printed notice in with the device that has whatever was printed on the top of the source code. So, Storman, though, would not be happy with that situation. Storman wants a share-in-share-like economy where you get to use this software, but then you have to hand on your changes as well. And so... In the 1980s, the Free Software Foundation formulated what was called the GNU General Public License, much more commonly known as the GPL. ",
+    "model_probability": 0.9987
+  },
+  {
+    "start": 5509.41,
+    "end": 5539.55,
+    "speaker": 4,
+    "text": "We're now up to GPL version 3, which came out nearly 20 years ago. GPL 3 is a lot better written than GPL 2 because they got actual lawyers involved and there wasn't too much legal garbage left in there because the lawyers knew what they were doing. And what... The GPL says is if you get a copy of this software, you can do whatever you like with it. You can run it for any purpose. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 5540.25,
+    "end": 5574.2,
+    "speaker": 4,
+    "text": "You can modify it however you like. Compile it, translate it, anything you like. But if you hand on copies that are either modified or unmodified, then the whole work, so the thing you got from me and all your additions, they all have to be under the terms of the same license and you have to provide source code to the people you hand it on to. So it has to stay in this open source world. Very different from BSD. And so that's the license that's on GCC, it's the license that's on the Linux kernel. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 5574.28,
+    "end": 5606.32,
+    "speaker": 4,
+    "text": "It was really successful. It's all over the place. it caused a little bit of a fracas with glibc. Because glibc is this library which gets sucked into the executables of everything written in C, which we're talking about 1980s is everything. And so now, in order to, so basically you can't, in that world, redistribute binaries that were compiled against glibc. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 5607.65,
+    "end": 5639.98,
+    "speaker": 4,
+    "text": "because that binary is going to contain code that was compiled from glibc as well as code that was compiled from the original. So the compiler doesn't cause that problem, right? The compiler doesn't get ingested into the output code. But a standard library, like libc, absolutely does cause that problem, because it's just as much an input to the binary as the application code was. And so what are the options? So Richard Stallman's preferred option would be, that's fine because our world is free. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 5640.0,
+    "end": 5681.11,
+    "speaker": 4,
+    "text": "And people who wanted GCC to actually take over the world, which it did, said, no, we need to actually allow for commercial software to exist in this ecosystem as well. And so what happened was they produced the lesser general public license. And the lesser general public license says... You have to do the GPO things with respect to the work that I give you, but you can compile and link to produce a binary that contains both proprietary, your code and our code, and the resulting binary doesn't have to be open as long as you provide a mechanism for e-linking. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 5681.13,
+    "end": 5713.5,
+    "speaker": 4,
+    "text": "So you could do this by dynamic linking and enabling the libraries to be replaced out. And so then you get glibc. And so now we have a world where you have MIT and things that look like MIT, and you have GPL, and you have LGPL. And there are a few other licenses, like the license of Apache and so on, which are playing this game. And the question now comes, OK, but in the Richard Stallman world, I wanted to be able to take stuff and mix and match and reshare. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 5714.0,
+    "end": 5745.41,
+    "speaker": 4,
+    "text": "So when am I allowed to do that? And the answer is, well, there isn't an overall authority which sets out all these licenses. You've got to comply with all the licenses, right? Because you're getting permission from me under this license for this bit of code, and permission from him under that license for that bit of code, and permission from that lady over there for her code under this license. And if you want to then produce a combined work, right, a consolidated binary that compiled out all of them, you have to comply with all of our licenses. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 5746.93,
+    "end": 5781.71,
+    "speaker": 4,
+    "text": "In the free software world, sometimes you can and sometimes you can't. So the Free Software Foundation helpfully provide you with this nice diagram. Basically, you can take work from a less restrictive license like MIT and include it with work under a more restrictive license under the more restrictive license, but you can't go the other way. So MIT, remember, says do whatever you like. And all those things up there are basically similes for MIT, slightly differently worded versions of licenses that do, to all intents and purposes, the same thing as MIT. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 5782.91,
+    "end": 5820.06,
+    "speaker": 4,
+    "text": "And then you have GPL. And LGPL, lesser GPL, explicitly has a clause in it that says you can use this as GPL instead. So that's why that works, because the license covers both. This dashed line here, this is because... So GPL3 that was rewritten has different rules from GPL2 in minor ways. And that means that if you give people the permissions under GPL3, those are not actually compatible with the permissions under GPL2. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 5822.59,
+    "end": 5856.94,
+    "speaker": 4,
+    "text": "The Free Software Foundation... would like you, when you put your work under the Free Software Foundation, to say, this work is copyright David Hamm. You can use it under the terms of the GPL version 3.1 or any later version that's published by the Free Software Foundation so that they can do updates in all states compatible. Other people would say, are you kidding? Richard Stallman is really crazy. I'm not signing over to the Free Software Foundation the rights to change the terms and conditions on my software. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 5858.54,
+    "end": 5891.04,
+    "speaker": 4,
+    "text": "And so it's a bit of a mixed bag. Many pieces of software have the any later version cores, some don't. So the Linux kernel, for example, because Linus Torvalds, much as he uses GPL, is not the world's biggest Richard Stallman fan, is GPL 2 only. It will never be going to 3.1. That diagonal arrow was an accident. It turned out that GPL3 is GPL2.1 compatible. That wasn't in the GPL2.1 design. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 5891.26,
+    "end": 5928.58,
+    "speaker": 4,
+    "text": "It's worked out that way, so you're good. And similarly, the LGPL2 to LGPL3, it was accidentally compatible. Okay. There's just one more concept that I want to deal with. which is in here, which is a wrinkle on this. And that is linking. Did I say anything about linking? No. So we have this world that's up here about when I can combine things together. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 5930.18,
+    "end": 5963.67,
+    "speaker": 4,
+    "text": "It makes perfect sense so long as the year is 1980. Because this view of the world says, the way I deal with software is I work in C, And I compile the software to produce a statically linked binary. So I start off with bits of ASCII text. And those ASCII texts can be different works. I can have the main program, and I can have a library, and so on. And then I feed all of them into a compiler. And the compiler spits out one big, fat binary blob. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 5964.23,
+    "end": 5995.75,
+    "speaker": 4,
+    "text": "And that binary blob contains translations of all of those bits that went in. And so it is, to use the copyright term, a derived work of all those inputs, so I have to comply with all of those, right? And this diagram is all completely true, and all these statements about license compatibility are completely true, if that is the case. And if you are working on low energy embedded processors today, that may well still be your world. And it isn't the world for anybody else. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 5997.76,
+    "end": 6030.24,
+    "speaker": 4,
+    "text": "So even if you work in compiled languages, if you go in C or C++, overwhelmingly on most systems we dynamically link. And if you are working in an interpretive language, say you're a Python programmer, well, you never actually produce a binary to ship in the first place. The only sense in which anything binary exists is bytecode, which your computer creates on the fly and throws out when it doesn't need it anymore. So... What does this stuff all mean in the context of dynamic linking? ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 6031.12,
+    "end": 6068.59,
+    "speaker": 4,
+    "text": "Actually, this comes up in the Linux kernel as well. So the Linux kernel is GPL 2.1. You can use an NVIDIA graphics card with Linux quite happily because NVIDIA provide drivers. NVIDIA definitely do not provide open source drivers. That is not how NVIDIA as a company works. So what's going on? Well, actually, it turns out that the kernel module loading interface is essentially identical to dynamic linking. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 6069.53,
+    "end": 6102.6,
+    "speaker": 4,
+    "text": "It's just whether the pointers are in user space or kernel space, but essentially the mechanism is exactly the same. And so now, the analysis we need to apply, and this is, I have to say, this has not been litigated, but there's quite a lot of legal literature, so works by legal academics about what they think the situation here is. There is also a position by the Free Software Foundation, which is not what I'm about to tell you, because they have a different position and there aren't very many lawyers who agree with the Free Software Foundation. So for the Free Software Foundation, by the way, their position is this still applies to dynamic linking. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 6103.53,
+    "end": 6140.23,
+    "speaker": 4,
+    "text": "It still applies to in all circumstances. And their argument is more or less, well, because those are the rules that we impose in our licenses. We're writing the licenses, and we get to set the rules under copyright law. And that doesn't really work, because we only engage licenses at the point at which we do something which copyright law protects. And so the question is, if I'm dynamically linking, so once when I dynamically link, I compile the library, and I compile the object code, and I don't ever have a single binary. ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 6140.25,
+    "end": 6180.99,
+    "speaker": 4,
+    "text": "Those are two separate things. And in principle, I can definitely use multiple application codes with the same library. That's the point of dynamic linking. I could also, if I'm careful enough about it, recompile a library and relink it a runtime against the same application code. So really, the library and the application code are independent. And then when I run them, I don't even really get a binary blob when I run them, right? Because the operating system's linker, dynamic linker, effectively loads the dynamic library into a separate memory location, then arranges the memory transactions so that I can call the things from the dynamic library. ",
+    "model_probability": 0.9986
+  },
+  {
+    "start": 6182.39,
+    "end": 6218.94,
+    "speaker": 4,
+    "text": "So at no point is there really a combined work. And so... there isn't anything there to infringe copyright on. And now, in principle, you could have, because remember, clauses that restrict how you run a piece of software are usually legal. So you could have a clause in your license which says you are not allowed to dynamically link against a piece of software which is not also under a GPL-compatible license, right? ",
+    "model_probability": 0.9976
+  },
+  {
+    "start": 6219.38,
+    "end": 6252.67,
+    "speaker": 4,
+    "text": "But the GPL doesn't say that. The GPL says you can do anything you like in the privacy of your own computer, right? GPL imposes no restrictions on running the code. No restrictions on modifying the code. GPL restrictions only cut in at the point at which you want to redistribute. And if you redistribute your binary blob and the GPL-licensed source code, you're fine. And an entirely analogous argument would apply even more clearly for things like source code only stuff. ",
+    "model_probability": 0.9941
+  },
+  {
+    "start": 6252.69,
+    "end": 6287.92,
+    "speaker": 4,
+    "text": "So if you think Python libraries where you're distributing the source, there's just no point at which the GPO gets engaged. And one of the effects of that is that on many current systems, there's no difference between GPO and LGP. If you don't think, if you're dynamically linking and you don't agree with the Free Software Foundation, and it's very difficult to find an academic lawyer who does agree with the Free Software Foundation and has never been litigated, then LGPL and GPL are basically the same thing. ",
+    "model_probability": 0.9911
+  },
+  {
+    "start": 6288.06,
+    "end": 6320.93,
+    "speaker": 4,
+    "text": "In a source code, in an interpretive language, MIT is basically the same thing as GPL, right? Because if everyone's handing around source code, then those things stay very, very close to the same thing. It's not quite true because you can do things in a source code-only language that would violate the GPL. So there's something called PyArmor, for example, which people who sell proprietary Python software, that is a thing, try to compile it by using PyArmor to only distribute the bytecode. ",
+    "model_probability": 0.9778
+  },
+  {
+    "start": 6321.25,
+    "end": 6356.33,
+    "speaker": 4,
+    "text": "more or less. It's a bit more complicated what PyArmor does, but that's basically what's going on. And only distributing the bytecode wouldn't satisfy the GPL, because the GPL definition of source code is the version of the code which a programmer would find most convenient to edit. It definitely is not the bytecode. But in the normal space of asking the question about when am I allowed to distribute a binary, then essentially it looks like dynamic linking is a sort of copyright-proof barrier through which things don't move. ",
+    "model_probability": 0.9734
+  },
+  {
+    "start": 6358.85,
+    "end": 6391.27,
+    "speaker": 4,
+    "text": "Okay, so that is, it's 10-2 exactly, that is pretty much all I have to say on the subject of copyrights. So we're going to reconvene tomorrow for more fun and games when we're going to do contracts and engage with the wondrous world of 19th century medicine and other sources of contract law. And so have a good evening. I will see everyone tomorrow. I will hang around at the front here if anyone has any further questions. ",
+    "model_probability": 0.9467
+  }
+]

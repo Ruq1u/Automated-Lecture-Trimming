@@ -1,0 +1,1283 @@
+[
+  {
+    "start": 83.8,
+    "end": 98.22,
+    "speaker": 2,
+    "text": "I hope so. He was ill last time, wasn't he? He didn't say anything, so... ",
+    "model_probability": 0.0124
+  },
+  {
+    "start": 102.11,
+    "end": 105.33,
+    "speaker": 3,
+    "text": "I mean, 15 hour estimate, that was about right, actually. ",
+    "model_probability": 0.0032
+  },
+  {
+    "start": 123.57,
+    "end": 145.82,
+    "speaker": 2,
+    "text": "I submitted, I finished it early, but I forgot to submit from LabTS. Oh, yeah? And then I was like... Have you started a second one? No, but I will start it today. I hope to finish it in one day. Yeah, I think so. I hope. One full day. Oh, okay. ",
+    "model_probability": 0.0031
+  },
+  {
+    "start": 146.63,
+    "end": 157.13,
+    "speaker": 3,
+    "text": "Have you started? No, not at all. I haven't even spoken about it with anyone. Doesn't make it onto my mind yet. ",
+    "model_probability": 0.008
+  },
+  {
+    "start": 217.18,
+    "end": 222.19,
+    "speaker": 3,
+    "text": "I saw the message and I was like, okay. I don't think he would... ",
+    "model_probability": 0.0018
+  },
+  {
+    "start": 284.47,
+    "end": 322.71,
+    "speaker": 2,
+    "text": "I wanted to do either something low-level like architecture or AI, but there weren't that many projects. And the other option was, yeah, like something more mathy. Was that your first work? Like statistics. Yeah, it was my first. But I was the only one. Oh, yeah. No, the only one who even... I was interested at all, so it was getting straight forward. What about you? I got the blockchain Ethereum. Crypto stuff. Crypto stuff? ",
+    "model_probability": 0.0059
+  },
+  {
+    "start": 322.8,
+    "end": 362.77,
+    "speaker": 3,
+    "text": "First choice? Fourth, but I'm quite happy with it anyway. I mean, I chose it. Crypto, what? Ethereum, so it's the way the transactions are collected and bundled together. In the blockchain? Yeah, yeah. On Ethereum? Yeah, Ethereum. Okay. It's quite reasonable. What other modules you got? This one, deep learning, machine learning for imaging, robot learning, probabilistic inference. You got all the attempts on it. ",
+    "model_probability": 0.0776
+  },
+  {
+    "start": 394.38,
+    "end": 418.75,
+    "speaker": 0,
+    "text": "Anybody try submitting the coursework? Somebody said on the submission button was not available. It's still not available. It's still not available? I generally don't know what looks from your side because I cannot access it. I don't have an easy way of checking that. ",
+    "model_probability": 0.1638
+  },
+  {
+    "start": 458.68,
+    "end": 460.24,
+    "speaker": 0,
+    "text": "Okay, we are coming to live. All right. So, just to very quickly recap. ",
+    "model_probability": 0.214
+  },
+  {
+    "start": 490.34,
+    "end": 523.55,
+    "speaker": 0,
+    "text": "a little bit more random than usual of information in the entire development and optimization process. So the first one is make sure that your program is correct before you run fast. It doesn't really matter how fast it runs. I talked about a few tools you can use. Then we talked about performance. that you don't know for sure need to be optimized. ",
+    "model_probability": 0.5415
+  },
+  {
+    "start": 523.63,
+    "end": 554.12,
+    "speaker": 0,
+    "text": "Otherwise, you just get down a kind of useless rabbit hole. You're wasting your time doing something that then perhaps turns out to not be that performance critical because your execution time was spent elsewhere. Sure, you will accelerate it, but you will spend, I don't know, 10 days to accelerate 1% just because you didn't appropriately check where exactly was the source of the performance overheads, or where were the biggest bids that you could optimize. ",
+    "model_probability": 0.9821
+  },
+  {
+    "start": 554.68,
+    "end": 585.53,
+    "speaker": 0,
+    "text": "So for that, you've looked at VTune, I think is the name, right? The program from, I believe it's Intel that develops it? Perf is your friend if you're in a Linux system. I mean, you can also use in Linux. But in reality, what's happening is that just calls Perf. And then Perf has a few things. I mean, they are not in feature parity. Each one of them is kind of adding things. ",
+    "model_probability": 0.9974
+  },
+  {
+    "start": 585.55,
+    "end": 630.74,
+    "speaker": 0,
+    "text": "For example, I believe that Holger told you about the top-down analysis with VTune, right? That's also available in Perf. Basically, you run something, collect information. Sorry, run something, collect information, and then you can report the information. Or with this, it's just run it and give me some basic statistics, right? And, well, it has an absolute myriad of flags. For example, Minergy will create a call graph so that you have a very detailed information of how functions are related to each other and who's eating the performance or who's eating the execution time when there's nested calls and so forth, and gives you a very detailed breakdown of that. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 631.4,
+    "end": 671.36,
+    "speaker": 0,
+    "text": "And interestingly, if you execute this, in some machines you will need to run it as root, so sudo perflist. It will tell you every single counter that is available in perf. A lot of it is not just what your application is doing. A lot of it is information about the OS kernel is doing, number of system calls, how much time is spent on them, how many times threads are scheduled in and out of a CPU, absolutely anything. There's a lot of information that the Linux kernel can provide to you through perf list and also, Every single performance counter available in hardware is available through here. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 671.54,
+    "end": 712.78,
+    "speaker": 0,
+    "text": "So you can use it in Perf. Anything that your CPU provides, you can access through this. So it's kind of like a doorway to everything performance if you're running on Linux. As I was saying, with the whole critical path analysis and all of that, this is great, but it doesn't give you the full picture. You have to do a lot of thinking to understand, is this piece of code that is executing for a long time, is this on the critical path or is this running in parallel with another computation on another thread, and that's the one that I should be optimizing. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 713.58,
+    "end": 744.48,
+    "speaker": 0,
+    "text": "Remember all the example with the critical path. Perf is not going to help you with that. You can use perf to try to understand better and think somewhat hard to figure out where the critical path is and then figuring out how to optimize it. There are some tools like this one that help you in finding that. It's kind of like, I don't know how to say it in English, hit and miss tool, right? It doesn't always work. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 744.6,
+    "end": 776.13,
+    "speaker": 0,
+    "text": "It's a research prototype that came from University of Massachusetts from a research group of a professor who is also working with Microsoft. And he works in building A lot of his work, not all of it, but a lot of it is in building developer productivity tools. And this is one example of a developer productivity tool that one of his students developed. There's a paper behind this. It's linked here if you are interested in knowing how it works. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 776.17,
+    "end": 808.57,
+    "speaker": 0,
+    "text": "I'm not going to go into detail. But that's some tricks in how your program is executed for a few times to figure out where the critical path is and then give you a rough estimate of, oh, if you optimize this line of code here, which is where a lot of contention happens, you could get up to 60% speed up. In the very best case, if it were to have no contention or essentially have virtually zero execution time, this is how much you would get. So it kind of helps you with figuring out critical paths and how that affects within the context of Amdahl's law. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 809.49,
+    "end": 845.51,
+    "speaker": 0,
+    "text": "Again, works very well with the examples they developed. The program has kind of been stagnating over time. But it's an interesting thing to think about, even if it's just to get the concept of how it works. And hopefully, we're going to have more reliable tools like this in the future. If you want to stop me at any time, just tell me. Otherwise, I'm going to keep going. How many of you know what? do what I'm talking about when talking about memory allocators that are optimized for multithreading applications. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 846.29,
+    "end": 882.98,
+    "speaker": 0,
+    "text": "Ever heard about that? OK, very few of you. So think about it. When I allocate memory, I call malloc, or in C++ Neo, which internally just calls malloc, or any other language. what I'm essentially doing is taking some chunk of this global memory of a process and assigning it to that pointer, right? It's a sort of global operation. And a lot of the time, if you don't do anything more than, you don't change your program, you will have some sort of global algorithm that does an allocation, which is very inefficient, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 883.0,
+    "end": 913.52,
+    "speaker": 0,
+    "text": "Because if we have to manage the metadata of what is allocated memory and pre-memory, we need some locks and data structures that are shared across threads. And therefore, we're going to have lock contention. That's exactly what happens. If you create a program with hundreds of threads, and these threads are allocating and freeing memory, By default, in most malloc implementations, this will lead to contention. So that's why we have some really nice libraries that try to alleviate that. How? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 913.74,
+    "end": 945.93,
+    "speaker": 0,
+    "text": "Well, like many things in computer science or software engineering, add another layer of abstraction to solve the problem. In this case, it's caching. We have a per-thread cache. So threads will allocate and free memory from this per-thread cache. So if there is available memory there, it's only memory that is free, but only allocatable by that thread. And if that per-thread cache is empty, then we go to the global. allocator and then use logs and so forth. So it has these very nice properties. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 946.87,
+    "end": 978.53,
+    "speaker": 0,
+    "text": "So it's essentially a hierarchical solution with batch allocation so that when we go to the global allocator, instead of allocating that of an integer or something like that, we ask for two megabytes to the global allocator or some batch, some larger size, and then give a chunk of smaller allocation possibilities to the thread. trading off this course of granularity for performance, essentially. You have multiple libraries that do that. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 978.67,
+    "end": 1013.67,
+    "speaker": 0,
+    "text": "They all kind of work the same, but just so you know the names, one of the well-known ones is TCMalloc. You have also gMalloc, meMalloc, and there's others. A lot of the time, you have two options. One is you link your program against this library, so it will use malloc and free from the library, or because of how Programs are built. There's something called symbol interposition. It doesn't matter how that works, but the whole idea is that if you define this thing, LD underscore preload equals a library, and then program behind it, whatever symbol that can be interposed in the program, it will be interposed. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1013.69,
+    "end": 1044.21,
+    "speaker": 0,
+    "text": "So for example, malloc is an interposable symbol. That's how programs are built. I'm not going to get into detail. about that. But whenever your program calls malloc, if you have defined this and this library defines malloc, you will not call the regular standard malloc of the program. You will call the malloc implemented in this library, which is accelerated to work with this hierarchical approach for threats. That's how we can transparently optimize our program without even recompiling it in this case. So this sounds kind of dumb. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1044.95,
+    "end": 1075.03,
+    "speaker": 0,
+    "text": "If you have a multi-threaded application, it's an absolute big boost if there's a lot of allocations, of dynamic memory allocations and the allocations. Any questions until we get some different type of contents? No? OK. So let's talk about algorithms. What have we seen so far? So far, we have seen blocking algorithms. Essentially, we use locks to implement critical sections. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 1075.83,
+    "end": 1115.33,
+    "speaker": 0,
+    "text": "It's somewhat simple. We lock, execute the critical section, we unlock. And we know that that critical section, as long as we hold the lock, nobody else can access it. Modulo, well, the shared and unique locks that we talked about that have slightly different semantics. So remember that. Even though this is somewhat simple, race conditions can very quickly make this hard. So what does this mean? A blocking algorithm, essentially, if we lock on a critical section, this will lead other threats to block when trying to enter this critical section, only one. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1116.21,
+    "end": 1150.85,
+    "speaker": 0,
+    "text": "Everybody else will block and wait until we are out, right? So imagine the example that I already raised in past lectures, that we have a threat that acquires a lock, it's scheduled out by the operating system, and then another threat comes in and tries to acquire that lock. Well, whoever held that lock is not running because they are scheduled out. They are on the scheduler queue, and we are waiting for it. So we won't be able to enter that critical section until the operating system decides, oh, maybe I should schedule that other thread and run it for long enough that it comes out of the critical section. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1152.15,
+    "end": 1190.38,
+    "speaker": 0,
+    "text": "So the question is, can we do better? Can we avoid these blockings? The answer is yes. That's why I'm talking about this. And the answer is also quite obvious, at least in title, not in implementation, is that we have non-blocking algorithms. So we have this duality. In non-blocking algorithms, essentially what is happening is that we have such a suspension of one thread. for example, the thread that holds the log and then is scheduled out will not cause suspension of other threads. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1191.9,
+    "end": 1222.41,
+    "speaker": 0,
+    "text": "And you might say, well, if I hold the log, what is the trick? Well, the trick is that you don't hold the log. You do something else that is more sophisticated, right? We will still use read, modify, write, the compare and swap atomic foundational operation. But we will not use it to implement blocking. We will use it to implement different types of operations. Works very well. Threads won't block. Multiple can operate at the same time on what would otherwise be a critical section. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1223.11,
+    "end": 1253.15,
+    "speaker": 0,
+    "text": "It's fucking hard. And we're going to see why. OK? So unless you are using a library that does this for you and it's proven to be correct, try to avoid implementing this yourself because the most likely thing is that there's gonna be a very subtle race condition that you missed, okay? Interestingly, there are some people working on providing formal methods to prove that specific implementations of lock-free algorithms are correct. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1253.21,
+    "end": 1286.16,
+    "speaker": 0,
+    "text": "And this is hard. This is bleeding edge research on programming languages today. That's how hard it is. Now, if we are looking at non-blocking algorithms, we have two types, lock-free and wait-free. It's a very subtle distinction. In a non-blocking lock-free, so we know that for non-blocking, suspension of one thread cannot cause suspension of other threads. Then with lock-free, we have a warranty that the system as a whole will always make progress. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1286.48,
+    "end": 1318.38,
+    "speaker": 0,
+    "text": "As long as there is one thread running, one of the threads that is running will be able to continue moving forward in execution and not be idling waiting for some sort of like lock as we had before, okay? In a non-blocking wait-free, every thread is always warranted to make progress. So think about it, when we were doing the compare and swap when we were using compare-and-shop to implement an atomic increment. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1318.48,
+    "end": 1350.39,
+    "speaker": 0,
+    "text": "We were looping until we got it right. That is non-blocking lock-free because one thread, whoever got it right, is able to progress. But it's not weight-free because it is the case that some threads might just keep looping for theoretically forever. In practice, it's not forever. quite likely, but in theory, it could be forever. So that's the subtle distinction. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1351.79,
+    "end": 1388.55,
+    "speaker": 0,
+    "text": "Any questions before we go and dive into an example of this? Because this is somewhat abstract. No? OK. Log-free. One very simple is stacks. Linked lists, in general, are a quite common example of log-free data structures and are very commonly used. So here we have an example of a stack. Essentially we push and pop elements from one side of this essentially single linked list. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 1388.61,
+    "end": 1420.11,
+    "speaker": 0,
+    "text": "So we have the head that is this data structure here and we have two operations, right? Push and pop. So now imagine that we have a stack, sorry, with one element. The head points to one element and this one element says there's no next. So this is the top of the stack. It's a stack with one element. Everyone with me? OK, now imagine that we do a push. We create a new node, this one here. We put it aside for now. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1420.17,
+    "end": 1453.45,
+    "speaker": 0,
+    "text": "It's not connected to the stack. But we want to put it in front of this one, right? Because the head of the stack, that's the top. That's the one where we put new elements into. So the next thing we do, and this is following this code here. is that we do node next, the new one that we added, equals head. So we add this link here. So now we have that. If I go and traverse the stack, I'm still pointing to this element. But if I were to traverse from this point, now I would have two elements. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1453.85,
+    "end": 1485.3,
+    "speaker": 0,
+    "text": "I would see the new stack. And the last thing that we do here on a loop is that I swap the head. Once I swap the head, I essentially say, this is the new stack. And it's correct. Right? Imagine that this stack had like 30 elements, and one thread starts traversing and is here. Then I do the swap. Well, the thread that was already here will see this stack when traversing it. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1485.96,
+    "end": 1523.97,
+    "speaker": 0,
+    "text": "It sees an old version of the stack. whatever new thread comes in after this swap, then they will start traversing the stack from here. So they will see the new version of the stack. Both are correct, right? It's just they are seeing different versions over time of that stack. That's fine, that's how concurrency works. Yes? And of course, this is all in a loop because if we don't manage to make this swap, it means that somebody else made it before us, so we have to recompute node next, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1524.23,
+    "end": 1556.3,
+    "speaker": 0,
+    "text": "Because then if somebody else changed it before we did, then we should essentially, there is one node here, so we should point ours to the new head, and then do the swap again, so we just load. So remember, why is it not going back? So remember, this is non-blocking lock-free, but it's not weight-free, because there's a loop. Okay, yeah. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1563.16,
+    "end": 1595.79,
+    "speaker": 0,
+    "text": "They all see this global variable head. It's just that if they traverse, imagine that I'm going to, it's like a made up example, I'm going to go through the stack, follow this single linked list, and write down somewhere in a temporal local variable of that thread what is the list of elements that I went through. If I have two threads and one starts when head is pointing here, so if this is, do we have, let's see if we can do a trick here. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 1604.66,
+    "end": 1637.68,
+    "speaker": 0,
+    "text": "Perhaps I should have color coded this. Let's say this is element 0 and this is element 1, right? Now, thread 0 will see 0 because thread 0 starts here. Now, thread 1 starts when this is already here, right? Because they see it in different points in time. So the set of elements that it sees is 1. And zero. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 1637.74,
+    "end": 1642.02,
+    "speaker": 0,
+    "text": "Do you see what I mean now? Or am I answering something that is not your question? ",
+    "model_probability": 0.9757
+  },
+  {
+    "start": 1642.04,
+    "end": 1664.8,
+    "speaker": 2,
+    "text": "No, like, usually when something is shared, like, for example, the stack, in this example, all threads should see the same values. What does it mean that all threads should see the same values? They see the same stuff with the same elements inside. ",
+    "model_probability": 0.169
+  },
+  {
+    "start": 1666.26,
+    "end": 1701.6,
+    "speaker": 0,
+    "text": "But they see it in different points in time. Imagine that this happens. This is thread 0 in time 0. And this is thread 1 in time 10. Well, they are concurrent. It's not executing at the very, very, very, very same time. But they are concurrent. Right? Any questions about push? ",
+    "model_probability": 0.994
+  },
+  {
+    "start": 1703.72,
+    "end": 1735.28,
+    "speaker": 0,
+    "text": "Should we pop them? So as you can imagine, sorry, I still have some of that nasty coughing. I assure you I'm not infectious, at least not anymore. So if we want to pop, that's a bit more complicated. But it's not so different. It's the same concept of essentially having this data structure that over time can look different to threads. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 1735.32,
+    "end": 1769.7,
+    "speaker": 0,
+    "text": "But any thread can start looking at it any time. And it will always be correct without having logs. So imagine that we have this stack, right? We have the head that points to this stack with two elements. And we have this local variable here that says current. It's a temporary on the pop function. So the first thing we do is that we point current to head. And we say while current, do this compare and swap. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 1770.34,
+    "end": 1802.2,
+    "speaker": 0,
+    "text": "So essentially make current be current next. Sorry, swap head from current to current next is what I mean. So at this point, I have now swapped head to skip over the first element. So whoever comes after this comparing swap here will see the head pointing to the new stack, which has one less element. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 1803.06,
+    "end": 1833.71,
+    "speaker": 0,
+    "text": "But I still maintain current that points to the head. That is why, only because, well, when I pop an element according to this function, I return the element that I just popped, right? So I just return current. Oops, sorry. Well, I kind of, I don't know how to translate that. There's all kinds of like nifty phrases that I know in Catalan that I don't know how to say in English, but I lifted the rabbit. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 1836.02,
+    "end": 1871.1,
+    "speaker": 0,
+    "text": "I'm sure there's something about the thing here in the UK that dogs go chasing some, I don't remember which animal. Essentially the same idea. I lifted the rabbit here. This is correct? No? There's a data raise? Can you spot it? Can anybody spot the data raise? It's possible to spot it, but it's hard to spot these data rays unless you know what you're looking for. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 1872.58,
+    "end": 1902.82,
+    "speaker": 0,
+    "text": "That's why I said this is great, and it's fucking hard. Don't do it yourselves. Because this is very problematic. You can very easily get into trouble with this. Even though what I just explained to you before I showed you this phrase probably looked like, oh, this makes sense. That's a neat trick. Looks like I can make very efficient algorithms with it. This is known as the ABBA problem. Here's my really bad joke. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 1902.88,
+    "end": 1933.25,
+    "speaker": 0,
+    "text": "I'm sorry for doing this to you. But this is not like the Swedish music group. This is just with one single B. And it's about concurrency with this type of lockless or non-blocking algorithms. What I just showed you is the book version of a stack and has the ABA problem. Why? ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 1933.51,
+    "end": 1964.53,
+    "speaker": 0,
+    "text": "Well, let's look at it. Imagine that we have two threads, T1 and T2. T1 does pop, T2 does pop one element, pop one element, delete the second element we popped, and then push the first element back. So these run concurrently, so things can be ordered in any way between threads. So imagine I do t1, does the pop. So it's current equals 1, like element 1. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 1964.77,
+    "end": 1997.26,
+    "speaker": 0,
+    "text": "Imagine that we have the stack that is element 1, element 2, element 3, and so forth. Current equals 1, which is the head of the stack right now. Next equals 2. And then we stop. We get scheduled out. I don't know, whatever. Salute. And then we go execute 32 we do one pop we fully do the pop We do the second pop we fully do the second pop and Then for for the second element that we popped we delete it It's fine. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1997.28,
+    "end": 2031.44,
+    "speaker": 0,
+    "text": "We just popped it right and then after we delete the second element that we popped we push the first element back So what do we have? with a compare and swap from head from three to one, so head is back into one. Then we go back to thread one and does a compare and swap from head. If head is still one, set it to two. Game over. This is correct. The head is still pointing to the original thing when we started, but now we point it to the next one, which is no such thing anymore, because it was popped and deleted. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2031.78,
+    "end": 2064.52,
+    "speaker": 0,
+    "text": "We are now pointing to garbage. this is like game over, this is an absolute mess. Perhaps you would be able to find it out if you use Valgrind or address sanitizer, because then the compiler or the runtime will tell you, oh shit, you're trying to access some deallocated memory. But otherwise, you start seeing weird stuff happening with your program and start feeling really bad about yourself because of that, okay? Any questions about how we get here? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 2064.58,
+    "end": 2099.71,
+    "speaker": 0,
+    "text": "Yeah. This one. So this is what we do here, right? We do node next equals head on the one, sorry, on pop. We get current and we get head on the next. We do this compare and swap later. And the thing is that we are doing a comparing swap between these two, between current and current next. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 2100.69,
+    "end": 2134.06,
+    "speaker": 0,
+    "text": "So current, when we get here, is 1. It's the first element on the stack. Perhaps I can write that just to clarify what we're talking about. So if we have the head here, this is 1. This is 2. This is meant to be a 2. This is 3, and this points to 0. So we have this configuration when we start. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 2136.72,
+    "end": 2174.18,
+    "speaker": 0,
+    "text": "Now, current equals 1, and the next element is 2, because this is the compare and swap we're doing here. Because remember, this is not calculated as part of the compare and swap. evaluated before we pass an argument to compare and swap. Essentially this is equivalent to saying next equals current next and then cast head current next. So this is what we saw. Then all this shit happens which essentially deletes element number two but leaves the head still being element number one. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 2174.62,
+    "end": 2222.5,
+    "speaker": 0,
+    "text": "So when we get here what we have is number 1, number 3, nil. So from the perspective of this compare and swap, all is good. I'm going to do the compare and swap. And the head is going to point to number 2. So at the end of this, what we have is that this points to number 2, which is just plain wrong. ",
+    "model_probability": 0.9992
+  },
+  {
+    "start": 2223.1,
+    "end": 2256.18,
+    "speaker": 0,
+    "text": "It was deleted. I was going to draw hell, but then I realized that we don't have the time as a background of number 2. But does everyone get the point here? Yeah? So as I was saying, this is the book version. The problem is that once you add memory management, it's an absolute nightmare. If this alone was hard, this is like orders of magnitude harder when we have memory management here. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 2257.18,
+    "end": 2291.29,
+    "speaker": 0,
+    "text": "Now we have many different ways of solving these that are typically used. We can use intermediate notes, which is expensive. So for example, instead of just having pointers, we could have shared pointers. So as long as there are... multiple shared pointers pointing to the same thing, that thing doesn't get deleted. So this would not happen. Another solution is to use what people call tag pointers. which is just a fancy version of this. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 2291.51,
+    "end": 2324.49,
+    "speaker": 0,
+    "text": "We keep some sort of reference counting with the pointers, but for that we typically will need, if our addresses are 64 bits, we will need twice as much to keep this reference counting on the pointer itself, which means that we need 128-bit compare and swap. It exists, but now we are not just using normal pointers. We have to do a whole bunch of very low-level bit fiddling trickery to implement this. And another way that is very, very commonly used is essentially defer reclamation. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2329.0,
+    "end": 2361.02,
+    "speaker": 0,
+    "text": "Defer reclamation essentially means that instead of deleting this here, what we do is that we have some other global data structure where we throw everything that we want to delete. It's like, oh, I'm done with this one. But since some other thread could be still operating on this data structure, I'm going to keep it around until I know that no threads are left looking at this data structure. So that's what we mean with deferral reclamation. How to implement this is way more complicated than what I just explained. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2362.25,
+    "end": 2393.28,
+    "speaker": 0,
+    "text": "Especially for this one. If you're interested, you should go check how this is implemented. It's what is typically known as RCU or read copy update. Whenever this is very, very, very widely used inside the Linux kernel because it has a lot of non blocking data structures like this. But then they have to solve this sort of problem. Give me one second. And the way they solve it is they have a. generic reusable implementation of read copy update. There's plenty of articles explaining how this works. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2393.62,
+    "end": 2424.31,
+    "speaker": 0,
+    "text": "We are not gonna go into detail of that because it would be like a whole lecture on its own. That's what shared pointer does, essentially, right? Shared pointer in C++ is a form of language-driven garbage collection that happens through reference counting. It's not the traditional global garbage collector that figures all the pointers. This is supported by the language. But that's it. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 2425.25,
+    "end": 2468.75,
+    "speaker": 0,
+    "text": "Garbage collection solves the problem. It's just that this is one very particular case of that. Yeah? RCU is essentially garbage collection implemented by hand for C. It's a very sophisticated form of garbage collection that does not stop execution of programs like it would typically happen in a garbage collected language. I don't know if any of you heard about it, but Java, which still somewhat widely used, or any Java-based language that just Hotlink, for example, I think all of you used as part of your degree is based on Java. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 2469.21,
+    "end": 2491.5,
+    "speaker": 0,
+    "text": "It's a garbage collected language. It's great until it isn't, because once in a while, your garbage collector needs to stop your program, check everything. What are the pointers that are free? These ones get out. And that has overheads. So RCU is a way of implementing that without stopping programs, because you don't want your operating system kernel to stop any application just because it's garbage collecting things. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2507.5,
+    "end": 2544.15,
+    "speaker": 0,
+    "text": "Okay, I'm not sure why sometimes it goes to sleep, the clicker. Okay, so let's talk about a few patterns. This is just more for your mental sanity than anything else. How many of you have heard about RAII? R-A-I-I, or resource acquisition is initialization. How many of you think that they have kind of like a good understanding of, like a rough understanding of how it works and what it is? OK, so there's more hearing than working with it, which makes sense. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2544.85,
+    "end": 2576.91,
+    "speaker": 0,
+    "text": "Wry is wonderful, and you should use it whenever it makes sense, which is very often. This works in any language that has some sort of object lifetime rules, where you can define what are the functions to execute for object deallocation. And essentially we use some formal think of critical sections like right we take a lock we operate on something and we remove the law and then we release the lock so that others can use it but. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2578.71,
+    "end": 2613.33,
+    "speaker": 0,
+    "text": "Instead of locks now we're using a similar pattern for. Managing resources I create an object which is kind of acquiring a resource. And when I destroy the object, I release that resource. What could be the resource? Well, typically in an object is the memory that holds the information of the object, but it could be many other things. And that's exactly what Rai does. Rai was essentially somebody really smart saying, oh, shit, we could actually piggyback on object allocation and the allocation. to do things for us at object lifetime. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2613.41,
+    "end": 2644.61,
+    "speaker": 0,
+    "text": "So whenever I create an object, I acquire this thing. I open a file. And when the object is destroyed, I release that thing, which is, for example, close a file. This way, I don't need to remember closing files. Just when the object is destroyed, it automatically closes the file. We're going to see a few examples. But the idea is that object lifetime is tied to a scope. Scope is C++ language for when the object is destroyed. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2645.39,
+    "end": 2681.89,
+    "speaker": 0,
+    "text": "So when do we have scope? We have program scope for global variables. When the program starts, an object is created. When the program exits, the object is destroyed. We have scope at the thread level. because a thread essentially is a top-level function. When that top-level function exits, when the thread exits, the objects it holds are freed. We have function scopes. So any variable that we declare in a function is freed when the function returns, whenever it returns. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2682.68,
+    "end": 2714.38,
+    "speaker": 0,
+    "text": "If it throws an exception, C++ says this object will be freed when I get out of the function because of an exception or because of a return or because of anything. And blocks, anything that you put in curly brackets anywhere inside your function, when you exit this curly bracket through an exception, through a return, just because you get to the end of it, any objects inside will be freed. So that's what scoped object management means. So what can we use it for? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2714.74,
+    "end": 2749.13,
+    "speaker": 0,
+    "text": "Memory management. Ever heard about unique pointer? STD, unique PTR, essentially is a pointer. It's a fancy data structure in C++ that holds a pointer. And whenever this object, the unique pointer to, something T. When this object is freed, goes out of scope, then internally the implementation of unique PTR will call delete on this T that you put here. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2749.57,
+    "end": 2782.77,
+    "speaker": 0,
+    "text": "So essentially you can make unique something, so this is a pointer to an object something, You can initialize it, and whatnot, and return it. But if this fails here, it throws an exception, since this is held in a unique pointer, this memory is deallocated, so you don't have memory leaks. So Wry originally started for memory management, because it ensures that you don't have memory leaks, or use after free. You can also use it, and it's very commonly used, for locks. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2783.69,
+    "end": 2814.72,
+    "speaker": 0,
+    "text": "Think about it, I want to enter a critical section, I take a mutex and lock it, and then I have to remember to unlock it. But for a very complicated piece of logic, imagine that I take the lock here and Here, I need to unlock before I go out of here because then I'm going to take it again. Here, I could unlock it manually. If I throw an exception, before throwing an exception, I need to unlock it because then I'm going to go out, and if I return from the function, I also need to unlock it. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2814.92,
+    "end": 2846.98,
+    "speaker": 0,
+    "text": "So it's hard to keep track when there's a complex control flow. That's why we have right wrappers for mute access. That essentially, a unique lock is like a unique pointer but for locks. I do a unique lock mutex, this locks the mutex, of course it will block if the mutex is already taken and if not we take it. And whenever we exit the scope through any of these points, this object is deleted because it goes out of scope and the lock is unlocked for us. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2848.64,
+    "end": 2879.9,
+    "speaker": 0,
+    "text": "Yeah? Not really, just that you have to use whatever data structure will provide the right semantics. You just need a constructor and a destructor, and that's where you define your logic of acquiring resource, releasing resource. Sometimes, like for example with a lock, like a unique lock, you can manually unlock and then the destructor implements logic such as, if you have manually unlocked, then I will not unlock again when I destroy. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2880.26,
+    "end": 2913.6,
+    "speaker": 0,
+    "text": "You just keep track of it. The implementation keeps track of it for you, so it can do this too. manual and automated like ray-based unlocking. Another one that is quite useful if you do a lot of operations with files You could have something like the unique pointer, but for file descriptors. Remember, you have to close them. Otherwise, you will eventually have an error in your program if you are opening thousands of files and keep them around after they are not necessary anymore. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 2913.94,
+    "end": 2946.78,
+    "speaker": 0,
+    "text": "Because you have a maximum number of open files in a process. But if you use this, you make sure that they will always be closed when you don't use them anymore. Because the object goes out of scope means that your program doesn't need that file descriptor anymore. And the implementation of clean will close the file descriptor. And you could put essentially arbitrary logic. You can build a library if you want. There is this clean object that when you construct it, you pass a function, a lambda, and when the object is destroyed, this lambda is invoked. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 2946.94,
+    "end": 2981.25,
+    "speaker": 0,
+    "text": "So you essentially say clean something important and call function undo important when this is deleted, whenever it goes out of scope. So you can implement whatever you want. Any questions before we switch to other contents? So if you didn't know about Ray, that's really, really useful because you can implement all these various patterns. Let me check the time. Should we stop now? OK. Give me five more minutes and then we'll stop for a break. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 2984.47,
+    "end": 3016.75,
+    "speaker": 0,
+    "text": "Go ahead. Or do you have any questions about Ray or the general tools we saw? OK, so let's get back to low level, more hardcore systems. Systems is always the same, but it's always fun if you are into systems. I hope that you are into systems if you are here. It's essentially turtles all the way down, if you know about that phrase. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 3016.97,
+    "end": 3048.93,
+    "speaker": 0,
+    "text": "It's a constant trade-off between performance, cost, and productivity. Those are the main things typically that we need to think about. There's no one solution that is good for everything. There's just different trade-offs depending on what you want to bias towards. Perhaps I want very high performance and low cost, and I don't care if productivity is crap, or perhaps I want something else. I want very high performance and high productivity, and I don't care about the cost, for example. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3049.57,
+    "end": 3082.83,
+    "speaker": 0,
+    "text": "It's turtles all the way down because these trade-offs are every fucking word. So far we've been looking at applications, but this happens in runtime APIs, this happens in operating system design, and this happens in hardware. And I'm going to give some, like sprinkle some information here of kind of trying to identify those patterns, how they percolate the entire software and hardware stack. And the reason this is a I'm not sure the icon changed. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3084.09,
+    "end": 3115.18,
+    "speaker": 0,
+    "text": "This used to be like a typical uni, when you finish your degree cap, and it went into a mailbox, not sure why. This is a professor at Berkeley. She had this very nice, short, but very true phrase, which is, compute is plenty. Kind of don't care. I mean, sure, you have to pay for it, but it's the easy part. Memory is money. That's where the real money is. That's what is really expensive. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3116.82,
+    "end": 3152.28,
+    "speaker": 0,
+    "text": "And communication is physics. We cannot get around physics. Communication is an overhead that at some point we cannot just go below it. There's some physics limitations that we cannot do better than. So that is our very most ideal of large complex systems will be about communication. And as we will see, communication is everywhere, absolutely everywhere. So everywhere that this is Grace Hopper, a computer scientist and researcher from the US Navy. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 3152.6,
+    "end": 3185.59,
+    "speaker": 0,
+    "text": "She's showing a piece of wire of 30 centimeters. And she says, this was a lecture that she gave some years ago. This is a nanosecond, right? This is how much physics communication is. 30 centimeters takes one nanosecond to travel. So the longer your wire, the longer it takes. That's why communication is fundamentally going to define how fast your system can go. Because information has to travel, and it will take time. You cannot do it instantaneously, of course. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3186.03,
+    "end": 3222.7,
+    "speaker": 0,
+    "text": "And it will be slower the farther it needs to travel. And this is at the core of designing systems, essentially. So we talked about the end of Moore's law. It's an ongoing end. We keep hearing it over and over. Now it's done, now it's done, but we still get some very, very, very diminishing returns. Here's some high level, doesn't matter the specifics, but essentially we see that here is the price per gigabyte of DRAM. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3223.16,
+    "end": 3268.86,
+    "speaker": 0,
+    "text": "I forgot what year I took this, but it goes up to 2019. And essentially we see that storage has been going down in price per gigabyte until it stagnated around 2013. Now it's kind of constant. We just don't get cheaper storage. It just is what it is. So memory is money because we cannot make it cheaper. We can add more compute, but if we need more memory, think AI now with all these very expensive GPUs, it's all about holding larger and larger and larger models and contexts, and that's what makes it so expensive, is that memory's not getting any cheaper. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3270.49,
+    "end": 3301.63,
+    "speaker": 0,
+    "text": "The relative performance of compute has been going up. But if we look at the price per unit of compute, it has kind of been going down and stagnated a bit. So we are still doing a bit better than with memory, but it's also kind of like tapering out. And what's also interesting is that transistor size reductions have been slowing down, and of Moore's law, right? And because of the N of Dennard scaling. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3304.95,
+    "end": 3346.8,
+    "speaker": 0,
+    "text": "Also, production costs are increasing. It's becoming more and more complex and costly to produce new chips because the enormity of them, they are becoming so large that it's harder to engineer those very complex systems. if they become larger also there's more communication and that has to be managed very carefully. That's a lot of where the very top high-end manufacturing is now. Perhaps some of you have heard about vias and memory 3D stacking and now like memory compute cubes are perhaps probably coming up. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3346.84,
+    "end": 3365.64,
+    "speaker": 0,
+    "text": "This is all about manufacturing technologies and engineering of chips that try to Hide some of the really bad news here because we have to move data around. As I promised, this was only 5 minutes. Let's come back at 5 5 and then we're going to dive deep into the consequences of this. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3916.93,
+    "end": 3948.02,
+    "speaker": 0,
+    "text": "Let's get back to it. It's working again. So this is all to say that Things are becoming more expensive, so efficiency is key, right? This is the whole ethos of this module, is how to build efficient systems. And this is just reinforcing the idea that we do need to build efficient systems, otherwise there's a lot of cost that is being sunk into systems unnecessarily. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 3949.39,
+    "end": 3980.4,
+    "speaker": 0,
+    "text": "I mean, essentially that's the expertise that we are trying to build here, how to think about these complex systems. And this is my take on what are the key things to take into account, skills and ideas for building an efficient system. And remember that we were talking about Performance, cost, and productivity. So how do we think about these? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 3980.46,
+    "end": 4010.58,
+    "speaker": 0,
+    "text": "How do we translate these into actions? And how do we build and think about systems? So the first one is always think very carefully about obstructions. You want your obstructions to hide the complexity of your system so that you can make developers more productive. So for example, you want an application to just read and write file into file descriptors to read contents, but you don't want your application to write the device driver. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4010.8,
+    "end": 4051.57,
+    "speaker": 0,
+    "text": "That's a very simple and obvious case of abstraction. The device driver is hidden behind your OS interface. But building libraries is the same, building applications is the same, building operating systems, it's all the same, just at different layers of the stack. Always think very carefully about multiplexing. Whenever some piece of hardware isn't used, we have a threat hogging a CPU blocked to enter a critical section or waiting for network input or data from disk. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 4052.23,
+    "end": 4089.41,
+    "speaker": 0,
+    "text": "All of that, if nothing else is happening that is useful, that's a wasted purchase of hardware and wasted energy because it's running. Think for example, Sure, your CPU can go to sleep, but your memory doesn't. Memory is expensive not only because of the manufacturing, but also because it needs a constant flow of energy to make sure that the information in it doesn't go away. So it's also a cost in energy. If your memory isn't used, you are wasting the purchase, and you are wasting the energy to keep garbage or zeros in it, because it will just still do it. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4092.71,
+    "end": 4125.21,
+    "speaker": 0,
+    "text": "Now, when we are thinking about performance, caching is one of the most reliable and first go-to options. It's one of the staples of making systems efficient. Because storage cost, no matter what is the technology we use for storing, it will increase with performance. The faster that a piece of storage is, the more expensive. Rule of thumb. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4125.55,
+    "end": 4157.38,
+    "speaker": 0,
+    "text": "So for example, one gigabyte of SRAM, and SRAM here, think of it like that's the transistors in your caches, in your registers, and so forth. That is really freaking fast, right? Reading information from an SRAM takes between one to five nanoseconds. One gigabyte of Ezram costs $5000. So it's really expensive. You don't want to have one gigabyte of Ezram. I mean, maybe you want. There are some chips that do that, but they are really freaking expensive. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4157.77,
+    "end": 4189.34,
+    "speaker": 0,
+    "text": "We can go to the next best thing, DRAM. takes quite a lot longer, an order of magnitude slower, 20 nanoseconds to read the same amount of information, and it costs $50 per gigabyte. So you can see, there's a trade-off between performance and cost of the hardware, right? And if we go to something even slower, a hard disk, It's not just nanoseconds anymore. We are talking about two to four microseconds, sorry, milliseconds. And it costs a fraction of a dollar for a gigabyte. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4189.38,
+    "end": 4220.25,
+    "speaker": 0,
+    "text": "So it's really dirt cheap and so slow. So that's why caching is so important, right? We want all the data to be here and use these as layers for caching. That's how we usually build systems. That's how, when you did the operating systems class, that's what we were looking at with disk block cache, if you remember that, where we are caching access file contents between storage and the applications and store them in DRAM instead of the hard disk or the SSD. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4220.79,
+    "end": 4253.95,
+    "speaker": 0,
+    "text": "It's the same thing that we do when we build hardware, when we have instruction and data caches instead of accessing DRAM, right? And another one, very important, that is perhaps not as obvious at first until you get some experience with complex and large systems, is avoid communication. Avoid communication, I mean, so far you've seen communication in terms of synchronization, which is expensive, you should try to avoid it. But generally avoid communication, just moving bytes around. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4254.43,
+    "end": 4288.65,
+    "speaker": 0,
+    "text": "Because moving data, is very expensive it's not just that it takes time because of the physics of it it's also that it takes money to move the data every time we move data there's money going down the drain right um kind of abstract statement right but now the question is do you have examples of where it takes money to move data uh or how would you quantify that How would you quantify the cost of moving data? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 4293.64,
+    "end": 4325.3,
+    "speaker": 0,
+    "text": "It's an electronic system, right? Everything is electronic digital signals. And this works because of we pump energy into it. So the energy consumed by moving data, that's the cost of moving data. Right? This is a slide from Bill Dally. This is from 2010. Bill Dally is the chief scientist of NVIDIA, and essentially modern GPUs are based on a lot of the research he did when he was a professor at Stanford. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4325.34,
+    "end": 4360.43,
+    "speaker": 0,
+    "text": "This is a keynote that he did in a conference on high-performance computing called Supercomputing. This is a very abstract version of a GPU chip. This is the compute, 64 bit double precision floating point operation takes about 20 picojoules, the compute itself. That's what we wanna do, right? What we want is to compute something. Today it's some form of inference or some fluid dynamics, whatever it is. But data is not where the compute unit is. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4360.61,
+    "end": 4395.2,
+    "speaker": 0,
+    "text": "Data is somewhere around, and it's transferred through buses. A bus around this distance is about 26 picajoules. So now, suddenly, if your data is not on the compute unit but right next to it, your compute takes twice as much energy. It's a 2x overhead now. If we go halfway into their chip, imagine that this is a chip. regular-sized GPU chip. Going halfway through this chip is 256 picojoules. Going all around the chip to the other end of it is 1 nanojoule. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4396.04,
+    "end": 4435.26,
+    "speaker": 0,
+    "text": "Accessing 8 kilobytes of SRAM, 20 picojoules. going to all type memory outside of the chip is even more nanajoules, right? And remember here, we were saying 20 picajoules. So that's where the name of the game is when building this. This is why GPUs are so complex because they are on many other very high performance compute accelerators is because they are trying to minimize how much you wait for memory because it's slow, it takes time because of physics, but also trying to minimize data movement because it's energy that goes up. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4435.4,
+    "end": 4468.26,
+    "speaker": 0,
+    "text": "It's just a sink of energy. That's why they run so hot essentially because they are just moving data back and forth all the time. And that's what we want to avoid. Of course, this is at the chip level. This is not the systems that we're going to be building here. We're going to be building more software systems. But think of another net cable that's moving data. Think of copying data between different buffers. That is moving data between different parts on DRAM and caches. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4468.92,
+    "end": 4501.91,
+    "speaker": 0,
+    "text": "Everything is moving data. And we should try to avoid it as much as we can. So that is some of what we're going to look at. So essentially, this is about going beyond CPU performance. So of course, compute is key. Without efficient compute, we don't have an efficient system. And this has been the focus until now. But there are many other components that are also extremely important once we look at large-scale systems. We need to look at the efficiency of operating system interfaces. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 4503.86,
+    "end": 4534.63,
+    "speaker": 0,
+    "text": "Also the efficiency of some of the low-level CPU interfaces. This doesn't make that much sense now, but it will make later, how we organize the systems. I.O. is extremely important, because I.O. is how we move information in and out of a CPU, and into devices, network, disk, et cetera. Accelerators, a GPU, that's through I.O. And we need some ways to think about how to make sense of efficiency on all fronts. And remember, performance, cost, and productivity. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4534.65,
+    "end": 4574.29,
+    "speaker": 0,
+    "text": "So systems design is all about all these trade-offs. That's why it's turtles all the way down. So as I said, these are the topics we're going to talk. We're going to start with, these are just some very broad strokes on each one of them, just so that you have the context. So let's start with operating system interfaces. The main role of OS interfaces is to keep some form of abstraction, right? We have open files from the application's perspective that in a POSIX system like Linux we call file descriptors. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 4574.97,
+    "end": 4607.5,
+    "speaker": 0,
+    "text": "But how this is implemented inside the kernel is that we have some sort of kernel level object that holds the state of the open file and implements the operations for read and write and all of that. And this is separated from the application. Caching and storage hierarchies are very important. And finally, we're going to look at data movement between processes, which is known as inter-process communication. And all of these, we are going to look at just very high-level broad strokes. So let's start with abstraction. It's everywhere at the OS level, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4608.92,
+    "end": 4642.37,
+    "speaker": 0,
+    "text": "We physically have CPUs. At the OS level, we have threads and processes, of course. And the mechanism that manages this in an operating system is scheduling. Then we physically have memory, and the abstraction that we have from an operating system is virtual memory, which is managed inside the OS kernel through paging. Then we have a notion of security, right? And how our system manages this, in this case both hardware and OS together, is through privilege levels. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4643.43,
+    "end": 4681.49,
+    "speaker": 0,
+    "text": "The way that we interface with this security, these privilege levels at the application level is through the concept of system goals that we're going to look at a bit deeper later. As I was saying, the whole ethos of the OS is to provide these abstractions and implement some state in kernel level that is protected from the user. So that means that whenever you want to operate on a kernel level object, an open file, a network socket, accessing an accelerator, and so forth, you need to go through the operating system. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4681.85,
+    "end": 4726.09,
+    "speaker": 0,
+    "text": "The OS is going to mediate every access. Memory is also an abstraction, and so forth. And this can become very expensive. So this is, at the very high level, what a system core looks like. We start by executing in user mode. We are in our application. And then we want to perform a system call, which is an instruction in the ISA. The first thing we do is that we know that whenever we do the system call instruction, when we execute it, there's an agreed upon definition of what happens to the registers of the CPU. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4726.47,
+    "end": 4758.72,
+    "speaker": 0,
+    "text": "And we say registers one through 15 can be modified by the operating system kernel. So if you have something important in the application, please save it. So the first thing we do is we store the, we put the arguments for the system call into registers and whatever register we know is going to be white by the operating system, we store it into memory before the system call. Then we do the system call instruction. This is the point where we switch from user-level execution to kernel-level execution. That's the instruction that changes privilege levels. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4759.48,
+    "end": 4793.66,
+    "speaker": 0,
+    "text": "And what the OS does is, well, for those of you who did PintOS here, I think that you had the chance to look at this, but did not directly implement it, the whole system code path, but essentially that's what happens. We sanitize the environment, make sure that certain registers have adequate values. We save the state in registers into memory so that we can refer to it later. We execute a handler for the syscall. If it's open, we run the open function. If it's closed, we run the close function and so forth. And finally, when we finish, in assembly again, we restore the state of the application. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4794.78,
+    "end": 4826.43,
+    "speaker": 0,
+    "text": "And we do a system return instruction, the same way that we have syscall, we have sysreturn. And after sysreturn, we are back in user mode. Seems simple. So let's look at what is the cost. If we were to compare a regular application calling a function. This is just a very sophisticated and complex way of saying application here wants to put some arguments in registers, which we always have to do to call a function. And I want to call a function in the kernel. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4827.23,
+    "end": 4859.15,
+    "speaker": 0,
+    "text": "And then I want to go back to user mode. This is all we really care about. Everything else, that's overhead to make system calls work. That's the red lines. So if we compare those two, if we compare only executing the black pieces versus black plus red, essentially compare a normal function call versus a system call, what we get is that calling an empty function takes about, back when I measured it, why are there so many? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4863.79,
+    "end": 4896.16,
+    "speaker": 0,
+    "text": "This is just five nanoseconds. It takes about five nanoseconds to call an empty function. To call an empty system call, it takes about 62 nanoseconds. So on its own, perhaps doesn't look like much, but it's 11 times slower. If you do it very often, this will impact your application performance. And there are cases, where we want to avoid that because our applications will be doing this all the time, continuously. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4897.1,
+    "end": 4927.41,
+    "speaker": 0,
+    "text": "So for example, if we are doing a lot of network processing, we are just reading and writing network packets all the time, nonstop. Where are these costs coming from? Well, there's added code, lines in red, but also whenever we change between user mode and kernel mode, we switch from executing in user-level privilege to kernel-mode privilege. And the way this is typically implemented is by flashing the micro-architectural pipeline. It's an out-of-order processor. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4927.77,
+    "end": 5006.08,
+    "speaker": 0,
+    "text": "We need to say, user-level privilege instructions stop here. wait for all of them to finish, then I switch the mode of privilege of the processor, go into kernel mode, and then I start executing kernel code so that these things don't mix, so that I cannot have a user-level instruction running in kernel mode privilege, because that would be incorrect. And just for reference, this is roughly like, this overhead is roughly equivalent to doing four memory accesses. just for an empty system call. Any questions? How many of you, before we look at the slide, have heard about the term unikernel or library OS? Okay. So here's the idea. This is expensive, right? So, How about we just remove all the red? How about we make it such that a user-level application can just hold a function inside the kernel? Your first reaction would very probably be like, that's just nuts, it's nonsense. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 5006.92,
+    "end": 5037.47,
+    "speaker": 0,
+    "text": "The whole point of having an OS is to perform these privileged operations. If you're telling me that the user just calls a function, we break security. And you're absolutely right. But what if every application had its own private instance of the operating system? Then the are different, right? The application can call the operating system as a library. The OS can be a library because it's private for that one application. The application can mess it up as much as it wants. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5038.13,
+    "end": 5103.61,
+    "speaker": 0,
+    "text": "If that library only has access, that library operating system only has access to what the application was given access to, it's fine. The app can mess with itself, but not with anybody else. So that's the main idea of a unikernel that has been quite thoroughly researched in the last like five, somewhere between five and 10 years. A lot of the time when you hear about serverless in the cloud, the thing that started it was this idea it's like oh i have this application i wanted to run very fast do a whole bunch of os operations and a little bit of compute but it's too expensive to do a system call so how about i shipped the application together with its own private os that only has access to the application info and that's essentially what people have been using So a lot of the time if you use function as a service or serverless applications, some cloud operators will use similar approaches, not all of them. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5103.89,
+    "end": 5138.13,
+    "speaker": 0,
+    "text": "Everyone has their own secret sauce that is not quite this, but started with this as an inspiration. And we can use this inside of anything, right? We can have a process with its own library OS. This is similar to some of the research that we have been doing for a while and still are doing, looking at some interesting use cases. You can use it at the container level. Every container with multiple processes has its own library OS. So, processes inside the same container can mess up with each other, but not with other containers. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5138.21,
+    "end": 5176.47,
+    "speaker": 0,
+    "text": "And you can even say like, oh, every single one of my application and libraryOS stacks is launched on a separate VM so that then one VM cannot access the other VM. They are fully, completely, very strongly isolated from each other. But then most of the time, you just don't go out of this bit. You just go back and forth here with using regular function calls. Any questions before we keep on going? All right, so let's go into caching. And this is just very briefly to give you a sense of it. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5177.17,
+    "end": 5209.95,
+    "speaker": 0,
+    "text": "So fast storage is too expensive. I already said that. So we want to limit its size and use caching. But remember, a cache miss will need expensive copy, right? Because if we miss on the cache, we have to bring stuff into the cache. So it means that it will take time, moving data, and it will take energy, moving data. That's the two things we saw. So our whole main objective when using caching is to reduce cache misses. That's it, that's at the center of caching. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5211.09,
+    "end": 5245.45,
+    "speaker": 0,
+    "text": "So we will try to take advantage of application patterns, do prediction, whatever it takes to reduce cache misses. So just to give you a more broad sense of how this works, essentially we have register files. We have different types of hardware elements where data can come from. what is their ballpark of speed, how long it takes to take information from these sources, and what is the price per gigabyte, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5246.92,
+    "end": 5278.36,
+    "speaker": 0,
+    "text": "So we start with register files, just the registers on your CPU, 0.5 nanoseconds, CPU cache, one nanosecond. Price is the same, this is all SRAM, like 5,000, right? Then we saw DRAM goes from one nanosecond to 20, so it's a factor of 20, but then we really, really massively reduce the cost per gigabyte. Then we can have non-volatile memory, which was a product called 3DXPoint from Intel a while ago. That was one of the most well knowns. They kind of stopped that line of products. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5279.24,
+    "end": 5309.67,
+    "speaker": 0,
+    "text": "These might come again as a different product sometime in the future, or might not, that's hard to say. But it was somewhere in between. It was faster, much slower than DRAM, but also a lot cheaper, but still faster than a regular SSD. but a bit more expensive than SSDs. So it's a point in between SSDs and DRAM. And of course we have rotational disks, we are immensely slower than SSDs, but their cost is cheaper. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5309.71,
+    "end": 5341.83,
+    "speaker": 0,
+    "text": "That's why we have all of these pieces of hardware. It's because we are just navigating these trade-offs, and we are moving information back and forth all the time. Many data centers, when you think that you are just accessing a file, what is happening is information being moved all across this hierarchy. There will be SSDs, there will be NVMEs, there will be machines that just keep data on DRAM as caches, on remote caches on other machines, and then you will eventually bring it to your own machine. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5341.97,
+    "end": 5377.05,
+    "speaker": 0,
+    "text": "And that's why I put here Ethernet, right? network, two microseconds to access. It doesn't have price per gigabyte because Ethernet doesn't really store data. It's just a cable, right? But if we have Ethernet plus DRAM, this is two microseconds plus 20 nanoseconds. So accessing remote memory on some other machine is still faster than accessing a local SSD. So that's why this exists. I don't have enough memory to keep this cached, but perhaps another machine could cache it for me. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5378.01,
+    "end": 5419.25,
+    "speaker": 0,
+    "text": "We will see an example application further in this module called memcached, which is a network service. It's a key-value store that essentially acts as a the DRAM and in-memory source data. It's a hash map on DRAM that serves network requests and it's used exactly for that. Of course, this is the raw network cost if we go into some traditional out-of-the-box RPC system to facilitate writing network code like a gRPC. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5420.01,
+    "end": 5450.21,
+    "speaker": 0,
+    "text": "Those very low costs are suddenly not so low. These things keep going down, but we will talk about it in future lectures, okay? So once we go into a network, it's rinse and repeat. We have this hierarchy all over again, right? We're gonna look at the in-memory caching sometime later. and how we scale that in a cloud service. And finally, as I said, there's copying data between processes on the same machine. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 5451.96,
+    "end": 5483.54,
+    "speaker": 0,
+    "text": "Looks kind of dumb. You all did some sort of file descriptor and pipes and all of that. They work in one very specific way, but now we're gonna see that it's not necessarily a very good way of designing this. So typically, what we have is what is called buffered IPC. IPC, again, remember, that stands for inter-process communication. So a Unix pipe, a socket, using some sort of files to communicate between processes in the same machine. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5483.56,
+    "end": 5523.44,
+    "speaker": 0,
+    "text": "This is all inter-process communication. So let's imagine that we have a pipe that is typically implemented like buffered IPC. That's usually what you get in Linux and most POSIX systems. It has something good. It's non-blocking. And the only way that it's non-blocking, essentially, I want to write something into this pipe. I don't want to wait for it to be written. I want to do it immediately and then keep on going and process whatever. And then some other application should be able to fetch that data later and keep processing in parallel so that we can run on different cores and stream data back and forth between the two. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5524.32,
+    "end": 5554.8,
+    "speaker": 0,
+    "text": "Now, this is all great, having non-blocking IEO. non-blocking IPC, and it's only because we copy data. This is the trade-off. We have non-blocking because we copy. So essentially what happens is that the application has a source buffer that we want to write into the pipe. So what we do at kernel level is that we take the source buffer, we write it into an intermediate buffer in the kernel, and then we tell the application, this is written, you're good to go. This is written to the pipe, this is written to the network, this is written to the file. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5555.22,
+    "end": 5593.7,
+    "speaker": 0,
+    "text": "But that's not true. We are just given the illusion. The kernel says, don't worry, I'll take care of it, and stores it in a buffer. Now in the case of this pipe, sometime later, an application says, hey, I want to read from the pipe. So what it does is not take data from this application. What it does is go to the kernel and say, is there something for me to read from this pipe? And the kernel says, oh yeah, I just kept this temporary information here in a kernel level buffer, so I'm gonna copy it to the application. So this, information data transfer that originally was just sending data from source to destination, in fact, is two copies. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5595.46,
+    "end": 5630.82,
+    "speaker": 0,
+    "text": "So if we just look at the number of copies, this is twice as low as it should ideally be. That's why inter-process communication is expensive. Now what we can do is say, okay, I know how to do this. I will copy, since I am the kernel, I see all the processes. So what I'm gonna do is wait until I know that somebody wants to write, and I know somebody wants to read from the same pipe, and when they are both waiting for that, then I transfer directly from source to destination. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5630.86,
+    "end": 5664.74,
+    "speaker": 0,
+    "text": "So there is one single copy. That works. There's some microkernels that work like that. But this is called an unbuffered IPC. So essentially we have a, one single data copy, but we need some sort of random point, right? That's the kernel. We need the sender and the receiver to agree that they want to do it right now and exchange that data directly from user to user. So that means that we cannot just send data and say, I'm good to go, I'm gonna keep on doing something. No, I will block until the other side says, now I'm ready to read. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 5665.7,
+    "end": 5700.92,
+    "speaker": 0,
+    "text": "So we are not decoupling the execution anymore. We are blocking. So we cannot have it both, at least not with how these systems are typically implemented. This is in fact some of the research we are doing with one of my PhD students. We are looking at getting the best of both worlds. This is still an interesting and open problem. Yeah? The operating system will do that for us. ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 5702.17,
+    "end": 5734.19,
+    "speaker": 0,
+    "text": "It's just that we still do a system call. We do a send or write system call with this non-blocking, sorry, unbuffered IPC, and then we block until the OS sees a system call for a receiver that says I want to receive from the same communication channel, the same pipe. Once I have sender and receiver in the rendezvous point agreeing that we are ready to, I'm ready to send, I'm ready to receive, then I copy directly. I, the OS kernel. OK. ",
+    "model_probability": 0.9991
+  },
+  {
+    "start": 5739.05,
+    "end": 5744.46,
+    "speaker": 0,
+    "text": "I see some poker faces. I don't know if it's boredom or still going through this info. ",
+    "model_probability": 0.9936
+  },
+  {
+    "start": 5757.32,
+    "end": 5791.87,
+    "speaker": 0,
+    "text": "Who is I? The kernel or the application? As in the send write. Yeah, the application doesn't write into the buffer. The kernel does it for me. All I know is that I write into the pipe and the pipe is some magical thing that I do a system call. Second? Yes, you're doing a POSIX write to a file descriptor. And then inside the kernel implementation, what the kernel does is, oh, you want to write this buffer into the pipe? Well, I have an internal buffer for this pipe. So I'm going to write the data into this internal buffer. ",
+    "model_probability": 0.9982
+  },
+  {
+    "start": 5804.57,
+    "end": 5809.81,
+    "speaker": 0,
+    "text": "If there is no information in the pipe, it has to wait, yes. But it's because there is no information. ",
+    "model_probability": 0.9917
+  },
+  {
+    "start": 5823.06,
+    "end": 5854.02,
+    "speaker": 0,
+    "text": "So the writer or sender gives some amount of information. It says this buffer of, I don't know, four megabytes, write it into the pipe. And the kernel will take care of writing this into this buffer. And as soon as there is somebody reading, and if you have only one byte so far, I can still, as a kernel, serve you that byte. You don't need to wait for the full four megabytes. I can tell you, oh, every time that I collect one entire kilobyte, because this is a buffer that is not all of it occupied. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 5854.98,
+    "end": 5889.02,
+    "speaker": 0,
+    "text": "Some temporary storage that kind of grows and shrinks as people write into or read from. That's how it's internal. Internally, it's implemented as a ring buffer, essentially. There's a limited size. A writer can write as long as the ring buffer has some free space. And a reader can read from as long as there is something in the ring buffer, whatever amount. OK. Let's keep on going. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 5890.31,
+    "end": 5922.33,
+    "speaker": 0,
+    "text": "Yeah. OK. So to summarize, no size fits all. There's a lot of abstraction in the OS to hide multiple details. And whenever we design an operating system, it is a trade-off. We are defining a trade-off. between productivity, what are the abstractions, is caching transparent or not. If it's transparent, it will not necessarily know specifically what the application needs. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 5922.97,
+    "end": 5960.98,
+    "speaker": 0,
+    "text": "If it's not transparent, perhaps the application can tell very directly what it wants, but then it's kind of a burden for the application. It's about performance. There's a cost to performing Cisco. There's a cost to copying data. Data is copied all the time for caching and for communication. And we have in kernel objects, right? We have interprocess communication in all of these systems. Some microkernels optimize it to make it unbuffered. But essentially, these syscalls, all they do is go inside kernel level and say, now do this privileged operation on this abstraction that is implemented inside the kernel. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 5961.33,
+    "end": 5997.29,
+    "speaker": 0,
+    "text": "So that's why security is very important. And libraryOS is this very neat trick that we can use to remove syscalls as long as we don't care about removing privilege separation between user and kernel. So now let's look a little bit about CPU interfaces. This is a little bit of the hardware when it's important for building and understanding software systems. This is not going to be about hardware design, but this is about understanding some important pieces of hardware design that affect our software systems. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5999.29,
+    "end": 6030.49,
+    "speaker": 0,
+    "text": "And we're going to start with some operations on the ISA. ISA, as you very well probably know, stands for Instruction Set Architecture. And it's nothing special. It's just a contract between hardware and software. And ISA is just saying, these are the things that I accept. These are the rules for each one of the operations. And this is the list of operations and their arguments. That's what the ISA is. the instructions, but it's just a contract between hardware and software. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6030.93,
+    "end": 6068.44,
+    "speaker": 0,
+    "text": "That's nothing else than that. And different ISAs define different trade-offs. Same that we were looking at software APIs, OS application interfaces, application and library interfaces. The ISA is just another boundary between layers. with the very same trade-offs. It will define trade-offs between security and performance, complexity and performance, and how adaptable it is to different use cases versus performance. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6070.6,
+    "end": 6111.9,
+    "speaker": 0,
+    "text": "Like many other abstractions, it's not perfect. A lot of the time, the way in which the abstraction is built, the way in which the ISA is defined, it allows us to gleams into what's behind the abstraction. In many cases, instruction set architectures tell us some information about what is the underlying microarchitecture. So even though the ISA is supposed to be this pure abstraction that is a contract between software and hardware, a lot of the time when we write software, We need to know what's behind the ISA so that we can extract the maximum performance out of it. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6112.42,
+    "end": 6148.16,
+    "speaker": 0,
+    "text": "And it's the same as in libraries or in operating systems. If I know that some caching layer in the operating system that these block cache works in this very specific way, I know that my application patterns will be better suited or less better suited to take advantage of that cache. It's exactly the same. There's always saying it's turtles all the way down. We're not going to go into much detail on these though, because that already goes into computer architecture design, which is. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6149.32,
+    "end": 6216.06,
+    "speaker": 0,
+    "text": "Not our goal here. But. Let's talk a little bit about caching where this contract I say contract is and how permeable it is. So a single CPU chip is absolutely riddled with caches. Why do we have caches? Well, to exploit spatial and temporal locality. We all know about that from computer architecture. Very often, in fact all the time, the instruction set architecture, the ISA, the contract between software and hardware, is extended to allow us to control and flash entries in those caches to give us some fine granularity control on these caches that are conceptually part of the microarchitecture, but they are exposed in the ISA because otherwise we would be losing too much performance if we don't do some very special optimizations such as saying, oh, now get rid of these on the cache so that I can make space for other pieces of information. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6217.0,
+    "end": 6247.77,
+    "speaker": 0,
+    "text": "I know I'm not going to access it now. Or in software, we have instructions to say, I know that in the close future I'm going to access this information, but not right now. So start prefetching it. Start bringing it into the cache, even though I don't want that information yet. So all of these are this permeable interface between software and hardware. And this is all because software has to be optimized to maximize cache hits. you please tell me where these caches are. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6248.1,
+    "end": 6283.36,
+    "speaker": 0,
+    "text": "A lot of it is quite obvious. Where do we have caches today in this picture? The first answers are not trick question. It is what you are thinking already. Let's just look inside the CPU only, yes. Where do we put one cache? between the compute, the hardware context, and the memory, right? ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 6283.9,
+    "end": 6319.68,
+    "speaker": 0,
+    "text": "Instruction cache, data cache. We have the L1, instruction L1, data L1. We have the L2 and L3 and L4 or whatever hierarchy, typically LLC, last level cache being the last one, whatever number it is for instruction and data. Interestingly, Whereas the L1 is only typically accessed by a hardware context, a core or whatever you want to call it, or a hardware thread. Because some cores can have multiple hardware threads if you think of Intel hyperthreading or what is more commonly known as SMT. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6321.16,
+    "end": 6358.15,
+    "speaker": 0,
+    "text": "And this L1 is only accessed by this, but then L2 until LLC is accessed by the hardware context, but also by the MMU, because remember, the MMU has to do page-table traversals, essentially walk a tree to perform memory translations. And we want to take advantage of these caches here, because we don't want every time we translate an address to go into main memory, because that's very slow. We want caches to go fast. Probably you're also thinking, well, yeah, I know another obvious cache here is the MMU, the TLB, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6359.17,
+    "end": 6393.34,
+    "speaker": 0,
+    "text": "That's where we cache translations, because a lot of the time we just want to access some address and say, this is the translation to physical memory. I don't even want to think about page table traversals, right? Anything else? No? How many of you have ever heard about something called a partial walk cache, PWC? ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 6394.64,
+    "end": 6432.54,
+    "speaker": 0,
+    "text": "OK. PWC is another cache in the MMU. And this is very important because as we have growing amounts of information we want to process in our CPUs. The more data we have, the more address translations we have to do, right? So now we are at a point where the speed at which we can translate addresses has become critical, because we have like tens of gigabytes of information to access. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 6432.58,
+    "end": 6467.75,
+    "speaker": 0,
+    "text": "So we want to translate We want to hit all the time. But remember, it's too costly to put a TLV that is too large. It's too much energy, it's too much money. So what I want is better caching. So this is not good enough for translations here. So what I add is a partial wall cache. So let's see what this is. It's a neat optimization that I want you to remember because whenever you have large amounts of data, you have to be aware that there's a hierarchy of spatial locality that you should take into account. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6472.17,
+    "end": 6503.92,
+    "speaker": 0,
+    "text": "Oh, I forgot that these arrows are kind of a bit messed up. So the data cache here, as I said, helps the MMU access page walks faster, right? Caches data accesses. So if we have a virtual address with a typical, now in Intel, four-level page table, right? This is the level one, level two, level three, level four, and then we have the page offset. That's essentially what a page walk is. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 6504.4,
+    "end": 6537.83,
+    "speaker": 0,
+    "text": "Anybody have any questions about this? Everyone's familiar with this figure and this concept? Otherwise you're gonna get thoroughly lost from here. So speak now or puzzle for a bit until you work it out, yes? Oh shit, this is so broken now. So what is the idea? If we hit TLB, Virtual address, we look up on TLB, hit, we have physical address. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 6538.35,
+    "end": 6577.04,
+    "speaker": 0,
+    "text": "If we miss the TLB, we have four page table walks, right? We have to traverse this page table. That's the root of the tree, indirect one entry, go to the next branch, indirect one entry, next branch, indirect one entry, next branch, indirect one entry. That's the data we access. So we have four additional memory accesses just for page tables. But what if we have more caches? I mean, these are just lookups on tables, right? So what if we had one cache that, given this subset of the virtual address range, it tells us what it indirects to. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6577.1,
+    "end": 6609.75,
+    "speaker": 0,
+    "text": "So we don't have to do this memory access on the page table. We just cache it. That's page partial walk cache one. So now, We can miss on TLB, but if we hit on PWC1, we have now instead of four memory accesses, we have three memory accesses for the page walk. And how about we keep doing that for every prefix? We take level one and level two and put it in PWC2. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6611.23,
+    "end": 6641.75,
+    "speaker": 0,
+    "text": "So now, if we hit pwc2, we only need two memory accesses to traverse. Which ones? Well, this is cache, then I access here, I access here, I access here. Salute. And of course, we can have pwc3. We cache a prefix of three layers. So if we hit here, we only have one page walk to do. And can somebody tell me what is pwc4? Kind of half trick question. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6643.35,
+    "end": 6674.46,
+    "speaker": 0,
+    "text": "It's a TLB. The TLB is just kind of like PWC4. So we just have this hierarchy. And address translation is so important that we look all these four caches in parallel and we prioritize which one hits. If TLB hits, I have the answer. If PW3 hits, I do one lookup, one traversal. Or if this one hits, I do two. If this one hits, I do three. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 6674.48,
+    "end": 6744.71,
+    "speaker": 0,
+    "text": "So they are just prioritized. Whichever allows me to do the least amount of, of lookups, I will use the result of that cache. But they are all accessed in parallel, which makes it expensive. It is expensive, but it's more manageable than having a ridiculously large TLB, which is, we just cannot make it work. Yeah? Well, the TLB is caching all these four levels. You give from bit 64 to bit 12 of the virtual address. You look it up on the disk cache that we happen to call TLB. and then if it's a hit, I just access the data. I have the address. So it's kind of like PWC4. We don't call it like that, but if PWC1 caches the first prefix level, PWC2 caches the first two prefix levels, PWC3 caches the first three prefix levels, PWC4 caches the four prefix levels, which is all the levels, which is the TLB. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 6762.17,
+    "end": 6794.62,
+    "speaker": 0,
+    "text": "All right. So we exploit address locality at very large granularities. So it's not just that, oh, there's TLB hit or miss. It's that if you are careful about your access patterns, you can exploit locality at four kilobyte granularities, at two megabyte granularities, that would be two megabyte granularities if you go through PWC3. This is two gigabyte granularity, I think, if I remember correctly. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 6795.0,
+    "end": 6829.76,
+    "speaker": 0,
+    "text": "And this is 512 gigabyte granularity. Typically the PWC1, I think, in modern implementations has like two entries. Because if you think about it, the user application is mapped close to address 0. And the kernel level is mapped close to the maximum address in virtual addresses. So none of them is typically more than 512 gigabytes. So two entries for pwc1 is sufficient. Any questions? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 6833.04,
+    "end": 6877.46,
+    "speaker": 0,
+    "text": "How many of you knew about this already? and thought about it as a locality problem. So this is very useful whenever you're writing applications that process humongous amounts of information in memory. So let's keep talking about address, address performance. This is some research that we did some years ago, quite a few years ago, in fact. And it's that whenever you have a multi-threaded application, if you free memory, if you free an entire page, essentially you have to un-map it from your page table. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 6879.18,
+    "end": 6909.99,
+    "speaker": 0,
+    "text": "And since you have multiple threads running on separate cores, it's not sufficient to just say, oh, now this page is free. You need to update everyone's TLB to say, now if you access this page that I just freed, it has to be a page fault. It cannot be some hit that you have in a TLB cached. So I need to invalidate entries on every single one of the TLBs of that process so that everyone knows that now this page is not available anymore. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6911.21,
+    "end": 6945.99,
+    "speaker": 0,
+    "text": "So it's a consistency problem across TLBs. Like any consistency problem at large scale, it has scalability problems. So here's some numbers that we run with three applications. Each color is a different application. Blue is Apache. Green is a parallel word count. And this is an average with some other applications that we also run. And what we see here is that as we increase the number of cores, that are used for these parallel applications. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6946.01,
+    "end": 6976.83,
+    "speaker": 0,
+    "text": "We had like a 256 core machine or something like that. What we see is that the percentage of time spent just managing TLB consistency keeps growing. At 128 cores, about 45 percent of the execution time of the application is just sending messages between threads, managing TLB consistency. So it just scales really poorly. If you want to run something massively parallel, it just doesn't scale in terms of managing TLBs. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6977.29,
+    "end": 7008.58,
+    "speaker": 0,
+    "text": "And the reason is that if we have a process A with three threads in this case, so we trigger a page table entry modification. For example, And map a page or we change the page from read write permission to read only permission so we need to remove permissions from all the course. So we do a system call we go inside the we fly the pipeline because we go user to care now we save the context of the application and here we start doing page table modifications and then we say OK. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 7010.33,
+    "end": 7049.43,
+    "speaker": 0,
+    "text": "Who are all the threads of this application? I need to calculate what is my victim set. What are the cores? What are all the threads of this application? On which cores they are running so that I know what cores I need to tell to update their TLB entries and eliminate this entry. So I do this, then I send a number of what is known as inter processor interrupts, which is essentially the core where this thread is running sends an interrupt to other cores telling them, stop running your application and invalidate this entry of the TLB because I want to un-map it or because I want to reduce its permissions. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 7049.77,
+    "end": 7081.15,
+    "speaker": 0,
+    "text": "So I send APIs, which takes some time, and then the threads on other cores then get interrupted, flash the pipeline, go from user to kernel, save the context, because I'm just going from user to kernel, and then I finally do what this core is telling me in kernel mode, which is invalidate this TLB entry. I invalidate the TLB entry, and then I restore user execution and come back here. And once I finish doing the TLB entry, I tell the main thread, I'm done, this one I'm done, and then I'm done, until you get to 128. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 7081.17,
+    "end": 7111.52,
+    "speaker": 0,
+    "text": "So the first thread, does its own invalidation of its own core, but then just waits forever for all the other threads to acknowledge that they did the invalidation also. So, because it's a transaction. It's essentially a transaction where I tell everyone, invalidate this TLB entry if you have it, and once everyone has said, I'm done, then I know that everyone can keep executing and this memory can be freed. I know that this is now effectively not accessible anymore. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 7111.68,
+    "end": 7146.85,
+    "speaker": 0,
+    "text": "It has been unmapped from everyone. So because of this transactional behavior, this performs really poorly, has these scalability problems here. Solutions, avoid doing these whenever you can in your application if you can. Typically, that's not possible. That just depends on what the application needs. Another option that some people have explored is using syscalls to downgrade page tables, like unmap them or reuse their permissions that are asynchronous. ",
+    "model_probability": 0.9985
+  },
+  {
+    "start": 7146.96,
+    "end": 7177.87,
+    "speaker": 0,
+    "text": "You essentially say, I want this to happen eventually, and I will check later if it has finished or not. But then the logic of your application is a lot more complicated, right? Because now you don't just unmap a page. You say, oh, please unmap page, and I will check, I don't know, five minutes later, is it really unmapped or not from all the cores. We can throw hardware into it. That's what we did in. Yeah, I told you it was a while ago that was 2011. We essentially added some hardware that. ",
+    "model_probability": 0.9972
+  },
+  {
+    "start": 7179.23,
+    "end": 7186.26,
+    "speaker": 0,
+    "text": "Allows you to offload this so you don't have to stop programs and the hardware does this much more efficiently for you. ",
+    "model_probability": 0.9629
+  }
+]

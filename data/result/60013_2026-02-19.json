@@ -1,0 +1,1423 @@
+[
+  {
+    "start": 0.39,
+    "end": 1.93,
+    "speaker": 2,
+    "text": "Yeah, you should, you should. ",
+    "model_probability": 0.0037
+  },
+  {
+    "start": 2.03,
+    "end": 17.85,
+    "speaker": 4,
+    "text": "I've got the time for this. Very good. If you have that, please do. It would be nice. Do you have difficulty? You can... Yeah, I'm okay. I will only take like 10 minutes, right? Oh, well, I think that you should make sure I go for any question. ",
+    "model_probability": 0.0048
+  },
+  {
+    "start": 18.01,
+    "end": 22.03,
+    "speaker": 0,
+    "text": "Yeah, obviously, I'll go to questions. ",
+    "model_probability": 0.0297
+  },
+  {
+    "start": 22.29,
+    "end": 27.09,
+    "speaker": 2,
+    "text": "Are we fixing seats now? ",
+    "model_probability": 0.0591
+  },
+  {
+    "start": 28.29,
+    "end": 42.08,
+    "speaker": 4,
+    "text": "When are we in? Everybody asked. I know at least one other person who's getting a coffee at the moment. Yeah, I think we have to wait a little bit longer, Philip, because people are coming from the other side. ",
+    "model_probability": 0.4728
+  },
+  {
+    "start": 67.73,
+    "end": 70.63,
+    "speaker": 3,
+    "text": "Do you know how to plug everything in and get the stuff on? ",
+    "model_probability": 0.1439
+  },
+  {
+    "start": 215.14,
+    "end": 221.86,
+    "speaker": 0,
+    "text": "Disunderstanders always vanish before the lecture starts. It just happened when I'm here. ",
+    "model_probability": 0.2528
+  },
+  {
+    "start": 258.25,
+    "end": 292.72,
+    "speaker": 0,
+    "text": "Hello. Right, everyone. We have published the second coursework today. I will go over everything. And if you have any questions, I'll answer them at the end. Of course, you can always ask questions in that stem. I will go through everything and then give a quick overview. So this coursework, you should have all received an email to get access to the repository. Has anyone not received an email? OK, that's good. ",
+    "model_probability": 0.8505
+  },
+  {
+    "start": 293.54,
+    "end": 349.08,
+    "speaker": 0,
+    "text": "You have also received 100 emails. So for every student in the class, I received an email that I got access to. I had to turn off my phone because the notification was so loud that I couldn't hear it. But that's good. Can I ask you something? How many of you have read the coursework so far? Good. So if you have questions, please ask them now. Yes. Yeah. At any point, you can ask questions. Just raise your hand. This coursework is based in two parts. I have the first question, which is quite a simple ASP part, which is asking you to write an ASP encoding. The point of this is that you can brush up on your ASP knowledge and understand it better, which will be useful when you do NeurASP. It will also be useful for the exam, where you might or might not have to write ASP. So it's always good to get practice in. ",
+    "model_probability": 0.9237
+  },
+  {
+    "start": 351.54,
+    "end": 385.73,
+    "speaker": 0,
+    "text": "The motivation for the second part of the coursework is the following. It basically emulates the work you do as a researcher. So the idea is that you're a researcher, you have read the NeurOsp paper, you want to know more about it, you want to understand better, and you also want to try it out in real life and maybe adapt it for more things. things you do a lot as a PhD student, as a researcher, is you read a paper, they have a new method or something, you go to the repository, you download it, and you try it out yourself. So it's very good work that you will have to do. ",
+    "model_probability": 0.9954
+  },
+  {
+    "start": 386.11,
+    "end": 420.26,
+    "speaker": 0,
+    "text": "So this coursework tries to emulate that. There's multiple parts here. The first one is the first step you always do, you get a repository. The first thing you have to do is get familiar with it. In this case, you've sent the link by email, and in part A, you're expected to print some information, look at how it does, and then investigate it a bit. Once you have done that, normally if you're a researcher, you then look into the code a bit more and try to understand how it works because In the lecture, I've talked how NeurIOS works, but here you can see how it actually does it in practice. ",
+    "model_probability": 0.9964
+  },
+  {
+    "start": 420.96,
+    "end": 453.19,
+    "speaker": 0,
+    "text": "And this is what part B is about. You look, you're expected to write some Python code to store some values and look at them, like true latent labels, the output vectors, and then put them into a file. It's what you often do as a researcher is you modify the code, you put some debugging into to save some values and look how it works. So that's what you're going to do here. You use... and then you're expected to answer some questions about it to show that you've really understood how a neural host works. ",
+    "model_probability": 0.9969
+  },
+  {
+    "start": 454.41,
+    "end": 504.58,
+    "speaker": 0,
+    "text": "Once you've done that, often you want to compare things with other methods. So that's what part C is about. Here you will use NeurASP, which is a neurosymbolic framework and compared with a traditional neural network. So the task in the coursework is just like in the lecture, it's MNIST edition. So here you are asked to write a training loop for a fully neural network rather than NeurASP, run it, and then compare it with NeurASP. You have to understand how the data is structured. You have to understand how the loop works. And you can take inspiration from the existing training loop in NeurASP. You just have to adapt it for a fully neural network. And then again, you ask questions at the end to show that you understand the differences, what are the strengths and weaknesses, and so on. The last part is also something I do a lot as a researcher. ",
+    "model_probability": 0.995
+  },
+  {
+    "start": 504.64,
+    "end": 566.3,
+    "speaker": 0,
+    "text": "It's to extend it. So you have run it on the example that already exists. Now you are looking into what else can it do? Can it solve more difficult tasks? For this coursework, it's a slightly more difficult task. So instead of adding two numbers, it's adding the first two. subtracting the third number. So you're then asked to implement that. So this example does not exist. All we give you is the data set of inputs and downstream labels, everything else you'll have to implement and you don't have to say, what did you implement? What did you have to do to make NeurOS work on this new task? So that is the idea of the coursework. You will need to use Python for that. There's a few packages you need to run it, which are here. If you look at the code, That's good. So I think a lot of, you said a lot of courses need Python. So it's not too much Python you have to write. ",
+    "model_probability": 0.9886
+  },
+  {
+    "start": 566.78,
+    "end": 620.55,
+    "speaker": 0,
+    "text": "It's more about understanding the existing code and adapting it. So you can here see the code base. You can see requirements.txt. It's also here, these are the packages you need to install. I would recommend doing a virtual environment. That's standard practice. If you don't know how to do all of that, there's a link here to this. a very useful guide made by someone from Imperial where you can learn how to set everything up, import packages, and has GIFs in it as well. So that's good. If you look at the code base, it's quite a nice code base compared to the ActionUrass code base. You will see all these files, and then there's also comments. You can understand everything by going through it, and then the coursework tells you what to run, and it also tells you what to change So that should all be good. ",
+    "model_probability": 0.9938
+  },
+  {
+    "start": 621.87,
+    "end": 656.58,
+    "speaker": 0,
+    "text": "This coursework has a mixture of textual answers and code you have to write. For question one, you're asked to write ASP code, so you should fill in this file, q1submission.lp. You can see for each sub-question where you have to put in your code, these are comments with the percentage sign. For the rest of the questions, it often asks you to write codes, like here, modify the learn function Neurosporpy so that you have to write code, but it often also asks you to answer questions. ",
+    "model_probability": 0.9972
+  },
+  {
+    "start": 657.48,
+    "end": 688.89,
+    "speaker": 0,
+    "text": "Every time you have to answer a question, you should put it in a file and then collate all of that together into the file answers.pdf, right? So if it says something like investigate, rank the answer sets, what you do, you put them in a text file, or a Word or a LaTeX file, and say, question two, B, IV, this is my answer, this is my rank, this is my explanation, and so on. If it says, state which method is more data efficient, put it in answers.pdf. ",
+    "model_probability": 0.993
+  },
+  {
+    "start": 689.75,
+    "end": 720.87,
+    "speaker": 0,
+    "text": "All of that will then be in the repository, just put it next to submission.lp as an answers.pdf file. There's no extra upload you have to do on Sciencia, everything should be in the LabTS repository, both the textual answers and the code. So, in more general, this is mandatory for master's students. It is optional for undergraduate students. That means if you're a master's student, it counts towards your grade. If you're an undergrad student, it doesn't get you any marks. ",
+    "model_probability": 0.9798
+  },
+  {
+    "start": 721.97,
+    "end": 756.29,
+    "speaker": 0,
+    "text": "You can still do it. Why would you want to do it? First of all, if you're interested in Neurast, this is much easier to work with than actually trying it out in the real world with a terrible code base. and you will also get feedback from us. So if you're an undergrad and you submit it, we will give you feedback as if you were a master's student, so that might be useful. And you can do as much or as little as you want. If you're a master's student, of course, you have to submit to get the marks. You can do it alone or you can work in groups of two. Who of you is a master's student? Could you raise your hand? All right, so if you don't know if you want to be in a group, remember these faces. ",
+    "model_probability": 0.9603
+  },
+  {
+    "start": 756.38,
+    "end": 791.11,
+    "speaker": 0,
+    "text": "Maybe make a group together at the end of this lesson. It's obviously easier and nicer if you do it in a group of two. Because only master students are graded, you cannot mix groups. So only two master students can be in a group. You cannot have an undergrad and a master student. Up to two. Up to two, yes. It's up to two people. You all said you received the email, that is good. The other thing is that you're expected to use 12.5 hours for this crosswalk. ",
+    "model_probability": 0.9718
+  },
+  {
+    "start": 792.05,
+    "end": 825.74,
+    "speaker": 0,
+    "text": "If you are much beyond those 12.5 hours and you're really struggling, it might be a good idea to submit what you have and move on because This coursework is 10% of your grade, the exam is 80% of your grade, so you have to manage your time. But keep in mind that each of these parts, A, B, C, and D, are independent of each other. So if you struggle with a part BIV, you don't really know how to do this, that's fine because part CI is a completely different task with completely different code and a different file. ",
+    "model_probability": 0.9737
+  },
+  {
+    "start": 826.15,
+    "end": 856.36,
+    "speaker": 0,
+    "text": "So they're independent of each other. If you struggle with something, you can move on to the next part and do as much as you can. If you paid attention to the lecture and understood everything, it should be very manageable, especially if you're in a group of two. I think... Do you have any questions? Yeah, I think that's it from me. It's all clear? Are you concerned? No? It'll all be fine. ",
+    "model_probability": 0.9645
+  },
+  {
+    "start": 857.22,
+    "end": 858.62,
+    "speaker": 4,
+    "text": "Okay. So, I think... ",
+    "model_probability": 0.4768
+  },
+  {
+    "start": 879.03,
+    "end": 934.62,
+    "speaker": 4,
+    "text": "I think that's an interesting exercise for you to see the logic is actually used practically, right? So it's not just a theoretical stuff. And then the logic is, well, here we're not doing the learning of the problems because it would be much more complicated. But at least you can use it to do the reasoning. And really the message of this course, the kind of insight you wanted to understand or come up with yourself is that what are the advantages of this? right so and through this coursework you should get to that conclusion yourself and i think uh there might be a question yes so so we want you we want you to not just come yes you don't have to get the highest accuracy on anything it's just understanding understanding how it works. ",
+    "model_probability": 0.0816
+  },
+  {
+    "start": 935.26,
+    "end": 969.44,
+    "speaker": 0,
+    "text": "Yeah, the deadline is 3rd of March at 7 p.m. That's the last thing I wanted to say. Tuesday, I think. We'll have the weekend still on Monday and then Tuesday. That's good. Just close this. And then I will let Alessandro take over. ",
+    "model_probability": 0.1727
+  },
+  {
+    "start": 970.54,
+    "end": 972.16,
+    "speaker": 0,
+    "text": "I always forget to use the microphone. ",
+    "model_probability": 0.0588
+  },
+  {
+    "start": 1000.8,
+    "end": 1013.25,
+    "speaker": 3,
+    "text": "I don't know what I normally do with HMI. Then it's USP. It's all connected. All right. ",
+    "model_probability": 0.0082
+  },
+  {
+    "start": 1013.27,
+    "end": 1017.47,
+    "speaker": 4,
+    "text": "Do you want the microphone? Thank you very much. ",
+    "model_probability": 0.1134
+  },
+  {
+    "start": 1030.69,
+    "end": 1061.98,
+    "speaker": 3,
+    "text": "Okay guys, I hope that this is going to be interesting for you as a coursework. Later, going along in the subsequent years, I might more and more introduce new symbolic stuff into it as this search is advancing into that. But this is the first year, so we really value your feedback on that and see if this is useful or not, so we can then adjust the course next year. Okay, so what we want to cover today, we might do a bit less than two hours. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 1062.24,
+    "end": 1092.44,
+    "speaker": 3,
+    "text": "So they give you only one unit, and then on Monday we do the tutorial and we move on with the stuff. So there are a few important concepts you need to learn. So far we covered most a lot of stuff that you might find in the exam. except for this part. So this is quite an important part, right? And so we want to look at, and now we're concentrating on how we write ASP. We understand that there are multiple ancestors. We understand that entailment from ancestors can be cautious or brave. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1093.21,
+    "end": 1126.87,
+    "speaker": 3,
+    "text": "All right? So we cover all that because things can be true in one answer site or in all answer sites or in some answer sites and no others and stuff like that, okay? So really the question that we try to tackle today is how do we learn this kind of ASP programs and what kind of learning frameworks have been proposed in the literature? So before we actually took over the area of the answer side, so we did a lot of work research-wise on the goal-directed proof with all the system that you have seen, and then we move it to answer set programming because it's computationally more efficient. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1127.65,
+    "end": 1159.9,
+    "speaker": 3,
+    "text": "But up to the point that we wanted to did some work there, we did these major contributions. There were people who that proposed a different learning framework. And the one that we're looking at here are two ones, which is cautious induction and the brave induction. There were systems that have been developed in this context or semantic framework that have been proposed. And we are going to look in particular at one system called IS-ASPAL, which stays for answer set programming abductive learning. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1160.52,
+    "end": 1192.75,
+    "speaker": 3,
+    "text": "And then you will see how easy he becomes, if you compare Aspal with Tal, for instance, right? And this is still in the realm of non-monotonic learning, right? Because the semantics is stable models on society, which is non-monotonic, okay? So we are going to look at what does a quotient action mean, the definition of that, and are you MSC students or you're third year students? Third year, yeah? OK, OK. I just want to make sure, because you missed the presentation of the coursework just before this. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1192.81,
+    "end": 1224.34,
+    "speaker": 3,
+    "text": "But never mind. So the definition of coursework is induction. And then we understand why people come up with different framework. What are the pros and what are the cons? Because when you have a problem in real world setting, you want to know which of these frameworks should I use? So what would be the most appropriate one? So let's go briefly through that. So we have induction of the program. We do know we always go to use this. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1224.8,
+    "end": 1267.94,
+    "speaker": 3,
+    "text": "So a learning task. This doesn't work. It's not very clear. So a learning task is mainly determined by breakdown knowledge, positive example, negative example, and maybe the language bias. This is only to make the search efficient, but this is what really drives the learning. All right, and we say that definition of induction under the concept of learning from entailment normally is quite looks at, identify, can we learn a particular hypothesis H or program such that together with the background knowledge will entail the positive and none of the negative, okay? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1268.32,
+    "end": 1328.01,
+    "speaker": 3,
+    "text": "So for us now, when we do brave induction, a cautious induction, we need to think about what that entailment means. Right? Because if you do an ASP, brave entrainment, it means something. If you do causal entrainment, it means something else. Okay? All right. So if we, let's have a look at that. So in the context of cautious induction, the definition of cautious induction requires the following two bullet points. So we want to learn an inductive hypothesis. So we want to learn by induction a program that together with the breakdown knowledge, accepts, so the background knowledge of the program is satisfiable, there is a little bit of an issue there, we are going to ask you what you think about this, has to be satisfiable so it accepts at least one answer set, and because it's cautious, all examples, positive and negative, must be covered in every answer set. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1328.55,
+    "end": 1361.22,
+    "speaker": 3,
+    "text": "So every answer set of the background knowledge plus the program that you learn needs to satisfy the positive and not satisfy the negative. So for us, examples, let's assume at the moment, examples, so E plus and E minus are just sets of atoms. Right? So sets of ground atoms. So when you construct an answer set, so if I construct an answer set of B union H, an answer set normally is a set of atoms. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1362.14,
+    "end": 1397.78,
+    "speaker": 3,
+    "text": "Right? So you want every answer set of this program at the end that you have learned to include all this and to include none of this. Right? This is for every answer set. Okay? So why do you think I need to have the condition that B union H is satisfiable? Yeah? Is no, yeah, it is the empty set because remember when we are learning an hypothesis, you want always to learn the most compressed one. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1399.13,
+    "end": 1429.6,
+    "speaker": 3,
+    "text": "All right? So if you say, so what is not really more than the empty set. It's actually something worse than that. So if I don't require the B union H accepts the one answer set, I can always, whatever examples I gave, the most compressed solution, so the most general solution, could always be the inconsistency. So this is a constraint with nobody. Nobody means it's always true. So true implies always false. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1430.16,
+    "end": 1463.22,
+    "speaker": 3,
+    "text": "So at this particular program, which is a very weird program, means it doesn't accept any answer set. It means logical inconsistency. And if I have a logical inconsistency, there is no answer set here, and the subsequent conditions are always satisfied, because you say for every answer set. And because there is no answer set, then it's vacuously true. So you have always to make sure that the background knowledge, the union, the hypothesis is consistent. All right? Because the conditions, the second condition is much stronger. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1463.3,
+    "end": 1494.46,
+    "speaker": 3,
+    "text": "It's for every. So the for all is automatically true if there is nothing to check. All right? Is that clear? Okay, so that's an important point, an important definition of this system. So maybe in some past papers or whatever, you might find the notations like that. So I decided, let me see whether I've got a better pen, yeah. I decided to put it in the slide. So normally this is, so I will give sometimes in the question learning task like that. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1494.58,
+    "end": 1525.59,
+    "speaker": 3,
+    "text": "So I'm going to say consider a learning task B union E plus, E minus. Not necessarily give you the language bias, if it is a more theoretical question. And I say this is an inductive, a cautious induction task. or a brave induction task, right? And we normally write, this is actually in the literature, people in order, people with a C at the bottom to say, this is the set of all the cautious inductive solutions. So the set of all the hypotheses, right? That can be cautious inductive learned. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1526.32,
+    "end": 1557.05,
+    "speaker": 3,
+    "text": "Okay? All right. So let's have a look now at this example here. So we do a little bit more practice with constructing answer sets. So if we have this particular learning task, cautious learning task, right? So we have, let me go actually because I might need to use for the next slide. All right? So we got, that's the background knowledge, and this is example positive, example negative. So this is our cautious learning task. Okay? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1557.8,
+    "end": 1589.14,
+    "speaker": 3,
+    "text": "Forget about the language bias at the moment. Now, let's, you tell me, let's consider H1, that's the first hypothesis. Is H1 an hypothesis that is cautiously learned or not? So if I ask you, given this cautious induction task, and I give you an hypothesis H1, and H1 is just S, can you answer if H1 is a cautious inductive solution to this particular task? Alright, so let's have a look. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1589.28,
+    "end": 1619.31,
+    "speaker": 3,
+    "text": "We've got the P if not Q, and we've got Q if not P and not R, and we've got S if R. This is our B, alright? And then to that, we want to get the H1, right? So we're going to do, sorry, let's write it. H1 is S. This is H1, okay? So what do you have to do here? First thing to check is if it is, if you accept the answer set. Right? Because it has to accept an answer set. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1619.75,
+    "end": 1652.71,
+    "speaker": 3,
+    "text": "And the second thing to check, is it the case that for all answer sets, the D plus is covered, the D minus is not. All right? So, what is, it does this program, accepts an answer set. So let's start to construct, guys. You have to get very quick on this. So if I have an S as a fact, so I start to construct my interpretations, right? So what do you notice? So is this rule actually, you have to construct the reduct, and then you have to construct the, you know, peak interpretation, construct the answer set of, sorry, first the grounding and then the reduct. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1653.31,
+    "end": 1684.96,
+    "speaker": 3,
+    "text": "Okay, so the grounding of this program, the relevant grounding, what would it include? Relevant grounding of the program. Yes. Sorry? The relevant grounding. All right? Remember, the relevant grounding means I have to take everything, so from this program, this is the program now, all right? It's B union H prime. So I have to put every rule in here whose body condition, positive body condition, it's got to hide in it. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1685.08,
+    "end": 1715.34,
+    "speaker": 3,
+    "text": "So what do you do? You already first put all the facts. Yeah? Because this automatically don't have any body positive here, right? So you put S in the relevant grounding. So then, can I put this in the relevant grounding? Yes or no? Why? No, the relevant grounding is every, if you look at the positive body conditions, they have to have a head in the relevant grounding that you are constructing. All right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1715.54,
+    "end": 1747.88,
+    "speaker": 3,
+    "text": "So the negative condition for the relevant grounding doesn't matter. The negative condition is all important when you construct the reduct. All right? By the relevant grounding, it means what is the relevant part of the program that I need to consider when I want to construct my answer set? Right? So this becomes absolutely irrelevant. I cannot add this at the moment, right? Can I add this? Okay. Can I add this one? Yes. Excellent. Good. So I knew that everybody was going to forget this already. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1748.26,
+    "end": 1779.76,
+    "speaker": 3,
+    "text": "So P if not Q is going to be that. Can I add this one? Yes, because there's no positive here to check, all right? There's no positive here to check, all right? So this gets automatically added, all right? This becomes a not P and then not R, all right? So that's, now, this, let's see, have I added anything else which has got R in the head? No. So therefore, this doesn't get added to the relevant, becomes completely irrelevant. So this rule will never fire. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1780.7,
+    "end": 1817.89,
+    "speaker": 3,
+    "text": "right? So therefore it will not go into the level grounding, right? Now, can you tell me, so this is not the level grounding, let's construct now our x which could be the answer set, right? So the lead act from this, right? Depends on what I put here. You kind of do this hand in hand together. So I need the deftly to have s because s is deftly provable, right? This is a fact. What happened here? What do I notice there? I can put P, because I have a P if not Q, and Q if not P and something else. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1818.73,
+    "end": 1853.51,
+    "speaker": 3,
+    "text": "So I definitely have something like that, but I also have, I could potentially look for something else here. So what can I put here? Q, because when you have a P if not Q, a Q if not P, you already branched two answer sets. All right? So let's see what can we know about R here. So if I have P only here, I cannot have Q, because if I have P true in this answer set, when I constructed the readact of this with respect to this partial interpretation, P is true, so not P is false, so this ruler will get deleted. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1854.74,
+    "end": 1889.36,
+    "speaker": 3,
+    "text": "right? And the P is true, so Q is false, so no Q is true, so this gets deleted. And then if I start to have just that, actually it's sufficient, so I can close it. This is my answer set, right? Now, if I do in this other case here, I've picked, I've observed that I have a loop here, so there must be at least two answers sets, these branches. So because I have Q, P is false, so I have a So because Q is true, no Q is false, so this gets deleted, right here. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1889.84,
+    "end": 1920.59,
+    "speaker": 3,
+    "text": "And then because P is false, no P is true, so this gets deleted. And then R, I might put or not put, but R is not derived by anything, so R will be false, right? So then no R is true, so this gets deleted. So I will be remaining only with the set S to Q. right, as a redact program. So if I consider the answer set, oh, this is the same as that, so I can close it. Right? I want to do this on the board to show you how you can go about doing this quickly, okay? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1921.09,
+    "end": 1955.29,
+    "speaker": 3,
+    "text": "So in this now, that program, background knowledge, a union, H1, has got the two answers set, X1 and X2. And the question I was asking, is H1 an inductive, a cautious inductive solution? So you go have a look here, and it says, oh yes, S is true cautiously everywhere. So the positive example is cautiously entailed. but the negative example, Q, actually appear in an answer site, and I don't want that to be the case, because for all answer sites, the negative example should not be covered. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1956.13,
+    "end": 1993.83,
+    "speaker": 3,
+    "text": "So therefore, that H1 is not a cautious inductive solution. Right? You understand how to do now, yes? Okay, so if you understand it, you do the next one. So is H2 a cautious inductive solution? Now, we have to understand that what it is, first of all, acceptance aside. So, I got still this program, but now I have a different solution here. Okay? The solution is H2 that tells me not S, and it tells me Q is false. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 1996.85,
+    "end": 2029.07,
+    "speaker": 3,
+    "text": "Okay. So, what do we have here? So we want to try to construct the grounding of this. All right? So if I have the grounding of this program, so what we'll have, we do the same mechanism as yet before. So we add this. We have not Q. Then we have Q if you have not P and not R, because there's no positive things. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2029.45,
+    "end": 2062.15,
+    "speaker": 3,
+    "text": "All right? So then at this point, this doesn't have anything about R, so I'm not adding that. Right? I don't add that. And then these get transformed into false if not S. All right? And these into false if Q. All right? So that's what we have here. So Q must be, so we have the Q must be false. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2063.13,
+    "end": 2093.17,
+    "speaker": 3,
+    "text": "So if we want now to try to construct an interpretation of X and get an answer set today, so what do we have? Yeah. So we can have, So not S must be false. So what happened in this case? Do we have a way of proving S? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2096.19,
+    "end": 2139.62,
+    "speaker": 3,
+    "text": "Do we have a way in this program of proving S? No, because S is not in the head. So whatever answer set you are constructing of this, will never have S. So this means that S is always false in no possible answer set. So what happened to not S? is true in all answers set. So if I have a not as true, I have inconsistency. So the trick of this program that you could have gone to mechanically construct all the reduct and everything, but actually you could observe that these two constraints together with this program is always inconsistent. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2142.08,
+    "end": 2174.12,
+    "speaker": 3,
+    "text": "Right? Do you understand that? Yeah? So because it's always inconsistent, so think about, oh, when you have constraints in the program, the program is big, have a look at what the constraints do to the program, because constraints cut intercepts. So if at the end you cut the answer sets and you still have some answer set left or possible way of making the program true, that's fine. You have to do all the mechanism. But if there's no other way of satisfying, you know, making the program true together with the constraint, so this will cut out basically. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2174.14,
+    "end": 2206.29,
+    "speaker": 3,
+    "text": "So we'll say this will never be possible because whatever answer set I construct, any answer set I construct will have S false. So therefore, not S will be true because the relevant grounding cuts this rule out. Alright? So then, is H2 an inductive, cautious inductive solution? No, because it violates the first condition. The B union H2 is inconsistent. Okay? Now let's pick the next one. So the other program here is going to be H3. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2208.37,
+    "end": 2242.02,
+    "speaker": 3,
+    "text": "Alright? And H3 says P is true and S is true. What's the level grounding of this? So we still have these two rules, all right? And then, so let's, I shouldn't delete them, actually. So not Q and Q if not P and not R, okay? And then we don't need this, because remember, even if you have S, R is not true. So this gets always deleted from the level grounding, okay? Even if this is a propositional program, it's still a level grounding of it. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2242.88,
+    "end": 2276.87,
+    "speaker": 3,
+    "text": "So then this gets deleted, and then I have P, and then I have S. Now, how many answer sets do I have here? One. Exactly. I have only one single answer set, so let's call it A1. And this answer set will have what? P as a fact. We have S as a fact. Does it have anything else? No, right? So because of what happened here, these are always a branch, P on one side and Q on the other side. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2277.53,
+    "end": 2307.96,
+    "speaker": 3,
+    "text": "But when it's Q on the other side, you have the P must be false, but it's not possible because this P is true, right? So the other answer set gets cut out automatically. So having this stops this looping here. All right? This negative looping creating two branches, two answer sets. Okay? Now I have only one answer set, so is consistent? Is satisfied? So there is an answer set. So the first condition is satisfied. Is there a cautious solution at H3? Yes, because I've got S true, and I don't have Q here. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2308.52,
+    "end": 2338.63,
+    "speaker": 3,
+    "text": "So it is the case for Lorentz aside that the examples are covered. OK? So next one, and then we move on. So I think I want to do this exercise so you know exactly how to do things. OK, so next one, H4. We have R, now we have R. So what happens? What is the lead actor now? So these have always to be there because there's no positive conditions. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2339.53,
+    "end": 2371.8,
+    "speaker": 3,
+    "text": "Can I put S if R? Yes. Now I can put S if R because I have to put R first, and then I can put S if R. Okay, so what happened now with constructing answer sets or constructing redacts? So you go here and you start to fill some kind of interpretation. You start to say what can be true, what can be false, right? So for sure, I need to have what here? R. What S for sure I need to have? S, because I have this rule. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2371.82,
+    "end": 2402.18,
+    "speaker": 3,
+    "text": "There's no choice there, okay? Now, because I have R, what happened to this rule when I constructed the redact? that not R is false, because R is true, and therefore this rule gets deleted. So having R breaks again this loop, cancel one part of the loop, all right? So because I have S, so then I cannot generate Q, all right? Because I have no way of proving Q now anymore. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2402.56,
+    "end": 2437.1,
+    "speaker": 3,
+    "text": "So no Q is false, no Q is true, so this gets deleted and I can have P. So this now is the only answer set of this program. And then I can say, is this H4 a cautious solution? And I'll check another positive and negative example. I have S, I don't have Q, so this is a cautious inductive solution. So in summary, this is what the algorithm would actually do, and that's exactly what we have here. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2437.98,
+    "end": 2468.71,
+    "speaker": 3,
+    "text": "okay so these are possible cautious inductive solutions but these are not okay do you understand another mechanism how to do it okay good excellent so now that's as far as cautious why do we need the brave we can do brave we can do cautious why do we bother with brave so and what happened for this particular example on the board here So consider, assume that you don't have background knowledge. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2468.77,
+    "end": 2504.36,
+    "speaker": 3,
+    "text": "Assume your background knowledge is empty. Make life easier. It's an empty site. I only want to learn from data. And I want to say, I want to get to that particular solution as a cautious inductive solution. So can I actually do that? So what example would I give? to have this program as a cautious inductive solution. Right? Remember, the example is to be something that if they're positive, it's to be covered in the answer set, and if they're negative, it's to be covered in no answer set. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2504.52,
+    "end": 2535.05,
+    "speaker": 3,
+    "text": "Yeah? Yeah, so that's a good starting point. You say, okay, I have a choice there, right? So therefore, there can be an answer set that will for sure talk about head, right? So in this answer set, I should have something of the form value little c1, right? Little coin c1 head. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2535.97,
+    "end": 2567.0,
+    "speaker": 3,
+    "text": "What else should I have? But what else should it be in this answer set? Oh, c1. coin C1, remember, right? Coin C1 should be there, right? So that's one answer set of the program. And then another answer set of the program is exactly like you're suggesting, value C1 tail, right? Because that's a choice is to be exactly one of that is to be true in the answer set. And then I have to have coin C1. All right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2567.48,
+    "end": 2598.44,
+    "speaker": 3,
+    "text": "So these are my two answer sets. So which example will be true in all of these answer sets and false in all the answer sets? So what would be a positive example? I want to construct now the E plus, and I want to construct the E minus. This could be also empty, right? So what example, what would be the, what is the fact that is true everywhere? coin C1, so okay, I can get, if I give the data, if I had this information in my data, do I have some negative example? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2599.94,
+    "end": 2634.58,
+    "speaker": 3,
+    "text": "No, really, right? Because there is nothing that is false in all the answer sets, right? So this can be empty. Now, the question is the following. My learning task, I say, oh, okay, if I have a positive example, set of positive example, which is just a coin C1, and I have empty set as my negative example, right? So this example, would this example accept, would this solid learning task accept that theory as the optimal solution? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2635.86,
+    "end": 2666.8,
+    "speaker": 3,
+    "text": "So would they be the most compressed solution that you can learn? So we say that we could kind of, you know, think about this, right? So if I have this, what other hypothesis H could I in principle learn in the language that will cover my example cautiously? What would be another hypothesis that it could be? So I have no background knowledge, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2668.16,
+    "end": 2710.72,
+    "speaker": 3,
+    "text": "And I want to have a program All the answer set will cover this, and they should not cover this. This is easy because it's fine. So all the answer set of this program needs to cover that. What is the most complex program that you can learn that will give you that? Exactly. I can have a program, I can learn a program called the coin C1, right? And if I have this program, coin C1, the background knowledge is empty, then the union, the background knowledge union this program now has got one answer set, that is coin, and coin is covered, and I have a non-negative example to worry about. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2711.4,
+    "end": 2742.22,
+    "speaker": 3,
+    "text": "So the problem, the question, the problem I want to highlight in this slide is that if you wanted to learn choice rules, the cautious induction is not good enough because the cautious induction is too strong. It always checks all answer sets to cover something, and all the answer sets doesn't have to cover anything. So you always find the smallest program, all right, they're constrained as much as possible to be able to get all answer sets that cover something. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2742.3,
+    "end": 2780.72,
+    "speaker": 3,
+    "text": "Do you understand what I'm saying? Whereas the choice rule gives you, it's a generative thing, generate more programs, generate more answer sets. Okay? And it's because of the answer set that something is true and something is false, given the choice, it doesn't comply very well with the concept of cautiousness. Right? It actually looks all answer set. So the answer to that question is there is no example, really there is no example that I can construct for, not data set, for which I can learn this program as the most, the optimal cautious inductive solution. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2783.0,
+    "end": 2820.39,
+    "speaker": 3,
+    "text": "Is it clear? Yeah? So you could learn bigger programs. So if I have this example, I could learn this, but it will not be my optimal one. Right? And in learning, you always want to generalize. You always want to get the most compressed program. So therefore, there will never be a way of learning it, right? So that's why in induction and in learning with the multiple answer sets, people then went and talked about brave induction because we want to have a way of weakening the requirement of coverage so then we can have a more expressive program. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2821.73,
+    "end": 2855.01,
+    "speaker": 3,
+    "text": "Does that make sense? Okay. So, quotient reduction is too strong to learn a program with choice rules. That's proved, right? Just by example, right? There's no way that you can compute. Doesn't really matter what B is. It doesn't really matter what example you put here. There's no way that you can get an optimal program to learn a choice rule. Right? So that was one of the theoretical results approved in this area. So people then came up and said, okay, let's relax the semantics or learning. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2855.43,
+    "end": 2888.23,
+    "speaker": 3,
+    "text": "Let's have this concept of brave induction. instead of cautious induction. So the definition of brave induction is slightly different, actually quite different, than the definition of cautious induction. Okay? So in cautious induction, you hide the full, you know, all answer sets. Here, you say given a background knowledge, given a positive and negative examples, then I want to find a program such that there is at least one answer set, at least one answer set, they will cover all the positive and none of the negative. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2889.61,
+    "end": 2921.16,
+    "speaker": 3,
+    "text": "Right? Now, be careful about that. There exists an answer set of B union, B union of H, such that all the positive examples are element in this answer set, and does not exist a negative example that is element of the answer set, all right? Or you can say, equally, you can say, for all negative examples, these are not element of the answer set. So this is within the same existential answer set, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2921.34,
+    "end": 2951.66,
+    "speaker": 3,
+    "text": "It's not indifferent answer set, right? It's not that one positive is covered in one part and one positive is covered in the other, right? So this is the concept of brave induction. Remember, because next week we're doing learning from answer sets that are generalized this, where they can allow to relax this as well. All right? So at the moment, the brave induction means finding at least one answer set that will explain my positive and none of my negative. All right? So that's the definition of brave induction. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2952.0,
+    "end": 2986.58,
+    "speaker": 3,
+    "text": "And why don't I, in this case, because there has to exist an answer set, I don't care about the condition of satisfiability of the background knowledge reunion hypothesis because I know there has to exist an answer set, right? So that is not a problem. I don't have the problem of learning the inconsistent program, okay? The meaningless one. Okay, so that is the definition of brave induction. So, and this is the side, normally, we use this notation to denote the set of all possible solutions that can be bravely induced for this given learning task. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 2986.62,
+    "end": 3022.16,
+    "speaker": 3,
+    "text": "This is just a notation thing. Okay, let's go back here. So, now we had computed all the answer sets, so you can quickly tell me, I'll stay here so I can do the animation. So, which one is a brave inductive solution? Is H1 a brave inductive solution? Yes. Is H2? No, because there's no answer set at all. H3? Yes. And H4? Yes. All right? So that's what you get here. Okay? Notice H3 and H4 work for us also cautious solution. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3022.66,
+    "end": 3053.82,
+    "speaker": 3,
+    "text": "So anything that is a cautious solution is also a brave solution, but not the other way around. Right? If it is a brave, it's not necessarily a cautious solution. Okay? In fact, this is a brave and it wasn't a cautious. Okay? Okay, good. Now, when the people developed all these things, there were two big framework of systems that were proposed. They actually pushed the computation of non-monotonic learning and the brave induction, okay? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3054.44,
+    "end": 3085.85,
+    "speaker": 3,
+    "text": "And there is a one particular, so there is an xal one. So xal is the extension of al with the non-monotonicity because al as we have done is only for definite clauses, right? So xal was then extended to compute a non-monotonic program bravely using negation as failure. So there is a lot of algorithms there, which I thought we don't need. It's similar to TAL with abduction and stuff. We'll concentrate on ASPAL because that is more on prologue and everything. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3085.87,
+    "end": 3124.02,
+    "speaker": 3,
+    "text": "So let's get ASP, continuation of ASP. So another family of system was called answer set programming. So this is ASPAL. And ASPAL was... is really a framework, because from that, there were multiple systems developed that expanded that, right? But I want to give you the basic idea of this, because I want to show you how easy it is to program in ASP versus the old program, right? And persuade the ASP is the way you have to go about it, if you do symbolic stuff, OK? So let's have a look a little bit at the ASPAL system and see how we operate, how this algorithm works, which is very, very simple. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3125.28,
+    "end": 3157.95,
+    "speaker": 3,
+    "text": "And you can't believe it, how simple it is. Okay, so we wanted to have a program that learn brave inductive solution and is non-monotonic. So when it's like that, what did I say? Although if you have a positive and negative example, when you learn, what do you have to do if it is non-monotonic? Can I do coverage loop? and learn the bits by bits? . That's right. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3158.15,
+    "end": 3194.48,
+    "speaker": 3,
+    "text": "So, I cannot do that. So, what do I have to do? I've always to consider the entire examples together. So if these are positive and negative, if this is some, I don't know, fact F1 to Fn, and this is some, I don't know, let's say N1 to Nm, I need to consider always, there is always to be my set of examples, E in this case, that brings all this together into one big thing I want to prove during the computation. So I always have to have all the positive examples and not the negative examples. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3195.02,
+    "end": 3229.89,
+    "speaker": 3,
+    "text": "Not n1 and not n2 until not nm. So this is always, in every computational step, when I press a button, the learner has to make sure that this is all covered. All right? And if it's covered bravely, you have to make sure what? That there exists at least an answer side of the program that you're learning, such that this is true in that answer side. All right? That these facts have to be there, and the negations should not be there. Sorry, the positive and negated facts here, the facts in the negative example should not be there. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3230.25,
+    "end": 3262.24,
+    "speaker": 3,
+    "text": "Okay? All right, so how do we deal with, how have we done with TAL? We said that because this is a big search space, and I have to reason on all the examples, one mechanism that people put in the literature was meta-learning, right? Created this meta-theory, right? If you remember TAL, top theory, it's a big, big mess because you have to go directly, you have to construct, you combine together the declarative part of the search space with the procedural part. That's why the goal-directed wasn't very effective, okay? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3262.5,
+    "end": 3293.88,
+    "speaker": 3,
+    "text": "Because it's not only understanding what rules are good, but you have to construct those rules as you go down in a goal-directed derivation, all right? So then what makes the goal-directed proof mechanism harder in the learner, all right? So whereas here, we don't need to do goal-directed because ASP is just a satisfiability. Right? So what we have to make sure is, do we have a clever way of talking about the search space, so then we can give it to the ASP solver, and the ASP solver, in one step, tells me what are the possible rules. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3295.24,
+    "end": 3343.01,
+    "speaker": 3,
+    "text": "Right? That's exactly the magic. Okay? So, and it's so simple, that is, I couldn't even believe it when we did it. So, it was very simple. So, you have now, what we want to do, we want to construct the top theory, right? So remember that, this is you have a background knowledge positive example negative example this is your learning task you map this into some kind of ASP representation all right some form of encoding of this task so that when you construct the answers let's see ASP let's call it program pi right so that you construct the answer set of pi And from the answer set of pi, you can extract the rule H that is a solution to that. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3343.27,
+    "end": 3375.19,
+    "speaker": 3,
+    "text": "So that is the mechanism that we want to do. So what is important to understand is how do we do efficiently this encoding? And then the entire process of learning is essentially a sub-solving step. a satisfiability set, constructing an answer set. And that's what is really beautiful, you know, you just don't do all these God-elected constructions or rules and stuff like that. Okay, so we want to understand how do we go from here to this ASP program pi, right? So then we construct the answer set of this pi. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3375.77,
+    "end": 3407.04,
+    "speaker": 3,
+    "text": "Okay, so there is a concept of meta-theory because this is non-monotonic. So what is the meta-theory of this program? How do we encode the meta-theory in this program? So what Asphal uses, uses the concept of skeletal rules. So what does that mean? If I take, for instance, that language bias, remember we are encoding the search space. So if I take the language bias, the language bias normally will give me penguin X as a possible solution. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3407.32,
+    "end": 3444.53,
+    "speaker": 3,
+    "text": "That can be one solution, do you agree? Or you can give me another solution, which is penguin x, if I have a not can x with some value constant here. I don't know what value constant is, right? So the value constant is ability. The type in my background knowledge means fly or swim, right? So in principle, this can be one hypothesis or another hypothesis. So this is going to be fly. Or I can have another hypothesis, penguin, or maybe just penguin X, or maybe these things, but when instead of I fly, I have swim. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3444.79,
+    "end": 3477.18,
+    "speaker": 3,
+    "text": "All right? Okay? And then the language bias says, oh look, you can have twice. the concept can. So really there is even bigger rules than that. There is another possible solution that will give me penguin X if not can X fly and, so this is going to be comma, not can X swim. Alright? So here I have two occurrences of the mod body. Alright? So you can see how many rules you have. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3477.6,
+    "end": 3514.25,
+    "speaker": 3,
+    "text": "Okay? So that's in the search space. How do I capture all this possibility? We determine, we create what is called a skeleton rule. So we don't reason really at meta level, but we reason abductively in a very clever way. We say, okay, These are the possible rules. So let me construct this skeleton. So for that, the skeleton generator rule for every possible combination that you can have, OK? So there I have a penguin X becomes a penguin with a variable, and then a with a variable, and then a variable constant. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3514.31,
+    "end": 3546.29,
+    "speaker": 3,
+    "text": "So let me go, because I cannot point it out. Hold on. So from this language bias, this becomes a skeleton rule. Oops. So this becomes one-skeleton rule, all right? So what you do, you take the constant, the terms, and this becomes now variable for the time being, just for the time being, because when I do the satisfiability, the construction, the answer set, this constant, this variable here, are going to be grounded, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3546.48,
+    "end": 3576.86,
+    "speaker": 3,
+    "text": "And it will determine the particular constant value. So you take, if this is a variable in the head, it will stay as a variable. This is as a program, I can have this in the body, so I put this in the body, and then the constant variable becomes this one, okay? And I still consider input, input, right? Yeah? Yeah. This is an example. I haven't given you the full encoding. This is just an example of a skeleton rule, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3577.14,
+    "end": 3615.34,
+    "speaker": 3,
+    "text": "For a possible rule that will be complying with this language bias, okay? Now, why do I have to put this here? Why do I have to put the type? If I don't have the type of predicate, what will happen to that rule? in my encoding, my representation. If I don't have a bird, it's not in my language bias, right? Bird. And I'll add it to it. So why do I do that? If I don't have this predicate here, if I don't have this, and my rule was only, my template was this, if this, what would happen? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3615.36,
+    "end": 3645.82,
+    "speaker": 3,
+    "text": "Yeah? That's right, but my language bias doesn't have the predicate verb. So what would happen in coding in the presentation if I don't have that? Yeah, but that might not be a problem. It can give me a lot of things in my answer side. So what happens with answer side? So this means you have to practice the Klingon so then you understand these questions very quickly. So it will be not safe. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3647.24,
+    "end": 3680.78,
+    "speaker": 3,
+    "text": "Right? Because of that particular variable, so if you think about the variable v1, v1, if I don't have type, this predicate, v1 will not appear in any positive conditions here. To be safe, a variable, every variable must appear in a positive condition. So one trick of this encoding, of this encoding pi that we are constructing, is to have a very typed program. So we want to add these types so that we can make, because the program is going to be first order, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3680.88,
+    "end": 3711.91,
+    "speaker": 3,
+    "text": "So we know this v1 is not going to be grounded. It will remain as a variable, right? So we want to have this, but all the encoding that we are doing has to be a safe program. All right? So, and the simple product to put here is the type. So then it can also achieve what you're saying. I don't need to ground for everything. I only need to ground for the type that I need. All right? However, if you look here, there is another variable here. C1 that I haven't put anywhere. I haven't grounded, I haven't put a type here. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3712.55,
+    "end": 3742.9,
+    "speaker": 3,
+    "text": "So bear with me and I'll show you how it becomes safe. All right? So to make it safe, you need to put all the variables, input and output variables, in the model body, in the model declaration, with the respective type in the template, in the skeleton rules. Okay? That's the first process. But when we have this skeleton rule here in our encoding here, essentially the ASP solver, when you try to ground this, will ground for all possible fly and swim here. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3742.92,
+    "end": 3773.76,
+    "speaker": 3,
+    "text": "All right? So how this is done, that's what we need to do because we don't have type. of C1, okay? So let's have a look now. Is it clear what the problem is? Yeah? Okay. Let's have a look at how we do that. Now, another way that we're doing this encoding I want to give you another definition. In this encoding, you can have a lot of... If you have something that can appear three times, four times, a lot of input or output variable, you can have multiple repetitions with just different variable names. So this becomes very big. So what we do, we have an hyperparameter. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3773.78,
+    "end": 3809.81,
+    "speaker": 3,
+    "text": "It says, look, construct me the search space such that you have a maximum of two literals in the body. So there are two hyperparameters in the system, Lmax and Vmax. So maximum two Lichards in the body, and these Lichards don't count the type Lichards, right? That other parameter doesn't count the type as number of Lichards, okay? The type is only for a mechanism internally. So by the other Lichards for the mode of declaration has to be maximum two in all the rules. And then the vmax parameter tells you how many variables the rule can have. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3810.01,
+    "end": 3842.23,
+    "speaker": 3,
+    "text": "So it can have 1, 2, 3, 4, 5. So you constrain how this mode top view looks like. It literally is an hyperparameter. So when I have a model declaration and I put in the system this hyperparameter, All right, so that's the definition. Maximum number of literates allowed to appear in the body by excluding the type. And there's a maximum number of variables. So then when I have more declarations and I have those other parameters, these become the set of skeleton rules that I need. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3843.15,
+    "end": 3876.41,
+    "speaker": 3,
+    "text": "That's it. So because the first one, up to two literals, this will have zero literals in the body, right? This will have one literal in the body, and this is going to have two literals in the body. Okay? And that, so what I've done, I created the skeletal rules for each of the possible combinations of those model bias that is within the particular upper parameter values. All right? Is it clear? Yeah? So this, and remember, here you have to have a two different constant variable name, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3876.81,
+    "end": 3910.29,
+    "speaker": 3,
+    "text": "Because here we want to capture the possibility of grounding for the two possible values, fly and swim, like we had here, right? I had the fly and swim, okay? So it's not the same constant. If you wanted to repeat more the body in the rule, you have to use different constant variables for that. OK? Because you want to capture different possible sort of grounding. Now, here this rule, this is still safe for this rule, but this is still not really safe, because the C2 and C1 doesn't appear in any positive body conditions, OK? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3912.08,
+    "end": 3947.33,
+    "speaker": 3,
+    "text": "So why can I avoid doing that? Because when I want to do now the search space, this becomes the skeleton rules that we have there. And the grounding of those variables will give you this particular possibility. And all these possibilities don't have to be redundant. For instance, if I consider the grounding of the third rule, I can have a fly fly, or I can have a fly swim, or I can have a swim fly, or I can have a swim swim, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3947.77,
+    "end": 3985.63,
+    "speaker": 3,
+    "text": "Swim swim, it doesn't matter, correspond to the first one. The second one. Fly, fly corresponds to the third one. And if these are swapped, it doesn't really matter, right? So really the program automatically generates this kind of a top theory in a most efficient way, right? Avoiding redundancies. Is that clear? Yeah? Or subsumptions or whatever. So redundancies here. Okay. But then I haven't told you how we're doing the actual learning. This is just a top theory, okay? So what happened now? We want to understand that we have a mechanism of taking the, let's see what I, if I can give you the general intuition first. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3987.21,
+    "end": 4018.94,
+    "speaker": 3,
+    "text": "We have a mechanism of, which is much simpler than TAL, of taking the language bias, constructing the skeletal rules from this language bias, which is part of my program, okay? And now I need to be able to reason with this. Because I have all the possible rules that this will tell me to search from, efficiently represented, and I don't know which one is relevant. Because I have my examples that I want to cover. So how do I know which of these rules is relevant? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4019.48,
+    "end": 4050.85,
+    "speaker": 3,
+    "text": "So in CAL, you were doing the proof. What do we do here? We do a very clever thing. We basically label, this is a set of rules, right? This is rule one, rule two, rule three, whatever. So what we are doing, and it's got some kind of predicate here, right? This is a rule. So what we are doing, we are actually giving an ID to each of these rules. So this is an ID of the rule. And then we augment the rule. Suppose this is head one, head two, whatever. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4051.27,
+    "end": 4082.12,
+    "speaker": 3,
+    "text": "We augment this rule with a particular condition. And the condition will say rule of particular ID, whatever this ID will be. And you have to take into account all the constants, variable, that appear in this rule. So if I add this, this becomes almost like a flag. So I have a set of possible rules, which is my search. And I'm telling the DSP solver, each of these rules has got a flag. This flag can be true or false. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4083.08,
+    "end": 4115.78,
+    "speaker": 3,
+    "text": "If the flag is true, pick the rule and the solution. If the flag is false, forget about the rule and the solution. Do you agree with me? So you have flags, a way of check. Because we are not doing God-directed proof. This is a satisfiability of this program. It's trying to construct the answer sets. So really, to see which of these rules is relevant, let's flag each of them and let the solver tell us which of these flags are the relevant one so that we can cover the example. Because the relevant one will then give me the relevant rules at the end. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4116.7,
+    "end": 4149.02,
+    "speaker": 3,
+    "text": "OK? Is it clear? So basically, the mechanism is you construct the skeleton rules in the way that we just showed before. You augment each skeleton rule with these particular facts, in a sense. And then, let me take you step by step. That's one thing that we need to do in the encoding. So you take a skeleton rule. Let's say the skeleton rule has got ID 2, and then if I put this flag, so I think that's not a good example. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4149.08,
+    "end": 4185.77,
+    "speaker": 3,
+    "text": "I'll use R. That confuses you. Let me do here. So if I have a skeleton rule was PXY if QXC1, all right? So what I do, you can add a Plattica code rule, And let's say this is rule identification one. So rule one, I need to take the variable C1. So when the ASP tries to satisfy this rule and it grounds this, because the C1 has got to fly and swim, it will consider really two possible grounding. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4186.1,
+    "end": 4219.83,
+    "speaker": 3,
+    "text": "The ground which has got BXY, here it's got to be type of Y, right? X or Y, type of Y, and then you have Q, X, one ground, fly, and then a comma, rule, one comma, fly. All right? This is one grounding. And the other grounding will be rule with the same ID, one with a comma, swing. All right? So you can decide which of these will be relevant, and we reason about making assumptions about these flags. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4220.29,
+    "end": 4252.19,
+    "speaker": 3,
+    "text": "Which of those flags will be good? And when I do the assumption of the flag, this flag will correspond to a specific rule in the final solution. All right? So the interesting bit is because we can add these flags, a rule or something, now all the variables that were constant variables before, so this was a constant variable, will appear in this fact. So the rule becomes safe. Right? So that's why I don't need to add the types for the variables that represent the constants. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4252.79,
+    "end": 4297.05,
+    "speaker": 3,
+    "text": "Because those variables will appear in this additional fact that the system will encode, which is always a positive fact. Okay? Does that make sense? So that's the most optimal representation of the entire search space. Okay? Are you following me? Yeah. Okay. So let's go now. to which, how do I reason about understanding which of these flags should be true or false? Can you tell me? If I have now a set of rules, and each of these rules got these flags, and this flag doesn't appear in any other head of the rule because of the auxiliary predicates, right, that the system uses, what do I need to put to the program to tell the program choose some of these flags? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4299.91,
+    "end": 4330.0,
+    "speaker": 3,
+    "text": "What will it do with it? I want to tell the system, choice, reason about it. What do I put? I just told you the answer. You have to put a choice rule on all those flags, right? Because really, you tell the system, there are a lot of rules here. I don't know which one should be useful for covering my examples. Choose. which one you want, which one you need it. All right? So really what you have now in the representation is... ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4332.56,
+    "end": 4365.79,
+    "speaker": 3,
+    "text": "Okay, so this is before we go to the representation of the choice. So this is what happened. This was the skeleton rules. They are only safe when respect to V1. This becomes now augmented with these facts, right? So the second, the first rule gets rule one, this gets rule two, and this gets rule three. Now these rules are fully safe, right? Because the C1 appears and C2 appears in these additional facts, okay? And these are the one where we make a choice, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4366.17,
+    "end": 4399.47,
+    "speaker": 3,
+    "text": "So this becomes now the representation of my search space. directly in ASP. That's our top theory. And if we do now, sorry, if we go now understanding the choice rules, so you take all those facts, which are here, you take all those, I don't want to interrupt if you're okay following me, because I finished these units, I'll let you go. So if we do a little bit until the end, then it's nearly finished. So you take all these facts, and you put in a very big choice rule. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4400.03,
+    "end": 4432.4,
+    "speaker": 3,
+    "text": "Right? So you have a big choice rule with everything, but when you put the choice rules, this flag here has to be grounded. Don't put in a choice rule on ground. So you have all, if you see there, the difference between the big capital C and the small c there. In the top theory, there are variables. And in the choice rules, there are all the ground distances of those flags that you can have. So that's the choice rule that you have there. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4432.98,
+    "end": 4467.64,
+    "speaker": 3,
+    "text": "And essentially, your top theory now becomes this. Right? So you start the formal language bias, you generate your top theory, and you add the choice rule here. Okay? Okay? So this, you tell it to the system, I don't put any limit here, can be anything. Because you might need all to cover the example. I don't know. Right? So it's the solver that's going to work out what is needed. Okay? So if I have a program like that, Now let's see whether you understand. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4468.44,
+    "end": 4502.27,
+    "speaker": 3,
+    "text": "You will understand this before I go to the next slide. If I have a program like that, how many answer sets will generate? So first of all, I haven't told the program what are my examples. So the background knowledge goes into an ASP program, which is the same background knowledge, maps it itself. The language bias gets mapped into this program. Let's call this a top program, a top representation, top theory. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4503.6,
+    "end": 4534.48,
+    "speaker": 3,
+    "text": "And I need to have now the examples, which are the positive and the negative. So how do we map that? We want to make sure that all the answers are brave. At least one answer set covers all the positive and none of the negative. How do we do that? Do you remember how we did in... So because I have a choice, this is essentially an abductive task, right? Because you want to make assumptions about things so that you explain an observation. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4535.08,
+    "end": 4619.82,
+    "speaker": 3,
+    "text": "The observation for us are the data. So how do I encode the data goal in, yeah? So I have a set of rules as a choice, as a head, and then all the positive examples plus none of the negative examples as a body. No, really, because then you want the other way around. You want to make the choice so that you cover the example. Not that if the example are true, that is the choice. That's what you were saying. So the choice rule stays as a choice rule, right? Stays on its own. So here, we got all the choice rules here in the top theory. I have all possible choices. But I have to control what choice I make so that I cover the example. So how do I do this? Yeah. You are nearly there. So I cannot, so you need, because this is brave now, right? It's a lot of choice rules. So I needed to do a very simple encoding. You say, okay, my goal or my abduction task here that I have now here is true, right? It's satisfied. If, and here I put all the positive and none of the negative. right? So I say if I have all E1, E2, these are all the positive and not all the negative, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4620.04,
+    "end": 4650.06,
+    "speaker": 3,
+    "text": "Here, okay? So this is not something else. So this means that's what I want to achieve. And then I can put a constraint, a hard constraint that says what? Exactly. Not goal. Because this means if goal is false, because some of these are not covered, if these are not covered, the goal will be false. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4650.14,
+    "end": 4682.18,
+    "speaker": 3,
+    "text": "But that's not what the answer set that I want. I want to calculate. I want to get away all the answer sets where goal might potentially be false. So I want the goal to be true. So in my answer set, I want only the answer set where goal is true. Because those are all the existential answer set that will cover my examples. OK? So by putting the constraints not goal, you're saying that this must be false, so then goal must be true. And for goal to be true, given the reduct and everything, all of these must be true in my answer set. All right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4682.5,
+    "end": 4721.05,
+    "speaker": 3,
+    "text": "Because if one of these is false, or suppose that a positive negative example is covered, so it's true, the not of it is false, so that gets deleted by the reduct. Yeah? Absolutely. It does completely automatic. If you have a clever representation in ASP, which is a very powerful SAT solver, you basically tell the system, compute me the answer sets, that there can be one or more than one, but at least in all answer sets, at least all answer sets will have to have this. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4722.2,
+    "end": 4754.15,
+    "speaker": 3,
+    "text": "Okay? All right. So that is part of my example. So I know now how to get my example encoded, right? So this example, the set example, gets encoded like that. Okay? So our full representation of a brave induction in ASP will have this, will have the top field that we just described with the choice rule, and it will have the representation of my data. And my data gets represented like that. Okay? Now, the final question is the following. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4754.17,
+    "end": 4786.58,
+    "speaker": 3,
+    "text": "Then I go with the slides forward. The final question is the following. How do I tell the DSP that I want the most general solution? Why the most general solution means the most compressed one. So here I have a lot of, with a choice, I have a lot of rules. I can have just penguin. Or I can have penguin if can fly. Or penguins can fly and can swim. So each of them have got a different length. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4786.63,
+    "end": 4819.56,
+    "speaker": 3,
+    "text": "So each of them will be more general than the other. So I want the optimal one. I want the one which is the most compressed. So the set of rules that I have at the end has to be the shortest as possible in terms of number of literals. So if we have a choice rule here, the choice rule are the flags for each of these rules, right? What do you think I should put as an optimization statement? A minimization. So I need to have a way of weighting these flags. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4820.28,
+    "end": 4852.56,
+    "speaker": 3,
+    "text": "I have to put a weight to these flags because each flag will have a cost towards how compressed the rule is. And I want to minimize the total cost. So that will give me the most compressed rules. All right? So then you go here and you say, okay, now let's continue. This is the representation of our data that we just described on the board, all right? Those are my choice rules. And then this is what I need to put. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4853.26,
+    "end": 4884.22,
+    "speaker": 3,
+    "text": "So I know when I represent in my search space, into these choice rules, right, in this top theory, I know how long each of this rule is, right? So then the program will say, okay, the flag about this, the first rule has got all these ground things and it's got a certain length because I know how long the rule is, right? This other flag, so you put here, you put all the flags and the length of the rule that that flag corresponds to. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4885.57,
+    "end": 4915.99,
+    "speaker": 3,
+    "text": "Okay? So when you do that, now you have a minimization, and this is the entire encoding of the program. Right? So you have a brave induction task, which is that. That is a language bias. You generate the skeleton rules here by adding these flags there. Right? And then you create a choice rule. The weight is not in the choice rule. The weight is in the minimization. Okay? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4916.4,
+    "end": 4948.18,
+    "speaker": 3,
+    "text": "You create a choice rule, and then you say minimize. So pick whatever you want to do with this, and whatever gets true, it will have a total weight. All right? So if I pick the first or the second, the first or the second, it will have a weight three. If I pick the third, it will have, sorry, the third and the first, it will have weight four, right? And the minimization will give me the optimal answer set, which is the one which has got the lowest total weight, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4948.44,
+    "end": 4979.13,
+    "speaker": 3,
+    "text": "And that will correspond to the program with the lowest number of literals, so the most compressed general program. All right? So once you do that, the system will just return those examples. Sorry, you need to put the example two. It will return that. All right? So let's have a look at this little exercise together. OK. So that's already given to you the skeleton rule. So the background knowledge becomes. So this is the goal. Let's do the encoding. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4980.61,
+    "end": 5031.92,
+    "speaker": 3,
+    "text": "How do you do the encoding here? So that's the Skeletal Rule. So what do we do with the Skeletal Rule? How do we get the top theory here? If I suggest already the Skeletal Rule, what do you need to do next to that? Yeah, exactly. So this becomes a bird v1 if thing becomes a type of v1. And let's call this rule 1. We don't have constant, OK? Then I have the second one, which says a bird V1 if the same thing finger V1 and then I have a properties V1 C1 and then I say rule to as wings, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5032.58,
+    "end": 5065.19,
+    "speaker": 3,
+    "text": "As wings. And then I do, that can be a different one, right? So let's go back one second so that you see what we did before, all right? So we put it, so actually we put just the general constant here, right? Because it's in grounding we put this, right? This remains C1. right? It's in the grounding of the choice rule that we put the value, right? Not here. And then what we needed to do, we need just to do for the other one, right? So the top field is still a first order, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5065.57,
+    "end": 5096.38,
+    "speaker": 3,
+    "text": "So here, we are going to say the only difference between the second and the third skeletal rule is the negation, right? So here we have bird v1 if thing v1 not properties v1 c1. And this is called now rule 3 c1. All right? So that is now the real kind of top theory. And on top, you have to add the choice rules. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5096.46,
+    "end": 5128.94,
+    "speaker": 3,
+    "text": "And now the choice rule will take this and will ground this where there are constant variables, right? So rule one will remain rule one, comma. This now, exactly like you were suggesting before, is rule two, which has got a possible constant. It has wings. but I can also have alive, right? So I need to have another rule two with alive constant, okay? And then on top, and then I have to have the rule three, okay? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5129.26,
+    "end": 5160.67,
+    "speaker": 3,
+    "text": "So the rule three, and it will have a constant C1, it will have the same thing, has wings, and then I have a rule three alive, all right? So these are all the grounded facts that you can adduce, you can assume, right? And then you do the minimization and the goal. So let's just not to keep you for very long, guys. So this becomes the expansion with the flags of the skeletal rules. This is just now all the grounding. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5161.41,
+    "end": 5198.61,
+    "speaker": 3,
+    "text": "And these are the respective weights of this in the minimization. And then we have the goal there, which are just the positive and the negative example. So if we do, for instance, look, I'll show you. Let me see whether I can go. My desktop is full of crap, so. And I don't want to show you things I cannot show you. I did, I encoded this very simple to show you how quick it is. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5199.35,
+    "end": 5229.51,
+    "speaker": 3,
+    "text": "And just really, just one step. Let me go to the exam, not to the exam. I need to go to the teaching. And then I need to go, what are we, week six? OK. So let's see this one. Let's open it up. This is fly and swing. That is going to be about, will be this one. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5229.53,
+    "end": 5260.45,
+    "speaker": 3,
+    "text": "Let me see. Yeah? Is that what we have, yeah? So that's what we have. This is, let's remove this. Actually, no, I need to make sure which one of mine here is here. So let's go here. Mac is good because you can do these things. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 5261.53,
+    "end": 5292.11,
+    "speaker": 3,
+    "text": "And it does automatically go. Okay, so am I in the right place? Oops. Yeah, OK. So this is my file. This is exactly what will happen when you do the encoding, all right? So you start off from a learning task, and this is just the representation of it. So I put here hide, because when I want the answer set, I'm only interested to know which rules are true. I don't need to know everything has to be true or false. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5292.65,
+    "end": 5337.45,
+    "speaker": 3,
+    "text": "So in ASP, if you write hash hide, it hides everything. It gives you almost an empty answer set, right? So you hide everything, and then you put a show, just the fact that you're relevant and you want to see it, right? So in the output, we only show the facts. Otherwise, the answer set will become very big, and you can all read it, right? It's only for visibility, but it computes the entire answer set. So when you have that, so this becomes the thing, and then if you go here, clean, go free, so give me your solution of, this is Aspal, what is that, Che, example, LP, does it give me that? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5339.02,
+    "end": 5370.33,
+    "speaker": 3,
+    "text": "Okay, so it just returns everything that is true, but in particular, all you really need to know, war flags needs to be true. So it says rule 2 live is the only thing that you need. And that is the optimal solution with a particular optimization. In this case, it computes only one given the examples. So you go back here, and then you say, OK, rule 2 live. Rule 2 live correspond to this, because this is index 2. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5371.05,
+    "end": 5401.54,
+    "speaker": 3,
+    "text": "So the solution, the answer set, will be this program. So if bird is something alive, then I can explain my examples. So my program says anything is a bird. It can be a bird if it's got wings or a bird if it's alive. Of course, it's a bird if it's alive. An airplane is not alive if it's got wings. Right? So can you see what happened? So you just represent very cleverly in a meta-level representation that actually is much simpler in ASP. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5402.14,
+    "end": 5443.82,
+    "speaker": 3,
+    "text": "If you have a nice way of telling ASP, optimize it. Okay? And then ASP will just give you dust. You basically push all the work to the SAT solver. right and then you can do the learning in the way now final thing and i'll show you i promise you this is the final slide i've got and then i'll let you go today final thing i want to cover is what happened here right so if i consider the brave induction and I have this particular program here, what example could we give to learn that particular constraint? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5445.18,
+    "end": 5477.04,
+    "speaker": 3,
+    "text": "So if I think that this is my, now let's go back to the theory, right? If I think that that has to be my optimal solution, so the most general solution, and I have a data background knowledge, so I have an example, which is a learning task, a brave learning task, a background knowledge, and has got some, I don't know which example, so it's got some positive examples, some negative examples, and I want that particular program, H1, to be my optimal brave inductive solution. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5477.68,
+    "end": 5508.13,
+    "speaker": 3,
+    "text": "So what example would I give here? Yeah? Maybe I can give a bias coin, sorry, I can give a bias coin C1, okay, because a bias coin C1 will also give me coin C1, and then what else? Value C1 head or tails. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5510.23,
+    "end": 5545.99,
+    "speaker": 3,
+    "text": "There can be any of them, right? Yeah, am I correct? Okay, it's a choice. So that's exactly the point, right? So if you look at the program there, all right, I can give, well, let's say I can construct at C1, all right, adjust with height. If I have a bias C1 and a height of C1, C1 is got, the value of C1 is height, sorry. I know that if I don't forget about this, if I look at the program, this is one possibility, but I also have coin, C1, and then I can have the other thing will be bias. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5546.13,
+    "end": 5580.21,
+    "speaker": 3,
+    "text": "Actually, yes, I have a bias C1, coin C1, and now I have value C1 tail. So my program at the beginning has got these two different answer sets. But I wanted to have that as an abducted solution. So that will tell me whenever I have a bias, right? So if I have a bias in one, it will be true in all of them. All right? So the not C1 with head has to be false. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5580.23,
+    "end": 5612.99,
+    "speaker": 3,
+    "text": "Right? Because if it is true, then the constraint is satisfied. Right? So value C has to be true for that to be false. So this one, which has got tail, will clearly not be necessary. All right? Because it will not allow that to be a solution. So then what positive example I can construct? What E plus can I put here? I can put, for instance, a value, I can put a value C1 hat, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5613.59,
+    "end": 5653.12,
+    "speaker": 3,
+    "text": "Or I can put a value C1 hat in the positive, and I can put in the negative what? And I can also put a coin C1, right? And I can do that, all right? I can put all these things in a positive thing. And then in the negative example, I can put the value C1 tail, because I know this is not here, all right? So, but if I have this as a positive example now, and this is a negative example, all right, would really this program be the optimal solution? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5655.77,
+    "end": 5688.32,
+    "speaker": 3,
+    "text": "Is there another program that I can learn that will be smaller? So I can actually pick, I can actually, so if I give this as a positive example, this is a negative example, right? What program, so this is my bigger knowledge. This is my positive example, negative example. What program, yeah? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5688.44,
+    "end": 5728.4,
+    "speaker": 3,
+    "text": "Okay. Yeah. So, it says I can actually, basically what happens, I can actually have a program which is just the empty program. And that would be the most compressed one. Because really, if I have this has to be covered, this has to be covered. So this doesn't have to be covered. So by giving them, so when I, basically the point of what it is, when you put the constraints, the constraints cut out answer sets. It doesn't add answer sets. So if the answer set that you were going to get by day-to-day rule is one of the answer set of the background knowledge already, so the empty set, the empty hypothesis is sufficient. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5729.42,
+    "end": 5759.84,
+    "speaker": 3,
+    "text": "Because it will already be there, right? So we'll already be part of the answer site. So there's no way that you can use a brave induction to learn hard constraints. So we cannot use a cautious induction to learn choice, and we cannot use a brave induction to learn hard constraints. Because when I want to learn about constraints, I want to do something that cuts out answer sets. My brave induction always talk about what can be true or false. We never talk about what should not be true in some answer sets, right? ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5760.38,
+    "end": 5791.34,
+    "speaker": 3,
+    "text": "So the two things are not compatible with each other. Okay? I can see that you're a bit tired here. So maybe I'll stop here and I'll go back on Monday on this again, right? So to let you think. So think about this. We can cover on Monday again this part. So we are doing tutorial on that on Monday. And then we are doing learning both, right? The most general learning system on Monday together. Okay? All right. Let's stop now because I think it's a bit too long for you. I can see that we are all a bit tired. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 5791.44,
+    "end": 5825.84,
+    "speaker": 3,
+    "text": "You're not following anymore. It's no point. OK, so I think, guys, try to practice with Klingon. Try to do this kind of exercise, because when you get familiar, the more you do it, the more you practice, the more you get familiar with it, right? OK. Alright, so we are going to have two hours on Monday and a tutorial and a one hour lecture and then it's going to be another lecture on Thursday with a tutorial and by the end of next week we'll finish all the content that you need to know for your exam. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5826.52,
+    "end": 5857.64,
+    "speaker": 3,
+    "text": "And then the week after, which is the first week of March, I thought I would give you only the two hours on Monday, but I will talk to you about the other neurosymbolic system that we have done, which is not examinable, so it's up to you. If you're interested, you can come. If you're not interested, you're overweight, overworked, It's up to you, right? So I do on Monday some two presentations. Actually, I have 13 PhD students, so I would like to give it a chance. So one of the PhD students is actually using learning from one society to learn a failure in large industrial plants. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 5858.32,
+    "end": 5889.26,
+    "speaker": 3,
+    "text": "chemical industrial plants. And we have a European project on that. So I wanted to tell him, I wanted to ask him to show you how he's doing his work, that does the simulation, collects the data from a proper chemical process, and then he uses data and he uses learning to learn the failure conditions. All right, so I think it's quite nice for you to see, to be exposed, there's no point to examine you on this stuff, but to give you a way of learning, right? So I can ask you paper and read it, but I don't like that. ",
+    "model_probability": 0.9993
+  },
+  {
+    "start": 5889.82,
+    "end": 5918.69,
+    "speaker": 3,
+    "text": "So I will ask my PhD students maybe to cover one hour on that in the first week of March. So there are going to be two examples, one of applications and another on the proper neurosymbolic, but we are going to do a neurosymbolic reinforcement learning. Right? So now we've done neuro-symbolic for classification, and now we're doing neuro-symbolic in the coursework, and then we'll see neuro-symbolic reinforcement learning. So it's an hour. I'll just give you a general seminar presentation of that. Okay? All right. Okay, guys. So that's how we're going to finish the course. ",
+    "model_probability": 0.9964
+  },
+  {
+    "start": 5932.99,
+    "end": 5934.43,
+    "speaker": 3,
+    "text": "Do you want to meet? ",
+    "model_probability": 0.6198
+  },
+  {
+    "start": 5934.45,
+    "end": 5975.19,
+    "speaker": 4,
+    "text": "Yeah, yeah, yeah. So I thought, actually, I was about to ask you, don't go, because you're sending an email back in so many ways. So remind me your name. Sam Yong, Sam. Sam, Sam. OK, so let's see. I think we need to do pretty soon, because you need to put a research date, right? There's a deadline sometimes. Appointed in Ontario, it's April 15th. Oh, okay, see everyone. Okay, fine. So when do you want to meet next week? Wednesday. Wednesday? Yeah. So I can do Wednesday. I don't show you my agenda. Today is what? Today is 16th. Wednesday will be 25th, right? I've got... ",
+    "model_probability": 0.005
+  },
+  {
+    "start": 5990.21,
+    "end": 6074.6,
+    "speaker": 4,
+    "text": "Is it 25th of February? Next Wednesday. What's the date today? Oh, today's the 19th. Yeah, yeah, yeah. 25th. So I have actually a cancellation. I could do 11 to 12. Do you have lunch at that? No, no, no. Okay, Sam, done. So I'll send you an invitation. Actually, can you type your email? Yeah, yeah. So I didn't want to do that. Yeah? I have a question. Yes, on the subject or on the post-work? Yeah, on the subject. Oh, no, okay. I just didn't understand what you said. Ah, okay. Okay, okay. I need to go. But I think it would be different. Really? Yeah. Okay, okay, okay. What is the kind that you're asking me about? Okay, I'll send you the email on that. 11 o'clock we can meet I need to be in self-consent, so my office, my hot desk office is 573 on the fifth floor. ",
+    "model_probability": 0.0017
+  },
+  {
+    "start": 6075.22,
+    "end": 6079.68,
+    "speaker": 4,
+    "text": "Right? But I'll send you the email. Thank you. Okay? See you. Okay, so. ",
+    "model_probability": 0.0009
+  },
+  {
+    "start": 6092.59,
+    "end": 6107.91,
+    "speaker": 2,
+    "text": "In this answer, for example, answer like this, we should start with some people and then I think there is no way Can we go back to the first question? ",
+    "model_probability": 0.0127
+  },
+  {
+    "start": 6108.29,
+    "end": 6134.23,
+    "speaker": 4,
+    "text": "So the first question is, what's really falling on the road? This is a new, but what is asking you to construct the answer side? Okay, the grounding of that. Okay, so let's go here, let's put it together. So if you have, and then we can get, let me get the, yeah. I know that. That is why... ",
+    "model_probability": 0.0048
+  },
+  {
+    "start": 6134.31,
+    "end": 6150.52,
+    "speaker": 2,
+    "text": "I understand what he said, but in some sense... Okay, so that's what... So you have a P... All of these... Yeah. Yeah, so if I have... ",
+    "model_probability": 0.0155
+  },
+  {
+    "start": 6150.76,
+    "end": 6196.51,
+    "speaker": 4,
+    "text": "If I have a P is Q, what is that one? Q is P. Q is P. That's my program. I need to construct... The important bit is the level of grounding. So you start from the facts. You don't have facts? No. So I'm going to put facts. But I can try to put these rules in the letter down. But the condition for putting a rule in the level of gravity is that you look at the positive of the conditions, the positive atoms here, and in here there must be already a rule that I created in the previous iteration of the level of gravity that has got this positive condition as a height atom. ",
+    "model_probability": 0.0143
+  },
+  {
+    "start": 6199.24,
+    "end": 6311.45,
+    "speaker": 4,
+    "text": "So if I have, for instance, let me give you an example. If I have, for instance, this rule. What can I put in the left-hand area? This is the first thing you're going to do. D. Which of these can I put down here? So you go here and you say, okay, what are the possible conditions here? Do I have a rule here which is Q in the hand? No, so I cannot do this. I go down here. What is the possible condition of P? Do I have a rule which is God? Yes. So then I can put down Q in P. Now, I'm going to Q here, alright, so this is an imperative process. So you go back again. Is anything that you can put in there? Right? Can I put this down there? Yes. So this becomes a value. Right? So this is now, so the level going into this is the programming side. Okay? Now, let's remove B, and let's do the same process. Right? So, do I have a fact? No. So I go back here and I say, look at the positive conditions. This is only one, Q. Is there a rule here which has got Q in the hat? No, so I cannot put this in the hat. So I look at this condition, at this rule, it's P. Is there a rule here which has got the P in the hat? No. So what is the relevant graph? The empty cell, right? It's the empty cell. Okay? Essentially, this is the mechanism, intuitively, these rules are true, and fire, the level of counting means it's only just a rule that they will fire, it will be satisfied. Because I don't know about P, and because I don't know about Q, then there's no way I can fire these rules. So the smallest possible things that can be true or false to satisfy this program, the smallest answer set will be just the empty set. ",
+    "model_probability": 0.0047
+  },
+  {
+    "start": 6312.93,
+    "end": 6362.72,
+    "speaker": 4,
+    "text": "Right? Because if P is false, if Q is false, this rule is true. So the other program is P if not Q. If Q is not, if P. If P. Okay. So let's do the one we have here. Do you want to have a fact? No. Let's go here. Can I add to this rule here? Why? The condition is only the positive body at all. Only the positive condition. Yeah, any rule that doesn't have positive condition, because this eventually can be useful, because this might get defeated. ",
+    "model_probability": 0.004
+  },
+  {
+    "start": 6363.12,
+    "end": 6394.03,
+    "speaker": 4,
+    "text": "So you're checking the positive condition. Because it's no positive condition, And the way to make this relevant, you have to check all positive atoms have to have something here with a header which is called a positive repetition. Here, because I have none, the for all is automatically dissatisfied, so this gets added. And if you had S? Perfect. Exactly. Okay? So now I got this, so I can add this there. Right? ",
+    "model_probability": 0.0026
+  },
+  {
+    "start": 6394.25,
+    "end": 6430.83,
+    "speaker": 4,
+    "text": "I can add the P if you want to. So I have the, can I add this? If it's X, I can add this, right? So the relevant grounding with this is the problem itself. And now we pick an X. So the X that the exercise was given was what? Was P. P is one possible X. That's, in the exercises given, when you want to construct an exercise, you have to start to guess. ",
+    "model_probability": 0.0113
+  },
+  {
+    "start": 6433.66,
+    "end": 6464.25,
+    "speaker": 4,
+    "text": "If I have p, then what happens here with this program? If I have just p, now I have a relevant program, I have this, and I have to construct what is called the redact, suppose this program is pi, I have to construct the redact, so pi will respect to this interpretation, that's how we write it. And then it needs modifying this program, Because we are understanding what is true or false of the negation and failure part only. Right? ",
+    "model_probability": 0.0064
+  },
+  {
+    "start": 6464.75,
+    "end": 6495.17,
+    "speaker": 4,
+    "text": "So then, that's what the didactyl does. It has formed this program into another program that will not have negation and failure anymore. Right? Because you evaluate all the negation and failure in this particular set that you're picking. Okay? So here we are having the Q is false. Because we're picking a P. So if Q is false, then no Q is what? True. So this, it becomes 11, you know? So the redact, we have just p, right? ",
+    "model_probability": 0.0108
+  },
+  {
+    "start": 6496.57,
+    "end": 6528.36,
+    "speaker": 4,
+    "text": "And we also have q if p. Because here doesn't have negation spread, so it gets in the main TCP. Now, this is a program without negation spread anymore. What is the least high ground model, the minimum model of this program? What is the model, p has to be true, And then because p is true, q must be true. So the minimum model is p and q. But my x was p. So is this an answer set? ",
+    "model_probability": 0.005
+  },
+  {
+    "start": 6529.62,
+    "end": 6536.56,
+    "speaker": 2,
+    "text": "So that's not an answer set. No. ",
+    "model_probability": 0.0014
+  },
+  {
+    "start": 6536.64,
+    "end": 6568.62,
+    "speaker": 4,
+    "text": "Actually, let's look at whether this is an answer set. If my x was now p and q, p is true, what would happen here? You see the problem where it is, because now I have Q, no Q is forced, so this gets deleted. Right? And here, this remains the same. So the redact of this problem with respect to this set now is just Q if P. And what is the minimum log of this? Empty set. ",
+    "model_probability": 0.0054
+  },
+  {
+    "start": 6568.72,
+    "end": 6601.67,
+    "speaker": 4,
+    "text": "Brown. So empty set is not this. This is not the answer. Okay? Okay? Does that make sense? Yeah. Because what is the smallest number of positive atoms or atoms that have to be true so that this rule is satisfied? So in fact, I can have a P, but if I have P and E, I need to have Q. So there's one possible interpretation, it's P and Q, right? But I can also have just P force, right? ",
+    "model_probability": 0.0077
+  },
+  {
+    "start": 6602.43,
+    "end": 6661.72,
+    "speaker": 4,
+    "text": "And then I can have just Q, right? Oh, I can have the empty set. Because in fact, if P is false, A can be. Exactly. If that's the smallest. The answer set is always the smallest number of possible outputs that lead to the idea. Okay? So I will never give you this because it is this one. Okay? Is it clear? Yeah. Okay. Yeah. Yeah. I'm so sorry, you don't have to tell me, maybe because of the microphone. Okay, so what we should do, maybe if you remain here, there isn't a course, I mean, are you going to see? Yes, yes. Okay, so you can actually, the best thing to do would be to, I can see things recorded for the museum, and then I can also check, We can also book an hour. Oh, okay. ",
+    "model_probability": 0.0017
+  },
+  {
+    "start": 6661.74,
+    "end": 6694.22,
+    "speaker": 4,
+    "text": "You can come and we can sit down together. Thank you. Are you okay? Lead to the notes. Yeah, let's do that, right? So we could meet. Okay, I could meet you. I want to do as soon as possible for you so you have time for the coursework. I could meet you, what is this, Monday at 4 o'clock after the lecture. I would love to. I'm away Monday and Tuesday. Ah, you're away Monday and Tuesday. So we'll have to build Wednesday. Oh, Wednesday's bad. ",
+    "model_probability": 0.0097
+  },
+  {
+    "start": 6694.92,
+    "end": 6710.36,
+    "speaker": 2,
+    "text": "Why don't I email you? I'll go through it properly. Yes. I can make a list of questions. Let's do that. In the meantime, I'll try to find out how to opt out from my previous registration. Thank you. Yes, so stop me after that. Any other questions? ",
+    "model_probability": 0.0181
+  },
+  {
+    "start": 6729.09,
+    "end": 6742.88,
+    "speaker": 1,
+    "text": "Oh, my question was for the previous lecture. I was 10 minutes late, so I couldn't just read it. And my question was, how do I work for the examples when we have a tutorial, right? ",
+    "model_probability": 0.0958
+  },
+  {
+    "start": 6742.92,
+    "end": 6761.07,
+    "speaker": 4,
+    "text": "OK. I didn't put the tutorial there, because the first part, the tutorial would have to be programming. So we're going to be enough. But it's very simple. Because the first part, we just write the names. And you know this. And it's actually what we ask you to write. And then all the other parts. ",
+    "model_probability": 0.0981
+  },
+  {
+    "start": 6771.09,
+    "end": 6803.87,
+    "speaker": 4,
+    "text": "We ask you to write code, but we give you a lot of code already. So really, if you understand the code fully, there is a lot there that you can just write. So it's a pure algorithmic thing. So the only lecture which is important, you know, when you would ask to calculate the gradient, you don't have to implement the gradient with that feeling of learning the lecture. There is already a function there. Right? So there is a lot in the big hand already. So that's the reason why we gave you the tutorial. ",
+    "model_probability": 0.0952
+  },
+  {
+    "start": 6804.07,
+    "end": 6836.71,
+    "speaker": 4,
+    "text": "So it's really conceptually, how can you, you know, As Philip said in the presentation, the purpose of this coursework is, suppose that you are a programmer and you're given a code, a GitHub, and now you need, one, to understand the GitHub to make another slightly different version of that, and two, you need to understand what that employee calls if you do certain changes to the code. So it's really that. It's not, we're not asking you to implement the different variants between us. ",
+    "model_probability": 0.0985
+  },
+  {
+    "start": 6836.79,
+    "end": 6869.32,
+    "speaker": 4,
+    "text": "That would be not fair. So in the exam, just like small code? The exam, the neurosymbolic part, the neurosymbolic part will not be examined. Oh, okay, sorry. Okay, okay. It's only the coursework. Oh, because this is what I was, I was like 10 minutes late, so maybe I missed something. No, no, no. The neurosymbolic is not examined. Okay, okay. So I will tell you at the end of the course, I will put the slide with all the top people that I examined. Thank you so much. Bye-bye. Bye-bye. Yes. Hi. My question is about the last call. Yes. ",
+    "model_probability": 0.0761
+  },
+  {
+    "start": 6881.24,
+    "end": 6910.23,
+    "speaker": 5,
+    "text": "Yeah, but why can't we just, like, develop an algorithm to, like, integrate all of this, but rather put them, like, encode them into What do you mean by encoding? Because that's what does what does. So what is your definition? Like we can develop an algorithm to generate all possible hypotheses. Yeah. Yeah. ",
+    "model_probability": 0.0996
+  },
+  {
+    "start": 6910.47,
+    "end": 6979.41,
+    "speaker": 4,
+    "text": "And we can like... Test which one is true or false. Yeah. Yeah, I mean, that would be a generated test mechanism, which is also, in a sense, what you're saying, it doesn't have a negative problem, because we don't need to eliminate everything, but it is, so that solves the problem. However, if you generate a test, and you have, let's say, 100 rules, a possible solution is an element of the power sequence. So if I have it in my hypothesis, that's it. The learning the next week does something a bit more clever than I thought. Because if I have a, if my search space M will give me a set of rules, right, with J, and these are J is between, let's say, T or F1, right? Or J to F1. So I have a hundred possible rules here in this language class. When I learn an H, an H is not just one rule. An H can be a combination of rules, a set of rules. ",
+    "model_probability": 0.0854
+  },
+  {
+    "start": 6980.13,
+    "end": 7010.78,
+    "speaker": 4,
+    "text": "So a solution is always an element of the power set of your search space. So if I have a hundred possible rules, a solution is an element of the powers of momentum. So basically, the possible solution, the set of possible h's, has got the cardinality 2 to the power of 100. Right? So if you generate a test here, you've got a lot of things. ",
+    "model_probability": 0.0967
+  },
+  {
+    "start": 7012.1,
+    "end": 7049.22,
+    "speaker": 4,
+    "text": "So time-wise, it's efficient. It's efficient memory-wise, because you don't need to iterate everything, but it's an inefficient time-wise. So what the new system do, I ask that we look in the next week, it is similar to spam, but it's got a clever way of rather than enumerating everything in one row, there's a way of rather than enumerating and doing just one abduction, it's got an algorithm iteratively that picks examples and learn what kind of rule, what type of rules will be good, what type of rules will be bad, and it starts proving things out. ",
+    "model_probability": 0.0972
+  },
+  {
+    "start": 7049.98,
+    "end": 7093.63,
+    "speaker": 4,
+    "text": "So it's got different methods. So it's not just with a span, you have a one-step computation. You write everything, then you call ASP. When I ask, there is an algorithm, and each iteration calls an ASP. But the ASP software, in each iteration, uses a slightly different program. It will modify the top field each time. So it's not exactly like you're saying, you generate a new test, you generate a new test, a new combination, by cleverly understanding if I learn a particular program like that, what examples I cover, what I don't cover, so then I need another kind of program to prove this other type, another type of, you understand what I'm saying? ",
+    "model_probability": 0.0945
+  },
+  {
+    "start": 7093.67,
+    "end": 7124.44,
+    "speaker": 4,
+    "text": "So it looks at the coverage, at each iteration, and understand that what type of rules do you need, and what type of rules you do not need. Right? So, and it learns all these constraints during the learning. And these constraints helps pruning and modifying the top field, if you like. Right? And that is very efficient. Because you can even prune the data. Right? Does that answer your question? There is a lot that can be done in research. ",
+    "model_probability": 0.0953
+  },
+  {
+    "start": 7125.14,
+    "end": 7158.33,
+    "speaker": 4,
+    "text": "on how we make efficient integrations of symbolic neural systems. A lot. So the system that we've done at IASP, 2018-19, now it's got its own copy. So it works in a high-risk position, because it's in fact in a level within those 20 months. So, and again, the company is developing better and better and better versions of the system. ",
+    "model_probability": 0.0931
+  },
+  {
+    "start": 7158.37,
+    "end": 7183.27,
+    "speaker": 4,
+    "text": "So, I think there is a lot of . But what you're saying is generating a rule and testing it is not efficient because you have many, many, many combinations. So, you can literally make the test . What you need to try to understand is what combinations are actually Right, does that make sense? Yeah? And then the moment is that we compare. ",
+    "model_probability": 0.0861
+  }
+]

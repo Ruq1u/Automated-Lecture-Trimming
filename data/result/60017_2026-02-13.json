@@ -1,0 +1,1199 @@
+[
+  {
+    "start": 330.37,
+    "end": 347.31,
+    "speaker": 0,
+    "text": "Sorry, but it seems that the local copy on the machines keeps resetting. I don't know why. We will have to wait for a minute for this to download. Let's see if I can do it online. At least I know it. ",
+    "model_probability": 0.168
+  },
+  {
+    "start": 389.37,
+    "end": 397.31,
+    "speaker": 0,
+    "text": "OK. It seems we can use the online copy. Let's see. It's working. ",
+    "model_probability": 0.1339
+  },
+  {
+    "start": 440.44,
+    "end": 448.33,
+    "speaker": 0,
+    "text": "OK. So let's see. Let's get back to it. ",
+    "model_probability": 0.1412
+  },
+  {
+    "start": 463.27,
+    "end": 500.25,
+    "speaker": 0,
+    "text": "We last talked. about the refresher on cache coherency on one day, right? And to show how this can affect, how this is not sufficient, and why we need atomic operations, right? OK. OK, it seems that there's some problem with the machine. ",
+    "model_probability": 0.4115
+  },
+  {
+    "start": 512.17,
+    "end": 513.59,
+    "speaker": 0,
+    "text": "Oh, all of it is frozen. OK. ",
+    "model_probability": 0.4077
+  },
+  {
+    "start": 528.67,
+    "end": 595.0,
+    "speaker": 0,
+    "text": "OK, since I'll have to use the keyboard. And this is essentially because internally, even though we have cache concurrency, what is happening inside the processor is this. We load memory. We increment into a register. We load the register. And then we store that. So we need some way of doing this atomically. That's why what we last spoke about is having atomic operations. And the way in which we achieve that is by adding this additional state of locked. So essentially, this abstract atomic start operation that I showed up here, that I showed up here, this is set the locked on the others that I'm going to read. Of course, that's not real assembly. That's just so. abstract example. But essentially, we put the cache line into log state. ",
+    "model_probability": 0.9775
+  },
+  {
+    "start": 595.54,
+    "end": 625.54,
+    "speaker": 0,
+    "text": "We're the first two to get there. We get into log state. And from there on, we can do whatever we want. And we have a warranty from the cache coherency protocol that nobody else can access that cache line, either to read it, to write into it, or to lock it. So essentially, lock means it's exclusive. In some cases, instead of this lock state, what you will see is exclusive. ",
+    "model_probability": 0.9898
+  },
+  {
+    "start": 626.04,
+    "end": 679.01,
+    "speaker": 0,
+    "text": "Exclusive stands for exactly the same. Then of course, if it's locked, it means that whoever else is trying to access it in whichever way will have to wait. And that's part of the... It's the blessing and the curse of atomic operations. It means that we can do this safely. So an application without correctness, it doesn't matter how fast it goes if the result is incorrect, right? So we definitely want correctness. That's why we need atomics. But what we pay in exchange is performance because there's all this waiting here. If we are all trying to access the same cache line, we are going to have to wait each other's to release that lock or to release the exclusive state. Any questions on atomics? No? ",
+    "model_probability": 0.9962
+  },
+  {
+    "start": 679.29,
+    "end": 681.69,
+    "speaker": 0,
+    "text": "All right. So we looked at the example. ",
+    "model_probability": 0.9613
+  },
+  {
+    "start": 681.79,
+    "end": 691.9,
+    "speaker": 1,
+    "text": "And then just by doing this, which is a some helper data structure in SQL class to do exactly those atomic operations. ",
+    "model_probability": 0.9952
+  },
+  {
+    "start": 692.03,
+    "end": 723.93,
+    "speaker": 0,
+    "text": "We see that now we have correctness. And as I said, there's many instructions in a processor, in an ISA, whether it's Intel, AMD, or PowerPC, or any other, that are used to perform atomic operations. They are specialized in different ways. they all have something in common, which is that they perform this with some brief of this, the compare and swap. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 724.09,
+    "end": 754.92,
+    "speaker": 0,
+    "text": "That's why compare and swap is known as a universal atomic operation. We can do anything we want just through this atomic compare and swap. There were some questions last Monday about compare and swap. Is everyone clear about how it works? Did everyone understand how doing this check and store atomically helps us do an atomic increment? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 756.22,
+    "end": 789.47,
+    "speaker": 0,
+    "text": "Yes? OK. I had added some slides to help explain this in terms of log state. For some reason, the system is malfunctioning. And online slide deck editor just ate my added slides. So we'll have to stay with those slides that I had previously. So OK, atomics are necessary, but they are not sufficient. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 789.67,
+    "end": 845.55,
+    "speaker": 0,
+    "text": "That's what we were heading into when we stopped last time on Monday. And this is the example that we looked at. If we want to perform atomically operations on more than one variable, the atomic compare and swap is not sufficient anymore. Because an atomic compare and swap works at a single crash level. This is multiple crash lines, most probably, because these variables will be on different crash lines. There's a caveat. This is not examinable content, but you could imagine, and some people have done that, a wall in which these two variables are stored. You force them to be on the same cache line, and therefore you could use a single compare and swap to operate on both variables atomically at the same time. I'm not going to look at that. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 845.58,
+    "end": 878.25,
+    "speaker": 0,
+    "text": "But it is technically possible. If you think about it, if it's on the same cache line, the cache coherency doesn't know anything about variables. It just knows about cache lines. If both variables are on the same cache line, as far as the cache coherency protocol is concerned, you're good. But generally, these are going to be on different cache lines. And therefore, compare and swap these functions. That's why what we need are what is typically called critical sections. We already looked at the example. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 878.29,
+    "end": 913.15,
+    "speaker": 0,
+    "text": "Is there any questions so far? Trying to bring everyone back into the mental space for this. So a critical section is implemented in using the same atomic compare and swap. But now instead of incrementing a counter, what we can have is a variable that tells us Is the critical section empty? Is there any thread inside or not? So we atomically compare and swap going from open critical section to closed critical section, or somebody entered versus nobody entered. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 914.09,
+    "end": 963.51,
+    "speaker": 0,
+    "text": "And we implement it in exactly the same way using compare and swap. And when we implement it, we are going to see that in the tutorial. We are going to do the tutorial next Monday. So please, if you can't bring your laptops, because we are going to work together implementing some algorithms, some simple algorithms for synchronization using Atomics. And the one main rule for a critical section is that all the threads that are related to the critical section that you have to think of a critical section as this entity that protects very different pieces of code that you want to all of them have synchronized access to. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 964.43,
+    "end": 1055.99,
+    "speaker": 0,
+    "text": "All those related critical sections must enter an exit when you're changing the variable for the same atomic variable. If you have two different pieces of code, for example, one is, I don't know, counting the beams that we were saying here and checking how many beams are in the room. And another piece of your code deals with some and some other data structure doing accesses to this, which is completely unrelated to this, you don't want to be using the same atomic variable to control access to all the critical sections because, well, only one thread can be inside at a time, and you would be preventing other threads from doing I-O while you are, while a link is entering a loop. And those things do not need to be synchronized. in this example. And therefore, we should use separate atomic variables. So in that case, we just create all these various different atomic variables and carefully . Now, take into account that this needs to be accessed. Of course, only one thread can be inside this bit. And only one thread can be inside this bit if nobody is here on the other ones. So these two functions need to be synchronized using the same critical section. Because we don't want to be able to read the state of the groove while the state of the groove is being updated. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 1057.13,
+    "end": 1092.85,
+    "speaker": 0,
+    "text": "So in this case, we would have to use the same atomic wire That's this enter CS1. This enter critical section one, which means do an atomic operation to update the CS entered atomic variable. And in this case, this needs to be the same atomic variable. That's exactly what we are going to look at on the tutorial. Because if you look at it, if we have this in a critical section, we will provide this functionality correctly, the updates. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 1093.54,
+    "end": 1178.81,
+    "speaker": 0,
+    "text": "But if we don't put the reads of the variables inside the same critical section, we would be able to read anywhere in between and get an invalid result. So by putting this with the same critical section, protect it with the same critical section, we are only able to read on the red lines, which are where all the threads are inside the critical section. Yeah? So the flag CS entered should be variable It needs to be a variable that they are all of the threads that want to use a critical section able to access. Typically, this means that it's a global variable, yes. It could be something that you allocate and you pass it to the thread when you start the thread. That's also possible. It doesn't necessarily have to be global. Typically, global is the easiest way and the typical way of doing it. The point is that all threats must have visibility. Yes, exactly. If a threat doesn't have visibility to the atomic variable that is used to enforce that critical section, it just cannot participate in the game of the critical section, right? Any other questions? So this brings us to synchronization, which is exactly where we start. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 1178.85,
+    "end": 1210.13,
+    "speaker": 0,
+    "text": "So atomics are great. Critical sections are great. But then when we build applications, we typically will need more sophisticated primitives. And essentially, we need to synchronize. Synchronize is nothing else but a sophisticated form of communication. When two threads are synchronizing, they are essentially communicating to give each other a way to a specific piece of code. They aren't just using communication through a cache coherency protocol on a shared atomic variable. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 1210.91,
+    "end": 1245.09,
+    "speaker": 0,
+    "text": "And they communicate to agree who goes in and who waits until the critical section is completed. But we have other ways. Logs and multi-muses, as you should know from previous classes, that's the way in which we implement these critical sections. There's a few different data structures in C++. You can look at their other definitions if you are interested. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 1245.79,
+    "end": 1277.57,
+    "speaker": 0,
+    "text": "If you go back to this slide that I had here in C++, if you go into this link, all of these various... synchronization structures you can reach them from from this page on cpp reference um so i'm not going to dive very deeply uh then we have several of course how many of you know what the semaphore is i've seen that's on one okay uh some uh I'm not going to go much into it. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 1277.61,
+    "end": 1309.61,
+    "speaker": 0,
+    "text": "But essentially, instead of only one thread can be inside, n threads can be inside, right? And, well, we just need to implement it using atomic slightly differently than a critical section. Because critical section is, is somebody in or not? So a Boolean is enough. Semaphore needs to be in some form of counter that we can have up to n threads inside. Now, an interesting one is a shared log, how many of you know what a shared log is. Fewer. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 1310.09,
+    "end": 1345.48,
+    "speaker": 0,
+    "text": "OK. This one, interesting case, I'm going to show you later. But it's a variation of a log, OK, or matrix. And then we have condition variables and barriers, which are more sophisticated. We are not going to spend much time on looking at them. If you're interested, you can. And should check, because if you write something concurrently, you will eventually . The goal is not for you to understand all the details of each one of those. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 1345.8,
+    "end": 1377.71,
+    "speaker": 0,
+    "text": "These I'm going to assume that you should be able to reason about them based on the basics that we showed here of how to use atomics. But please look into what the semantics are so that you should understand enough to build any of these yourself. So here's the example that we have. In this case, we have enter CS1, exit CS1, and then the other function within the state is enter CS1 and exit CS1. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1378.94,
+    "end": 1434.81,
+    "speaker": 0,
+    "text": "In this case, we would typically implement this with a lock, with a STD mutex. And then from STD mutex, we lock it with an STD unique lock. Essentially, that's the entering part. STD mutex is the global variable. Instead of STD atomic, we use STD mutex. And to acquire and release that lock, we use this infrastructure here, the unique lock or the lock mark, which works like this. We're going to use that interchangeably. But the main idea is that they implement the semantics that I was saying. Now, if you look carefully, you will see that, indeed, we should only let one thread be inside this function at a time. Because if multiple threads can come in and increment this, the results will be inconsistent and potentially incorrect, because these are not STD atomics anymore. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1436.7,
+    "end": 1472.18,
+    "speaker": 0,
+    "text": "So the increments are not going to be performed atomically, because we assume that there's a critical section. So if multiple threads entered, we would be back to square one, where we had non-atomic increments, where some of the increments are lost if multiple threads do it. Right? Everyone with me? OK. Now, if we look at reading the state of the room, there's no modifications here. We want to prevent. threats from reading the state of the room if somebody is changing the state of the room. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1473.0,
+    "end": 1504.48,
+    "speaker": 0,
+    "text": "But if you think about it carefully for a bit, you will realize that it's perfectly safe if multiple threats read the state of the room at the very same time. There's no safety problem in here in having multiple threats reading those variables because they are not changing Yes? I see poker faces. OK, I see a few dots. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1505.22,
+    "end": 1545.27,
+    "speaker": 0,
+    "text": "Is everyone else with me or not? Yeah? So I can have only one thread inside, but if nobody is inside this critical section, it is safe to have two threads inside this function reading at the same time if nobody is notified. Yes? OK. That's why we have shared blocks. A shared block allows us to have slightly different semantics where we say whether we are entering the critical section in exclusive mode or in shared mode. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 1546.91,
+    "end": 1581.51,
+    "speaker": 0,
+    "text": "Exclusive mode means that only one thread can be inside the critical section on any of the modes only one friend if i grab it for an exclusive i wait for everybody to be outside of the critical section and then i enter okay in shared mode i allow any number of threads to be at the same time in inside the critical section in shared mode together with me, but nobody can be in exclusive mode, because that would break the semantics of exclusive . ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 1583.27,
+    "end": 1613.71,
+    "speaker": 0,
+    "text": "So by using a shared log, we would allow only one thread to enter here. on this function, and nobody be on this function if we are inside enter group, but we would allow any number of threads to read concurrently the state of the group, because they are only grabbing it in shared state. And again, then a Boolean is not sufficient, because now we have here at the very least three states, right? ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 1614.93,
+    "end": 1651.15,
+    "speaker": 0,
+    "text": "empty taken for exclusive taken for shared probably more because shared we can have one thread in shared two threads in shared three uh three threads in shared and then we need to make sure that everyone in shared state has left before we can allow an exclusive one okay yes yep Very good question. ",
+    "model_probability": 0.996
+  },
+  {
+    "start": 1651.17,
+    "end": 1703.15,
+    "speaker": 0,
+    "text": "We're going to talk about this in a bit. So if it's not clear then, just please bring it on again. OK? Any more questions? All right. So in the second part of the code, it can be shared because no one is modifying it. They are just reading. They are just reading. It's safe to have a million threads reading the variables at the same time. But if a single thread is writing into the variables, nobody can read that until the write is done. That's why we get it in exclusive. Exclusive means that only one thread can enter here. But if exclusive is taken, nobody can enter here in shared mode. ",
+    "model_probability": 0.9961
+  },
+  {
+    "start": 1714.52,
+    "end": 1722.68,
+    "speaker": 1,
+    "text": "So if multiple threads are being shared at one, because it looks exclusive, because it wants to write all the others? ",
+    "model_probability": 0.9892
+  },
+  {
+    "start": 1722.98,
+    "end": 1754.43,
+    "speaker": 0,
+    "text": "Yes, exactly. Because if we are doing this based on the same atomic variable, which is what we are going to see in a bit now. How exactly do we do that? So I'm aware that this is very abstract, because I'm not quite writing how we do this. This is somewhat in purpose, because now we're going to look at the details of how this is implemented. Any questions on the semantics before we look at the implementation? ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 1759.03,
+    "end": 1801.1,
+    "speaker": 0,
+    "text": "So so far, I've been talking about, oh, we implement these critical sections. uh or any of these synchronization primitives using atomics so if we do that using atomics essentially what we can do is have user level code that has the implementation of these right and this is a very typical way of doing this essentially it means the simplest right we use atomic compare and swap to signal when this is acquired, when the lock is acquired, meaning a thread is inside the critical section. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 1801.56,
+    "end": 1832.0,
+    "speaker": 0,
+    "text": "So for example, we take this atomic Boolean. We move it from false to true only if it's false. So compare and swap if the value of this atomic variable critical section is false, then move it to true. Otherwise, do nothing, because it means that it's set to true by somebody else, and therefore we need to wait. So we look. So the algorithm is quite simple. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 1832.62,
+    "end": 1866.18,
+    "speaker": 0,
+    "text": "For an acquired locking entering the critical section, we look until the compare and swap goes from release state to acquired state. For example, the Boolean goes from false to true. OK? To release, to exit an atomic critical section, to release the log, we set the value of that atomic variable to release. So for example, we change the Boolean. We set it to false. And that's it. That's all that we need to implement a log, to enter and exit a log. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1866.19,
+    "end": 1909.49,
+    "speaker": 0,
+    "text": "All right? People, you will see those terms used interchangeably, enter and exit. acquire, release, block, and unlock. They all mean the same. So some interesting observations. Since we are looping on this atomic variable, trying to acquire, going from release to acquire, so from false to true, for example, if that's how we implement the log, if there's many threads that are acquiring before us and we always kind of miss the train, you're gonna waste a shit ton of time, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 1909.97,
+    "end": 1940.96,
+    "speaker": 0,
+    "text": "Just wait. Also, we have no warranties that if I arrive second, I will acquire it second. I will acquire it whenever I have the good luck of trying to do the comparison swap right when the variable is false, is set to false. There's no warranty from hardware that this will happen that we will get second turn if we start trying to do that. If we have the second turn, right? ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 1940.98,
+    "end": 1972.07,
+    "speaker": 0,
+    "text": "If we start in second. So there's cycle ways, because we are using CPU time just moving, doing nothing, waiting. Instead of that, if we knew that it's going to take a while, we could do something else useful. Switch to another thread, for example. And also, there's potential starvation or unfairness. we have no warranty that there will be some sort of fairness that threads will fall in terms of the order that they can enter the critical section. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 1972.9,
+    "end": 1991.47,
+    "speaker": 0,
+    "text": "Does everyone see that? Yeah? So how do you think, I kind of showed it a bit earlier, but how do you think we could change or solve that? Any ideas? ",
+    "model_probability": 0.999
+  },
+  {
+    "start": 1992.49,
+    "end": 1997.61,
+    "speaker": 1,
+    "text": "Yeah? Yes, we need some mechanism to ensure that fairness. ",
+    "model_probability": 0.9728
+  },
+  {
+    "start": 2020.78,
+    "end": 2051.38,
+    "speaker": 0,
+    "text": "one thing we would have think about it does how does the operating system do that how does the operating system ensure fairness and where in terms of cpu time the scheduler it has a list right and the way in which we prevent implement this list takes I mean, there's many different possible implementations. Some of them do take fairness into account. ",
+    "model_probability": 0.9917
+  },
+  {
+    "start": 2051.4,
+    "end": 2057.99,
+    "speaker": 0,
+    "text": "So we could implement something like that to ensure fairness. Have some sort of list that keeps track of that fairness. ",
+    "model_probability": 0.9785
+  },
+  {
+    "start": 2060.37,
+    "end": 2072.34,
+    "speaker": 1,
+    "text": "For this, I think it's like we implement a mechanism that wakes up all the trends that are waiting such that it's like something on those lines. ",
+    "model_probability": 0.9699
+  },
+  {
+    "start": 2073.19,
+    "end": 2107.28,
+    "speaker": 0,
+    "text": "I mean, think of it from the perspective of the operating system. We cannot allow a user to do anything they want. So we need the application to tell them. So the application cannot schedule threads. It's the operating system who schedules threads in a traditional operating system, like Linux, for example. So what the next... In order to do that, what we can do is let the application know the OS, hey, schedule somebody else. ",
+    "model_probability": 0.9899
+  },
+  {
+    "start": 2107.42,
+    "end": 2164.7,
+    "speaker": 0,
+    "text": "I'm giving up the CPU. Please do something useful here. So that is why we have implementations of logs that are kernel level. So instead of doing the user level compare and swap, we just do a system call for acquire and a system call for release. OK? So what does the system call for acquire do? Well, it goes into kernel mode and does a compare and swap, essentially. It's just implemented in kernel mode, similar to what we saw for user level, using an atomic variable and compare and swap and so forth. If we fail to acquire the log, since we are already in the kernel, we can say, you know what? ",
+    "model_probability": 0.9912
+  },
+  {
+    "start": 2165.16,
+    "end": 2199.66,
+    "speaker": 0,
+    "text": "You go to sleep. I'm going to change the state of this thread that did this system call, put them into sleep, put them back into the scheduling queue, and wake up another thread that is ready to execute. Then to release a log, what I'm going to do is essentially set that atomic variable to this, and then check, is any thread waiting for this log? If they are, I will wake up, of those who are waiting for the log, I will wake up the first. ",
+    "model_probability": 0.9964
+  },
+  {
+    "start": 2200.34,
+    "end": 2233.54,
+    "speaker": 0,
+    "text": "I mean, I could wake up all, or the first, or a random one. Many different policies are possible, but typically we would want to provide some form of fairness, and therefore wake up the first one that we're just waiting for. And this way, we can ensure this ordering more or less. The problem is that this is strictly more expensive, because in user level, we only do a compare and swap, as we saw. ",
+    "model_probability": 0.997
+  },
+  {
+    "start": 2234.02,
+    "end": 2264.86,
+    "speaker": 0,
+    "text": "And if we do the kernel level implementation, we do the same compare and swap, because we have to do it anyway, plus a system call, which is expensive. Because a compare and swap is just one single instruction that does an atomic compare and swap. That's part of the processor, I'd say. If we do a system call, well, a system call in itself, the instruction is expensive. We go into the kernel. save from registers, do some assembly code that brings us into a C function that is the one that implements the log. ",
+    "model_probability": 0.9918
+  },
+  {
+    "start": 2265.3,
+    "end": 2295.4,
+    "speaker": 0,
+    "text": "Those of you who have done Pintos, you know what it takes to enter and exit kernel. There's quite a substantial amount of code. involved in that. For those of you who are coming for an MSC into this, the operating systems lab project we do here, I'm assuming that you did something similar, where you implemented some portions of an OS kernel. Any questions? ",
+    "model_probability": 0.9888
+  },
+  {
+    "start": 2302.95,
+    "end": 2315.26,
+    "speaker": 1,
+    "text": "Is there some sort of priority to the scheduling, or is it just as an except for the first conference or anything? In terms of like, tasks and stuff at much earlier deadlines, for example. ",
+    "model_probability": 0.2372
+  },
+  {
+    "start": 2317.74,
+    "end": 2344.48,
+    "speaker": 0,
+    "text": "Okay, that's a good but quite complex question to answer. So let's unpack it. What kind of firmness are we talking about here? Because there's firmness on complex CPU time applications, yeah. And then there's firmness in terms of starvation. If I get second to get the log, I don't want to be waiting for the log forever while others get ahead of me on the log, right? ",
+    "model_probability": 0.9074
+  },
+  {
+    "start": 2371.28,
+    "end": 2411.95,
+    "speaker": 0,
+    "text": "A priority scheduler, a dynamic priority scheduler would provide fairness or an approximation, right? If we want some form of fairness in acquiring the log, meaning we want to avoid the starvation problem that we have with the user log implementation, this means that when we go to sleep, when we put a thread to sleep on trying to acquire the log, we don't just set it to sleep state and put it into the scheduler queue. We also will have, and this is what Linux does, for example, a list of friends, an ordered list by time of arrival, of friends waiting for that one time. ",
+    "model_probability": 0.3928
+  },
+  {
+    "start": 2413.43,
+    "end": 2445.34,
+    "speaker": 0,
+    "text": "So that when we release the log, we check that list, and we have those on the list in the order in which they are stored. So that we ensure or enforce this sort of first-on-first-served policy. That's what Linux does. It's not the only way we could do it, but it's one that ensures that fairness. You have a bit of a poker face. ",
+    "model_probability": 0.1054
+  },
+  {
+    "start": 2445.4,
+    "end": 2478.51,
+    "speaker": 0,
+    "text": "I'm not sure what that means. It makes sense. So essentially, we need to keep a sort of list that is first to enforce the first compression. Any more questions on the kernel-level implementation? OK. So what if I tell you, so we have one con here, right, which is performance. ",
+    "model_probability": 0.1029
+  },
+  {
+    "start": 2478.59,
+    "end": 2544.1,
+    "speaker": 0,
+    "text": "It's expensive. How do we solve that? What do you think we could do to address that? How do we make acquiring through the kernel cheap? Essentially, how do we get rid of the system problem? All right. The trick is, we don't do a system level. Which kind of means we go back to user level, right? So we need both. That's exactly what most systems do. They do a hybrid implementation. We look for a few iterations in user level, doing the compare and swap in a hybrid. If we fail for too long, for some configurable amount of too long, then we go into the kernel and say, look, this is taking too long. ",
+    "model_probability": 0.1064
+  },
+  {
+    "start": 2544.78,
+    "end": 2579.76,
+    "speaker": 0,
+    "text": "I want to wait on this long. Make it fair, and wake me up. OK? That's exactly what the Futex system code release does. So typically, if you use a threading library, you will have pthread mutexes or std mutex in C++. pthread mutex will be the same. And the implementation of this mutex does this. ",
+    "model_probability": 0.1723
+  },
+  {
+    "start": 2579.88,
+    "end": 2615.39,
+    "speaker": 0,
+    "text": "It loops on the user level, and once it fails, there's a system called mutex, which stands for fast user mode mutex. or fast mutex, I don't remember. And it's the kernel side of the story. I fail, then I call this syscall, and this syscall is the kernel side part of the acquired code. So we just need to look for a while, and then do the syscall. Hopefully, just looking for a few times is enough that we can acquire the user level before doing the syscall. ",
+    "model_probability": 0.2238
+  },
+  {
+    "start": 2615.41,
+    "end": 2661.78,
+    "speaker": 0,
+    "text": "So for logs, then. usually are free when we want to acquire them. We want to go into the kernel. For logs that everyone is trying to acquire all the time, there's a lot of contention. Most of the time, we will find out that that log is occupied for a long time. And then we will go into kernel mode and sleep. Which is fine, right? If we know that we are going to spend a lot of time moving uselessly, we want to go into kernel mode. And we are going to achieve that with this. If you're interested in seeing what this looks like, the implementation of this function in the C library shows this looping for a fixed number of iterations and then . ",
+    "model_probability": 0.6826
+  },
+  {
+    "start": 2661.8,
+    "end": 2695.62,
+    "speaker": 0,
+    "text": "So you can go into this if you are interested. Interestingly, The physical notation is a bit more complicated to what I'm explaining here. Here I said, oh, you look for a fixed number of iterations and then you go into kernel. The libc implementation has a dynamic number of iterations that is calculated based on previous times I tried to acquire. So it's trying to get, if it's going to be as fast as before, and it's fast enough, I will keep trying. ",
+    "model_probability": 0.6923
+  },
+  {
+    "start": 2696.22,
+    "end": 2713.78,
+    "speaker": 0,
+    "text": "And kind of makes this number of iterations longer and shorter, depending on previous times. But anyway, those are just some fancy validation details that you can look at if you're . Any questions about this? No? All right. ",
+    "model_probability": 0.6883
+  },
+  {
+    "start": 2729.96,
+    "end": 2769.24,
+    "speaker": 0,
+    "text": "How many of you know the term fold sharing? OK. So let's talk about fold sharing. So I have an example program. Let me check what happens, because I just changed my laptop. And this one has more efficient and more cores. And I'm not sure if my example will work. I didn't have time to adapt my example. So let me see. ",
+    "model_probability": 0.8788
+  },
+  {
+    "start": 2770.02,
+    "end": 2803.86,
+    "speaker": 0,
+    "text": "So there's this program that is the same one that we saw earlier. It's this program here, just a slight variation. So let me show it to you. Let's see if I can plug this in. ",
+    "model_probability": 0.6515
+  },
+  {
+    "start": 2816.34,
+    "end": 2862.68,
+    "speaker": 0,
+    "text": "Is it? So let me make it larger. What's the name of the file? 05 . So this is just some simple program that essentially, the only bit that you really care about here is that There's some vector with a data structure that in this case is just a, oops, sorry. ",
+    "model_probability": 0.9375
+  },
+  {
+    "start": 2865.32,
+    "end": 2903.84,
+    "speaker": 0,
+    "text": "This vector with a data structure here is just a vector of numbers, really. Just fancy that in the data structure. Because typically here we would have other fields, right? in a more complex application. And all we do is something similar to what we showed in the previous example, where we have a number of threads that we launch. And then these threads start incrementing elements in this vector. ",
+    "model_probability": 0.9911
+  },
+  {
+    "start": 2906.11,
+    "end": 2948.9,
+    "speaker": 0,
+    "text": "And they do that for some amount of time. And then we can measure the time they take to execute. So if we launch a program here, let me say, essentially, if we run this command that I showed you here, it just compiles and runs a program for us. So we don't have to do it manually. But essentially, it says, if I remember correctly, this is the number of elements and the number of threads. and the number of seconds that it runs for and the number of threads. And it tells us, oh, with one thread running for five seconds, I do this many increments per second. ",
+    "model_probability": 0.9943
+  },
+  {
+    "start": 2948.96,
+    "end": 2980.07,
+    "speaker": 0,
+    "text": "Now, if we run the same program again for five threads, sorry, for five seconds and two threads, we would expect it to go twice as fast. So instead of 4.49, we would want to see twice as much, which, OK, fair enough. It's higher, the throughput we get. But it's not twice as much. We would expect, let's say, 4.5. So we would expect 9. ",
+    "model_probability": 0.9882
+  },
+  {
+    "start": 2981.29,
+    "end": 3011.94,
+    "speaker": 0,
+    "text": "And what we get is 6.45. If we run for the same amount of time, and instead of two threads, we use four threads, it should go four times as fast as the first one. But it just goes so fucking slow. It's one point. It's 10, essentially, if we compare it. This is to the power of 18. And the other one's to the power of 17. So it's definitely not scaling up. ",
+    "model_probability": 0.9816
+  },
+  {
+    "start": 3011.98,
+    "end": 3042.66,
+    "speaker": 0,
+    "text": "And it's getting worse and worse. The more threads we add, the more there are less of an increment in throughput that we get. We're getting less out of it. So if we had to plot it, I don't know if there's a, there's no path in here. Okay, that's annoying. If we have to plot it, we would say this is the number of threads growing, and this is the throughput, right? ",
+    "model_probability": 0.839
+  },
+  {
+    "start": 3043.36,
+    "end": 3073.62,
+    "speaker": 0,
+    "text": "We would expect some throughput here, twice as much, and it just goes linearly up. In reality, what we get is not something that goes linearly, but a curve that, if we kept going with more threads, eventually would drop down and be even worse than with a single thread. So yeah, this is the example. This is what is happening, right? ",
+    "model_probability": 0.9234
+  },
+  {
+    "start": 3073.72,
+    "end": 3156.84,
+    "speaker": 0,
+    "text": "We have these threads. So we don't get the expected speedup. The question is why this is happening. And since some of you said that you already know what Fault sharing is, well, that's exactly what it is. We have parallel access to separate variables because we have two threads and there's enough force to run these threads. There are separate variables, so we don't need atomic operations here. Because one thread accesses one variable, and different threads access different variables. So atomics are another problem here. The problem is that two or more of these variables sit on the same cache line. Remember, a cache line is a fixed number of bytes. It's typically 64 bytes, a cache line. And our variables are, in this case it's an integer, so that would be eight bytes. So we have multiple integers on the same cache line. If you look at it, then we have eight different variables on the same cache line. ",
+    "model_probability": 0.8761
+  },
+  {
+    "start": 3156.86,
+    "end": 3190.29,
+    "speaker": 0,
+    "text": "So if we create eight threads, they will be, all of these eight threads, accessing different variables on the same cache line. And now think about it in terms of cache coherency. They are all trying to change the state of the same line. So we don't use the log state because there's no atomic variables, but we are ping-ponging between shared and modified state back and forth. So that means a lot of messages of cache coherency are sent in between the cores in that machine. ",
+    "model_probability": 0.9085
+  },
+  {
+    "start": 3191.08,
+    "end": 3228.83,
+    "speaker": 0,
+    "text": "That takes time, and there's the tension, because we only want to be in a modified state. That's how the cache coherency we saw works. And therefore, that's a performance model, right? Does everyone see how cache-conferencing is bringing this performance problem? Yeah? Not everyone is nodding, which typically means I'm either completely disconnected or not getting it. ",
+    "model_probability": 0.8446
+  },
+  {
+    "start": 3233.01,
+    "end": 3267.74,
+    "speaker": 0,
+    "text": "Everyone with me? Yeah? OK. Now, in this program, it's very easy to know where this is happening. But in more complex programs, we would have to use more sophisticated tools. Now, that's the bit that I'm not sure if it's going to work because of the change on machine. But let's hope it does. So let's see. ",
+    "model_probability": 0.8839
+  },
+  {
+    "start": 3267.76,
+    "end": 3301.18,
+    "speaker": 0,
+    "text": "I already prepared the commands here. All of these I will release after we finish the lecture, the whole lecture five. Parallel. Naive. Oh, I need to change the kernel settings. Give me just one second so I find out where I need to put this. ",
+    "model_probability": 0.827
+  },
+  {
+    "start": 3306.68,
+    "end": 3338.93,
+    "speaker": 0,
+    "text": "Equals, let's just do this, because this is just my machine. This was just a colonel complaining that to use this feature, we need some permissions. So, What this does, if you look at it later, you will see here it's also shown on the slides later. We are using a slightly different Perf command instead of Perf record. We do Perf C to Z record. ",
+    "model_probability": 0.9389
+  },
+  {
+    "start": 3339.34,
+    "end": 3369.6,
+    "speaker": 0,
+    "text": "And what this uses is some hardware extensions that many processors today have that help us identify false sharing. And the way that it helps us identify false sharing is through a performance metric called HITM. HITM stands for hit miss, which means that this should have been a cache hit, but it's a miss because some other cache has it. ",
+    "model_probability": 0.9783
+  },
+  {
+    "start": 3370.24,
+    "end": 3432.05,
+    "speaker": 0,
+    "text": "The data is there, it's just in another cache. So that typically is a very good indicator of false sharing. So if we look here, In this profile that we got here, we see, where are the heat amps? Okay, so this is where the profile doesn't work with this machine, because I need to make a more stressful program. I'm sorry about that. Let's try to increment the number of threads so we make it more challenging for this machine. Oh, sorry. As I said, I got this laptop recently, and I didn't have time to update this bit. This is parallel naive run 2. And let's say we have six threads, perhaps. ",
+    "model_probability": 0.985
+  },
+  {
+    "start": 3447.16,
+    "end": 3493.29,
+    "speaker": 0,
+    "text": "OK. So I don't know if this processor just doesn't implement the HITM, or I need to stress it more. That's unfortunate. How many cores do I have here? The problem is also that this is a new Intel processor that has multiple cores of different types, and they are implemented differently at the microarchitecture level, which makes it somewhat complicated to do simple performance analysis, because it has some cores that are more powerful than others, and that kind of makes things weird. ",
+    "model_probability": 0.9984
+  },
+  {
+    "start": 3495.83,
+    "end": 3532.59,
+    "speaker": 0,
+    "text": "Yeah, okay. I will have to find a way to fix this for this type of process, because The hardware itself is doing some weird optimizations between the powerful and the weak cores. Anyway, I have some information that I already collected previously on another machine that is more standard. But what we can look at is, let me show you this bit. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 3542.95,
+    "end": 3577.02,
+    "speaker": 0,
+    "text": "So if you could let me run it again so I can show you what the rest of the output looks like. Essentially, if we look for the number of memory accesses and the number of hit misses, if the number of hit misses is a high percentage of the memory accesses, it means that we likely have a lot of false sharing. And if you go down on this bit here, Oh, it's only this bit that is incorrect. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3577.32,
+    "end": 3644.36,
+    "speaker": 0,
+    "text": "This other part is correct. Okay, that's odd. So what we see here is that the 92% of the hit misses are coming from these address over here. It's this code address is accumulating 92% of the hit misses. So that's a hotspot for hot misses. What we didn't see is that there's indeed a lot of hit misses, which is what we should see up here on the count of hit misses. But if we go going down, and we look at our code, we see that it tells us that if the hotspot is this address over here, if we copy it and then we search for this same address, it's all the way down here, and it gives us an analysis of the hit misses, and if we keep moving, it tells us, oh, this is parallel naive.cpp line 29. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3644.78,
+    "end": 3705.36,
+    "speaker": 0,
+    "text": "That's where the problem is happening for this specific profile of the hit misses. So if we go back here into parallel naive.cpp, 29. Well, as we would expect, the problem is happening where we do the increment of the elements of the array. That's where the hit misses are happening. Then this array D is this global array here. So essentially, what we have is false sharing on those elements across the threads, which From showing the original code, that's what we would expect, right? Once I explain what is. Because this program is simple enough. But now you know how to use the perf C2C to identify where the hotspots are. And then, essentially, perf makes it simple for you to trace that back into the source code. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3706.8,
+    "end": 3775.21,
+    "speaker": 0,
+    "text": "Now the question is, sure, now we know where the problem is. And the next thing we need is to solve the problem. How do we solve the problem? We can pad the variable. Does everybody know what padding a variable means? Hawker faces me no. Would you want to explain what padding a variable means? Exactly. we make this data structure large enough that it occupies the entire cache line. So that next element on the array is for sure on a different cache line. The simplest way we can do this is by adding just dummy data. We can say part of some number of bytes. Now, how many bytes do we need to make this array? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3783.89,
+    "end": 3818.28,
+    "speaker": 0,
+    "text": "How do we calculate how many bytes? It depends on the size of the cache line. It depends on the size of the cache line. OK. Cache line size. Minus. Minus. Okay, we can, oops, if I put the parentheses correctly, and then we can say define cache line size 64. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3818.66,
+    "end": 3851.33,
+    "speaker": 0,
+    "text": "That's one way that it would work. Okay, that's all it takes. Okay, that's what I had already written on, And this is the exact code that I have here. So if we make run 05 parallel fast, that's exactly what I did on this other program. If we now run it, we should see that it scales quite linearly with the number of threads. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 3852.39,
+    "end": 3884.35,
+    "speaker": 0,
+    "text": "So 1.51. So we would expect something like 3. That's what we get, 3. and 4 twice as much, which is 6. So just by identifying the data and we can achieve, in this case, pretty much virtually linear scaling, which is the ideal that we would want to have. So we have two hours. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3884.39,
+    "end": 3915.13,
+    "speaker": 0,
+    "text": "We have roughly one hour more. Would you like to take a break now in between, or should we just end a bit earlier later? Hands up for stopping now. Hands up for just stopping earlier later. OK, so we are stopping earlier later. There's more hands. Does anybody need to stop now? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 3918.25,
+    "end": 3969.62,
+    "speaker": 0,
+    "text": "Because if you need to stop now, then we stop now. OK. So let's go back to it. I'm generally not sure why the report doesn't show the first bit that confused me. But yeah. So this is exactly what we already did. This is the solution. This is the handmade solution. This will always work. But if you want, there are some pieces of language and libraries that can help you with that. Typically, compilers will give you sort of a macro that you can use that is the cache line size. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 3969.64,
+    "end": 3981.86,
+    "speaker": 0,
+    "text": "So you don't have to define this explicitly in your code. You can take it from the compiler that will define it according to the architecture you're compiling for. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 3993.69,
+    "end": 4032.55,
+    "speaker": 0,
+    "text": "And then for dynamic allocations, if you want an allocation, a malloc, to start a cache line boundary, or any other boundary, padded to whatever you want, page, page align, for example, you can do align-alloc, or them-align, or possix-them-align. They have just different libraries for, library function calls for doing exactly that. All right. OK, any questions about threading before we switch into higher level constructs? ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 4036.57,
+    "end": 4074.13,
+    "speaker": 0,
+    "text": "OK, so we know how to use threads in terms of how to do communication and synchronization between them. But threads are just a tool, right? Now what we are going to look at is how to use this tool to build applications, essentially. What are the typical models for managing threats, which are the mechanism we use for concurrency and parallelism? And what are the models that we use to manage tasks, which is the logic unit of war that then we probably want to map into threats? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4074.17,
+    "end": 4112.68,
+    "speaker": 0,
+    "text": "So how do these mappings work and the logic for managing them? And we're going to see four examples here, from simpler, more naive, to more complex. So as I said, sure, synchronization and shared variables, that's key for correctness. Now we need a way to . And what we need to think about is how and when do we create threats, how and when we map an application logic task into a threat, and how and when we communicate data between tasks or threats. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 4115.74,
+    "end": 4149.86,
+    "speaker": 0,
+    "text": "So managing past subjects is two sides of the same story. So here's a working example. This is what I'm going to use for the rest of the lecture as a running example. Imagine that we have some sort of server that receives requests, and then dispatches them into this function here that is processing a burst of requests, essentially. Once in a while, we get a number of jobs to do. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 4149.88,
+    "end": 4181.64,
+    "speaker": 0,
+    "text": "Think of a job as a task. It's something. In this case, it's identified by a number. It's like, come to this number. Think of it. And every time that a group of jobs comes into the system, then we process them. And then we do whatever it is for each one of the jobs. So that's all this function is doing. You can think of this as the core business logic of this application. So for every job that we received in this burst, we process it, and then, well, we are done. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 4181.92,
+    "end": 4215.5,
+    "speaker": 0,
+    "text": "So I have this example program that I will share with everyone after we finish the lecture. And if you run this make command, it will write for you, right? I don't remember how much it takes, on average, to run every job. But what we have is that there's 7,007 jobs in this test program that arrive in different bursts. So it's not that we get all 7,000 jobs passing the vector at one time. It's like, we get 10 now, we get 5 later, we get 17, we get 34, until we get to the 7,000. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4218.37,
+    "end": 4253.02,
+    "speaker": 0,
+    "text": "So they come in bursts. That's what we see here. Burst of three, then later another burst of three, then later another burst of three. So we know that if we put the time to process every job together, we aggregate them and sum them up, this is the amount of time we will spend executing jobs. And if we run this in one single thread, we would expect that the execution time is the time that we spend executing jobs, because the program doesn't do much else than this. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4253.3,
+    "end": 4284.42,
+    "speaker": 0,
+    "text": "So this is the effective execution time, and this is the intended execution time. And they match. We take as long as we were supposed to. So the efficiency is 100%. There's no parallelism, but it's 100% efficient, because it takes exactly the amount of time that it would take to execute all of these jobs in one single draft. So efficiency doesn't necessarily mean faster. Efficiency just means that all the work we do is useful work. ",
+    "model_probability": 1.0
+  },
+  {
+    "start": 4285.94,
+    "end": 4318.66,
+    "speaker": 0,
+    "text": "Yes? So please remember that, because that's key as we move forward. So simple and efficient. No wasted CPU time. No parallelism. It's kind of small. Now, if we get all these many jobs on each burst, what we could think of is, well, can I execute the jobs in a burst before the next burst arrives in parallel so that I can do things faster? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4319.48,
+    "end": 4352.59,
+    "speaker": 0,
+    "text": "And then I can process new bursts faster. In this program, as soon as you finish one burst, the next one comes. What we could do, the simplest solution, is that every time we have a job coming into the system, we create a thread. Right? So as long as jobs come into the system, we create a thread. They execute concurrently. We have multiple cores. It would be parallel. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4352.89,
+    "end": 4387.94,
+    "speaker": 0,
+    "text": "That's roughly what it would look like. Every time we get a burst, for every job in that burst, we create a thread. And this is just using C++ library for threading. But essentially, this means I create a thread that will, each thread will process this job. And then I go away from the thread. The thread goes and it will finish whatever it finishes. Okay? So essentially, everything, as fast as I can create threads, this is how fast the jobs will execute. Yeah, quite simple, right? ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4388.56,
+    "end": 4420.35,
+    "speaker": 0,
+    "text": "This is the simplest way in which we can parallelize this sort of simple application. Very simple to parallelize. Yeah? Because we are assuming that the jobs are independent. Yes. The jobs in this example are completely independent. Otherwise, we would not be able to do that. Think of it as a sort of parallel map. So this is the simplest parallel approach. Also, it's very expensive. Creating threads is expensive. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4422.23,
+    "end": 4457.51,
+    "speaker": 0,
+    "text": "And if the number of threads is larger than the number of cores, in this case, if the number of jobs is larger than the number of cores, there will be scheduling, and then it's going to be even more expensive. Because there's context switches. It's not just the overhead of creating threads. Now, there's going to be lots of context switches between threads that are all trying to do more processing a job. And if there's any lock that is held within those jobs, then that's an absolute nightmare, which we are going to see now. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4461.22,
+    "end": 4497.17,
+    "speaker": 0,
+    "text": "Let's look at an example of what happens when the number of threads is larger than the number of cores, right? So imagine that we have two concurrent process job tasks running in a single core. And let's imagine that there's some independent piece of work that is this function work one that every job first has to execute. And then there's some mutex to execute exclusively work two. And then there's some independent piece of work three. OK, this is a more complicated job that we could think of, where there needs to be some synchronization between threads. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4498.65,
+    "end": 4530.64,
+    "speaker": 0,
+    "text": "So in this case, if the number of threads is larger than the number of cores, we could find something like this. Thread green starts, executes warp one, takes them off. Then now the operating system scheduler says, that's it. That's enough CPU time for you. I'm going to switch to another thread. Then the orange thread comes in that has also been assigned a job to execute, executes function work one, and tries to take the log, to acquire the log. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4530.82,
+    "end": 4564.66,
+    "speaker": 0,
+    "text": "This fails because the log was already taken by green thread. Yes? Everyone with me? Yeah. Now we block, and then we schedule something else. Then green thread keeps on going where it left off, right? Where it was rescheduled. It will execute function two, work two, sorry. Now imagine that this function takes a long time and then the scheduler decides to reschedule us. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4565.8,
+    "end": 4597.26,
+    "speaker": 0,
+    "text": "Then we go back to the other thread, orange, that tries to do again the mutex log. Oh, I'm sorry, the log is still taken. I wasted the time rescheduling you. You tried to acquire the log and said, nope, sorry. Because imagine that this is the user level part where we are iterating the user level implementation of a log. In a kernel log, that wouldn't happen. And finally, we execute the green task again. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4597.28,
+    "end": 4628.74,
+    "speaker": 0,
+    "text": "It unlocks, executes the function work three, then finishes, and then we execute the rest. So as you can see, we can have a lot of wasted execution time if the number of threads is larger than the number of cores because the scheduler is not quite aware of what is happening in user mode. So if there's any user level lock that you are taking, the OS doesn't know anything about it. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4629.02,
+    "end": 4662.65,
+    "speaker": 0,
+    "text": "And it will uselessly schedule threads that will not make any real progress. Yeah? So in a kernel-level log, imagine that this one goes straight into kernel. We try to log, and we fail. But we fail inside the kernel, and the kernel knows you are locked, waiting for these mutants. So when this function finishes here, executing, this orange thread is not ready to execute. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4662.75,
+    "end": 4701.48,
+    "speaker": 0,
+    "text": "It's blocked on a log inside the kernel, and the kernel knows about it. So this will never happen. Green will just keep on going, and then orange will happen. So we will not waste the time that it takes to schedule orange, try to log, and schedule green again. We save that bit of overhead. Yes, the first attempt will always happen. Okay? So the takeaway here is that Creating threads nearly works, but it's not effective. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4701.71,
+    "end": 4738.94,
+    "speaker": 0,
+    "text": "It's not efficient. So imagine another example here. That's the pattern that is known as fork join. How many of you know what OpenMP is, or have heard of that term? Just a few. It doesn't really matter. OpenDB is just some extensions for the C programming language that can be used with using threads. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4739.78,
+    "end": 4772.73,
+    "speaker": 0,
+    "text": "But the whole idea is what I'm going to show you here. And this whole approach is known as a fork-join. What fork-join looks like is something like this. Whenever we have process verbs, we fork the word into multiple threads. So we essentially say, I'm going to create as many threads as jobs I have. So I create a new thread. This is in C++ how we are creating threads. I have a vector of threads. So if I create a new element in that vector, I'm creating a new thread. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4772.77,
+    "end": 4806.63,
+    "speaker": 0,
+    "text": "And this new thread will process the job. So I am forking all of these without waiting for them. And once I've forked all the threads to process all the jobs I have in my input job vector, Then I wait for all of them. I join. That's why it's called fork and join. We fork out from one thread into many, and then we join all of them. And then we go into the next fork and join, and fork and join, and fork and join. OK? So what is happening here? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 4806.87,
+    "end": 4837.18,
+    "speaker": 0,
+    "text": "So we get parallelism. It's not the massive parallelism that we had before where it was too much. this is much more well-controlled because we only have as many threads as jobs. So each batch runs its tasks in parallel, but we still have very frequent thread creation and destruction that takes time to create a thread and to wait for it, which is what we do here in the join. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 4838.84,
+    "end": 4878.09,
+    "speaker": 0,
+    "text": "So remember Amdahl's Law. If we have large overheads for small parallel tasks, well, the overheads will dominate, and we are not going to get that much out of it. And in fact, if we execute this program with this approach, in this case, the jobs time is the same as the amount of CPU time that it takes to execute. with one single thread if we do all serially. So if we execute this with seven threads, we would expect this to be a seventh of this job cycle. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4878.55,
+    "end": 4909.44,
+    "speaker": 0,
+    "text": "But what we get is not quite that. We go from 45k to 14k. So our efficiency is 44% of what we would expect to get. Because we didn't just get one seventh, we got half of that. We went quite slow. Why? Because of all these overheads. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 4910.58,
+    "end": 4945.79,
+    "speaker": 0,
+    "text": "All these overheads, but also, if you look at here, not all the jobs are necessarily ending at the same time. And since we have a joint, these will only be done when the last one is done. That's what is known as a struggle. There will always be some thread that takes longer, even if they are doing exactly the same thing. And in a four-joint pattern, the joint only finishes when the last, slowest thread is done. And in that case, all the other CPUs are just waiting, doing nothing, because there's no more jobs to do. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4947.09,
+    "end": 4977.73,
+    "speaker": 0,
+    "text": "As you can see here, if we draw a line here, this is where we start. We have some overheads to start threads. And then whenever the last thread ends, that's when we can start doing the next patch. But this is wasted CPU time because this CPU ended earlier. This is wasted CPU time because this one ended up earlier. OK? Because our process burst function will not return until all the threads are joined. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 4982.22,
+    "end": 5021.31,
+    "speaker": 0,
+    "text": "So this kind of works, but only for very large amount, like very large jobs. Any questions? OK. So if the overheads are threat creation, what we can do is not create threats, right? That's what is known as a threat pool. Essentially, what we can do is that we create a number of threads ahead of time, only once when our application starts. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 5021.37,
+    "end": 5053.99,
+    "speaker": 0,
+    "text": "That's the thread pool, the worker thread pool. These worker threads are just waiting to have some job assigned to them. So essentially, what our main application needs to do is dispatch tasks. This way, once we communicate the job, once we give a job to that worker thread, there's no overheads in creating and destroying threads. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5054.05,
+    "end": 5090.33,
+    "speaker": 0,
+    "text": "There's only the overhead of communicating, hey, you have a job, and that's it. So for example, I'm not showing all the details here. The details will be on the full code that I will put in . But what we have here is essentially a vector with queues where we can put jobs. Essentially, we need a queue where we say, for each one of the workers, here's something for you to do. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 5091.5,
+    "end": 5122.57,
+    "speaker": 0,
+    "text": "okay and what our process burst producer needs to do is just take all the jobs that it gets in a vector like before and then for each job calculate what should be the worker to execute the job and then put that into the worker job queue, right? This is just a double-ended queue where the producer puts on one end of the queue and the consumer consumes from the other end of the queue. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5122.59,
+    "end": 5155.81,
+    "speaker": 0,
+    "text": "So it's just a FIFO. This is just a FIFO where we add jobs. And then the worker, all it does is have a loop that holds this, it's a per worker queue, a FIFO, and pulls things out and executes them as soon as they are available on the queue. So this is a lot more efficient. We don't create on these three jobs. We only pay the price of putting things into the queue and getting them off the queue. So this is roughly what it looks like. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 5157.09,
+    "end": 5191.13,
+    "speaker": 0,
+    "text": "Because the process can finish very quickly. As soon as these jobs have been queued to the adequate worker, then it can go on processing experts. So it can advance through work much faster. Now, if you look carefully, the way in which we assign jobs to workers is that we essentially do round robin, because that's a very simple policy. We just keep incrementing this. For every new job, I increment the worker index, and then I assign this module the number of workers. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5191.17,
+    "end": 5225.31,
+    "speaker": 0,
+    "text": "So I just do round robin on these FIFO fields. So there's an even split of the jobs across the workers. Now, if you remember, I said that these jobs not always take the same time to execute. Different jobs take different amount of time. So if we distribute jobs evenly through workers, but jobs do not take always the same time, the work distribution is uneven. The job distribution is even, but the actual real work distribution isn't even. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5226.17,
+    "end": 5260.79,
+    "speaker": 0,
+    "text": "And that's exactly what we see on this graph. There are some gaps because everyone gets three jobs, but if for some reason there's one thread that always gets all the larger jobs, it will take longer to finish everything than the other threads that got much shorter jobs. And this will happen statistically, depending on what is the distribution of time that it takes to execute jobs. That is why, even though this looks good, The efficiency that we get is 64%. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5260.95,
+    "end": 5293.52,
+    "speaker": 0,
+    "text": "It's better than fork joint. We have really shaved off the fork joint overheads for threat creation and destruction, but it's still not 100% efficient because of this uneven warp distribution. I mean, I have to say, I specially crafted this test program so that it would lead to this specific case. This very much depends on the specifics of the program. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 5293.6,
+    "end": 5323.62,
+    "speaker": 0,
+    "text": "But if work distributions are uneven, this will happen. Any questions? OK. So there is minimum Q contention because only one producer thread, the process verse producer, is accessing one end of the queue. And only one worker thread is accessing the consumer side of the queue. So there's only ever two threads for each queue. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 5324.34,
+    "end": 5363.2,
+    "speaker": 0,
+    "text": "So there's very little contention in that free-for-queue. The consumer, the worker thread is hard to program. It's typically when it's known as an event-driven model, which means that, oh, well, what happened here? Everything went and turned off now. OK. OK, let me see if I can do it from my laptop. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 5413.79,
+    "end": 5443.81,
+    "speaker": 0,
+    "text": "Yeah. So it's an event driven model meaning that the consumer, the worker threat is just holding this view of jobs that have been assigned to it. will react to the event of there's a new job for you to process, right? So it's not just that we call a function and then we execute it. We have to write extra code to say like, oh, is there something for me to do? Is there something for me to do? Is there something for me to do? ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 5443.95,
+    "end": 5477.79,
+    "speaker": 0,
+    "text": "And when there is, then do it. Okay? So it's more complicated. And as I was saying, if the tasks have a heterogeneous or a non-uniform distribution of work, well, that we get into this problem. Because the producer is completely unaware of this imbalance. The producer is just doing round and round in here. It has no idea that there's an imbalance. And therefore, we have wasted cycles, all many wasted cycles, where in this example is all this guy between 64% and 100%. ",
+    "model_probability": 0.9995
+  },
+  {
+    "start": 5481.51,
+    "end": 5513.06,
+    "speaker": 0,
+    "text": "So what can we do next? Any ideas? Yeah. we have one key. That is one solution that will get rid of imbalance. Yeah? Yeah, so there's the producer thread that is executing this. This is dispatching the jobs or the tasks, right? ",
+    "model_probability": 0.997
+  },
+  {
+    "start": 5513.7,
+    "end": 5544.61,
+    "speaker": 0,
+    "text": "Like, essentially, putting them into this FIFO queue. And then there's a worker, a number of worker threads, in this case seven worker threads, that all on the consumer side of their assigned FIFO queue. Worker zero will monitor index zero of this array. Worker one will monitor index one of this array. And they just say, is there something on the queue? If there is, I will execute that job. If not, I will keep pulling. ",
+    "model_probability": 0.998
+  },
+  {
+    "start": 5545.63,
+    "end": 5546.65,
+    "speaker": 0,
+    "text": "Okay. Yeah. ",
+    "model_probability": 0.9804
+  },
+  {
+    "start": 5547.89,
+    "end": 5560.05,
+    "speaker": 1,
+    "text": "Is the optimization that they're into for enjoying purely from over-threat of creating and removing threats? Yes. So it's only the over-threat of threats? ",
+    "model_probability": 0.8206
+  },
+  {
+    "start": 5560.07,
+    "end": 5595.95,
+    "speaker": 0,
+    "text": "Yeah. It's the over-threat of going in to do an operating system, create a threat, schedule a team, execute the actual real world we want, and then go back into the operating system, destroy the threat. and then somebody else waiting for all of this to happen. So as you were saying, we can have one single queue. One single queue solves the problem of imbalance, but introduces other problems. That would be a shared job queue. ",
+    "model_probability": 0.9984
+  },
+  {
+    "start": 5595.97,
+    "end": 5629.22,
+    "speaker": 0,
+    "text": "So all consumers, all the worker threads, pull from this shared job queue. So what we would have? Well, it's very easy. Now we have the same downloaded queue, this VIFO queue. There is a global one for all the workers. And then the producer just puts everything into the queue. And the consumers all monitor the same queue and pull out from it. Whoever finishes their job first will take the next job. So everybody will be busy as long as there are jobs to execute. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 5629.24,
+    "end": 5664.97,
+    "speaker": 0,
+    "text": "So things are much better balanced. There can still be gaps because it can be the case that the producer doesn't produce fast enough. And then the consumer will just wait for the producer to produce something. That's what is happening here. But those gaps, this distribution of load will be a lot more even. In this case, this is a bit hard to see, In the previous example we had here, it just turns out that the second thread in this example executes all the long tasks. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 5665.71,
+    "end": 5700.64,
+    "speaker": 0,
+    "text": "Here, since it's a single row that everyone pulls from, this thread gets the first two long tasks and the third long task. Perhaps I should change these lights to use this thread. colors, for instance, so they are easier to identify. But the whole idea is that now the award distribution is very little because everyone gets whatever is available as soon as they are hired. So in this case, same number of threads, but now we get 99% efficiency with this. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 5701.92,
+    "end": 5738.29,
+    "speaker": 0,
+    "text": "So optimal consumer balancing. because there's one model here. We will see later that this in distributed systems is also here. And the solutions are similar, but on a larger scale. Again, the consumer is still driven. It has to poll, is there something on the queue? And when there is, then execute the function that processes it. And if we have many consumers, well, They need some form of atomic access to the queue. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 5738.73,
+    "end": 5771.39,
+    "speaker": 0,
+    "text": "Only one consumer can take the head of the queue. We want a job to be assigned to one worker only. So we need some form of or a critical section to control the operation of popping elements from the queue. If we have two threads, and each job takes a long time to execute, that's fine. There's going to be very little contention in that lock for the critical section for popping elements on the head of the queue. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 5771.81,
+    "end": 5804.86,
+    "speaker": 0,
+    "text": "But if we have 100 threads and the jobs are very small, these worker threads will spend a lot of time contending, trying to get the lock. So this is a very good solution. because it eliminates the uneven distribution of load. We get optimal load balancing on the consumer. But the price to pay is in contention for accessing this huge load corridor. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 5809.44,
+    "end": 5836.44,
+    "speaker": 0,
+    "text": "Does everybody see that? Yeah? Any questions on this? These are the typical ways in which we dispatch work to threads. Before we move on into something slightly different, any question about this sort of evolution of methods? Yeah? ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 5843.0,
+    "end": 5854.49,
+    "speaker": 1,
+    "text": "I don't know if I've understood well, like, there is a producer thread that dispatches the work to multiple threads which link in an array. ",
+    "model_probability": 0.9194
+  },
+  {
+    "start": 5869.0,
+    "end": 5895.36,
+    "speaker": 0,
+    "text": "I mean... Is your question, could the producer also be a consumer? No. We want parallelism, right? So we need multiple threads to have parallelism, task parallelism. So we have as many workers as task parallelism we want to achieve. And then what we have is a separate thread that just dispatches workers. ",
+    "model_probability": 0.9922
+  },
+  {
+    "start": 5898.13,
+    "end": 5931.74,
+    "speaker": 1,
+    "text": "And the difference between this example and the first one where every job was assigned to every burst was created a thread, is that here we guarantee like... You mean the fork join one? Sorry, I lost it. Or this one where we just create one thread per job? No, not monitor the following one. ",
+    "model_probability": 0.8992
+  },
+  {
+    "start": 5934.7,
+    "end": 5964.91,
+    "speaker": 0,
+    "text": "Yeah, the difference is that here... We create and destroy threads at every batch, and the batch doesn't finish until all the threads have started, each one of them has executed their assigned job, and all of these threads have finished and told the master thread, the worst processor thread, that they are done. That's why we wait here for all that. We join the threads. Join means the thread has finished executing and has executed. ",
+    "model_probability": 0.9935
+  },
+  {
+    "start": 5965.62,
+    "end": 5979.44,
+    "speaker": 1,
+    "text": "And another issue here is that the thread, the burst might have different number of jobs, and so each thread has a different number. ",
+    "model_probability": 0.9185
+  },
+  {
+    "start": 5979.48,
+    "end": 6026.77,
+    "speaker": 0,
+    "text": "Well, what happens is that we take some time to create a thread and to schedule it in, and to destroy it. And all of that is not useful time. All of that is overhead time. The only useful time is processing the job. But each one of these threads will still spend a long time inside the operating system creating the thread, scheduling the thread, destroying the thread. All of that is overhead. And in addition, there's the straggler problem, which is that this batch will not finish and therefore the next one will not start until the last thread has finished. ",
+    "model_probability": 0.9936
+  },
+  {
+    "start": 6027.45,
+    "end": 6063.2,
+    "speaker": 0,
+    "text": "Because it's a join. Join means we wait for all the threads in this batch and when all, every single one of them is finished, then we go to the next batch. I mean, this works like this because I designed the application to work like this. I will go to the next batch once I have processed it. Different applications will have different behaviors. But the fundamental idea is the same. ",
+    "model_probability": 0.9979
+  },
+  {
+    "start": 6065.24,
+    "end": 6097.02,
+    "speaker": 0,
+    "text": "So this global queue, this is also called as work stealing because we have this global queue. the workers steal work, steal jobs from this world. Stealing in the sense that it's not reassigned to me. I will just try to be faster and steal it from others. Even though in this case, I would assume that everyone is happy to have other threats take work. So I'm not sure we should call it stealing. Any questions? Or should we move to a different model? ",
+    "model_probability": 0.9988
+  },
+  {
+    "start": 6099.94,
+    "end": 6134.98,
+    "speaker": 0,
+    "text": "All right. So an entirely different way of organizing parallelism is streaming or pipelining. This is similar to what processors do in hardware. We just have a pipeline with concurrent stages, similar to an assembly line. So imagine that we have a program that needs to execute functions f1, f2, and f3 in order. Every job is executing these three functions. So up until here, we would say, oh, this one executes f1, f2, f3. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 6135.04,
+    "end": 6167.92,
+    "speaker": 0,
+    "text": "This one is f1, f2, f3, f1, f2, f3, f1, f2, f3, 1, 2, 3, 1, 2, 3, 1, 2, 3, right? And that's how we achieve parallelism. So there is parallelism because task 1 comes in. We execute F1. Once we finish F1, task 1 moves into the next thread. And then task 2 can start executing F1 here because now this thread is empty. ",
+    "model_probability": 0.9996
+  },
+  {
+    "start": 6168.3,
+    "end": 6207.12,
+    "speaker": 0,
+    "text": "And then we just move synchronously across stages that are across threads. And if we map threads across cores, that's when we get parallelism. OK? So what we create here is not one thread per task. What we create here is one thread per function that any task has to execute. So essentially, we're sort of specializing the course for a specific subset of the application, for a specific function in this case. ",
+    "model_probability": 0.9994
+  },
+  {
+    "start": 6207.98,
+    "end": 6240.37,
+    "speaker": 0,
+    "text": "And then a task will just move through that. Yeah? So observations. Again, every thread is event driven, has a queue of tasks coming in to execute that portion of the application, that function. So it's not our natural way of burning single-threaded synchronous code. Here, we need to pull, pull, pull, pull, pull when there is something executed, and then push it to the next queue. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 6241.29,
+    "end": 6272.54,
+    "speaker": 0,
+    "text": "Right? Task comes in, executes this portion of the task, and then comes out so it can execute the next portion. There's really good locality of code, right? If each one of these threads is scheduled into a separate CPU, into a separate core, it will have a very hot instruction cache because that core here is only executing one function. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 6273.77,
+    "end": 6317.22,
+    "speaker": 0,
+    "text": "So if we have a very large program and we break it down into this streaming design, we can have better instruction cache locality because each one of the cores is already executing a much smaller subset of the application. So that can be used as a way of improving instruction cache locality. And if each one of these functions has some temporary data that it has to produce, we also get very good locality, right? If there's some temporary variable that is needed by F1, a large one, these will only consume data cache in the core where this thread is executing, and we won't affect the caches of the other cores or the other threads. ",
+    "model_probability": 0.9999
+  },
+  {
+    "start": 6318.72,
+    "end": 6352.9,
+    "speaker": 0,
+    "text": "But if we pass a lot of information between stages, I get some data in, I process it, and then I put some data out from the next stage. If that amount is a very large amount of data, that is cache traffic. Because I put it in a variable, I write it into memory, then the next core reads that variable, which is physically located in that different cache. So the cache concurrency protocol will take all those lines from modified state in core one, read them, and put them in shared state on core one and two. ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 6354.08,
+    "end": 6391.18,
+    "speaker": 0,
+    "text": "produce some new variable that then another code will have to read. So there can be a lot of cache coherency traffic for data accesses across tasks. So if the amount of data that is communicated between these stages is large, this will be a large amount of cache coherency traffic. This is exactly what a CPU does. A processor, if you, for those of you, how many of you have done some computer architecture course? ",
+    "model_probability": 0.9998
+  },
+  {
+    "start": 6393.32,
+    "end": 6430.51,
+    "speaker": 0,
+    "text": "Everybody. How many of you have done, have seen some form of pipelining in a processor? Okay, so this is not new to any of you. I mean, this is how hardware works, right? Remember, this is exactly it. And we can build software that does exactly that. This is, in a processor, we've got instruction-level parallelism, thanks to this pipelining, and then parallelism across the stages of the execution pipeline, like fetch, dispatch, execute, commit, and so forth. ",
+    "model_probability": 0.9997
+  },
+  {
+    "start": 6431.95,
+    "end": 6464.03,
+    "speaker": 0,
+    "text": "We can do the same in software here. Any questions before we do one last brief of this? OK, I promised that I would finish early, so I'm going to stop here. Because it's going to take another five minutes to do the other bit. I feel that I already broken the promise of finishing earlier. ",
+    "model_probability": 0.9989
+  },
+  {
+    "start": 6465.54,
+    "end": 6486.82,
+    "speaker": 0,
+    "text": "If we continue, I will just break it more. So there's only one more slide left, and then we will finish this lecture. Then we're going to, please, if you can bring your laptop, we're going to do a tutorial on some of the things we've seen here. And then we'll keep continuing with the rest. So enjoy the weekend. See you on Monday. ",
+    "model_probability": 0.9945
+  },
+  {
+    "start": 6526.75,
+    "end": 6544.95,
+    "speaker": 1,
+    "text": "Can you re-upload the slides? Because some are, these ones with the code are... Aha, because of the animations. Okay, I'll try to remove the animations and upload an animated one. ",
+    "model_probability": 0.8998
+  },
+  {
+    "start": 6559.61,
+    "end": 6600.02,
+    "speaker": 0,
+    "text": "I wanted to ask a general question. Do we want to avoid threats that operate in the same memory in general? What does operating the same memory mean? For example, incrementing the same variable. Because of the overhead. Logs then. Perhaps, depends very much on the application. What is the rest of the application doing in that case? If there is an option to just split it into two separate memory and then consolidate it when the trends terminate, in general, it would be the more optimal approach. ",
+    "model_probability": 0.9293
+  },
+  {
+    "start": 6605.42,
+    "end": 6643.52,
+    "speaker": 0,
+    "text": "Perhaps. Depends on the application. Whenever you parallelize something, there is a cost to it. So you should parallelize only when the benefit outweighs the cost. So it depends on what is this thing that they do in parallel, depends on what is the cost of merging. Sometimes you have very high processing cost of every element, but then merging is very cheap, and then it's OK. But if merging is very expensive, and the processing itself is not, then you would be adding more overheads than solving them. ",
+    "model_probability": 0.9802
+  },
+  {
+    "start": 6645.54,
+    "end": 6676.93,
+    "speaker": 0,
+    "text": "What if in terms of just a simple variable you can manage it? It depends on how much contention you have. If every increment is going to the same variable, yes, it pays off to have one variable per thread. Every thread counts for a million times. And then if you have three threads, then you just add three. Adding three elements is cheaper than adding a million. ",
+    "model_probability": 0.9793
+  },
+  {
+    "start": 6679.85,
+    "end": 6682.15,
+    "speaker": 0,
+    "text": "Yeah? Thank you. Thanks. ",
+    "model_probability": 0.7322
+  },
+  {
+    "start": 6924.57,
+    "end": 6932.63,
+    "speaker": 0,
+    "text": "Oh, he's less green than usual. Yeah, I brought whiskey. For Gallagher specifically. So it's bad. ",
+    "model_probability": 0.44
+  }
+]
